@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Tabster.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SidePanel" Provider="NS_Common.PortableSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="StatusBar" Provider="NS_Common.PortableSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="StartupUpdate" Provider="NS_Common.PortableSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ClientState" Provider="NS_Common.PortableSettingsProvider" Type="System.Windows.Forms.FormWindowState" Scope="User">
+      <Value Profile="(Default)">Maximized</Value>
+    </Setting>
+    <Setting Name="ToolbarDock" Provider="NS_Common.PortableSettingsProvider" Type="System.Windows.Forms.DockStyle" Scope="User">
+      <Value Profile="(Default)">Top</Value>
+    </Setting>
+    <Setting Name="ShowSplash" Provider="NS_Common.PortableSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ClientSize" Provider="NS_Common.PortableSettingsProvider" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">1024, 625</Value>
+    </Setting>
+    <Setting Name="SearchPreviewOrientation" Provider="NS_Common.PortableSettingsProvider" Type="Tabster.PreviewPanelOrientation" Scope="User">
+      <Value Profile="(Default)">Horizontal</Value>
+    </Setting>
+    <Setting Name="LibraryPreviewOrientation" Provider="NS_Common.PortableSettingsProvider" Type="Tabster.PreviewPanelOrientation" Scope="User">
+      <Value Profile="(Default)">Horizontal</Value>
+    </Setting>
+    <Setting Name="LibraryPreviewPanelDistance" Provider="NS_Common.PortableSettingsProvider" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">365</Value>
+    </Setting>
+    <Setting Name="SearchPreviewPanelDistance" Provider="NS_Common.PortableSettingsProvider" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">365</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
