@@ -108,11 +108,6 @@ namespace Tabster.Forms
             this.txtsearchtype = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.searchPreviewEditor = new Tabster.Controls.TabEditor();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.display_browser = new System.Windows.Forms.TabPage();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.SearchMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -183,6 +178,7 @@ namespace Tabster.Forms
             this.filtertext = new Tabster.Controls.SearchBox();
             this.SearchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.PreviewDelay = new System.Windows.Forms.Timer(this.components);
+            this.SearchPreviewBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.tabControl1.SuspendLayout();
             this.display_library.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -201,7 +197,6 @@ namespace Tabster.Forms
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExtended1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.toolStrip1.SuspendLayout();
             this.display_browser.SuspendLayout();
             this.SearchMenu.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -728,7 +723,6 @@ namespace Tabster.Forms
             // searchSplitContainer.Panel2
             // 
             this.searchSplitContainer.Panel2.Controls.Add(this.searchPreviewEditor);
-            this.searchSplitContainer.Panel2.Controls.Add(this.toolStrip1);
             this.searchSplitContainer.Size = new System.Drawing.Size(1273, 588);
             this.searchSplitContainer.SplitterDistance = 1032;
             this.searchSplitContainer.TabIndex = 29;
@@ -966,57 +960,12 @@ namespace Tabster.Forms
             // searchPreviewEditor
             // 
             this.searchPreviewEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.searchPreviewEditor.Location = new System.Drawing.Point(0, 25);
+            this.searchPreviewEditor.Location = new System.Drawing.Point(0, 0);
             this.searchPreviewEditor.Margin = new System.Windows.Forms.Padding(0);
             this.searchPreviewEditor.Mode = Tabster.Controls.TabEditor.TabMode.Edit;
             this.searchPreviewEditor.Name = "searchPreviewEditor";
-            this.searchPreviewEditor.Size = new System.Drawing.Size(235, 561);
+            this.searchPreviewEditor.Size = new System.Drawing.Size(235, 586);
             this.searchPreviewEditor.TabIndex = 24;
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Enabled = false;
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
-            this.toolStripButton2,
-            this.toolStripSeparator4,
-            this.toolStripButton5});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.Size = new System.Drawing.Size(235, 25);
-            this.toolStrip1.TabIndex = 23;
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(0, 22);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(71, 22);
-            this.toolStripButton2.Text = "Pop Out";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripButton5
-            // 
-            this.toolStripButton5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.toolStripButton5.Image = global::Tabster.Properties.Resources.printer;
-            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(52, 22);
-            this.toolStripButton5.Text = "Print";
             // 
             // display_browser
             // 
@@ -1643,6 +1592,11 @@ namespace Tabster.Forms
             this.PreviewDelay.Enabled = true;
             this.PreviewDelay.Tick += new System.EventHandler(this.PreviewDelay_Tick);
             // 
+            // SearchPreviewBackgroundWorker
+            // 
+            this.SearchPreviewBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchPreviewBackgroundWorker_DoWork);
+            this.SearchPreviewBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchPreviewBackgroundWorker_RunWorkerCompleted);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1677,14 +1631,11 @@ namespace Tabster.Forms
             this.display_search.ResumeLayout(false);
             this.searchSplitContainer.Panel1.ResumeLayout(false);
             this.searchSplitContainer.Panel2.ResumeLayout(false);
-            this.searchSplitContainer.Panel2.PerformLayout();
             this.searchSplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExtended1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.display_browser.ResumeLayout(false);
             this.display_browser.PerformLayout();
             this.SearchMenu.ResumeLayout(false);
@@ -1799,11 +1750,6 @@ namespace Tabster.Forms
         private ToolStripMenuItem previewToolStripMenuItem;
         private SplitContainer searchSplitContainer;
         private TabEditor searchPreviewEditor;
-        private ToolStrip toolStrip1;
-        private ToolStripLabel toolStripLabel1;
-        private ToolStripButton toolStripButton2;
-        private ToolStripSeparator toolStripSeparator4;
-        private ToolStripButton toolStripButton5;
         private DataGridViewTextBoxColumn searchcol_artist;
         private DataGridViewTextBoxColumn searchcol_song;
         private DataGridViewTextBoxColumn searchcol_type;
@@ -1838,6 +1784,7 @@ namespace Tabster.Forms
         private ToolStripMenuItem deleteToolStripMenuItem1;
         private ToolStripMenuItem detailsToolStripMenuItem2;
         private ToolStripMenuItem playlistInformationToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker SearchPreviewBackgroundWorker;
     }
 }
 

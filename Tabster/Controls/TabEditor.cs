@@ -158,6 +158,20 @@ namespace Tabster.Controls
 
         #region Methods
 
+        public void SetDocumentText(string text)
+        {
+            if (webBrowser1.Document != null)
+            {
+                webBrowser1.Document.OpenNew(true);
+                webBrowser1.Document.Write(text);
+            }
+
+            else
+            {
+                webBrowser1.DocumentText = text;
+            }
+        }
+
         public void SwitchMode()
         {
             Mode = Mode == TabMode.Edit ? TabMode.View : TabMode.Edit;
@@ -225,17 +239,7 @@ namespace Tabster.Controls
 
             //System.IO.File.WriteAllText(@"C:\users\nate\desktop\test.html", html);
 
-            if (webBrowser1.Document != null)
-            {
-                webBrowser1.Document.OpenNew(true);
-                webBrowser1.Document.Write(html);
-            }
-
-            else
-            {
-                webBrowser1.DocumentText = html;
-            }
-
+            SetDocumentText(html);
 
             /*
             var guid = Guid.NewGuid();
@@ -272,7 +276,5 @@ namespace Tabster.Controls
         }
 
         #endregion
-
-
     }
 }

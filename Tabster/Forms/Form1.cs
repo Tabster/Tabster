@@ -4,7 +4,6 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using NS_Common;
 using Tabster.Properties;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
@@ -25,7 +24,6 @@ namespace Tabster.Forms
 
             sidemenu.LoadNodes();
 
-            toolStrip1.Renderer = new ToolStripRenderer();
             toolStrip2.Renderer = new ToolStripRenderer();
             toolStrip3.Renderer = new ToolStripRenderer();
 
@@ -190,9 +188,10 @@ namespace Tabster.Forms
                 //librarySplitContainer.Panel2Collapsed = Settings.Default.LibraryPreviewOrientation == PreviewPanelOrientation.Hidden;
                 //librarySplitContainer.Orientation = Settings.Default.LibraryPreviewOrientation == PreviewPanelOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
 
+                /*
                 searchSplitContainer.Panel2Collapsed = Settings.Default.SearchPreviewOrientation == PreviewPanelOrientation.Hidden;
                 searchSplitContainer.Orientation = Settings.Default.SearchPreviewOrientation == PreviewPanelOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
-                ;
+                */
 
                 librarySplitContainer.SplitterDistance = Settings.Default.LibraryPreviewPanelDistance;
 

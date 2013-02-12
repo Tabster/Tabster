@@ -15,6 +15,7 @@ namespace Tabster.Forms
         private readonly Image Rating0, Rating1, Rating2, Rating3, Rating4, Rating5;
         private SearchQuery searchQuery;
         private SearchResult selectedResult;
+        private UltimateGuitarTab selectedPreview;
 
         private Image GetRating(int rating)
         {
@@ -125,9 +126,13 @@ namespace Tabster.Forms
         {
             searchSplitContainer.Panel2Collapsed = false;
             searchSplitContainer.Orientation = Orientation.Vertical;
-            var ugtab = new UltimateGuitarTab(new Uri(selectedResult.URL));
-            var temp = Global.libraryManager.CreateTempFile(ugtab.Artist, ugtab.Title, ugtab.Type, ugtab.Contents);
-            searchPreviewEditor.LoadTab(temp);
+
+            searchPreviewEditor.SetDocumentText("Loading Preview...");
+
+            if (!SearchPreviewBackgroundWorker.IsBusy)
+            {
+                SearchPreviewBackgroundWorker.RunWorkerAsync();
+            }
         }
 
         private void previewToolStripMenuItem_Click(object sender, EventArgs e)
@@ -161,6 +166,21 @@ namespace Tabster.Forms
         private void SearchBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             searchQuery.BeginSearch();
+        }
+
+        private void SearchPreviewBackgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            selectedPreview = new UltimateGuitarTab(new Uri(selectedResult.URL));
+        }
+
+        private void SearchPreviewBackgroundWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled == false && e.Error == null)
+            {
+                var temp = Global.libraryManager.CreateTempFile(selectedPreview.Artist, selectedPreview.Title, selectedPreview.Type, selectedPreview.Contents);
+                searchPreviewEditor.LoadTab(temp);
+                temp.Delete();
+            }
         }
     }
 }
