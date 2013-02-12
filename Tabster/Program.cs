@@ -36,21 +36,12 @@ namespace Tabster
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            var tab = new Tab("artist", "title", TabType.Bass, "gvsckvlsjdfklsdfjsd") {Comment = "comment", Audio = "aduio", Lyrics = "FDASFSD"};
-            var tf = new TabFile(tab, "C:\\test.tabster");
-
-            var playlist = new Playlist("test");
-            var pf = new PlaylistFile(playlist, "C:\\test1.tablist");
-            pf.Save();
-
-            /*
+            
             var controller = new SingleInstanceController();
 
             TabHandler = new TabViewerManager();
 
-            controller.Run(args);
-            */
+            controller.Run(args);       
         }
     }
 }
