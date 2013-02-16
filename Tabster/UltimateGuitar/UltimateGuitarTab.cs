@@ -9,19 +9,36 @@ using NS_Common;
 
 namespace Tabster.UltimateGuitar
 {
+    public enum TabType
+    {
+        GuitarTab = 200,
+        GuitarChords = 300,
+        BassTab = 400,
+        DrumTab = 700,
+        PowerTab = 600,
+        GuitarPro = 500,
+        Video = 100,
+        TabPro = 666,
+        Undefined = 0
+    }
+
     public class UltimateGuitarTab
     {
+        private static readonly Regex TitleRegex = new Regex(@"\<title\b[^>]*\>\s*(?<title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex JSArtistSRegex = new Regex(@"tf_artist = ""(?<name>.*?)""", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex JSSongRegex = new Regex(@"tf_song = ""(?<name>.*?)""", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
         public Uri URL { get; private set; }
-        public bool IsVersioned { get; private set; }
         public string Artist { get; private set; }
         public string Title { get; private set; }
-        public TabType Type { get; private set; }
+        public Tabster.TabType Type { get; private set; }
         public string Contents { get; private set; }
+        public DateTime Updated { get; private set; }
 
-        public UltimateGuitarTab(string pageContents)
+        public UltimateGuitarTab(Uri url, string pageContents)
         {
-            rawHTML = pageContents;
-            GetTab();
+            URL = url;
+            ParseHTML(pageContents);
         }
 
         public UltimateGuitarTab(Uri url)
@@ -33,28 +50,31 @@ namespace Tabster.UltimateGuitar
 
             using (var client = new TabsterWebClient())
             {
-                rawHTML = client.DownloadString(URL);
-            }
-
-            GetTab();
+                ParseHTML(client.DownloadString(url));
+            }      
         }
 
-        private readonly string rawHTML;
+        public Tab ConvertToTab()
+        {
+            return new Tab(Artist, Title, Type, Contents){RemoteSource = URL, Source = TabSource.Download};
+        }
 
-        public static TabType GetTabType(UltimateGuitarTabType type)
+        #region Static Methods
+
+        public static Tabster.TabType GetTabType(TabType type)
         {
             switch (type)
             {
-                case UltimateGuitarTabType.GuitarTab:
-                    return TabType.Guitar;
-                case UltimateGuitarTabType.GuitarChords:
-                    return TabType.Chord;
-                case UltimateGuitarTabType.BassTab:
-                    return TabType.Bass;
-                case UltimateGuitarTabType.DrumTab:
-                    return TabType.Drum;
+                case TabType.GuitarTab:
+                    return Tabster.TabType.Guitar;
+                case TabType.GuitarChords:
+                    return Tabster.TabType.Chord;
+                case TabType.BassTab:
+                    return Tabster.TabType.Bass;
+                case TabType.DrumTab:
+                    return Tabster.TabType.Drum;
                 default:
-                    return TabType.Guitar;
+                    return Tabster.TabType.Guitar;
             }
         }
 
@@ -79,17 +99,19 @@ namespace Tabster.UltimateGuitar
             return false;
         }
 
-        private void GetTab()
+        #endregion
+
+        private void ParseHTML(string html)
         {
-            if (rawHTML.Length > 0)
+            if (!string.IsNullOrEmpty(html) && html != "")
             {
                 string song = null, artist = null;
-                var ultimateGuitarTabType = UltimateGuitarTabType.GuitarTab;
+                var ultimateGuitarTabType = TabType.GuitarTab;
 
                 var javascriptVars = false;
 
-                var artistMatch = Constants.JSArtistSRegex.Match(rawHTML);
-                var songMatch = Constants.JSSongRegex.Match(rawHTML);
+                var artistMatch = JSArtistSRegex.Match(html);
+                var songMatch = JSSongRegex.Match(html);
 
                 //attempt to find and extract data from js variables
                 //tf_artist = "Misc Computer Games";
@@ -103,7 +125,7 @@ namespace Tabster.UltimateGuitar
                     //get info from title
                 else
                 {
-                    var title = Common.CollapseSpaces(Constants.TitleRegex.Match(rawHTML).Groups["Title"].Value);
+                    var title = Common.CollapseSpaces(TitleRegex.Match(html).Groups["title"].Value);
                     var titledata = Regex.Split(title, @" tab by ");
                     song = titledata[0].Trim();
                     artist = titledata[1].Trim();
@@ -111,14 +133,14 @@ namespace Tabster.UltimateGuitar
 
                 //get the tab type
                 if (URL.ToString().EndsWith("crd.htm") || URL.ToString().Contains("crd"))
-                    ultimateGuitarTabType = UltimateGuitarTabType.GuitarChords;
+                    ultimateGuitarTabType = TabType.GuitarChords;
                 else if (URL.ToString().EndsWith("btab.htm") || URL.ToString().Contains("btab"))
-                    ultimateGuitarTabType = UltimateGuitarTabType.BassTab;
+                    ultimateGuitarTabType = TabType.BassTab;
                 else if (URL.ToString().EndsWith("drum_tab.htm"))
-                    ultimateGuitarTabType = UltimateGuitarTabType.DrumTab;
+                    ultimateGuitarTabType = TabType.DrumTab;
 
                 var doc = new HtmlDocument();
-                doc.LoadHtml(rawHTML);
+                doc.LoadHtml(html);
 
                 //div[@id='cont']
                 //var cont = doc.DocumentNode.SelectSingleNode("*[@id='cont']");
@@ -131,13 +153,29 @@ namespace Tabster.UltimateGuitar
                     Title = song;
                     Type = GetTabType(ultimateGuitarTabType);
                     Contents = contentsNode.InnerHtml;
+
+                    Updated = DateTime.Now;
                 }
 
                 //Console.WriteLine(doc.DocumentNode.SelectSingleNode("//div[@id='cont']/pre").InnerHtml);
 
                 //string innerHtml = this.hap_doc.DocumentNode.SelectSingleNode("//div[@id='cont']/pre").InnerHtml;
 
-                /*                WARNING: You are trying to view                content from Ultimate-Guitar.com                in an unauthorized application,                which is prohibited.                Please use an official Ultimate                Guitar Tabs application for iPhone,                iPad or Android to access legitimate                chords, guitar, bass, and drum tabs                from Ultimate-Guitar.com database.                Type "ultimate guitar tabs" in Apple                App Store's or Android Market's                search to find the application.
+                /*
+                WARNING: You are trying to view
+                content from Ultimate-Guitar.com
+                in an unauthorized application,
+                which is prohibited.
+
+                Please use an official Ultimate
+                Guitar Tabs application for iPhone,
+                iPad or Android to access legitimate
+                chords, guitar, bass, and drum tabs
+                from Ultimate-Guitar.com database.
+
+                Type "ultimate guitar tabs" in Apple
+                App Store's or Android Market's
+                search to find the application.
                 */
 
                 //Common.CollapseSpaces(doc.GetElementsByTagName("title")[0].InnerText).Replace(" @ Ultimate-Guitar.Com", "");

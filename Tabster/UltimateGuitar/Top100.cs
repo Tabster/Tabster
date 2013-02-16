@@ -22,32 +22,32 @@ namespace Tabster.UltimateGuitar
 
         private readonly List<UltimateGuitarTab> _tabs = new List<UltimateGuitarTab>();
 
-        public Top100(UltimateGuitarTabType type = UltimateGuitarTabType.Undefined)
+        public Top100(TabType type = TabType.Undefined)
         {
             switch (type)
             {
-                case UltimateGuitarTabType.Undefined:
+                case TabType.Undefined:
                     URL = new Uri(_urlall);
                     break;
-                case UltimateGuitarTabType.Video:
+                case TabType.Video:
                     URL = new Uri(_urlvideo);
                     break;
-                case UltimateGuitarTabType.GuitarTab:
+                case TabType.GuitarTab:
                     URL = new Uri(_urltabs);
                     break;
-                case UltimateGuitarTabType.GuitarChords:
+                case TabType.GuitarChords:
                     URL = new Uri(_urlchords);
                     break;
-                case UltimateGuitarTabType.BassTab:
+                case TabType.BassTab:
                     URL = new Uri(_urlbass);
                     break;
-                case UltimateGuitarTabType.GuitarPro:
+                case TabType.GuitarPro:
                     URL = new Uri(_urlpro);
                     break;
-                case UltimateGuitarTabType.PowerTab:
+                case TabType.PowerTab:
                     URL = new Uri(_urlpower);
                     break;
-                case UltimateGuitarTabType.DrumTab:
+                case TabType.DrumTab:
                     URL = new Uri(_urldrum);
                     break;
             }
