@@ -32,6 +32,7 @@ namespace Tabster
 
         public void Load()
         {
+            BeginFileRead();
             FileVersion = GetFormatVersion();
             var needsUpdated = FileVersion == null || FileVersion < new Version(FILE_VERSION);
 
@@ -41,6 +42,7 @@ namespace Tabster
             }
 
             var name = ReadNodeValue("name");
+
             var files = ReadChildValues("files");
 
             PlaylistData = new Playlist(name);
@@ -52,6 +54,7 @@ namespace Tabster
                 {
                     PlaylistData.Add(tab);
                 }
+
             }
         }
 
@@ -87,6 +90,12 @@ namespace Tabster
         {
             try
             {
+                if (!File.Exists(filePath))
+                {
+                    p = null;
+                    return false;
+                }
+
                 var fi = new FileInfo(filePath);
 
                 if (fi.Length > 0)

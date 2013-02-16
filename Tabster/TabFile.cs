@@ -66,6 +66,12 @@ namespace Tabster
         {
             try
             {
+                if (!File.Exists(filePath))
+                {
+                    tabFile = null;
+                    return false;
+                }
+
                 tabFile = new TabFile(filePath);
                 return true;
             }

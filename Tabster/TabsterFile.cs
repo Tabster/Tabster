@@ -38,6 +38,12 @@ namespace Tabster
             Save();
         }
 
+        protected void BeginFileRead()
+        {
+            RawXml = new XmlDocument();
+            RawXml.Load(FileInfo.FullName);
+        }
+
         protected void Save(string filePath = null)
         {
             if (RawXml != null)
