@@ -104,7 +104,7 @@ namespace Tabster.Controls
             {
                 _forecolor = value;
 
-                if (Tab != null)
+                if (TabData != null)
                     ReloadHTML();
             }
         }
@@ -116,12 +116,12 @@ namespace Tabster.Controls
             {
                 _backcolor = value;
 
-                if (Tab != null)
+                if (TabData != null)
                     ReloadHTML();
             }
         }
 
-        public TabFile Tab { get; private set; }
+        public Tab TabData { get; private set; }
 
         public bool HasBeenModified { get; private set; }
 
@@ -131,7 +131,6 @@ namespace Tabster.Controls
 
         public event EventHandler ModeChanged;
         public event EventHandler TabLoaded;
-        public event EventHandler TabClosed;
         public event EventHandler TabModified;
 
         private string _oldContents = "";
@@ -177,21 +176,14 @@ namespace Tabster.Controls
             Mode = Mode == TabMode.Edit ? TabMode.View : TabMode.Edit;
         }
 
-        public void LoadTab(TabFile t)
+        public void LoadTab(Tab t)
         {
-            Tab = t;
+            TabData = t;
 
-            if (Tab != null)
+            if (TabData != null)
             {
-                textBox1.Text = Tab.TabData.Contents;
+                textBox1.Text = TabData.Contents;
                 ReloadHTML();
-
-                if (Parent is Form)
-                {
-                    (Parent).Text = string.Format("{0} - {1}", Tab.TabData.Artist, Tab.TabData.Title);
-                }
-
-                Mode = TabMode.View;
             }
 
             if (TabLoaded != null)
@@ -235,40 +227,10 @@ namespace Tabster.Controls
             Console.WriteLine("Backcolor: " + backcolorString);
             */
 
-            var html = tabHTML.Replace("{TAB_CONTENTS}", Tab.TabData.Contents);
-
-            //System.IO.File.WriteAllText(@"C:\users\nate\desktop\test.html", html);
-
+            var html = tabHTML.Replace("{TAB_CONTENTS}", TabData.Contents);
             SetDocumentText(html);
-
-            /*
-            var guid = Guid.NewGuid();
-
-
-            if (string.IsNullOrEmpty(UniqueFilename) == false)
-            {
-                if (File.Exists(UniqueFilename))
-                {
-                    File.Delete(UniqueFilename);
-                }
-            }
-
-            var path = string.Format("{0}{1}.html", Global.TempDirectory, guid);
-            File.WriteAllText(path, html);
-
-            UniqueFilename = path;
-
-            webBrowser1.Navigate(path);
-            */
-
-            //System.IO.File.WriteAllText("C:\\OMGLOLXD.TXT", html);
+            Mode = TabMode.View;
         }
-
-        /*
-        public void ComputeHash()
-        {
-            _currentHash = textBox1.Text.GetHashCode().ToString(CultureInfo.InvariantCulture);
-        }*/
 
         public void Print()
         {
