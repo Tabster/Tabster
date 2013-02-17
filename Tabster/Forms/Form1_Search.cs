@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -13,9 +14,8 @@ namespace Tabster.Forms
     partial class Form1
     {
         private readonly Image Rating0, Rating1, Rating2, Rating3, Rating4, Rating5;
-        private SearchQuery searchQuery;
-        private SearchResult selectedResult;
-        private UltimateGuitarTab selectedPreview;
+        private readonly SearchManager searchManager = new SearchManager();
+        private readonly Dictionary<Uri, UltimateGuitarTab> _ugTabCache = new Dictionary<Uri, UltimateGuitarTab>(); 
 
         private Image GetRating(int rating)
         {
@@ -36,34 +36,45 @@ namespace Tabster.Forms
             }
         }
 
-        private UltimateGuitarTabType GetSearchType()
+        private SearchResult SelectedSearchResult()
         {
-            switch (txtsearchtype.SelectedIndex)
-            {
-                case 0:
-                    return UltimateGuitarTabType.Undefined;
-                case 1:
-                    return UltimateGuitarTabType.GuitarTab;
-                case 2:
-                    return UltimateGuitarTabType.GuitarChords;
-                case 3:
-                    return UltimateGuitarTabType.BassTab;
-                case 4:
-                    return UltimateGuitarTabType.DrumTab;
-                default:
-                    return UltimateGuitarTabType.Undefined;
-            }
+             var selectedURL = dataGridViewExtended1.SelectedRows.Count > 0 ? new Uri(dataGridViewExtended1.SelectedRows[0].Cells[searchcol_url.Index].Value.ToString()) : null;
+             return selectedURL != null ? searchManager.Find(x => x.URL.Equals(selectedURL)) : null;
         }
 
         private void onlinesearchbtn_Click(object sender, EventArgs e)
         {
-            if (!SearchBackgroundWorker.IsBusy && txtsearchartist.Text.Trim() != "" && txtsearchsong.Text.Trim() != "")
+            if (txtsearchartist.Text.Trim().Length > 0 && txtsearchsong.Text.Trim().Length > 0)
             {
                 pictureBox1.Visible = true;
 
-                searchQuery = new SearchQuery(txtsearchartist.Text, txtsearchsong.Text, GetSearchType());
+                searchManager.Artist = txtsearchartist.Text;
+                searchManager.Title = txtsearchsong.Text;
 
-                SearchBackgroundWorker.RunWorkerAsync();
+                var searchType = UltimateGuitar.TabType.Undefined;
+
+                switch (txtsearchtype.SelectedIndex)
+                {
+                    case 0:
+                        searchType = UltimateGuitar.TabType.Undefined;
+                        break;
+                    case 1:
+                        searchType = UltimateGuitar.TabType.GuitarTab;
+                        break;
+                    case 2:
+                        searchType = UltimateGuitar.TabType.GuitarChords;
+                        break;
+                    case 3:
+                        searchType = UltimateGuitar.TabType.BassTab;
+                        break;
+                    case 4:
+                        searchType = UltimateGuitar.TabType.DrumTab;
+                        break;
+                }
+
+                searchManager.Type = searchType;
+
+                searchManager.Search();
             }
         }
 
@@ -88,12 +99,7 @@ namespace Tabster.Forms
 
         private void dataGridViewExtended1_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewExtended1.SelectedRows.Count > 0)
-            {
-                var selectedURL = dataGridViewExtended1.SelectedRows[0].Cells[searchcol_url.Index].Value.ToString();
-                selectedResult = searchQuery.Find(x => x.URL.Equals(selectedURL));
-                LoadSearchPreview();
-            }
+            LoadSelectedPreview();
         }
 
         private void saveTabToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -116,70 +122,77 @@ namespace Tabster.Forms
 
         private void copyURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (selectedResult != null)
+            var result = SelectedSearchResult();
+
+            if (result != null)
             {
-                Clipboard.SetDataObject(selectedResult.URL);
+                Clipboard.SetDataObject(result.URL);
             }
         }
 
-        private void LoadSearchPreview()
+        private void LoadSelectedPreview()
         {
-            searchSplitContainer.Panel2Collapsed = false;
-            searchSplitContainer.Orientation = Orientation.Vertical;
+            var selectedResult = SelectedSearchResult();
 
-            searchPreviewEditor.SetDocumentText("Loading Preview...");
-
-            if (!SearchPreviewBackgroundWorker.IsBusy)
+            if (selectedResult != null)
             {
-                SearchPreviewBackgroundWorker.RunWorkerAsync();
+                if (SearchPreviewBackgroundWorker.IsBusy)
+                    SearchPreviewBackgroundWorker.CancelAsync();
+
+                searchPreviewEditor.SetDocumentText("Loading Preview...");
+
+                if (!SearchPreviewBackgroundWorker.IsBusy)
+                    SearchPreviewBackgroundWorker.RunWorkerAsync(selectedResult.URL);
             }
         }
 
         private void previewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (selectedResult != null)
-            {
-                LoadSearchPreview();
-            }
+            LoadSelectedPreview();
         }
 
-        private void SearchBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        void searchSession_OnCompleted(object sender, EventArgs e)
         {
-            if (searchQuery != null)
-            {
-                dataGridViewExtended1.Rows.Clear();
+            dataGridViewExtended1.Rows.Clear();
 
-                foreach (var result in searchQuery)
+            foreach (var result in searchManager)
+            {
+                if (searchManager.Type == UltimateGuitar.TabType.Undefined || searchManager.Type == result.Type)
                 {
-                    if (searchQuery.Type == UltimateGuitarTabType.Undefined || searchQuery.Type == result.Type)
-                    {
-                        dataGridViewExtended1.Rows.Add(result.Artist, result.Song, Global.GetTabString(UltimateGuitarTab.GetTabType(result.Type)), GetRating(result.Rating), result.Votes, result.URL);
-                    }
+                    dataGridViewExtended1.Rows.Add(result.Artist, result.Title, Tab.GetTabString(UltimateGuitarTab.GetTabType(result.Type)), GetRating(result.Rating), result.Votes, result.URL);
                 }
+            }
 
-                lblsearchresults.Visible = true;
-                lblsearchresults.Text = string.Format("Results: {0}", dataGridViewExtended1.Rows.Count);
-                pictureBox1.Visible = false;
+            lblsearchresults.Visible = true;
+            lblsearchresults.Text = string.Format("Results: {0}", dataGridViewExtended1.Rows.Count);
+            pictureBox1.Visible = false;
+        }
+
+        private void SearchPreviewBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var url = (Uri) e.Argument;
+
+            e.Result = url;
+
+            if (!_ugTabCache.ContainsKey(url))
+            {
+                var ugTab = new UltimateGuitarTab(url);
+                _ugTabCache.Add(url, ugTab);
             }
         }
 
-        private void SearchBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            searchQuery.BeginSearch();
-        }
-
-        private void SearchPreviewBackgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            selectedPreview = new UltimateGuitarTab(new Uri(selectedResult.URL));
-        }
-
-        private void SearchPreviewBackgroundWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        private void SearchPreviewBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled == false && e.Error == null)
             {
-                var temp = Global.libraryManager.CreateTempFile(selectedPreview.Artist, selectedPreview.Title, selectedPreview.Type, selectedPreview.Contents);
-                searchPreviewEditor.LoadTab(temp);
-                temp.Delete();
+                var url = (Uri) e.Result;
+
+                if (_ugTabCache.ContainsKey(url))
+                {
+                    var ugTab = _ugTabCache[url];
+                    var tab = ugTab.ConvertToTab();
+                    searchPreviewEditor.LoadTab(tab);
+                }
             }
         }
     }

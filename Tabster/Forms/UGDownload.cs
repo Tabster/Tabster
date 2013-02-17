@@ -56,7 +56,7 @@ namespace Tabster.Forms
                     Thread.Sleep(150);
                     var ugtab = new UltimateGuitarTab(url);
 
-                    Console.WriteLine("{0} - {1} ({2})", ugtab.Artist, ugtab.Title, Global.GetTabString(ugtab.Type));
+                    Console.WriteLine("{0} - {1} ({2})", ugtab.Artist, ugtab.Title, Tab.GetTabString(ugtab.Type));
                 }
             }
         }
