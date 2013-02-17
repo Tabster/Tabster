@@ -32,11 +32,9 @@ namespace Tabster
 
         public void Load()
         {
-            BeginFileRead();
-            FileVersion = GetFormatVersion();
-            var needsUpdated = FileVersion == null || FileVersion < new Version(FILE_VERSION);
+            BeginFileRead(new Version(FILE_VERSION));
 
-            if (needsUpdated)
+            if (FileFormatOutdated)
             {
                 //todo update format    
             }
@@ -113,13 +111,6 @@ namespace Tabster
 
             p = null;
             return false;
-        }
-
-        public static PlaylistFile Create(string name)
-        {
-            var playlist = new Playlist(name);
-            var uniqueName = Global.GenerateUniqueFilename(Global.PlaylistDirectory, name + FILE_EXTENSION);
-            return new PlaylistFile(playlist, uniqueName);
         }
     }
 }

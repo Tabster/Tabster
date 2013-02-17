@@ -184,11 +184,9 @@
     <Compile Include="Forms\Preferences.designer.cs">
       <DependentUpon>Preferences.cs</DependentUpon>
     </Compile>
-    <Compile Include="IDownloadProvider.cs" />
     <Compile Include="LibraryManager.cs" />
     <Compile Include="Playlist.cs" />
     <Compile Include="PlaylistFile.cs" />
-    <Compile Include="PlaylistFileCollection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\Splash.cs">
@@ -207,9 +205,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Tab.cs" />
-    <Compile Include="Global.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Forms\TabViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,13 +218,13 @@
       <DependentUpon>TabEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="TabFile.cs" />
-    <Compile Include="TabFileCollection.cs" />
+    <Compile Include="TabsterWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TabViewerManager.cs" />
     <Compile Include="UltimateGuitar\Constants.cs" />
-    <Compile Include="UltimateGuitar\Converter.cs" />
-    <Compile Include="UltimateGuitar\Search.cs" />
+    <Compile Include="UltimateGuitar\SearchManager.cs" />
     <Compile Include="UltimateGuitar\Top100.cs" />
-    <Compile Include="UltimateGuitar\UltimateGuitarDownloader.cs" />
     <Compile Include="UltimateGuitar\UltimateGuitarTab.cs" />
     <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>

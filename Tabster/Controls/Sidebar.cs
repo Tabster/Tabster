@@ -120,8 +120,8 @@ namespace Tabster.Controls
                     SelectPreviousPlaylist();
                     toRemove.Remove();
 
-                    var p = Global.libraryManager.Playlists.FindByPath(playlist_path);
-                    Global.libraryManager.Playlists.Remove(p);
+                    var p = Program.libraryManager.FindPlaylistByPath(playlist_path);
+                    Program.libraryManager.RemovePlaylist(p);
                     return;
                 }
             }
@@ -164,7 +164,7 @@ namespace Tabster.Controls
                 if (node.Tag.ToString().Equals(p.FileInfo.FullName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     NodePlaylists.Nodes.Remove(node);
-                    Global.libraryManager.Playlists.Remove(p);
+                    Program.libraryManager.RemovePlaylist(p);
                     break;
                 }
             }
@@ -177,7 +177,7 @@ namespace Tabster.Controls
 
         public PlaylistFile SelectedPlaylist()
         {
-            return PlaylistNodeSelected() ? Global.libraryManager.Playlists.FindByPath(SelectedNode.Tag.ToString()) : null;
+            return PlaylistNodeSelected() ? Program.libraryManager.FindPlaylistByPath(SelectedNode.Tag.ToString()) : null;
         }
 
         public void SelectPreviousPlaylist()

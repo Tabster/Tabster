@@ -10,7 +10,7 @@ namespace Tabster.Forms
 {
     public partial class Repair : Form
     {
-        public Repair(TabFileCollection corruptedFiles)
+        public Repair(string[] corruptedFiles)
         {
             InitializeComponent();
 

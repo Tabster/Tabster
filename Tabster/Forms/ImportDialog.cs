@@ -15,7 +15,7 @@ namespace Tabster.Forms
         public ImportDialog()
         {
             InitializeComponent();
-            txttype.DataSource = Constants.TabTypes;
+            txttype.DataSource = Tab.TabTypes;
             txtartist.Select(txtartist.Text.Length, 0);
         }
 

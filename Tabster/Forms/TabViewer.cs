@@ -477,11 +477,11 @@ namespace Tabster.Forms
                 var txtedit = GetCurrentTextBox();
 
                 //if it is a newly created tab
-                if (tabControl1.SelectedTab.ToolTipText.Contains(Global.TempDirectory))
+                if (tabControl1.SelectedTab.ToolTipText.Contains(Program.libraryManager.TemporaryDirectory))
                 {
                     //move the file from  the temp location into the default directory
                     var fi = new FileInfo(tabControl1.SelectedTab.ToolTipText);
-                    var newlocation = Global.LibraryDirectory + fi.Name;
+                    var newlocation = Program.libraryManager.LibraryDirectory + fi.Name;
                     File.Move(tabControl1.SelectedTab.ToolTipText, newlocation);
                     tabControl1.SelectedTab.ToolTipText = newlocation;
 

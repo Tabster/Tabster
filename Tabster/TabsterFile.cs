@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 #endregion
@@ -38,10 +39,12 @@ namespace Tabster
             Save();
         }
 
-        protected void BeginFileRead()
+        protected void BeginFileRead(Version newFileVersion)
         {
             RawXml = new XmlDocument();
             RawXml.Load(FileInfo.FullName);
+            FileVersion = GetFormatVersion();
+            FileFormatOutdated = FileVersion == null || FileVersion < newFileVersion;
         }
 
         protected void Save(string filePath = null)
@@ -55,7 +58,7 @@ namespace Tabster
                     customPath = new FileInfo(filePath);
 
                 var fullSavePath = isCustomPath
-                                       ? Global.GenerateUniqueFilename(customPath.DirectoryName, string.Format("{0}{1}", FileInfo.Name, FileInfo.Extension))
+                                       ? GenerateUniqueFilename(customPath.DirectoryName, String.Format("{0}{1}", FileInfo.Name, FileInfo.Extension))
                                        : FileInfo.FullName;
 
                 RawXml.Save(fullSavePath);
@@ -81,10 +84,10 @@ namespace Tabster
             if (RawXml != null)
             {
                 var matches = RawXml.GetElementsByTagName(nodeName);
-                return matches.Count > 0 ? matches[0].InnerText : (returnNull ? null : string.Empty);
+                return matches.Count > 0 ? matches[0].InnerText : (returnNull ? null : String.Empty);
             }
 
-            return returnNull ? null : string.Empty;
+            return returnNull ? null : String.Empty;
         }
 
         protected List<string> ReadChildValues(string parentNodeName)
@@ -160,10 +163,38 @@ namespace Tabster
 
         public void RenameFile(string newName)
         {
-            var newFilePath = Global.GenerateUniqueFilename(FileInfo.DirectoryName, newName);
+            var newFilePath = GenerateUniqueFilename(FileInfo.DirectoryName, newName);
             File.Copy(FileInfo.FullName, newFilePath);
             File.Delete(FileInfo.FullName);
             FileInfo = new FileInfo(newFilePath);
+        }
+
+        public static bool IsValidFileName(string filename)
+        {
+            var containsABadCharacter = new Regex(String.Format("[{0}]", Regex.Escape(new string(Path.GetInvalidFileNameChars()))));
+            return !containsABadCharacter.IsMatch(filename);
+        }
+
+        public static string GenerateUniqueFilename(string directory, string filename)
+        {
+            //remove invalid file path characters
+            var regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+            var sanitized = new Regex(String.Format("[{0}]", Regex.Escape(regexSearch))).Replace(filename, "");
+
+            var fileName = Path.GetFileNameWithoutExtension(sanitized);
+            var fileExt = Path.GetExtension(sanitized);
+
+            var firstTry = Path.Combine(directory, String.Format("{0}{1}", fileName, fileExt));
+            if (!File.Exists(firstTry))
+                return firstTry;
+
+            for (var i = 1; ; ++i)
+            {
+                var appendedPath = Path.Combine(directory, String.Format("{0} ({1}){2}", fileName, i, fileExt));
+
+                if (!File.Exists(appendedPath))
+                    return appendedPath;
+            }
         }
     }
 }

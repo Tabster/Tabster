@@ -89,8 +89,7 @@ namespace Tabster
 
         public void Load()
         {
-            FileVersion = GetFormatVersion();
-            var needsUpdated = FileVersion == null || FileVersion < new Version(FILE_VERSION);
+            BeginFileRead(new Version(FILE_VERSION));
 
             var titleValue = ReadNodeValue("song", true) ?? ReadNodeValue("title");
             var artistValue = ReadNodeValue("artist");
@@ -102,7 +101,7 @@ namespace Tabster
             var audioValue = ReadNodeValue("audio");
             var lyricsValue = ReadNodeValue("lyrics");
 
-            if (needsUpdated)
+            if (FileFormatOutdated)
             {
                 //todo update format    
             }
@@ -120,13 +119,15 @@ namespace Tabster
             BeginFileWrite("tabster", FILE_VERSION);
             WriteNode("title", TabData.Title);
             WriteNode("artist", TabData.Artist);
-            WriteNode("type", Global.GetTabString(TabData.Type));
+            WriteNode("type", Tab.GetTabString(TabData.Type));
             WriteNode("tab", TabData.Contents);
             WriteNode("comment", TabData.Comment);
             WriteNode("lyrics", TabData.Lyrics);
             WriteNode("audio", TabData.Audio);
             FinishFileWrite();
             FileInfo.Refresh();
+
+            base.Save();
         }
 
         #endregion

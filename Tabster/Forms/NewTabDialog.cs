@@ -14,14 +14,14 @@ namespace Tabster.Forms
         public NewTabDialog()
         {
             InitializeComponent();
-            txttype.DataSource = Constants.TabTypes;
+            txttype.DataSource = Tab.TabTypes;
             txtartist.Text = Environment.UserName;
             txtartist.Select(txtartist.Text.Length, 0);
         }
 
         public NewTabDialog(string artist, string song, TabType type)
         {
-            txttype.DataSource = Constants.TabTypes;
+            txttype.DataSource = Tab.TabTypes;
             txtartist.Text = artist;
             txtsong.Text = song;
             txttype.SelectedIndex = (int)type;

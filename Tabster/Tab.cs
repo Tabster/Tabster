@@ -25,6 +25,8 @@ namespace Tabster
 
     public class Tab
     {
+        public static readonly string[] TabTypes = { "Guitar Tab", "Guitar Chords", "Bass Tab", "Drum Tab" };
+
         public Tab(string artist, string title, TabType type, string contents)
         {
             Title = title;
@@ -97,6 +99,22 @@ namespace Tabster
             }
 
             return TabType.Guitar;
+        }
+        public static string GetTabString(TabType type)
+        {
+            switch (type)
+            {
+                case TabType.Guitar:
+                    return TabTypes[0];
+                case TabType.Chord:
+                    return TabTypes[1];
+                case TabType.Bass:
+                    return TabTypes[2];
+                case TabType.Drum:
+                    return TabTypes[3];
+            }
+
+            return TabTypes[0];
         }
     }
 }

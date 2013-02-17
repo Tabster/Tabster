@@ -176,7 +176,6 @@ namespace Tabster.Forms
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.detailsToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.filtertext = new Tabster.Controls.SearchBox();
-            this.SearchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.PreviewDelay = new System.Windows.Forms.Timer(this.components);
             this.SearchPreviewBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.tabControl1.SuspendLayout();
@@ -1369,20 +1368,23 @@ namespace Tabster.Forms
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(129, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem2.Text = "Hidden";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.TogglePreviewPane);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(129, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem3.Text = "Horizontal";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.TogglePreviewPane);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(129, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem4.Text = "Vertical";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.TogglePreviewPane);
             // 
             // libraryToolStripMenuItem
             // 
@@ -1582,11 +1584,6 @@ namespace Tabster.Forms
             this.filtertext.ToolTipText = "Filter through servers by name.";
             this.filtertext.OnNewSearch += new System.EventHandler(this.filtertext_OnNewSearch);
             // 
-            // SearchBackgroundWorker
-            // 
-            this.SearchBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchBackgroundWorker_DoWork);
-            this.SearchBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchBackgroundWorker_RunWorkerCompleted);
-            // 
             // PreviewDelay
             // 
             this.PreviewDelay.Enabled = true;
@@ -1594,6 +1591,7 @@ namespace Tabster.Forms
             // 
             // SearchPreviewBackgroundWorker
             // 
+            this.SearchPreviewBackgroundWorker.WorkerSupportsCancellation = true;
             this.SearchPreviewBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchPreviewBackgroundWorker_DoWork);
             this.SearchPreviewBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchPreviewBackgroundWorker_RunWorkerCompleted);
             // 
@@ -1704,7 +1702,6 @@ namespace Tabster.Forms
         private System.Windows.Forms.ToolStripMenuItem saveTabToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem openInBrowserToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyURLToolStripMenuItem;
-        private System.ComponentModel.BackgroundWorker SearchBackgroundWorker;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblcount;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;

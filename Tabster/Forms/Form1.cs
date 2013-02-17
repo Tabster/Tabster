@@ -17,10 +17,14 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
-            Global.libraryManager.Playlists.OnPlaylistAdded += Playlists_OnPlaylistAdded;
-            Global.libraryManager.Playlists.OnPlaylistRemoved += Playlists_OnPlaylistRemoved;
-            Global.libraryManager.Tabs.OnTabAdded += Tabs_OnTabAdded;
-            Global.libraryManager.Tabs.OnTabRemoved += Tabs_OnTabRemoved;
+            Program.libraryManager.OnTabsLoaded +=libraryManager_OnTabsLoaded;
+
+
+            searchManager.OnCompleted += searchSession_OnCompleted;
+
+            //browser events
+            webBrowser1.CanGoBackChanged += webBrowser1_CanGoBackChanged;
+            webBrowser1.CanGoForwardChanged += webBrowser1_CanGoForwardChanged;
 
             sidemenu.LoadNodes();
 
@@ -39,7 +43,7 @@ namespace Tabster.Forms
             }
 
             txtsearchtype.Items.Add("All Types");
-            foreach (var s in Constants.TabTypes)
+            foreach (var s in Tab.TabTypes)
             {
                 var str = s.EndsWith("s") ? s : string.Format("{0}s", s);
                 txtsearchtype.Items.Add(str);
@@ -52,11 +56,6 @@ namespace Tabster.Forms
             Rating3 = Resources.r3;
             Rating4 = Resources.r4;
             Rating5 = Resources.r5;
-
-
-            //browser events
-            webBrowser1.CanGoBackChanged += webBrowser1_CanGoBackChanged;
-            webBrowser1.CanGoForwardChanged += webBrowser1_CanGoForwardChanged;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -66,12 +65,17 @@ namespace Tabster.Forms
                 NS_Common.Update.PerformUpdate(null, SystemColors.Control, SystemColors.ControlText, "Tabster", Application.ProductVersion, true, false);
             }
 
+            /*
             recentlyViewedToolStripMenuItem.FilePath = string.Format("{0}recent.xml", Global.WorkingDirectory);
             recentlyViewedToolStripMenuItem.OnItemClicked += recentlyViewedToolStripMenuItem_OnItemClicked;
+            */
 
             sidemenu.SelectedNode = sidemenu.Nodes[0].FirstNode;
 
-            if (Global.libraryManager.PlaylistsLoaded)
+            if (Program.libraryManager.TabsLoaded)
+                LoadLibrary();
+
+            if (Program.libraryManager.PlaylistsLoaded)
                 PopulatePlaylists();
 
             LoadSettings(true);
@@ -83,7 +87,7 @@ namespace Tabster.Forms
 
             if (File.Exists(path))
             {
-                var tab = Global.libraryManager.Tabs.FindTabByPath(path);
+                var tab = Program.libraryManager.FindTabByPath(path);
 
                 if (tab == null)
                     TabFile.TryParse(path, out tab);
@@ -99,7 +103,7 @@ namespace Tabster.Forms
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveSettings();
-            Global.libraryManager.CleanupTempFiles();
+            Program.libraryManager.CleanupTempFiles();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -107,7 +111,7 @@ namespace Tabster.Forms
             //redirect to UG
             if (tabControl1.SelectedTab == display_browser && !_firstBrowserLoad && !webBrowser1.Url.ToString().Contains("ultimate-guitar.com"))
             {
-                webBrowser1.Navigate(UltimateGuitar.Constants.Tab_Home_0);
+                webBrowser1.Navigate(UltimateGuitar.Constants.UG_HOME_1);
             }
 
             if (tabControl1.SelectedTab == display_search)

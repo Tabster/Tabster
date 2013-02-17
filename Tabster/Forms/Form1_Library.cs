@@ -104,7 +104,7 @@ namespace Tabster.Forms
 
                 if (TabFile.TryParse(str, out t))
                 {
-                    Global.libraryManager.Tabs.ImportTab(t);
+                    Program.libraryManager.ImportTab(t);
                     LoadLibrary();
                 }
             }
@@ -132,7 +132,7 @@ namespace Tabster.Forms
         {
             if (SelectedTab != null && MessageBox.Show("Are you sure you want to delete this tab?", "Delete Tab", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (Global.libraryManager.Tabs.Remove(SelectedTab, false))
+                if (Program.libraryManager.RemoveTab(SelectedTab, false))
                 {
                     SelectedTab = null;
                     LoadLibrary();
@@ -171,8 +171,7 @@ namespace Tabster.Forms
             if (tablibrary.SelectedRows.Count > 0)
             {
                 var selectedTabLocation = tablibrary.SelectedRows[0].Cells[tablibrary.Columns.Count - 1].Value.ToString();
-                SelectedTab = Global.libraryManager.Tabs.FindTabByPath(selectedTabLocation);
-
+                SelectedTab = Program.libraryManager.FindTabByPath(selectedTabLocation);
 
                 var openedExternally = Program.TabHandler.IsOpenInViewer(SelectedTab);
 
@@ -212,7 +211,7 @@ namespace Tabster.Forms
                 var node = sidemenu.SelectedNode;
                 var playlist_path = node.Tag.ToString();
 
-                var match = Global.libraryManager.Playlists.FindByPath(playlist_path);
+                var match = Program.libraryManager.FindPlaylistByPath(playlist_path);
 
                 if (match != null)
                 {
@@ -435,7 +434,7 @@ namespace Tabster.Forms
                         if (toolItem.Tag != null)
                         {
                             var playlistPath = toolItem.Tag.ToString();
-                            var associatedPlaylist = Global.libraryManager.Playlists.FindByPath(playlistPath);
+                            var associatedPlaylist = Program.libraryManager.FindPlaylistByPath(playlistPath);
 
                             var alreadyExistsInPlaylist = associatedPlaylist.PlaylistData.Contains(SelectedTab);
 
@@ -483,7 +482,7 @@ namespace Tabster.Forms
             //var selectedIndex = tablibrary.SelectedRows.Count > 0 ? tablibrary.SelectedRows[0].Index : 0;
             var selectedPlaylist = sidemenu.SelectedPlaylist();
 
-            if ((selectedPlaylist != null && selectedPlaylist.PlaylistData.Count == 0) || (selectedPlaylist == null && Global.libraryManager.Tabs.Count == 0))
+            if ((selectedPlaylist != null && selectedPlaylist.PlaylistData.Count == 0) || (selectedPlaylist == null && Program.libraryManager.TabCount == 0))
             {
                 tablibrary.Rows.Clear();
 
@@ -517,7 +516,7 @@ namespace Tabster.Forms
             {
                 var selectedLibrary = SelectedLibrary();
 
-                foreach (var tab in Global.libraryManager.Tabs)
+                foreach (var tab in Program.libraryManager)
                 {
                     if (selectedLibrary == LibraryType.AllTabs ||
                         (selectedLibrary == LibraryType.MyTabs && tab.TabData.Source == TabSource.UserCreated) ||
@@ -609,7 +608,7 @@ namespace Tabster.Forms
                     {
                         if (npd.ShowDialog() == DialogResult.OK)
                         {
-                            var playlistFile = PlaylistFile.Create(npd.PlaylistName);
+                            var playlistFile = Program.libraryManager.CreatePlaylist(npd.PlaylistName);
                             playlistFile.PlaylistData.Add(SelectedTab);
                         }
                     }
@@ -632,8 +631,9 @@ namespace Tabster.Forms
 
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)
         {
+            /*
             var r = new Repair(Global.libraryManager.Tabs);
-            r.ShowDialog();
+            r.ShowDialog();*/
         }
 
         private void NewPlaylist(object sender, EventArgs e)
@@ -646,8 +646,9 @@ namespace Tabster.Forms
 
                     if (!string.IsNullOrEmpty(name))
                     {
-                        var playlistFile = PlaylistFile.Create(name);
-                        Global.libraryManager.Playlists.Add(playlistFile);
+
+                        var playlistFile = Program.libraryManager.CreatePlaylist(name);
+                        Program.libraryManager.AddPlaylist(playlistFile);
                         //sidemenu.AddPlaylist(playlist);
                     }
                 }
@@ -694,14 +695,15 @@ namespace Tabster.Forms
             Settings.Default.Save();
         }
 
-        void libraryManager_OnTabsLoaded(object sender, EventArgs e)
+        private void libraryManager_OnTabsLoaded(object sender, EventArgs e)
         {
+            Console.WriteLine("tabs loaded");
             LoadLibrary();
         }
 
         void Tabs_OnTabRemoved(object sender, EventArgs e)
         {
-            if (Global.libraryManager.TabsLoaded)
+            if (Program.libraryManager.TabsLoaded)
             {
                 UpdateDetails();
             }
@@ -709,7 +711,7 @@ namespace Tabster.Forms
 
         void Tabs_OnTabAdded(object sender, EventArgs e)
         {
-            if (Global.libraryManager.TabsLoaded)
+            if (Program.libraryManager.TabsLoaded)
             {
                 UpdateDetails();
             }
@@ -733,7 +735,7 @@ namespace Tabster.Forms
 
             var selectedPlaylist = sidemenu.SelectedPlaylist();
 
-            foreach (var playlist in Global.libraryManager.Playlists)
+            foreach (var playlist in Program.libraryManager.Playlists)
             {
                 var menu = new ToolStripMenuItem(playlist.PlaylistData.Name) {Tag = playlist.FileInfo.FullName, Enabled = !(selectedPlaylist != null && selectedPlaylist.PlaylistData.Contains(SelectedTab))};
                 menu.Click += AddtoPlaylistMenuClick;
@@ -755,7 +757,7 @@ namespace Tabster.Forms
             if (sidemenu.NodePlaylists.Nodes.Count > 0)
                 sidemenu.NodePlaylists.Nodes.Clear();
 
-            foreach (var playlist in Global.libraryManager.Playlists)
+            foreach (var playlist in Program.libraryManager.Playlists)
             {
                 sidemenu.AddPlaylist(playlist);
             }
@@ -765,11 +767,11 @@ namespace Tabster.Forms
 
         private void UpdateDetails()
         {
-            lblcount.Text = string.Format("Total Tabs: {0}", Global.libraryManager.Tabs.Count);
-            lblplaylists.Text = string.Format("Playlists: {0}", Global.libraryManager.Playlists.Count);
+            lblcount.Text = string.Format("Total Tabs: {0}", Program.libraryManager.TabCount);
+            lblplaylists.Text = string.Format("Playlists: {0}", Program.libraryManager.PlaylistCount);
             lbldisk.Text = string.Format("Disk Space: {0}KB ({1}MB)",  
-                                         (Global.libraryManager.Tabs.DiskSpace == 0 ? "0" : FileSizeUtilities.ConvertBytesToKilobytes(Global.libraryManager.Tabs.DiskSpace).ToString("#.##")),
-                                         (Global.libraryManager.Tabs.DiskSpace == 0 ? "0" : FileSizeUtilities.ConvertBytesToMegabytes(Global.libraryManager.Tabs.DiskSpace).ToString("#.##")));
+                                         (Program.libraryManager.DiskSpace == 0 ? "0" : FileSizeUtilities.ConvertBytesToKilobytes(Program.libraryManager.DiskSpace).ToString("#.##")),
+                                         (Program.libraryManager.DiskSpace == 0 ? "0" : FileSizeUtilities.ConvertBytesToMegabytes(Program.libraryManager.DiskSpace).ToString("#.##")));
         }
 
         public void UpdateLibraryItem(TabFile tab, bool append = true)
@@ -778,7 +780,7 @@ namespace Tabster.Forms
                                 {
                                     tab.TabData.Title, 
                                     tab.TabData.Artist, 
-                                    Global.GetTabString(tab.TabData.Type), 
+                                    Tab.GetTabString(tab.TabData.Type), 
                                     tab.FileInfo.CreationTime, 
                                     0,
                                     string.Format("{0:0.##} KB", FileSizeUtilities.ConvertBytesToKilobytes(tab.FileInfo.Length)),
@@ -818,7 +820,7 @@ namespace Tabster.Forms
             if (SelectedTab != null)
             {
                 lblpreviewtitle.Text = string.Format("{0} - {1} ({2})", SelectedTab.TabData.Artist, SelectedTab.TabData.Title, SelectedTab.TabData.Type);
-                libraryPreviewEditor.LoadTab(SelectedTab);
+                libraryPreviewEditor.LoadTab(SelectedTab.TabData);
                 toolStrip3.Enabled = true;
 
                 //tabEditor1.BackColor = Color.Black;

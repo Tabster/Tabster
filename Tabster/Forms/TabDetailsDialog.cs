@@ -15,7 +15,7 @@ namespace Tabster.Forms
         {
             InitializeComponent();
             _tabFile = tab;
-            txttype.DataSource = Constants.TabTypes;
+            txttype.DataSource = Tab.TabTypes;
             LoadData();
         }
 
@@ -25,7 +25,7 @@ namespace Tabster.Forms
 
             txtartist.Text = _tabFile.TabData.Artist;
             txtsong.Text = _tabFile.TabData.Title;
-            txttype.Text = Global.GetTabString(_tabFile.TabData.Type);
+            txttype.Text = Tab.GetTabString(_tabFile.TabData.Type);
             txtcomment.Text = _tabFile.TabData.Comment;
 
             lblFormat.Text += _tabFile.FileVersion;
@@ -33,7 +33,7 @@ namespace Tabster.Forms
             lblCreated.Text += string.Format(" {0}", _tabFile.FileInfo.CreationTime);
             lblModified.Text += string.Format(" {0}", _tabFile.FileInfo.LastWriteTime);
 
-            var playlistCount = Global.libraryManager.Playlists.FindPlaylistsContaining(_tabFile).Count;
+            var playlistCount = Program.libraryManager.FindPlaylistsContaining(_tabFile).Count;
             lblPlaylistCount.Text = string.Format("Founds in {0} playlist{1}.", playlistCount, playlistCount == 1 ? "" : "s");
            
             txtlyrics.Text = _tabFile.TabData.Lyrics;

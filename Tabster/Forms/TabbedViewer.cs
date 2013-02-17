@@ -23,11 +23,11 @@ namespace Tabster.Forms
             return _tabs.Find(x => x.FileInfo.FullName.Equals(tab.FileInfo.FullName, StringComparison.OrdinalIgnoreCase)) != null;
         }
 
-        private TabPage GetOpenedTabPage(TabFile tab)
+        private TabPage FindOpenedTab(string filePath)
         {
             foreach (TabPage tp in tabControl1.TabPages)
             {
-                if (tp.ToolTipText.Equals(tab.FileInfo.FullName, StringComparison.OrdinalIgnoreCase))
+                if (tp.ToolTipText.Equals(filePath, StringComparison.OrdinalIgnoreCase))
                 {
                     return tp;
                 }
@@ -41,17 +41,16 @@ namespace Tabster.Forms
             return (TabEditor)tabControl1.SelectedTab.Controls[0];
         }
 
-        private static void SetTabHeader(TabPage tp, TabFile tabFile, bool modified)
+        private static void SetTabHeader(TabPage tp, Tab tab, bool modified)
         {
             tp.Text = string.Format("{0} - {1} ({2}) {3}",
-                                    tabFile.TabData.Artist, tabFile.TabData.Title, Global.GetTabString(tabFile.TabData.Type), modified ? "*" : "");
+                                    tab.Artist, tab.Title, Tab.GetTabString(tab.Type), modified ? "*" : "");
         }
 
         public void LoadTab(TabFile tab)
         {
             //var openedTab = _tabs.Find(x => x.FileInfo.FullName.Equals(tab.FileInfo.FullName, StringComparison.OrdinalIgnoreCase));
-
-            var openedTab = GetOpenedTabPage(tab);
+            var openedTab = FindOpenedTab(tab.FileInfo.FullName);
 
             if (openedTab != null)
             {
@@ -62,17 +61,15 @@ namespace Tabster.Forms
             {
                 var newTab = new TabPage {ToolTipText = tab.FileInfo.FullName};
                 var editor = new TabEditor {Dock = DockStyle.Fill};
-                editor.LoadTab(tab);
+                editor.LoadTab(tab.TabData);
                 newTab.Controls.Add(editor);
 
-                SetTabHeader(newTab, tab, false);
+                SetTabHeader(newTab, tab.TabData, false);
 
                 editor.TabModified += editor_TabModified;
 
                 tabControl1.TabPages.Add(newTab);
                 tabControl1.SelectedTab = newTab;
-
-                
 
                 _tabs.Add(tab);
             }
@@ -80,21 +77,11 @@ namespace Tabster.Forms
 
         void editor_TabModified(object sender, EventArgs e)
         {
-            Console.WriteLine("modified");
-
+            /*
             var editor = ((TabEditor) sender);
-            var associatedTab = GetOpenedTabPage(editor.Tab);
-            SetTabHeader(associatedTab, editor.Tab, editor.HasBeenModified);
-        }
-
-        private void modebtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void colorTestToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
+            var associatedTab = FindOpenedTab(editor);
+            SetTabHeader(associatedTab, editor.TabData, editor.HasBeenModified);
+            */
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)

@@ -14,7 +14,7 @@ namespace Tabster.Forms
         public PopoutWindow(TabFile tab)
         {
             InitializeComponent();
-            tabEditor1.LoadTab(tab);
+            tabEditor1.LoadTab(tab.TabData);
             tabEditor1.ModeChanged += tabEditor1_ModeChanged;
         }
 
