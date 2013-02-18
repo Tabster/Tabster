@@ -24,11 +24,11 @@ namespace Tabster
             Load();
         }
 
-        public TabFile(Tab tab, string filePath)
+        public TabFile(Tab tab, string directory)
         {
             TabData = tab;
-            FileInfo = new FileInfo(filePath);
-            Save(filePath);
+            FileInfo = new FileInfo(GenerateUniqueFilename(directory, string.Format("{0} - {1} ({2}){3}", tab.Artist, tab.Title, Tab.GetTabString(tab.Type), FILE_EXTENSION)));
+            Save(FileInfo.FullName);
             FileInfo.Refresh();
         }
 
@@ -52,7 +52,7 @@ namespace Tabster
         public static TabFile Create(string artist, string song, TabType type, string contents, string filePath)
         {
             var tab = new Tab(artist, song, type, contents);
-            var tabFile = new TabFile(tab, filePath);
+            var tabFile = new TabFile(tab, Path.GetDirectoryName(filePath));
             return tabFile;
         }
 

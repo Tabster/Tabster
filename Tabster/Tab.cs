@@ -27,6 +27,11 @@ namespace Tabster
     {
         public static readonly string[] TabTypes = { "Guitar Tab", "Guitar Chords", "Bass Tab", "Drum Tab" };
 
+        static Tab()
+        {
+            TabTypes = new string[] { "Guitar Tab", "Guitar Chords", "Bass Tab", "Drum Tab" };
+        }
+
         public Tab(string artist, string title, TabType type, string contents)
         {
             Title = title;

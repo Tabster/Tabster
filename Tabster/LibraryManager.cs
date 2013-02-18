@@ -214,6 +214,8 @@ namespace Tabster
                     break;
             }
 
+            Save();
+
             if (OnTabAdded != null)
                 OnTabAdded(this, EventArgs.Empty);
         }
@@ -230,6 +232,8 @@ namespace Tabster
                 {
                     FileSystem.DeleteFile(tabFile.FileInfo.FullName, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                 }
+
+                Save();
 
                 if (OnTabRemoved != null)
                     OnTabRemoved(this, EventArgs.Empty);
@@ -277,6 +281,7 @@ namespace Tabster
         public void AddPlaylist(PlaylistFile p)
         {
             _playlists.Add(p);
+            Save();
         }
 
         public void RemovePlaylist(PlaylistFile p)
@@ -287,6 +292,8 @@ namespace Tabster
             {
                 File.Delete(p.FileInfo.FullName);
             }
+
+            Save();
         }
 
         public PlaylistFile FindPlaylist(Predicate<PlaylistFile> match)
@@ -342,11 +349,7 @@ namespace Tabster
 
         public TabFile CreateTempFile(string artist, string title, TabType type, string contents)
         {
-            var t = new Tab(artist, title, type, contents);
-            var guid = Guid.NewGuid();
-            var path = Path.Combine(TemporaryDirectory, guid.ToString() + TabFile.FILE_EXTENSION);
-            var tabFile = new TabFile(t, path);
-            return tabFile;
+            return new TabFile(new Tab(artist, title, type, contents), TemporaryDirectory);
         }
 
         public void CleanupTempFiles()

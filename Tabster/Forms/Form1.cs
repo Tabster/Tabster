@@ -18,8 +18,6 @@ namespace Tabster.Forms
             InitializeComponent();
 
             Program.libraryManager.OnTabsLoaded +=libraryManager_OnTabsLoaded;
-
-
             searchManager.OnCompleted += searchSession_OnCompleted;
 
             //browser events

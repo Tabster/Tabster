@@ -104,7 +104,9 @@ namespace Tabster.Forms
 
                 if (TabFile.TryParse(str, out t))
                 {
-                    Program.libraryManager.ImportTab(t);
+
+
+                    Program.libraryManager.AddTab(t);
                     LoadLibrary();
                 }
             }
@@ -697,7 +699,6 @@ namespace Tabster.Forms
 
         private void libraryManager_OnTabsLoaded(object sender, EventArgs e)
         {
-            Console.WriteLine("tabs loaded");
             LoadLibrary();
         }
 

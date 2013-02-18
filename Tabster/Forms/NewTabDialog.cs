@@ -9,8 +9,6 @@ namespace Tabster.Forms
 {
     public partial class NewTabDialog : Form
     {
-        public string tab_content;
-
         public NewTabDialog()
         {
             InitializeComponent();
@@ -21,6 +19,7 @@ namespace Tabster.Forms
 
         public NewTabDialog(string artist, string song, TabType type)
         {
+            InitializeComponent();
             txttype.DataSource = Tab.TabTypes;
             txtartist.Text = artist;
             txtsong.Text = song;

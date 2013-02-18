@@ -104,20 +104,27 @@ namespace Tabster.Forms
 
         private void saveTabToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var url = new Uri(dataGridViewExtended1.SelectedRows[0].Cells[searchcol_url.Index].Value.ToString());
-            var ugtab = new UltimateGuitarTab(url);
+            var selectedResult = SelectedSearchResult();
 
-            using (var nt = new NewTabDialog(ugtab.Artist, ugtab.Title, ugtab.Type))
+            if (selectedResult != null)
             {
-                if (nt.ShowDialog() == DialogResult.OK)
+                using (var nt = new NewTabDialog(selectedResult.Artist, selectedResult.Title, UltimateGuitarTab.GetTabType(selectedResult.Type)))
                 {
+                    if (nt.ShowDialog() == DialogResult.OK)
+                    {
+                        var ugTab = _ugTabCache.ContainsKey(selectedResult.URL) ? _ugTabCache[selectedResult.URL] : new UltimateGuitarTab(selectedResult.URL);
 
+                        if (ugTab != null)
+                        {
+                            var tab = new Tab(nt.txtartist.Text, nt.txtsong.Text, Tab.GetTabType(nt.txttype.Text), ugTab.ConvertToTab().Contents)
+                                          {RemoteSource = selectedResult.URL, Source = TabSource.Download};
+
+                            var tabFile = new TabFile(tab, Program.libraryManager.TabsDirectory);
+                            Program.libraryManager.AddTab(tabFile);
+                        }
+                    }
                 }
             }
-
-            /*
-            Global.Tabs.Save(dataGridViewExtended1.SelectedRows[0].Cells[url.Index].Value.ToString());
-            LoadLibrary(true);*/
         }
 
         private void copyURLToolStripMenuItem_Click(object sender, EventArgs e)
