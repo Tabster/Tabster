@@ -49,6 +49,17 @@ namespace Tabster
             get { return _playlists.AsReadOnly(); }
         }
 
+        public long DiskUsage
+        {
+            get
+            {
+                long total = 0;
+                foreach (var tab in _tabs)
+                    total += tab.FileInfo.Length;
+                return total;
+            }
+        }
+
         public LibraryManager()
         {
             LibraryDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
@@ -74,8 +85,6 @@ namespace Tabster
 
             FileInfo = new FileInfo(Path.Combine(ApplicationDirectory, "library.dat"));
 
-            DiskSpace = 0;
-
             tabWorker.DoWork += tabWorker_DoWork;
             tabWorker.RunWorkerCompleted += tabWorker_RunWorkerCompleted;
             playlistWorker.RunWorkerCompleted += playlistWorker_RunWorkerCompleted;
@@ -86,12 +95,6 @@ namespace Tabster
 
         private void tabWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            GuitarTabsCount = 0;
-            GuitarChordsCount = 0;
-            BassTabsCount = 0;
-            DrumTabsCount = 0;
-            DiskSpace = 0;
-
             _tabs.Clear();
 
             foreach (var file in _tabPaths)
@@ -102,7 +105,7 @@ namespace Tabster
 
                     if (TabFile.TryParse(file, out tabFile))
                     {
-                        AddTab(tabFile);
+                        AddTab(tabFile, false);
                     }
                 }
             }
@@ -128,7 +131,7 @@ namespace Tabster
 
                     if (PlaylistFile.TryParse(file, out playlistFile))
                     {
-                        AddPlaylist(playlistFile);
+                        AddPlaylist(playlistFile, false);
                     }
                 }
             }
@@ -189,32 +192,15 @@ namespace Tabster
             File.Copy(tabFile.FileInfo.FullName, uniquePath);
 
             var importedTab = new TabFile(uniquePath);
-            AddTab(importedTab);
+            AddTab(importedTab, true);
         }
 
-        public void AddTab(TabFile tabFile)
+        public void AddTab(TabFile tabFile, bool saveCache)
         {
             _tabs.Add(tabFile);
 
-            DiskSpace += tabFile.FileInfo.Length;
-
-            switch (tabFile.TabData.Type)
-            {
-                case TabType.Guitar:
-                    GuitarTabsCount++;
-                    break;
-                case TabType.Chord:
-                    GuitarChordsCount++;
-                    break;
-                case TabType.Bass:
-                    BassTabsCount++;
-                    break;
-                case TabType.Drum:
-                    DrumTabsCount++;
-                    break;
-            }
-
-            Save();
+            if (saveCache)
+                Save();
 
             if (OnTabAdded != null)
                 OnTabAdded(this, EventArgs.Empty);
@@ -225,8 +211,6 @@ namespace Tabster
             try
             {
                 _tabs.Remove(tabFile);
-
-                DiskSpace -= tabFile.FileInfo.Length;
 
                 if (diskDelete)
                 {
@@ -278,10 +262,12 @@ namespace Tabster
             return pf;
         }
 
-        public void AddPlaylist(PlaylistFile p)
+        public void AddPlaylist(PlaylistFile p, bool saveCache)
         {
             _playlists.Add(p);
-            Save();
+
+            if (saveCache)
+                Save();
         }
 
         public void RemovePlaylist(PlaylistFile p)
@@ -324,13 +310,6 @@ namespace Tabster
         public bool TabsLoaded { get; private set; }
         public bool PlaylistsLoaded { get; private set; }
 
-        public long DiskSpace { get; private set; }
-
-        public int BassTabsCount { get; private set; }
-        public int DrumTabsCount { get; private set; }
-        public int GuitarChordsCount { get; private set; }
-        public int GuitarTabsCount { get; private set; }
-
         public int TabCount
         {
             get { return _tabs.Count; }
@@ -346,11 +325,6 @@ namespace Tabster
 
         public event EventHandler OnTabAdded;
         public event EventHandler OnTabRemoved;
-
-        public TabFile CreateTempFile(string artist, string title, TabType type, string contents)
-        {
-            return new TabFile(new Tab(artist, title, type, contents), TemporaryDirectory);
-        }
 
         public void CleanupTempFiles()
         {
@@ -441,7 +415,7 @@ namespace Tabster
             Save(false);
         }
 
-        public void Save(bool useActiveFiles)
+        private void Save(bool useActiveFiles)
         {
             BeginFileWrite("library", FILE_VERSION);
 
@@ -451,7 +425,7 @@ namespace Tabster
 
             foreach (var tab in tabs)
             {
-                WriteNode("tab", tab.FileInfo.FullName, tabsNode);
+                WriteNode("tab", tab.FileInfo.FullName, tabsNode, overwriteDuplicates: false);
             }
 
             var playlistsNode = WriteNode("playlists");
@@ -460,7 +434,7 @@ namespace Tabster
 
             foreach (var playlist in playlists)
             {
-                WriteNode("playlist", playlist.FileInfo.FullName, playlistsNode);
+                WriteNode("playlist", playlist.FileInfo.FullName, playlistsNode, overwriteDuplicates: false);
             }
 
             FinishFileWrite();
