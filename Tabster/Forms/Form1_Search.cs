@@ -38,7 +38,7 @@ namespace Tabster.Forms
 
         private SearchResult SelectedSearchResult()
         {
-             var selectedURL = dataGridViewExtended1.SelectedRows.Count > 0 ? new Uri(dataGridViewExtended1.SelectedRows[0].Cells[searchcol_url.Index].Value.ToString()) : null;
+             var selectedURL = dataGridViewExtended1.SelectedRows.Count > 0 ? new Uri(dataGridViewExtended1.SelectedRows[0].Tag.ToString()) : null;
              return selectedURL != null ? searchManager.Find(x => x.URL.Equals(selectedURL)) : null;
         }
 
@@ -120,7 +120,7 @@ namespace Tabster.Forms
                                           {RemoteSource = selectedResult.URL, Source = TabSource.Download};
 
                             var tabFile = new TabFile(tab, Program.libraryManager.TabsDirectory);
-                            Program.libraryManager.AddTab(tabFile);
+                            Program.libraryManager.AddTab(tabFile, true);
                         }
                     }
                 }
@@ -133,7 +133,7 @@ namespace Tabster.Forms
 
             if (result != null)
             {
-                Clipboard.SetDataObject(result.URL);
+                Clipboard.SetDataObject(result.URL.ToString());
             }
         }
 
@@ -160,15 +160,20 @@ namespace Tabster.Forms
 
         void searchSession_OnCompleted(object sender, EventArgs e)
         {
+            dataGridViewExtended1.SuspendLayout();
             dataGridViewExtended1.Rows.Clear();
 
             foreach (var result in searchManager)
             {
                 if (searchManager.Type == UltimateGuitar.TabType.Undefined || searchManager.Type == result.Type)
                 {
-                    dataGridViewExtended1.Rows.Add(result.Artist, result.Title, Tab.GetTabString(UltimateGuitarTab.GetTabType(result.Type)), GetRating(result.Rating), result.Votes, result.URL);
+                    var newRow = new DataGridViewRow {Tag = result.URL.ToString()};
+                    newRow.CreateCells(dataGridViewExtended1, result.Artist, result.Title, Tab.GetTabString(UltimateGuitarTab.GetTabType(result.Type)), GetRating(result.Rating), result.Votes);
+                    dataGridViewExtended1.Rows.Add(newRow);
                 }
             }
+
+            dataGridViewExtended1.ResumeLayout();
 
             lblsearchresults.Visible = true;
             lblsearchresults.Text = string.Format("Results: {0}", dataGridViewExtended1.Rows.Count);
