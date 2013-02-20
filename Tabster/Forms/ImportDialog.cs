@@ -10,7 +10,7 @@ namespace Tabster.Forms
 {
     public partial class ImportDialog : Form
     {
-        public string tab_content;
+        public Tab TabData { get; private set; }
 
         public ImportDialog()
         {
@@ -21,17 +21,7 @@ namespace Tabster.Forms
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            if (txtsong.Text.Trim().Length <= 0 || txtartist.Text.Trim().Length <= 0 ||
-                txtimportfile.Text.Trim().Length <= 0)
-            {
-                MessageBox.Show("Please enter a valid song/artist name/file.", "Tab Data");
-            }
-
-            else
-            {
-                tab_content = File.ReadAllText(txtimportfile.Text);
-            }
-
+            TabData = new Tab(txtartist.Text.Trim(), txtsong.Text.Trim(), Tab.GetTabType(txttype.Text), File.ReadAllText(txtimportfile.Text));
         }
 
         private void browsebtn_Click(object sender, EventArgs e)
