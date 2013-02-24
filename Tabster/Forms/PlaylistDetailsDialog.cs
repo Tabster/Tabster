@@ -35,7 +35,6 @@ namespace Tabster.Forms
             }
 
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-
         }
 
         private void cancelbtn_Click(object sender, EventArgs e)
@@ -47,6 +46,11 @@ namespace Tabster.Forms
         {
             _playlistFile.PlaylistData.Name = txtname.Text;
             _playlistFile.Save();
+        }
+
+        private void txtname_TextChanged(object sender, EventArgs e)
+        {
+            okbtn.Enabled = txtname.Text.Trim().Length > 0;
         }
     }
 }

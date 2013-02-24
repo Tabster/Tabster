@@ -197,11 +197,13 @@
             this.txtname.Name = "txtname";
             this.txtname.Size = new System.Drawing.Size(193, 20);
             this.txtname.TabIndex = 0;
+            this.txtname.TextChanged += new System.EventHandler(this.txtname_TextChanged);
             // 
             // okbtn
             // 
             this.okbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okbtn.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.okbtn.Enabled = false;
             this.okbtn.Location = new System.Drawing.Point(342, 284);
             this.okbtn.Name = "okbtn";
             this.okbtn.Size = new System.Drawing.Size(75, 23);
