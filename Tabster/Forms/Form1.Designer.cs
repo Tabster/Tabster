@@ -96,7 +96,6 @@ namespace Tabster.Forms
             this.searchcol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchcol_rating = new System.Windows.Forms.DataGridViewImageColumn();
             this.searchcol_votes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.searchcol_url = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblsearchresults = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -133,7 +132,6 @@ namespace Tabster.Forms
             this.searchSimilarTabsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addtoplaylistcontextmenuitem = new System.Windows.Forms.ToolStripMenuItem();
             this.PlaylistMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.renameplaylistcontextmenuitem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteplaylistcontextmenuitem = new System.Windows.Forms.ToolStripMenuItem();
             this.playlistInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -172,7 +170,6 @@ namespace Tabster.Forms
             this.clearsearchbtn = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.playlistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.detailsToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.filtertext = new Tabster.Controls.SearchBox();
@@ -750,8 +747,7 @@ namespace Tabster.Forms
             this.searchcol_song,
             this.searchcol_type,
             this.searchcol_rating,
-            this.searchcol_votes,
-            this.searchcol_url});
+            this.searchcol_votes});
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -828,16 +824,10 @@ namespace Tabster.Forms
             // 
             // searchcol_votes
             // 
+            this.searchcol_votes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.searchcol_votes.HeaderText = "Votes";
             this.searchcol_votes.Name = "searchcol_votes";
             this.searchcol_votes.ReadOnly = true;
-            // 
-            // searchcol_url
-            // 
-            this.searchcol_url.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.searchcol_url.HeaderText = "URL";
-            this.searchcol_url.Name = "searchcol_url";
-            this.searchcol_url.ReadOnly = true;
             // 
             // panel1
             // 
@@ -1197,21 +1187,13 @@ namespace Tabster.Forms
             // PlaylistMenu
             // 
             this.PlaylistMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.renameplaylistcontextmenuitem,
             this.deleteplaylistcontextmenuitem,
             this.playlistInformationToolStripMenuItem});
             this.PlaylistMenu.Name = "librarycontextmenu";
             this.PlaylistMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.PlaylistMenu.ShowImageMargin = false;
             this.PlaylistMenu.ShowItemToolTips = false;
-            this.PlaylistMenu.Size = new System.Drawing.Size(153, 92);
-            // 
-            // renameplaylistcontextmenuitem
-            // 
-            this.renameplaylistcontextmenuitem.Name = "renameplaylistcontextmenuitem";
-            this.renameplaylistcontextmenuitem.Size = new System.Drawing.Size(152, 22);
-            this.renameplaylistcontextmenuitem.Text = "Rename Playlist";
-            this.renameplaylistcontextmenuitem.Click += new System.EventHandler(this.RenamePlaylist);
+            this.PlaylistMenu.Size = new System.Drawing.Size(153, 48);
             // 
             // deleteplaylistcontextmenuitem
             // 
@@ -1368,21 +1350,21 @@ namespace Tabster.Forms
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(129, 22);
             this.toolStripMenuItem2.Text = "Hidden";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.TogglePreviewPane);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(129, 22);
             this.toolStripMenuItem3.Text = "Horizontal";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.TogglePreviewPane);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(129, 22);
             this.toolStripMenuItem4.Text = "Vertical";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.TogglePreviewPane);
             // 
@@ -1540,7 +1522,6 @@ namespace Tabster.Forms
             // playlistToolStripMenuItem
             // 
             this.playlistToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.renameToolStripMenuItem,
             this.deleteToolStripMenuItem1,
             this.detailsToolStripMenuItem2});
             this.playlistToolStripMenuItem.Enabled = false;
@@ -1548,22 +1529,16 @@ namespace Tabster.Forms
             this.playlistToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.playlistToolStripMenuItem.Text = "&Playlist";
             // 
-            // renameToolStripMenuItem
-            // 
-            this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.renameToolStripMenuItem.Text = "Rename";
-            // 
             // deleteToolStripMenuItem1
             // 
             this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.deleteToolStripMenuItem1.Text = "Delete";
             // 
             // detailsToolStripMenuItem2
             // 
             this.detailsToolStripMenuItem2.Name = "detailsToolStripMenuItem2";
-            this.detailsToolStripMenuItem2.Size = new System.Drawing.Size(117, 22);
+            this.detailsToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.detailsToolStripMenuItem2.Text = "Details";
             this.detailsToolStripMenuItem2.Click += new System.EventHandler(this.detailsToolStripMenuItem2_Click);
             // 
@@ -1660,7 +1635,6 @@ namespace Tabster.Forms
         private System.Windows.Forms.ContextMenuStrip LibraryMenu;
         private System.Windows.Forms.ToolStripMenuItem addtoplaylistcontextmenuitem;
         private System.Windows.Forms.ContextMenuStrip PlaylistMenu;
-        private System.Windows.Forms.ToolStripMenuItem renameplaylistcontextmenuitem;
         private System.Windows.Forms.ToolStripMenuItem deleteplaylistcontextmenuitem;
         private System.Windows.Forms.ImageList tabimagelist;
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -1747,12 +1721,6 @@ namespace Tabster.Forms
         private ToolStripMenuItem previewToolStripMenuItem;
         private SplitContainer searchSplitContainer;
         private TabEditor searchPreviewEditor;
-        private DataGridViewTextBoxColumn searchcol_artist;
-        private DataGridViewTextBoxColumn searchcol_song;
-        private DataGridViewTextBoxColumn searchcol_type;
-        private DataGridViewImageColumn searchcol_rating;
-        private DataGridViewTextBoxColumn searchcol_votes;
-        private DataGridViewTextBoxColumn searchcol_url;
         private ToolStripSeparator toolStripSeparator8;
         private ToolStripDropDownButton toolStripButton3;
         private ToolStripMenuItem offToolStripMenuItem;
@@ -1777,11 +1745,15 @@ namespace Tabster.Forms
         private ToolStripButton savetabbtn;
         public WebBrowser webBrowser1;
         private ToolStripMenuItem playlistToolStripMenuItem;
-        private ToolStripMenuItem renameToolStripMenuItem;
         private ToolStripMenuItem deleteToolStripMenuItem1;
         private ToolStripMenuItem detailsToolStripMenuItem2;
         private ToolStripMenuItem playlistInformationToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker SearchPreviewBackgroundWorker;
+        private DataGridViewTextBoxColumn searchcol_artist;
+        private DataGridViewTextBoxColumn searchcol_song;
+        private DataGridViewTextBoxColumn searchcol_type;
+        private DataGridViewImageColumn searchcol_rating;
+        private DataGridViewTextBoxColumn searchcol_votes;
     }
 }
 

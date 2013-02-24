@@ -104,9 +104,7 @@ namespace Tabster.Forms
 
                 if (TabFile.TryParse(str, out t))
                 {
-
-
-                    Program.libraryManager.AddTab(t);
+                    Program.libraryManager.AddTab(t, true);
                     LoadLibrary();
                 }
             }
@@ -206,38 +204,22 @@ namespace Tabster.Forms
 
         }
 
-        private void RenamePlaylist(object sender, EventArgs e)
-        {
-            if (sidemenu.PlaylistNodeSelected())
-            {
-                var node = sidemenu.SelectedNode;
-                var playlist_path = node.Tag.ToString();
-
-                var match = Program.libraryManager.FindPlaylistByPath(playlist_path);
-
-                if (match != null)
-                {
-                    using (var r = new RenameDialog(node.Text))
-                    {
-                        if (r.ShowDialog() == DialogResult.OK)
-                        {
-                            node.Text = r.NewName;
-                            match.Rename(r.NewName, true);
-                        }
-                    }
-                }
-            }
-        }
-
         private void playlistInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (sidemenu.PlaylistNodeSelected())
             {
-                using (var pdd = new PlaylistDetailsDialog(sidemenu.SelectedPlaylist()))
-                {
-                    if (pdd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
+                var selectedNode = sidemenu.SelectedNode;
+                var selectedPlaylist = sidemenu.SelectedPlaylist();
 
+                if (selectedPlaylist != null)
+                {
+                    using (var pdd = new PlaylistDetailsDialog(selectedPlaylist))
+                    {
+                        if (pdd.ShowDialog() != DialogResult.OK)
+                        {
+                            selectedPlaylist.Rename(pdd.txtname.Text.Trim(), true);
+                            selectedNode.Text = selectedPlaylist.PlaylistData.Name;
+                        }
                     }
                 }
             }
@@ -249,40 +231,24 @@ namespace Tabster.Forms
             {
                 if (n.ShowDialog() == DialogResult.OK)
                 {
-                    /*
-                    Global.Tabs.Create(n.txtsong.Text, n.txtartist.Text, n.txttype.Text, n.tab_content, "UserCreated",n.temporarytab);
-                    Global.Tabs.Load("CreateTab",
-                                     Global.TempDirectory +
-                                     Global.Tabs.NamingConvention(n.txtartist.Text, n.txtsong.Text, n.txttype.Text));*/
+                    var tabFile = TabFile.Create(n.TabData, Program.libraryManager.TabsDirectory);
+                    Program.libraryManager.AddTab(tabFile, true);
                 }
             }
         }
 
         private void openTabSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /*
-            if (tablibrary.SelectedRows.Count > 0)
+            if (SelectedTab != null && SelectedTab.TabData.Source == TabSource.Download && SelectedTab.TabData.RemoteSource != null)
             {
-                Global._doc.Load(tablibrary.SelectedRows[0].Cells[location.Index].Value.ToString());
-                if (Global._doc.GetElementsByTagName("source")[0].InnerText.Contains("http://"))
-                {
-                    webBrowser1.Navigate(Global._doc.GetElementsByTagName("source")[0].InnerText);
-                    tabControl1.SelectedTab = display_browser;
-                }
-            }*/
+                webBrowser1.Navigate(SelectedTab.TabData.RemoteSource);
+                tabControl1.SelectedTab = display_browser;
+            }
         }
 
-        private void PopoutTab(TabFile tab)
+        private static void PopoutTab(TabFile tab)
         {
             Program.TabHandler.LoadTab(tab, true);
-            /*
-            using (var p = new PopoutWindow(tab) {Icon = Icon})
-            {
-                if (p.ShowDialog() == DialogResult.OK)
-                {
-                    
-                }
-            }*/
         }
 
         private void SearchSimilarTabs(object sender, EventArgs e)
@@ -299,7 +265,6 @@ namespace Tabster.Forms
 
         private void deleteTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
             /*
             if (tablibrary.SelectedRows.Count > 0)
             {
@@ -405,7 +370,6 @@ namespace Tabster.Forms
                 if (e.Button == MouseButtons.Right && sidemenu.PlaylistNodeSelected())
                 {
                     sidemenu.SelectedNode = selectednode;
-                    renameplaylistcontextmenuitem.Visible = true;
                     deleteplaylistcontextmenuitem.Visible = true;
                     PlaylistMenu.Show(sidemenu.PointToScreen(e.Location));
                 }
@@ -648,10 +612,8 @@ namespace Tabster.Forms
 
                     if (!string.IsNullOrEmpty(name))
                     {
-
                         var playlistFile = Program.libraryManager.CreatePlaylist(name);
-                        Program.libraryManager.AddPlaylist(playlistFile);
-                        //sidemenu.AddPlaylist(playlist);
+                        Program.libraryManager.AddPlaylist(playlistFile, true);
                     }
                 }
             }
@@ -668,7 +630,7 @@ namespace Tabster.Forms
             {
                 if (i.ShowDialog() == DialogResult.OK)
                 {
-
+                    //Program.libraryManager.AddTab(new TabFile(i.TabData, Program.libraryManager.TabsDirectory), true);
                 }
             }
         }
@@ -770,9 +732,11 @@ namespace Tabster.Forms
         {
             lblcount.Text = string.Format("Total Tabs: {0}", Program.libraryManager.TabCount);
             lblplaylists.Text = string.Format("Playlists: {0}", Program.libraryManager.PlaylistCount);
-            lbldisk.Text = string.Format("Disk Space: {0}KB ({1}MB)",  
-                                         (Program.libraryManager.DiskSpace == 0 ? "0" : FileSizeUtilities.ConvertBytesToKilobytes(Program.libraryManager.DiskSpace).ToString("#.##")),
-                                         (Program.libraryManager.DiskSpace == 0 ? "0" : FileSizeUtilities.ConvertBytesToMegabytes(Program.libraryManager.DiskSpace).ToString("#.##")));
+
+            var usage = Program.libraryManager.DiskUsage;
+            lbldisk.Text = string.Format("Disk Space: {0}KB ({1}MB)",
+                                         (usage == 0 ? "0" : FileSizeUtilities.ConvertBytesToKilobytes(usage).ToString("#.##")),
+                                         (usage == 0 ? "0" : FileSizeUtilities.ConvertBytesToMegabytes(usage).ToString("#.##")));
         }
 
         public void UpdateLibraryItem(TabFile tab, bool append = true)
