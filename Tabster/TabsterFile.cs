@@ -20,18 +20,19 @@ namespace Tabster
     {
         public FileInfo FileInfo { get; protected set; }
         public Version FileVersion { get; protected set; }
-        private XmlDocument RawXml { get; set; }
+        private string _filePath;
+        private XmlDocument _rawXML;
         protected bool FileFormatOutdated { get; set; }
 
         protected void BeginFileWrite(string rootNode, string formatVersion, string encoding = "ISO-8859-1")
         {
-            RawXml = new XmlDocument();
-            RawXml.AppendChild(RawXml.CreateXmlDeclaration("1.0", encoding, null));
-            var root = RawXml.CreateElement(rootNode);
-            var versionAttribute = RawXml.CreateAttribute("version");
+            _rawXML = new XmlDocument();
+            _rawXML.AppendChild(_rawXML.CreateXmlDeclaration("1.0", encoding, null));
+            var root = _rawXML.CreateElement(rootNode);
+            var versionAttribute = _rawXML.CreateAttribute("version");
             versionAttribute.Value = formatVersion;
             root.Attributes.Append(versionAttribute);
-            RawXml.AppendChild(root);
+            _rawXML.AppendChild(root);
         }
 
         protected void FinishFileWrite()
@@ -41,15 +42,15 @@ namespace Tabster
 
         protected void BeginFileRead(Version newFileVersion)
         {
-            RawXml = new XmlDocument();
-            RawXml.Load(FileInfo.FullName);
+            _rawXML = new XmlDocument();
+            _rawXML.Load(FileInfo.FullName);
             FileVersion = GetFormatVersion();
             FileFormatOutdated = FileVersion == null || FileVersion < newFileVersion;
         }
 
         protected void Save(string filePath = null)
         {
-            if (RawXml != null)
+            if (_rawXML != null)
             {
                 var isCustomPath = filePath != null;
                 FileInfo customPath = null;
@@ -61,16 +62,16 @@ namespace Tabster
                                        ? GenerateUniqueFilename(customPath.DirectoryName, String.Format("{0}{1}", FileInfo.Name, FileInfo.Extension))
                                        : FileInfo.FullName;
 
-                RawXml.Save(fullSavePath);
+                _rawXML.Save(fullSavePath);
                 FileInfo = new FileInfo(fullSavePath);
             }
         }
 
         protected Version GetFormatVersion()
         {
-            if (RawXml != null)
+            if (_rawXML != null)
             {
-                var versionAttribute = RawXml.DocumentElement != null && RawXml.DocumentElement.HasAttribute("version") ? RawXml.DocumentElement.Attributes["version"] : null;
+                var versionAttribute = _rawXML.DocumentElement != null && _rawXML.DocumentElement.HasAttribute("version") ? _rawXML.DocumentElement.Attributes["version"] : null;
 
                 if (versionAttribute != null)
                     return new Version(versionAttribute.Value);
@@ -81,9 +82,9 @@ namespace Tabster
 
         protected string ReadNodeValue(string nodeName, bool returnNull = false)
         {
-            if (RawXml != null)
+            if (_rawXML != null)
             {
-                var matches = RawXml.GetElementsByTagName(nodeName);
+                var matches = _rawXML.GetElementsByTagName(nodeName);
                 return matches.Count > 0 ? matches[0].InnerText : (returnNull ? null : String.Empty);
             }
 
@@ -92,9 +93,9 @@ namespace Tabster
 
         protected List<string> ReadChildValues(string parentNodeName)
         {
-            if (RawXml != null)
+            if (_rawXML != null)
             {
-                var matches = RawXml.GetElementsByTagName(parentNodeName);
+                var matches = _rawXML.GetElementsByTagName(parentNodeName);
 
                 if (matches.Count > 0)
                 {
@@ -112,24 +113,16 @@ namespace Tabster
             return null;
         }
 
-        protected XmlNode WriteNode(string name, string innertext = null, XmlNode parentNode = null, SortedDictionary<string, string> attributes = null)
-        {      
+        protected XmlNode WriteNode(string name, string innertext = null, XmlNode parentNode = null, SortedDictionary<string, string> attributes = null, bool overwriteDuplicates = true)
+        {
+            XmlNode associatedNode = null;
+
+            var parent = parentNode ?? _rawXML.DocumentElement;
+
             //check if node already exists
-            var existingnodes = RawXml.GetElementsByTagName(name);
-
-            XmlNode associatedNode;
-
-            if (existingnodes.Count > 0)
-            {
-                associatedNode = existingnodes[0];
-            }
-
-            else
-            {
-                var parent = parentNode ?? RawXml.DocumentElement;
-                associatedNode = RawXml.CreateElement(name);
-                parent.AppendChild(associatedNode);
-            }
+            var existingnodes = _rawXML.GetElementsByTagName(name);   
+            associatedNode = overwriteDuplicates && existingnodes.Count > 0 ? existingnodes[0] : _rawXML.CreateElement(name);
+            parent.AppendChild(associatedNode);
 
             if (innertext != null)
                 associatedNode.InnerText = innertext;
@@ -138,7 +131,7 @@ namespace Tabster
             {
                 foreach (var kv in attributes)
                 {
-                    var att = RawXml.CreateAttribute(kv.Key);
+                    var att = _rawXML.CreateAttribute(kv.Key);
                     att.Value = kv.Value;
                     associatedNode.Attributes.Append(att);
                 }
