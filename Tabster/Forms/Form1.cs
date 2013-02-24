@@ -17,6 +17,8 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
+            tabControl1.TabPages.RemoveAt(2);
+
             Program.libraryManager.OnTabsLoaded +=libraryManager_OnTabsLoaded;
             searchManager.OnCompleted += searchSession_OnCompleted;
 
@@ -102,6 +104,7 @@ namespace Tabster.Forms
         {
             SaveSettings();
             Program.libraryManager.CleanupTempFiles();
+            Program.libraryManager.Save();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
