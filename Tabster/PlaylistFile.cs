@@ -12,10 +12,12 @@ namespace Tabster
         public const string FILE_EXTENSION = ".tablist";
         public const string FILE_VERSION = "1.0";
 
-        public PlaylistFile(string filePath)
+        public PlaylistFile(string filePath, bool autoLoad)
         {
             FileInfo = new FileInfo(filePath);
-            Load();
+
+            if (autoLoad)
+                Load();
         }
 
         public PlaylistFile(Playlist playlist, string filePath)
@@ -84,6 +86,8 @@ namespace Tabster
             }
         }
 
+        #region Static Methods
+
         public static bool TryParse(string filePath, out PlaylistFile p)
         {
             try
@@ -98,7 +102,7 @@ namespace Tabster
 
                 if (fi.Length > 0)
                 {
-                    p = new PlaylistFile(filePath);
+                    p = new PlaylistFile(filePath, true);
                     return true;
                 }
             }
@@ -112,5 +116,7 @@ namespace Tabster
             p = null;
             return false;
         }
+
+        #endregion
     }
 }

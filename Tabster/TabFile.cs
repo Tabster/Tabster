@@ -18,48 +18,37 @@ namespace Tabster
         public const string FILE_EXTENSION = ".tabster";
         public const string FILE_VERSION = "1.4";
 
-        public TabFile(string filePath)
+        public TabFile(string filePath, bool autoLoad)
         {
             FileInfo = new FileInfo(filePath);
-            Load();
-        }
 
-        public TabFile(Tab tab, string directory)
-        {
-            TabData = tab;
-            FileInfo = new FileInfo(GenerateUniqueFilename(directory, string.Format("{0} - {1} ({2}){3}", tab.Artist, tab.Title, Tab.GetTabString(tab.Type), FILE_EXTENSION)));
-            Save(FileInfo.FullName);
-            FileInfo.Refresh();
+            if (autoLoad)
+                Load();
         }
 
         public Tab TabData { get; private set; }
 
         public void Export(ExportFormat format, string filePath)
         {
-            if (format == ExportFormat.Tabster)
+            switch (format)
             {
-                File.Copy(FileInfo.FullName, filePath);
-            }
-
-            if (format == ExportFormat.Text)
-            {
-                File.WriteAllText(filePath, TabData.Contents);
+                case ExportFormat.Tabster:
+                    File.Copy(FileInfo.FullName, filePath);
+                    break;
+                case ExportFormat.Text:
+                    File.WriteAllText(filePath, TabData.Contents);
+                    break;
             }
         }
 
         #region Static Methods
 
-        public static TabFile Create(string artist, string song, TabType type, string contents, string filePath)
+        public static TabFile Create(Tab tab, string directory)
         {
-            var tab = new Tab(artist, song, type, contents);
-            var tabFile = new TabFile(tab, Path.GetDirectoryName(filePath));
+            var filePath = GenerateUniqueFilename(directory, string.Format("{0} - {1} ({2}){3}", tab.Artist, tab.Title, Tab.GetTabString(tab.Type), FILE_EXTENSION));
+            var tabFile = new TabFile(filePath, false) {TabData = tab, FileInfo = new FileInfo(filePath)};
+            tabFile.Save();
             return tabFile;
-        }
-
-        public static TabFile Import(string artist, string song, TabType type, string filePath)
-        {
-            var contents = File.ReadAllText(filePath);
-            return Create(artist, song, type, contents, filePath);
         }
 
         public static bool TryParse(string filePath, out TabFile tabFile)
@@ -72,7 +61,7 @@ namespace Tabster
                     return false;
                 }
 
-                tabFile = new TabFile(filePath);
+                tabFile = new TabFile(filePath, true);
                 return true;
             }
 
@@ -114,7 +103,7 @@ namespace Tabster
             Save(FileInfo.FullName);
         }
 
-        public void Save(string filePath)
+        public new void Save(string filePath)
         {
             BeginFileWrite("tabster", FILE_VERSION);
             WriteNode("title", TabData.Title);
