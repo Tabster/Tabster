@@ -105,7 +105,7 @@ namespace Tabster
 
                     if (TabFile.TryParse(file, out tabFile))
                     {
-                        AddTab(tabFile, false);
+                        _tabs.Add(tabFile);
                     }
                 }
             }
@@ -131,7 +131,7 @@ namespace Tabster
 
                     if (PlaylistFile.TryParse(file, out playlistFile))
                     {
-                        AddPlaylist(playlistFile, false);
+                        _playlists.Add(playlistFile);
                     }
                 }
             }
@@ -184,16 +184,6 @@ namespace Tabster
         #endregion
 
         #region Tabs
-
-        public void ImportTab(TabFile tabFile)
-        {
-            var uniquePath = GenerateUniqueFilename(LibraryDirectory, tabFile.FileInfo.Name);
-
-            File.Copy(tabFile.FileInfo.FullName, uniquePath);
-
-            var importedTab = new TabFile(uniquePath);
-            AddTab(importedTab, true);
-        }
 
         public void AddTab(TabFile tabFile, bool saveCache)
         {
