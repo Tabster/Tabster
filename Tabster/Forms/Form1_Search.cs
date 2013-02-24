@@ -119,7 +119,7 @@ namespace Tabster.Forms
                             var tab = new Tab(nt.txtartist.Text, nt.txtsong.Text, Tab.GetTabType(nt.txttype.Text), ugTab.ConvertToTab().Contents)
                                           {RemoteSource = selectedResult.URL, Source = TabSource.Download};
 
-                            var tabFile = new TabFile(tab, Program.libraryManager.TabsDirectory);
+                            var tabFile = TabFile.Create(tab, Program.libraryManager.TabsDirectory);
                             Program.libraryManager.AddTab(tabFile, true);
                         }
                     }
