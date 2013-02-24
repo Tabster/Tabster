@@ -81,6 +81,7 @@
             this.txtartist.Name = "txtartist";
             this.txtartist.Size = new System.Drawing.Size(206, 20);
             this.txtartist.TabIndex = 0;
+            this.txtartist.TextChanged += new System.EventHandler(this.txtartist_TextChanged);
             // 
             // label1
             // 
@@ -102,11 +103,13 @@
             this.txtsong.Name = "txtsong";
             this.txtsong.Size = new System.Drawing.Size(206, 20);
             this.txtsong.TabIndex = 1;
+            this.txtsong.TextChanged += new System.EventHandler(this.txtsong_TextChanged);
             // 
             // okbtn
             // 
             this.okbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okbtn.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.okbtn.Enabled = false;
             this.okbtn.Location = new System.Drawing.Point(103, 88);
             this.okbtn.Name = "okbtn";
             this.okbtn.Size = new System.Drawing.Size(75, 23);

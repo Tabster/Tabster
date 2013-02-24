@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 #endregion
@@ -9,6 +10,8 @@ namespace Tabster.Forms
 {
     public partial class NewTabDialog : Form
     {
+        public Tab TabData { get; private set; }
+
         public NewTabDialog()
         {
             InitializeComponent();
@@ -28,10 +31,22 @@ namespace Tabster.Forms
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            if (txtsong.Text.Trim().Length <= 0 || txtartist.Text.Trim().Length <= 0)
-            {
-                MessageBox.Show("Please enter a valid song/artist name.", "Tab Data");
-            }
+            TabData = new Tab(txtartist.Text.Trim(), txtsong.Text.Trim(), Tab.GetTabType(txttype.Text), ""){Source = TabSource.UserCreated};
+        }
+
+        private void ValidateData()
+        {
+            okbtn.Enabled = okbtn.Enabled = txtartist.Text.Trim().Length > 0 && txtsong.Text.Trim().Length > 0;
+        }
+
+        private void txtartist_TextChanged(object sender, EventArgs e)
+        {
+            ValidateData();
+        }
+
+        private void txtsong_TextChanged(object sender, EventArgs e)
+        {
+            ValidateData();
         }
     }
 }
