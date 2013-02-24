@@ -83,19 +83,20 @@ namespace Tabster.Forms
             this.lbldisclaimer.BackColor = System.Drawing.Color.Transparent;
             this.lbldisclaimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbldisclaimer.ForeColor = System.Drawing.Color.Gray;
-            this.lbldisclaimer.Location = new System.Drawing.Point(12, 192);
+            this.lbldisclaimer.Location = new System.Drawing.Point(9, 165);
             this.lbldisclaimer.Name = "lbldisclaimer";
             this.lbldisclaimer.Size = new System.Drawing.Size(288, 16);
             this.lbldisclaimer.TabIndex = 34;
             this.lbldisclaimer.Text = "Tabster is not endorsed by Ultimate-Guitar.com";
+            this.lbldisclaimer.Visible = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(12, 165);
+            this.label2.ForeColor = System.Drawing.Color.Gray;
+            this.label2.Location = new System.Drawing.Point(9, 192);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(223, 16);
             this.label2.TabIndex = 48;
