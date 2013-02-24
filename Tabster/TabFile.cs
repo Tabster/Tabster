@@ -90,12 +90,21 @@ namespace Tabster
             var audioValue = ReadNodeValue("audio");
             var lyricsValue = ReadNodeValue("lyrics");
 
+            TabData = new Tab(artistValue, titleValue, typeValue, contentsValue)
+                          {
+                              Source = sourceType,
+                              RemoteSource = remoteSourceValue,
+                              Lyrics = lyricsValue,
+                              Audio = audioValue,
+                          };
+
             if (FileFormatOutdated)
             {
+                Console.WriteLine("updating: " + FileInfo.FullName);
+                Save();
+                Load();
                 //todo update format    
             }
-
-            TabData = new Tab(artistValue, titleValue, typeValue, contentsValue);
         }
 
         public void Save()
