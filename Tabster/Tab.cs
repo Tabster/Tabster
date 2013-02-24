@@ -1,8 +1,6 @@
 ﻿#region
 
 using System;
-using System.IO;
-using System.Xml;
 
 #endregion
 
@@ -25,11 +23,11 @@ namespace Tabster
 
     public class Tab
     {
-        public static readonly string[] TabTypes = { "Guitar Tab", "Guitar Chords", "Bass Tab", "Drum Tab" };
+        public static readonly string[] TabTypes;
 
         static Tab()
         {
-            TabTypes = new string[] { "Guitar Tab", "Guitar Chords", "Bass Tab", "Drum Tab" };
+            TabTypes = new[] { "Guitar Tab", "Guitar Chords", "Bass Tab", "Drum Tab" };
         }
 
         public Tab(string artist, string title, TabType type, string contents)
