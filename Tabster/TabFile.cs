@@ -100,10 +100,8 @@ namespace Tabster
 
             if (FileFormatOutdated)
             {
-                Console.WriteLine("updating: " + FileInfo.FullName);
                 Save();
                 Load();
-                //todo update format    
             }
         }
 

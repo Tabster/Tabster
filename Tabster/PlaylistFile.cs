@@ -36,13 +36,7 @@ namespace Tabster
         {
             BeginFileRead(new Version(FILE_VERSION));
 
-            if (FileFormatOutdated)
-            {
-                //todo update format    
-            }
-
             var name = ReadNodeValue("name");
-
             var files = ReadChildValues("files");
 
             PlaylistData = new Playlist(name);
@@ -55,6 +49,13 @@ namespace Tabster
                     PlaylistData.Add(tab);
                 }
 
+            }
+
+            if (FileFormatOutdated)
+            {
+                Save();
+                Load();
+                Console.WriteLine("Updating: " + FileInfo.FullName);
             }
         }
 
@@ -87,6 +88,14 @@ namespace Tabster
         }
 
         #region Static Methods
+
+        public static PlaylistFile Create(Playlist playlist, string directory)
+        {
+            var filePath = GenerateUniqueFilename(directory, string.Format("{0}{1}", playlist.Name, FILE_EXTENSION));
+            var playlistFile = new PlaylistFile(filePath, false) { PlaylistData = playlist, FileInfo = new FileInfo(filePath) };
+            playlistFile.Save();
+            return playlistFile;
+        }
 
         public static bool TryParse(string filePath, out PlaylistFile p)
         {
