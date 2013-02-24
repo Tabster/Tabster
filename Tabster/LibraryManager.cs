@@ -243,15 +243,6 @@ namespace Tabster
 
         #region Playlists
 
-        public PlaylistFile CreatePlaylist(string name)
-        {
-            var playlist = new Playlist(name);
-            var uniqueName = GenerateUniqueFilename(PlaylistsDirectory, name + PlaylistFile.FILE_EXTENSION);
-            var pf = new PlaylistFile(playlist, uniqueName);
-            _playlists.Add(pf);
-            return pf;
-        }
-
         public void AddPlaylist(PlaylistFile p, bool saveCache)
         {
             _playlists.Add(p);
@@ -390,7 +381,8 @@ namespace Tabster
 
             if (FileFormatOutdated)
             {
-                //todo update format    
+                Save();
+                Load();
             }
 
             if (!tabWorker.IsBusy)
@@ -415,7 +407,10 @@ namespace Tabster
 
             foreach (var tab in tabs)
             {
-                WriteNode("tab", tab.FileInfo.FullName, tabsNode, overwriteDuplicates: false);
+                if (File.Exists(tab.FileInfo.FullName))
+                {
+                    WriteNode("tab", tab.FileInfo.FullName, tabsNode, overwriteDuplicates: false);
+                }
             }
 
             var playlistsNode = WriteNode("playlists");
@@ -424,7 +419,10 @@ namespace Tabster
 
             foreach (var playlist in playlists)
             {
-                WriteNode("playlist", playlist.FileInfo.FullName, playlistsNode, overwriteDuplicates: false);
+                if (File.Exists(playlist.FileInfo.FullName))
+                {
+                    WriteNode("playlist", playlist.FileInfo.FullName, playlistsNode, overwriteDuplicates: false);
+                }
             }
 
             FinishFileWrite();
