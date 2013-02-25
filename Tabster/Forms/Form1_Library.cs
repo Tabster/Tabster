@@ -90,9 +90,12 @@ namespace Tabster.Forms
 
         private void dataGridViewExtended2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (SelectedTab != null)
+            if (e.RowIndex > -1)
             {
-                Program.TabHandler.LoadTab(SelectedTab, true);
+                if (SelectedTab != null)
+                {
+                    Program.TabHandler.LoadTab(SelectedTab, true);
+                }
             }
         }
 
