@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
 using NS.Common;
@@ -755,6 +756,9 @@ namespace Tabster.Forms
             if (append)
             {
                 tablibrary.Rows.Add(objValues);
+
+                if (tablibrary.SortedColumn != null)
+                    tablibrary.Sort(tablibrary.SortedColumn, tablibrary.SortOrder == SortOrder.Ascending ? ListSortDirection.Ascending : ListSortDirection.Descending);
             }
 
             else if (tablibrary.SelectedRows.Count > 0)
