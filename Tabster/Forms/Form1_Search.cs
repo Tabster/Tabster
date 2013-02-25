@@ -113,6 +113,7 @@ namespace Tabster.Forms
 
                             var tabFile = TabFile.Create(tab, Program.libraryManager.TabsDirectory);
                             Program.libraryManager.AddTab(tabFile, true);
+                            UpdateLibraryItem(tabFile);
                         }
                     }
                 }
