@@ -43,13 +43,11 @@ namespace Tabster.Forms
 
         private static void SetTabHeader(TabPage tp, Tab tab, bool modified)
         {
-            tp.Text = string.Format("{0} - {1} ({2}) {3}",
-                                    tab.Artist, tab.Title, Tab.GetTabString(tab.Type), modified ? "*" : "");
+            tp.Text = string.Format("{0} {1}", tab, modified ? "*" : "");
         }
 
         public void LoadTab(TabFile tab)
         {
-            //var openedTab = _tabs.Find(x => x.FileInfo.FullName.Equals(tab.FileInfo.FullName, StringComparison.OrdinalIgnoreCase));
             var openedTab = FindOpenedTab(tab.FileInfo.FullName);
 
             if (openedTab != null)

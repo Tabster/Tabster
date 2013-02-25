@@ -74,6 +74,22 @@ namespace Tabster
 
         public string Lyrics { get; set; }
 
+        public string GetName()
+        {
+            return string.Format("{0} - {1} ({2})", Artist, Title, GetTabString(Type));
+        }
+
+        #region Overrides
+
+        public override string ToString()
+        {
+            return GetName();
+        }
+
+        #endregion
+
+        #region Static Methods
+
         public static TabSource GetTabSource(string source)
         {
             switch (source)
@@ -103,6 +119,7 @@ namespace Tabster
 
             return TabType.Guitar;
         }
+
         public static string GetTabString(TabType type)
         {
             switch (type)
@@ -119,5 +136,7 @@ namespace Tabster
 
             return TabTypes[0];
         }
+
+        #endregion
     }
 }

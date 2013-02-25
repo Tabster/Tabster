@@ -149,7 +149,7 @@ namespace Tabster.Forms
                                          Title = "Export Tab - Tabster",
                                          AddExtension = true,
                                          Filter = string.Format("Tabster File (*{0})|*{0}|Text File (*.txt)|*.txt", TabFile.FILE_EXTENSION),
-                                         FileName = string.Format("{0} - {1}", SelectedTab.TabData.Artist, SelectedTab.TabData.Title)
+                                         FileName = SelectedTab.TabData.ToString()
                                      })
                 {
                     if (sfd.ShowDialog() != DialogResult.Cancel)
@@ -574,7 +574,7 @@ namespace Tabster.Forms
                     {
                         if (npd.ShowDialog() == DialogResult.OK)
                         {
-                            var playlistFile = Program.libraryManager.CreatePlaylist(npd.PlaylistName);
+                            var playlistFile = PlaylistFile.Create(new Playlist(npd.PlaylistName), Program.libraryManager.PlaylistsDirectory);
                             playlistFile.PlaylistData.Add(SelectedTab);
                         }
                     }
@@ -612,7 +612,7 @@ namespace Tabster.Forms
 
                     if (!string.IsNullOrEmpty(name))
                     {
-                        var playlistFile = Program.libraryManager.CreatePlaylist(name);
+                        var playlistFile = PlaylistFile.Create(new Playlist(name), Program.libraryManager.PlaylistsDirectory);
                         Program.libraryManager.AddPlaylist(playlistFile, true);
                     }
                 }
@@ -784,7 +784,7 @@ namespace Tabster.Forms
 
             if (SelectedTab != null)
             {
-                lblpreviewtitle.Text = string.Format("{0} - {1} ({2})", SelectedTab.TabData.Artist, SelectedTab.TabData.Title, SelectedTab.TabData.Type);
+                lblpreviewtitle.Text = SelectedTab.TabData.ToString();
                 libraryPreviewEditor.LoadTab(SelectedTab.TabData);
                 toolStrip3.Enabled = true;
 

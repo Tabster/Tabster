@@ -112,7 +112,6 @@ namespace Tabster.Forms
             this.SearchMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.saveTabToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.goBackButton = new System.Windows.Forms.ToolStripButton();
@@ -993,39 +992,31 @@ namespace Tabster.Forms
             this.SearchMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveTabToolStripMenuItem1,
             this.previewToolStripMenuItem,
-            this.openInBrowserToolStripMenuItem,
             this.copyURLToolStripMenuItem});
             this.SearchMenu.Name = "librarycontextmenu";
             this.SearchMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.SearchMenu.ShowImageMargin = false;
             this.SearchMenu.ShowItemToolTips = false;
-            this.SearchMenu.Size = new System.Drawing.Size(137, 92);
+            this.SearchMenu.Size = new System.Drawing.Size(102, 70);
             // 
             // saveTabToolStripMenuItem1
             // 
             this.saveTabToolStripMenuItem1.Name = "saveTabToolStripMenuItem1";
-            this.saveTabToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
+            this.saveTabToolStripMenuItem1.Size = new System.Drawing.Size(101, 22);
             this.saveTabToolStripMenuItem1.Text = "Save Tab";
             this.saveTabToolStripMenuItem1.Click += new System.EventHandler(this.saveTabToolStripMenuItem1_Click);
             // 
             // previewToolStripMenuItem
             // 
             this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
-            this.previewToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.previewToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.previewToolStripMenuItem.Text = "Preview";
             this.previewToolStripMenuItem.Click += new System.EventHandler(this.previewToolStripMenuItem_Click);
-            // 
-            // openInBrowserToolStripMenuItem
-            // 
-            this.openInBrowserToolStripMenuItem.Name = "openInBrowserToolStripMenuItem";
-            this.openInBrowserToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.openInBrowserToolStripMenuItem.Text = "Open in Browser";
-            this.openInBrowserToolStripMenuItem.Click += new System.EventHandler(this.openInBrowserToolStripMenuItem_Click);
             // 
             // copyURLToolStripMenuItem
             // 
             this.copyURLToolStripMenuItem.Name = "copyURLToolStripMenuItem";
-            this.copyURLToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.copyURLToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.copyURLToolStripMenuItem.Text = "Copy URL";
             this.copyURLToolStripMenuItem.Click += new System.EventHandler(this.copyURLToolStripMenuItem_Click);
             // 
@@ -1532,13 +1523,13 @@ namespace Tabster.Forms
             // deleteToolStripMenuItem1
             // 
             this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
             this.deleteToolStripMenuItem1.Text = "Delete";
             // 
             // detailsToolStripMenuItem2
             // 
             this.detailsToolStripMenuItem2.Name = "detailsToolStripMenuItem2";
-            this.detailsToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.detailsToolStripMenuItem2.Size = new System.Drawing.Size(109, 22);
             this.detailsToolStripMenuItem2.Text = "Details";
             this.detailsToolStripMenuItem2.Click += new System.EventHandler(this.detailsToolStripMenuItem2_Click);
             // 
@@ -1674,7 +1665,6 @@ namespace Tabster.Forms
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ContextMenuStrip SearchMenu;
         private System.Windows.Forms.ToolStripMenuItem saveTabToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem openInBrowserToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyURLToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblcount;
