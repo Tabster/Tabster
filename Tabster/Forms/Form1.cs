@@ -19,7 +19,6 @@ namespace Tabster.Forms
 
             tabControl1.TabPages.RemoveAt(2);
 
-            Program.libraryManager.OnTabsLoaded +=libraryManager_OnTabsLoaded;
             searchManager.OnCompleted += searchSession_OnCompleted;
 
             //browser events

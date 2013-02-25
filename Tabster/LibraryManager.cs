@@ -33,10 +33,6 @@ namespace Tabster
 
         private readonly List<PlaylistFile> _playlists = new List<PlaylistFile>();
         private readonly List<TabFile> _tabs = new List<TabFile>();
-        private readonly BackgroundWorker playlistWorker = new BackgroundWorker();
-        private readonly BackgroundWorker tabWorker = new BackgroundWorker();
-
-        private List<string> _tabPaths, _playlistPaths = new List<string>();
 
         public string LibraryDirectory { get; private set; }
         public string TabsDirectory { get; private set; }
@@ -84,68 +80,7 @@ namespace Tabster
                 Directory.CreateDirectory(TemporaryDirectory);
 
             FileInfo = new FileInfo(Path.Combine(ApplicationDirectory, "library.dat"));
-
-            tabWorker.DoWork += tabWorker_DoWork;
-            tabWorker.RunWorkerCompleted += tabWorker_RunWorkerCompleted;
-            playlistWorker.RunWorkerCompleted += playlistWorker_RunWorkerCompleted;
-            playlistWorker.DoWork += playlistWorker_DoWork;
         }
-
-        #region Background Workers
-
-        private void tabWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            _tabs.Clear();
-
-            foreach (var file in _tabPaths)
-            {
-                if (File.Exists(file))
-                {
-                    TabFile tabFile;
-
-                    if (TabFile.TryParse(file, out tabFile))
-                    {
-                        _tabs.Add(tabFile);
-                    }
-                }
-            }
-        }
-
-        private void tabWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            TabsLoaded = e.Error == null;
-
-            if (OnTabsLoaded != null)
-                OnTabsLoaded(this, EventArgs.Empty);
-        }
-
-        private void playlistWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            _playlists.Clear();
-
-            foreach (var file in _playlistPaths)
-            {
-                if (File.Exists(file))
-                {
-                    PlaylistFile playlistFile;
-
-                    if (PlaylistFile.TryParse(file, out playlistFile))
-                    {
-                        _playlists.Add(playlistFile);
-                    }
-                }
-            }
-        }
-
-        private void playlistWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            PlaylistsLoaded = e.Error == null;
-
-            if (OnPlaylistsLoaded != null)
-                OnPlaylistsLoaded(this, EventArgs.Empty);
-        }
-
-        #endregion
 
         #region Active Files
 
@@ -376,8 +311,8 @@ namespace Tabster
 
             BeginFileRead(new Version(FILE_VERSION));
 
-            _tabPaths = ReadChildValues("tabs") ?? new List<string>();
-            _playlistPaths = ReadChildValues("playlists") ?? new List<string>();
+            var tabPaths = ReadChildValues("tabs") ?? new List<string>();
+            var playlistPaths = ReadChildValues("playlists") ?? new List<string>();
 
             if (FileFormatOutdated)
             {
@@ -385,11 +320,46 @@ namespace Tabster
                 Load();
             }
 
-            if (!tabWorker.IsBusy)
-                tabWorker.RunWorkerAsync();
+            _tabs.Clear();
 
-            if (!playlistWorker.IsBusy)
-                playlistWorker.RunWorkerAsync();
+            foreach (var file in tabPaths)
+            {
+                if (File.Exists(file))
+                {
+                    TabFile tabFile;
+
+                    if (TabFile.TryParse(file, out tabFile))
+                    {
+                        _tabs.Add(tabFile);
+                    }
+                }
+            }
+
+            TabsLoaded = true;
+
+            if (OnTabsLoaded != null)
+                OnTabsLoaded(this, EventArgs.Empty);
+
+
+            _playlists.Clear();
+
+            foreach (var file in playlistPaths)
+            {
+                if (File.Exists(file))
+                {
+                    PlaylistFile playlistFile;
+
+                    if (PlaylistFile.TryParse(file, out playlistFile))
+                    {
+                        _playlists.Add(playlistFile);
+                    }
+                }
+            }
+
+            PlaylistsLoaded = true;
+
+            if (OnPlaylistsLoaded != null)
+                OnPlaylistsLoaded(this, EventArgs.Empty);
         }
 
         public void Save()
