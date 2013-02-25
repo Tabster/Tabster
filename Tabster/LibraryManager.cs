@@ -258,31 +258,6 @@ namespace Tabster
             }
         }
 
-        public void Cleanup()
-        {
-            try
-            {
-                //organize contents based on their type.
-                var globallisting = new DirectoryInfo(LibraryDirectory);
-
-                //move tabs to tab directory
-                foreach (var file in globallisting.GetFiles(string.Format("*{0}", TabFile.FILE_EXTENSION), SearchOption.TopDirectoryOnly))
-                {
-                    file.MoveTo(TabsDirectory + file.Name);
-                }
-
-                //move playlists to playlist directory
-                foreach (var file in globallisting.GetFiles(string.Format("*{0}", PlaylistFile.FILE_EXTENSION), SearchOption.TopDirectoryOnly))
-                {
-                    file.MoveTo(PlaylistsDirectory + file.Name);
-                }
-            }
-
-            catch
-            {
-            }
-        }
-
         #region Implementation of IEnumerable
 
         public IEnumerator<TabFile> GetEnumerator()
