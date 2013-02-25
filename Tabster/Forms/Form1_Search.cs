@@ -78,14 +78,6 @@ namespace Tabster.Forms
             }
         }
 
-        private void openInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            _firstBrowserLoad = true;
-            //TODO
-            //embeddedWebBrowser1.webBrowser1.Navigate(dataGridViewExtended1.SelectedRows[0].Cells[searchcol_url.Index].Value.ToString());
-            tabControl1.SelectedTab = display_browser;
-        }
-
         private void dataGridViewExtended1_MouseClick(object sender, MouseEventArgs e)
         {
             var currentMouseOverRow = dataGridViewExtended1.HitTest(e.X, e.Y).RowIndex;
