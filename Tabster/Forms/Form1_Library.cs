@@ -237,6 +237,7 @@ namespace Tabster.Forms
                 {
                     var tabFile = TabFile.Create(n.TabData, Program.libraryManager.TabsDirectory);
                     Program.libraryManager.AddTab(tabFile, true);
+                    UpdateLibraryItem(tabFile);
                 }
             }
         }
@@ -634,7 +635,9 @@ namespace Tabster.Forms
             {
                 if (i.ShowDialog() == DialogResult.OK)
                 {
-                    //Program.libraryManager.AddTab(new TabFile(i.TabData, Program.libraryManager.TabsDirectory), true);
+                    var tabFile = TabFile.Create(i.TabData, Program.libraryManager.TabsDirectory);
+                    Program.libraryManager.AddTab(tabFile, true);
+                    UpdateLibraryItem(tabFile);
                 }
             }
         }
