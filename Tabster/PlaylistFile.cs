@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using System.Xml;
 
 #endregion
 
@@ -97,33 +98,25 @@ namespace Tabster
             return playlistFile;
         }
 
-        public static bool TryParse(string filePath, out PlaylistFile p)
+        public static bool TryParse(string filePath, out PlaylistFile playlistfile)
         {
             try
             {
-                if (!File.Exists(filePath))
-                {
-                    p = null;
-                    return false;
-                }
-
-                var fi = new FileInfo(filePath);
-
-                if (fi.Length > 0)
-                {
-                    p = new PlaylistFile(filePath, true);
-                    return true;
-                }
+                playlistfile = new PlaylistFile(filePath, true);
+                return true;
             }
 
-            catch (Exception)
+            catch (IOException)
             {
-                p = null;
+                playlistfile = null;
                 return false;
             }
 
-            p = null;
-            return false;
+            catch (XmlException)
+            {
+                playlistfile = null;
+                return false;
+            }
         }
 
         #endregion

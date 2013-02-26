@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using System.Xml;
 
 #endregion
 
@@ -55,17 +56,17 @@ namespace Tabster
         {
             try
             {
-                if (!File.Exists(filePath))
-                {
-                    tabFile = null;
-                    return false;
-                }
-
                 tabFile = new TabFile(filePath, true);
                 return true;
             }
 
-            catch
+            catch (IOException)
+            {
+                tabFile = null;
+                return false;
+            }
+
+            catch (XmlException)
             {
                 tabFile = null;
                 return false;
