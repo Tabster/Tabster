@@ -10,11 +10,11 @@ using Tabster.UltimateGuitar;
 
 namespace Tabster.Forms
 {
-    public partial class UGDownload : Form
+    public partial class DownloadDialog : Form
     {
         private string[] URLs;
 
-        public UGDownload()
+        public DownloadDialog()
         {
             InitializeComponent();
         }

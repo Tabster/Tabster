@@ -1,6 +1,6 @@
 ﻿namespace Tabster.Forms
 {
-    partial class UGDownload
+    partial class DownloadDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -86,7 +86,7 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Here you can add Ultimate Guitar links to download. Add one per line.";
             // 
-            // UGDownload
+            // DownloadDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -99,10 +99,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "UGDownload";
+            this.Name = "DownloadDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "UGDownload";
+            this.Text = "Tab Downloader";
             this.ResumeLayout(false);
             this.PerformLayout();
 
