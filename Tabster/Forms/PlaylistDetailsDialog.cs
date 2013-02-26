@@ -10,6 +10,9 @@ namespace Tabster.Forms
     public partial class PlaylistDetailsDialog : Form
     {
         private readonly PlaylistFile _playlistFile;
+        private string _originalName;
+
+        public bool PlaylistRenamed { get; private set; }
 
         public PlaylistDetailsDialog(PlaylistFile playlist)
         {
@@ -20,9 +23,10 @@ namespace Tabster.Forms
 
         private void LoadData()
         {
-            txtlocation.Text = _playlistFile.FileInfo.FullName;
+            _originalName = _playlistFile.PlaylistData.Name;
 
-            txtname.Text = _playlistFile.PlaylistData.Name;
+            txtlocation.Text = _playlistFile.FileInfo.FullName;
+            txtname.Text = _playlistFile.PlaylistData.Name;       
 
             lblFormat.Text += _playlistFile.FileVersion;
             lblLength.Text += string.Format(" {0:n0} bytes", _playlistFile.FileInfo.Length);
@@ -43,9 +47,11 @@ namespace Tabster.Forms
         }
 
         private void okbtn_Click(object sender, EventArgs e)
-        {
-            _playlistFile.PlaylistData.Name = txtname.Text;
+        {      
+            _playlistFile.PlaylistData.Name = txtname.Text.Trim();
             _playlistFile.Save();
+
+            PlaylistRenamed = _playlistFile.PlaylistData.Name != _originalName;
         }
 
         private void txtname_TextChanged(object sender, EventArgs e)

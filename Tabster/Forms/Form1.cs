@@ -286,19 +286,5 @@ namespace Tabster.Forms
         }
 
         #endregion
-
-        private void detailsToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            if (sidemenu.PlaylistNodeSelected())
-            {
-                using (var pdd = new PlaylistDetailsDialog(sidemenu.SelectedPlaylist()))
-                {
-                    if (pdd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        
-                    }
-                }
-            }
-        }
     }
 }

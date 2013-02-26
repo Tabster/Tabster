@@ -1198,7 +1198,7 @@ namespace Tabster.Forms
             this.playlistInformationToolStripMenuItem.Name = "playlistInformationToolStripMenuItem";
             this.playlistInformationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.playlistInformationToolStripMenuItem.Text = "Playlist Information";
-            this.playlistInformationToolStripMenuItem.Click += new System.EventHandler(this.playlistInformationToolStripMenuItem_Click);
+            this.playlistInformationToolStripMenuItem.Click += new System.EventHandler(this.PlaylistDetails);
             // 
             // fileToolStripMenuItem
             // 
@@ -1523,15 +1523,15 @@ namespace Tabster.Forms
             // deleteToolStripMenuItem1
             // 
             this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.deleteToolStripMenuItem1.Text = "Delete";
             // 
             // detailsToolStripMenuItem2
             // 
             this.detailsToolStripMenuItem2.Name = "detailsToolStripMenuItem2";
-            this.detailsToolStripMenuItem2.Size = new System.Drawing.Size(109, 22);
+            this.detailsToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.detailsToolStripMenuItem2.Text = "Details";
-            this.detailsToolStripMenuItem2.Click += new System.EventHandler(this.detailsToolStripMenuItem2_Click);
+            this.detailsToolStripMenuItem2.Click += new System.EventHandler(this.PlaylistDetails);
             // 
             // filtertext
             // 

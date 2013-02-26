@@ -133,6 +133,7 @@ namespace Tabster.Forms
                 {
                     Program.libraryManager.RemovePlaylist(playlist);
                     sidemenu.RemovePlaylist(playlist);
+                    UpdateDetails();
                 }
             }
         }
@@ -204,27 +205,6 @@ namespace Tabster.Forms
             PreviewDelay.Stop();
             PreviewDelay.Start();
 
-        }
-
-        private void playlistInformationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (sidemenu.PlaylistNodeSelected())
-            {
-                var selectedNode = sidemenu.SelectedNode;
-                var selectedPlaylist = sidemenu.SelectedPlaylist();
-
-                if (selectedPlaylist != null)
-                {
-                    using (var pdd = new PlaylistDetailsDialog(selectedPlaylist))
-                    {
-                        if (pdd.ShowDialog() != DialogResult.OK)
-                        {
-                            selectedPlaylist.Rename(pdd.txtname.Text.Trim(), true);
-                            selectedNode.Text = selectedPlaylist.PlaylistData.Name;
-                        }
-                    }
-                }
-            }
         }
 
         private void NewTab(object sender, EventArgs e)
@@ -306,6 +286,8 @@ namespace Tabster.Forms
 
                     if (tablibrary.Rows.Count > 0)
                         tablibrary.Rows[selectedIndex - 1].Selected = true;
+
+                    UpdateDetails();
                 }
             }
         }
@@ -748,6 +730,8 @@ namespace Tabster.Forms
                 var selectedIndex = tablibrary.SelectedRows[0].Index;
                 tablibrary.Rows[selectedIndex].SetValues(objValues);
             }
+
+            UpdateDetails();
         }
 
         private void TabDetails(object sender, EventArgs e)
@@ -759,6 +743,26 @@ namespace Tabster.Forms
                     if (details.ShowDialog() == DialogResult.OK)
                     {
                         UpdateLibraryItem(SelectedTab, false);
+                    }
+                }
+            }
+        }
+
+        private void PlaylistDetails(object sender, EventArgs e)
+        {
+            if (sidemenu.PlaylistNodeSelected())
+            {
+                var playlist = sidemenu.SelectedPlaylist();
+                var selectedNode = sidemenu.SelectedNode;
+
+                using (var pdd = new PlaylistDetailsDialog(playlist))
+                {
+                    if (pdd.ShowDialog() == DialogResult.OK)
+                    {
+                        if (pdd.PlaylistRenamed)
+                        {
+                            selectedNode.Text = playlist.PlaylistData.Name;
+                        }
                     }
                 }
             }
