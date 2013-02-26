@@ -248,7 +248,7 @@ namespace Tabster.Forms
 
         private void downloadTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var d = new UGDownload())
+            using (var d = new DownloadDialog())
             {
                 if (d.ShowDialog() == DialogResult.OK)
                 {

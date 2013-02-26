@@ -123,7 +123,7 @@ namespace Tabster.Forms
             }
         }
 
-        private void deleteplaylistcontextmenuitem_Click(object sender, EventArgs e)
+        private void DeletePlaylist(object sender, EventArgs e)
         {
             if (sidemenu.PlaylistNodeSelected())
             {
@@ -131,6 +131,7 @@ namespace Tabster.Forms
 
                 if (playlist != null && MessageBox.Show("Are you sure you want to delete this playlist?", "Delete Playlist", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
+                    Program.libraryManager.RemovePlaylist(playlist);
                     sidemenu.RemovePlaylist(playlist);
                 }
             }
@@ -626,6 +627,7 @@ namespace Tabster.Forms
                     {
                         var playlistFile = PlaylistFile.Create(new Playlist(name), Program.libraryManager.PlaylistsDirectory);
                         Program.libraryManager.AddPlaylist(playlistFile, true);
+                        sidemenu.AddPlaylist(playlistFile);
                     }
                 }
             }

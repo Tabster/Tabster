@@ -1191,7 +1191,7 @@ namespace Tabster.Forms
             this.deleteplaylistcontextmenuitem.Name = "deleteplaylistcontextmenuitem";
             this.deleteplaylistcontextmenuitem.Size = new System.Drawing.Size(152, 22);
             this.deleteplaylistcontextmenuitem.Text = "Delete Playlist";
-            this.deleteplaylistcontextmenuitem.Click += new System.EventHandler(this.deleteplaylistcontextmenuitem_Click);
+            this.deleteplaylistcontextmenuitem.Click += new System.EventHandler(this.DeletePlaylist);
             // 
             // playlistInformationToolStripMenuItem
             // 
