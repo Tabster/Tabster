@@ -132,18 +132,6 @@ namespace Tabster.Forms
             e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Move : DragDropEffects.None;
         }
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SelectedTab != null && MessageBox.Show("Are you sure you want to delete this tab?", "Delete Tab", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                if (Program.libraryManager.RemoveTab(SelectedTab, false))
-                {
-                    SelectedTab = null;
-                    LoadLibrary();
-                }
-            }
-        }
-
         private void exportToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (SelectedTab != null)
@@ -268,38 +256,48 @@ namespace Tabster.Forms
             }
         }
 
-        private void deleteTabToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteTab(object sender, EventArgs e)
         {
-            /*
-            if (tablibrary.SelectedRows.Count > 0)
+            if (tablibrary.SelectedRows.Count > 0 && SelectedTab != null)
             {
-                var selectedTab = SelectedTab();
 
-                //playlist, don't delete just remove
-                if (IsViewingPlaylist())
+                var removed = false;
+
+                if (sidemenu.PlaylistNodeSelected())
                 {
-                    if (MessageBox.Show("Are you sure you want to remove this tab from this playlist?", "Remove Tab", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        var selectedPlaylist = SelectedPlaylist();
+                    var selectedPlaylist = sidemenu.SelectedPlaylist();
 
-                        if (selectedPlaylist != null)
+                    if (selectedPlaylist != null)
+                    {
+                        if (MessageBox.Show("Are you sure you want to remove this tab from the playlist?", "Remove Tab", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
-                            selectedPlaylist.Remove(selectedTab);
+                            selectedPlaylist.PlaylistData.Remove(SelectedTab);
+                            removed = true;
                         }
                     }
                 }
 
-                //normal library
                 else
                 {
-                    if (selectedTab.Delete())
+                    if (MessageBox.Show("Are you sure you want to delete this tab?", "Delete Tab", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        tablibrary.Rows.Remove(tablibrary.SelectedRows[0]);
-                        sidemenu_AfterSelect(null, null);
-                        LoadLibrary(true);
+
+                        Program.libraryManager.RemoveTab(SelectedTab, true);
+                        removed = true;
                     }
                 }
-            }*/
+
+                if (removed)
+                {
+                    SelectedTab = null;
+
+                    var selectedIndex = tablibrary.SelectedRows[0].Index;
+                    tablibrary.Rows.RemoveAt(selectedIndex);
+
+                    if (tablibrary.Rows.Count > 0)
+                        tablibrary.Rows[selectedIndex - 1].Selected = true;
+                }
+            }
         }
 
         private void openTabLocationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -664,39 +662,6 @@ namespace Tabster.Forms
             statusStrip1.Visible = statusBarToolStripMenuItem.Checked;
             Settings.Default.StatusBar = statusBarToolStripMenuItem.Checked;
             Settings.Default.Save();
-        }
-
-        private void libraryManager_OnTabsLoaded(object sender, EventArgs e)
-        {
-            LoadLibrary();
-        }
-
-        void Tabs_OnTabRemoved(object sender, EventArgs e)
-        {
-            if (Program.libraryManager.TabsLoaded)
-            {
-                UpdateDetails();
-            }
-        }
-
-        void Tabs_OnTabAdded(object sender, EventArgs e)
-        {
-            if (Program.libraryManager.TabsLoaded)
-            {
-                UpdateDetails();
-            }
-        }
-
-        void Playlists_OnPlaylistRemoved(object sender, EventArgs e)
-        {
-            UpdateDetails();
-            PopulatePlaylistContextMenu();
-        }
-
-        void Playlists_OnPlaylistAdded(object sender, EventArgs e)
-        {
-            UpdateDetails();
-            PopulatePlaylistContextMenu();
         }
 
         private void PopulatePlaylistContextMenu()

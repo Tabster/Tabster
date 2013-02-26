@@ -1146,7 +1146,7 @@ namespace Tabster.Forms
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteTab);
             // 
             // exportToolStripMenuItem1
             // 
@@ -1390,7 +1390,7 @@ namespace Tabster.Forms
             this.deleteTabToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.deleteTabToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.deleteTabToolStripMenuItem.Text = "Delete";
-            this.deleteTabToolStripMenuItem.Click += new System.EventHandler(this.deleteTabToolStripMenuItem_Click);
+            this.deleteTabToolStripMenuItem.Click += new System.EventHandler(this.DeleteTab);
             // 
             // detailsToolStripMenuItem
             // 
