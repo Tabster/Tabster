@@ -102,14 +102,23 @@ namespace Tabster.Forms
         private void tablibrary_DragDrop(object sender, DragEventArgs e)
         {
             var data = (string[]) e.Data.GetData(DataFormats.FileDrop, false);
-            foreach (var str in data)
-            {
-                TabFile t;
 
-                if (TabFile.TryParse(str, out t))
+            if (data != null)
+            {
+                foreach (var str in data)
                 {
-                    Program.libraryManager.AddTab(t, true);
-                    LoadLibrary();
+                    TabFile t;
+
+                    if (TabFile.TryParse(str, out t))
+                    {
+                        var alreadyInLibrary = Program.libraryManager.FindTabByPath(str) != null;
+
+                        if (!alreadyInLibrary)
+                        {
+                            Program.libraryManager.AddTab(t, true);
+                            UpdateLibraryItem(t, true);
+                        }
+                    }
                 }
             }
         }
