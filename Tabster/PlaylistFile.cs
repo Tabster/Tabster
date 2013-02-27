@@ -49,14 +49,12 @@ namespace Tabster
                 {
                     PlaylistData.Add(tab);
                 }
-
             }
 
             if (FileFormatOutdated)
             {
                 Save();
                 Load();
-                Console.WriteLine("Updating: " + FileInfo.FullName);
             }
         }
 
