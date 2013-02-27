@@ -285,7 +285,7 @@ namespace Tabster.Forms
             }
         }
 
-        private void openTabLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenTabLocation(object sender, EventArgs e)
         {
             if (SelectedTab != null)
             {

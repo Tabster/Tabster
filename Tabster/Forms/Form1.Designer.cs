@@ -1132,7 +1132,7 @@ namespace Tabster.Forms
             this.LibraryMenu.Name = "contextMenuStrip1";
             this.LibraryMenu.ShowImageMargin = false;
             this.LibraryMenu.ShowItemToolTips = false;
-            this.LibraryMenu.Size = new System.Drawing.Size(152, 136);
+            this.LibraryMenu.Size = new System.Drawing.Size(152, 158);
             // 
             // detailsToolStripMenuItem1
             // 
@@ -1160,6 +1160,7 @@ namespace Tabster.Forms
             this.openTabLocationToolStripMenuItem1.Name = "openTabLocationToolStripMenuItem1";
             this.openTabLocationToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
             this.openTabLocationToolStripMenuItem1.Text = "Open Tab Location";
+            this.openTabLocationToolStripMenuItem1.Click += new System.EventHandler(this.OpenTabLocation);
             // 
             // searchSimilarTabsToolStripMenuItem
             // 
@@ -1413,7 +1414,7 @@ namespace Tabster.Forms
             this.openTabLocationToolStripMenuItem.Name = "openTabLocationToolStripMenuItem";
             this.openTabLocationToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.openTabLocationToolStripMenuItem.Text = "Open Tab Location";
-            this.openTabLocationToolStripMenuItem.Click += new System.EventHandler(this.openTabLocationToolStripMenuItem_Click);
+            this.openTabLocationToolStripMenuItem.Click += new System.EventHandler(this.OpenTabLocation);
             // 
             // openTabSourceToolStripMenuItem
             // 
@@ -1522,13 +1523,13 @@ namespace Tabster.Forms
             // deleteToolStripMenuItem1
             // 
             this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
             this.deleteToolStripMenuItem1.Text = "Delete";
             // 
             // detailsToolStripMenuItem2
             // 
             this.detailsToolStripMenuItem2.Name = "detailsToolStripMenuItem2";
-            this.detailsToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.detailsToolStripMenuItem2.Size = new System.Drawing.Size(109, 22);
             this.detailsToolStripMenuItem2.Text = "Details";
             this.detailsToolStripMenuItem2.Click += new System.EventHandler(this.PlaylistDetails);
             // 
@@ -1547,7 +1548,7 @@ namespace Tabster.Forms
             this.filtertext.Size = new System.Drawing.Size(130, 20);
             this.filtertext.Text = " Search Library";
             this.filtertext.ToolTipText = "Filter through servers by name.";
-            this.filtertext.OnNewSearch += new SearchBox.NewSearchHandler(this.filtertext_OnNewSearch);
+            this.filtertext.OnNewSearch += new Tabster.Controls.SearchBox.NewSearchHandler(this.filtertext_OnNewSearch);
             // 
             // PreviewDelay
             // 
