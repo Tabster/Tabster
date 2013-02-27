@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using Microsoft.VisualBasic.FileIO;
 using SearchOption = System.IO.SearchOption;
@@ -126,9 +125,6 @@ namespace Tabster
 
             if (saveCache)
                 Save();
-
-            if (OnTabAdded != null)
-                OnTabAdded(this, EventArgs.Empty);
         }
 
         public bool RemoveTab(TabFile tabFile, bool diskDelete)
@@ -143,9 +139,6 @@ namespace Tabster
                 }
 
                 Save();
-
-                if (OnTabRemoved != null)
-                    OnTabRemoved(this, EventArgs.Empty);
 
                 return true;
             }
@@ -238,9 +231,6 @@ namespace Tabster
 
         public event EventHandler OnTabsLoaded;
         public event EventHandler OnPlaylistsLoaded;
-
-        public event EventHandler OnTabAdded;
-        public event EventHandler OnTabRemoved;
 
         public void CleanupTempFiles()
         {
