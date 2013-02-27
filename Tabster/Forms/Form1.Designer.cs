@@ -1173,7 +1173,6 @@ namespace Tabster.Forms
             this.addtoplaylistcontextmenuitem.Name = "addtoplaylistcontextmenuitem";
             this.addtoplaylistcontextmenuitem.Size = new System.Drawing.Size(151, 22);
             this.addtoplaylistcontextmenuitem.Text = "Add to Playlist...";
-            this.addtoplaylistcontextmenuitem.MouseEnter += new System.EventHandler(this.addtoplaylistcontextmenuitem_MouseEnter);
             // 
             // PlaylistMenu
             // 
