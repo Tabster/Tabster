@@ -192,7 +192,6 @@ namespace Tabster.Forms
             detailsToolStripMenuItem.Enabled = SelectedTab != null;
             exportToolStripMenuItem.Enabled = SelectedTab != null;
             openTabLocationToolStripMenuItem.Enabled = SelectedTab != null;
-            openTabSourceToolStripMenuItem.Enabled = SelectedTab != null;
             searchUltimateGuitarToolStripMenuItem.Enabled = SelectedTab != null;
 
             PreviewDelay.Stop();
@@ -210,15 +209,6 @@ namespace Tabster.Forms
                     Program.libraryManager.AddTab(tabFile, true);
                     UpdateLibraryItem(tabFile);
                 }
-            }
-        }
-
-        private void openTabSourceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SelectedTab != null && SelectedTab.TabData.Source == TabSource.Download && SelectedTab.TabData.RemoteSource != null)
-            {
-                webBrowser1.Navigate(SelectedTab.TabData.RemoteSource);
-                tabControl1.SelectedTab = display_browser;
             }
         }
 
@@ -290,7 +280,6 @@ namespace Tabster.Forms
             if (SelectedTab != null)
             {
                 Process.Start("explorer.exe ", @"/select, " + SelectedTab.FileInfo.FullName);
-                Console.WriteLine(SelectedTab.FileInfo.FullName);
             }
         }
 
@@ -535,6 +524,7 @@ namespace Tabster.Forms
                         if (sender == newplaylistmenuitem && SelectedTab != null)
                         {
                             playlistFile.PlaylistData.Add(SelectedTab);
+                            playlistFile.Save();
                         }
                     }
                 }
