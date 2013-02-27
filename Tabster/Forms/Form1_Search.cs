@@ -104,7 +104,7 @@ namespace Tabster.Forms
                 {
                     if (nt.ShowDialog() == DialogResult.OK)
                     {
-                        var ugTab = _ugTabCache.ContainsKey(selectedResult.URL) ? _ugTabCache[selectedResult.URL] : new UltimateGuitarTab(selectedResult.URL);
+                        var ugTab = _ugTabCache.ContainsKey(selectedResult.URL) ? _ugTabCache[selectedResult.URL] : UltimateGuitarTab.Download(selectedResult.URL);
 
                         if (ugTab != null)
                         {
@@ -181,7 +181,7 @@ namespace Tabster.Forms
 
             if (!_ugTabCache.ContainsKey(url))
             {
-                var ugTab = new UltimateGuitarTab(url);
+                var ugTab = UltimateGuitarTab.Download(url);
                 _ugTabCache.Add(url, ugTab);
             }
         }
