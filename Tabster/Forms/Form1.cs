@@ -252,6 +252,10 @@ namespace Tabster.Forms
             {
                 if (d.ShowDialog() == DialogResult.OK)
                 {
+                    foreach (var tab in d.NewTabs)
+                    {
+                        UpdateLibraryItem(tab, true);
+                    }
                 }
             }
         }
