@@ -22,6 +22,7 @@ namespace Tabster.Controls
         }
 
         public string DefaultText { get; set; }
+        public string SearchValue { get; private set; }
 
         public ToolStripButton ClearButton
         {
@@ -42,7 +43,9 @@ namespace Tabster.Controls
             get { return _delayInterval; }
         }
 
-        public event EventHandler OnNewSearch;
+        public delegate void NewSearchHandler(object sender, string value);
+
+        public event NewSearchHandler OnNewSearch;
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
@@ -54,9 +57,10 @@ namespace Tabster.Controls
         {
             _delayTimer.Stop();
 
+            SearchValue = Text.Trim();
 
             if (OnNewSearch != null)
-                OnNewSearch(this, EventArgs.Empty);
+                OnNewSearch(this, Text.Trim());
         }
 
         private void RestoreDefault()
@@ -72,7 +76,7 @@ namespace Tabster.Controls
             FilterReset = true;
 
             if (!silent && OnNewSearch != null)
-                OnNewSearch(this, EventArgs.Empty);
+                OnNewSearch(this, null);
 
             FilterReset = false;
 
@@ -121,7 +125,7 @@ namespace Tabster.Controls
             if (trimmed.Length == 0 && _previousSearch != "")
             {
                 if (OnNewSearch != null)
-                    OnNewSearch(this, EventArgs.Empty);
+                    OnNewSearch(this, null);
             }
 
             if (trimmed.Length > 0 && trimmed != DefaultText.Trim())
