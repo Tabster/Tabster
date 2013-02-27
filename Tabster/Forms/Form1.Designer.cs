@@ -1548,7 +1548,7 @@ namespace Tabster.Forms
             this.filtertext.Size = new System.Drawing.Size(130, 20);
             this.filtertext.Text = " Search Library";
             this.filtertext.ToolTipText = "Filter through servers by name.";
-            this.filtertext.OnNewSearch += new System.EventHandler(this.filtertext_OnNewSearch);
+            this.filtertext.OnNewSearch += new SearchBox.NewSearchHandler(this.filtertext_OnNewSearch);
             // 
             // PreviewDelay
             // 

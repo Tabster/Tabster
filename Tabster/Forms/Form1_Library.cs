@@ -51,11 +51,11 @@ namespace Tabster.Forms
             new SearchLibraryDialog(this).Show();
         }
 
-        private void filtertext_OnNewSearch(object sender, EventArgs e)
+        private void filtertext_OnNewSearch(object sender, string value)
         {
             if (filtertext.IsFilterSet || filtertext.FilterReset)
             {
-                LoadLibrary();
+                LoadLibrary(value);
             }
         }
 
@@ -437,12 +437,13 @@ namespace Tabster.Forms
             return LibraryType.AllTabs;
         }
 
-        public void LoadLibrary()
+        public void LoadLibrary(string searchValue = null)
         {
             //var selectedTab = SelectedTab();
             //var selectedIndex = tablibrary.SelectedRows.Count > 0 ? tablibrary.SelectedRows[0].Index : 0;
             var selectedPlaylist = sidemenu.SelectedPlaylist();
 
+            //nothing to filter
             if ((selectedPlaylist != null && selectedPlaylist.PlaylistData.Count == 0) || (selectedPlaylist == null && Program.libraryManager.TabCount == 0))
             {
                 tablibrary.Rows.Clear();
@@ -464,7 +465,6 @@ namespace Tabster.Forms
             }
 
 
-            var searchQuery = filtertext.IsFilterSet ? filtertext.Text.Trim() : "";
             //var sortOrder = libraryViewer1.SortOrder == SortOrder.Ascending ? ListSortDirection.Ascending : ListSortDirection.Descending;
             //var sortedColumn = libraryViewer1.SortedColumn;
 
@@ -472,65 +472,43 @@ namespace Tabster.Forms
             tablibrary.Rows.Clear();
             tablibrary.SuspendLayout();
 
-            //viewing normal library
-            if (selectedPlaylist == null)
+            var selectedLibrary = SelectedLibrary();
+            var deepSearch = true;
+
+            foreach (var tab in Program.libraryManager)
             {
-                var selectedLibrary = SelectedLibrary();
+                var libraryMatch = selectedLibrary == LibraryType.AllTabs ||
+                                   (selectedLibrary == LibraryType.MyTabs && tab.TabData.Source == TabSource.UserCreated) ||
+                                   (selectedLibrary == LibraryType.MyImports && tab.TabData.Source == TabSource.FileImport) ||
+                                   /*(selectedLibrary == LibraryType.MyFavorites && tab.Tab.Favorited) ||*/
+                                   (selectedLibrary == LibraryType.GuitarTabs && tab.TabData.Type == TabType.Guitar) ||
+                                   (selectedLibrary == LibraryType.GuitarChords && tab.TabData.Type == TabType.Chord) ||
+                                   (selectedLibrary == LibraryType.BassTabs && tab.TabData.Type == TabType.Bass) ||
+                                   (selectedLibrary == LibraryType.DrumTabs && tab.TabData.Type == TabType.Drum) ||
+                                   (selectedLibrary == LibraryType.Playlist && selectedPlaylist != null && selectedPlaylist.PlaylistData.Contains(tab));
 
-                foreach (var tab in Program.libraryManager)
+                if (libraryMatch)
                 {
-                    if (selectedLibrary == LibraryType.AllTabs ||
-                        (selectedLibrary == LibraryType.MyTabs && tab.TabData.Source == TabSource.UserCreated) ||
-                        (selectedLibrary == LibraryType.MyImports && tab.TabData.Source == TabSource.FileImport) ||
-                        /*(selectedLibrary == LibraryType.MyFavorites && tab.Tab.Favorited) ||*/
-                        (selectedLibrary == LibraryType.GuitarTabs && tab.TabData.Type == TabType.Guitar) ||
-                        (selectedLibrary == LibraryType.GuitarChords && tab.TabData.Type == TabType.Chord) ||
-                        (selectedLibrary == LibraryType.BassTabs && tab.TabData.Type == TabType.Bass) ||
-                        (selectedLibrary == LibraryType.DrumTabs && tab.TabData.Type == TabType.Drum))
-                    {
-                        if (searchQuery != "")
-                        {
-                            if (
-                                                      tab.TabData.Artist.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                                      tab.TabData.Title.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                                      tab.FileInfo.FullName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
-                            {
-                                UpdateLibraryItem(tab);
-                            }
-                        }
+                    var searchMatch = searchValue == null || (tab.TabData.Artist.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                                              tab.TabData.Title.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                                              (deepSearch &&
+                                                               (
+                                                                   tab.FileInfo.FullName.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                                                   tab.TabData.Contents.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                                                   tab.TabData.Lyrics.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                                                   tab.TabData.Comment.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0)
+                                                              ));
 
-                        else
-                        {
-                            UpdateLibraryItem(tab);
-                        }
-                    }
-                }
-            }
-
-            else
-            {
-                foreach (var tab in selectedPlaylist.PlaylistData)
-                {
-                    if (filtertext.IsFilterSet && (
-                                                      tab.TabData.Artist.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                                      tab.TabData.Title.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                                      tab.FileInfo.FullName.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0))
-                    {
-                        UpdateLibraryItem(tab);
-                    }
-
-                    else
+                    if (searchMatch)
                     {
                         UpdateLibraryItem(tab);
                     }
                 }
             }
-
 
             tablibrary.ResumeLayout();
 
-            UpdateDetails();
-
+            //UpdateDetails();
 
             //update tab counts next to library sections
             /*
@@ -557,7 +535,6 @@ namespace Tabster.Forms
 
             //if (tablibrary.Rows.Count > rowindex) tablibrary.Rows[rowindex].Selected = true;
         }
-
 
         private void AddtoPlaylistMenuClick(object sender, EventArgs e)
         {
