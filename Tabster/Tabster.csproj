@@ -103,12 +103,6 @@
     <Compile Include="Forms\PlaylistDetailsDialog.designer.cs">
       <DependentUpon>PlaylistDetailsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SearchLibraryDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SearchLibraryDialog.designer.cs">
-      <DependentUpon>SearchLibraryDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Form1_Browser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,9 +219,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PlaylistDetailsDialog.resx">
       <DependentUpon>PlaylistDetailsDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SearchLibraryDialog.resx">
-      <DependentUpon>SearchLibraryDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewPlaylistDialog.resx">
       <DependentUpon>NewPlaylistDialog.cs</DependentUpon>

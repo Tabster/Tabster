@@ -158,7 +158,6 @@ namespace Tabster.Forms
             this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTabLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openTabSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchUltimateGuitarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -483,11 +482,11 @@ namespace Tabster.Forms
             // libraryPreviewEditor
             // 
             this.libraryPreviewEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.libraryPreviewEditor.Location = new System.Drawing.Point(0, 25);
+            this.libraryPreviewEditor.Location = new System.Drawing.Point(0, 0);
             this.libraryPreviewEditor.Margin = new System.Windows.Forms.Padding(0);
             this.libraryPreviewEditor.Mode = Tabster.Controls.TabEditor.TabMode.Edit;
             this.libraryPreviewEditor.Name = "libraryPreviewEditor";
-            this.libraryPreviewEditor.Size = new System.Drawing.Size(1130, 169);
+            this.libraryPreviewEditor.Size = new System.Drawing.Size(1130, 194);
             this.libraryPreviewEditor.TabIndex = 24;
             // 
             // toolStrip3
@@ -510,6 +509,7 @@ namespace Tabster.Forms
             this.toolStrip3.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip3.Size = new System.Drawing.Size(1130, 25);
             this.toolStrip3.TabIndex = 23;
+            this.toolStrip3.Visible = false;
             // 
             // lblpreviewtitle
             // 
@@ -1153,7 +1153,7 @@ namespace Tabster.Forms
             this.exportToolStripMenuItem1.Name = "exportToolStripMenuItem1";
             this.exportToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
             this.exportToolStripMenuItem1.Text = "Export";
-            this.exportToolStripMenuItem1.Click += new System.EventHandler(this.exportToolStripMenuItem1_Click);
+            this.exportToolStripMenuItem1.Click += new System.EventHandler(this.ExportTab);
             // 
             // openTabLocationToolStripMenuItem1
             // 
@@ -1367,7 +1367,6 @@ namespace Tabster.Forms
             this.detailsToolStripMenuItem,
             this.exportToolStripMenuItem,
             this.openTabLocationToolStripMenuItem,
-            this.openTabSourceToolStripMenuItem,
             this.searchUltimateGuitarToolStripMenuItem,
             this.searchToolStripMenuItem});
             this.libraryToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -1407,6 +1406,7 @@ namespace Tabster.Forms
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.exportToolStripMenuItem.Text = "Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.ExportTab);
             // 
             // openTabLocationToolStripMenuItem
             // 
@@ -1415,14 +1415,6 @@ namespace Tabster.Forms
             this.openTabLocationToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.openTabLocationToolStripMenuItem.Text = "Open Tab Location";
             this.openTabLocationToolStripMenuItem.Click += new System.EventHandler(this.OpenTabLocation);
-            // 
-            // openTabSourceToolStripMenuItem
-            // 
-            this.openTabSourceToolStripMenuItem.Enabled = false;
-            this.openTabSourceToolStripMenuItem.Name = "openTabSourceToolStripMenuItem";
-            this.openTabSourceToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.openTabSourceToolStripMenuItem.Text = "Open Tab Source";
-            this.openTabSourceToolStripMenuItem.Click += new System.EventHandler(this.openTabSourceToolStripMenuItem_Click);
             // 
             // searchUltimateGuitarToolStripMenuItem
             // 
@@ -1675,7 +1667,6 @@ namespace Tabster.Forms
         private System.Windows.Forms.ToolStripMenuItem searchUltimateGuitarToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripMenuItem openTabSourceToolStripMenuItem;
         private ToolStripMenuItem detailsToolStripMenuItem1;
         private ToolStripMenuItem deleteToolStripMenuItem;
         private ToolStripMenuItem exportToolStripMenuItem1;

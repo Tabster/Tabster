@@ -45,11 +45,8 @@ namespace Tabster.Forms
 
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /*
             filtertext.Focus();
-            filtertext.SelectAll();*/
-
-            new SearchLibraryDialog(this).Show();
+            filtertext.SelectAll();
         }
 
         private void filtertext_OnNewSearch(object sender, string value)
@@ -144,7 +141,7 @@ namespace Tabster.Forms
             e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Move : DragDropEffects.None;
         }
 
-        private void exportToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void ExportTab(object sender, EventArgs e)
         {
             if (SelectedTab != null)
             {
