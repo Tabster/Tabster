@@ -66,7 +66,10 @@ namespace Tabster
 
             foreach (var tab in PlaylistData)
             {
-                WriteNode("file", tab.FileInfo.FullName, files);
+                if (File.Exists(tab.FileInfo.FullName))
+                {
+                    WriteNode("file", tab.FileInfo.FullName, files);
+                }
             }
 
             FinishFileWrite();
