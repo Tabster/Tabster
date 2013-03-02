@@ -98,23 +98,27 @@ namespace Tabster
 
         public static bool TryParse(string filePath, out PlaylistFile playlistfile)
         {
+            var success = false;
+            PlaylistFile pf = null;
+
             try
             {
-                playlistfile = new PlaylistFile(filePath, true);
-                return true;
+                pf = new PlaylistFile(filePath, true);
+                success = true;
             }
 
             catch (IOException)
             {
-                playlistfile = null;
-                return false;
+
             }
 
             catch (XmlException)
             {
-                playlistfile = null;
-                return false;
+
             }
+
+            playlistfile = pf;
+            return success;
         }
 
         #endregion

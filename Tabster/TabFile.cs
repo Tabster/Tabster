@@ -54,23 +54,27 @@ namespace Tabster
 
         public static bool TryParse(string filePath, out TabFile tabFile)
         {
+            var success = false;
+            TabFile tf = null;
+
             try
             {
-                tabFile = new TabFile(filePath, true);
-                return true;
+                tf = new TabFile(filePath, true);
+                success = true;
             }
 
             catch (IOException)
             {
-                tabFile = null;
-                return false;
+
             }
 
             catch (XmlException)
             {
-                tabFile = null;
-                return false;
+
             }
+
+            tabFile = tf;
+            return success;
         }
 
         #endregion
