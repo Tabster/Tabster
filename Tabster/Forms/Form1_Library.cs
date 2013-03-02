@@ -585,9 +585,9 @@ namespace Tabster.Forms
                                       {
                                           var path = ((ToolStripMenuItem) s).Tag.ToString();
 
-                                          PlaylistFile pf;
+                                          var pf = Program.libraryManager.FindPlaylistByPath(path);
 
-                                          if (PlaylistFile.TryParse(path, out pf))
+                                          if (pf != null)
                                           {
                                               pf.PlaylistData.Add(SelectedTab);
                                               pf.Save();

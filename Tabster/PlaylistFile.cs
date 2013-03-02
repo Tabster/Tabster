@@ -68,7 +68,7 @@ namespace Tabster
             {
                 if (File.Exists(tab.FileInfo.FullName))
                 {
-                    WriteNode("file", tab.FileInfo.FullName, files);
+                    WriteNode("file", tab.FileInfo.FullName, files, overwriteDuplicates: false);
                 }
             }
 
