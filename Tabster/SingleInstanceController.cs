@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
@@ -24,17 +25,11 @@ namespace Tabster
         {
             if (commandLine.Count > 0)
             {
-                if (commandLine.Count == 2)
+                TabFile t;
+                if (TabFile.TryParse(commandLine[0], out t))
                 {
-                    if (commandLine[0] == "/open")
-                    {
-                        TabFile t;
-                        if (TabFile.TryParse(commandLine[1], out t))
-                        {
-                            _openLibrary = false;
-                            Program.TabHandler.LoadTab(t, true);
-                        }
-                    }
+                    _openLibrary = false;
+                    Program.TabHandler.LoadTab(t, true);
                 }
             }
         }
