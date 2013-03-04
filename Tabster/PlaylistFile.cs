@@ -77,18 +77,6 @@ namespace Tabster
 
         #endregion
 
-        public void Rename(string newname, bool renameFile)
-        {
-            PlaylistData.Name = newname;
-            Save();
-
-            if (renameFile)
-            {
-                RenameFile(newname);
-                Load();
-            }
-        }
-
         #region Static Methods
 
         public static PlaylistFile Create(Playlist playlist, string directory)
