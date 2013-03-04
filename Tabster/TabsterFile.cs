@@ -154,14 +154,6 @@ namespace Tabster
             }
         }
 
-        public void RenameFile(string newName)
-        {
-            var newFilePath = GenerateUniqueFilename(FileInfo.DirectoryName, newName);
-            File.Copy(FileInfo.FullName, newFilePath);
-            File.Delete(FileInfo.FullName);
-            FileInfo = new FileInfo(newFilePath);
-        }
-
         public static bool IsValidFileName(string filename)
         {
             var containsABadCharacter = new Regex(String.Format("[{0}]", Regex.Escape(new string(Path.GetInvalidFileNameChars()))));
