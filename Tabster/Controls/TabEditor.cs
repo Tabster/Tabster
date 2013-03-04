@@ -237,6 +237,11 @@ namespace Tabster.Controls
             webBrowser1.Print();
         }
 
+        public void ShowPrintDialog()
+        {
+            webBrowser1.ShowPrintDialog();
+        }
+
         #endregion
     }
 }
