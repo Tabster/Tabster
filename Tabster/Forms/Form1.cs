@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using Tabster.Controls;
 using Tabster.Properties;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
@@ -20,6 +21,10 @@ namespace Tabster.Forms
             tabControl1.TabPages.RemoveAt(2);
 
             searchManager.OnCompleted += searchSession_OnCompleted;
+
+            //tabviewermanager events
+            Program.TabHandler.OnTabOpened += TabHandler_OnTabOpened;
+            Program.TabHandler.OnTabClosed += TabHandler_OnTabClosed;
 
             //browser events
             webBrowser1.CanGoBackChanged += webBrowser1_CanGoBackChanged;
@@ -38,7 +43,7 @@ namespace Tabster.Forms
             if (Environment.OSVersion.Version.Major < 6)
             {
                 menuStrip1.RenderMode = ToolStripRenderMode.System;
-                menuStrip1.Renderer = new NS_Common.Controls.MenuStripRenderer();
+                menuStrip1.Renderer = new MenuStripRenderer();
             }
 
             txtsearchtype.Items.Add("All Types");
@@ -57,11 +62,19 @@ namespace Tabster.Forms
             Rating5 = Resources.r5;
         }
 
+        private readonly TabFile _queuedTabfile;
+
+        public Form1(TabFile tabFile) : this()
+        {
+            _queuedTabfile = tabFile;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             if (Settings.Default.StartupUpdate)
             {
-                NS_Common.Update.PerformUpdate(null, SystemColors.Control, SystemColors.ControlText, "Tabster", Application.ProductVersion, true, false);
+                //todo update
+                //NS_Common.Update.PerformUpdate(null, SystemColors.Control, SystemColors.ControlText, "Tabster", Application.ProductVersion, true, false);
             }
 
             /*
@@ -78,6 +91,15 @@ namespace Tabster.Forms
                 PopulatePlaylists();
 
             LoadSettings(true);
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            //loads queued tab after splash
+            if (_queuedTabfile != null)
+            {
+                Program.TabHandler.LoadTab(_queuedTabfile, true);
+            }
         }
 
         private void recentlyViewedToolStripMenuItem_OnItemClicked(object sender, EventArgs e)
@@ -275,7 +297,8 @@ namespace Tabster.Forms
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NS_Common.Update.PerformUpdate(null, SystemColors.Control, SystemColors.ControlText, "Tabster", Application.ProductVersion, false, false);
+            //todo update
+            //NS_Common.Update.PerformUpdate(null, SystemColors.Control, SystemColors.ControlText, "Tabster", Application.ProductVersion, false, false);
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)

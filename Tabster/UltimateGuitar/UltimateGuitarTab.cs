@@ -3,7 +3,6 @@
 using System;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
-using NS_Common;
 
 #endregion
 
@@ -88,7 +87,7 @@ namespace Tabster.UltimateGuitar
                     //get info from title
                 else
                 {
-                    var title = Common.CollapseSpaces(TitleRegex.Match(html).Groups["title"].Value);
+                    var title = Regex.Replace(TitleRegex.Match(html).Groups["title"].Value, @"\s+", " ");
                     var titledata = Regex.Split(title, @" tab by ");
                     song = titledata[0].Trim();
                     artist = titledata[1].Trim();

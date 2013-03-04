@@ -75,10 +75,6 @@
       <HintPath>C:\Users\Nate\Downloads\HtmlAgilityPack.1.4.6\Net20\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="NS.Common, Version=1.0.3.16, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\NS.Common\NS.Common\bin\Release\NS.Common.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -88,7 +84,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\DataGridViewExtended.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\MenuStripRenderer.cs" />
+    <Compile Include="Controls\SimpleProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ToolStripRenderer.cs" />
+    <Compile Include="FormState.cs" />
+    <Compile Include="PortableSettingsProvider.cs" />
+    <Compile Include="RecentTabs.cs" />
     <Compile Include="SingleInstanceController.cs" />
     <Compile Include="TabsterFile.cs" />
     <Compile Include="Forms\About.cs">
@@ -193,12 +199,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Tab.cs" />
-    <Compile Include="Forms\TabViewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\TabViewer.designer.cs">
-      <DependentUpon>TabViewer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\TabEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -263,9 +263,6 @@
     </Compile>
     <EmbeddedResource Include="Forms\Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TabViewer.resx">
-      <DependentUpon>TabViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TabEditor.resx">
       <DependentUpon>TabEditor.cs</DependentUpon>

@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using Tabster.Properties;
@@ -13,7 +14,8 @@ namespace Tabster.Forms
         public About()
         {
             InitializeComponent();
-            lblname.Text = string.Format("Tabster {0}", NS_Common.Common.GetTruncatedVersion(Application.ProductVersion));
+            var version = new Version(Application.ProductVersion);
+            lblname.Text = string.Format("Tabster {0}", version);
             pictureBox1.Image = Resources.guitar128;
         }
 
