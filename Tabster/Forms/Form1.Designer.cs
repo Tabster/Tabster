@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using NS_Controls;
 using Tabster.Controls;
+using DataGridViewExtended = Tabster.Controls.DataGridViewExtended;
 
 namespace Tabster.Forms
 {
@@ -56,7 +57,7 @@ namespace Tabster.Forms
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.librarySplitContainer = new System.Windows.Forms.SplitContainer();
-            this.tablibrary = new NS_Controls.DataGridViewExtended();
+            this.tablibrary = new DataGridViewExtended();
             this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,7 +91,7 @@ namespace Tabster.Forms
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.display_search = new System.Windows.Forms.TabPage();
             this.searchSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.dataGridViewExtended1 = new NS_Controls.DataGridViewExtended();
+            this.dataGridViewExtended1 = new DataGridViewExtended();
             this.searchcol_artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchcol_song = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchcol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -482,11 +483,11 @@ namespace Tabster.Forms
             // libraryPreviewEditor
             // 
             this.libraryPreviewEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.libraryPreviewEditor.Location = new System.Drawing.Point(0, 0);
+            this.libraryPreviewEditor.Location = new System.Drawing.Point(0, 25);
             this.libraryPreviewEditor.Margin = new System.Windows.Forms.Padding(0);
             this.libraryPreviewEditor.Mode = Tabster.Controls.TabEditor.TabMode.Edit;
             this.libraryPreviewEditor.Name = "libraryPreviewEditor";
-            this.libraryPreviewEditor.Size = new System.Drawing.Size(1130, 194);
+            this.libraryPreviewEditor.Size = new System.Drawing.Size(1130, 169);
             this.libraryPreviewEditor.TabIndex = 24;
             // 
             // toolStrip3
@@ -509,7 +510,6 @@ namespace Tabster.Forms
             this.toolStrip3.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip3.Size = new System.Drawing.Size(1130, 25);
             this.toolStrip3.TabIndex = 23;
-            this.toolStrip3.Visible = false;
             // 
             // lblpreviewtitle
             // 
@@ -1569,6 +1569,7 @@ namespace Tabster.Forms
             this.Text = "Tabster";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.tabControl1.ResumeLayout(false);
             this.display_library.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -1,4 +1,4 @@
-﻿using NS_Controls;
+﻿using Tabster.Controls;
 
 namespace Tabster.Forms
 {
@@ -39,7 +39,7 @@ namespace Tabster.Forms
             this.label2 = new System.Windows.Forms.Label();
             this.lblloading = new System.Windows.Forms.Label();
             this.lblname = new System.Windows.Forms.Label();
-            this.simpleProgressBar1 = new NS_Controls.SimpleProgressBar();
+            this.simpleProgressBar1 = new SimpleProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
