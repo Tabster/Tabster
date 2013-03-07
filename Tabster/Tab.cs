@@ -23,12 +23,33 @@ namespace Tabster
 
     public enum Difficulty
     {
+        Unknown,
         Novice,
         Intermediate,
         Advanced
     };
 
-    public class Tab
+    public enum Tuning
+    {
+        Unknown,
+        Standard,
+        HalfStepDown,
+        BTuning,
+        CTuning,
+        DTuning,
+        DropA,
+        DropASharp,
+        DropB,
+        DropC,
+        DropCSharp,
+        DropD,
+        OpenC,
+        OpenD,
+        OpenE,
+        OpenG
+    };
+
+public class Tab
     {
         public static readonly string[] TabTypes;
 
