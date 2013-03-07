@@ -23,10 +23,6 @@ namespace Tabster.UltimateGuitar
 
     public class UltimateGuitarTab
     {
-        private static readonly Regex TitleRegex = new Regex(@"\<title\b[^>]*\>\s*(?<title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Regex JSArtistSRegex = new Regex(@"tf_artist = ""(?<name>.*?)""", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Regex JSSongRegex = new Regex(@"tf_song = ""(?<name>.*?)""", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
         public UltimateGuitarTab(string artist, string title, Tabster.TabType type, Uri url, string contents)
         {
             Artist = artist;
@@ -67,45 +63,34 @@ namespace Tabster.UltimateGuitar
 
             if (!string.IsNullOrEmpty(html))
             {
-                string song = null, artist = null;
-                var ultimateGuitarTabType = TabType.GuitarTab;
-
-                var javascriptVars = false;
-
-                var artistMatch = JSArtistSRegex.Match(html);
-                var songMatch = JSSongRegex.Match(html);
-
-                //attempt to find and extract data from js variables
-                //tf_artist = "Misc Computer Games";
-                //tf_song = "Legend Of Zelda - Zeldas Lullaby";
-                if (artistMatch.Success && songMatch.Success)
-                {
-                    artist = artistMatch.Groups["name"].Value;
-                    song = songMatch.Groups["name"].Value;
-                }
-
-                    //get info from title
-                else
-                {
-                    var title = Regex.Replace(TitleRegex.Match(html).Groups["title"].Value, @"\s+", " ");
-                    var titledata = Regex.Split(title, @" tab by ");
-                    song = titledata[0].Trim();
-                    artist = titledata[1].Trim();
-                }
-
-                //get the tab type
-                if (url.ToString().EndsWith("crd.htm") || url.ToString().Contains("crd"))
-                    ultimateGuitarTabType = TabType.GuitarChords;
-                else if (url.ToString().EndsWith("btab.htm") || url.ToString().Contains("btab"))
-                    ultimateGuitarTabType = TabType.BassTab;
-                else if (url.ToString().EndsWith("drum_tab.htm"))
-                    ultimateGuitarTabType = TabType.DrumTab;
-
                 var doc = new HtmlDocument();
                 doc.LoadHtml(html);
 
-                //div[@id='cont']
-                //var cont = doc.DocumentNode.SelectSingleNode("*[@id='cont']");
+                var ultimateGuitarTabType = TabType.GuitarTab;
+                string song = null, artist = null;
+
+                //get values from meta keywords
+                var metaNodes = doc.DocumentNode.SelectNodes("/html/head/meta");
+                foreach (var mn in metaNodes)
+                {
+                    if (mn.HasAttributes && mn.Attributes.Contains("name") && mn.Attributes["name"].Value == "keywords")
+                    {
+                        var split = mn.Attributes["content"].Value.Split(',');
+                        song = split[0].Trim();
+
+                        var typeStr = split[1].Trim();
+
+                        if (typeStr.IndexOf("bass", StringComparison.OrdinalIgnoreCase) > -1)
+                            ultimateGuitarTabType = TabType.BassTab;
+                        else if (typeStr.IndexOf("chord", StringComparison.OrdinalIgnoreCase) > -1)
+                            ultimateGuitarTabType = TabType.GuitarChords;
+                        else if (typeStr.IndexOf("drum", StringComparison.OrdinalIgnoreCase) > -1)
+                            ultimateGuitarTabType = TabType.DrumTab;
+
+                        artist = split[2].Trim();
+                        break;
+                    }
+                }
 
                 var contentsNode = doc.DocumentNode.SelectSingleNode("//div[@id='cont']/pre");
 
@@ -132,15 +117,6 @@ namespace Tabster.UltimateGuitar
                     App Store's or Android Market's
                     search to find the application.
                  */
-
-                //Common.CollapseSpaces(doc.GetElementsByTagName("title")[0].InnerText).Replace(" @ Ultimate-Guitar.Com", "");
-                //var tab = doc.SelectSingleNode("div[@id='cont']").InnerText;
-
-                //\(ver \d+\)
-                /*
-                var m = Regex.Match(data, @"<title>\s*(.+?)\s*</title>");
-                var title = Common.CollapseSpaces(m.Groups[0].Value).Replace(" @ Ultimate-Guitar.Com", "");
-                */
             }
 
             return null;
