@@ -19,7 +19,14 @@ namespace Tabster
         Download = 0,
         FileImport = 1,
         UserCreated = 2,
-    }
+    };
+
+    public enum Difficulty
+    {
+        Novice,
+        Intermediate,
+        Advanced
+    };
 
     public class Tab
     {
@@ -86,6 +93,8 @@ namespace Tabster
         ///   Gets or sets the type of tab.
         /// </summary>
         public TabType Type { get; set; }
+
+        public Difficulty Difficulty { get; set; }
 
         public string Comment
         {
