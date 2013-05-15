@@ -1,6 +1,5 @@
 ﻿#region
 
-using System;
 using Tabster.Forms;
 
 #endregion
@@ -9,24 +8,27 @@ namespace Tabster
 {
     public class TabViewerManager
     {
+        #region Delegates
+
+        public delegate void TabHandler(object sender, TabFile tabFile);
+
+        #endregion
+
         private TabbedViewer _viewer = new TabbedViewer();
 
-        public event EventHandler OnTabClosed;
-
-        public void TabClosed(TabFile tab)
+        public TabViewerManager(RecentTabs recentTabs)
         {
-            if (OnTabClosed != null)
-                OnTabClosed(this, EventArgs.Empty);
+            Recent = recentTabs;
         }
+
+        public RecentTabs Recent { get; private set; }
+
+        public event TabHandler OnTabOpened;
+        public event TabHandler OnTabClosed;
 
         private TabbedViewer GetViewer(bool createOnNull)
         {
-            if (_viewer != null && _viewer.IsDisposed)
-            {
-                _viewer = new TabbedViewer();
-            }
-
-            if (_viewer == null && createOnNull)
+            if ((_viewer != null && _viewer.IsDisposed) || (_viewer == null && createOnNull))
             {
                 _viewer = new TabbedViewer();
             }
@@ -34,20 +36,29 @@ namespace Tabster
             return _viewer;
         }
 
-        public void LoadTab(TabFile tab, bool show)
+        public void CloseTab(TabFile tabFile)
+        {
+            if (OnTabClosed != null)
+                OnTabClosed(this, tabFile);
+        }
+
+        public void LoadTab(TabFile tabFile, bool show)
         {
             var v = GetViewer(true);
 
-            v.LoadTab(tab);
+            v.LoadTab(tabFile);
+
+            Recent.Add(tabFile);
 
             if (show)
             {
                 v.Show();
                 v.BringToFront();
             }
+
+            if (OnTabOpened != null)
+                OnTabOpened(this, tabFile);
         }
-
-
 
         public bool IsOpenInViewer(TabFile tab)
         {
