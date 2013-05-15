@@ -25,7 +25,7 @@ namespace Tabster.Forms
             pictureBox1.Image = Resources.guitar128;
             lblversion.Text = string.Format("v{0}", Application.ProductVersion);
 
-            simpleProgressBar1.Maximum = status.Length*(simpleProgressBar1.Maximum / status.Length);
+            simpleProgressBar1.Maximum = status.Length*(simpleProgressBar1.Maximum/status.Length);
 
             lbldisclaimer.ForeColor = Color.Gray;
             lblversion.ForeColor = Color.Gray;
@@ -37,7 +37,7 @@ namespace Tabster.Forms
         {
             if (simpleProgressBar1.Value != simpleProgressBar1.Maximum)
             {
-                lblloading.Text = status[_Progress / (simpleProgressBar1.Maximum / status.Length)];
+                lblloading.Text = status[_Progress/(simpleProgressBar1.Maximum/status.Length)];
                 _Progress++;
                 simpleProgressBar1.Value++;
             }
@@ -45,7 +45,6 @@ namespace Tabster.Forms
             if (_Progress == 840)
             {
                 timer1.Enabled = false;
-                //Thread.Sleep(500);
                 Close();
             }
         }
@@ -56,8 +55,6 @@ namespace Tabster.Forms
             {
                 Invoke(new MethodInvoker(UpdateProgress));
             }
-
-
         }
     }
 }

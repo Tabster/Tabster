@@ -1,6 +1,5 @@
 ﻿#region
 
-using System;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
@@ -13,7 +12,8 @@ namespace Tabster
 {
     public class SingleInstanceController : WindowsFormsApplicationBase
     {
-        private bool _openLibrary = true;
+        private static TabFile _queuedTabfile;
+        private static bool _isLibraryOpen;
 
         public SingleInstanceController()
         {
@@ -21,20 +21,22 @@ namespace Tabster
             StartupNextInstance += this_StartupNextInstance;
         }
 
-        private void ProcessCommandLine(ReadOnlyCollection<string> commandLine)
+        private static void ProcessCommandLine(ReadOnlyCollection<string> commandLine)
         {
             if (commandLine.Count > 0)
             {
                 TabFile t;
                 if (TabFile.TryParse(commandLine[0], out t))
                 {
-                    _openLibrary = false;
-                    Program.TabHandler.LoadTab(t, true);
+                    _queuedTabfile = t;
+
+                    if (_isLibraryOpen)
+                        Program.TabHandler.LoadTab(t, true);
                 }
             }
         }
 
-        private void this_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
+        private static void this_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
         {
             ProcessCommandLine(e.CommandLine);
         }
@@ -47,19 +49,21 @@ namespace Tabster
 
         protected override void OnCreateSplashScreen()
         {
+            base.OnCreateSplashScreen();
+
             if (Settings.Default.ShowSplash)
             {
-                MinimumSplashScreenDisplayTime = 3500;
+                //MinimumSplashScreenDisplayTime = 3500; //seems to make MainForm show prematurely
                 SplashScreen = new Splash {Cursor = Cursors.AppStarting};
             }
         }
 
         protected override void OnCreateMainForm()
         {
-            if (_openLibrary)
-            {
-                MainForm = new Form1();
-            }
+            base.OnCreateMainForm();
+
+            MainForm = _queuedTabfile != null ? new Form1(_queuedTabfile) : new Form1();
+            _isLibraryOpen = true;
         }
     }
 }
