@@ -4,7 +4,6 @@ using System;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
-using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -15,6 +14,7 @@ namespace Tabster
     public class PortableSettingsProvider : SettingsProvider
     {
         private const string APPLICATION_NAME = "Tabster";
+        private const string CONFIG_NAME = APPLICATION_NAME + ".config";
 
         // Define some static strings later used in our XML creation
         // XML Root node
@@ -30,7 +30,7 @@ namespace Tabster
         private const string USERNODE = "userSettings";
 
         // Application Specific Node
-        private readonly string APPNODE = APPLICATION_NAME + ".Properties.Settings";
+        private string APPNODE = APPLICATION_NAME + ".Properties.Settings";
 
         private XmlDocument xmlDoc;
 
@@ -106,6 +106,7 @@ namespace Tabster
             }
         }
 
+        // Override the Initialize method
         public override void Initialize(string name, NameValueCollection config)
         {
             base.Initialize(ApplicationName, config);
@@ -114,13 +115,18 @@ namespace Tabster
         // Simply returns the name of the settings file, which is the solution name plus ".config"
         public virtual string GetSettingsFilename()
         {
-            return ApplicationName + ".config";
+            return CONFIG_NAME;
         }
 
         // Gets current executable path in order to determine where to read and write the config file
         public virtual string GetAppPath()
         {
-            return new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
+            var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATION_NAME);
+
+            if (!(Directory.Exists(dir)))
+                Directory.CreateDirectory(dir);
+
+            return dir;
         }
 
         // Retrieve settings from the configuration file
