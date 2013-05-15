@@ -274,6 +274,11 @@ namespace Tabster
                 Save(true);
             }
 
+            _tabs.Clear();
+            _playlists.Clear();
+            TabsLoaded = false;
+            PlaylistsLoaded = false;
+
             BeginFileRead(new Version(FILE_VERSION));
 
             var tabPaths = ReadChildValues("tabs") ?? new List<string>();
@@ -284,8 +289,6 @@ namespace Tabster
                 Save();
                 Load();
             }
-
-            _tabs.Clear();
 
             foreach (var file in tabPaths)
             {
@@ -304,9 +307,6 @@ namespace Tabster
 
             if (OnTabsLoaded != null)
                 OnTabsLoaded(this, EventArgs.Empty);
-
-
-            _playlists.Clear();
 
             foreach (var file in playlistPaths)
             {
