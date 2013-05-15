@@ -15,7 +15,6 @@ namespace Tabster.Forms
         {
             InitializeComponent();
             chkupdatestartup.Checked = Settings.Default.StartupUpdate;
-            chksplash.Checked = Settings.Default.ShowSplash;
         }
 
         private void internetpropertiesbtn_Click(object sender, EventArgs e)
@@ -26,7 +25,6 @@ namespace Tabster.Forms
         private void okbtn_Click(object sender, EventArgs e)
         {
             Settings.Default.StartupUpdate = chkupdatestartup.Checked;
-            Settings.Default.ShowSplash = chksplash.Checked;
             Settings.Default.Save();
         }
     }

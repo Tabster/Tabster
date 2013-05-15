@@ -51,11 +51,8 @@ namespace Tabster
         {
             base.OnCreateSplashScreen();
 
-            if (Settings.Default.ShowSplash)
-            {
-                //MinimumSplashScreenDisplayTime = 3500; //seems to make MainForm show prematurely
-                SplashScreen = new Splash {Cursor = Cursors.AppStarting};
-            }
+            //MinimumSplashScreenDisplayTime = 3500; //seems to make MainForm show prematurely
+            SplashScreen = new Splash {Cursor = Cursors.AppStarting};
         }
 
         protected override void OnCreateMainForm()

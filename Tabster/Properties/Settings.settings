@@ -17,9 +17,6 @@
     <Setting Name="ToolbarDock" Provider="Tabster.PortableSettingsProvider" Type="System.Windows.Forms.DockStyle" Scope="User">
       <Value Profile="(Default)">Top</Value>
     </Setting>
-    <Setting Name="ShowSplash" Provider="Tabster.PortableSettingsProvider" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="ClientSize" Provider="Tabster.PortableSettingsProvider" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">1024, 625</Value>
     </Setting>

@@ -32,14 +32,13 @@
             this.internetpropertiesbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
             this.okbtn = new System.Windows.Forms.Button();
-            this.chksplash = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // chkupdatestartup
             // 
             this.chkupdatestartup.AutoSize = true;
             this.chkupdatestartup.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkupdatestartup.Location = new System.Drawing.Point(12, 35);
+            this.chkupdatestartup.Location = new System.Drawing.Point(12, 12);
             this.chkupdatestartup.Name = "chkupdatestartup";
             this.chkupdatestartup.Size = new System.Drawing.Size(163, 17);
             this.chkupdatestartup.TabIndex = 18;
@@ -81,17 +80,6 @@
             this.okbtn.UseVisualStyleBackColor = true;
             this.okbtn.Click += new System.EventHandler(this.okbtn_Click);
             // 
-            // chksplash
-            // 
-            this.chksplash.AutoSize = true;
-            this.chksplash.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chksplash.Location = new System.Drawing.Point(12, 12);
-            this.chksplash.Name = "chksplash";
-            this.chksplash.Size = new System.Drawing.Size(171, 17);
-            this.chksplash.TabIndex = 51;
-            this.chksplash.Text = "Show splash screen on startup";
-            this.chksplash.UseVisualStyleBackColor = true;
-            // 
             // Preferences
             // 
             this.AcceptButton = this.okbtn;
@@ -100,7 +88,6 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.cancelbtn;
             this.ClientSize = new System.Drawing.Size(343, 158);
-            this.Controls.Add(this.chksplash);
             this.Controls.Add(this.internetpropertiesbtn);
             this.Controls.Add(this.okbtn);
             this.Controls.Add(this.cancelbtn);
@@ -125,6 +112,5 @@
         private System.Windows.Forms.CheckBox chkupdatestartup;
         private System.Windows.Forms.Button cancelbtn;
         private System.Windows.Forms.Button okbtn;
-        private System.Windows.Forms.CheckBox chksplash;
     }
 }

@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 #endregion
@@ -22,8 +23,8 @@ namespace Tabster
             
             var controller = new SingleInstanceController();
 
-            TabHandler = new TabViewerManager();
-
+            TabHandler = new TabViewerManager(new RecentTabs(Path.Combine(libraryManager.ApplicationDirectory, "recent.dat"), 10));
+           
             controller.Run(args);       
         }
     }
