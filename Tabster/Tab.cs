@@ -12,14 +12,14 @@ namespace Tabster
         Chord,
         Bass,
         Drum
-    };
+    }
 
     public enum TabSource
     {
         Download = 0,
         FileImport = 1,
         UserCreated = 2,
-    };
+    }
 
     public enum Difficulty
     {
@@ -27,7 +27,7 @@ namespace Tabster
         Novice,
         Intermediate,
         Advanced
-    };
+    }
 
     public enum Tuning
     {
@@ -47,9 +47,9 @@ namespace Tabster
         OpenD,
         OpenE,
         OpenG
-    };
+    }
 
-public class Tab
+    public class Tab
     {
         public static readonly string[] TabTypes;
 
