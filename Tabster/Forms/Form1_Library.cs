@@ -5,12 +5,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
-using NS.Common;
 using Tabster.Controls;
 using Tabster.Properties;
 #endregion
 
-namespace Tabster.Forms
+namespace Tabster
 {
     public enum PreviewPanelOrientation
     {
@@ -18,7 +17,10 @@ namespace Tabster.Forms
         Horizontal,
         Vertical
     }
+}
 
+namespace Tabster.Forms
+{
     partial class Form1
     {
         public enum LibraryType
@@ -40,6 +42,29 @@ namespace Tabster.Forms
                                                                      };
 
         private TabFile SelectedTab;
+
+
+        #region Tab Viewer Manager Events
+
+        void TabHandler_OnTabClosed(object sender, TabFile tabFile)
+        {
+            if (SelectedTab != null)
+            {
+                var openedExternally = Program.TabHandler.IsOpenInViewer(SelectedTab);
+                librarySplitContainer.Panel2.Enabled = !openedExternally;
+            }
+        }
+
+        void TabHandler_OnTabOpened(object sender, TabFile tabFile)
+        {
+            if (SelectedTab != null)
+            {
+                var openedExternally = Program.TabHandler.IsOpenInViewer(SelectedTab);
+                librarySplitContainer.Panel2.Enabled = !openedExternally;
+            }
+        }
+
+        #endregion
 
         #region Searching
 
@@ -175,6 +200,8 @@ namespace Tabster.Forms
                 SelectedTab = Program.libraryManager.FindTabByPath(selectedTabLocation);
 
                 var openedExternally = Program.TabHandler.IsOpenInViewer(SelectedTab);
+
+                Console.WriteLine("openedExternally: " + openedExternally);
 
                 librarySplitContainer.Panel2.Enabled = !openedExternally;
             }
@@ -370,17 +397,14 @@ namespace Tabster.Forms
                 {
                     var toolItem = item as ToolStripMenuItem;
 
-                    if (toolItem != null)
+                    if (toolItem != null && toolItem.Tag != null)
                     {
-                        if (toolItem.Tag != null)
-                        {
-                            var playlistPath = toolItem.Tag.ToString();
-                            var associatedPlaylist = Program.libraryManager.FindPlaylistByPath(playlistPath);
+                        var playlistPath = toolItem.Tag.ToString();
+                        var associatedPlaylist = Program.libraryManager.FindPlaylistByPath(playlistPath);
 
-                            var alreadyExistsInPlaylist = associatedPlaylist.PlaylistData.Contains(SelectedTab);
+                        var alreadyExistsInPlaylist = associatedPlaylist.PlaylistData.Contains(SelectedTab);
 
-                            toolItem.Enabled = !alreadyExistsInPlaylist;
-                        }
+                        toolItem.Enabled = !alreadyExistsInPlaylist;
                     }
                 }
             }
@@ -615,9 +639,12 @@ namespace Tabster.Forms
             lblplaylists.Text = string.Format("Playlists: {0}", Program.libraryManager.PlaylistCount);
 
             var usage = Program.libraryManager.DiskUsage;
+            var kilobytes = usage / 1024d;
+            var megabytes = usage / 1024d / 1024d;
+
             lbldisk.Text = string.Format("Disk Space: {0}KB ({1}MB)",
-                                         (usage == 0 ? "0" : FileSizeUtilities.ConvertBytesToKilobytes(usage).ToString("#.##")),
-                                         (usage == 0 ? "0" : FileSizeUtilities.ConvertBytesToMegabytes(usage).ToString("#.##")));
+                                         (usage == 0 ? "0" : kilobytes.ToString("#.##")),
+                                         (usage == 0 ? "0" : megabytes.ToString("#.##")));
         }
 
         public void UpdateLibraryItem(TabFile tab, bool append = true)
@@ -629,7 +656,7 @@ namespace Tabster.Forms
                                     Tab.GetTabString(tab.TabData.Type), 
                                     tab.FileInfo.CreationTime, 
                                     0,
-                                    string.Format("{0:0.##} KB", FileSizeUtilities.ConvertBytesToKilobytes(tab.FileInfo.Length)),
+                                    string.Format("{0:0.##} KB", tab.FileInfo.Length / 1024d),
                                     tab.FileInfo.FullName
                                 };
 
