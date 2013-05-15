@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using NS_Controls;
 using Tabster.Controls;
 using DataGridViewExtended = Tabster.Controls.DataGridViewExtended;
 
@@ -57,7 +56,7 @@ namespace Tabster.Forms
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.librarySplitContainer = new System.Windows.Forms.SplitContainer();
-            this.tablibrary = new DataGridViewExtended();
+            this.tablibrary = new Tabster.Controls.DataGridViewExtended();
             this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,7 +68,7 @@ namespace Tabster.Forms
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.lblpreviewtitle = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.detailsbtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.modebtn = new System.Windows.Forms.ToolStripButton();
@@ -91,7 +90,7 @@ namespace Tabster.Forms
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.display_search = new System.Windows.Forms.TabPage();
             this.searchSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.dataGridViewExtended1 = new DataGridViewExtended();
+            this.dataGridViewExtended1 = new Tabster.Controls.DataGridViewExtended();
             this.searchcol_artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchcol_song = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchcol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -497,7 +496,7 @@ namespace Tabster.Forms
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblpreviewtitle,
             this.toolStripButton1,
-            this.toolStripSeparator6,
+            this.toolStripSeparator4,
             this.detailsbtn,
             this.toolStripSeparator5,
             this.modebtn,
@@ -526,11 +525,11 @@ namespace Tabster.Forms
             this.toolStripButton1.Text = "Pop Out";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
-            // toolStripSeparator6
+            // toolStripSeparator4
             // 
-            this.toolStripSeparator6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // detailsbtn
             // 
@@ -1695,7 +1694,6 @@ namespace Tabster.Forms
         private ToolStripButton detailsbtn;
         private ToolStripButton printbtn;
         private ToolStripButton modebtn;
-        private ToolStripSeparator toolStripSeparator6;
         private ToolStripSeparator toolStripSeparator7;
         private Label lblsearchresults;
         private Timer PreviewDelay;
@@ -1736,6 +1734,7 @@ namespace Tabster.Forms
         private DataGridViewTextBoxColumn searchcol_type;
         private DataGridViewImageColumn searchcol_rating;
         private DataGridViewTextBoxColumn searchcol_votes;
+        private ToolStripSeparator toolStripSeparator4;
     }
 }
 
