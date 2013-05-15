@@ -11,7 +11,7 @@ namespace Tabster.Controls
     public partial class TabEditor : UserControl
     {
         private const string tabHTML =
-    @"
+            @"
                                          <html>
                                             <head>
                                                 <style type=""text/css"">
@@ -67,6 +67,7 @@ namespace Tabster.Controls
         #region Properties
 
         private TabMode _mode = TabMode.View;
+
         public TabMode Mode
         {
             get { return _mode; }
@@ -133,15 +134,18 @@ namespace Tabster.Controls
         public event EventHandler TabLoaded;
         public event EventHandler TabModified;
 
+        private string _originalContents = "";
         private string _oldContents = "";
 
         private void textBox1_TextChanged(object sender, EventArgs e)
-        {  
-            if (textBox1.Text.Length != _oldContents.Length && textBox1.Text != _oldContents)
+        {
+            if (textBox1.Text.Length != _oldContents.Length && textBox1.Text != _oldContents && textBox1.Text != _originalContents)
             {
                 HasBeenModified = true;
 
                 _oldContents = textBox1.Text;
+
+                TabData.Contents = textBox1.Text;
 
                 if (TabModified != null)
                     TabModified(this, EventArgs.Empty);
@@ -182,6 +186,7 @@ namespace Tabster.Controls
 
             if (TabData != null)
             {
+                _originalContents = TabData.Contents;
                 textBox1.Text = TabData.Contents;
                 ReloadHTML();
             }
