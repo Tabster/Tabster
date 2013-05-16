@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Properties;
+using Tabster.UltimateGuitar;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion
@@ -14,6 +15,8 @@ namespace Tabster.Forms
 {
     public partial class Form1 : Form
     {
+        private readonly TabFile _queuedTabfile;
+
         public Form1()
         {
             InitializeComponent();
@@ -61,8 +64,6 @@ namespace Tabster.Forms
             Rating4 = Resources.r4;
             Rating5 = Resources.r5;
         }
-
-        private readonly TabFile _queuedTabfile;
 
         public Form1(TabFile tabFile) : this()
         {
@@ -133,7 +134,7 @@ namespace Tabster.Forms
             //redirect to UG
             if (tabControl1.SelectedTab == display_browser && !_firstBrowserLoad && !webBrowser1.Url.ToString().Contains("ultimate-guitar.com"))
             {
-                webBrowser1.Navigate(UltimateGuitar.Constants.UG_HOME_1);
+                webBrowser1.Navigate(Constants.UG_HOME_1);
             }
 
             if (tabControl1.SelectedTab == display_search)
@@ -146,10 +147,10 @@ namespace Tabster.Forms
 
         private void TogglePreviewPane(object sender, EventArgs e)
         {
+            Console.WriteLine("TogglePreviewPane");
+
             var ts = (ToolStripMenuItem) sender;
             var orientation = PreviewPanelOrientation.Hidden;
-
-            SplitContainer associatedSplitContainer = null;
 
             switch (ts.Text)
             {
@@ -166,39 +167,33 @@ namespace Tabster.Forms
 
             if (ts.OwnerItem == libraryPreviewPaneToolStripMenuItem)
             {
-                associatedSplitContainer = librarySplitContainer;
+                librarySplitContainer.Panel2Collapsed = orientation == PreviewPanelOrientation.Hidden;
+                librarySplitContainer.Orientation = orientation == PreviewPanelOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
 
-                foreach (ToolStripMenuItem i in libraryPreviewPaneToolStripMenuItem.DropDownItems)
-                {
-                    i.Checked = i == sender;
-                }
-            }
+                libraryhiddenpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Hidden;
+                libraryhorizontalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Horizontal;
+                libraryverticalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Vertical;
 
-            if (ts.OwnerItem == searchPreviewPaneToolStripMenuItem)
-            {
-                associatedSplitContainer = searchSplitContainer;
-
-                foreach (ToolStripMenuItem i in searchPreviewPaneToolStripMenuItem.DropDownItems)
-                {
-                    i.Checked = i == sender;
-                }
-            }
-
-            associatedSplitContainer.Panel2Collapsed = orientation == PreviewPanelOrientation.Hidden;
-            associatedSplitContainer.Orientation = orientation == PreviewPanelOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
-
-            if (ts.OwnerItem == libraryPreviewPaneToolStripMenuItem)
-            {
-                Settings.Default.LibraryPreviewOrientation = associatedSplitContainer.Panel2Collapsed
+                Settings.Default.LibraryPreviewOrientation = librarySplitContainer.Panel2Collapsed
                                                                  ? PreviewPanelOrientation.Hidden
-                                                                 : (associatedSplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
+                                                                 : (librarySplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
             }
 
-            if (ts.OwnerItem == searchPreviewPaneToolStripMenuItem)
+            if (ts.OwnerItem == searchPreviewPaneToolStripMenuItem || ts == previewToolStripMenuItem)
             {
-                Settings.Default.SearchPreviewOrientation = associatedSplitContainer.Panel2Collapsed
+                if (ts == previewToolStripMenuItem && searchSplitContainer.Panel2Collapsed)
+                    orientation = PreviewPanelOrientation.Horizontal;
+
+                searchSplitContainer.Panel2Collapsed = orientation == PreviewPanelOrientation.Hidden;
+                searchSplitContainer.Orientation = orientation == PreviewPanelOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
+
+                searchhiddenpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Hidden;
+                searchhorizontalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Horizontal;
+                searchverticalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Vertical;
+
+                Settings.Default.SearchPreviewOrientation = searchSplitContainer.Panel2Collapsed
                                                                 ? PreviewPanelOrientation.Hidden
-                                                                : (associatedSplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
+                                                                : (searchSplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
             }
 
             Settings.Default.Save();
@@ -227,32 +222,32 @@ namespace Tabster.Forms
                 switch (Settings.Default.LibraryPreviewOrientation)
                 {
                     case PreviewPanelOrientation.Hidden:
-                        hiddenToolStripMenuItem.PerformClick();
+                        libraryhiddenpreviewToolStripMenuItem.PerformClick();
                         break;
                     case PreviewPanelOrientation.Horizontal:
-                        horizontalToolStripMenuItem.PerformClick();
+                        libraryhorizontalpreviewToolStripMenuItem.PerformClick();
                         break;
                     case PreviewPanelOrientation.Vertical:
-                        verticalToolStripMenuItem.PerformClick();
+                        libraryverticalpreviewToolStripMenuItem.PerformClick();
                         break;
                     default:
-                        horizontalToolStripMenuItem.PerformClick();
+                        libraryhorizontalpreviewToolStripMenuItem.PerformClick();
                         break;
                 }
 
                 switch (Settings.Default.SearchPreviewOrientation)
                 {
                     case PreviewPanelOrientation.Hidden:
-                        toolStripMenuItem2.PerformClick();
+                        searchhiddenpreviewToolStripMenuItem.PerformClick();
                         break;
                     case PreviewPanelOrientation.Horizontal:
-                        toolStripMenuItem3.PerformClick();
+                        searchhorizontalpreviewToolStripMenuItem.PerformClick();
                         break;
                     case PreviewPanelOrientation.Vertical:
-                        toolStripMenuItem4.PerformClick();
+                        searchverticalpreviewToolStripMenuItem.PerformClick();
                         break;
                     default:
-                        toolStripMenuItem2.PerformClick();
+                        searchhiddenpreviewToolStripMenuItem.PerformClick();
                         break;
                 }
             }

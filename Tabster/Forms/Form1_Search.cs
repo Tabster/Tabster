@@ -148,6 +148,7 @@ namespace Tabster.Forms
 
         private void previewToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            TogglePreviewPane(sender, e);
             LoadSelectedPreview();
         }
 

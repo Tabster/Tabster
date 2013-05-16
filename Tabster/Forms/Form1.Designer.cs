@@ -145,13 +145,13 @@ namespace Tabster.Forms
             this.sidebarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.libraryPreviewPaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hiddenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.horizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.libraryhiddenpreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.libraryhorizontalpreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.libraryverticalpreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchPreviewPaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchhiddenpreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchhorizontalpreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchverticalpreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.libraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -338,6 +338,7 @@ namespace Tabster.Forms
             // 
             this.librarySplitContainer.Panel2.Controls.Add(this.libraryPreviewEditor);
             this.librarySplitContainer.Panel2.Controls.Add(this.toolStrip3);
+            this.librarySplitContainer.Panel2MinSize = 80;
             this.librarySplitContainer.Size = new System.Drawing.Size(1132, 565);
             this.librarySplitContainer.SplitterDistance = 365;
             this.librarySplitContainer.TabIndex = 25;
@@ -717,6 +718,7 @@ namespace Tabster.Forms
             // searchSplitContainer.Panel2
             // 
             this.searchSplitContainer.Panel2.Controls.Add(this.searchPreviewEditor);
+            this.searchSplitContainer.Panel2MinSize = 80;
             this.searchSplitContainer.Size = new System.Drawing.Size(1273, 588);
             this.searchSplitContainer.SplitterDistance = 1032;
             this.searchSplitContainer.TabIndex = 29;
@@ -1131,7 +1133,7 @@ namespace Tabster.Forms
             this.LibraryMenu.Name = "contextMenuStrip1";
             this.LibraryMenu.ShowImageMargin = false;
             this.LibraryMenu.ShowItemToolTips = false;
-            this.LibraryMenu.Size = new System.Drawing.Size(152, 158);
+            this.LibraryMenu.Size = new System.Drawing.Size(152, 136);
             // 
             // detailsToolStripMenuItem1
             // 
@@ -1299,64 +1301,64 @@ namespace Tabster.Forms
             // libraryPreviewPaneToolStripMenuItem
             // 
             this.libraryPreviewPaneToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hiddenToolStripMenuItem,
-            this.horizontalToolStripMenuItem,
-            this.verticalToolStripMenuItem});
+            this.libraryhiddenpreviewToolStripMenuItem,
+            this.libraryhorizontalpreviewToolStripMenuItem,
+            this.libraryverticalpreviewToolStripMenuItem});
             this.libraryPreviewPaneToolStripMenuItem.Name = "libraryPreviewPaneToolStripMenuItem";
             this.libraryPreviewPaneToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.libraryPreviewPaneToolStripMenuItem.Text = "Library Preview Pane";
             // 
-            // hiddenToolStripMenuItem
+            // libraryhiddenpreviewToolStripMenuItem
             // 
-            this.hiddenToolStripMenuItem.Name = "hiddenToolStripMenuItem";
-            this.hiddenToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.hiddenToolStripMenuItem.Text = "Hidden";
-            this.hiddenToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
+            this.libraryhiddenpreviewToolStripMenuItem.Name = "libraryhiddenpreviewToolStripMenuItem";
+            this.libraryhiddenpreviewToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.libraryhiddenpreviewToolStripMenuItem.Text = "Hidden";
+            this.libraryhiddenpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
             // 
-            // horizontalToolStripMenuItem
+            // libraryhorizontalpreviewToolStripMenuItem
             // 
-            this.horizontalToolStripMenuItem.Name = "horizontalToolStripMenuItem";
-            this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.horizontalToolStripMenuItem.Text = "Horizontal";
-            this.horizontalToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
+            this.libraryhorizontalpreviewToolStripMenuItem.Name = "libraryhorizontalpreviewToolStripMenuItem";
+            this.libraryhorizontalpreviewToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.libraryhorizontalpreviewToolStripMenuItem.Text = "Horizontal";
+            this.libraryhorizontalpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
             // 
-            // verticalToolStripMenuItem
+            // libraryverticalpreviewToolStripMenuItem
             // 
-            this.verticalToolStripMenuItem.Name = "verticalToolStripMenuItem";
-            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.verticalToolStripMenuItem.Text = "Vertical";
-            this.verticalToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
+            this.libraryverticalpreviewToolStripMenuItem.Name = "libraryverticalpreviewToolStripMenuItem";
+            this.libraryverticalpreviewToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.libraryverticalpreviewToolStripMenuItem.Text = "Vertical";
+            this.libraryverticalpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
             // 
             // searchPreviewPaneToolStripMenuItem
             // 
             this.searchPreviewPaneToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem3,
-            this.toolStripMenuItem4});
+            this.searchhiddenpreviewToolStripMenuItem,
+            this.searchhorizontalpreviewToolStripMenuItem,
+            this.searchverticalpreviewToolStripMenuItem});
             this.searchPreviewPaneToolStripMenuItem.Name = "searchPreviewPaneToolStripMenuItem";
             this.searchPreviewPaneToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.searchPreviewPaneToolStripMenuItem.Text = "Search Preview Pane";
             // 
-            // toolStripMenuItem2
+            // searchhiddenpreviewToolStripMenuItem
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(129, 22);
-            this.toolStripMenuItem2.Text = "Hidden";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.TogglePreviewPane);
+            this.searchhiddenpreviewToolStripMenuItem.Name = "searchhiddenpreviewToolStripMenuItem";
+            this.searchhiddenpreviewToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.searchhiddenpreviewToolStripMenuItem.Text = "Hidden";
+            this.searchhiddenpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
             // 
-            // toolStripMenuItem3
+            // searchhorizontalpreviewToolStripMenuItem
             // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(129, 22);
-            this.toolStripMenuItem3.Text = "Horizontal";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.TogglePreviewPane);
+            this.searchhorizontalpreviewToolStripMenuItem.Name = "searchhorizontalpreviewToolStripMenuItem";
+            this.searchhorizontalpreviewToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.searchhorizontalpreviewToolStripMenuItem.Text = "Horizontal";
+            this.searchhorizontalpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
             // 
-            // toolStripMenuItem4
+            // searchverticalpreviewToolStripMenuItem
             // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(129, 22);
-            this.toolStripMenuItem4.Text = "Vertical";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.TogglePreviewPane);
+            this.searchverticalpreviewToolStripMenuItem.Name = "searchverticalpreviewToolStripMenuItem";
+            this.searchverticalpreviewToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.searchverticalpreviewToolStripMenuItem.Text = "Vertical";
+            this.searchverticalpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
             // 
             // libraryToolStripMenuItem
             // 
@@ -1708,13 +1710,13 @@ namespace Tabster.Forms
         private ToolStripMenuItem mediumToolStripMenuItem;
         private ToolStripMenuItem fastToolStripMenuItem;
         private ToolStripMenuItem libraryPreviewPaneToolStripMenuItem;
-        private ToolStripMenuItem hiddenToolStripMenuItem;
-        private ToolStripMenuItem horizontalToolStripMenuItem;
-        private ToolStripMenuItem verticalToolStripMenuItem;
+        private ToolStripMenuItem libraryhiddenpreviewToolStripMenuItem;
+        private ToolStripMenuItem libraryhorizontalpreviewToolStripMenuItem;
+        private ToolStripMenuItem libraryverticalpreviewToolStripMenuItem;
         private ToolStripMenuItem searchPreviewPaneToolStripMenuItem;
-        private ToolStripMenuItem toolStripMenuItem2;
-        private ToolStripMenuItem toolStripMenuItem3;
-        private ToolStripMenuItem toolStripMenuItem4;
+        private ToolStripMenuItem searchhiddenpreviewToolStripMenuItem;
+        private ToolStripMenuItem searchhorizontalpreviewToolStripMenuItem;
+        private ToolStripMenuItem searchverticalpreviewToolStripMenuItem;
         private ToolStrip toolStrip2;
         private ToolStripButton goBackButton;
         private ToolStripButton goForwardButton;
