@@ -147,8 +147,6 @@ namespace Tabster.Forms
 
         private void TogglePreviewPane(object sender, EventArgs e)
         {
-            Console.WriteLine("TogglePreviewPane");
-
             var ts = (ToolStripMenuItem) sender;
             var orientation = PreviewPanelOrientation.Hidden;
 
