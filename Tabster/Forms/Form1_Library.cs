@@ -43,6 +43,10 @@ namespace Tabster.Forms
 
         private TabFile SelectedTab;
 
+        private bool IsViewingLibrary()
+        {
+            return tabControl1.SelectedTab == display_library;
+        }
 
         #region Tab Viewer Manager Events
 
@@ -255,6 +259,9 @@ namespace Tabster.Forms
 
         private void DeleteTab(object sender, EventArgs e)
         {
+            if (!IsViewingLibrary())
+                return;
+
             if (tablibrary.SelectedRows.Count > 0 && SelectedTab != null)
             {
 
@@ -301,6 +308,9 @@ namespace Tabster.Forms
 
         private void OpenTabLocation(object sender, EventArgs e)
         {
+            if (!IsViewingLibrary())
+                return;
+
             if (SelectedTab != null)
             {
                 Process.Start("explorer.exe ", @"/select, " + SelectedTab.FileInfo.FullName);
@@ -309,6 +319,9 @@ namespace Tabster.Forms
 
         private void BrowseTab(object sender, EventArgs e)
         {
+            if (!IsViewingLibrary())
+                return;
+
             using (var ofd = new OpenFileDialog
                                  {
                                      Title = "Open File - Tabster",
@@ -679,6 +692,9 @@ namespace Tabster.Forms
 
         private void TabDetails(object sender, EventArgs e)
         {
+            if (!IsViewingLibrary())
+                return;
+
             if (SelectedTab != null)
             {
                 using (var details = new TabDetailsDialog(SelectedTab) { Icon = Icon })
