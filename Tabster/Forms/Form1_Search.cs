@@ -44,7 +44,7 @@ namespace Tabster.Forms
 
         private void onlinesearchbtn_Click(object sender, EventArgs e)
         {
-            if (txtsearchartist.Text.Trim().Length > 0 && txtsearchsong.Text.Trim().Length > 0)
+            if (txtsearchartist.Text.Trim().Length > 0 || txtsearchsong.Text.Trim().Length > 0)
             {
                 pictureBox1.Visible = true;
 
