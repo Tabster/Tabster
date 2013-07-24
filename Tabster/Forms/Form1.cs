@@ -143,6 +143,7 @@ namespace Tabster.Forms
             }
 
             filtertext.Visible = tabControl1.SelectedTab == display_library;
+            libraryToolStripMenuItem.Enabled = tabControl1.SelectedTab == display_library;
         }
 
         private void TogglePreviewPane(object sender, EventArgs e)
