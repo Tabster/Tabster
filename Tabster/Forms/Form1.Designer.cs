@@ -340,7 +340,7 @@ namespace Tabster.Forms
             this.librarySplitContainer.Panel2.Controls.Add(this.toolStrip3);
             this.librarySplitContainer.Panel2MinSize = 80;
             this.librarySplitContainer.Size = new System.Drawing.Size(1132, 565);
-            this.librarySplitContainer.SplitterDistance = 365;
+            this.librarySplitContainer.SplitterDistance = 481;
             this.librarySplitContainer.TabIndex = 25;
             // 
             // tablibrary
@@ -402,7 +402,7 @@ namespace Tabster.Forms
             this.tablibrary.ShowCellToolTips = false;
             this.tablibrary.ShowEditingIcon = false;
             this.tablibrary.ShowRowErrors = false;
-            this.tablibrary.Size = new System.Drawing.Size(1130, 363);
+            this.tablibrary.Size = new System.Drawing.Size(1130, 479);
             this.tablibrary.TabIndex = 19;
             this.tablibrary.TransparentColumns = false;
             this.tablibrary.TransparentRows = false;
@@ -487,7 +487,7 @@ namespace Tabster.Forms
             this.libraryPreviewEditor.Margin = new System.Windows.Forms.Padding(0);
             this.libraryPreviewEditor.Mode = Tabster.Controls.TabEditor.TabMode.Edit;
             this.libraryPreviewEditor.Name = "libraryPreviewEditor";
-            this.libraryPreviewEditor.Size = new System.Drawing.Size(1130, 169);
+            this.libraryPreviewEditor.Size = new System.Drawing.Size(1130, 53);
             this.libraryPreviewEditor.TabIndex = 24;
             // 
             // toolStrip3
@@ -1565,6 +1565,7 @@ namespace Tabster.Forms
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(960, 500);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tabster";
