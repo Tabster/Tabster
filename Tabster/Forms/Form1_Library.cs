@@ -552,7 +552,8 @@ namespace Tabster.Forms
                     {
                         var playlistFile = PlaylistFile.Create(new Playlist(name), Program.libraryManager.PlaylistsDirectory);
                         Program.libraryManager.AddPlaylist(playlistFile, true);
-                        sidemenu.AddPlaylist(playlistFile);
+
+                        PopulatePlaylists();
 
                         //add tab to new playlist
                         if (sender == newplaylistmenuitem && SelectedTab != null)
