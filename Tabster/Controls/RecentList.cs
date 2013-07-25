@@ -25,8 +25,37 @@ namespace Tabster.Controls
 
         private bool _hasClearButton;
 
+        private bool IsRecent(TabFile tab, out int index)
+        {
+            for (var i = 0; i < DropDownItems.Count; i++)
+            {
+                var item = DropDownItems[i] as ToolStripMenuItem;
+
+                if (item == null) //seperator
+                    break;
+
+                var path = item.ToolTipText;
+
+                if (tab.FileInfo.FullName.Equals(path, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    index = i;
+                    return true;
+                }
+            }
+
+            index = 0;
+            return false;
+        }
+
         public void Add(TabFile tab, bool save = true)
         {
+            //check if it's already on the list
+            int existingIndex;
+            if (IsRecent(tab, out existingIndex))
+            {
+                DropDownItems.RemoveAt(existingIndex);
+            }
+
             var item = new ToolStripMenuItem(string.Format("{0} - {1}", tab.TabData.Artist, tab.TabData.Title)) {ToolTipText = tab.FileInfo.FullName};
             item.Click += item_clicked;
             ((ToolStripDropDownMenu) item.DropDown).ShowImageMargin = false;
@@ -35,7 +64,7 @@ namespace Tabster.Controls
 
             if (DropDownItems.Count == MaxItems)
             {
-                DropDownItems.RemoveAt(MaxItems);
+                DropDownItems.RemoveAt(MaxItems - 1);
             }
 
             Enabled = true;
@@ -80,6 +109,11 @@ namespace Tabster.Controls
                     var elem = doc.CreateElement("item");
                     elem.InnerText = menuItem.ToolTipText;
                     root.AppendChild(elem);
+                }
+
+                else
+                {
+                    break; //seperator
                 }
             }
 
