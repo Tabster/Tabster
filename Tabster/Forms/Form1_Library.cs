@@ -121,7 +121,7 @@ namespace Tabster.Forms
             {
                 if (SelectedTab != null)
                 {
-                    Program.TabHandler.LoadTab(SelectedTab, true);
+                    PopoutTab(SelectedTab);
                 }
             }
         }
@@ -240,9 +240,10 @@ namespace Tabster.Forms
             }
         }
 
-        private static void PopoutTab(TabFile tab)
+        private void PopoutTab(TabFile tab)
         {
             Program.TabHandler.LoadTab(tab, true);
+            recentlyViewedToolStripMenuItem.Add(tab);
         }
 
         private void SearchSimilarTabs(object sender, EventArgs e)

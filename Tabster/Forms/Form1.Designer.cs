@@ -137,10 +137,9 @@ namespace Tabster.Forms
             this.newTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.downloadTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recentlyViewedToolStripMenuItem = new Tabster.Controls.RecentToolStripMenuItem();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sidebarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -162,6 +161,7 @@ namespace Tabster.Forms
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.multiDownloaderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1207,10 +1207,9 @@ namespace Tabster.Forms
             this.newTabToolStripMenuItem,
             this.newPlaylistToolStripMenuItem,
             this.openTabToolStripMenuItem,
+            this.recentlyViewedToolStripMenuItem,
             this.importToolStripMenuItem,
-            this.downloadTabToolStripMenuItem,
-            this.exitToolStripMenuItem,
-            this.recentlyViewedToolStripMenuItem});
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -1241,28 +1240,6 @@ namespace Tabster.Forms
             this.openTabToolStripMenuItem.Text = "&Open...";
             this.openTabToolStripMenuItem.Click += new System.EventHandler(this.BrowseTab);
             // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.importToolStripMenuItem.Text = "Import...";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
-            // 
-            // downloadTabToolStripMenuItem
-            // 
-            this.downloadTabToolStripMenuItem.Name = "downloadTabToolStripMenuItem";
-            this.downloadTabToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.downloadTabToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.downloadTabToolStripMenuItem.Text = "Download Tab";
-            this.downloadTabToolStripMenuItem.Click += new System.EventHandler(this.downloadTabToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.exitToolStripMenuItem.Text = "&Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
             // recentlyViewedToolStripMenuItem
             // 
             this.recentlyViewedToolStripMenuItem.FilePath = null;
@@ -1270,7 +1247,21 @@ namespace Tabster.Forms
             this.recentlyViewedToolStripMenuItem.Name = "recentlyViewedToolStripMenuItem";
             this.recentlyViewedToolStripMenuItem.ShowClear = true;
             this.recentlyViewedToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.recentlyViewedToolStripMenuItem.Text = "Recently Viewed";
+            this.recentlyViewedToolStripMenuItem.Text = "Open Recent";
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.importToolStripMenuItem.Text = "Import...";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.exitToolStripMenuItem.Text = "&Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -1436,7 +1427,8 @@ namespace Tabster.Forms
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.preferencesToolStripMenuItem});
+            this.preferencesToolStripMenuItem,
+            this.multiDownloaderToolStripMenuItem});
             this.toolsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
@@ -1445,9 +1437,16 @@ namespace Tabster.Forms
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.preferencesToolStripMenuItem.Text = "Preferences";
             this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
+            // 
+            // multiDownloaderToolStripMenuItem
+            // 
+            this.multiDownloaderToolStripMenuItem.Name = "multiDownloaderToolStripMenuItem";
+            this.multiDownloaderToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.multiDownloaderToolStripMenuItem.Text = "Multi-Downloader";
+            this.multiDownloaderToolStripMenuItem.Click += new System.EventHandler(this.multiDownloaderToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -1627,7 +1626,6 @@ namespace Tabster.Forms
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newTabToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newPlaylistToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem downloadTabToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openTabToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
@@ -1738,6 +1736,7 @@ namespace Tabster.Forms
         private DataGridViewImageColumn searchcol_rating;
         private DataGridViewTextBoxColumn searchcol_votes;
         private ToolStripSeparator toolStripSeparator4;
+        private ToolStripMenuItem multiDownloaderToolStripMenuItem;
     }
 }
 

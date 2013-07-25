@@ -78,10 +78,10 @@ namespace Tabster.Forms
                 //NS_Common.Update.PerformUpdate(null, SystemColors.Control, SystemColors.ControlText, "Tabster", Application.ProductVersion, true, false);
             }
 
-            /*
-            recentlyViewedToolStripMenuItem.FilePath = string.Format("{0}recent.xml", Global.WorkingDirectory);
+            recentlyViewedToolStripMenuItem.FilePath = Path.Combine(Program.libraryManager.ApplicationDirectory, "recent.dat");
+            recentlyViewedToolStripMenuItem.ShowClear = true;
+            recentlyViewedToolStripMenuItem.Load();
             recentlyViewedToolStripMenuItem.OnItemClicked += recentlyViewedToolStripMenuItem_OnItemClicked;
-            */
 
             sidemenu.SelectedNode = sidemenu.Nodes[0].FirstNode;
 
@@ -105,20 +105,13 @@ namespace Tabster.Forms
 
         private void recentlyViewedToolStripMenuItem_OnItemClicked(object sender, EventArgs e)
         {
+            TabFile tab;
+
             var path = ((ToolStripMenuItem) sender).ToolTipText;
 
-            if (File.Exists(path))
+            if (TabFile.TryParse(path, out tab))
             {
-                var tab = Program.libraryManager.FindTabByPath(path);
-
-                if (tab == null)
-                    TabFile.TryParse(path, out tab);
-
-                if (tab != null)
-                {
-                    PopoutTab(tab);
-                    //recentlyViewedToolStripMenuItem.Add(tab);
-                }
+                PopoutTab(tab);
             }
         }
 
@@ -262,7 +255,7 @@ namespace Tabster.Forms
 
         #region Menu Items
 
-        private void downloadTabToolStripMenuItem_Click(object sender, EventArgs e)
+        private void multiDownloaderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var d = new DownloadDialog())
             {

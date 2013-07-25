@@ -16,13 +16,6 @@ namespace Tabster
 
         private TabbedViewer _viewer = new TabbedViewer();
 
-        public TabViewerManager(RecentTabs recentTabs)
-        {
-            Recent = recentTabs;
-        }
-
-        public RecentTabs Recent { get; private set; }
-
         public event TabHandler OnTabOpened;
         public event TabHandler OnTabClosed;
 
@@ -47,8 +40,6 @@ namespace Tabster
             var v = GetViewer(true);
 
             v.LoadTab(tabFile);
-
-            Recent.Add(tabFile);
 
             if (show)
             {

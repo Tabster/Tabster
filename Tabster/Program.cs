@@ -23,7 +23,7 @@ namespace Tabster
             
             var controller = new SingleInstanceController();
 
-            TabHandler = new TabViewerManager(new RecentTabs(Path.Combine(libraryManager.ApplicationDirectory, "recent.dat"), 10));
+            TabHandler = new TabViewerManager();
            
             controller.Run(args);       
         }

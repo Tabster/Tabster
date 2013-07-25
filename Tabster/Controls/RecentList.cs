@@ -11,85 +11,88 @@ namespace Tabster.Controls
 {
     public class RecentToolStripMenuItem : ToolStripMenuItem
     {
-        private string _filepath;
-        private int _maxitems = 10;
-        private bool _showclear = true;
-
-        public string FilePath
+        public RecentToolStripMenuItem()
         {
-            get { return _filepath; }
-            set
-            {
-                _filepath = value;
-
-                if (_filepath != null)
-                {
-                    Load();
-                }
-            }
+            ShowClear = true;
+            MaxItems = 10;
         }
 
-        public bool ShowClear
-        {
-            get { return _showclear; }
-            set { _showclear = value; }
-        }
-
-        public int MaxItems
-        {
-            get { return _maxitems; }
-            set { _maxitems = value; }
-        }
-
+        public string FilePath { get; set; }
+        public bool ShowClear { get; set; }
+        public int MaxItems { get; set; }
 
         public event EventHandler OnItemClicked;
 
-        /// <summary>
-        /// Clears all recent items.
-        /// </summary>
-        public void Clear()
+        private bool _hasClearButton;
+
+        public void Add(TabFile tab, bool save = true)
         {
-            DropDownItems.Clear();
-            var doc = new XmlDocument();
-            doc.Load(_filepath);
-            doc.GetElementsByTagName("recent")[0].RemoveAll();
-            doc.Save(_filepath);
-            Enabled = false;
-        }
-
-        public void Add(TabFile tab)
-        {
-            var doc = new XmlDocument();
-            doc.Load(_filepath);
-
-            var files = doc.GetElementsByTagName("recent")[0].ChildNodes;
-
-            if (files.Count >= _maxitems)
-            {
-
-            }
-
-            doc.Save(_filepath);
-        }
-
-        private void AddMenuItem(TabFile tab)
-        {
-            var item = new ToolStripMenuItem(string.Format("{0} - {1}", tab.TabData.Artist, tab.TabData.Title)) { ToolTipText = tab.FileInfo.FullName};
+            var item = new ToolStripMenuItem(string.Format("{0} - {1}", tab.TabData.Artist, tab.TabData.Title)) {ToolTipText = tab.FileInfo.FullName};
             item.Click += item_clicked;
-            //menuItemMRU.DropDownItems.Add(item);
             ((ToolStripDropDownMenu) item.DropDown).ShowImageMargin = false;
             ((ToolStripDropDownMenu) item.DropDown).ShowCheckMargin = false;
+            DropDownItems.Insert(0, item);
 
-            DropDownItems.Add(item);
+            if (DropDownItems.Count == MaxItems)
+            {
+                DropDownItems.RemoveAt(MaxItems);
+            }
+
+            Enabled = true;
+
+            if (ShowClear)
+            {
+                AddClearButton();
+            }
+
+            if (save)
+                Save();
         }
 
-        private void Load()
+        private void AddClearButton()
         {
-            if (_filepath == null || !File.Exists(_filepath))
+            if (!_hasClearButton)
+            {
+                DropDownItems.Add(new ToolStripSeparator());
+                var clearMenuItem = new ToolStripMenuItem("Clear Items") {ToolTipText = "Clears all recent items."};
+                clearMenuItem.Click += Clear;
+                DropDownItems.Add(clearMenuItem);
+
+                _hasClearButton = true;
+            }
+        }
+
+        private void Save()
+        {
+            var doc = new XmlDocument();
+
+            doc.AppendChild(doc.CreateXmlDeclaration("1.0", "UTF-8", null));
+
+            var root = doc.CreateElement("recent");
+            doc.AppendChild(root);
+
+            foreach (var item in DropDownItems)
+            {
+                var menuItem = item as ToolStripMenuItem;
+
+                if (menuItem != null)
+                {
+                    var elem = doc.CreateElement("item");
+                    elem.InnerText = menuItem.ToolTipText;
+                    root.AppendChild(elem);
+                }
+            }
+
+            doc.Save(FilePath); 
+        }
+
+        public void Load()
+        {
+            if (!File.Exists(FilePath))
                 return;
 
             var doc = new XmlDocument();
-            doc.Load(_filepath);
+            doc.Load(FilePath);
             var files = doc.GetElementsByTagName("recent")[0].ChildNodes;
 
             DropDownItems.Clear();
@@ -102,29 +105,29 @@ namespace Tabster.Controls
 
                     if (TabFile.TryParse(file.InnerText, out tab))
                     {
-                        AddMenuItem(tab);
+                        Add(tab, false);
                     }
                 }
 
-
-                if (_showclear)
+                if (ShowClear)
                 {
-                    DropDownItems.Add(new ToolStripSeparator());
-                    var clearMenuItem = new ToolStripMenuItem("Clear") {ToolTipText = "Clears all recent items."};
-                    clearMenuItem.Click += ClearRecentItems;
-                    DropDownItems.Add(clearMenuItem);
+                    AddClearButton();
                 }
-            }
-
-            if (DropDownItems.Count == 0)
-            {
-                Enabled = false;
             }
         }
 
-        public void ClearRecentItems(object sender, EventArgs e)
+        public void Clear(object sender = null, EventArgs e = null)
         {
-            Clear();
+            if (DropDownItems.Count > 0)
+            {
+                DropDownItems.Clear();
+                var doc = new XmlDocument();
+                doc.Load(FilePath);
+                doc.GetElementsByTagName("recent")[0].RemoveAll();
+                doc.Save(FilePath);
+                Enabled = false;
+                _hasClearButton = false;
+            }
         }
 
         private void item_clicked(object sender, EventArgs e)
