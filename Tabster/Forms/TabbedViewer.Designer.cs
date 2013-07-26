@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,8 +47,10 @@
             this.modebtn = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TabMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.closeTabContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
+            this.TabMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -59,6 +62,7 @@
             this.tabControl1.ShowToolTips = true;
             this.tabControl1.Size = new System.Drawing.Size(738, 489);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseUp);
             // 
             // menuStrip1
             // 
@@ -133,6 +137,7 @@
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.redoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.redoToolStripMenuItem.Text = "Redo";
+            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
             // selectAllToolStripMenuItem
             // 
@@ -141,6 +146,7 @@
             this.selectAllToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
             this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
@@ -151,6 +157,7 @@
             this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.deleteToolStripMenuItem.Text = "&Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // pasteToolStripMenuItem
             // 
@@ -159,6 +166,7 @@
             this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.pasteToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.pasteToolStripMenuItem.Text = "Paste";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // copyToolStripMenuItem
             // 
@@ -167,6 +175,7 @@
             this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.copyToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // cutToolStripMenuItem
             // 
@@ -175,6 +184,7 @@
             this.cutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.cutToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.cutToolStripMenuItem.Text = "Cut";
+            this.cutToolStripMenuItem.Click += new System.EventHandler(this.cutToolStripMenuItem_Click);
             // 
             // undoToolStripMenuItem
             // 
@@ -183,6 +193,7 @@
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.undoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -200,8 +211,7 @@
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fullScreenToolStripMenuItem,
-            this.colorTestToolStripMenuItem});
+            this.fullScreenToolStripMenuItem});
             this.viewToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -213,12 +223,21 @@
             this.fullScreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
             this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.fullScreenToolStripMenuItem.Text = "Full Screen";
+            this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.fullScreenToolStripMenuItem_Click);
             // 
-            // colorTestToolStripMenuItem
+            // TabMenu
             // 
-            this.colorTestToolStripMenuItem.Name = "colorTestToolStripMenuItem";
-            this.colorTestToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
-            this.colorTestToolStripMenuItem.Text = "Color test";
+            this.TabMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeTabContextMenuItem});
+            this.TabMenu.Name = "contextMenuStrip1";
+            this.TabMenu.Size = new System.Drawing.Size(127, 26);
+            // 
+            // closeTabContextMenuItem
+            // 
+            this.closeTabContextMenuItem.Name = "closeTabContextMenuItem";
+            this.closeTabContextMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeTabContextMenuItem.Text = "Close Tab";
+            this.closeTabContextMenuItem.Click += new System.EventHandler(this.closeTabToolStripMenuItem_Click);
             // 
             // TabbedViewer
             // 
@@ -229,8 +248,10 @@
             this.Controls.Add(this.menuStrip1);
             this.Name = "TabbedViewer";
             this.Text = "TabbedViewer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TabbedViewer_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.TabMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -256,7 +277,8 @@
         private System.Windows.Forms.ToolStripMenuItem modebtn;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fullScreenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem colorTestToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip TabMenu;
+        private System.Windows.Forms.ToolStripMenuItem closeTabContextMenuItem;
 
     }
 }

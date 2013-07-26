@@ -16,8 +16,8 @@ namespace Tabster
 
         private TabbedViewer _viewer = new TabbedViewer();
 
-        public event TabHandler OnTabOpened;
-        public event TabHandler OnTabClosed;
+        public event TabHandler TabOpened;
+        public event TabHandler TabClosed;
 
         private TabbedViewer GetViewer(bool createOnNull)
         {
@@ -31,8 +31,8 @@ namespace Tabster
 
         public void CloseTab(TabFile tabFile)
         {
-            if (OnTabClosed != null)
-                OnTabClosed(this, tabFile);
+            if (TabClosed != null)
+                TabClosed(this, tabFile);
         }
 
         public void LoadTab(TabFile tabFile, bool show)
@@ -47,8 +47,8 @@ namespace Tabster
                 v.BringToFront();
             }
 
-            if (OnTabOpened != null)
-                OnTabOpened(this, tabFile);
+            if (TabOpened != null)
+                TabOpened(this, tabFile);
         }
 
         public bool IsOpenInViewer(TabFile tab)

@@ -26,8 +26,8 @@ namespace Tabster.Forms
             searchManager.OnCompleted += searchSession_OnCompleted;
 
             //tabviewermanager events
-            Program.TabHandler.OnTabOpened += TabHandler_OnTabOpened;
-            Program.TabHandler.OnTabClosed += TabHandler_OnTabClosed;
+            Program.TabHandler.TabOpened += TabHandler_OnTabOpened;
+            Program.TabHandler.TabClosed += TabHandler_OnTabClosed;
 
             //browser events
             webBrowser1.CanGoBackChanged += webBrowser1_CanGoBackChanged;
