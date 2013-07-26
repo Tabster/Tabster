@@ -134,18 +134,7 @@ namespace Tabster.Forms
             {
                 foreach (var str in data)
                 {
-                    TabFile t;
-
-                    if (TabFile.TryParse(str, out t))
-                    {
-                        var alreadyInLibrary = Program.libraryManager.FindTabByPath(str) != null;
-
-                        if (!alreadyInLibrary)
-                        {
-                            Program.libraryManager.AddTab(t, true);
-                            UpdateLibraryItem(t);
-                        }
-                    }
+                    ImportTab(str);
                 }
             }
         }
@@ -563,6 +552,22 @@ namespace Tabster.Forms
                             playlistFile.Save();
                         }
                     }
+                }
+            }
+        }
+
+        private void ImportTab(string path)
+        {
+            var alreadyInLibrary = Program.libraryManager.FindTabByPath(path) != null;
+
+            if (!alreadyInLibrary)
+            {
+                TabFile source;
+                if (TabFile.TryParse(path, out source))
+                {
+                    var import = TabFile.Create(source.TabData, Program.libraryManager.TabsDirectory);
+                    Program.libraryManager.AddTab(import, true);
+                    UpdateLibraryItem(import);
                 }
             }
         }
