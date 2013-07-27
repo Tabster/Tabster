@@ -190,12 +190,8 @@ namespace Tabster.Forms
             if (tablibrary.SelectedRows.Count > 0)
             {
                 var selectedTabLocation = tablibrary.SelectedRows[0].Cells[tablibrary.Columns.Count - 1].Value.ToString();
-                SelectedTab = Program.libraryManager.FindTabByPath(selectedTabLocation);
-
+                SelectedTab = Program.libraryManager.FindTabByPath(selectedTabLocation).File;
                 var openedExternally = Program.TabHandler.IsOpenInViewer(SelectedTab);
-
-                Console.WriteLine("openedExternally: " + openedExternally);
-
                 librarySplitContainer.Panel2.Enabled = !openedExternally;
             }
 
@@ -283,15 +279,7 @@ namespace Tabster.Forms
 
                 if (removed)
                 {
-                    SelectedTab = null;
-
-                    var selectedIndex = tablibrary.SelectedRows[0].Index;
-                    tablibrary.Rows.RemoveAt(selectedIndex);
-
-                    if (tablibrary.Rows.Count > 0)
-                        tablibrary.Rows[selectedIndex - 1].Selected = true;
-
-                    UpdateDetails();
+                    RemoveSelectedLibraryItem();
                 }
             }
         }
@@ -367,6 +355,22 @@ namespace Tabster.Forms
             //libraryViewer1.ClearSelection();
         }
 
+        private void ToggleFavorite(object sender, EventArgs e)
+        {
+            if (SelectedTab != null)
+            {
+                var libraryItem = Program.libraryManager.FindTab(SelectedTab);
+                libraryItem.Favorited = !libraryItem.Favorited;
+                Program.libraryManager.Save();
+
+                //remove item from favorites display
+                if (!libraryItem.Favorited && SelectedLibrary() == LibraryType.MyFavorites)
+                {
+                    RemoveSelectedLibraryItem();
+                }
+            }
+        }
+
         private void sidemenu_MouseClick(object sender, MouseEventArgs e)
         {
             var selectednode = sidemenu.HitTest(e.X, e.Y).Node;
@@ -410,6 +414,9 @@ namespace Tabster.Forms
                         toolItem.Enabled = !alreadyExistsInPlaylist;
                     }
                 }
+
+                var libraryItem = Program.libraryManager.FindTab(SelectedTab);
+                addToFavoritesToolStripMenuItem.Text = libraryItem.Favorited ? "Remove from favorites" : "Add to favorites";
             }
         }
 
@@ -460,7 +467,20 @@ namespace Tabster.Forms
 
             var selectedLibrary = SelectedLibrary();
 
-            var tabCollection = selectedLibrary == LibraryType.Playlist ? (IEnumerable<TabFile>)selectedPlaylist.PlaylistData : (IEnumerable<TabFile>)Program.libraryManager;
+            var tabCollection = new List<TabFile>();
+
+            if (selectedLibrary == LibraryType.Playlist)
+            {
+                tabCollection = new List<TabFile>(selectedPlaylist.PlaylistData);
+            }
+
+            else
+            {
+                foreach (var item in Program.libraryManager)
+                {
+                    tabCollection.Add(item.File);
+                }
+            }
 
             foreach (var tab in tabCollection)
             {
@@ -469,11 +489,11 @@ namespace Tabster.Forms
                     selectedLibrary == LibraryType.AllTabs ||
                    (selectedLibrary == LibraryType.MyTabs && tab.TabData.Source == TabSource.UserCreated) ||
                    (selectedLibrary == LibraryType.MyImports && tab.TabData.Source == TabSource.FileImport) ||
-                    /*(selectedLibrary == LibraryType.MyFavorites && tab.Tab.Favorited) ||*/
                    (selectedLibrary == LibraryType.GuitarTabs && tab.TabData.Type == TabType.Guitar) ||
                    (selectedLibrary == LibraryType.GuitarChords && tab.TabData.Type == TabType.Chord) ||
                    (selectedLibrary == LibraryType.BassTabs && tab.TabData.Type == TabType.Bass) ||
-                   (selectedLibrary == LibraryType.DrumTabs && tab.TabData.Type == TabType.Drum);
+                   (selectedLibrary == LibraryType.DrumTabs && tab.TabData.Type == TabType.Drum) || 
+                   (selectedLibrary == LibraryType.MyFavorites && Program.libraryManager.FindTab(tab).Favorited);
 
                 if (libraryMatch)
                 {
@@ -674,7 +694,7 @@ namespace Tabster.Forms
                                     tab.TabData.Title, 
                                     tab.TabData.Artist, 
                                     Tab.GetTabString(tab.TabData.Type), 
-                                    tab.FileInfo.CreationTime, 
+                                    tab.TabData.Created, 
                                     string.Format("{0:0.##} KB", tab.FileInfo.Length / 1024d),
                                     tab.FileInfo.FullName
                                 };
@@ -691,6 +711,25 @@ namespace Tabster.Forms
             {
                 var selectedIndex = tablibrary.SelectedRows[0].Index;
                 tablibrary.Rows[selectedIndex].SetValues(objValues);
+            }
+
+            UpdateDetails();
+        }
+
+        private void RemoveSelectedLibraryItem()
+        {
+            SelectedTab = null;
+            RemoveLibraryItem(tablibrary.SelectedRows[0].Index);
+        }
+
+        private void RemoveLibraryItem(int index)
+        {
+            tablibrary.Rows.RemoveAt(index);
+
+            if (tablibrary.Rows.Count > 0)
+            {
+                var newIndex = index > 0 ? index - 1 : 0;
+                tablibrary.Rows[newIndex].Selected = true;
             }
 
             UpdateDetails();

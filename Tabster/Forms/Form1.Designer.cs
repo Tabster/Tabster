@@ -38,13 +38,13 @@ namespace Tabster.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.deletePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renamePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -56,6 +56,12 @@ namespace Tabster.Forms
             this.button3 = new System.Windows.Forms.Button();
             this.librarySplitContainer = new System.Windows.Forms.SplitContainer();
             this.tablibrary = new Tabster.Controls.DataGridViewExtended();
+            this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.size = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.libraryPreviewEditor = new Tabster.Controls.TabEditor();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.lblpreviewtitle = new System.Windows.Forms.ToolStripLabel();
@@ -166,12 +172,6 @@ namespace Tabster.Forms
             this.filtertext = new Tabster.Controls.SearchBox();
             this.PreviewDelay = new System.Windows.Forms.Timer(this.components);
             this.SearchPreviewBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.size = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.display_library.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -409,6 +409,63 @@ namespace Tabster.Forms
             this.tablibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.tablibrary_DragDrop);
             this.tablibrary.DragEnter += new System.Windows.Forms.DragEventHandler(this.tablibrary_DragEnter);
             this.tablibrary.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tablibrary_MouseClick);
+            // 
+            // title
+            // 
+            this.title.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.title.HeaderText = "Title";
+            this.title.MinimumWidth = 250;
+            this.title.Name = "title";
+            this.title.ReadOnly = true;
+            this.title.Width = 250;
+            // 
+            // artist
+            // 
+            this.artist.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.artist.HeaderText = "Artist";
+            this.artist.MinimumWidth = 150;
+            this.artist.Name = "artist";
+            this.artist.ReadOnly = true;
+            this.artist.Width = 150;
+            // 
+            // type
+            // 
+            this.type.HeaderText = "Type";
+            this.type.MinimumWidth = 65;
+            this.type.Name = "type";
+            this.type.ReadOnly = true;
+            // 
+            // date
+            // 
+            this.date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle2.Format = "d";
+            dataGridViewCellStyle2.NullValue = null;
+            this.date.DefaultCellStyle = dataGridViewCellStyle2;
+            this.date.HeaderText = "Date";
+            this.date.MinimumWidth = 65;
+            this.date.Name = "date";
+            this.date.ReadOnly = true;
+            this.date.Width = 65;
+            // 
+            // size
+            // 
+            this.size.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle3.Format = "N0";
+            dataGridViewCellStyle3.NullValue = null;
+            this.size.DefaultCellStyle = dataGridViewCellStyle3;
+            this.size.HeaderText = "Size";
+            this.size.MinimumWidth = 65;
+            this.size.Name = "size";
+            this.size.ReadOnly = true;
+            this.size.Width = 65;
+            // 
+            // location
+            // 
+            this.location.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.location.HeaderText = "Location";
+            this.location.MinimumWidth = 65;
+            this.location.Name = "location";
+            this.location.ReadOnly = true;
             // 
             // libraryPreviewEditor
             // 
@@ -650,6 +707,7 @@ namespace Tabster.Forms
             // searchSplitContainer.Panel2
             // 
             this.searchSplitContainer.Panel2.Controls.Add(this.searchPreviewEditor);
+            this.searchSplitContainer.Panel2Collapsed = true;
             this.searchSplitContainer.Panel2MinSize = 100;
             this.searchSplitContainer.Size = new System.Drawing.Size(1273, 586);
             this.searchSplitContainer.SplitterDistance = 450;
@@ -713,7 +771,7 @@ namespace Tabster.Forms
             this.dataGridViewExtended1.ShowCellToolTips = false;
             this.dataGridViewExtended1.ShowEditingIcon = false;
             this.dataGridViewExtended1.ShowRowErrors = false;
-            this.dataGridViewExtended1.Size = new System.Drawing.Size(1271, 417);
+            this.dataGridViewExtended1.Size = new System.Drawing.Size(1271, 553);
             this.dataGridViewExtended1.TabIndex = 20;
             this.dataGridViewExtended1.TransparentColumns = false;
             this.dataGridViewExtended1.TransparentRows = false;
@@ -1105,7 +1163,7 @@ namespace Tabster.Forms
             // 
             // addtoplaylistcontextmenuitem
             // 
-            this.addtoplaylistcontextmenuitem.Name = "addtoplaylistcontextmenuitem";
+            this.addtoplaylistcontextmenuitem.Name = "a ddtoplaylistcontextmenuitem";
             this.addtoplaylistcontextmenuitem.Size = new System.Drawing.Size(151, 22);
             this.addtoplaylistcontextmenuitem.Text = "Add to Playlist...";
             // 
@@ -1114,7 +1172,7 @@ namespace Tabster.Forms
             this.addToFavoritesToolStripMenuItem.Name = "addToFavoritesToolStripMenuItem";
             this.addToFavoritesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.addToFavoritesToolStripMenuItem.Text = "Add to Favorites...";
-            this.addToFavoritesToolStripMenuItem.Click += new System.EventHandler(this.addToFavoritesToolStripMenuItem_Click);
+            this.addToFavoritesToolStripMenuItem.Click += new System.EventHandler(this.ToggleFavorite);
             // 
             // PlaylistMenu
             // 
@@ -1493,63 +1551,6 @@ namespace Tabster.Forms
             this.SearchPreviewBackgroundWorker.WorkerSupportsCancellation = true;
             this.SearchPreviewBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchPreviewBackgroundWorker_DoWork);
             this.SearchPreviewBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchPreviewBackgroundWorker_RunWorkerCompleted);
-            // 
-            // title
-            // 
-            this.title.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.title.HeaderText = "Title";
-            this.title.MinimumWidth = 250;
-            this.title.Name = "title";
-            this.title.ReadOnly = true;
-            this.title.Width = 250;
-            // 
-            // artist
-            // 
-            this.artist.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.artist.HeaderText = "Artist";
-            this.artist.MinimumWidth = 150;
-            this.artist.Name = "artist";
-            this.artist.ReadOnly = true;
-            this.artist.Width = 150;
-            // 
-            // type
-            // 
-            this.type.HeaderText = "Type";
-            this.type.MinimumWidth = 65;
-            this.type.Name = "type";
-            this.type.ReadOnly = true;
-            // 
-            // date
-            // 
-            this.date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle2.Format = "d";
-            dataGridViewCellStyle2.NullValue = null;
-            this.date.DefaultCellStyle = dataGridViewCellStyle2;
-            this.date.HeaderText = "Date";
-            this.date.MinimumWidth = 65;
-            this.date.Name = "date";
-            this.date.ReadOnly = true;
-            this.date.Width = 65;
-            // 
-            // size
-            // 
-            this.size.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle3.Format = "N0";
-            dataGridViewCellStyle3.NullValue = null;
-            this.size.DefaultCellStyle = dataGridViewCellStyle3;
-            this.size.HeaderText = "Size";
-            this.size.MinimumWidth = 65;
-            this.size.Name = "size";
-            this.size.ReadOnly = true;
-            this.size.Width = 65;
-            // 
-            // location
-            // 
-            this.location.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.location.HeaderText = "Location";
-            this.location.MinimumWidth = 65;
-            this.location.Name = "location";
-            this.location.ReadOnly = true;
             // 
             // Form1
             // 

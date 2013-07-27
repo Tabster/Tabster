@@ -16,6 +16,18 @@ namespace Tabster
         void Save();
     }
 
+    public class ElementNode
+    {
+        public SortedDictionary<string, string> Attributes { get; private set; }
+        public string Value { get; private set; }
+
+        public ElementNode(SortedDictionary<string, string> attributes, string value)
+        {
+            Attributes = attributes;
+            Value = value;
+        }
+    }
+
     public abstract class TabsterFile
     {
         public FileInfo FileInfo { get; protected set; }
@@ -104,6 +116,38 @@ namespace Tabster
                     foreach (XmlNode c in matches[0].ChildNodes)
                     {
                         temp.Add(c.InnerText);
+                    }
+
+                    return temp;
+                }
+            }
+
+            return null;
+        }
+
+        protected List<ElementNode> ReadChildNodes(string parentNodeName)
+        {
+            if (_rawXML != null)
+            {
+                var matches = _rawXML.GetElementsByTagName(parentNodeName);
+
+                if (matches.Count > 0)
+                {
+                    var temp = new List<ElementNode>();
+
+                    foreach (XmlNode c in matches[0].ChildNodes)
+                    {   
+                        var attributes = new SortedDictionary<string, string>();
+
+                        if (c.Attributes != null)
+                        {
+                            foreach (XmlAttribute attribute in c.Attributes)
+                            {
+                                attributes.Add(attribute.Name, attribute.Value);
+                            }
+                        }
+
+                        temp.Add(new ElementNode(attributes, c.InnerText));
                     }
 
                     return temp;

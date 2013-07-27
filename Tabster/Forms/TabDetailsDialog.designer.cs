@@ -33,7 +33,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lblPlaylistCount = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblfavorited = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblModified = new System.Windows.Forms.Label();
             this.lblCreated = new System.Windows.Forms.Label();
@@ -79,7 +79,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(488, 237);
+            this.tabControl1.Size = new System.Drawing.Size(488, 201);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -91,7 +91,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(480, 211);
+            this.tabPage1.Size = new System.Drawing.Size(480, 175);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Summary";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -102,10 +102,10 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.lblPlaylistCount);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Location = new System.Drawing.Point(277, 101);
+            this.groupBox3.Controls.Add(this.lblfavorited);
+            this.groupBox3.Location = new System.Drawing.Point(277, 104);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(197, 104);
+            this.groupBox3.Size = new System.Drawing.Size(197, 65);
             this.groupBox3.TabIndex = 40;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Library Information:";
@@ -120,14 +120,14 @@
             this.lblPlaylistCount.TabIndex = 3;
             this.lblPlaylistCount.Text = "Found in 0 playlists.";
             // 
-            // label2
+            // lblfavorited
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Favorited:";
+            this.lblfavorited.AutoSize = true;
+            this.lblfavorited.Location = new System.Drawing.Point(6, 16);
+            this.lblfavorited.Name = "lblfavorited";
+            this.lblfavorited.Size = new System.Drawing.Size(71, 13);
+            this.lblfavorited.TabIndex = 2;
+            this.lblfavorited.Text = "Favorited: No";
             // 
             // groupBox2
             // 
@@ -140,7 +140,7 @@
             this.groupBox2.Controls.Add(this.lblFormat);
             this.groupBox2.Location = new System.Drawing.Point(277, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(197, 89);
+            this.groupBox2.Size = new System.Drawing.Size(197, 92);
             this.groupBox2.TabIndex = 39;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "File Information:";
@@ -196,7 +196,7 @@
             this.groupBox1.Controls.Add(this.txtsong);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(265, 199);
+            this.groupBox1.Size = new System.Drawing.Size(265, 163);
             this.groupBox1.TabIndex = 38;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Metadata:";
@@ -222,7 +222,7 @@
             this.txtcomment.Location = new System.Drawing.Point(66, 95);
             this.txtcomment.Multiline = true;
             this.txtcomment.Name = "txtcomment";
-            this.txtcomment.Size = new System.Drawing.Size(193, 51);
+            this.txtcomment.Size = new System.Drawing.Size(193, 59);
             this.txtcomment.TabIndex = 4;
             // 
             // label17
@@ -378,7 +378,7 @@
             // 
             this.okbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okbtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okbtn.Location = new System.Drawing.Point(342, 284);
+            this.okbtn.Location = new System.Drawing.Point(342, 245);
             this.okbtn.Name = "okbtn";
             this.okbtn.Size = new System.Drawing.Size(75, 23);
             this.okbtn.TabIndex = 25;
@@ -390,7 +390,7 @@
             // 
             this.cancelbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelbtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelbtn.Location = new System.Drawing.Point(425, 284);
+            this.cancelbtn.Location = new System.Drawing.Point(425, 245);
             this.cancelbtn.Name = "cancelbtn";
             this.cancelbtn.Size = new System.Drawing.Size(75, 23);
             this.cancelbtn.TabIndex = 24;
@@ -402,7 +402,7 @@
             // 
             this.txtlocation.BackColor = System.Drawing.SystemColors.Control;
             this.txtlocation.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txtlocation.Location = new System.Drawing.Point(12, 255);
+            this.txtlocation.Location = new System.Drawing.Point(12, 219);
             this.txtlocation.Name = "txtlocation";
             this.txtlocation.ReadOnly = true;
             this.txtlocation.Size = new System.Drawing.Size(488, 20);
@@ -414,7 +414,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelbtn;
-            this.ClientSize = new System.Drawing.Size(512, 319);
+            this.ClientSize = new System.Drawing.Size(512, 280);
             this.Controls.Add(this.txtlocation);
             this.Controls.Add(this.okbtn);
             this.Controls.Add(this.cancelbtn);
@@ -476,6 +476,6 @@
         private System.Windows.Forms.Label lblCreated;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label lblPlaylistCount;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblfavorited;
     }
 }

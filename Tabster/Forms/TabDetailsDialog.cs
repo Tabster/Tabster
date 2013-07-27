@@ -33,6 +33,9 @@ namespace Tabster.Forms
             lblCreated.Text += string.Format(" {0}", _tabFile.FileInfo.CreationTime);
             lblModified.Text += string.Format(" {0}", _tabFile.FileInfo.LastWriteTime);
 
+            var favorited = Program.libraryManager.FindTab(_tabFile).Favorited;
+            lblfavorited.Text = string.Format("Favorited: {0}", (favorited ? "Yes" : "No"));
+
             var playlistCount = Program.libraryManager.FindPlaylistsContaining(_tabFile).Count;
             lblPlaylistCount.Text = string.Format("Founds in {0} playlist{1}.", playlistCount, playlistCount == 1 ? "" : "s");
            

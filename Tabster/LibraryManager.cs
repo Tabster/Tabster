@@ -12,48 +12,27 @@ using SearchOption = System.IO.SearchOption;
 
 namespace Tabster
 {
-    public class LibraryItem<T>
+    public class LibraryItem
     {
-        public LibraryItem(T file, int views, bool favorited)
+        public LibraryItem(TabFile file, int views = 0, bool favorited = false)
         {
             File = file;
             Views = views;
             Favorited = favorited;
         }
 
-        public T File { get; private set; }
+        public TabFile File { get; private set; }
         public int Views { get; private set; }
-        public bool Favorited { get; private set; }
+        public bool Favorited { get; set; }
     }
 
-    public class LibraryManager : TabsterFile, ITabsterFile, IEnumerable<TabFile>
+    public class LibraryManager : TabsterFile, ITabsterFile, IEnumerable<LibraryItem>
     {
         public const string FILE_VERSION = "1.0";
+        private readonly List<LibraryItem> _items = new List<LibraryItem>();
 
         private readonly List<PlaylistFile> _playlists = new List<PlaylistFile>();
-        private readonly List<TabFile> _tabs = new List<TabFile>();
-
-        public string LibraryDirectory { get; private set; }
-        public string TabsDirectory { get; private set; }
-        public string PlaylistsDirectory { get; private set; }
-        public string ApplicationDirectory { get; private set; }
-        public string TemporaryDirectory { get; private set; }
-
-        public ReadOnlyCollection<PlaylistFile> Playlists
-        {
-            get { return _playlists.AsReadOnly(); }
-        }
-
-        public long DiskUsage
-        {
-            get
-            {
-                long total = 0;
-                foreach (var tab in _tabs)
-                    total += tab.FileInfo.Length;
-                return total;
-            }
-        }
+        private readonly List<TabFile> _tbs = new List<TabFile>();
 
         public LibraryManager()
         {
@@ -83,7 +62,7 @@ namespace Tabster
 
         #region Active Files
 
-        public List<PlaylistFile> GetPlaylistfiles()
+        public List<PlaylistFile> GetPlaylistFiles()
         {
             var tempList = new List<PlaylistFile>();
 
@@ -99,16 +78,16 @@ namespace Tabster
             return tempList;
         }
 
-        public List<TabFile> GetTabFiles()
+        public List<LibraryItem> GetTabFiles()
         {
-            var tempList = new List<TabFile>();
+            var tempList = new List<LibraryItem>();
 
             foreach (var file in new DirectoryInfo(TabsDirectory).GetFiles(string.Format("*{0}", TabFile.FILE_EXTENSION), SearchOption.AllDirectories))
             {
                 TabFile tabFile;
                 if (file.Length > 0 && TabFile.TryParse(file.FullName, out tabFile))
                 {
-                    tempList.Add(tabFile);
+                    tempList.Add(new LibraryItem(tabFile));
                 }
             }
 
@@ -121,7 +100,7 @@ namespace Tabster
 
         public void AddTab(TabFile tabFile, bool saveCache)
         {
-            _tabs.Add(tabFile);
+            _items.Add(new LibraryItem(tabFile));
 
             if (saveCache)
                 Save();
@@ -131,7 +110,7 @@ namespace Tabster
         {
             try
             {
-                _tabs.Remove(tabFile);
+                _items.RemoveAll(x => x.File.FileInfo.FullName.Equals(tabFile.FileInfo.FullName, StringComparison.InvariantCultureIgnoreCase));
 
                 if (diskDelete)
                 {
@@ -149,14 +128,14 @@ namespace Tabster
             }
         }
 
-        public TabFile FindTabByPath(string path)
+        public LibraryItem FindTabByPath(string path)
         {
-            return FindTab(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
+            return FindTab(x => x.File.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
         }
 
-        public TabFile FindTab(Predicate<TabFile> match)
+        public LibraryItem FindTab(Predicate<LibraryItem> match)
         {
-            foreach (var tab in _tabs)
+            foreach (var tab in _items)
             {
                 if (match(tab))
                 {
@@ -165,6 +144,11 @@ namespace Tabster
             }
 
             return null;
+        }
+
+        public LibraryItem FindTab(TabFile tab)
+        {
+            return _items.Find(x => ReferenceEquals(x.File, tab));
         }
 
         #endregion
@@ -216,12 +200,34 @@ namespace Tabster
 
         #endregion
 
+        public string LibraryDirectory { get; private set; }
+        public string TabsDirectory { get; private set; }
+        public string PlaylistsDirectory { get; private set; }
+        public string ApplicationDirectory { get; private set; }
+        public string TemporaryDirectory { get; private set; }
+
+        public ReadOnlyCollection<PlaylistFile> Playlists
+        {
+            get { return _playlists.AsReadOnly(); }
+        }
+
+        public long DiskUsage
+        {
+            get
+            {
+                long total = 0;
+                foreach (var tab in _items)
+                    total += tab.File.FileInfo.Length;
+                return total;
+            }
+        }
+
         public bool TabsLoaded { get; private set; }
         public bool PlaylistsLoaded { get; private set; }
 
         public int TabCount
         {
-            get { return _tabs.Count; }
+            get { return _items.Count; }
         }
 
         public int PlaylistCount
@@ -250,9 +256,9 @@ namespace Tabster
 
         #region Implementation of IEnumerable
 
-        public IEnumerator<TabFile> GetEnumerator()
+        public IEnumerator<LibraryItem> GetEnumerator()
         {
-            foreach (var t in _tabs)
+            foreach (var t in _items)
             {
                 yield return t;
             }
@@ -274,31 +280,33 @@ namespace Tabster
                 Save(true);
             }
 
-            _tabs.Clear();
+            _items.Clear();
             _playlists.Clear();
             TabsLoaded = false;
             PlaylistsLoaded = false;
 
             BeginFileRead(new Version(FILE_VERSION));
 
-            var tabPaths = ReadChildValues("tabs") ?? new List<string>();
+            var tabPaths = ReadChildNodes("tabs") ?? new List<ElementNode>();
             var playlistPaths = ReadChildValues("playlists") ?? new List<string>();
 
             if (FileFormatOutdated)
             {
                 Save();
                 Load();
+                return;
             }
 
-            foreach (var file in tabPaths)
+            foreach (var node in tabPaths)
             {
-                if (File.Exists(file))
+                if (File.Exists(node.Value))
                 {
                     TabFile tabFile;
 
-                    if (TabFile.TryParse(file, out tabFile))
+                    if (TabFile.TryParse(node.Value, out tabFile))
                     {
-                        _tabs.Add(tabFile);
+                        var favorited = node.Attributes.ContainsKey("favorite") && node.Attributes["favorite"] == "true";
+                        _items.Add(new LibraryItem(tabFile, favorited: favorited));
                     }
                 }
             }
@@ -338,19 +346,27 @@ namespace Tabster
 
             var tabsNode = WriteNode("tabs");
 
-            var tabs = useActiveFiles ? GetTabFiles() : _tabs;
+            var tabs = useActiveFiles ? GetTabFiles() : _items;
 
             foreach (var tab in tabs)
             {
-                if (File.Exists(tab.FileInfo.FullName))
+                if (File.Exists(tab.File.FileInfo.FullName))
                 {
-                    WriteNode("tab", tab.FileInfo.FullName, tabsNode, overwriteDuplicates: false);
+                    WriteNode("tab",
+                              tab.File.FileInfo.FullName,
+                              tabsNode,
+                              new SortedDictionary<string, string>
+                                  {
+                                      {"favorite", tab.Favorited ? "true" : "false"},
+                                      {"views", tab.Views.ToString()}
+                                  },
+                              false);
                 }
             }
 
             var playlistsNode = WriteNode("playlists");
 
-            var playlists = useActiveFiles ? GetPlaylistfiles() : _playlists;
+            var playlists = useActiveFiles ? GetPlaylistFiles() : _playlists;
 
             foreach (var playlist in playlists)
             {
