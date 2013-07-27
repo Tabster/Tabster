@@ -675,7 +675,6 @@ namespace Tabster.Forms
                                     tab.TabData.Artist, 
                                     Tab.GetTabString(tab.TabData.Type), 
                                     tab.FileInfo.CreationTime, 
-                                    0,
                                     string.Format("{0:0.##} KB", tab.FileInfo.Length / 1024d),
                                     tab.FileInfo.FullName
                                 };
