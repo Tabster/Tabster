@@ -63,6 +63,11 @@ namespace Tabster
                 success = true;
             }
 
+            catch(FileNotFoundException)
+            {
+                
+            }
+
             catch (IOException)
             {
 
@@ -89,6 +94,7 @@ namespace Tabster
             var artistValue = ReadNodeValue("artist");
             var typeValue = Tab.GetTabType(ReadNodeValue("type"));
             var contentsValue = ReadNodeValue("tab");
+            var createdValue = ReadNodeValue("date", true) ?? ReadNodeValue("created", true);
             var sourceValue = ReadNodeValue("source");
             var sourceType = Tab.GetTabSource(sourceValue);
             var remoteSourceValue = sourceType == TabSource.Download && Uri.IsWellFormedUriString(sourceValue, UriKind.Absolute) ? new Uri(sourceValue) : null;
@@ -101,6 +107,7 @@ namespace Tabster
                               RemoteSource = remoteSourceValue,
                               Lyrics = lyricsValue,
                               Audio = audioValue,
+                              Created = createdValue != null ? DateTime.Parse(createdValue) : FileInfo.CreationTime
                           };
 
             if (FileFormatOutdated)
@@ -122,6 +129,7 @@ namespace Tabster
             WriteNode("artist", TabData.Artist);
             WriteNode("type", Tab.GetTabString(TabData.Type));
             WriteNode("tab", TabData.Contents);
+            WriteNode("created", TabData.Created.ToString());
             WriteNode("comment", TabData.Comment);
             WriteNode("lyrics", TabData.Lyrics);
             WriteNode("audio", TabData.Audio);

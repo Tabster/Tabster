@@ -59,6 +59,7 @@ namespace Tabster
         private string _contents = "";
         private string _lyrics = "";
         private string _title = "";
+        private DateTime _created;
 
         static Tab()
         {
@@ -117,12 +118,17 @@ namespace Tabster
 
         public Difficulty Difficulty { get; set; }
 
+        public DateTime Created
+        {
+            get { return _created; }
+            set { _created = value; } 
+        }
+
         public string Comment
         {
             get { return _comment; }
             set { _comment = value; }
         }
-
 
         public string Audio
         {
