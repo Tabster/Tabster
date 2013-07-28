@@ -98,6 +98,11 @@ namespace Tabster
                 success = true;
             }
 
+            catch(FileNotFoundException)
+            {
+                
+            }
+
             catch (IOException)
             {
 
