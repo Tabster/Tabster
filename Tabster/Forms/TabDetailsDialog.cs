@@ -62,7 +62,7 @@ namespace Tabster.Forms
             _tabFile.TabData.Title = txtsong.Text;
             _tabFile.TabData.Type = Tab.GetTabType(txttype.Text);
             _tabFile.TabData.Lyrics = txtlyrics.Text;
-            _tabFile.TabData.Audio = txtlyrics.Text;
+            _tabFile.TabData.Audio = txtaudio.Text;
             _tabFile.TabData.Comment = txtcomment.Text;
             _tabFile.Save();
         }

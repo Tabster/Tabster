@@ -327,7 +327,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(480, 211);
+            this.tabPage4.Size = new System.Drawing.Size(480, 175);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Audio";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -336,10 +336,10 @@
             // 
             this.axWindowsMediaPlayer1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.axWindowsMediaPlayer1.Enabled = true;
-            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(3, 57);
+            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(3, 54);
             this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
             this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
-            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(474, 151);
+            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(474, 118);
             this.axWindowsMediaPlayer1.TabIndex = 15;
             // 
             // label14
