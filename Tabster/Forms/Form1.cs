@@ -186,7 +186,12 @@ namespace Tabster.Forms
                 Settings.Default.SearchPreviewOrientation = searchSplitContainer.Panel2Collapsed
                                                                 ? PreviewPanelOrientation.Hidden
                                                                 : (searchSplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
-            }
+
+                if (orientation != PreviewPanelOrientation.Hidden && SelectedSearchResult() == null)
+                {
+                    searchSplitContainer.Panel2Collapsed = true;
+                }
+        }
 
             Settings.Default.Save();
         }

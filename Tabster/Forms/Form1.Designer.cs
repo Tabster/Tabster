@@ -474,6 +474,7 @@ namespace Tabster.Forms
             this.libraryPreviewEditor.Margin = new System.Windows.Forms.Padding(0);
             this.libraryPreviewEditor.Mode = Tabster.Controls.TabEditor.TabMode.Edit;
             this.libraryPreviewEditor.Name = "libraryPreviewEditor";
+            this.libraryPreviewEditor.ScrollSpeed = Tabster.Controls.TabEditor.AutoScrollSpeed.Off;
             this.libraryPreviewEditor.Size = new System.Drawing.Size(1130, 182);
             this.libraryPreviewEditor.TabIndex = 24;
             // 
@@ -702,7 +703,7 @@ namespace Tabster.Forms
             // 
             this.searchSplitContainer.Panel1.Controls.Add(this.dataGridViewExtended1);
             this.searchSplitContainer.Panel1.Controls.Add(this.panel1);
-            this.searchSplitContainer.Panel1MinSize = 450;
+            this.searchSplitContainer.Panel1MinSize = 100;
             // 
             // searchSplitContainer.Panel2
             // 
@@ -747,7 +748,7 @@ namespace Tabster.Forms
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewExtended1.DefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewExtended1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewExtended1.GridColor = System.Drawing.Color.White;
+            this.dataGridViewExtended1.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewExtended1.Location = new System.Drawing.Point(0, 31);
             this.dataGridViewExtended1.MultiSelect = false;
             this.dataGridViewExtended1.Name = "dataGridViewExtended1";
@@ -765,7 +766,7 @@ namespace Tabster.Forms
             dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
             this.dataGridViewExtended1.RowsDefaultCellStyle = dataGridViewCellStyle11;
-            this.dataGridViewExtended1.RowTemplate.Height = 20;
+            this.dataGridViewExtended1.RowTemplate.Height = 18;
             this.dataGridViewExtended1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewExtended1.ShowCellErrors = false;
             this.dataGridViewExtended1.ShowCellToolTips = false;
@@ -943,7 +944,8 @@ namespace Tabster.Forms
             this.searchPreviewEditor.Margin = new System.Windows.Forms.Padding(0);
             this.searchPreviewEditor.Mode = Tabster.Controls.TabEditor.TabMode.Edit;
             this.searchPreviewEditor.Name = "searchPreviewEditor";
-            this.searchPreviewEditor.Size = new System.Drawing.Size(1271, 130);
+            this.searchPreviewEditor.ScrollSpeed = Tabster.Controls.TabEditor.AutoScrollSpeed.Off;
+            this.searchPreviewEditor.Size = new System.Drawing.Size(148, 23);
             this.searchPreviewEditor.TabIndex = 24;
             // 
             // display_browser
@@ -1163,7 +1165,7 @@ namespace Tabster.Forms
             // 
             // addtoplaylistcontextmenuitem
             // 
-            this.addtoplaylistcontextmenuitem.Name = "a ddtoplaylistcontextmenuitem";
+            this.addtoplaylistcontextmenuitem.Name = "addtoplaylistcontextmenuitem";
             this.addtoplaylistcontextmenuitem.Size = new System.Drawing.Size(151, 22);
             this.addtoplaylistcontextmenuitem.Text = "Add to Playlist...";
             // 

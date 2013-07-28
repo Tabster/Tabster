@@ -198,6 +198,11 @@ namespace Tabster.Forms
                     var ugTab = _ugTabCache[url];
                     var tab = ugTab.ConvertToTab();
                     searchPreviewEditor.LoadTab(tab);
+
+                    if (!searchhiddenpreviewToolStripMenuItem.Checked)
+                    {
+                        searchSplitContainer.Panel2Collapsed = false;
+                    }
                 }
             }
         }
