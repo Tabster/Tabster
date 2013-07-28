@@ -257,15 +257,9 @@ namespace Tabster.Forms
 
         private void multiDownloaderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var d = new DownloadDialog())
+            using (var d = new DownloadDialog(this))
             {
-                if (d.ShowDialog() == DialogResult.OK)
-                {
-                    foreach (var tab in d.NewTabs)
-                    {
-                        UpdateLibraryItem(tab, true);
-                    }
-                }
+                d.ShowDialog();
             }
         }
 
