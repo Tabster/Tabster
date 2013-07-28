@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
 using Tabster.Forms;
-using Tabster.Properties;
 
 #endregion
 
@@ -51,7 +50,7 @@ namespace Tabster
         {
             base.OnCreateSplashScreen();
 
-            //MinimumSplashScreenDisplayTime = 3500; //seems to make MainForm show prematurely
+            MinimumSplashScreenDisplayTime = 3500; //seems to make MainForm show prematurely
             SplashScreen = new Splash {Cursor = Cursors.AppStarting};
         }
 
