@@ -10,37 +10,14 @@ namespace Tabster.Controls
 {
     public partial class TabEditor : UserControl
     {
-        private const string tabHTML =
-            @"
-                                         <html>
-                                            <head>
-                                                <style type=""text/css"">
-                                                    pre {
-                                                        color: Black; 
-                                                        background-color: White;
-                                                        font: 12px Courier New,Courier, monospace;
-                                                    }
-                                                </style>
-                                                <script type=""text/javascript"">
-                                                    function pageScroll(speed) {
-                                                        window.scrollBy(0,speed);
-                                                        scrolldelay = setTimeout('pageScroll()',10);
-                                                    }
-                                                </script>
-                                            </head>
-                                            <body>
-                                                <pre>{TAB_CONTENTS}</pre>
-                                            </body>
-                                        </html>";
-
         #region AutoScrollSpeed enum
 
         public enum AutoScrollSpeed
         {
             Off = 0,
             Slow = 1,
-            Medium = 3,
-            Fast = 5,
+            Medium = 2,
+            Fast = 4,
         }
 
         #endregion
@@ -60,13 +37,28 @@ namespace Tabster.Controls
         public TabEditor()
         {
             InitializeComponent();
+            _scrollTimer.Tick += _scrollTimer_Tick;
         }
 
         #endregion
 
         #region Properties
 
+        private Color _backcolor = Color.White;
+        private Color _forecolor = Color.Black;
         private TabMode _mode = TabMode.View;
+
+        private AutoScrollSpeed _scrollSpeed;
+
+        public AutoScrollSpeed ScrollSpeed
+        {
+            get { return _scrollSpeed; }
+            set
+            {
+                BeginAutoScroll(value);
+                _scrollSpeed = value;
+            }
+        }
 
         public TabMode Mode
         {
@@ -94,9 +86,6 @@ namespace Tabster.Controls
                 }
             }
         }
-
-        private Color _backcolor = Color.White;
-        private Color _forecolor = Color.Black;
 
         public new Color ForeColor
         {
@@ -130,12 +119,11 @@ namespace Tabster.Controls
 
         #region Events
 
+        private string _oldContents = "";
+        private string _originalContents = "";
         public event EventHandler ModeChanged;
         public event EventHandler TabLoaded;
         public event EventHandler TabModified;
-
-        private string _originalContents = "";
-        private string _oldContents = "";
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -195,25 +183,28 @@ namespace Tabster.Controls
                 TabLoaded(this, EventArgs.Empty);
         }
 
-        public void ScrollBy(AutoScrollSpeed speed)
+        private void _scrollTimer_Tick(object sender, EventArgs e)
+        {
+            var height = webBrowser1.Document.Body.ScrollRectangle.Height;
+            var multiplier = (int) ScrollSpeed;
+            var skip = (multiplier*height)/100;
+            webBrowser1.Document.Window.ScrollTo(0, webBrowser1.Document.Body.ScrollTop + skip);
+        }
+
+        public void BeginAutoScroll(AutoScrollSpeed speed)
         {
             if (webBrowser1.Document != null)
             {
-                if (speed != AutoScrollSpeed.Off)
+                if (speed == AutoScrollSpeed.Off)
                 {
-                    var i = (int) speed;
+                    _scrollTimer.Stop();
+                }
 
-                    /*
-                   
-
-                    var js = string.Format("javascript:var s = function() {{ window.scrollBy(0,{0}); setTimeout(s, 100); }}; s();", i);
-                    Console.WriteLine("javascript: " + js);
-                    webBrowser1.Navigate(js);
-                    //webBrowser1.Navigate(string.Format("javascript:function pageScroll() {{ window.scrollBy(0,{0}); scrolldelay = setTimeout('pageScroll()',10); }}", i));*/
-
-                    webBrowser1.Document.InvokeScript("pageScroll", new object[] {new[] {i.ToString()}});
-
-                    Console.WriteLine("testing scrool");
+                else
+                {
+                    _scrollTimer.Stop();
+                    _scrollTimer.Interval = 1000;
+                    _scrollTimer.Start();
                 }
             }
         }
@@ -248,5 +239,30 @@ namespace Tabster.Controls
         }
 
         #endregion
+
+        private const string tabHTML =
+            @"
+                                         <html>
+                                            <head>
+                                                <style type=""text/css"">
+                                                    pre {
+                                                        color: Black; 
+                                                        background-color: White;
+                                                        font: 12px Courier New,Courier, monospace;
+                                                    }
+                                                </style>
+                                                <script type=""text/javascript"">
+                                                    function pageScroll(speed) {
+                                                        window.scrollBy(0,speed);
+                                                        scrolldelay = setTimeout('pageScroll()',10);
+                                                    }
+                                                </script>
+                                            </head>
+                                            <body>
+                                                <pre>{TAB_CONTENTS}</pre>
+                                            </body>
+                                        </html>";
+
+        private readonly Timer _scrollTimer = new Timer();
     }
 }

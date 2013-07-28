@@ -343,7 +343,7 @@ namespace Tabster.Forms
                     break;
             }
 
-            libraryPreviewEditor.ScrollBy(speed);
+            libraryPreviewEditor.ScrollSpeed = speed;
         }
 
         private void sidemenu_AfterSelect(object sender, TreeViewEventArgs e)
