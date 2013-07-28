@@ -195,6 +195,7 @@
             this.Name = "DownloadDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Multi-Downloader";
             this.ResumeLayout(false);
             this.PerformLayout();
