@@ -130,11 +130,13 @@ namespace Tabster.Forms
         {
             var data = (string[]) e.Data.GetData(DataFormats.FileDrop, false);
 
+            var playlist = sidemenu.SelectedPlaylist();
+
             if (data != null)
             {
                 foreach (var str in data)
                 {
-                    ImportTab(str);
+                    ImportTab(str, playlist);
                 }
             }
         }
@@ -576,18 +578,28 @@ namespace Tabster.Forms
             }
         }
 
-        private void ImportTab(string path)
+        private void ImportTab(string path, PlaylistFile playlist = null)
         {
-            var alreadyInLibrary = Program.libraryManager.FindTabByPath(path) != null;
-
-            if (!alreadyInLibrary)
+            TabFile source;
+            if (TabFile.TryParse(path, out source))
             {
-                TabFile source;
-                if (TabFile.TryParse(path, out source))
+                var alreadyExists = playlist != null ? playlist.PlaylistData.Contains(path) : Program.libraryManager.FindTabByPath(path) != null;
+
+                if (!alreadyExists)
                 {
-                    var import = TabFile.Create(source.TabData, Program.libraryManager.TabsDirectory);
-                    Program.libraryManager.AddTab(import, true);
-                    UpdateLibraryItem(import);
+                    if (playlist != null)
+                    {
+                        playlist.PlaylistData.Add(source);
+                        UpdateLibraryItem(source);
+                        playlist.Save();
+                    }
+
+                    else
+                    {
+                        var import = TabFile.Create(source.TabData, Program.libraryManager.TabsDirectory);
+                        Program.libraryManager.AddTab(import, true);
+                        UpdateLibraryItem(import);
+                    }
                 }
             }
         }
