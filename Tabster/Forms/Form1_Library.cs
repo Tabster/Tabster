@@ -759,6 +759,7 @@ namespace Tabster.Forms
                     if (details.ShowDialog() == DialogResult.OK)
                     {
                         UpdateLibraryItem(SelectedTab, false);
+                        LoadTabPreview();
                     }
                 }
             }
@@ -787,7 +788,11 @@ namespace Tabster.Forms
         private void PreviewDelay_Tick(object sender, EventArgs e)
         {
             PreviewDelay.Stop();
+            LoadTabPreview();
+        }
 
+        private void LoadTabPreview()
+        {
             if (SelectedTab != null)
             {
                 lblpreviewtitle.Text = SelectedTab.TabData.ToString();
