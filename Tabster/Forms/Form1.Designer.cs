@@ -892,6 +892,7 @@ namespace Tabster.Forms
             this.txtsearchartist.Name = "txtsearchartist";
             this.txtsearchartist.Size = new System.Drawing.Size(124, 20);
             this.txtsearchartist.TabIndex = 21;
+            this.txtsearchartist.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsearchartist_KeyDown);
             // 
             // label3
             // 
@@ -913,6 +914,7 @@ namespace Tabster.Forms
             this.txtsearchsong.Name = "txtsearchsong";
             this.txtsearchsong.Size = new System.Drawing.Size(124, 20);
             this.txtsearchsong.TabIndex = 22;
+            this.txtsearchsong.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsearchartist_KeyDown);
             // 
             // txtsearchtype
             // 
@@ -925,6 +927,7 @@ namespace Tabster.Forms
             this.txtsearchtype.Name = "txtsearchtype";
             this.txtsearchtype.Size = new System.Drawing.Size(95, 21);
             this.txtsearchtype.TabIndex = 23;
+            this.txtsearchtype.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsearchartist_KeyDown);
             // 
             // label1
             // 

@@ -299,5 +299,13 @@ namespace Tabster.Forms
         }
 
         #endregion
+
+        private void txtsearchartist_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                onlinesearchbtn.PerformClick();
+            }
+        }
     }
 }
