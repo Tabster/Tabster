@@ -67,6 +67,8 @@ namespace Tabster.Forms
 
                 tabControl1.TabPages.Add(instance.Page);
                 tabControl1.SelectedTab = instance.Page;
+
+                tabControl1_SelectedIndexChanged(null, null);
             }
         }
 
@@ -192,6 +194,14 @@ namespace Tabster.Forms
                         break;
                     }
                 }
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab != null)
+            {
+                Text = string.Format("Tabster - {0}", tabControl1.SelectedTab.Text);
             }
         }
 

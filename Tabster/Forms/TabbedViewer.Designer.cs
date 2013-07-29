@@ -62,6 +62,7 @@
             this.tabControl1.ShowToolTips = true;
             this.tabControl1.Size = new System.Drawing.Size(738, 489);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             this.tabControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseUp);
             // 
             // menuStrip1
@@ -235,7 +236,7 @@
             // closeTabContextMenuItem
             // 
             this.closeTabContextMenuItem.Name = "closeTabContextMenuItem";
-            this.closeTabContextMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeTabContextMenuItem.Size = new System.Drawing.Size(126, 22);
             this.closeTabContextMenuItem.Text = "Close Tab";
             this.closeTabContextMenuItem.Click += new System.EventHandler(this.closeTabToolStripMenuItem_Click);
             // 
@@ -247,7 +248,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "TabbedViewer";
-            this.Text = "TabbedViewer";
+            this.Text = "Tabster";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TabbedViewer_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
