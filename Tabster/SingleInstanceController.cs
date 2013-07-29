@@ -13,6 +13,7 @@ namespace Tabster
     {
         private static TabFile _queuedTabfile;
         private static bool _isLibraryOpen;
+        private static bool _noSplash;
 
         public SingleInstanceController()
         {
@@ -32,6 +33,11 @@ namespace Tabster
                     if (_isLibraryOpen)
                         Program.TabHandler.LoadTab(t, true);
                 }
+
+                if (commandLine.Contains("-nosplash"))
+                {
+                    _noSplash = true;
+                }
             }
         }
 
@@ -50,8 +56,11 @@ namespace Tabster
         {
             base.OnCreateSplashScreen();
 
-            MinimumSplashScreenDisplayTime = 3500; //seems to make MainForm show prematurely
-            SplashScreen = new Splash {Cursor = Cursors.AppStarting};
+            if (!_noSplash)
+            {
+                MinimumSplashScreenDisplayTime = 3500; //seems to make MainForm show prematurely
+                SplashScreen = new Splash {Cursor = Cursors.AppStarting};
+            }
         }
 
         protected override void OnCreateMainForm()
