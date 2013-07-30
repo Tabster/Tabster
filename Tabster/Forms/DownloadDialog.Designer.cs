@@ -66,6 +66,7 @@
             this.txturls.Location = new System.Drawing.Point(12, 33);
             this.txturls.Multiline = true;
             this.txturls.Name = "txturls";
+            this.txturls.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txturls.Size = new System.Drawing.Size(588, 166);
             this.txturls.TabIndex = 0;
             this.txturls.TextChanged += new System.EventHandler(this.txturls_TextChanged);

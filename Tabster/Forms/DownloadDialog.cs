@@ -34,7 +34,7 @@ namespace Tabster.Forms
 
                 foreach (var line in txturls.Lines)
                 {
-                    if (UltimateGuitarTab.IsValidUltimateGuitarTabURL(new Uri(line)))
+                    if (!string.IsNullOrEmpty(line) && UltimateGuitarTab.IsValidUltimateGuitarTabURL(new Uri(line)))
                     {
                         _urls.Add(line);
 
