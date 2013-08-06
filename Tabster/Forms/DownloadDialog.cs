@@ -34,7 +34,7 @@ namespace Tabster.Forms
 
                 foreach (var line in txturls.Lines)
                 {
-                    if (!string.IsNullOrEmpty(line) && UltimateGuitarTab.IsValidUltimateGuitarTabURL(new Uri(line)))
+                    if (!string.IsNullOrEmpty(line) && UltimateGuitarTab.IsValidUltimateGuitarTabURL((line)))
                     {
                         _urls.Add(line);
 
@@ -45,15 +45,19 @@ namespace Tabster.Forms
                     }
                 }
 
-                listView1.BringToFront();
-                startbtn.Visible = false;
-                progressBar1.Value = progressBar1.Minimum;
-                progressBar1.Maximum = _urls.Count;
-                progressBar1.Visible = true;
-                lblprogress.Text = "";
-                lblprogress.Visible = true;
+                if (listView1.Items.Count > 0)
+                {
 
-                backgroundWorker1.RunWorkerAsync();
+                    listView1.BringToFront();
+                    startbtn.Visible = false;
+                    progressBar1.Value = progressBar1.Minimum;
+                    progressBar1.Maximum = _urls.Count;
+                    progressBar1.Visible = true;
+                    lblprogress.Text = "";
+                    lblprogress.Visible = true;
+
+                    backgroundWorker1.RunWorkerAsync();
+                }
             }
         }
         

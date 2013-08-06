@@ -139,6 +139,11 @@ namespace Tabster.UltimateGuitar
             }
         }
 
+        public static bool IsValidUltimateGuitarTabURL(string url)
+        {
+            return Uri.IsWellFormedUriString(url, UriKind.Absolute) && IsValidUltimateGuitarTabURL(new Uri(url));
+        }
+
         public static bool IsValidUltimateGuitarTabURL(Uri url)
         {
             /*
