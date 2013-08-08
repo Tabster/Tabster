@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 #endregion
@@ -88,6 +89,11 @@ namespace Tabster
 
         public void Load()
         {
+            Load(true);
+        }
+
+        public void Load(bool convertCarriageReturns)
+        {
             BeginFileRead(new Version(FILE_VERSION));
 
             var titleValue = ReadNodeValue("song", true) ?? ReadNodeValue("title");
@@ -100,6 +106,10 @@ namespace Tabster
             var remoteSourceValue = sourceType == TabSource.Download && Uri.IsWellFormedUriString(sourceValue, UriKind.Absolute) ? new Uri(sourceValue) : null;
             var audioValue = ReadNodeValue("audio");
             var lyricsValue = ReadNodeValue("lyrics");
+
+            //fix carriage returns without newlines
+            if (convertCarriageReturns)
+                contentsValue = new Regex("(?<!\r)\n").Replace(contentsValue, Environment.NewLine);
 
             TabData = new Tab(artistValue, titleValue, typeValue, contentsValue)
                           {
