@@ -152,7 +152,7 @@ namespace Tabster.Forms
             LoadSelectedPreview();
         }
 
-        void searchSession_OnCompleted(object sender, EventArgs e)
+        void searchSession_OnCompleted(object sender, SearchEventArgs e)
         {
             dataGridViewExtended1.SuspendLayout();
             dataGridViewExtended1.Rows.Clear();
@@ -172,6 +172,11 @@ namespace Tabster.Forms
             lblsearchresults.Visible = true;
             lblsearchresults.Text = string.Format("Results: {0}", dataGridViewExtended1.Rows.Count);
             pictureBox1.Visible = false;
+
+            if (e.Error != null)
+            {
+                MessageBox.Show("An error has occured while searching.", "Search Error");
+            }
         }
 
         private void SearchPreviewBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)

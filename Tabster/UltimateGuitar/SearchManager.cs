@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net;
 using System.Web;
 using HtmlAgilityPack;
 
@@ -31,12 +32,23 @@ namespace Tabster.UltimateGuitar
         public int Votes { get; private set; }
     }
 
+    public class SearchEventArgs : EventArgs
+    {
+        public readonly Exception Error;
+
+        public SearchEventArgs(Exception error = null)
+        {
+            Error = error;
+        }
+    }
+
     public class SearchManager : IEnumerable<SearchResult>
     {       
         public string Artist { get; set; }
         public string Title { get; set; }
 
-        public event EventHandler OnCompleted;
+        public delegate void SearchHandler(object sender, SearchEventArgs e);
+        public event SearchHandler Completed;
 
         private TabType _type = TabType.Undefined;
         public TabType Type
@@ -59,12 +71,27 @@ namespace Tabster.UltimateGuitar
 
         private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (OnCompleted != null)
-                OnCompleted(this, EventArgs.Empty);
+            if (Completed != null)
+                Completed(this, new SearchEventArgs(e.Error));
         }
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            try
+            {
+                SearchTab();
+            }
+
+            catch(Exception ex)
+            {
+                e.Result = ex;
+            }
+        }
+
+        private void SearchTab()
+        {
+            _results.Clear();
+
             var searchString = (Artist + " " + Title).Trim().Replace(" ", "+");
 
             URL = Type == TabType.Undefined
@@ -73,10 +100,11 @@ namespace Tabster.UltimateGuitar
 
             string data;
 
-            using (var client = new TabsterWebClient())
-            {
-                data = client.DownloadString(URL);
-            }
+            var client = new TabsterWebClient();
+
+            data = client.DownloadString(URL);
+
+            client.Dispose();
 
             if (data.Length == 0)
                 return;
@@ -97,8 +125,6 @@ namespace Tabster.UltimateGuitar
             var count = 0;
             var rows = tresults.SelectNodes("tr");
             var loopArtist = ""; //store last artist
-
-            _results.Clear();
 
             foreach (var row in rows)
             {
