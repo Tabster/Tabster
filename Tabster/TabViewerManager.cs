@@ -1,5 +1,9 @@
 ﻿#region
 
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using Tabster.Controls;
 using Tabster.Forms;
 
 #endregion
@@ -16,6 +20,7 @@ namespace Tabster
 
         private TabbedViewer _viewer = new TabbedViewer();
 
+        public event TabHandler OpenedExternally;
         public event TabHandler TabOpened;
         public event TabHandler TabClosed;
 
@@ -29,32 +34,49 @@ namespace Tabster
             return _viewer;
         }
 
-        public void CloseTab(TabFile tabFile)
+        public void Restore(TabFile tabFile)
         {
             if (TabClosed != null)
                 TabClosed(this, tabFile);
         }
 
-        public void LoadTab(TabFile tabFile, bool show)
+        public void LoadExternally(TabFile tabFile, bool show, bool forceFront = true)
         {
             var v = GetViewer(true);
 
-            v.LoadTab(tabFile);
+            bool openedExternall, isNew;
+            var editor = TryGetEditor(tabFile, out openedExternall, out isNew);
+
+            v.LoadTab(tabFile, editor);
 
             if (show)
             {
                 v.Show();
-                v.BringToFront();
             }
-
-            if (TabOpened != null)
-                TabOpened(this, tabFile);
         }
 
-        public bool IsOpenInViewer(TabFile tab)
+        public bool IsOpenedExternally(TabFile tab)
         {
             var v = GetViewer(false);
             return v != null && v.AlreadyOpened(tab);
+        }
+
+        private readonly Dictionary<TabFile, TabEditor> _editors = new Dictionary<TabFile, TabEditor>();
+
+        public TabEditor TryGetEditor(TabFile tab, out bool openedExternally, out bool isNew)
+        {
+            if (_editors.ContainsKey(tab))
+            {
+                openedExternally = IsOpenedExternally(tab);
+                isNew = false;
+                return _editors[tab];
+            }
+
+            openedExternally = false;
+            isNew = true;
+            var editor = new TabEditor {Dock = System.Windows.Forms.DockStyle.Fill};
+            _editors[tab] = editor;
+            return editor;
         }
     }
 }

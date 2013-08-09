@@ -43,6 +43,8 @@ namespace Tabster.Forms
 
         private TabFile SelectedTab;
 
+        private TabEditor _currentEditor;
+
         private bool IsViewingLibrary()
         {
             return tabControl1.SelectedTab == display_library;
@@ -54,8 +56,7 @@ namespace Tabster.Forms
         {
             if (SelectedTab != null)
             {
-                var openedExternally = Program.TabHandler.IsOpenInViewer(SelectedTab);
-                librarySplitContainer.Panel2.Enabled = !openedExternally;
+                LoadTabPreview();
             }
         }
 
@@ -63,8 +64,7 @@ namespace Tabster.Forms
         {
             if (SelectedTab != null)
             {
-                var openedExternally = Program.TabHandler.IsOpenInViewer(SelectedTab);
-                librarySplitContainer.Panel2.Enabled = !openedExternally;
+                LoadTabPreview();
             }
         }
 
@@ -98,19 +98,19 @@ namespace Tabster.Forms
 
         private void modebtn_Click(object sender, EventArgs e)
         {
-            if (SelectedTab != null)
+            if (SelectedTab != null && _currentEditor != null)
             {
-                if (Program.TabHandler.IsOpenInViewer(SelectedTab))
+                if (Program.TabHandler.IsOpenedExternally(SelectedTab))
                 {
                     MessageBox.Show("This tab is currently open in a separate window.");
                     return;
                 }
 
-                libraryPreviewEditor.SwitchMode();
+                _currentEditor.SwitchMode();
 
-                if (libraryPreviewEditor.Mode == TabEditor.TabMode.Edit)
+                if (_currentEditor.Mode == TabEditor.TabMode.Edit)
                     modebtn.Text = "Edit Tab";
-                if (libraryPreviewEditor.Mode == TabEditor.TabMode.View)
+                if (_currentEditor.Mode == TabEditor.TabMode.View)
                     modebtn.Text = "View Tab";
             }
         }
@@ -182,19 +182,17 @@ namespace Tabster.Forms
             }
         }
 
-        private void printbtn_Click(object sender, EventArgs e)
-        {
-            libraryPreviewEditor.Print();
-        }
-
-        private void dataGridViewExtended2_SelectionChanged(object sender, EventArgs e)
+        private void UpdateTabControls(bool beginPreviewLoad)
         {
             if (tablibrary.SelectedRows.Count > 0)
             {
                 var selectedTabLocation = tablibrary.SelectedRows[0].Cells[tablibrary.Columns.Count - 1].Value.ToString();
                 SelectedTab = Program.libraryManager.FindTabByPath(selectedTabLocation).File;
-                var openedExternally = Program.TabHandler.IsOpenInViewer(SelectedTab);
-                librarySplitContainer.Panel2.Enabled = !openedExternally;
+
+                var openedExternally = Program.TabHandler.IsOpenedExternally(SelectedTab);
+
+                deleteTabToolStripMenuItem.Enabled = librarycontextdelete.Enabled = !openedExternally;
+
             }
 
             else
@@ -209,9 +207,22 @@ namespace Tabster.Forms
             openTabLocationToolStripMenuItem.Enabled = SelectedTab != null;
             searchUltimateGuitarToolStripMenuItem.Enabled = SelectedTab != null;
 
-            PreviewDelay.Stop();
-            PreviewDelay.Start();
+            if (beginPreviewLoad)
+            {
+                PreviewDelay.Stop();
+                PreviewDelay.Start();
+            }
+        }
 
+        private void printbtn_Click(object sender, EventArgs e)
+        {
+            if (_currentEditor != null)
+                _currentEditor.Print();
+        }
+
+        private void dataGridViewExtended2_SelectionChanged(object sender, EventArgs e)
+        {
+            UpdateTabControls(true);
         }
 
         private void NewTab(object sender, EventArgs e)
@@ -226,11 +237,13 @@ namespace Tabster.Forms
                 }
             }
         }
-
         private void PopoutTab(TabFile tab)
         {
-            Program.TabHandler.LoadTab(tab, true);
+            Program.TabHandler.LoadExternally(tab, true);
+
             recentlyViewedToolStripMenuItem.Add(tab);
+            UpdateTabControls(false);
+            LoadTabPreview();
         }
 
         private void SearchSimilarTabs(object sender, EventArgs e)
@@ -250,7 +263,7 @@ namespace Tabster.Forms
             if (!IsViewingLibrary())
                 return;
 
-            if (tablibrary.SelectedRows.Count > 0 && SelectedTab != null)
+            if (SelectedTab != null)
             {
 
                 var removed = false;
@@ -325,27 +338,30 @@ namespace Tabster.Forms
 
         private void autoScrollChange(object sender, EventArgs e)
         {
-            var text = ((ToolStripMenuItem)sender).Text;
-
-            var speed = TabEditor.AutoScrollSpeed.Off;
-
-            switch (text)
+            if (_currentEditor != null)
             {
-                case "Off":
-                    speed = TabEditor.AutoScrollSpeed.Off;
-                    break;
-                case "Slow":
-                    speed = TabEditor.AutoScrollSpeed.Slow;
-                    break;
-                case "Medium":
-                    speed = TabEditor.AutoScrollSpeed.Medium;
-                    break;
-                case "Fast":
-                    speed = TabEditor.AutoScrollSpeed.Fast;
-                    break;
-            }
+                var text = ((ToolStripMenuItem) sender).Text;
 
-            libraryPreviewEditor.ScrollSpeed = speed;
+                var speed = TabEditor.AutoScrollSpeed.Off;
+
+                switch (text)
+                {
+                    case "Off":
+                        speed = TabEditor.AutoScrollSpeed.Off;
+                        break;
+                    case "Slow":
+                        speed = TabEditor.AutoScrollSpeed.Slow;
+                        break;
+                    case "Medium":
+                        speed = TabEditor.AutoScrollSpeed.Medium;
+                        break;
+                    case "Fast":
+                        speed = TabEditor.AutoScrollSpeed.Fast;
+                        break;
+                }
+
+                _currentEditor.ScrollSpeed = speed;
+            }
         }
 
         private void sidemenu_AfterSelect(object sender, TreeViewEventArgs e)
@@ -393,16 +409,19 @@ namespace Tabster.Forms
 
             if (e.Button == MouseButtons.Right && (currentMouseOverRow >= 0 && currentMouseOverRow < tablibrary.Rows.Count) && SelectedTab != null)
             {
+                tablibrary.Rows[currentMouseOverRow].Selected = true;
+
                 if (sidemenu.PlaylistNodeSelected())
                 {
                     
                 }
 
-                tablibrary.Rows[currentMouseOverRow].Selected = true;
+                UpdateTabControls(false);
+
                 LibraryMenu.Show(tablibrary.PointToScreen(e.Location));
 
                 //check if playlists already contain 
-                foreach (var item in addtoplaylistcontextmenuitem.DropDownItems)
+                foreach (var item in librarycontextaddtoplaylist.DropDownItems)
                 {
                     var toolItem = item as ToolStripMenuItem;
 
@@ -418,7 +437,7 @@ namespace Tabster.Forms
                 }
 
                 var libraryItem = Program.libraryManager.FindTab(SelectedTab);
-                addToFavoritesToolStripMenuItem.Text = libraryItem.Favorited ? "Remove from favorites" : "Add to favorites";
+                librarycontextfavorites.Text = libraryItem.Favorited ? "Remove from favorites" : "Add to favorites";
             }
         }
 
@@ -646,10 +665,10 @@ namespace Tabster.Forms
             if (sidemenu.NodePlaylists.Nodes.Count > 0)
                 sidemenu.NodePlaylists.Nodes.Clear();
 
-            if (addtoplaylistcontextmenuitem.DropDownItems.Count > 0)
-                addtoplaylistcontextmenuitem.DropDownItems.Clear();
+            if (librarycontextaddtoplaylist.DropDownItems.Count > 0)
+                librarycontextaddtoplaylist.DropDownItems.Clear();
 
-            addtoplaylistcontextmenuitem.DropDownItems.Clear();
+            librarycontextaddtoplaylist.DropDownItems.Clear();
 
             foreach (var playlist in Program.libraryManager.Playlists)
             {
@@ -670,17 +689,17 @@ namespace Tabster.Forms
                                           }
                                       };
 
-                addtoplaylistcontextmenuitem.DropDownItems.Add(menuItem);
+                librarycontextaddtoplaylist.DropDownItems.Add(menuItem);
             }
 
-            if (addtoplaylistcontextmenuitem.DropDownItems.Count > 0)
+            if (librarycontextaddtoplaylist.DropDownItems.Count > 0)
             {
-                addtoplaylistcontextmenuitem.DropDownItems.Add(new ToolStripSeparator());
+                librarycontextaddtoplaylist.DropDownItems.Add(new ToolStripSeparator());
             }
 
             newplaylistmenuitem.Click -= NewPlaylist;
             newplaylistmenuitem.Click += NewPlaylist;
-            addtoplaylistcontextmenuitem.DropDownItems.Add(newplaylistmenuitem);
+            librarycontextaddtoplaylist.DropDownItems.Add(newplaylistmenuitem);
 
             UpdateDetails();
         }
@@ -796,16 +815,38 @@ namespace Tabster.Forms
             if (SelectedTab != null)
             {
                 lblpreviewtitle.Text = SelectedTab.TabData.ToString();
-                libraryPreviewEditor.LoadTab(SelectedTab.TabData);
-                toolStrip3.Enabled = true;
 
-                //tabEditor1.BackColor = Color.Black;
-                //tabEditor1.ForeColor = Color.Red;
+                bool openedExternally, isNew;
+                var editor = Program.TabHandler.TryGetEditor(SelectedTab, out openedExternally, out isNew);
+
+                if (openedExternally)
+                {
+                    lblopenedexternally.BringToFront();
+                    lblopenedexternally.Visible = true;
+                    editor.BringToFront();
+                }
+
+                else
+                {
+                    editor.LoadTab(SelectedTab.TabData);
+
+                    lblopenedexternally.Visible = false;
+                    
+                    librarySplitContainer.Panel2.Controls.Add(editor);
+
+                    editor.BringToFront();
+                    editor.Visible = true;
+
+                    _currentEditor = editor;
+                }
+
+                librarySplitContainer.Panel2.Enabled = !openedExternally;
+                previewToolStrip.Enabled = true;
             }
 
             else
             {
-                toolStrip3.Enabled = false;
+                previewToolStrip.Enabled = false;
                 lblpreviewtitle.Text = "";
             }
         }

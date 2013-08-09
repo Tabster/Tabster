@@ -49,7 +49,7 @@ namespace Tabster.Forms
             return _tabInstances.Find(x => x.Page == selectedTab);
         }
 
-        public void LoadTab(TabFile tabFile)
+        public void LoadTab(TabFile tabFile, TabEditor editor)
         {
             TabPage tp;
             var alreadyOpened = AlreadyOpened(tabFile, out tp);
@@ -61,7 +61,7 @@ namespace Tabster.Forms
 
             else
             {
-                var instance = new TabInstance(tabFile);
+                var instance = new TabInstance(tabFile, editor);
                 instance.SetHeader(false);
                 _tabInstances.Add(instance);
 
@@ -93,7 +93,7 @@ namespace Tabster.Forms
 
             tabControl1.TabPages.Remove(instance.Page);
             _tabInstances.Remove(instance);
-            Program.TabHandler.CloseTab(instance.File);
+            Program.TabHandler.Restore(instance.File);
 
             if (closeIfLast && tabControl1.TabPages.Count == 0)
             {
@@ -253,11 +253,11 @@ namespace Tabster.Forms
 
     public class TabInstance
     {
-        public TabInstance(TabFile file)
+        public TabInstance(TabFile file, TabEditor editor = null)
         {
             File = file;
             Page = new TabPage {Text = file.TabData.GetName(), ToolTipText = file.FileInfo.FullName};
-            Editor = new TabEditor {Dock = DockStyle.Fill};
+            Editor = editor ?? new TabEditor { Dock = DockStyle.Fill };
 
             Page.Controls.Add(Editor);
 

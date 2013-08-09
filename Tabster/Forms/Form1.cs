@@ -23,7 +23,7 @@ namespace Tabster.Forms
 
             tabControl1.TabPages.RemoveAt(2);
 
-            searchManager.OnCompleted += searchSession_OnCompleted;
+            searchManager.Completed += searchSession_OnCompleted;
 
             //tabviewermanager events
             Program.TabHandler.TabOpened += TabHandler_OnTabOpened;
@@ -36,7 +36,7 @@ namespace Tabster.Forms
             sidemenu.LoadNodes();
 
             toolStrip2.Renderer = new ToolStripRenderer();
-            toolStrip3.Renderer = new ToolStripRenderer();
+            previewToolStrip.Renderer = new ToolStripRenderer();
 
             if (Settings.Default.ClientState == FormWindowState.Maximized)
                 WindowState = FormWindowState.Maximized;
@@ -99,7 +99,7 @@ namespace Tabster.Forms
             //loads queued tab after splash
             if (_queuedTabfile != null)
             {
-                Program.TabHandler.LoadTab(_queuedTabfile, true);
+                PopoutTab(_queuedTabfile);
             }
         }
 
