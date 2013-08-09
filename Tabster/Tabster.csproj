@@ -107,9 +107,6 @@
     <Compile Include="Forms\PlaylistDetailsDialog.designer.cs">
       <DependentUpon>PlaylistDetailsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Form1_Browser.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\Form1_Library.cs">
       <SubType>Form</SubType>
     </Compile>

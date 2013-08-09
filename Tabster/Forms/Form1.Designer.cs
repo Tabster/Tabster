@@ -105,20 +105,10 @@ namespace Tabster.Forms
             this.txtsearchtype = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.searchPreviewEditor = new Tabster.Controls.TabEditor();
-            this.display_browser = new System.Windows.Forms.TabPage();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.SearchMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.saveTabToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.goBackButton = new System.Windows.Forms.ToolStripButton();
-            this.goForwardButton = new System.Windows.Forms.ToolStripButton();
-            this.navigationButton = new System.Windows.Forms.ToolStripButton();
-            this.homeButton = new System.Windows.Forms.ToolStripButton();
-            this.loadingIndicator = new System.Windows.Forms.ToolStripLabel();
-            this.addressBar = new System.Windows.Forms.ToolStripLabel();
-            this.savetabbtn = new System.Windows.Forms.ToolStripButton();
             this.tabimagelist = new System.Windows.Forms.ImageList(this.components);
             this.refreshbtn = new System.Windows.Forms.ToolStripButton();
             this.LibraryMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -190,9 +180,7 @@ namespace Tabster.Forms
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExtended1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.display_browser.SuspendLayout();
             this.SearchMenu.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
             this.LibraryMenu.SuspendLayout();
             this.PlaylistMenu.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -214,7 +202,6 @@ namespace Tabster.Forms
             // 
             this.tabControl1.Controls.Add(this.display_library);
             this.tabControl1.Controls.Add(this.display_search);
-            this.tabControl1.Controls.Add(this.display_browser);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.ImageList = this.tabimagelist;
             this.tabControl1.ItemSize = new System.Drawing.Size(80, 20);
@@ -712,7 +699,7 @@ namespace Tabster.Forms
             this.searchSplitContainer.Panel2Collapsed = true;
             this.searchSplitContainer.Panel2MinSize = 20;
             this.searchSplitContainer.Size = new System.Drawing.Size(1026, 493);
-            this.searchSplitContainer.SplitterDistance = 200;
+            this.searchSplitContainer.SplitterDistance = 670;
             this.searchSplitContainer.TabIndex = 29;
             // 
             // dataGridViewExtended1
@@ -773,7 +760,7 @@ namespace Tabster.Forms
             this.dataGridViewExtended1.ShowCellToolTips = false;
             this.dataGridViewExtended1.ShowEditingIcon = false;
             this.dataGridViewExtended1.ShowRowErrors = false;
-            this.dataGridViewExtended1.Size = new System.Drawing.Size(1024, 460);
+            this.dataGridViewExtended1.Size = new System.Drawing.Size(1024, 657);
             this.dataGridViewExtended1.TabIndex = 20;
             this.dataGridViewExtended1.TransparentColumns = false;
             this.dataGridViewExtended1.TransparentRows = false;
@@ -952,38 +939,6 @@ namespace Tabster.Forms
             this.searchPreviewEditor.Size = new System.Drawing.Size(148, 23);
             this.searchPreviewEditor.TabIndex = 24;
             // 
-            // display_browser
-            // 
-            this.display_browser.BackColor = System.Drawing.SystemColors.Control;
-            this.display_browser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.display_browser.Controls.Add(this.webBrowser1);
-            this.display_browser.Controls.Add(this.toolStrip2);
-            this.display_browser.ImageIndex = 2;
-            this.display_browser.Location = new System.Drawing.Point(4, 24);
-            this.display_browser.Name = "display_browser";
-            this.display_browser.Size = new System.Drawing.Size(1026, 493);
-            this.display_browser.TabIndex = 4;
-            this.display_browser.Text = "Browser";
-            // 
-            // webBrowser1
-            // 
-            this.webBrowser1.AllowWebBrowserDrop = false;
-            this.webBrowser1.ContextMenuStrip = this.SearchMenu;
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.IsWebBrowserContextMenuEnabled = false;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 25);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(1024, 466);
-            this.webBrowser1.TabIndex = 27;
-            this.webBrowser1.Tag = "";
-            this.webBrowser1.Url = new System.Uri("", System.UriKind.Relative);
-            this.webBrowser1.WebBrowserShortcutsEnabled = false;
-            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
-            this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated);
-            this.webBrowser1.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.webBrowser1_Navigating);
-            this.webBrowser1.NewWindow += new System.ComponentModel.CancelEventHandler(this.webBrowser1_NewWindow);
-            // 
             // SearchMenu
             // 
             this.SearchMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1016,93 +971,6 @@ namespace Tabster.Forms
             this.copyURLToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.copyURLToolStripMenuItem.Text = "Copy URL";
             this.copyURLToolStripMenuItem.Click += new System.EventHandler(this.copyURLToolStripMenuItem_Click);
-            // 
-            // toolStrip2
-            // 
-            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.goBackButton,
-            this.goForwardButton,
-            this.navigationButton,
-            this.homeButton,
-            this.loadingIndicator,
-            this.addressBar,
-            this.savetabbtn});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip2.Size = new System.Drawing.Size(1024, 25);
-            this.toolStrip2.TabIndex = 26;
-            this.toolStrip2.Text = "toolStrip2";
-            // 
-            // goBackButton
-            // 
-            this.goBackButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.goBackButton.Enabled = false;
-            this.goBackButton.Image = global::Tabster.Properties.Resources.arrow_left;
-            this.goBackButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.goBackButton.Name = "goBackButton";
-            this.goBackButton.Size = new System.Drawing.Size(23, 22);
-            this.goBackButton.Text = "toolStripButton3";
-            this.goBackButton.Click += new System.EventHandler(this.goBackButton_Click);
-            // 
-            // goForwardButton
-            // 
-            this.goForwardButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.goForwardButton.Enabled = false;
-            this.goForwardButton.Image = global::Tabster.Properties.Resources.arrow_right;
-            this.goForwardButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.goForwardButton.Name = "goForwardButton";
-            this.goForwardButton.Size = new System.Drawing.Size(23, 22);
-            this.goForwardButton.Text = "toolStripButton3";
-            this.goForwardButton.Click += new System.EventHandler(this.goForwardButton_Click);
-            // 
-            // navigationButton
-            // 
-            this.navigationButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.navigationButton.Enabled = false;
-            this.navigationButton.Image = ((System.Drawing.Image)(resources.GetObject("navigationButton.Image")));
-            this.navigationButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.navigationButton.Name = "navigationButton";
-            this.navigationButton.Size = new System.Drawing.Size(23, 22);
-            this.navigationButton.Text = "toolStripButton3";
-            this.navigationButton.Click += new System.EventHandler(this.navigationButton_Click);
-            // 
-            // homeButton
-            // 
-            this.homeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.homeButton.Image = global::Tabster.Properties.Resources.home_page;
-            this.homeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.homeButton.Name = "homeButton";
-            this.homeButton.Size = new System.Drawing.Size(23, 22);
-            this.homeButton.Text = "toolStripButton3";
-            // 
-            // loadingIndicator
-            // 
-            this.loadingIndicator.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.loadingIndicator.Image = global::Tabster.Properties.Resources.loading_icon;
-            this.loadingIndicator.Name = "loadingIndicator";
-            this.loadingIndicator.Size = new System.Drawing.Size(16, 22);
-            this.loadingIndicator.Text = "toolStripLabel2";
-            this.loadingIndicator.Visible = false;
-            // 
-            // addressBar
-            // 
-            this.addressBar.Name = "addressBar";
-            this.addressBar.Size = new System.Drawing.Size(70, 22);
-            this.addressBar.Text = "about:blank";
-            this.addressBar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // savetabbtn
-            // 
-            this.savetabbtn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.savetabbtn.Enabled = false;
-            this.savetabbtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.savetabbtn.Image = global::Tabster.Properties.Resources.page_save1;
-            this.savetabbtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.savetabbtn.Name = "savetabbtn";
-            this.savetabbtn.Size = new System.Drawing.Size(74, 22);
-            this.savetabbtn.Text = "Save Tab";
             // 
             // tabimagelist
             // 
@@ -1599,11 +1467,7 @@ namespace Tabster.Forms
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.display_browser.ResumeLayout(false);
-            this.display_browser.PerformLayout();
             this.SearchMenu.ResumeLayout(false);
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
             this.LibraryMenu.ResumeLayout(false);
             this.PlaylistMenu.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
@@ -1620,7 +1484,6 @@ namespace Tabster.Forms
         private System.Windows.Forms.ToolStripMenuItem renamePlaylistToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage display_library;
-        private System.Windows.Forms.TabPage display_browser;
         private System.Windows.Forms.ToolStripButton refreshbtn;
         private System.Windows.Forms.ContextMenuStrip LibraryMenu;
         private System.Windows.Forms.ToolStripMenuItem librarycontextaddtoplaylist;
@@ -1713,15 +1576,6 @@ namespace Tabster.Forms
         private ToolStripMenuItem searchhiddenpreviewToolStripMenuItem;
         private ToolStripMenuItem searchhorizontalpreviewToolStripMenuItem;
         private ToolStripMenuItem searchverticalpreviewToolStripMenuItem;
-        private ToolStrip toolStrip2;
-        private ToolStripButton goBackButton;
-        private ToolStripButton goForwardButton;
-        private ToolStripButton navigationButton;
-        private ToolStripButton homeButton;
-        private ToolStripLabel loadingIndicator;
-        private ToolStripLabel addressBar;
-        private ToolStripButton savetabbtn;
-        public WebBrowser webBrowser1;
         private ToolStripMenuItem playlistToolStripMenuItem;
         private ToolStripMenuItem deleteToolStripMenuItem1;
         private ToolStripMenuItem detailsToolStripMenuItem2;

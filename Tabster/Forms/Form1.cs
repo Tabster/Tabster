@@ -21,21 +21,14 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
-            tabControl1.TabPages.RemoveAt(2);
-
             searchManager.Completed += searchSession_OnCompleted;
 
             //tabviewermanager events
             Program.TabHandler.TabOpened += TabHandler_OnTabOpened;
             Program.TabHandler.TabClosed += TabHandler_OnTabClosed;
 
-            //browser events
-            webBrowser1.CanGoBackChanged += webBrowser1_CanGoBackChanged;
-            webBrowser1.CanGoForwardChanged += webBrowser1_CanGoForwardChanged;
-
             sidemenu.LoadNodes();
 
-            toolStrip2.Renderer = new ToolStripRenderer();
             previewToolStrip.Renderer = new ToolStripRenderer();
 
             if (Settings.Default.ClientState == FormWindowState.Maximized)
@@ -124,12 +117,6 @@ namespace Tabster.Forms
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //redirect to UG
-            if (tabControl1.SelectedTab == display_browser && !_firstBrowserLoad && !webBrowser1.Url.ToString().Contains("ultimate-guitar.com"))
-            {
-                webBrowser1.Navigate(Constants.UG_HOME_1);
-            }
-
             if (tabControl1.SelectedTab == display_search)
             {
                 txtsearchartist.Focus();
