@@ -270,8 +270,20 @@ namespace Tabster.Forms
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //todo update
-            //NS_Common.Update.PerformUpdate(null, SystemColors.Control, SystemColors.ControlText, "Tabster", Application.ProductVersion, false, false);
+            var updateQuery = new Updater.UpdateQuery();
+
+            updateQuery.Check();
+
+            if (updateQuery.UpdateAvailable)
+            {
+                var updateDialog = new Updater.UpdateDialog(updateQuery);
+                updateDialog.ShowDialog();
+            }
+
+            else
+            {
+                MessageBox.Show("Your version of Tabster is up to date.", "Updated");
+            }
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)

@@ -209,6 +209,17 @@
     <Compile Include="UltimateGuitar\SearchManager.cs" />
     <Compile Include="UltimateGuitar\Top100.cs" />
     <Compile Include="UltimateGuitar\UltimateGuitarTab.cs" />
+    <Compile Include="Updater\DownloadManager.cs" />
+    <Compile Include="Updater\UpdateDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Updater\UpdateDialog.designer.cs">
+      <DependentUpon>UpdateDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Updater\UpdateQuery.cs" />
+    <Compile Include="Updater\UpdateWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
@@ -261,6 +272,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TabEditor.resx">
       <DependentUpon>TabEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Updater\UpdateDialog.resx">
+      <DependentUpon>UpdateDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\app.manifest" />
