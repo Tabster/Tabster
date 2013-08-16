@@ -67,8 +67,7 @@ namespace Tabster.Forms
         {
             if (Settings.Default.StartupUpdate)
             {
-                //todo update
-                //NS_Common.Update.PerformUpdate(null, SystemColors.Control, SystemColors.ControlText, "Tabster", Application.ProductVersion, true, false);
+                checkForUpdatesToolStripMenuItem.PerformClick();
             }
 
             recentlyViewedToolStripMenuItem.FilePath = Path.Combine(Program.libraryManager.ApplicationDirectory, "recent.dat");
