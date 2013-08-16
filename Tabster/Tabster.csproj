@@ -92,6 +92,7 @@
     </Compile>
     <Compile Include="Controls\ToolStripRenderer.cs" />
     <Compile Include="FormState.cs" />
+    <Compile Include="Common.cs" />
     <Compile Include="PortableSettingsProvider.cs" />
     <Compile Include="SingleInstanceController.cs" />
     <Compile Include="TabsterFile.cs" />

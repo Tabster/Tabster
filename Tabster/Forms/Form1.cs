@@ -21,6 +21,8 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
+            Text = string.Format("Tabster v{0}", Common.TruncateVersion(Application.ProductVersion));
+
             searchManager.Completed += searchSession_OnCompleted;
 
             //tabviewermanager events
