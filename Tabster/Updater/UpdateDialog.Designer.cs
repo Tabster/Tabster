@@ -144,7 +144,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "UpdateDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Tabster Updater";
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
