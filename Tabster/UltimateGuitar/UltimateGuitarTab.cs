@@ -93,10 +93,12 @@ namespace Tabster.UltimateGuitar
                 }
 
                 var contentsNode = doc.DocumentNode.SelectSingleNode("//div[@id='cont']/pre");
-
+                
                 if (contentsNode != null)
                 {
-                    return new UltimateGuitarTab(artist, song, GetTabType(ultimateGuitarTabType), url, contentsNode.InnerHtml);
+                    var contents = Common.StripHTML(contentsNode.InnerHtml);
+                    contents = Common.ConvertNewlines(contents);
+                    return new UltimateGuitarTab(artist, song, GetTabType(ultimateGuitarTabType), url, contents);
                 }
 
                 //string innerHtml = this.hap_doc.DocumentNode.SelectSingleNode("//div[@id='cont']/pre").InnerHtml;

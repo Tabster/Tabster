@@ -109,7 +109,9 @@ namespace Tabster
 
             //fix carriage returns without newlines
             if (convertCarriageReturns)
-                contentsValue = new Regex("(?<!\r)\n").Replace(contentsValue, Environment.NewLine);
+                contentsValue = Common.ConvertNewlines(contentsValue);
+
+            contentsValue = Common.StripHTML(contentsValue);
 
             TabData = new Tab(artistValue, titleValue, typeValue, contentsValue)
                           {
