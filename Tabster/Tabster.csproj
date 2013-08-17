@@ -94,6 +94,11 @@
     <Compile Include="FormState.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="PortableSettingsProvider.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SingleInstanceController.cs" />
     <Compile Include="TabsterFile.cs" />
     <Compile Include="Forms\About.cs">
@@ -260,14 +265,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Forms\Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
     </EmbeddedResource>
@@ -293,22 +293,8 @@
     <Content Include="Guitar.ico" />
     <Content Include="musicfile.ico" />
     <None Include="Resources\cursor.png" />
-    <None Include="Resources\panel.png" />
-    <None Include="Resources\application_side_list.png" />
-    <None Include="Resources\directory_listing.png" />
-    <None Include="Resources\box_down.png" />
-    <None Include="Resources\document_import.png" />
     <None Include="Resources\folder_go.png" />
-    <None Include="Resources\page_save1.png" />
     <None Include="Resources\printer.png" />
-    <None Include="Resources\application.png" />
-    <None Include="Resources\page_edit.png" />
-    <None Include="Resources\home_page.png" />
-    <None Include="Resources\arrow_left.png" />
-    <None Include="Resources\arrow_right.png" />
-    <None Include="Resources\page_save.png" />
-    <None Include="Resources\stop.png" />
-    <None Include="Resources\arrow_refresh.png" />
     <None Include="Resources\loading-icon.gif" />
     <None Include="Resources\r4.png" />
     <None Include="Resources\r3.png" />
@@ -316,7 +302,6 @@
     <None Include="Resources\r1.png" />
     <None Include="Resources\r5.png" />
     <None Include="Resources\guitar128.png" />
-    <None Include="Resources\musicfile.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AxWMPLib">
