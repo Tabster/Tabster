@@ -38,7 +38,7 @@ namespace Tabster.Forms
 
         private SearchResult SelectedSearchResult()
         {
-             var selectedURL = dataGridViewExtended1.SelectedRows.Count > 0 ? new Uri(dataGridViewExtended1.SelectedRows[0].Tag.ToString()) : null;
+             var selectedURL = searchDisplay.SelectedRows.Count > 0 ? new Uri(searchDisplay.SelectedRows[0].Tag.ToString()) : null;
              return selectedURL != null ? searchManager.Find(x => x.URL.Equals(selectedURL)) : null;
         }
 
@@ -80,12 +80,12 @@ namespace Tabster.Forms
 
         private void dataGridViewExtended1_MouseClick(object sender, MouseEventArgs e)
         {
-            var currentMouseOverRow = dataGridViewExtended1.HitTest(e.X, e.Y).RowIndex;
+            var currentMouseOverRow = searchDisplay.HitTest(e.X, e.Y).RowIndex;
 
-            if (e.Button == MouseButtons.Right && (currentMouseOverRow >= 0 && currentMouseOverRow < dataGridViewExtended1.Rows.Count))
+            if (e.Button == MouseButtons.Right && (currentMouseOverRow >= 0 && currentMouseOverRow < searchDisplay.Rows.Count))
             {
-                dataGridViewExtended1.Rows[currentMouseOverRow].Selected = true;
-                SearchMenu.Show(dataGridViewExtended1.PointToScreen(e.Location));
+                searchDisplay.Rows[currentMouseOverRow].Selected = true;
+                SearchMenu.Show(searchDisplay.PointToScreen(e.Location));
             }
         }
 
@@ -94,7 +94,7 @@ namespace Tabster.Forms
             LoadSelectedPreview();
         }
 
-        private void saveTabToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void SaveSelectedTab(object sender, EventArgs e)
         {
             var selectedResult = SelectedSearchResult();
 
@@ -108,8 +108,7 @@ namespace Tabster.Forms
 
                         if (ugTab != null)
                         {
-                            var tab = new Tab(nt.txtartist.Text, nt.txtsong.Text, Tab.GetTabType(nt.txttype.Text), ugTab.ConvertToTab().Contents)
-                                          {RemoteSource = selectedResult.URL, Source = TabSource.Download};
+                            var tab = new Tab(nt.txtartist.Text, nt.txtsong.Text, Tab.GetTabType(nt.txttype.Text), ugTab.ConvertToTab().Contents) {RemoteSource = selectedResult.URL, Source = TabSource.Download};
 
                             var tabFile = TabFile.Create(tab, Program.libraryManager.TabsDirectory);
                             Program.libraryManager.AddTab(tabFile, true);
@@ -139,7 +138,7 @@ namespace Tabster.Forms
                 if (SearchPreviewBackgroundWorker.IsBusy)
                     SearchPreviewBackgroundWorker.CancelAsync();
 
-                searchPreviewEditor.SetDocumentText("Loading Preview...");
+                searchPreviewEditor.SetText("Loading Preview...");
 
                 if (!SearchPreviewBackgroundWorker.IsBusy)
                     SearchPreviewBackgroundWorker.RunWorkerAsync(selectedResult.URL);
@@ -154,23 +153,23 @@ namespace Tabster.Forms
 
         void searchSession_OnCompleted(object sender, SearchEventArgs e)
         {
-            dataGridViewExtended1.SuspendLayout();
-            dataGridViewExtended1.Rows.Clear();
+            searchDisplay.SuspendLayout();
+            searchDisplay.Rows.Clear();
 
             foreach (var result in searchManager)
             {
                 if (searchManager.Type == UltimateGuitar.TabType.Undefined || searchManager.Type == result.Type)
                 {
                     var newRow = new DataGridViewRow {Tag = result.URL.ToString()};
-                    newRow.CreateCells(dataGridViewExtended1, result.Artist, result.Title, Tab.GetTabString(UltimateGuitarTab.GetTabType(result.Type)), GetRating(result.Rating), result.Votes);
-                    dataGridViewExtended1.Rows.Add(newRow);
+                    newRow.CreateCells(searchDisplay, result.Artist, result.Title, Tab.GetTabString(UltimateGuitarTab.GetTabType(result.Type)), GetRating(result.Rating), result.Votes);
+                    searchDisplay.Rows.Add(newRow);
                 }
             }
 
-            dataGridViewExtended1.ResumeLayout();
+            searchDisplay.ResumeLayout();
 
             lblsearchresults.Visible = true;
-            lblsearchresults.Text = string.Format("Results: {0}", dataGridViewExtended1.Rows.Count);
+            lblsearchresults.Text = string.Format("Results: {0}", searchDisplay.Rows.Count);
             pictureBox1.Visible = false;
 
             if (e.Error != null)
