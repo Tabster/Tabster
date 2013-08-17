@@ -16,9 +16,9 @@ namespace Tabster
 
     public enum TabSource
     {
-        Download = 0,
-        FileImport = 1,
-        UserCreated = 2,
+        Download,
+        FileImport,
+        UserCreated,
     }
 
     public enum Difficulty
@@ -53,14 +53,6 @@ namespace Tabster
     {
         public static readonly string[] TabTypes;
 
-        private string _artist = "";
-        private string _audio = "";
-        private string _comment = "";
-        private string _contents = "";
-        private string _lyrics = "";
-        private string _title = "";
-        private DateTime _created;
-
         static Tab()
         {
             TabTypes = new[] {"Guitar Tab", "Guitar Chords", "Bass Tab", "Drum Tab"};
@@ -68,6 +60,9 @@ namespace Tabster
 
         public Tab(string artist, string title, TabType type, string contents)
         {
+            Comment = "";
+            Lyrics = "";
+            Audio = "";
             Title = title;
             Artist = artist;
             Type = type;
@@ -77,29 +72,17 @@ namespace Tabster
         /// <summary>
         ///   Gets or sets the title of the tab.
         /// </summary>
-        public string Title
-        {
-            get { return _title; }
-            set { _title = value; }
-        }
+        public string Title { get; set; }
 
         /// <summary>
         ///   Gets or sets the artist of the tab.
         /// </summary>
-        public string Artist
-        {
-            get { return _artist; }
-            set { _artist = value; }
-        }
+        public string Artist { get; set; }
 
         /// <summary>
         ///   Gets the contents of the tab
         /// </summary>
-        public string Contents
-        {
-            get { return _contents; }
-            set { _contents = value; }
-        }
+        public string Contents { get; set; }
 
         /// <summary>
         ///   Gets or sets the source of the tab.
@@ -118,29 +101,13 @@ namespace Tabster
 
         public Difficulty Difficulty { get; set; }
 
-        public DateTime Created
-        {
-            get { return _created; }
-            set { _created = value; } 
-        }
+        public DateTime Created { get; set; }
 
-        public string Comment
-        {
-            get { return _comment; }
-            set { _comment = value; }
-        }
+        public string Comment { get; set; }
 
-        public string Audio
-        {
-            get { return _audio; }
-            set { _audio = value; }
-        }
+        public string Audio { get; set; }
 
-        public string Lyrics
-        {
-            get { return _lyrics; }
-            set { _lyrics = value; }
-        }
+        public string Lyrics { get; set; }
 
         public string GetName()
         {
