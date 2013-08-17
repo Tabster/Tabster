@@ -31,7 +31,7 @@ namespace Tabster
                     _queuedTabfile = t;
 
                     if (_isLibraryOpen)
-                        Program.TabHandler.LoadTab(t, true);
+                        Program.TabHandler.LoadExternally(t, true);
                 }
 
                 if (commandLine.Contains("-nosplash"))
