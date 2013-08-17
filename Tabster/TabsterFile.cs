@@ -32,7 +32,6 @@ namespace Tabster
     {
         public FileInfo FileInfo { get; protected set; }
         public Version FileVersion { get; protected set; }
-        private string _filePath;
         private XmlDocument _rawXML;
         protected bool FileFormatOutdated { get; set; }
 
@@ -103,6 +102,19 @@ namespace Tabster
             return returnNull ? null : String.Empty;
         }
 
+        protected string ReadRootAttribute(string name)
+        {
+            var root = _rawXML.ParentNode;
+
+            if (root != null && root.Attributes != null)
+            {
+                var attribute = root.Attributes[name];
+                return attribute.Value;
+            }
+
+            return null;
+        }
+
         protected List<string> ReadChildValues(string parentNodeName)
         {
             if (_rawXML != null)
@@ -159,13 +171,11 @@ namespace Tabster
 
         protected XmlNode WriteNode(string name, string innertext = null, XmlNode parentNode = null, SortedDictionary<string, string> attributes = null, bool overwriteDuplicates = true)
         {
-            XmlNode associatedNode = null;
-
             var parent = parentNode ?? _rawXML.DocumentElement;
 
             //check if node already exists
             var existingnodes = _rawXML.GetElementsByTagName(name);   
-            associatedNode = overwriteDuplicates && existingnodes.Count > 0 ? existingnodes[0] : _rawXML.CreateElement(name);
+            var associatedNode = overwriteDuplicates && existingnodes.Count > 0 ? existingnodes[0] : _rawXML.CreateElement(name);
             parent.AppendChild(associatedNode);
 
             if (innertext != null)
