@@ -26,6 +26,7 @@ namespace Tabster.Forms
         public enum LibraryType
         {
             AllTabs,
+            MyDownloads,
             MyTabs,
             MyImports,
             MyFavorites,
@@ -93,25 +94,6 @@ namespace Tabster.Forms
             if (SelectedTab != null)
             {
                 PopoutTab(SelectedTab);
-            }
-        }
-
-        private void modebtn_Click(object sender, EventArgs e)
-        {
-            if (SelectedTab != null && _currentEditor != null)
-            {
-                if (Program.TabHandler.IsOpenedExternally(SelectedTab))
-                {
-                    MessageBox.Show("This tab is currently open in a separate window.");
-                    return;
-                }
-
-                _currentEditor.SwitchMode();
-
-                if (_currentEditor.Mode == TabEditor.TabMode.Edit)
-                    modebtn.Text = "Edit Tab";
-                if (_currentEditor.Mode == TabEditor.TabMode.View)
-                    modebtn.Text = "View Tab";
             }
         }
 
@@ -217,7 +199,7 @@ namespace Tabster.Forms
         private void printbtn_Click(object sender, EventArgs e)
         {
             if (_currentEditor != null)
-                _currentEditor.Print();
+                _currentEditor.Print(true);
         }
 
         private void dataGridViewExtended2_SelectionChanged(object sender, EventArgs e)
@@ -456,6 +438,8 @@ namespace Tabster.Forms
                     return LibraryType.AllTabs;
                 if (selectedNode == sidemenu.NodeMyTabs)
                     return LibraryType.MyTabs;
+                if (selectedNode == sidemenu.NodeMyDownloads)
+                    return LibraryType.MyDownloads;
                 if (selectedNode == sidemenu.NodeMyImports)
                     return LibraryType.MyImports;
                 if (selectedNode == sidemenu.NodeMyFavorites)
@@ -508,8 +492,9 @@ namespace Tabster.Forms
                 var libraryMatch = 
                     selectedLibrary == LibraryType.Playlist || 
                     selectedLibrary == LibraryType.AllTabs ||
-                   (selectedLibrary == LibraryType.MyTabs && tab.TabData.Source == TabSource.UserCreated) ||
-                   (selectedLibrary == LibraryType.MyImports && tab.TabData.Source == TabSource.FileImport) ||
+                   (selectedLibrary == LibraryType.MyTabs && tab.TabData.SourceType == TabSource.UserCreated) ||
+                   (selectedLibrary == LibraryType.MyDownloads && tab.TabData.SourceType == TabSource.Download) ||  
+                   (selectedLibrary == LibraryType.MyImports && tab.TabData.SourceType == TabSource.FileImport) ||
                    (selectedLibrary == LibraryType.GuitarTabs && tab.TabData.Type == TabType.Guitar) ||
                    (selectedLibrary == LibraryType.GuitarChords && tab.TabData.Type == TabType.Chord) ||
                    (selectedLibrary == LibraryType.BassTabs && tab.TabData.Type == TabType.Bass) ||
@@ -836,6 +821,7 @@ namespace Tabster.Forms
 
                     editor.BringToFront();
                     editor.Visible = true;
+                    editor.ReadOnly = true;
 
                     _currentEditor = editor;
                 }

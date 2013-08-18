@@ -21,6 +21,7 @@ namespace Tabster.Controls
         public TreeNode NodeGuitarTabs;
         public TreeNode NodeLibrary;
         public TreeNode NodeMyFavorites;
+        public TreeNode NodeMyDownloads;
         public TreeNode NodeMyImports;
         public TreeNode NodeMyTabs;
         public TreeNode NodePlaylists;
@@ -31,6 +32,7 @@ namespace Tabster.Controls
         {
             NodeAllTabs = new TreeNode("All Tabs") {Name = "node_alltabs", NodeFont = ChildFont};
             NodeMyTabs = new TreeNode("My Tabs") {Name = "node_mytabs", NodeFont = ChildFont};
+            NodeMyDownloads = new TreeNode("My Downloads") { Name = "node_mydownloads", NodeFont = ChildFont };
             NodeMyImports = new TreeNode("My Imports") {Name = "node_myimports", NodeFont = ChildFont};
             NodeMyFavorites = new TreeNode("My Favorites") {Name = "node_myfavorites", NodeFont = ChildFont};
             NodeGuitarTabs = new TreeNode("Guitar Tabs") {Name = "node_guitartabs", NodeFont = ChildFont};
@@ -42,6 +44,7 @@ namespace Tabster.Controls
                                                       {
                                                           NodeAllTabs,
                                                           NodeMyTabs,
+                                                          NodeMyDownloads,
                                                           NodeMyImports,
                                                           NodeMyFavorites,
                                                           NodeGuitarTabs,

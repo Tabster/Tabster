@@ -69,8 +69,6 @@ namespace Tabster.Forms
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.detailsbtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.modebtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.printbtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripDropDownButton();
@@ -88,7 +86,7 @@ namespace Tabster.Forms
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.display_search = new System.Windows.Forms.TabPage();
             this.searchSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.dataGridViewExtended1 = new Tabster.Controls.DataGridViewExtended();
+            this.searchDisplay = new Tabster.Controls.DataGridViewExtended();
             this.searchcol_artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchcol_song = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchcol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -105,11 +103,11 @@ namespace Tabster.Forms
             this.txtsearchtype = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.searchPreviewEditor = new Tabster.Controls.TabEditor();
+            this.tabimagelist = new System.Windows.Forms.ImageList(this.components);
             this.SearchMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.saveTabToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabimagelist = new System.Windows.Forms.ImageList(this.components);
             this.refreshbtn = new System.Windows.Forms.ToolStripButton();
             this.LibraryMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.librarycontextdetails = new System.Windows.Forms.ToolStripMenuItem();
@@ -177,7 +175,7 @@ namespace Tabster.Forms
             this.searchSplitContainer.Panel1.SuspendLayout();
             this.searchSplitContainer.Panel2.SuspendLayout();
             this.searchSplitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExtended1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchDisplay)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SearchMenu.SuspendLayout();
@@ -389,8 +387,6 @@ namespace Tabster.Forms
             this.tablibrary.ShowRowErrors = false;
             this.tablibrary.Size = new System.Drawing.Size(883, 255);
             this.tablibrary.TabIndex = 19;
-            this.tablibrary.TransparentColumns = false;
-            this.tablibrary.TransparentRows = false;
             this.tablibrary.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExtended2_CellDoubleClick);
             this.tablibrary.SelectionChanged += new System.EventHandler(this.dataGridViewExtended2_SelectionChanged);
             this.tablibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.tablibrary_DragDrop);
@@ -476,8 +472,6 @@ namespace Tabster.Forms
             this.toolStripSeparator4,
             this.detailsbtn,
             this.toolStripSeparator5,
-            this.modebtn,
-            this.toolStripSeparator7,
             this.printbtn,
             this.toolStripSeparator8,
             this.toolStripButton3});
@@ -524,23 +518,6 @@ namespace Tabster.Forms
             this.toolStripSeparator5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // modebtn
-            // 
-            this.modebtn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.modebtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.modebtn.Image = global::Tabster.Properties.Resources.page_edit;
-            this.modebtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.modebtn.Name = "modebtn";
-            this.modebtn.Size = new System.Drawing.Size(70, 22);
-            this.modebtn.Text = "Edit Tab";
-            this.modebtn.Click += new System.EventHandler(this.modebtn_Click);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
             // 
             // printbtn
             // 
@@ -689,7 +666,7 @@ namespace Tabster.Forms
             // 
             // searchSplitContainer.Panel1
             // 
-            this.searchSplitContainer.Panel1.Controls.Add(this.dataGridViewExtended1);
+            this.searchSplitContainer.Panel1.Controls.Add(this.searchDisplay);
             this.searchSplitContainer.Panel1.Controls.Add(this.panel1);
             this.searchSplitContainer.Panel1MinSize = 670;
             // 
@@ -702,16 +679,16 @@ namespace Tabster.Forms
             this.searchSplitContainer.SplitterDistance = 670;
             this.searchSplitContainer.TabIndex = 29;
             // 
-            // dataGridViewExtended1
+            // searchDisplay
             // 
-            this.dataGridViewExtended1.AllowDrop = true;
-            this.dataGridViewExtended1.AllowUserToAddRows = false;
-            this.dataGridViewExtended1.AllowUserToDeleteRows = false;
-            this.dataGridViewExtended1.AllowUserToResizeColumns = false;
-            this.dataGridViewExtended1.AllowUserToResizeRows = false;
-            this.dataGridViewExtended1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridViewExtended1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridViewExtended1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.searchDisplay.AllowDrop = true;
+            this.searchDisplay.AllowUserToAddRows = false;
+            this.searchDisplay.AllowUserToDeleteRows = false;
+            this.searchDisplay.AllowUserToResizeColumns = false;
+            this.searchDisplay.AllowUserToResizeRows = false;
+            this.searchDisplay.BackgroundColor = System.Drawing.Color.White;
+            this.searchDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.searchDisplay.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -719,9 +696,9 @@ namespace Tabster.Forms
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewExtended1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridViewExtended1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dataGridViewExtended1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.searchDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.searchDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.searchDisplay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.searchcol_artist,
             this.searchcol_song,
             this.searchcol_type,
@@ -734,13 +711,13 @@ namespace Tabster.Forms
             dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewExtended1.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridViewExtended1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewExtended1.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridViewExtended1.Location = new System.Drawing.Point(0, 31);
-            this.dataGridViewExtended1.MultiSelect = false;
-            this.dataGridViewExtended1.Name = "dataGridViewExtended1";
-            this.dataGridViewExtended1.ReadOnly = true;
+            this.searchDisplay.DefaultCellStyle = dataGridViewCellStyle9;
+            this.searchDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchDisplay.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.searchDisplay.Location = new System.Drawing.Point(0, 31);
+            this.searchDisplay.MultiSelect = false;
+            this.searchDisplay.Name = "searchDisplay";
+            this.searchDisplay.ReadOnly = true;
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -748,24 +725,23 @@ namespace Tabster.Forms
             dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewExtended1.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
-            this.dataGridViewExtended1.RowHeadersVisible = false;
-            this.dataGridViewExtended1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.searchDisplay.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.searchDisplay.RowHeadersVisible = false;
+            this.searchDisplay.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
-            this.dataGridViewExtended1.RowsDefaultCellStyle = dataGridViewCellStyle11;
-            this.dataGridViewExtended1.RowTemplate.Height = 18;
-            this.dataGridViewExtended1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewExtended1.ShowCellErrors = false;
-            this.dataGridViewExtended1.ShowCellToolTips = false;
-            this.dataGridViewExtended1.ShowEditingIcon = false;
-            this.dataGridViewExtended1.ShowRowErrors = false;
-            this.dataGridViewExtended1.Size = new System.Drawing.Size(1024, 657);
-            this.dataGridViewExtended1.TabIndex = 20;
-            this.dataGridViewExtended1.TransparentColumns = false;
-            this.dataGridViewExtended1.TransparentRows = false;
-            this.dataGridViewExtended1.SelectionChanged += new System.EventHandler(this.dataGridViewExtended1_SelectionChanged);
-            this.dataGridViewExtended1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewExtended1_MouseClick);
+            this.searchDisplay.RowsDefaultCellStyle = dataGridViewCellStyle11;
+            this.searchDisplay.RowTemplate.Height = 18;
+            this.searchDisplay.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.searchDisplay.ShowCellErrors = false;
+            this.searchDisplay.ShowCellToolTips = false;
+            this.searchDisplay.ShowEditingIcon = false;
+            this.searchDisplay.ShowRowErrors = false;
+            this.searchDisplay.Size = new System.Drawing.Size(1024, 657);
+            this.searchDisplay.TabIndex = 20;
+            this.searchDisplay.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SaveSelectedTab);
+            this.searchDisplay.SelectionChanged += new System.EventHandler(this.dataGridViewExtended1_SelectionChanged);
+            this.searchDisplay.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewExtended1_MouseClick);
             // 
             // searchcol_artist
             // 
@@ -933,11 +909,19 @@ namespace Tabster.Forms
             this.searchPreviewEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchPreviewEditor.Location = new System.Drawing.Point(0, 0);
             this.searchPreviewEditor.Margin = new System.Windows.Forms.Padding(0);
-            this.searchPreviewEditor.Mode = Tabster.Controls.TabEditor.TabMode.Edit;
             this.searchPreviewEditor.Name = "searchPreviewEditor";
+            this.searchPreviewEditor.ReadOnly = false;
             this.searchPreviewEditor.ScrollSpeed = Tabster.Controls.TabEditor.AutoScrollSpeed.Off;
             this.searchPreviewEditor.Size = new System.Drawing.Size(148, 23);
             this.searchPreviewEditor.TabIndex = 24;
+            // 
+            // tabimagelist
+            // 
+            this.tabimagelist.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabimagelist.ImageStream")));
+            this.tabimagelist.TransparentColor = System.Drawing.Color.Transparent;
+            this.tabimagelist.Images.SetKeyName(0, "application_view_detail.png");
+            this.tabimagelist.Images.SetKeyName(1, "search_plus.png");
+            this.tabimagelist.Images.SetKeyName(2, "world.png");
             // 
             // SearchMenu
             // 
@@ -956,7 +940,7 @@ namespace Tabster.Forms
             this.saveTabToolStripMenuItem1.Name = "saveTabToolStripMenuItem1";
             this.saveTabToolStripMenuItem1.Size = new System.Drawing.Size(101, 22);
             this.saveTabToolStripMenuItem1.Text = "Save Tab";
-            this.saveTabToolStripMenuItem1.Click += new System.EventHandler(this.saveTabToolStripMenuItem1_Click);
+            this.saveTabToolStripMenuItem1.Click += new System.EventHandler(this.SaveSelectedTab);
             // 
             // previewToolStripMenuItem
             // 
@@ -971,14 +955,6 @@ namespace Tabster.Forms
             this.copyURLToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.copyURLToolStripMenuItem.Text = "Copy URL";
             this.copyURLToolStripMenuItem.Click += new System.EventHandler(this.copyURLToolStripMenuItem_Click);
-            // 
-            // tabimagelist
-            // 
-            this.tabimagelist.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabimagelist.ImageStream")));
-            this.tabimagelist.TransparentColor = System.Drawing.Color.Transparent;
-            this.tabimagelist.Images.SetKeyName(0, "application_view_detail.png");
-            this.tabimagelist.Images.SetKeyName(1, "search_plus.png");
-            this.tabimagelist.Images.SetKeyName(2, "world.png");
             // 
             // refreshbtn
             // 
@@ -1463,7 +1439,7 @@ namespace Tabster.Forms
             this.searchSplitContainer.Panel1.ResumeLayout(false);
             this.searchSplitContainer.Panel2.ResumeLayout(false);
             this.searchSplitContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExtended1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchDisplay)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -1515,7 +1491,7 @@ namespace Tabster.Forms
         private System.Windows.Forms.ToolStripButton clearsearchbtn;
         private SearchBox filtertext;
         private System.Windows.Forms.TabPage display_search;
-        private DataGridViewExtended dataGridViewExtended1;
+        private DataGridViewExtended searchDisplay;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.ComboBox txtsearchtype;
         public System.Windows.Forms.Label label1;
@@ -1554,8 +1530,6 @@ namespace Tabster.Forms
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripButton detailsbtn;
         private ToolStripButton printbtn;
-        private ToolStripButton modebtn;
-        private ToolStripSeparator toolStripSeparator7;
         private Label lblsearchresults;
         private Timer PreviewDelay;
         private RecentToolStripMenuItem recentlyViewedToolStripMenuItem;
