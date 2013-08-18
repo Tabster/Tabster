@@ -108,7 +108,7 @@ namespace Tabster.Forms
 
                         if (ugTab != null)
                         {
-                            var tab = new Tab(nt.txtartist.Text, nt.txtsong.Text, Tab.GetTabType(nt.txttype.Text), ugTab.ConvertToTab().Contents) {RemoteSource = selectedResult.URL, Source = TabSource.Download};
+                            var tab = new Tab(nt.txtartist.Text, nt.txtsong.Text, Tab.GetTabType(nt.txttype.Text), ugTab.ConvertToTab().Contents) { Source = selectedResult.URL, SourceType = TabSource.Download };
 
                             var tabFile = TabFile.Create(tab, Program.libraryManager.TabsDirectory);
                             Program.libraryManager.AddTab(tabFile, true);

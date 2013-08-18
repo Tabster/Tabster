@@ -21,7 +21,7 @@ namespace Tabster.Forms
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            TabData = new Tab(txtartist.Text.Trim(), txtsong.Text.Trim(), Tab.GetTabType(txttype.Text), File.ReadAllText(txtimportfile.Text)) { Source = TabSource.FileImport };
+            TabData = new Tab(txtartist.Text.Trim(), txtsong.Text.Trim(), Tab.GetTabType(txttype.Text), File.ReadAllText(txtimportfile.Text)) { Source = new Uri(txtimportfile.Text), SourceType = TabSource.FileImport };
         }
 
         private void browsebtn_Click(object sender, EventArgs e)

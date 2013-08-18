@@ -87,12 +87,12 @@ namespace Tabster
         /// <summary>
         ///   Gets or sets the source of the tab.
         /// </summary>
-        public TabSource Source { get; set; }
+        public TabSource SourceType { get; set; }
 
         /// <summary>
         ///   Gets or sets the remote sorce of the tab.
         /// </summary>
-        public Uri RemoteSource { get; set; }
+        public Uri Source { get; set; }
 
         /// <summary>
         ///   Gets or sets the type of tab.

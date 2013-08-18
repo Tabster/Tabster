@@ -41,7 +41,7 @@ namespace Tabster.UltimateGuitar
 
         public Tab ConvertToTab()
         {
-            return new Tab(Artist, Title, Type, Contents) {RemoteSource = URL, Source = TabSource.Download};
+            return new Tab(Artist, Title, Type, Contents) {Source = URL, SourceType = TabSource.Download};
         }
 
         #region Static Methods

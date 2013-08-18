@@ -101,9 +101,29 @@ namespace Tabster
             var typeValue = Tab.GetTabType(ReadNodeValue("type"));
             var contentsValue = ReadNodeValue("tab");
             var createdValue = ReadNodeValue("date", true) ?? ReadNodeValue("created", true);
-            var sourceValue = ReadNodeValue("source");
-            var sourceType = Tab.GetTabSource(sourceValue);
-            var remoteSourceValue = sourceType == TabSource.Download && Uri.IsWellFormedUriString(sourceValue, UriKind.Absolute) ? new Uri(sourceValue) : null;
+            var sourceValue = ReadNodeValue("source", true);
+
+            var sourceType = TabSource.UserCreated;
+
+            Uri sourceURI = null;
+
+            if (!string.IsNullOrEmpty(sourceValue))
+            {
+                //legacy
+                if (sourceValue == "UserCreated")
+                    sourceType = TabSource.UserCreated;
+
+                else if (sourceValue == "FileImport")
+                    sourceType = TabSource.FileImport;
+
+                else if (Uri.IsWellFormedUriString(sourceValue, UriKind.Absolute))
+                {
+                    sourceURI = new Uri(sourceValue);
+                    sourceType = sourceURI.IsFile ? TabSource.FileImport : TabSource.Download;
+                }
+            }
+
+            //var remoteSourceValue = sourceType == TabSource.Download && Uri.IsWellFormedUriString(sourceValue, UriKind.Absolute) ? new Uri(sourceValue) : null;
             var audioValue = ReadNodeValue("audio");
             var lyricsValue = ReadNodeValue("lyrics");
 
@@ -115,8 +135,8 @@ namespace Tabster
 
             TabData = new Tab(artistValue, titleValue, typeValue, contentsValue)
                           {
-                              Source = sourceType,
-                              RemoteSource = remoteSourceValue,
+                              SourceType = sourceType,
+                              Source = sourceURI,
                               Lyrics = lyricsValue,
                               Audio = audioValue,
                               Created = createdValue != null ? DateTime.Parse(createdValue) : FileInfo.CreationTime
@@ -125,7 +145,7 @@ namespace Tabster
             if (FileFormatOutdated)
             {
                 Save();
-                Load();
+                Load(); 
             }
         }
 
@@ -141,6 +161,17 @@ namespace Tabster
             WriteNode("artist", TabData.Artist);
             WriteNode("type", Tab.GetTabString(TabData.Type));
             WriteNode("tab", TabData.Contents);
+
+            var sourceValue = "UserCreated";
+
+            if (TabData.Source != null)
+                sourceValue = TabData.Source.ToString();
+            else if (TabData.SourceType == TabSource.FileImport)
+                sourceValue = "FileImport";
+            else if (TabData.SourceType == TabSource.UserCreated)
+                sourceValue = "UserCreated";
+
+            WriteNode("source", sourceValue);
             WriteNode("created", TabData.Created.ToString());
             WriteNode("comment", TabData.Comment);
             WriteNode("lyrics", TabData.Lyrics);

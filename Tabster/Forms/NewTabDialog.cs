@@ -31,7 +31,7 @@ namespace Tabster.Forms
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            TabData = new Tab(txtartist.Text.Trim(), txtsong.Text.Trim(), Tab.GetTabType(txttype.Text), ""){Source = TabSource.UserCreated};
+            TabData = new Tab(txtartist.Text.Trim(), txtsong.Text.Trim(), Tab.GetTabType(txttype.Text), "") { SourceType = TabSource.UserCreated };
         }
 
         private void ValidateData()

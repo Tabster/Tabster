@@ -118,7 +118,7 @@ namespace Tabster.Forms
             foreach (var tab in _downloadedTabs)
             {
                 var newTab = TabFile.Create(tab.ConvertToTab(), Program.libraryManager.TabsDirectory);
-                newTab.TabData.Source = TabSource.Download;
+                newTab.TabData.SourceType = TabSource.Download;
                 newTab.Save();
                 Program.libraryManager.AddTab(newTab, true);
                 _parent.UpdateLibraryItem(newTab, true);
