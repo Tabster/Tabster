@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace Tabster
@@ -52,6 +53,20 @@ namespace Tabster
             }
 
             return new string(array, 0, arrayIndex);
+        }
+
+        public static bool IsFilePath(string str)
+        {
+            try
+            {
+                Path.GetFullPath(str);
+                return true;
+            }
+
+            catch
+            {
+                return false;
+            }
         }
     }
 }

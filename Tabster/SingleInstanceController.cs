@@ -25,18 +25,24 @@ namespace Tabster
         {
             if (commandLine.Count > 0)
             {
-                TabFile t;
-                if (TabFile.TryParse(commandLine[0], out t))
-                {
-                    _queuedTabfile = t;
-
-                    if (_isLibraryOpen)
-                        Program.TabHandler.LoadExternally(t, true);
-                }
-
                 if (commandLine.Contains("-nosplash"))
                 {
                     _noSplash = true;
+                }
+
+                else
+                {
+                    if (Common.IsFilePath(commandLine[0]))
+                    {
+                        TabFile t;
+                        if (TabFile.TryParse(commandLine[0], out t))
+                        {
+                            _queuedTabfile = t;
+
+                            if (_isLibraryOpen)
+                                Program.TabHandler.LoadExternally(t, true);
+                        }
+                    }
                 }
             }
         }
