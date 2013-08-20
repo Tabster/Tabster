@@ -291,7 +291,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Guitar.ico" />
-    <Content Include="musicfile.ico" />
     <None Include="Resources\cursor.png" />
     <None Include="Resources\folder_go.png" />
     <None Include="Resources\printer.png" />
