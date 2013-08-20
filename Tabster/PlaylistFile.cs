@@ -44,10 +44,13 @@ namespace Tabster
 
             foreach (var file in files)
             {
-                TabFile tab;
-                if (TabFile.TryParse(file, out tab))
+                if (File.Exists(file))
                 {
-                    PlaylistData.Add(tab);
+                    TabFile tab;
+                    if (TabFile.TryParse(file, out tab))
+                    {
+                        PlaylistData.Add(tab);
+                    }
                 }
             }
 
