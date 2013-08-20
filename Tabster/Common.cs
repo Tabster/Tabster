@@ -55,12 +55,12 @@ namespace Tabster
             return new string(array, 0, arrayIndex);
         }
 
-        public static bool IsFilePath(string str)
+        public static bool IsFilePath(string path, bool checkExists)
         {
             try
             {
-                Path.GetFullPath(str);
-                return true;
+                Path.GetFullPath(path);
+                return !checkExists || File.Exists(path);
             }
 
             catch
