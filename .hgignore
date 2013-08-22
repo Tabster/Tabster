@@ -8,3 +8,5 @@ Tabster.6.1.ReSharper.user
 Tabster.suo
 Tabster.sln
 Tabster/Tabster.csproj.user
+*.psess
+*.vsp
