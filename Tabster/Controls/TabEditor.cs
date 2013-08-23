@@ -97,21 +97,6 @@ namespace Tabster.Controls
 
         #endregion
 
-        private SizeF GetLineSize()
-        {
-            var bmp = new Bitmap(1, 1);
-            using (var graphics = Graphics.FromImage(bmp))
-            {
-                var size = graphics.MeasureString(txtContents.Lines[0], txtContents.Font);
-                return size;
-            }
-        }
-
-        private float GetVisibleLines()
-        {
-            return txtContents.Size.Height/_lineSize.Height;
-        }
-
         #region Public Methods
 
         public void ScrollToPosition(int position)
@@ -146,7 +131,16 @@ namespace Tabster.Controls
             {
                 _originalContents = TabData.Contents;
                 txtContents.Text = TabData.Contents;
-                _lineSize = GetLineSize();
+
+                //get line size
+                if (txtContents.Lines.Length > 0)
+                {
+                    var bmp = new Bitmap(1, 1);
+                    using (var graphics = Graphics.FromImage(bmp))
+                    {
+                        _lineSize = graphics.MeasureString(txtContents.Lines[0], txtContents.Font);
+                    }
+                }
             }
 
             if (TabLoaded != null)
@@ -161,15 +155,13 @@ namespace Tabster.Controls
 
         private void _scrollTimer_Tick(object sender, EventArgs e)
         {
-            var visibleLines = GetVisibleLines();
+            var visibleLines = txtContents.Size.Height / _lineSize.Height;
             var totalLines = txtContents.Lines.Length;
             var currentLine = txtContents.GetLineFromCharIndex(txtContents.SelectionStart) + 1;
             var nextLine = currentLine + 2;
 
             if ((int) visibleLines == totalLines)
-            {
                 return;
-            }
 
             ScrollToLine(nextLine);
         }
