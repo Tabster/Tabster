@@ -1,7 +1,6 @@
 ﻿#region
 
 using System;
-using System.IO;
 using System.Windows.Forms;
 
 #endregion
@@ -12,6 +11,7 @@ namespace Tabster
     {
         public static TabViewerManager TabHandler;
         public static readonly LibraryManager libraryManager = new LibraryManager();
+        public static SingleInstanceController instanceController;
 
         [STAThread]
         public static void Main(string[] args)
@@ -20,12 +20,11 @@ namespace Tabster
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
-            var controller = new SingleInstanceController();
 
+            instanceController = new SingleInstanceController();
             TabHandler = new TabViewerManager();
-           
-            controller.Run(args);       
+
+            instanceController.Run(args);       
         }
     }
 }
