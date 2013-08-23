@@ -79,7 +79,7 @@ namespace Tabster
         protected override void OnCreateMainForm()
         {
             base.OnCreateMainForm();
-            base.MainForm = _queuedTabfile != null ? new Form1(_queuedTabfile) : new Form1();
+            base.MainForm = _queuedTabfile != null ? new MainForm(_queuedTabfile) : new MainForm();
             _isLibraryOpen = true;
         }
     }

@@ -12,12 +12,12 @@ namespace Tabster.Forms
 {
     public partial class DownloadDialog : Form
     {
-        private readonly Form1 _parent;
+        private readonly MainForm _parent;
         private readonly List<UltimateGuitarTab> _downloadedTabs = new List<UltimateGuitarTab>();
         private readonly List<string> _urls = new List<string>();
 
 
-        public DownloadDialog(Form1 parent)
+        public DownloadDialog(MainForm parent)
         {      
             InitializeComponent();
             _parent = parent;

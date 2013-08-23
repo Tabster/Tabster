@@ -75,11 +75,11 @@ namespace Tabster.Controls
             Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, ((0)));
         }
 
-        public void UpdateLibraryCount(Form1.LibraryType type, int count)
+        public void UpdateLibraryCount(MainForm.LibraryType type, int count)
         {
             switch (type)
             {
-                case Form1.LibraryType.AllTabs:
+                case MainForm.LibraryType.AllTabs:
                     NodeLibrary.Text = string.Format("Library ({0})", count);
                     break;
                     /*
@@ -93,16 +93,16 @@ namespace Tabster.Controls
                     NodeAllTabs.Text = string.Format("My Favorites Tabs ({0})", count);
                     break;
                 */
-                case Form1.LibraryType.GuitarTabs:
+                case MainForm.LibraryType.GuitarTabs:
                     NodeGuitarTabs.Text = string.Format("Guitar Tabs ({0})", count);
                     break;
-                case Form1.LibraryType.GuitarChords:
+                case MainForm.LibraryType.GuitarChords:
                     NodeGuitarChords.Text = string.Format("Guitar Chords ({0})", count);
                     break;
-                case Form1.LibraryType.BassTabs:
+                case MainForm.LibraryType.BassTabs:
                     NodeBassTabs.Text = string.Format("Bass Tabs ({0})", count);
                     break;
-                case Form1.LibraryType.DrumTabs:
+                case MainForm.LibraryType.DrumTabs:
                     NodeDrumTabs.Text = string.Format("Drum Tabs ({0})", count);
                     break;
             }
