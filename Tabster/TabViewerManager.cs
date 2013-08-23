@@ -1,8 +1,8 @@
 ﻿#region
 
-using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Drawing;
+using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Forms;
 
@@ -18,9 +18,10 @@ namespace Tabster
 
         #endregion
 
-        private TabbedViewer _viewer = new TabbedViewer();
+        private readonly Dictionary<TabFile, TabEditor> _editors = new Dictionary<TabFile, TabEditor>();
 
-        public event TabHandler OpenedExternally;
+        private TabbedViewer _viewer;
+
         public event TabHandler TabOpened;
         public event TabHandler TabClosed;
 
@@ -42,16 +43,19 @@ namespace Tabster
 
         public void LoadExternally(TabFile tabFile, bool show, bool forceFront = true)
         {
-            var v = GetViewer(true);
+            var viewer = GetViewer(true);
 
             bool openedExternall, isNew;
             var editor = TryGetEditor(tabFile, out openedExternall, out isNew);
 
-            v.LoadTab(tabFile, editor);
+            viewer.LoadTab(tabFile, editor);
 
-            if (show)
+            if (show && !viewer.Visible)
             {
-                v.Show();
+                var mainForm = Program.instanceController.MainForm;
+                viewer.StartPosition = FormStartPosition.Manual;
+                viewer.Location = new Point(mainForm.Location.X + (mainForm.Width - viewer.Width)/2, mainForm.Location.Y + (mainForm.Height - viewer.Height)/2);
+                viewer.Show();
             }
         }
 
@@ -60,8 +64,6 @@ namespace Tabster
             var v = GetViewer(false);
             return v != null && v.AlreadyOpened(tab);
         }
-
-        private readonly Dictionary<TabFile, TabEditor> _editors = new Dictionary<TabFile, TabEditor>();
 
         public TabEditor TryGetEditor(TabFile tab, out bool openedExternally, out bool isNew)
         {
@@ -74,7 +76,7 @@ namespace Tabster
 
             openedExternally = false;
             isNew = true;
-            var editor = new TabEditor {Dock = System.Windows.Forms.DockStyle.Fill};
+            var editor = new TabEditor {Dock = DockStyle.Fill};
             _editors[tab] = editor;
             return editor;
         }
