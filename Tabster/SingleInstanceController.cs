@@ -21,6 +21,16 @@ namespace Tabster
             StartupNextInstance += this_StartupNextInstance;
         }
 
+        public new Form MainForm
+        {
+            get { return base.MainForm;  }
+        }
+
+        public new Form SplashScreen
+        {
+            get { return base.SplashScreen; }
+        }
+
         private static void ProcessCommandLine(ReadOnlyCollection<string> commandLine)
         {
             if (commandLine.Count > 0)
@@ -62,15 +72,14 @@ namespace Tabster
             if (!_noSplash)
             {
                 MinimumSplashScreenDisplayTime = 3500; //seems to make MainForm show prematurely
-                SplashScreen = new Splash {Cursor = Cursors.AppStarting};
+                base.SplashScreen = new Splash {Cursor = Cursors.AppStarting};
             }
         }
 
         protected override void OnCreateMainForm()
         {
             base.OnCreateMainForm();
-
-            MainForm = _queuedTabfile != null ? new Form1(_queuedTabfile) : new Form1();
+            base.MainForm = _queuedTabfile != null ? new Form1(_queuedTabfile) : new Form1();
             _isLibraryOpen = true;
         }
     }
