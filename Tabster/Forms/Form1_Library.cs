@@ -199,7 +199,7 @@ namespace Tabster.Forms
         private void printbtn_Click(object sender, EventArgs e)
         {
             if (_currentEditor != null)
-                _currentEditor.Print(true);
+                _currentEditor.Print();
         }
 
         private void dataGridViewExtended2_SelectionChanged(object sender, EventArgs e)
@@ -322,27 +322,15 @@ namespace Tabster.Forms
         {
             if (_currentEditor != null)
             {
-                var text = ((ToolStripMenuItem) sender).Text;
+                var item = ((ToolStripMenuItem) sender);
+                var text = item.Text;
 
-                var speed = TabEditor.AutoScrollSpeed.Off;
-
-                switch (text)
+                foreach (ToolStripMenuItem menuItem in toolStripButton3.DropDownItems)
                 {
-                    case "Off":
-                        speed = TabEditor.AutoScrollSpeed.Off;
-                        break;
-                    case "Slow":
-                        speed = TabEditor.AutoScrollSpeed.Slow;
-                        break;
-                    case "Medium":
-                        speed = TabEditor.AutoScrollSpeed.Medium;
-                        break;
-                    case "Fast":
-                        speed = TabEditor.AutoScrollSpeed.Fast;
-                        break;
-                }
+                    menuItem.Checked = menuItem.Text == item.Text;
+                }    
 
-                _currentEditor.ScrollSpeed = speed;
+                _currentEditor.AutoScroll = text == "On";
             }
         }
 
@@ -350,8 +338,6 @@ namespace Tabster.Forms
         {
             filtertext.Reset(true);
             LoadLibrary();
-
-            playlistToolStripMenuItem.Enabled = sidemenu.PlaylistNodeSelected();
             //libraryViewer1.ClearSelection();
         }
 
@@ -392,11 +378,6 @@ namespace Tabster.Forms
             if (e.Button == MouseButtons.Right && (currentMouseOverRow >= 0 && currentMouseOverRow < tablibrary.Rows.Count) && SelectedTab != null)
             {
                 tablibrary.Rows[currentMouseOverRow].Selected = true;
-
-                if (sidemenu.PlaylistNodeSelected())
-                {
-                    
-                }
 
                 UpdateTabControls(false);
 
@@ -547,13 +528,6 @@ namespace Tabster.Forms
             //    libraryViewer1.Sort(sortedColumn, sortOrder);
 
             //if (tablibrary.Rows.Count > rowindex) tablibrary.Rows[rowindex].Selected = true;
-        }
-
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
-            /*
-            var r = new Repair(Global.libraryManager.Tabs);
-            r.ShowDialog();*/
         }
 
         private void NewPlaylist(object sender, EventArgs e)
@@ -822,6 +796,14 @@ namespace Tabster.Forms
                     editor.BringToFront();
                     editor.Visible = true;
                     editor.ReadOnly = true;
+
+                    //cancel autoscroll of existing editor
+                    if (_currentEditor != null)
+                    {
+                        _currentEditor.AutoScroll = false;
+                        _currentEditor.ScrollToLine(0);
+                        offToolStripMenuItem.PerformClick();
+                    }
 
                     _currentEditor = editor;
                 }

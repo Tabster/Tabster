@@ -2,6 +2,7 @@
 
 using System;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Windows.Forms;
 
 #endregion
@@ -10,33 +11,13 @@ namespace Tabster.Controls
 {
     public partial class TabEditor : UserControl
     {
-        #region AutoScrollSpeed enum
-
-        public enum AutoScrollSpeed
-        {
-            Off = 0,
-            Slow = 1,
-            Medium = 2,
-            Fast = 4,
-        }
-
-        #endregion
-
-        #region TabMode enum
-
-        public enum TabMode
-        {
-            Edit,
-            View
-        }
-
-        #endregion
-
         #region Constructor
 
         public TabEditor()
         {
             InitializeComponent();
+
+            _scrollTimer.Interval = 1000;
             _scrollTimer.Tick += _scrollTimer_Tick;
         }
 
@@ -44,70 +25,38 @@ namespace Tabster.Controls
 
         #region Properties
 
-        private Color _backcolor = Color.White;
-        private Color _forecolor = Color.Black;
-        private TabMode _mode = TabMode.View;
+        private bool _autoScroll;
 
-        private AutoScrollSpeed _scrollSpeed;
-
-        public AutoScrollSpeed ScrollSpeed
+        public new bool AutoScroll
         {
-            get { return _scrollSpeed; }
+            get { return _autoScroll; }
             set
             {
-                BeginAutoScroll(value);
-                _scrollSpeed = value;
-            }
-        }
-
-        public TabMode Mode
-        {
-            get { return _mode; }
-            set
-            {
-                if (value != _mode)
-                {
-                    _mode = value;
-
-                    if (_mode == TabMode.Edit)
-                    {
-                        textBox1.Enabled = true;
-                        textBox1.BringToFront();
-                    }
-
-                    else
-                    {
-                        textBox1.Enabled = false;
-                        webBrowser1.BringToFront();
-                    }
-
-                    if (ModeChanged != null)
-                        ModeChanged(this, EventArgs.Empty);
-                }
+                _autoScroll = value;
+                ToggleAutoScroll(value);
             }
         }
 
         public new Color ForeColor
         {
-            get { return _forecolor; }
-            set
-            {
-                _forecolor = value;
-
-                if (TabData != null)
-                    ReloadHTML();
-            }
+            get { return txtContents.ForeColor; }
+            set { txtContents.ForeColor = value; }
         }
 
         public new Color BackColor
         {
-            get { return _backcolor; }
+            get { return txtContents.BackColor; }
+            set { txtContents.BackColor = value; }
+        }
+
+        public bool ReadOnly
+        {
+            get { return txtContents.ReadOnly; }
             set
             {
-                _backcolor = value;
-
-                if (TabData != null)
-                    ReloadHTML();
+                txtContents.ReadOnly = value;
+                txtContents.ShortcutsEnabled = !value;
+                txtContents.BackColor = SystemColors.Window;
             }
         }
 
@@ -119,21 +68,22 @@ namespace Tabster.Controls
 
         #region Events
 
+        private SizeF _lineSize;
         private string _oldContents = "";
         private string _originalContents = "";
-        public event EventHandler ModeChanged;
+
         public event EventHandler TabLoaded;
         public event EventHandler TabModified;
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void txtContents_TextChanged(object sender, EventArgs e)
         {
-            if (textBox1.Text.Length != _oldContents.Length && textBox1.Text != _oldContents && textBox1.Text != _originalContents)
+            if (txtContents.Text.Length != _oldContents.Length && txtContents.Text != _oldContents && txtContents.Text != _originalContents)
             {
                 HasBeenModified = true;
 
-                _oldContents = textBox1.Text;
+                _oldContents = txtContents.Text;
 
-                TabData.Contents = textBox1.Text;
+                //TabData.Contents = txtContents.Text;
 
                 if (TabModified != null)
                     TabModified(this, EventArgs.Empty);
@@ -147,25 +97,45 @@ namespace Tabster.Controls
 
         #endregion
 
-        #region Methods
-
-        public void SetDocumentText(string text)
+        private SizeF GetLineSize()
         {
-            if (webBrowser1.Document != null)
+            var bmp = new Bitmap(1, 1);
+            using (var graphics = Graphics.FromImage(bmp))
             {
-                webBrowser1.Document.OpenNew(true);
-                webBrowser1.Document.Write(text);
-            }
-
-            else
-            {
-                webBrowser1.DocumentText = text;
+                var size = graphics.MeasureString(txtContents.Lines[0], txtContents.Font);
+                return size;
             }
         }
 
-        public void SwitchMode()
+        private float GetVisibleLines()
         {
-            Mode = Mode == TabMode.Edit ? TabMode.View : TabMode.Edit;
+            return txtContents.Size.Height/_lineSize.Height;
+        }
+
+        #region Public Methods
+
+        public void ScrollToPosition(int position)
+        {
+            txtContents.SelectionStart = position;
+            txtContents.ScrollToCaret();
+        }
+
+        public void ScrollToLine(int finish)
+        {
+            var position = 0;
+
+            for (var i = 0; i < finish && i < txtContents.Lines.Length; i++)
+            {
+                position += txtContents.Lines[i].Length;
+                position += Environment.NewLine.Length;
+            }
+
+            ScrollToPosition(position);
+        }
+
+        public void SetText(string text)
+        {
+            txtContents.Text = text;
         }
 
         public void LoadTab(Tab t)
@@ -175,94 +145,90 @@ namespace Tabster.Controls
             if (TabData != null)
             {
                 _originalContents = TabData.Contents;
-                textBox1.Text = TabData.Contents;
-                ReloadHTML();
+                txtContents.Text = TabData.Contents;
+                _lineSize = GetLineSize();
             }
 
             if (TabLoaded != null)
                 TabLoaded(this, EventArgs.Empty);
         }
 
+        #endregion
+
+        #region AutoScroll
+
+        private readonly Timer _scrollTimer = new Timer();
+
         private void _scrollTimer_Tick(object sender, EventArgs e)
         {
-            var height = webBrowser1.Document.Body.ScrollRectangle.Height;
-            var multiplier = (int) ScrollSpeed;
-            var skip = (multiplier*height)/100;
-            webBrowser1.Document.Window.ScrollTo(0, webBrowser1.Document.Body.ScrollTop + skip);
-        }
+            var visibleLines = GetVisibleLines();
+            var totalLines = txtContents.Lines.Length;
+            var currentLine = txtContents.GetLineFromCharIndex(txtContents.SelectionStart) + 1;
+            var nextLine = currentLine + 2;
 
-        public void BeginAutoScroll(AutoScrollSpeed speed)
-        {
-            if (webBrowser1.Document != null)
+            if ((int) visibleLines == totalLines)
             {
-                if (speed == AutoScrollSpeed.Off)
-                {
-                    _scrollTimer.Stop();
-                }
-
-                else
-                {
-                    _scrollTimer.Stop();
-                    _scrollTimer.Interval = 1000;
-                    _scrollTimer.Start();
-                }
+                return;
             }
+
+            ScrollToLine(nextLine);
         }
 
-        private void ReloadHTML()
+        private void ToggleAutoScroll(bool enabled)
         {
-            /*
-            var forecolorHTML = ColorTranslator.ToHtml(ForeColor);
-            var backcolorHTML = ColorTranslator.ToHtml(BackColor);
+            if (enabled)
+            {
+                _scrollTimer.Stop();
+                _scrollTimer.Start();
+            }
 
-            //var forecolorString = forecolorHTML.Length == 6 ? string.Format("#{0}", forecolorHTML) : forecolorHTML;
-            //var backcolorString = backcolorHTML.Length == 6 ? string.Format("#{0}", backcolorHTML) : backcolorHTML;
-
-            /*
-            Console.WriteLine("Forecolor: " + forecolorString);
-            Console.WriteLine("Backcolor: " + backcolorString);
-            */
-
-            var html = tabHTML.Replace("{TAB_CONTENTS}", TabData.Contents);
-            SetDocumentText(html);
-            Mode = TabMode.View;
-        }
-
-        public void Print()
-        {
-            webBrowser1.Print();
-        }
-
-        public void ShowPrintDialog()
-        {
-            webBrowser1.ShowPrintDialog();
+            else
+            {
+                _scrollTimer.Stop();
+            }
         }
 
         #endregion
 
-        private const string tabHTML =
-            @"
-                                         <html>
-                                            <head>
-                                                <style type=""text/css"">
-                                                    pre {
-                                                        color: Black; 
-                                                        background-color: White;
-                                                        font: 12px Courier New,Courier, monospace;
-                                                    }
-                                                </style>
-                                                <script type=""text/javascript"">
-                                                    function pageScroll(speed) {
-                                                        window.scrollBy(0,speed);
-                                                        scrolldelay = setTimeout('pageScroll()',10);
-                                                    }
-                                                </script>
-                                            </head>
-                                            <body>
-                                                <pre>{TAB_CONTENTS}</pre>
-                                            </body>
-                                        </html>";
+        #region Printing
 
-        private readonly Timer _scrollTimer = new Timer();
+        private string stringToPrint;
+
+        private void printPage(object sender, PrintPageEventArgs e)
+        {
+            int charactersOnPage;
+            int linesPerPage;
+
+            e.Graphics.MeasureString(stringToPrint, txtContents.Font, e.MarginBounds.Size, StringFormat.GenericTypographic, out charactersOnPage, out linesPerPage);
+            e.Graphics.DrawString(stringToPrint, txtContents.Font, Brushes.Black, e.MarginBounds, StringFormat.GenericTypographic);
+            stringToPrint = stringToPrint.Substring(charactersOnPage);
+            e.HasMorePages = (stringToPrint.Length > 0);
+        }
+
+        public void Print(bool showDialog = true)
+        {
+            stringToPrint = txtContents.Text;
+
+            var printDocument = new PrintDocument {DocumentName = TabData.GetName()};
+            printDocument.PrintPage += printPage;
+
+            if (showDialog)
+            {
+                using (var dialog = new PrintDialog {Document = printDocument})
+                {
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        printDocument.Print();
+                    }
+                }
+            }
+
+            else
+            {
+                printDocument.Print();
+            }
+        }
+
+        #endregion
     }
 }

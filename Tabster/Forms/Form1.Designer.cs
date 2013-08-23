@@ -73,17 +73,13 @@ namespace Tabster.Forms
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripDropDownButton();
             this.offToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.slowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mediumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fastToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblcount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.lblplaylists = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.lbldisk = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.display_search = new System.Windows.Forms.TabPage();
             this.searchSplitContainer = new System.Windows.Forms.SplitContainer();
             this.searchDisplay = new Tabster.Controls.DataGridViewExtended();
@@ -154,9 +150,6 @@ namespace Tabster.Forms
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearsearchbtn = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.playlistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.detailsToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.filtertext = new Tabster.Controls.SearchBox();
             this.PreviewDelay = new System.Windows.Forms.Timer(this.components);
             this.SearchPreviewBackgroundWorker = new System.ComponentModel.BackgroundWorker();
@@ -231,6 +224,7 @@ namespace Tabster.Forms
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -311,12 +305,14 @@ namespace Tabster.Forms
             this.librarySplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.librarySplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.librarySplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.librarySplitContainer.Margin = new System.Windows.Forms.Padding(0);
             this.librarySplitContainer.Name = "librarySplitContainer";
             this.librarySplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // librarySplitContainer.Panel1
             // 
             this.librarySplitContainer.Panel1.Controls.Add(this.tablibrary);
+            this.librarySplitContainer.Panel1MinSize = 200;
             // 
             // librarySplitContainer.Panel2
             // 
@@ -541,9 +537,7 @@ namespace Tabster.Forms
             this.toolStripButton3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripButton3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.offToolStripMenuItem,
-            this.slowToolStripMenuItem,
-            this.mediumToolStripMenuItem,
-            this.fastToolStripMenuItem});
+            this.onToolStripMenuItem});
             this.toolStripButton3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolStripButton3.Image = global::Tabster.Properties.Resources.cursor;
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -553,31 +547,19 @@ namespace Tabster.Forms
             // 
             // offToolStripMenuItem
             // 
+            this.offToolStripMenuItem.Checked = true;
+            this.offToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.offToolStripMenuItem.Name = "offToolStripMenuItem";
-            this.offToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.offToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
             this.offToolStripMenuItem.Text = "Off";
             this.offToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
             // 
-            // slowToolStripMenuItem
+            // onToolStripMenuItem
             // 
-            this.slowToolStripMenuItem.Name = "slowToolStripMenuItem";
-            this.slowToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
-            this.slowToolStripMenuItem.Text = "Slow";
-            this.slowToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
-            // 
-            // mediumToolStripMenuItem
-            // 
-            this.mediumToolStripMenuItem.Name = "mediumToolStripMenuItem";
-            this.mediumToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
-            this.mediumToolStripMenuItem.Text = "Medium";
-            this.mediumToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
-            // 
-            // fastToolStripMenuItem
-            // 
-            this.fastToolStripMenuItem.Name = "fastToolStripMenuItem";
-            this.fastToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
-            this.fastToolStripMenuItem.Text = "Fast";
-            this.fastToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
+            this.onToolStripMenuItem.Name = "onToolStripMenuItem";
+            this.onToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.onToolStripMenuItem.Text = "On";
+            this.onToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
             // 
             // statusStrip1
             // 
@@ -587,9 +569,7 @@ namespace Tabster.Forms
             this.toolStripSeparator2,
             this.lblplaylists,
             this.toolStripSeparator3,
-            this.lbldisk,
-            this.toolStripSeparator1,
-            this.toolStripStatusLabel1});
+            this.lbldisk});
             this.statusStrip1.Location = new System.Drawing.Point(0, 470);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(885, 23);
@@ -624,26 +604,6 @@ namespace Tabster.Forms
             this.lbldisk.Name = "lbldisk";
             this.lbldisk.Size = new System.Drawing.Size(124, 18);
             this.lbldisk.Text = "Disk Space: 0KB (0MB)";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 23);
-            this.toolStripSeparator1.Visible = false;
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.AutoToolTip = true;
-            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.Red;
-            this.toolStripStatusLabel1.IsLink = true;
-            this.toolStripStatusLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
-            this.toolStripStatusLabel1.LinkColor = System.Drawing.Color.Red;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(73, 18);
-            this.toolStripStatusLabel1.Text = "Corrupted: 0";
-            this.toolStripStatusLabel1.Visible = false;
-            this.toolStripStatusLabel1.VisitedLinkColor = System.Drawing.Color.Red;
-            this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
             // 
             // display_search
             // 
@@ -911,7 +871,6 @@ namespace Tabster.Forms
             this.searchPreviewEditor.Margin = new System.Windows.Forms.Padding(0);
             this.searchPreviewEditor.Name = "searchPreviewEditor";
             this.searchPreviewEditor.ReadOnly = false;
-            this.searchPreviewEditor.ScrollSpeed = Tabster.Controls.TabEditor.AutoScrollSpeed.Off;
             this.searchPreviewEditor.Size = new System.Drawing.Size(148, 23);
             this.searchPreviewEditor.TabIndex = 24;
             // 
@@ -1340,7 +1299,6 @@ namespace Tabster.Forms
             this.fileToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.libraryToolStripMenuItem,
-            this.playlistToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem,
             this.clearsearchbtn,
@@ -1350,29 +1308,6 @@ namespace Tabster.Forms
             this.menuStrip1.Size = new System.Drawing.Size(1034, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // playlistToolStripMenuItem
-            // 
-            this.playlistToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteToolStripMenuItem1,
-            this.detailsToolStripMenuItem2});
-            this.playlistToolStripMenuItem.Enabled = false;
-            this.playlistToolStripMenuItem.Name = "playlistToolStripMenuItem";
-            this.playlistToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
-            this.playlistToolStripMenuItem.Text = "&Playlist";
-            // 
-            // deleteToolStripMenuItem1
-            // 
-            this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
-            this.deleteToolStripMenuItem1.Text = "Delete";
-            // 
-            // detailsToolStripMenuItem2
-            // 
-            this.detailsToolStripMenuItem2.Name = "detailsToolStripMenuItem2";
-            this.detailsToolStripMenuItem2.Size = new System.Drawing.Size(109, 22);
-            this.detailsToolStripMenuItem2.Text = "Details";
-            this.detailsToolStripMenuItem2.Click += new System.EventHandler(this.PlaylistDetails);
             // 
             // filtertext
             // 
@@ -1510,8 +1445,6 @@ namespace Tabster.Forms
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripStatusLabel lblplaylists;
         private System.Windows.Forms.ToolStripMenuItem searchUltimateGuitarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private ToolStripMenuItem librarycontextdetails;
         private ToolStripMenuItem librarycontextdelete;
         private ToolStripMenuItem librarycontextexport;
@@ -1539,9 +1472,6 @@ namespace Tabster.Forms
         private ToolStripSeparator toolStripSeparator8;
         private ToolStripDropDownButton toolStripButton3;
         private ToolStripMenuItem offToolStripMenuItem;
-        private ToolStripMenuItem slowToolStripMenuItem;
-        private ToolStripMenuItem mediumToolStripMenuItem;
-        private ToolStripMenuItem fastToolStripMenuItem;
         private ToolStripMenuItem libraryPreviewPaneToolStripMenuItem;
         private ToolStripMenuItem libraryhiddenpreviewToolStripMenuItem;
         private ToolStripMenuItem libraryhorizontalpreviewToolStripMenuItem;
@@ -1550,9 +1480,6 @@ namespace Tabster.Forms
         private ToolStripMenuItem searchhiddenpreviewToolStripMenuItem;
         private ToolStripMenuItem searchhorizontalpreviewToolStripMenuItem;
         private ToolStripMenuItem searchverticalpreviewToolStripMenuItem;
-        private ToolStripMenuItem playlistToolStripMenuItem;
-        private ToolStripMenuItem deleteToolStripMenuItem1;
-        private ToolStripMenuItem detailsToolStripMenuItem2;
         private ToolStripMenuItem playlistInformationToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker SearchPreviewBackgroundWorker;
         private DataGridViewTextBoxColumn searchcol_artist;
@@ -1570,6 +1497,7 @@ namespace Tabster.Forms
         private DataGridViewTextBoxColumn size;
         private DataGridViewTextBoxColumn location;
         private Label lblopenedexternally;
+        private ToolStripMenuItem onToolStripMenuItem;
     }
 }
 
