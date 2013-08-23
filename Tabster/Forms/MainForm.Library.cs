@@ -174,17 +174,17 @@ namespace Tabster.Forms
                 var openedExternally = Program.TabHandler.IsOpenedExternally(SelectedTab);
 
                 deleteTabToolStripMenuItem.Enabled = librarycontextdelete.Enabled = !openedExternally;
-
+                detailsToolStripMenuItem.Enabled = librarycontextdetails.Enabled = !openedExternally;
             }
 
             else
             {
                 SelectedTab = null;
+                deleteTabToolStripMenuItem.Enabled = false;
+                detailsToolStripMenuItem.Enabled = false;
             }
 
             viewTabToolStripMenuItem.Enabled = SelectedTab != null;
-            deleteTabToolStripMenuItem.Enabled = SelectedTab != null;
-            detailsToolStripMenuItem.Enabled = SelectedTab != null;
             exportToolStripMenuItem.Enabled = SelectedTab != null;
             openTabLocationToolStripMenuItem.Enabled = SelectedTab != null;
             searchUltimateGuitarToolStripMenuItem.Enabled = SelectedTab != null;

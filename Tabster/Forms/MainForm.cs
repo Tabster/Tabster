@@ -258,7 +258,7 @@ namespace Tabster.Forms
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var a = new About())
+            using (var a = new AboutDialog())
             {
                 a.ShowDialog();
             }
@@ -289,7 +289,7 @@ namespace Tabster.Forms
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var p = new Preferences())
+            using (var p = new PreferencesDialog())
             {
                 if (p.ShowDialog() == DialogResult.OK)
                 {
