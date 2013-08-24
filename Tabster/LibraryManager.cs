@@ -29,10 +29,9 @@ namespace Tabster
     public class LibraryManager : TabsterFile, ITabsterFile, IEnumerable<LibraryItem>
     {
         public const string FILE_VERSION = "1.0";
-        private readonly List<LibraryItem> _items = new List<LibraryItem>();
 
+        private readonly List<LibraryItem> _items = new List<LibraryItem>();
         private readonly List<PlaylistFile> _playlists = new List<PlaylistFile>();
-        private readonly List<TabFile> _tbs = new List<TabFile>();
 
         public LibraryManager()
         {
