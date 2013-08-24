@@ -3,7 +3,7 @@
 using System;
 using System.Drawing;
 using System.IO;
-using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Tabster.Forms;
 
@@ -13,6 +13,12 @@ namespace Tabster.Controls
 {
     public class Sidebar : TreeView
     {
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
+
+        private const int TVM_SETEXTENDEDSTYLE = 0x1100 + 44;
+        private const int TVS_EX_DOUBLEBUFFER = 0x0004;
+
         private readonly Font ChildFont = new Font("Microsoft Sans Serif", 9F);
         private readonly Font ParentFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
         public TreeNode NodeAllTabs;
@@ -20,8 +26,8 @@ namespace Tabster.Controls
         public TreeNode NodeGuitarChords;
         public TreeNode NodeGuitarTabs;
         public TreeNode NodeLibrary;
-        public TreeNode NodeMyFavorites;
         public TreeNode NodeMyDownloads;
+        public TreeNode NodeMyFavorites;
         public TreeNode NodeMyImports;
         public TreeNode NodeMyTabs;
         public TreeNode NodePlaylists;
@@ -32,7 +38,7 @@ namespace Tabster.Controls
         {
             NodeAllTabs = new TreeNode("All Tabs") {Name = "node_alltabs", NodeFont = ChildFont};
             NodeMyTabs = new TreeNode("My Tabs") {Name = "node_mytabs", NodeFont = ChildFont};
-            NodeMyDownloads = new TreeNode("My Downloads") { Name = "node_mydownloads", NodeFont = ChildFont };
+            NodeMyDownloads = new TreeNode("My Downloads") {Name = "node_mydownloads", NodeFont = ChildFont};
             NodeMyImports = new TreeNode("My Imports") {Name = "node_myimports", NodeFont = ChildFont};
             NodeMyFavorites = new TreeNode("My Favorites") {Name = "node_myfavorites", NodeFont = ChildFont};
             NodeGuitarTabs = new TreeNode("Guitar Tabs") {Name = "node_guitartabs", NodeFont = ChildFont};
@@ -64,7 +70,6 @@ namespace Tabster.Controls
 
             ExpandAll();
 
-            typeof (Control).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, this, new object[] {true});
             FullRowSelect = true;
             HideSelection = false;
             Indent = 15;
@@ -147,6 +152,12 @@ namespace Tabster.Controls
             }
 
             base.OnBeforeSelect(e);
+        }
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            SendMessage(Handle, TVM_SETEXTENDEDSTYLE, (IntPtr) TVS_EX_DOUBLEBUFFER, (IntPtr) TVS_EX_DOUBLEBUFFER);
+            base.OnHandleCreated(e);
         }
 
         #endregion
