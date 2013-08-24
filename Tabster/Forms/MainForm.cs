@@ -6,7 +6,6 @@ using System.IO;
 using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Properties;
-using Tabster.UltimateGuitar;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion
@@ -67,11 +66,6 @@ namespace Tabster.Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (Settings.Default.StartupUpdate)
-            {
-                checkForUpdatesToolStripMenuItem.PerformClick();
-            }
-
             recentlyViewedToolStripMenuItem.FilePath = Path.Combine(Program.libraryManager.ApplicationDirectory, "recent.dat");
             recentlyViewedToolStripMenuItem.ShowClear = true;
             recentlyViewedToolStripMenuItem.Load();
@@ -90,6 +84,11 @@ namespace Tabster.Forms
 
         private void Form1_Shown(object sender, EventArgs e)
         {
+            if (Settings.Default.StartupUpdate)
+            {
+                checkForUpdatesToolStripMenuItem.PerformClick();
+            }
+
             //loads queued tab after splash
             if (_queuedTabfile != null)
             {
