@@ -14,7 +14,7 @@ namespace Tabster
         {
             Proxy = proxy;
             Encoding = Encoding.UTF8;
-            Headers.Add("user-agent", string.Format("Tabster {0}", Application.ProductVersion));
+            Headers.Add("user-agent", string.Format("Tabster {0}", Common.TruncateVersion(Application.ProductVersion)));
         }
     }
 }
