@@ -118,6 +118,11 @@ namespace Tabster.Controls
             ScrollToPosition(position);
         }
 
+        public string GetText()
+        {
+            return txtContents.Text;
+        }
+
         public void SetText(string text)
         {
             txtContents.Text = text;
