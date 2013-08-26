@@ -77,27 +77,30 @@ namespace Tabster.Controls
 
         private void txtContents_TextChanged(object sender, EventArgs e)
         {
+            ModificationCheck();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void ModificationCheck()
+        {
             if (txtContents.Text.Length != _oldContents.Length && txtContents.Text != _oldContents && txtContents.Text != _originalContents)
             {
                 HasBeenModified = true;
 
                 _oldContents = txtContents.Text;
-
-                //TabData.Contents = txtContents.Text;
-
-                if (TabModified != null)
-                    TabModified(this, EventArgs.Empty);
             }
 
             else
             {
                 HasBeenModified = false;
             }
+
+            if (TabModified != null)
+                TabModified(this, EventArgs.Empty);
         }
-
-        #endregion
-
-        #region Public Methods
 
         public void ScrollToPosition(int position)
         {
