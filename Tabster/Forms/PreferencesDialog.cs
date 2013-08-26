@@ -1,7 +1,6 @@
 ﻿#region
 
 using System;
-using System.Diagnostics;
 using System.Windows.Forms;
 using Tabster.Properties;
 
@@ -15,11 +14,6 @@ namespace Tabster.Forms
         {
             InitializeComponent();
             chkupdatestartup.Checked = Settings.Default.StartupUpdate;
-        }
-
-        private void internetpropertiesbtn_Click(object sender, EventArgs e)
-        {
-            Process.Start(@"inetcpl.cpl");
         }
 
         private void okbtn_Click(object sender, EventArgs e)

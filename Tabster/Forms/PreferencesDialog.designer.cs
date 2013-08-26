@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.chkupdatestartup = new System.Windows.Forms.CheckBox();
-            this.internetpropertiesbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
             this.okbtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -44,18 +43,6 @@
             this.chkupdatestartup.TabIndex = 18;
             this.chkupdatestartup.Text = "Check for updates on startup";
             this.chkupdatestartup.UseVisualStyleBackColor = true;
-            // 
-            // internetpropertiesbtn
-            // 
-            this.internetpropertiesbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.internetpropertiesbtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.internetpropertiesbtn.Location = new System.Drawing.Point(12, 123);
-            this.internetpropertiesbtn.Name = "internetpropertiesbtn";
-            this.internetpropertiesbtn.Size = new System.Drawing.Size(115, 23);
-            this.internetpropertiesbtn.TabIndex = 19;
-            this.internetpropertiesbtn.Text = "Internet Properties";
-            this.internetpropertiesbtn.UseVisualStyleBackColor = true;
-            this.internetpropertiesbtn.Click += new System.EventHandler(this.internetpropertiesbtn_Click);
             // 
             // cancelbtn
             // 
@@ -80,7 +67,7 @@
             this.okbtn.UseVisualStyleBackColor = true;
             this.okbtn.Click += new System.EventHandler(this.okbtn_Click);
             // 
-            // Preferences
+            // PreferencesDialog
             // 
             this.AcceptButton = this.okbtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -88,7 +75,6 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.cancelbtn;
             this.ClientSize = new System.Drawing.Size(343, 158);
-            this.Controls.Add(this.internetpropertiesbtn);
             this.Controls.Add(this.okbtn);
             this.Controls.Add(this.cancelbtn);
             this.Controls.Add(this.chkupdatestartup);
@@ -96,7 +82,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Preferences";
+            this.Name = "PreferencesDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -108,7 +94,6 @@
 
         #endregion
 
-        public System.Windows.Forms.Button internetpropertiesbtn;
         private System.Windows.Forms.CheckBox chkupdatestartup;
         private System.Windows.Forms.Button cancelbtn;
         private System.Windows.Forms.Button okbtn;
