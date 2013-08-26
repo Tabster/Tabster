@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using Tabster.Controls;
+using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion
 
@@ -15,6 +16,7 @@ namespace Tabster.Forms
     {
         private readonly List<TabInstance> _tabInstances = new List<TabInstance>();
         private readonly FormState formState = new FormState();
+        private bool _isFullscreen;
 
         public TabbedViewer()
         {
@@ -22,10 +24,7 @@ namespace Tabster.Forms
 
             Icon = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
 
-            if (tabControl1.TabPages.Count == 0)
-            {
-                StartPosition = FormStartPosition.CenterParent;
-            }
+            controlsToolStrip.Renderer = new ToolStripRenderer();
         }
 
         #region Methods
@@ -49,6 +48,24 @@ namespace Tabster.Forms
             return _tabInstances.Find(x => x.Page == selectedTab);
         }
 
+        private void autoScrollChange(object sender, EventArgs e)
+        {
+            var instance = GetSelectedInstance();
+
+            if (instance != null)
+            {
+                var item = ((ToolStripMenuItem) sender);
+                var text = item.Text;
+
+                foreach (ToolStripMenuItem menuItem in toolStripButton3.DropDownItems)
+                {
+                    menuItem.Checked = menuItem.Text == item.Text;
+                }
+
+                instance.Editor.AutoScroll = text == "On";
+            }
+        }
+
         public void LoadTab(TabFile tabFile, TabEditor editor)
         {
             TabPage tp;
@@ -63,13 +80,24 @@ namespace Tabster.Forms
             {
                 var instance = new TabInstance(tabFile, editor);
                 instance.SetHeader(false);
+
                 _tabInstances.Add(instance);
 
                 tabControl1.TabPages.Add(instance.Page);
                 tabControl1.SelectedTab = instance.Page;
 
+                editor.ReadOnly = false;
+                editor.ScrollToPosition(0);
+
+                editor.TabModified += editor_TabModified;
+
                 tabControl1_SelectedIndexChanged(null, null);
             }
+        }
+
+        private void editor_TabModified(object sender, EventArgs e)
+        {
+            savebtn.Enabled = ((TabEditor) sender).HasBeenModified;
         }
 
         private bool CloseTab(TabInstance instance, bool closeIfLast)
@@ -105,24 +133,12 @@ namespace Tabster.Forms
 
         #endregion
 
-        #region Events
-
-        #endregion
-
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PrintTab(object sender, EventArgs e)
         {
             var instance = GetSelectedInstance();
 
             if (instance != null)
-                instance.File.Save();
-        }
-
-        private void printToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var instance = GetSelectedInstance();
-
-            if (instance != null)
-                instance.Editor.ShowPrintDialog();
+                instance.Editor.Print();
         }
 
         private void closeTabToolStripMenuItem_Click(object sender, EventArgs e)
@@ -131,15 +147,6 @@ namespace Tabster.Forms
 
             if (instance != null)
                 CloseTab(instance, true);
-        }
-
-        private void modebtn_Click_1(object sender, EventArgs e)
-        {
-            var instance = GetSelectedInstance();
-
-            if (instance != null)
-
-                instance.Editor.SwitchMode();
         }
 
         private void TabbedViewer_FormClosing(object sender, FormClosingEventArgs e)
@@ -201,52 +208,62 @@ namespace Tabster.Forms
         {
             if (tabControl1.SelectedTab != null)
             {
+                offToolStripMenuItem.PerformClick();
                 Text = string.Format("Tabster - {0}", tabControl1.SelectedTab.Text);
+
+                savebtn.Enabled = GetSelectedInstance().Modified;
             }
         }
 
-        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToggleFullscreen(object sender = null, EventArgs e = null)
         {
-        }
-
-        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void fullScreenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (fullScreenToolStripMenuItem.Text == "Full Screen")
+            if (_isFullscreen)
             {
-                fullScreenToolStripMenuItem.Text = "Restore";
-
-                formState.Maximize(this);
+                formState.Restore(this);
+                _isFullscreen = false;
+                fullscreenbtn.Text = "Full Screen";
             }
 
             else
             {
-                fullScreenToolStripMenuItem.Text = "Full Screen";
+                formState.Maximize(this);
+                _isFullscreen = true;
+                fullscreenbtn.Text = "Restore";
+            }
+        }
 
-                formState.Restore(this);
+        private void TabbedViewer_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F11)
+            {
+                ToggleFullscreen();
+            }
+
+            if (e.Modifiers == Keys.Control)
+            {
+                if (e.KeyCode == Keys.S)
+                {
+                    if (savebtn.Enabled)
+                        savebtn.PerformClick();
+                }
+
+                if (e.KeyCode == Keys.P)
+                {
+                    printbtn.PerformClick();
+                }
+            }
+        }
+
+        private void SaveTab(object sender, EventArgs e)
+        {
+            var instance = GetSelectedInstance();
+
+            if (instance != null)
+            {
+                instance.File.TabData.Contents = instance.Editor.GetText();
+                instance.File.Save();
+                instance.Editor.ModificationCheck();
+                savebtn.Enabled = false;
             }
         }
     }
@@ -257,7 +274,7 @@ namespace Tabster.Forms
         {
             File = file;
             Page = new TabPage {Text = file.TabData.GetName(), ToolTipText = file.FileInfo.FullName};
-            Editor = editor ?? new TabEditor { Dock = DockStyle.Fill };
+            Editor = editor ?? new TabEditor {Dock = DockStyle.Fill};
 
             Page.Controls.Add(Editor);
 
@@ -268,16 +285,15 @@ namespace Tabster.Forms
         public TabPage Page { get; private set; }
         public TabEditor Editor { get; private set; }
         public TabFile File { get; private set; }
-        public bool Modified { get; private set; }
+
+        public bool Modified
+        {
+            get { return Editor.HasBeenModified; }
+        }
 
         private void editor_TabModified(object sender, EventArgs e)
         {
-            Modified = Editor.HasBeenModified;
-
-            if (Editor.HasBeenModified)
-            {
-                SetHeader(true);
-            }
+            SetHeader(Editor.HasBeenModified);
         }
 
         public void SetHeader(bool modified)
