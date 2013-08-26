@@ -312,7 +312,7 @@ namespace Tabster.Forms
             // librarySplitContainer.Panel1
             // 
             this.librarySplitContainer.Panel1.Controls.Add(this.tablibrary);
-            this.librarySplitContainer.Panel1MinSize = 200;
+            this.librarySplitContainer.Panel1MinSize = 180;
             // 
             // librarySplitContainer.Panel2
             // 
@@ -320,7 +320,7 @@ namespace Tabster.Forms
             this.librarySplitContainer.Panel2.Controls.Add(this.previewToolStrip);
             this.librarySplitContainer.Panel2MinSize = 100;
             this.librarySplitContainer.Size = new System.Drawing.Size(885, 470);
-            this.librarySplitContainer.SplitterDistance = 257;
+            this.librarySplitContainer.SplitterDistance = 200;
             this.librarySplitContainer.TabIndex = 25;
             // 
             // tablibrary
@@ -550,14 +550,14 @@ namespace Tabster.Forms
             this.offToolStripMenuItem.Checked = true;
             this.offToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.offToolStripMenuItem.Name = "offToolStripMenuItem";
-            this.offToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.offToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
             this.offToolStripMenuItem.Text = "Off";
             this.offToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
             // 
             // onToolStripMenuItem
             // 
             this.onToolStripMenuItem.Name = "onToolStripMenuItem";
-            this.onToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.onToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
             this.onToolStripMenuItem.Text = "On";
             this.onToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
             // 
@@ -628,15 +628,15 @@ namespace Tabster.Forms
             // 
             this.searchSplitContainer.Panel1.Controls.Add(this.searchDisplay);
             this.searchSplitContainer.Panel1.Controls.Add(this.panel1);
-            this.searchSplitContainer.Panel1MinSize = 670;
+            this.searchSplitContainer.Panel1MinSize = 200;
             // 
             // searchSplitContainer.Panel2
             // 
             this.searchSplitContainer.Panel2.Controls.Add(this.searchPreviewEditor);
             this.searchSplitContainer.Panel2Collapsed = true;
-            this.searchSplitContainer.Panel2MinSize = 20;
+            this.searchSplitContainer.Panel2MinSize = 100;
             this.searchSplitContainer.Size = new System.Drawing.Size(1026, 493);
-            this.searchSplitContainer.SplitterDistance = 670;
+            this.searchSplitContainer.SplitterDistance = 200;
             this.searchSplitContainer.TabIndex = 29;
             // 
             // searchDisplay
@@ -648,7 +648,6 @@ namespace Tabster.Forms
             this.searchDisplay.AllowUserToResizeRows = false;
             this.searchDisplay.BackgroundColor = System.Drawing.Color.White;
             this.searchDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.searchDisplay.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -697,7 +696,7 @@ namespace Tabster.Forms
             this.searchDisplay.ShowCellToolTips = false;
             this.searchDisplay.ShowEditingIcon = false;
             this.searchDisplay.ShowRowErrors = false;
-            this.searchDisplay.Size = new System.Drawing.Size(1024, 657);
+            this.searchDisplay.Size = new System.Drawing.Size(1024, 460);
             this.searchDisplay.TabIndex = 20;
             this.searchDisplay.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SaveSelectedTab);
             this.searchDisplay.SelectionChanged += new System.EventHandler(this.dataGridViewExtended1_SelectionChanged);
@@ -1337,7 +1336,7 @@ namespace Tabster.Forms
             this.SearchPreviewBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchPreviewBackgroundWorker_DoWork);
             this.SearchPreviewBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchPreviewBackgroundWorker_RunWorkerCompleted);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1349,7 +1348,7 @@ namespace Tabster.Forms
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(960, 500);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tabster";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

@@ -86,7 +86,7 @@ namespace Tabster.Forms
         {
             if (Settings.Default.StartupUpdate)
             {
-                checkForUpdatesToolStripMenuItem.PerformClick();
+                CheckForUpdates(false);
             }
 
             //loads queued tab after splash
@@ -268,7 +268,7 @@ namespace Tabster.Forms
             Application.Exit();
         }
 
-        private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CheckForUpdates(bool showUpdatedDialog)
         {
             var updateQuery = new Updater.UpdateQuery();
 
@@ -282,8 +282,16 @@ namespace Tabster.Forms
 
             else
             {
-                MessageBox.Show("Your version of Tabster is up to date.", "Updated");
+                if (showUpdatedDialog)
+                {
+                    MessageBox.Show("Your version of Tabster is up to date.", "Updated");
+                }
             }
+        }
+
+        private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CheckForUpdates(true);
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
