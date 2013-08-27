@@ -178,7 +178,9 @@ namespace Tabster.Forms
                 {
                     searchSplitContainer.Panel2Collapsed = true;
                 }
-        }
+
+                previewToolStrip.Enabled = previewToolStripMenuItem.Enabled = searchSplitContainer.Panel2Collapsed;
+            }
 
             Settings.Default.Save();
         }

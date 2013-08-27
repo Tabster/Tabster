@@ -147,7 +147,9 @@ namespace Tabster.Forms
 
         private void previewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TogglePreviewPane(sender, e);
+            if (searchSplitContainer.Panel2Collapsed)
+                TogglePreviewPane(sender, e);
+
             LoadSelectedPreview();
         }
 
@@ -203,9 +205,10 @@ namespace Tabster.Forms
                     var tab = ugTab.ConvertToTab();
                     searchPreviewEditor.LoadTab(tab);
 
-                    if (!searchhiddenpreviewToolStripMenuItem.Checked)
+                    if (!searchhiddenpreviewToolStripMenuItem.Checked && searchSplitContainer.Panel2Collapsed)
                     {
                         searchSplitContainer.Panel2Collapsed = false;
+                        previewToolStrip.Enabled = previewToolStripMenuItem.Enabled = searchSplitContainer.Panel2Collapsed;
                     }
                 }
             }
