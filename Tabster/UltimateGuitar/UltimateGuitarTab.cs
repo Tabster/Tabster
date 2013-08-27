@@ -1,7 +1,6 @@
 ﻿#region
 
 using System;
-using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 
 #endregion
@@ -37,7 +36,6 @@ namespace Tabster.UltimateGuitar
         public string Title { get; private set; }
         public Tabster.TabType Type { get; private set; }
         public string Contents { get; private set; }
-        public DateTime Updated { get; private set; }
 
         public Tab ConvertToTab()
         {
@@ -92,7 +90,7 @@ namespace Tabster.UltimateGuitar
                     }
                 }
 
-                var contentsNode = doc.DocumentNode.SelectSingleNode("//div[@id='cont']/pre");
+                var contentsNode = doc.DocumentNode.SelectSingleNode("//div[@id='cont']/pre[2]");
                 
                 if (contentsNode != null)
                 {
