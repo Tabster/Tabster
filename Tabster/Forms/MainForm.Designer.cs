@@ -312,15 +312,15 @@ namespace Tabster.Forms
             // librarySplitContainer.Panel1
             // 
             this.librarySplitContainer.Panel1.Controls.Add(this.tablibrary);
-            this.librarySplitContainer.Panel1MinSize = 180;
+            this.librarySplitContainer.Panel1MinSize = 140;
             // 
             // librarySplitContainer.Panel2
             // 
             this.librarySplitContainer.Panel2.Controls.Add(this.lblopenedexternally);
             this.librarySplitContainer.Panel2.Controls.Add(this.previewToolStrip);
-            this.librarySplitContainer.Panel2MinSize = 100;
+            this.librarySplitContainer.Panel2MinSize = 140;
             this.librarySplitContainer.Size = new System.Drawing.Size(885, 470);
-            this.librarySplitContainer.SplitterDistance = 200;
+            this.librarySplitContainer.SplitterDistance = 276;
             this.librarySplitContainer.TabIndex = 25;
             // 
             // tablibrary
@@ -381,7 +381,7 @@ namespace Tabster.Forms
             this.tablibrary.ShowCellToolTips = false;
             this.tablibrary.ShowEditingIcon = false;
             this.tablibrary.ShowRowErrors = false;
-            this.tablibrary.Size = new System.Drawing.Size(883, 255);
+            this.tablibrary.Size = new System.Drawing.Size(883, 274);
             this.tablibrary.TabIndex = 19;
             this.tablibrary.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExtended2_CellDoubleClick);
             this.tablibrary.SelectionChanged += new System.EventHandler(this.dataGridViewExtended2_SelectionChanged);
@@ -452,7 +452,7 @@ namespace Tabster.Forms
             this.lblopenedexternally.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblopenedexternally.Location = new System.Drawing.Point(0, 25);
             this.lblopenedexternally.Name = "lblopenedexternally";
-            this.lblopenedexternally.Size = new System.Drawing.Size(883, 182);
+            this.lblopenedexternally.Size = new System.Drawing.Size(883, 163);
             this.lblopenedexternally.TabIndex = 24;
             this.lblopenedexternally.Text = "Tab is open in external viewer.";
             this.lblopenedexternally.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -550,14 +550,14 @@ namespace Tabster.Forms
             this.offToolStripMenuItem.Checked = true;
             this.offToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.offToolStripMenuItem.Name = "offToolStripMenuItem";
-            this.offToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.offToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.offToolStripMenuItem.Text = "Off";
             this.offToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
             // 
             // onToolStripMenuItem
             // 
             this.onToolStripMenuItem.Name = "onToolStripMenuItem";
-            this.onToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.onToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.onToolStripMenuItem.Text = "On";
             this.onToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
             // 
