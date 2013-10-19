@@ -270,7 +270,7 @@ namespace Tabster.Forms
             Application.Exit();
         }
 
-        private void CheckForUpdates(bool showUpdatedDialog)
+        private static void CheckForUpdates(bool showUpdatedDialog)
         {
             var updateQuery = new Updater.UpdateQuery();
 
