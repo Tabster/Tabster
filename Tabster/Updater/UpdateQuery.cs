@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Net;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -8,6 +9,16 @@ using System.Xml;
 
 namespace Tabster.Updater
 {
+    public class UpdateQueryCompletedEventArgs : EventArgs
+    {
+        public object UserState { get; private set; }
+
+        public UpdateQueryCompletedEventArgs(object userState)
+        {
+            UserState = userState;
+        }
+    }
+
     public class UpdateQuery
     {
         public bool UpdateAvailable { get; private set; }
@@ -16,28 +27,16 @@ namespace Tabster.Updater
         public string Changelog { get; private set; }
         public Uri DownloadURL { get; private set; }
 
-        public event EventHandler Checked;
+        public event EventHandler<UpdateQueryCompletedEventArgs> Completed;
 
-        public void Check()
+        public void Check(object userToken = null)
         {
             try
             {
                 using (var client = new UpdateWebClient())
                 {
-                    var data = client.DownloadString("http://client.tabster.me/update");
-
-                    if (!string.IsNullOrEmpty(data))
-                    {
-                        var doc = new XmlDocument();
-                        doc.LoadXml(data);
-
-                        Version = new Version(doc.GetElementsByTagName("version")[0].InnerText);
-                        DownloadURL = new Uri(doc.GetElementsByTagName("url")[0].InnerText);
-                        Changelog = doc.GetElementsByTagName("changelog")[0].InnerText;
-                        UpdateAvailable = Version > new Version(Application.ProductVersion);
-
-                        Error = null;
-                    }
+                    client.DownloadStringCompleted += client_DownloadStringCompleted;
+                    client.DownloadStringAsync(new Uri("http://client.tabster.me/update"), userToken);
                 }
             }
 
@@ -45,9 +44,26 @@ namespace Tabster.Updater
             {
                 Error = ex;
             }
+        }
 
-            if (Checked != null)
-                Checked(this, EventArgs.Empty);
+        private void client_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            Error = e.Error;
+
+            if (e.Error == null && !e.Cancelled && !string.IsNullOrEmpty(e.Result))
+            {
+                var doc = new XmlDocument();
+                doc.LoadXml(e.Result);
+
+                Version = new Version(doc.GetElementsByTagName("version")[0].InnerText);
+                DownloadURL = new Uri(doc.GetElementsByTagName("url")[0].InnerText);
+                Changelog = doc.GetElementsByTagName("changelog")[0].InnerText;
+
+                UpdateAvailable = Version > new Version(Application.ProductVersion);
+            }
+
+            if (Completed != null)
+                Completed(this, new UpdateQueryCompletedEventArgs(e.UserState));
         }
     }
 }

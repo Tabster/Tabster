@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Properties;
+using Tabster.Updater;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion
@@ -15,6 +16,7 @@ namespace Tabster.Forms
     public partial class MainForm : Form
     {
         private readonly TabFile _queuedTabfile;
+        private readonly UpdateQuery _updateQuery = new UpdateQuery();
 
         public MainForm()
         {
@@ -29,6 +31,8 @@ namespace Tabster.Forms
             Program.TabHandler.TabClosed += TabHandler_OnTabClosed;
 
             sidemenu.LoadNodes();
+
+            _updateQuery.Completed += _updateQuery_Completed;
 
             previewToolStrip.Renderer = new ToolStripRenderer();
 
@@ -86,7 +90,7 @@ namespace Tabster.Forms
         {
             if (Settings.Default.StartupUpdate)
             {
-                CheckForUpdates(false);
+                _updateQuery.Check(false);
             }
 
             //loads queued tab after splash
@@ -270,30 +274,9 @@ namespace Tabster.Forms
             Application.Exit();
         }
 
-        private static void CheckForUpdates(bool showUpdatedDialog)
-        {
-            var updateQuery = new Updater.UpdateQuery();
-
-            updateQuery.Check();
-
-            if (updateQuery.UpdateAvailable)
-            {
-                var updateDialog = new Updater.UpdateDialog(updateQuery);
-                updateDialog.ShowDialog();
-            }
-
-            else
-            {
-                if (showUpdatedDialog)
-                {
-                    MessageBox.Show("Your version of Tabster is up to date.", "Updated");
-                }
-            }
-        }
-
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CheckForUpdates(true);
+            _updateQuery.Check(true);
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -316,5 +299,28 @@ namespace Tabster.Forms
                 onlinesearchbtn.PerformClick();
             }
         }
+
+        #region Updater
+
+        void _updateQuery_Completed(object sender, UpdateQueryCompletedEventArgs e)
+        {
+            var showUpdatedDialog = e.UserState != null && (bool)e.UserState;
+
+            if (_updateQuery.UpdateAvailable)
+            {
+                var updateDialog = new UpdateDialog(_updateQuery) { StartPosition = FormStartPosition.CenterParent };
+                updateDialog.ShowDialog();
+            }
+
+            else
+            {
+                if (showUpdatedDialog)
+                {
+                    MessageBox.Show("Your version of Tabster is up to date.", "Updated");
+                }
+            }
+        }
+
+        #endregion
     }
 }
