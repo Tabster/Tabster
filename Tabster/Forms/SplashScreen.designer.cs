@@ -52,9 +52,9 @@ namespace Tabster.Forms
             this.lbltitle.ForeColor = System.Drawing.Color.Black;
             this.lbltitle.Location = new System.Drawing.Point(153, 64);
             this.lbltitle.Name = "lbltitle";
-            this.lbltitle.Size = new System.Drawing.Size(331, 16);
+            this.lbltitle.Size = new System.Drawing.Size(425, 16);
             this.lbltitle.TabIndex = 51;
-            this.lbltitle.Text = "Guitar Tabs • Guitar Chords • Bass Tabs • Drum Tabs";
+            this.lbltitle.Text = "Guitar Tabs • Guitar Chords • Bass Tabs • Drum Tabs • Ukulele Tabs";
             // 
             // pictureBox1
             // 
@@ -71,7 +71,7 @@ namespace Tabster.Forms
             this.lblversion.BackColor = System.Drawing.Color.Transparent;
             this.lblversion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblversion.ForeColor = System.Drawing.Color.Gray;
-            this.lblversion.Location = new System.Drawing.Point(454, 192);
+            this.lblversion.Location = new System.Drawing.Point(526, 192);
             this.lblversion.Name = "lblversion";
             this.lblversion.Size = new System.Drawing.Size(52, 16);
             this.lblversion.TabIndex = 49;
@@ -132,7 +132,7 @@ namespace Tabster.Forms
             this.simpleProgressBar1.Location = new System.Drawing.Point(156, 126);
             this.simpleProgressBar1.Maximum = 140;
             this.simpleProgressBar1.Name = "simpleProgressBar1";
-            this.simpleProgressBar1.Size = new System.Drawing.Size(328, 14);
+            this.simpleProgressBar1.Size = new System.Drawing.Size(422, 14);
             this.simpleProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.simpleProgressBar1.TabIndex = 52;
             // 
@@ -142,14 +142,14 @@ namespace Tabster.Forms
             this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // Splash
+            // SplashScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(518, 217);
+            this.ClientSize = new System.Drawing.Size(590, 217);
             this.Controls.Add(this.simpleProgressBar1);
             this.Controls.Add(this.lbltitle);
             this.Controls.Add(this.pictureBox1);
@@ -161,7 +161,7 @@ namespace Tabster.Forms
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Splash";
+            this.Name = "SplashScreen";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
