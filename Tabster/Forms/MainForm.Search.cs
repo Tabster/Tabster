@@ -70,6 +70,9 @@ namespace Tabster.Forms
                     case 4:
                         searchType = UltimateGuitar.TabType.DrumTab;
                         break;
+                    case 5:
+                        searchType = UltimateGuitar.TabType.Ukulele;
+                        break;
                 }
 
                 searchManager.Type = searchType;

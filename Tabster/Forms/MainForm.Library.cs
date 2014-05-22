@@ -34,6 +34,7 @@ namespace Tabster.Forms
             GuitarChords,
             BassTabs,
             DrumTabs,
+            UkuleleTabs,
             Playlist
         }
 
@@ -433,6 +434,8 @@ namespace Tabster.Forms
                     return LibraryType.BassTabs;
                 if (selectedNode == sidemenu.NodeDrumTabs)
                     return LibraryType.DrumTabs;
+                if (selectedNode == sidemenu.NodeUkuleleTabs)
+                    return LibraryType.UkuleleTabs;
             }
             return LibraryType.AllTabs;
         }
@@ -479,7 +482,8 @@ namespace Tabster.Forms
                    (selectedLibrary == LibraryType.GuitarTabs && tab.TabData.Type == TabType.Guitar) ||
                    (selectedLibrary == LibraryType.GuitarChords && tab.TabData.Type == TabType.Chord) ||
                    (selectedLibrary == LibraryType.BassTabs && tab.TabData.Type == TabType.Bass) ||
-                   (selectedLibrary == LibraryType.DrumTabs && tab.TabData.Type == TabType.Drum) || 
+                   (selectedLibrary == LibraryType.DrumTabs && tab.TabData.Type == TabType.Drum) ||
+                   (selectedLibrary == LibraryType.UkuleleTabs && tab.TabData.Type == TabType.Ukulele) || 
                    (selectedLibrary == LibraryType.MyFavorites && Program.libraryManager.FindTab(tab).Favorited);
 
                 if (libraryMatch)

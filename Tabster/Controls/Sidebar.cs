@@ -22,9 +22,11 @@ namespace Tabster.Controls
         private readonly Font ChildFont = new Font("Microsoft Sans Serif", 9F);
         private readonly Font ParentFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
         public TreeNode NodeAllTabs;
-        public TreeNode NodeBassTabs, NodeDrumTabs;
+        public TreeNode NodeBassTabs;
+        public TreeNode NodeDrumTabs;
         public TreeNode NodeGuitarChords;
         public TreeNode NodeGuitarTabs;
+        public TreeNode NodeUkuleleTabs;
         public TreeNode NodeLibrary;
         public TreeNode NodeMyDownloads;
         public TreeNode NodeMyFavorites;
@@ -45,7 +47,8 @@ namespace Tabster.Controls
             NodeGuitarChords = new TreeNode("Guitar Chords") {Name = "node_guitarchords", NodeFont = ChildFont};
             NodeBassTabs = new TreeNode("Bass Tabs") {Name = "node_basstabs", NodeFont = ChildFont};
             NodeDrumTabs = new TreeNode("Drum Tabs") {Name = "node_drumtabs", NodeFont = ChildFont};
-
+            NodeUkuleleTabs = new TreeNode("Ukulele Tabs") {Name = "node_ukuleletabs", NodeFont = ChildFont};
+               
             NodeLibrary = new TreeNode("Library", new[]
                                                       {
                                                           NodeAllTabs,
@@ -56,7 +59,8 @@ namespace Tabster.Controls
                                                           NodeGuitarTabs,
                                                           NodeGuitarChords,
                                                           NodeBassTabs,
-                                                          NodeDrumTabs
+                                                          NodeDrumTabs,
+                                                          NodeUkuleleTabs
                                                       }) {Name = "node_library", NodeFont = ParentFont};
 
             NodePlaylists = new TreeNode("Playlists") {Name = "node_playlists", NodeFont = ParentFont};
@@ -109,6 +113,9 @@ namespace Tabster.Controls
                     break;
                 case MainForm.LibraryType.DrumTabs:
                     NodeDrumTabs.Text = string.Format("Drum Tabs ({0})", count);
+                    break;
+                case MainForm.LibraryType.UkuleleTabs:
+                    NodeUkuleleTabs.Text = string.Format("Ukulele Tabs ({0})", count);
                     break;
             }
         }

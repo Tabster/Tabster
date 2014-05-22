@@ -11,7 +11,8 @@ namespace Tabster
         Guitar,
         Chord,
         Bass,
-        Drum
+        Drum,
+        Ukulele
     }
 
     public enum TabSource
@@ -55,7 +56,7 @@ namespace Tabster
 
         static Tab()
         {
-            TabTypes = new[] {"Guitar Tab", "Guitar Chords", "Bass Tab", "Drum Tab"};
+            TabTypes = new[] { "Guitar Tab", "Guitar Chords", "Bass Tab", "Drum Tab", "Ukulele Tab" };
         }
 
         public Tab(string artist, string title, TabType type, string contents)
@@ -150,6 +151,8 @@ namespace Tabster
                     return TabType.Chord;
                 case "Drum Tab":
                     return TabType.Drum;
+                case "Ukulele Tab":
+                    return TabType.Ukulele;
             }
 
             return TabType.Guitar;
@@ -167,6 +170,8 @@ namespace Tabster
                     return TabTypes[2];
                 case TabType.Drum:
                     return TabTypes[3];
+                case TabType.Ukulele:
+                    return TabTypes[4];
             }
 
             return TabTypes[0];

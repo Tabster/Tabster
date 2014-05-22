@@ -17,6 +17,7 @@ namespace Tabster.UltimateGuitar
         GuitarPro = 500,
         Video = 100,
         TabPro = 666,
+        Ukulele = 800,
         Undefined = 0
     }
 
@@ -84,6 +85,8 @@ namespace Tabster.UltimateGuitar
                             ultimateGuitarTabType = TabType.GuitarChords;
                         else if (typeStr.IndexOf("drum", StringComparison.OrdinalIgnoreCase) > -1)
                             ultimateGuitarTabType = TabType.DrumTab;
+                        else if (typeStr.IndexOf("ukulele", StringComparison.OrdinalIgnoreCase) > -1)
+                            ultimateGuitarTabType = TabType.Ukulele;
 
                         artist = split[2].Trim();
                         break;
@@ -134,6 +137,8 @@ namespace Tabster.UltimateGuitar
                     return Tabster.TabType.Bass;
                 case TabType.DrumTab:
                     return Tabster.TabType.Drum;
+                case TabType.Ukulele:
+                    return Tabster.TabType.Ukulele;
                 default:
                     return Tabster.TabType.Guitar;
             }

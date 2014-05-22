@@ -101,10 +101,9 @@ namespace Tabster.UltimateGuitar
             string data;
 
             var client = new TabsterWebClient();
-
-            data = client.DownloadString(URL);
-
-            client.Dispose();
+            {
+                data = client.DownloadString(URL);
+            }
 
             if (data.Length == 0)
                 return;
@@ -151,6 +150,7 @@ namespace Tabster.UltimateGuitar
 
                     var rowType = GetTabType(columns[colIndexType].InnerText);
 
+
                     var rowArtist = columns[colIndexArtist].InnerText;
 
                     if ((string.IsNullOrEmpty(loopArtist) || loopArtist != rowArtist) && rowArtist != "&nbsp;")
@@ -182,7 +182,7 @@ namespace Tabster.UltimateGuitar
                         }
                     }
 
-                    if (rowType == TabType.GuitarTab || rowType == TabType.GuitarChords || rowType == TabType.BassTab || rowType == TabType.DrumTab)
+                    if (rowType == TabType.GuitarTab || rowType == TabType.GuitarChords || rowType == TabType.BassTab || rowType == TabType.DrumTab || rowType == TabType.Ukulele)
                     {
                         var tab = new SearchResult(loopArtist, rowSong, rowType, rowRating, rowVotes, new Uri(rowURL));
                         _results.Add(tab);
@@ -233,6 +233,8 @@ namespace Tabster.UltimateGuitar
                 return TabType.Video;
             if (str.Equals("tab pro", StringComparison.InvariantCultureIgnoreCase))
                 return TabType.TabPro;
+            if (str.Equals("ukulele", StringComparison.InvariantCultureIgnoreCase))
+                return TabType.Ukulele;
 
             return TabType.Undefined;
         }
