@@ -33,6 +33,21 @@ namespace Tabster.Forms
             timer1.Start();
         }
 
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            var borderColor = Color.Black;
+            const int borderWidth = 1;
+            var borderStyle = ButtonBorderStyle.Solid;
+
+            ControlPaint.DrawBorder(e.Graphics, ClientRectangle,
+                                         borderColor, borderWidth, borderStyle,
+                                         borderColor, borderWidth, borderStyle,
+                                         borderColor, borderWidth, borderStyle,
+                                         borderColor, borderWidth, borderStyle);
+        } 
+
         private void UpdateProgress()
         {
             if (simpleProgressBar1.Value != simpleProgressBar1.Maximum)

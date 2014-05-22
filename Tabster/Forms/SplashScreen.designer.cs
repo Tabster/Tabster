@@ -31,7 +31,6 @@ namespace Tabster.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplashScreen));
             this.lbltitle = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblversion = new System.Windows.Forms.Label();
@@ -39,8 +38,8 @@ namespace Tabster.Forms
             this.label2 = new System.Windows.Forms.Label();
             this.lblloading = new System.Windows.Forms.Label();
             this.lblname = new System.Windows.Forms.Label();
-            this.simpleProgressBar1 = new Tabster.Controls.SimpleProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.simpleProgressBar1 = new Tabster.Controls.SimpleProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -126,6 +125,12 @@ namespace Tabster.Forms
             this.lblname.TabIndex = 4;
             this.lblname.Text = "Tabster";
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // simpleProgressBar1
             // 
             this.simpleProgressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
@@ -136,18 +141,11 @@ namespace Tabster.Forms
             this.simpleProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.simpleProgressBar1.TabIndex = 52;
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // SplashScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(590, 217);
             this.Controls.Add(this.simpleProgressBar1);
