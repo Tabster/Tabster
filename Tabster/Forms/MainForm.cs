@@ -54,13 +54,6 @@ namespace Tabster.Forms
                 txtsearchtype.Items.Add(str);
             }
             txtsearchtype.Text = "All Types";
-
-            Rating0 = new Bitmap(1, 1);
-            Rating1 = Resources.r1;
-            Rating2 = Resources.r2;
-            Rating3 = Resources.r3;
-            Rating4 = Resources.r4;
-            Rating5 = Resources.r5;
         }
 
         public MainForm(TabFile tabFile) : this()

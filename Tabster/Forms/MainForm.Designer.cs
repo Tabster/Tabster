@@ -83,11 +83,6 @@ namespace Tabster.Forms
             this.display_search = new System.Windows.Forms.TabPage();
             this.searchSplitContainer = new System.Windows.Forms.SplitContainer();
             this.searchDisplay = new Tabster.Controls.DataGridViewExtended();
-            this.searchcol_artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.searchcol_song = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.searchcol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.searchcol_rating = new System.Windows.Forms.DataGridViewImageColumn();
-            this.searchcol_votes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblsearchresults = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -153,6 +148,11 @@ namespace Tabster.Forms
             this.filtertext = new Tabster.Controls.SearchBox();
             this.PreviewDelay = new System.Windows.Forms.Timer(this.components);
             this.SearchPreviewBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.searchcol_artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.searchcol_song = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.searchcol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.searchcol_rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.searchcol_votes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.display_library.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -550,14 +550,14 @@ namespace Tabster.Forms
             this.offToolStripMenuItem.Checked = true;
             this.offToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.offToolStripMenuItem.Name = "offToolStripMenuItem";
-            this.offToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.offToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
             this.offToolStripMenuItem.Text = "Off";
             this.offToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
             // 
             // onToolStripMenuItem
             // 
             this.onToolStripMenuItem.Name = "onToolStripMenuItem";
-            this.onToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.onToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
             this.onToolStripMenuItem.Text = "On";
             this.onToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
             // 
@@ -701,47 +701,6 @@ namespace Tabster.Forms
             this.searchDisplay.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SaveSelectedTab);
             this.searchDisplay.SelectionChanged += new System.EventHandler(this.dataGridViewExtended1_SelectionChanged);
             this.searchDisplay.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewExtended1_MouseClick);
-            // 
-            // searchcol_artist
-            // 
-            this.searchcol_artist.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.searchcol_artist.HeaderText = "Artist";
-            this.searchcol_artist.Name = "searchcol_artist";
-            this.searchcol_artist.ReadOnly = true;
-            this.searchcol_artist.Width = 185;
-            // 
-            // searchcol_song
-            // 
-            this.searchcol_song.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.searchcol_song.HeaderText = "Song";
-            this.searchcol_song.Name = "searchcol_song";
-            this.searchcol_song.ReadOnly = true;
-            this.searchcol_song.Width = 225;
-            // 
-            // searchcol_type
-            // 
-            this.searchcol_type.HeaderText = "Type";
-            this.searchcol_type.Name = "searchcol_type";
-            this.searchcol_type.ReadOnly = true;
-            // 
-            // searchcol_rating
-            // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.Format = "N0";
-            dataGridViewCellStyle8.NullValue = null;
-            this.searchcol_rating.DefaultCellStyle = dataGridViewCellStyle8;
-            this.searchcol_rating.HeaderText = "Rating";
-            this.searchcol_rating.Name = "searchcol_rating";
-            this.searchcol_rating.ReadOnly = true;
-            this.searchcol_rating.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.searchcol_rating.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // searchcol_votes
-            // 
-            this.searchcol_votes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.searchcol_votes.HeaderText = "Votes";
-            this.searchcol_votes.Name = "searchcol_votes";
-            this.searchcol_votes.ReadOnly = true;
             // 
             // panel1
             // 
@@ -1032,8 +991,8 @@ namespace Tabster.Forms
             // newPlaylistToolStripMenuItem
             // 
             this.newPlaylistToolStripMenuItem.Name = "newPlaylistToolStripMenuItem";
-            this.newPlaylistToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
-                        | System.Windows.Forms.Keys.N)));
+            this.newPlaylistToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.N)));
             this.newPlaylistToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.newPlaylistToolStripMenuItem.Text = "New &Playlist";
             this.newPlaylistToolStripMenuItem.Click += new System.EventHandler(this.NewPlaylist);
@@ -1336,6 +1295,44 @@ namespace Tabster.Forms
             this.SearchPreviewBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchPreviewBackgroundWorker_DoWork);
             this.SearchPreviewBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchPreviewBackgroundWorker_RunWorkerCompleted);
             // 
+            // searchcol_artist
+            // 
+            this.searchcol_artist.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.searchcol_artist.HeaderText = "Artist";
+            this.searchcol_artist.Name = "searchcol_artist";
+            this.searchcol_artist.ReadOnly = true;
+            this.searchcol_artist.Width = 185;
+            // 
+            // searchcol_song
+            // 
+            this.searchcol_song.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.searchcol_song.HeaderText = "Song";
+            this.searchcol_song.Name = "searchcol_song";
+            this.searchcol_song.ReadOnly = true;
+            this.searchcol_song.Width = 225;
+            // 
+            // searchcol_type
+            // 
+            this.searchcol_type.HeaderText = "Type";
+            this.searchcol_type.Name = "searchcol_type";
+            this.searchcol_type.ReadOnly = true;
+            // 
+            // searchcol_rating
+            // 
+            dataGridViewCellStyle8.Format = "N0";
+            this.searchcol_rating.DefaultCellStyle = dataGridViewCellStyle8;
+            this.searchcol_rating.HeaderText = "Rating";
+            this.searchcol_rating.Name = "searchcol_rating";
+            this.searchcol_rating.ReadOnly = true;
+            this.searchcol_rating.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // searchcol_votes
+            // 
+            this.searchcol_votes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.searchcol_votes.HeaderText = "Votes";
+            this.searchcol_votes.Name = "searchcol_votes";
+            this.searchcol_votes.ReadOnly = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1481,11 +1478,6 @@ namespace Tabster.Forms
         private ToolStripMenuItem searchverticalpreviewToolStripMenuItem;
         private ToolStripMenuItem playlistInformationToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker SearchPreviewBackgroundWorker;
-        private DataGridViewTextBoxColumn searchcol_artist;
-        private DataGridViewTextBoxColumn searchcol_song;
-        private DataGridViewTextBoxColumn searchcol_type;
-        private DataGridViewImageColumn searchcol_rating;
-        private DataGridViewTextBoxColumn searchcol_votes;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem multiDownloaderToolStripMenuItem;
         private ToolStripMenuItem librarycontextfavorites;
@@ -1497,6 +1489,11 @@ namespace Tabster.Forms
         private DataGridViewTextBoxColumn location;
         private Label lblopenedexternally;
         private ToolStripMenuItem onToolStripMenuItem;
+        private DataGridViewTextBoxColumn searchcol_artist;
+        private DataGridViewTextBoxColumn searchcol_song;
+        private DataGridViewTextBoxColumn searchcol_type;
+        private DataGridViewTextBoxColumn searchcol_rating;
+        private DataGridViewTextBoxColumn searchcol_votes;
     }
 }
 

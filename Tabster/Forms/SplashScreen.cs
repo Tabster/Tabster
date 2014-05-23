@@ -39,7 +39,7 @@ namespace Tabster.Forms
 
             var borderColor = Color.Black;
             const int borderWidth = 1;
-            var borderStyle = ButtonBorderStyle.Solid;
+            const ButtonBorderStyle borderStyle = ButtonBorderStyle.Solid;
 
             ControlPaint.DrawBorder(e.Graphics, ClientRectangle,
                                          borderColor, borderWidth, borderStyle,

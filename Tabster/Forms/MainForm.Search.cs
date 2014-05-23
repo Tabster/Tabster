@@ -13,28 +13,8 @@ namespace Tabster.Forms
 {
     partial class MainForm
     {
-        private readonly Image Rating0, Rating1, Rating2, Rating3, Rating4, Rating5;
         private readonly SearchManager searchManager = new SearchManager();
         private readonly Dictionary<Uri, UltimateGuitarTab> _ugTabCache = new Dictionary<Uri, UltimateGuitarTab>(); 
-
-        private Image GetRating(int rating)
-        {
-            switch (rating)
-            {
-                case 1:
-                    return Rating1;
-                case 2:
-                    return Rating2;
-                case 3:
-                    return Rating3;
-                case 4:
-                    return Rating4;
-                case 5:
-                    return Rating5;
-                default:
-                    return Rating0;
-            }
-        }
 
         private SearchResult SelectedSearchResult()
         {
@@ -166,7 +146,13 @@ namespace Tabster.Forms
                 if (searchManager.Type == UltimateGuitar.TabType.Undefined || searchManager.Type == result.Type)
                 {
                     var newRow = new DataGridViewRow {Tag = result.URL.ToString()};
-                    newRow.CreateCells(searchDisplay, result.Artist, result.Title, Tab.GetTabString(UltimateGuitarTab.GetTabType(result.Type)), GetRating(result.Rating), result.Votes);
+
+                    var ratingString = "";
+                    
+                    if (result.Rating > 0)
+                        ratingString = new string('\u2605', result.Rating).PadRight(5, '\u2606');
+
+                    newRow.CreateCells(searchDisplay, result.Artist, result.Title, Tab.GetTabString(UltimateGuitarTab.GetTabType(result.Type)), ratingString, result.Votes);
                     searchDisplay.Rows.Add(newRow);
                 }
             }
