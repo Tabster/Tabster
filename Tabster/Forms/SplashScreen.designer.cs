@@ -99,7 +99,7 @@ namespace Tabster.Forms
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(223, 16);
             this.label2.TabIndex = 48;
-            this.label2.Text = "Copyright © 2010-2013 Nate Shoffner";
+            this.label2.Text = "Copyright © 2010-2014 Nate Shoffner";
             // 
             // lblloading
             // 

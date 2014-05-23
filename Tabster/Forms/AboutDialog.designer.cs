@@ -63,7 +63,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(186, 13);
             this.label2.TabIndex = 47;
-            this.label2.Text = "Copyright © 2010-2013 Nate Shoffner";
+            this.label2.Text = "Copyright © 2010-2014 Nate Shoffner";
             // 
             // closebtn
             // 
@@ -173,7 +173,7 @@
             this.label5.TabIndex = 60;
             this.label5.Text = "Homepage:";
             // 
-            // About
+            // AboutDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -196,7 +196,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "About";
+            this.Name = "AboutDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
