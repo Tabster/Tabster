@@ -510,33 +510,6 @@ namespace Tabster.Forms
             }
 
             tablibrary.ResumeLayout();
-
-            //UpdateDetails();
-
-            //update tab counts next to library sections
-            /*
-            sidemenu.UpdateLibraryCount(LibraryType.AllTabs, MyLibrary.Tabs.Count);
-            sidemenu.UpdateLibraryCount(LibraryType.GuitarTabs, MyLibrary.GuitarTabs);
-            sidemenu.UpdateLibraryCount(LibraryType.GuitarChords, MyLibrary.GuitarChords);
-            sidemenu.UpdateLibraryCount(LibraryType.BassTabs, MyLibrary.BassTabs);
-            sidemenu.UpdateLibraryCount(LibraryType.DrumTabs, MyLibrary.DrumTabs);
-            */
-            //sidemenu.Nodes["node_library"].Text = string.Format("Library ({0})", total);
-
-
-            //display corrupted tab count
-            /*
-             * var corrupted = Global.libraryManager.Tabs.GetCorruptedTabs();
-            toolStripSeparator1.Visible = corrupted.Count > 0;
-            toolStripStatusLabel1.Text = string.Format("Corrupted: {0}", corrupted.Count);
-            toolStripStatusLabel1.Visible = corrupted.Count > 0;
-            */
-
-            //reset sort order
-            //if (sortedColumn != null)
-            //    libraryViewer1.Sort(sortedColumn, sortOrder);
-
-            //if (tablibrary.Rows.Count > rowindex) tablibrary.Rows[rowindex].Selected = true;
         }
 
         private void NewPlaylist(object sender, EventArgs e)
