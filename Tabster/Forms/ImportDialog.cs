@@ -11,8 +11,6 @@ namespace Tabster.Forms
 {
     public partial class ImportDialog : Form
     {
-        public Tab TabData { get; private set; }
-
         public ImportDialog()
         {
             InitializeComponent();
@@ -20,9 +18,11 @@ namespace Tabster.Forms
             txtartist.Select(txtartist.Text.Length, 0);
         }
 
+        public Tab TabData { get; private set; }
+
         private void okbtn_Click(object sender, EventArgs e)
         {
-            TabData = new Tab(txtartist.Text.Trim(), txtsong.Text.Trim(), Tab.GetTabType(txttype.Text), File.ReadAllText(txtimportfile.Text)) { Source = new Uri(txtimportfile.Text), SourceType = TabSource.FileImport };
+            TabData = new Tab(txtartist.Text.Trim(), txtsong.Text.Trim(), Tab.GetTabType(txttype.Text), File.ReadAllText(txtimportfile.Text)) {Source = new Uri(txtimportfile.Text), SourceType = TabSource.FileImport};
         }
 
         private void browsebtn_Click(object sender, EventArgs e)
@@ -35,7 +35,6 @@ namespace Tabster.Forms
                                      Filter = "Text Files (*.txt)|*.txt"
                                  })
             {
-
                 if (ofd.ShowDialog() != DialogResult.Cancel)
                 {
                     txtimportfile.Text = ofd.FileName;

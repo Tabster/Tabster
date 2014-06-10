@@ -1,7 +1,6 @@
 ﻿#region
 
 using System;
-using System.IO;
 using System.Windows.Forms;
 using Tabster.Core;
 
@@ -11,8 +10,6 @@ namespace Tabster.Forms
 {
     public partial class NewTabDialog : Form
     {
-        public Tab TabData { get; private set; }
-
         public NewTabDialog()
         {
             InitializeComponent();
@@ -27,12 +24,14 @@ namespace Tabster.Forms
             txttype.DataSource = Tab.TabTypes;
             txtartist.Text = artist;
             txtsong.Text = song;
-            txttype.SelectedIndex = (int)type;
+            txttype.SelectedIndex = (int) type;
         }
+
+        public Tab TabData { get; private set; }
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            TabData = new Tab(txtartist.Text.Trim(), txtsong.Text.Trim(), Tab.GetTabType(txttype.Text), "") { SourceType = TabSource.UserCreated };
+            TabData = new Tab(txtartist.Text.Trim(), txtsong.Text.Trim(), Tab.GetTabType(txttype.Text), "") {SourceType = TabSource.UserCreated};
         }
 
         private void ValidateData()

@@ -39,7 +39,7 @@ namespace Tabster.Forms
 
             var playlistCount = Program.libraryManager.FindPlaylistsContaining(_tabFile).Count;
             lblPlaylistCount.Text = string.Format("Founds in {0} playlist{1}.", playlistCount, playlistCount == 1 ? "" : "s");
-           
+
             txtlyrics.Text = _tabFile.TabData.Lyrics;
             txtaudio.Text = _tabFile.TabData.Audio;
 
@@ -80,7 +80,6 @@ namespace Tabster.Forms
                                          Filter = "Audio Files (*.mp3)|*.mp3"
                                      })
                 {
-
                     if (ofd.ShowDialog() != DialogResult.Cancel)
                     {
                         txtaudio.Text = ofd.FileName;
@@ -97,7 +96,6 @@ namespace Tabster.Forms
 
         private void groupBox3_Enter(object sender, EventArgs e)
         {
-
         }
     }
 }

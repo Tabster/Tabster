@@ -3,10 +3,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 using Tabster.Core;
 using Tabster.UltimateGuitar;
+using TabType = Tabster.UltimateGuitar.TabType;
 
 #endregion
 
@@ -14,13 +14,13 @@ namespace Tabster.Forms
 {
     partial class MainForm
     {
+        private readonly Dictionary<Uri, UltimateGuitarTab> _ugTabCache = new Dictionary<Uri, UltimateGuitarTab>();
         private readonly SearchManager searchManager = new SearchManager();
-        private readonly Dictionary<Uri, UltimateGuitarTab> _ugTabCache = new Dictionary<Uri, UltimateGuitarTab>(); 
 
         private SearchResult SelectedSearchResult()
         {
-             var selectedURL = searchDisplay.SelectedRows.Count > 0 ? new Uri(searchDisplay.SelectedRows[0].Tag.ToString()) : null;
-             return selectedURL != null ? searchManager.Find(x => x.URL.Equals(selectedURL)) : null;
+            var selectedURL = searchDisplay.SelectedRows.Count > 0 ? new Uri(searchDisplay.SelectedRows[0].Tag.ToString()) : null;
+            return selectedURL != null ? searchManager.Find(x => x.URL.Equals(selectedURL)) : null;
         }
 
         private void onlinesearchbtn_Click(object sender, EventArgs e)
@@ -32,27 +32,27 @@ namespace Tabster.Forms
                 searchManager.Artist = txtsearchartist.Text;
                 searchManager.Title = txtsearchsong.Text;
 
-                var searchType = UltimateGuitar.TabType.Undefined;
+                var searchType = TabType.Undefined;
 
                 switch (txtsearchtype.SelectedIndex)
                 {
                     case 0:
-                        searchType = UltimateGuitar.TabType.Undefined;
+                        searchType = TabType.Undefined;
                         break;
                     case 1:
-                        searchType = UltimateGuitar.TabType.GuitarTab;
+                        searchType = TabType.GuitarTab;
                         break;
                     case 2:
-                        searchType = UltimateGuitar.TabType.GuitarChords;
+                        searchType = TabType.GuitarChords;
                         break;
                     case 3:
-                        searchType = UltimateGuitar.TabType.BassTab;
+                        searchType = TabType.BassTab;
                         break;
                     case 4:
-                        searchType = UltimateGuitar.TabType.DrumTab;
+                        searchType = TabType.DrumTab;
                         break;
                     case 5:
-                        searchType = UltimateGuitar.TabType.Ukulele;
+                        searchType = TabType.Ukulele;
                         break;
                 }
 
@@ -92,7 +92,7 @@ namespace Tabster.Forms
 
                         if (ugTab != null)
                         {
-                            var tab = new Tab(nt.txtartist.Text, nt.txtsong.Text, Tab.GetTabType(nt.txttype.Text), ugTab.ConvertToTab().Contents) { Source = selectedResult.URL, SourceType = TabSource.Download };
+                            var tab = new Tab(nt.txtartist.Text, nt.txtsong.Text, Tab.GetTabType(nt.txttype.Text), ugTab.ConvertToTab().Contents) {Source = selectedResult.URL, SourceType = TabSource.Download};
 
                             var tabFile = TabFile.Create(tab, Program.libraryManager.TabsDirectory);
                             Program.libraryManager.AddTab(tabFile, true);
@@ -137,19 +137,19 @@ namespace Tabster.Forms
             LoadSelectedPreview();
         }
 
-        void searchSession_OnCompleted(object sender, SearchEventArgs e)
+        private void searchSession_OnCompleted(object sender, SearchEventArgs e)
         {
             searchDisplay.SuspendLayout();
             searchDisplay.Rows.Clear();
 
             foreach (var result in searchManager)
             {
-                if (searchManager.Type == UltimateGuitar.TabType.Undefined || searchManager.Type == result.Type)
+                if (searchManager.Type == TabType.Undefined || searchManager.Type == result.Type)
                 {
                     var newRow = new DataGridViewRow {Tag = result.URL.ToString()};
 
                     var ratingString = "";
-                    
+
                     if (result.Rating > 0)
                         ratingString = new string('\u2605', result.Rating).PadRight(5, '\u2606');
 

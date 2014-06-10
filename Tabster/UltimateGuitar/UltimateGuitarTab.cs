@@ -95,7 +95,7 @@ namespace Tabster.UltimateGuitar
                 }
 
                 var contentsNode = doc.DocumentNode.SelectSingleNode("//div[@id='cont']/pre[2]");
-                
+
                 if (contentsNode != null)
                 {
                     var contents = Common.StripHTML(contentsNode.InnerHtml);

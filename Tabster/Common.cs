@@ -1,4 +1,8 @@
-﻿using System.IO;
+﻿#region
+
+using System.IO;
+
+#endregion
 
 namespace Tabster
 {

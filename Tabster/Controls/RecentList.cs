@@ -12,6 +12,8 @@ namespace Tabster.Controls
 {
     public class RecentToolStripMenuItem : ToolStripMenuItem
     {
+        private bool _hasClearButton;
+
         public RecentToolStripMenuItem()
         {
             ShowClear = true;
@@ -23,8 +25,6 @@ namespace Tabster.Controls
         public int MaxItems { get; set; }
 
         public event EventHandler OnItemClicked;
-
-        private bool _hasClearButton;
 
         private bool IsRecent(TabFile tab, out int index)
         {
@@ -118,7 +118,7 @@ namespace Tabster.Controls
                 }
             }
 
-            doc.Save(FilePath); 
+            doc.Save(FilePath);
         }
 
         public void Load()

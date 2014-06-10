@@ -14,9 +14,6 @@ namespace Tabster.Controls
 {
     public class Sidebar : TreeView
     {
-        [DllImport("user32.dll")]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
-
         private const int TVM_SETEXTENDEDSTYLE = 0x1100 + 44;
         private const int TVS_EX_DOUBLEBUFFER = 0x0004;
 
@@ -27,15 +24,18 @@ namespace Tabster.Controls
         public TreeNode NodeDrumTabs;
         public TreeNode NodeGuitarChords;
         public TreeNode NodeGuitarTabs;
-        public TreeNode NodeUkuleleTabs;
         public TreeNode NodeLibrary;
         public TreeNode NodeMyDownloads;
         public TreeNode NodeMyFavorites;
         public TreeNode NodeMyImports;
         public TreeNode NodeMyTabs;
         public TreeNode NodePlaylists;
+        public TreeNode NodeUkuleleTabs;
 
         public ContextMenu PlaylistMenu = new ContextMenu();
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
         public void LoadNodes()
         {
@@ -49,7 +49,7 @@ namespace Tabster.Controls
             NodeBassTabs = new TreeNode("Bass Tabs") {Name = "node_basstabs", NodeFont = ChildFont};
             NodeDrumTabs = new TreeNode("Drum Tabs") {Name = "node_drumtabs", NodeFont = ChildFont};
             NodeUkuleleTabs = new TreeNode("Ukulele Tabs") {Name = "node_ukuleletabs", NodeFont = ChildFont};
-               
+
             NodeLibrary = new TreeNode("Library", new[]
                                                       {
                                                           NodeAllTabs,

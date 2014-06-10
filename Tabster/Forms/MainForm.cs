@@ -1,7 +1,6 @@
 ﻿#region
 
 using System;
-using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Tabster.Controls;
@@ -245,6 +244,37 @@ namespace Tabster.Forms
             Settings.Default.Save();
         }
 
+        private void txtsearchartist_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                onlinesearchbtn.PerformClick();
+            }
+        }
+
+        #region Updater
+
+        private void _updateQuery_Completed(object sender, UpdateQueryCompletedEventArgs e)
+        {
+            var showUpdatedDialog = e.UserState != null && (bool) e.UserState;
+
+            if (_updateQuery.UpdateAvailable)
+            {
+                var updateDialog = new UpdateDialog(_updateQuery) {StartPosition = FormStartPosition.CenterParent};
+                updateDialog.ShowDialog();
+            }
+
+            else
+            {
+                if (showUpdatedDialog)
+                {
+                    MessageBox.Show("Your version of Tabster is up to date.", "Updated");
+                }
+            }
+        }
+
+        #endregion
+
         #region Menu Items
 
         private void multiDownloaderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -280,37 +310,6 @@ namespace Tabster.Forms
                 if (p.ShowDialog() == DialogResult.OK)
                 {
                     LoadSettings(false);
-                }
-            }
-        }
-
-        #endregion
-
-        private void txtsearchartist_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                onlinesearchbtn.PerformClick();
-            }
-        }
-
-        #region Updater
-
-        void _updateQuery_Completed(object sender, UpdateQueryCompletedEventArgs e)
-        {
-            var showUpdatedDialog = e.UserState != null && (bool)e.UserState;
-
-            if (_updateQuery.UpdateAvailable)
-            {
-                var updateDialog = new UpdateDialog(_updateQuery) { StartPosition = FormStartPosition.CenterParent };
-                updateDialog.ShowDialog();
-            }
-
-            else
-            {
-                if (showUpdatedDialog)
-                {
-                    MessageBox.Show("Your version of Tabster is up to date.", "Updated");
                 }
             }
         }

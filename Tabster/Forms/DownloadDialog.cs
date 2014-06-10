@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows.Forms;
 using Tabster.Core;
 using Tabster.UltimateGuitar;
@@ -13,13 +14,13 @@ namespace Tabster.Forms
 {
     public partial class DownloadDialog : Form
     {
-        private readonly MainForm _parent;
         private readonly List<UltimateGuitarTab> _downloadedTabs = new List<UltimateGuitarTab>();
+        private readonly MainForm _parent;
         private readonly List<string> _urls = new List<string>();
 
 
         public DownloadDialog(MainForm parent)
-        {      
+        {
             InitializeComponent();
             _parent = parent;
         }
@@ -48,7 +49,6 @@ namespace Tabster.Forms
 
                 if (listView1.Items.Count > 0)
                 {
-
                     listView1.BringToFront();
                     startbtn.Visible = false;
                     progressBar1.Value = progressBar1.Minimum;
@@ -61,7 +61,7 @@ namespace Tabster.Forms
                 }
             }
         }
-        
+
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             var tabIndex = e.ProgressPercentage;
@@ -88,7 +88,7 @@ namespace Tabster.Forms
                 var ugtab = UltimateGuitarTab.Download(url);
                 _downloadedTabs.Add(ugtab);
                 backgroundWorker1.ReportProgress(i);
-                System.Threading.Thread.Sleep(200);
+                Thread.Sleep(200);
             }
         }
 

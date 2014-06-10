@@ -164,7 +164,7 @@ namespace Tabster.Controls
 
         private void _scrollTimer_Tick(object sender, EventArgs e)
         {
-            var visibleLines = txtContents.Size.Height / _lineSize.Height;
+            var visibleLines = txtContents.Size.Height/_lineSize.Height;
             var totalLines = txtContents.Lines.Length;
             var currentLine = txtContents.GetLineFromCharIndex(txtContents.SelectionStart) + 1;
             var nextLine = currentLine + 2;

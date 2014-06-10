@@ -24,7 +24,7 @@ namespace Tabster
 
         public new Form MainForm
         {
-            get { return base.MainForm;  }
+            get { return base.MainForm; }
         }
 
         public new Form SplashScreen
