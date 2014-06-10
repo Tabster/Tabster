@@ -339,7 +339,6 @@ namespace Tabster.Forms
         {
             filtertext.Reset(true);
             LoadLibrary();
-            //libraryViewer1.ClearSelection();
         }
 
         private void ToggleFavorite(object sender, EventArgs e)
@@ -440,26 +439,13 @@ namespace Tabster.Forms
             return LibraryType.AllTabs;
         }
 
-        public void LoadLibrary(string searchValue = null)
+        private IEnumerable<TabFile> GetLibraryCollection(LibraryType libraryType)
         {
-            var selectedPlaylist = sidemenu.SelectedPlaylist();
-
-            //nothing to filter
-            if ((selectedPlaylist != null && selectedPlaylist.PlaylistData.Count == 0) || (selectedPlaylist == null && Program.libraryManager.TabCount == 0))
-            {
-                tablibrary.Rows.Clear();
-                return;
-            }
-
-            tablibrary.Rows.Clear();
-            tablibrary.SuspendLayout();
-
-            var selectedLibrary = SelectedLibrary();
-
             var tabCollection = new List<TabFile>();
 
-            if (selectedLibrary == LibraryType.Playlist)
+            if (libraryType == LibraryType.Playlist)
             {
+                var selectedPlaylist = sidemenu.SelectedPlaylist();
                 tabCollection = new List<TabFile>(selectedPlaylist.PlaylistData);
             }
 
@@ -471,37 +457,56 @@ namespace Tabster.Forms
                 }
             }
 
+            return tabCollection.ToArray();
+        }
+
+        private static bool LibraryItemVisible(LibraryType selectedLibrary, TabFile tab, string searchValue)
+        {
+            var libraryMatch =
+                selectedLibrary == LibraryType.Playlist ||
+                selectedLibrary == LibraryType.AllTabs ||
+               (selectedLibrary == LibraryType.MyTabs && tab.TabData.SourceType == TabSource.UserCreated) ||
+               (selectedLibrary == LibraryType.MyDownloads && tab.TabData.SourceType == TabSource.Download) ||
+               (selectedLibrary == LibraryType.MyImports && tab.TabData.SourceType == TabSource.FileImport) ||
+               (selectedLibrary == LibraryType.GuitarTabs && tab.TabData.Type == TabType.Guitar) ||
+               (selectedLibrary == LibraryType.GuitarChords && tab.TabData.Type == TabType.Chord) ||
+               (selectedLibrary == LibraryType.BassTabs && tab.TabData.Type == TabType.Bass) ||
+               (selectedLibrary == LibraryType.DrumTabs && tab.TabData.Type == TabType.Drum) ||
+               (selectedLibrary == LibraryType.UkuleleTabs && tab.TabData.Type == TabType.Ukulele) ||
+               (selectedLibrary == LibraryType.MyFavorites && Program.libraryManager.FindTab(tab).Favorited);
+
+            if (libraryMatch)
+            {
+                if (searchValue == null)
+                    return true;
+
+                return tab.TabData.Artist.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                       tab.TabData.Title.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                       tab.FileInfo.FullName.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                       tab.TabData.Contents.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                       tab.TabData.Lyrics.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                       tab.TabData.Comment.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0;
+            }
+
+            return false;
+        }
+
+        public void LoadLibrary(string searchValue = null)
+        {
+            var selectedLibrary = SelectedLibrary();
+
+            var tabCollection = GetLibraryCollection(selectedLibrary);
+
+            tablibrary.SuspendLayout();           
+
+            tablibrary.Rows.Clear();
+
             foreach (var tab in tabCollection)
             {
-                var libraryMatch = 
-                    selectedLibrary == LibraryType.Playlist || 
-                    selectedLibrary == LibraryType.AllTabs ||
-                   (selectedLibrary == LibraryType.MyTabs && tab.TabData.SourceType == TabSource.UserCreated) ||
-                   (selectedLibrary == LibraryType.MyDownloads && tab.TabData.SourceType == TabSource.Download) ||  
-                   (selectedLibrary == LibraryType.MyImports && tab.TabData.SourceType == TabSource.FileImport) ||
-                   (selectedLibrary == LibraryType.GuitarTabs && tab.TabData.Type == TabType.Guitar) ||
-                   (selectedLibrary == LibraryType.GuitarChords && tab.TabData.Type == TabType.Chord) ||
-                   (selectedLibrary == LibraryType.BassTabs && tab.TabData.Type == TabType.Bass) ||
-                   (selectedLibrary == LibraryType.DrumTabs && tab.TabData.Type == TabType.Drum) ||
-                   (selectedLibrary == LibraryType.UkuleleTabs && tab.TabData.Type == TabType.Ukulele) || 
-                   (selectedLibrary == LibraryType.MyFavorites && Program.libraryManager.FindTab(tab).Favorited);
+                var visible = LibraryItemVisible(selectedLibrary, tab, searchValue);
 
-                if (libraryMatch)
-                {
-                    var searchMatch = searchValue == null || (tab.TabData.Artist.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                                              tab.TabData.Title.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                                              (
-                                                                   tab.FileInfo.FullName.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                                                   tab.TabData.Contents.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                                                   tab.TabData.Lyrics.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                                                   tab.TabData.Comment.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0)
-                                                              );
-
-                    if (searchMatch)
-                    {
-                        UpdateLibraryItem(tab);
-                    }
-                }
+                if (visible)
+                    UpdateLibraryItem(tab);               
             }
 
             tablibrary.ResumeLayout();
