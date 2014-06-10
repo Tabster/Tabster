@@ -2,9 +2,9 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Diagnostics;
 using System.Reflection;
 
 #endregion
@@ -43,7 +43,6 @@ namespace Tabster.Updater
         {
             if (_downloadLocation != null)
             {
-                
                 var installPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
                 var psi = new ProcessStartInfo
@@ -52,9 +51,9 @@ namespace Tabster.Updater
                                   //UseShellExecute = true,
                                   WorkingDirectory = Path.GetDirectoryName(_downloadLocation),
                                   FileName = Path.GetFileName(_downloadLocation),
-                                  Arguments = silent ? string.Format("/S /D={0}", installPath) : "",    
+                                  Arguments = silent ? string.Format("/S /D={0}", installPath) : "",
                               };
-                
+
                 var process = Process.Start(psi);
 
                 if (silent)

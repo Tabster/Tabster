@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
 using Tabster.Controls;
+using Tabster.Core;
 using Tabster.Properties;
 #endregion
 

@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Net;
 using System.Web;
 using HtmlAgilityPack;
 
@@ -43,24 +42,17 @@ namespace Tabster.UltimateGuitar
     }
 
     public class SearchManager : IEnumerable<SearchResult>
-    {       
-        public string Artist { get; set; }
-        public string Title { get; set; }
+    {
+        #region Delegates
 
         public delegate void SearchHandler(object sender, SearchEventArgs e);
-        public event SearchHandler Completed;
 
-        private TabType _type = TabType.Undefined;
-        public TabType Type
-        {
-            get { return _type; }
-            set { _type = value; }
-        }
-
-        private Uri URL;
-        private readonly List<SearchResult> _results = new List<SearchResult>();
+        #endregion
 
         private static readonly BackgroundWorker _bgWorker = new BackgroundWorker();
+        private readonly List<SearchResult> _results = new List<SearchResult>();
+        private Uri URL;
+        private TabType _type = TabType.Undefined;
 
         public SearchManager()
         {
@@ -68,6 +60,17 @@ namespace Tabster.UltimateGuitar
             _bgWorker.DoWork += bgWorker_DoWork;
             _bgWorker.RunWorkerCompleted += bgWorker_RunWorkerCompleted;
         }
+
+        public string Artist { get; set; }
+        public string Title { get; set; }
+
+        public TabType Type
+        {
+            get { return _type; }
+            set { _type = value; }
+        }
+
+        public event SearchHandler Completed;
 
         private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -82,7 +85,7 @@ namespace Tabster.UltimateGuitar
                 SearchTab();
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 e.Result = ex;
             }
@@ -96,7 +99,7 @@ namespace Tabster.UltimateGuitar
 
             URL = Type == TabType.Undefined
                       ? new Uri(string.Format("http://www.ultimate-guitar.com/search.php?w=songs&s={0}", searchString))
-                      : new Uri(string.Format("http://www.ultimate-guitar.com/search.php?w=songs&s={0}&type={1}", searchString, (int)Type));
+                      : new Uri(string.Format("http://www.ultimate-guitar.com/search.php?w=songs&s={0}&type={1}", searchString, (int) Type));
 
             string data;
 

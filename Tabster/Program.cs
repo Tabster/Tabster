@@ -24,7 +24,7 @@ namespace Tabster
             instanceController = new SingleInstanceController();
             TabHandler = new TabViewerManager();
 
-            instanceController.Run(args);       
+            instanceController.Run(args);
         }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
+using Tabster.Core;
 
 #endregion
 

@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace Tabster
+namespace Tabster.Core
 {
     public enum TabType
     {
@@ -56,7 +56,7 @@ namespace Tabster
 
         static Tab()
         {
-            TabTypes = new[] { "Guitar Tab", "Guitar Chords", "Bass Tab", "Drum Tab", "Ukulele Tab" };
+            TabTypes = new[] {"Guitar Tab", "Guitar Chords", "Bass Tab", "Drum Tab", "Ukulele Tab"};
         }
 
         public Tab(string artist, string title, TabType type, string contents)

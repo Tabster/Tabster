@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using Tabster.Controls;
+using Tabster.Core;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion

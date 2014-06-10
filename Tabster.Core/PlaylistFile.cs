@@ -6,7 +6,7 @@ using System.Xml;
 
 #endregion
 
-namespace Tabster
+namespace Tabster.Core
 {
     public class PlaylistFile : TabsterFile, ITabsterFile
     {
@@ -85,7 +85,7 @@ namespace Tabster
         public static PlaylistFile Create(Playlist playlist, string directory)
         {
             var filePath = GenerateUniqueFilename(directory, string.Format("{0}{1}", playlist.Name, FILE_EXTENSION));
-            var playlistFile = new PlaylistFile(filePath, false) { PlaylistData = playlist, FileInfo = new FileInfo(filePath) };
+            var playlistFile = new PlaylistFile(filePath, false) {PlaylistData = playlist, FileInfo = new FileInfo(filePath)};
             playlistFile.Save();
             return playlistFile;
         }
@@ -101,19 +101,16 @@ namespace Tabster
                 success = true;
             }
 
-            catch(FileNotFoundException)
+            catch (FileNotFoundException)
             {
-                
             }
 
             catch (IOException)
             {
-
             }
 
             catch (XmlException)
             {
-
             }
 
             playlistfile = pf;

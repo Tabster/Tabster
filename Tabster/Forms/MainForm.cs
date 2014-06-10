@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Tabster.Controls;
+using Tabster.Core;
 using Tabster.Properties;
 using Tabster.Updater;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;

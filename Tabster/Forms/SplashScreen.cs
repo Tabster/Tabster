@@ -42,11 +42,11 @@ namespace Tabster.Forms
             const ButtonBorderStyle borderStyle = ButtonBorderStyle.Solid;
 
             ControlPaint.DrawBorder(e.Graphics, ClientRectangle,
-                                         borderColor, borderWidth, borderStyle,
-                                         borderColor, borderWidth, borderStyle,
-                                         borderColor, borderWidth, borderStyle,
-                                         borderColor, borderWidth, borderStyle);
-        } 
+                                    borderColor, borderWidth, borderStyle,
+                                    borderColor, borderWidth, borderStyle,
+                                    borderColor, borderWidth, borderStyle,
+                                    borderColor, borderWidth, borderStyle);
+        }
 
         private void UpdateProgress()
         {

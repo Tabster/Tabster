@@ -10,9 +10,16 @@ namespace Tabster.Controls
 {
     internal class SearchBox : ToolStripTextBox
     {
+        #region Delegates
+
+        public delegate void NewSearchHandler(object sender, string value);
+
+        #endregion
+
+        private const int _delayInterval = 250;
+
         private readonly Timer _delayTimer = new Timer();
         private ToolStripButton _clearButton;
-        private const int _delayInterval = 250;
         private string _previousSearch = "";
 
         public SearchBox()
@@ -42,8 +49,6 @@ namespace Tabster.Controls
         {
             get { return _delayInterval; }
         }
-
-        public delegate void NewSearchHandler(object sender, string value);
 
         public event NewSearchHandler OnNewSearch;
 

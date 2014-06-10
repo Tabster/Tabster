@@ -1,6 +1,5 @@
 ﻿#region
 
-using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using Tabster.Properties;
@@ -21,7 +20,7 @@ namespace Tabster.Forms
 
         private void LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(((LinkLabel)sender).Text);
+            Process.Start(((LinkLabel) sender).Text);
         }
     }
 }

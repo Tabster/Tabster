@@ -8,7 +8,7 @@ using System.Xml;
 
 #endregion
 
-namespace Tabster
+namespace Tabster.Core
 {
     public interface ITabsterFile
     {
@@ -18,21 +18,21 @@ namespace Tabster
 
     public class ElementNode
     {
-        public SortedDictionary<string, string> Attributes { get; private set; }
-        public string Value { get; private set; }
-
         public ElementNode(SortedDictionary<string, string> attributes, string value)
         {
             Attributes = attributes;
             Value = value;
         }
+
+        public SortedDictionary<string, string> Attributes { get; private set; }
+        public string Value { get; private set; }
     }
 
     public abstract class TabsterFile
     {
+        private XmlDocument _rawXML;
         public FileInfo FileInfo { get; protected set; }
         public Version FileVersion { get; protected set; }
-        private XmlDocument _rawXML;
         protected bool FileFormatOutdated { get; set; }
 
         protected void BeginFileWrite(string rootNode, string formatVersion, string encoding = "ISO-8859-1")
@@ -148,7 +148,7 @@ namespace Tabster
                     var temp = new List<ElementNode>();
 
                     foreach (XmlNode c in matches[0].ChildNodes)
-                    {   
+                    {
                         var attributes = new SortedDictionary<string, string>();
 
                         if (c.Attributes != null)
@@ -174,7 +174,7 @@ namespace Tabster
             var parent = parentNode ?? _rawXML.DocumentElement;
 
             //check if node already exists
-            var existingnodes = _rawXML.GetElementsByTagName(name);   
+            var existingnodes = _rawXML.GetElementsByTagName(name);
             var associatedNode = overwriteDuplicates && existingnodes.Count > 0 ? existingnodes[0] : _rawXML.CreateElement(name);
             parent.AppendChild(associatedNode);
 
@@ -227,7 +227,7 @@ namespace Tabster
             if (!File.Exists(firstTry))
                 return firstTry;
 
-            for (var i = 1; ; ++i)
+            for (var i = 1;; ++i)
             {
                 var appendedPath = Path.Combine(directory, String.Format("{0} ({1}){2}", fileName, i, fileExt));
 

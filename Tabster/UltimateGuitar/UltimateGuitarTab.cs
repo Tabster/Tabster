@@ -2,6 +2,7 @@
 
 using System;
 using HtmlAgilityPack;
+using Tabster.Core;
 
 #endregion
 
@@ -23,7 +24,7 @@ namespace Tabster.UltimateGuitar
 
     public class UltimateGuitarTab
     {
-        public UltimateGuitarTab(string artist, string title, Tabster.TabType type, Uri url, string contents)
+        public UltimateGuitarTab(string artist, string title, Core.TabType type, Uri url, string contents)
         {
             Artist = artist;
             Title = title;
@@ -35,7 +36,7 @@ namespace Tabster.UltimateGuitar
         public Uri URL { get; private set; }
         public string Artist { get; private set; }
         public string Title { get; private set; }
-        public Tabster.TabType Type { get; private set; }
+        public Core.TabType Type { get; private set; }
         public string Contents { get; private set; }
 
         public Tab ConvertToTab()
@@ -125,22 +126,22 @@ namespace Tabster.UltimateGuitar
             return null;
         }
 
-        public static Tabster.TabType GetTabType(TabType type)
+        public static Core.TabType GetTabType(TabType type)
         {
             switch (type)
             {
                 case TabType.GuitarTab:
-                    return Tabster.TabType.Guitar;
+                    return Core.TabType.Guitar;
                 case TabType.GuitarChords:
-                    return Tabster.TabType.Chord;
+                    return Core.TabType.Chord;
                 case TabType.BassTab:
-                    return Tabster.TabType.Bass;
+                    return Core.TabType.Bass;
                 case TabType.DrumTab:
-                    return Tabster.TabType.Drum;
+                    return Core.TabType.Drum;
                 case TabType.Ukulele:
-                    return Tabster.TabType.Ukulele;
+                    return Core.TabType.Ukulele;
                 default:
-                    return Tabster.TabType.Guitar;
+                    return Core.TabType.Guitar;
             }
         }
 

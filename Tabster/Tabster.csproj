@@ -100,7 +100,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SingleInstanceController.cs" />
-    <Compile Include="TabsterFile.cs" />
     <Compile Include="Forms\AboutDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,8 +173,6 @@
       <DependentUpon>PreferencesDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="LibraryManager.cs" />
-    <Compile Include="Playlist.cs" />
-    <Compile Include="PlaylistFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\SplashScreen.cs">
@@ -193,14 +190,12 @@
     <Compile Include="Controls\Sidebar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Tab.cs" />
     <Compile Include="Controls\TabEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\TabEditor.Designer.cs">
       <DependentUpon>TabEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="TabFile.cs" />
     <Compile Include="TabsterWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -331,7 +326,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Tabster.Core\Tabster.Core.csproj">
+      <Project>{B94FA030-4553-4F14-A867-F05849A14DC4}</Project>
+      <Name>Tabster.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

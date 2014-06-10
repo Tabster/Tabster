@@ -3,6 +3,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
+using Tabster.Core;
 using Tabster.Forms;
 
 #endregion

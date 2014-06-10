@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Tabster.Core;
 using Tabster.UltimateGuitar;
 
 #endregion

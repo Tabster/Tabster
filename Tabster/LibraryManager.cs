@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using Microsoft.VisualBasic.FileIO;
+using Tabster.Core;
 using SearchOption = System.IO.SearchOption;
 
 #endregion

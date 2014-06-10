@@ -2,12 +2,11 @@
 
 using System;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Xml;
 
 #endregion
 
-namespace Tabster
+namespace Tabster.Core
 {
     public enum ExportFormat
     {
@@ -64,19 +63,16 @@ namespace Tabster
                 success = true;
             }
 
-            catch(FileNotFoundException)
+            catch (FileNotFoundException)
             {
-                
             }
 
             catch (IOException)
             {
-
             }
 
             catch (XmlException)
             {
-
             }
 
             tabFile = tf;
@@ -90,6 +86,11 @@ namespace Tabster
         public void Load()
         {
             Load(true);
+        }
+
+        public void Save()
+        {
+            Save(FileInfo.FullName);
         }
 
         public void Load(bool convertCarriageReturns)
@@ -145,13 +146,8 @@ namespace Tabster
             if (FileFormatOutdated)
             {
                 Save();
-                Load(); 
+                Load();
             }
-        }
-
-        public void Save()
-        {
-            Save(FileInfo.FullName);
         }
 
         public new void Save(string filePath)

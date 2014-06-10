@@ -9,13 +9,13 @@ namespace Tabster.Forms
 {
     public partial class RenameDialog : Form
     {
-        public string NewName { get; private set; }
-
         public RenameDialog(string currentName)
         {
             InitializeComponent();
             Text = string.Format("Rename {0}", currentName);
         }
+
+        public string NewName { get; private set; }
 
         private void okbtn_Click(object sender, EventArgs e)
         {

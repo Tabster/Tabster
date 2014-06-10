@@ -11,12 +11,12 @@ namespace Tabster.Updater
 {
     public class UpdateQueryCompletedEventArgs : EventArgs
     {
-        public object UserState { get; private set; }
-
         public UpdateQueryCompletedEventArgs(object userState)
         {
             UserState = userState;
         }
+
+        public object UserState { get; private set; }
     }
 
     public class UpdateQuery
