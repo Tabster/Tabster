@@ -200,7 +200,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="TabViewerManager.cs" />
-    <Compile Include="UltimateGuitar\Constants.cs" />
     <Compile Include="UltimateGuitar\SearchManager.cs" />
     <Compile Include="UltimateGuitar\Top100.cs" />
     <Compile Include="UltimateGuitar\UltimateGuitarTab.cs" />
