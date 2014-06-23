@@ -8,8 +8,9 @@ namespace Tabster.Core
 {
     public enum TabType
     {
+        Undefined,
         Guitar,
-        Chord,
+        Chords,
         Bass,
         Drum,
         Ukulele
@@ -148,7 +149,7 @@ namespace Tabster.Core
                 case "Guitar Tab":
                     return TabType.Guitar;
                 case "Guitar Chords":
-                    return TabType.Chord;
+                    return TabType.Chords;
                 case "Drum Tab":
                     return TabType.Drum;
                 case "Ukulele Tab":
@@ -164,7 +165,7 @@ namespace Tabster.Core
             {
                 case TabType.Guitar:
                     return TabTypes[0];
-                case TabType.Chord:
+                case TabType.Chords:
                     return TabTypes[1];
                 case TabType.Bass:
                     return TabTypes[2];
