@@ -34,7 +34,6 @@ namespace Tabster.Forms
             this.lbltitle = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblversion = new System.Windows.Forms.Label();
-            this.lbldisclaimer = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblloading = new System.Windows.Forms.Label();
             this.lblname = new System.Windows.Forms.Label();
@@ -75,19 +74,6 @@ namespace Tabster.Forms
             this.lblversion.Size = new System.Drawing.Size(52, 16);
             this.lblversion.TabIndex = 49;
             this.lblversion.Text = "v0.0.0.0";
-            // 
-            // lbldisclaimer
-            // 
-            this.lbldisclaimer.AutoSize = true;
-            this.lbldisclaimer.BackColor = System.Drawing.Color.Transparent;
-            this.lbldisclaimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbldisclaimer.ForeColor = System.Drawing.Color.Gray;
-            this.lbldisclaimer.Location = new System.Drawing.Point(9, 165);
-            this.lbldisclaimer.Name = "lbldisclaimer";
-            this.lbldisclaimer.Size = new System.Drawing.Size(288, 16);
-            this.lbldisclaimer.TabIndex = 34;
-            this.lbldisclaimer.Text = "Tabster is not endorsed by Ultimate-Guitar.com";
-            this.lbldisclaimer.Visible = false;
             // 
             // label2
             // 
@@ -153,7 +139,6 @@ namespace Tabster.Forms
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblversion);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.lbldisclaimer);
             this.Controls.Add(this.lblloading);
             this.Controls.Add(this.lblname);
             this.DoubleBuffered = true;
@@ -176,7 +161,6 @@ namespace Tabster.Forms
         private System.Windows.Forms.Label lbltitle;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblversion;
-        private System.Windows.Forms.Label lbldisclaimer;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.Label lblloading;
         private System.Windows.Forms.Label lblname;

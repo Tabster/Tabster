@@ -15,7 +15,7 @@ namespace Tabster.Forms
         public int _Progress;
 
         public string[] status = {
-                                     "Loading startup events...", "Organizing library content...", "Checking for updates...", "Loading playlists...",
+                                     "Loading startup events...", "Loading plugins...", "Organizing library content...", "Checking for updates...", "Loading playlists...",
                                      "Scanning tabs and loading library...", "Performing caching..."
                                  };
 
@@ -27,7 +27,6 @@ namespace Tabster.Forms
 
             simpleProgressBar1.Maximum = status.Length*(simpleProgressBar1.Maximum/status.Length);
 
-            lbldisclaimer.ForeColor = Color.Gray;
             lblversion.ForeColor = Color.Gray;
             BringToFront();
             timer1.Start();
