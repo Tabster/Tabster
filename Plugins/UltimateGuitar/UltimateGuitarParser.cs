@@ -1,0 +1,74 @@
+﻿#region
+
+using System;
+using HtmlAgilityPack;
+using Tabster.Core;
+using Tabster.Core.Plugins;
+
+#endregion
+
+namespace UltimateGuitar
+{
+    internal class UltimateGuitarParser : ITabParser
+    {
+        #region Implementation of ITabParser
+
+        public string Name
+        {
+            get { return "Ultimate Guitar"; }
+        }
+
+        public IRemoteTab ParseTabFromSource(string source)
+        {
+            var doc = new HtmlDocument();
+            doc.LoadHtml(source);
+
+            var tabType = TabType.Guitar;
+            string song = null, artist = null;
+
+            //get values from meta keywords
+            var metaNodes = doc.DocumentNode.SelectNodes("/html/head/meta");
+            foreach (var mn in metaNodes)
+            {
+                if (mn.HasAttributes && mn.Attributes.Contains("name") && mn.Attributes["name"].Value == "keywords")
+                {
+                    var split = mn.Attributes["content"].Value.Split(',');
+                    song = split[0].Trim();
+
+                    var typeStr = split[1].Trim();
+
+                    if (typeStr.IndexOf("bass", StringComparison.OrdinalIgnoreCase) > -1)
+                        tabType = TabType.Bass;
+                    else if (typeStr.IndexOf("chord", StringComparison.OrdinalIgnoreCase) > -1)
+                        tabType = TabType.Chords;
+                    else if (typeStr.IndexOf("drum", StringComparison.OrdinalIgnoreCase) > -1)
+                        tabType = TabType.Drum;
+                    else if (typeStr.IndexOf("ukulele", StringComparison.OrdinalIgnoreCase) > -1)
+                        tabType = TabType.Ukulele;
+
+                    artist = split[2].Trim();
+                    break;
+                }
+            }
+
+            var contentsNode = doc.DocumentNode.SelectSingleNode("//div[@id='cont']/pre[2]");
+
+            if (contentsNode != null)
+            {
+                var contents = Common.StripHTML(contentsNode.InnerHtml);
+                contents = Common.ConvertNewlines(contents);
+                return new UltimateGuitarTab(null, artist, song, tabType, contents);
+            }
+
+            return null;
+        }
+
+        public bool MatchesUrlPattern(Uri url)
+        {
+            return url.IsWellFormedOriginalString() && ((url.DnsSafeHost == "ultimate-guitar.com" || url.DnsSafeHost == "www.ultimate-guitar.com" ||
+                                                         url.DnsSafeHost == "tabs.ultimate-guitar.com") && url.AbsolutePath.Split('/').Length >= 4);
+        }
+
+        #endregion
+    }
+}
