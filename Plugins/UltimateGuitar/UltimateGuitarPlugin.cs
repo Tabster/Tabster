@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using Tabster.Core.Plugins;
 
 #endregion
@@ -30,9 +31,9 @@ namespace UltimateGuitar
             get { return "1.0"; }
         }
 
-        public string[] PluginClasses
+        public Type[] Types
         {
-            get { return new[] { "UltimateGuitar.UltimateGuitarSearch", "UltimateGuitar.UltimateGuitarParser" }; }
+            get { return new[] { typeof(UltimateGuitarSearch), typeof(UltimateGuitarParser) }; }
         }
 
         #endregion

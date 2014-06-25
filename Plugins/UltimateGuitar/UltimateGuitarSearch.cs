@@ -12,7 +12,7 @@ using Tabster.Core.Plugins;
 
 namespace UltimateGuitar
 {
-    public class UltimateGuitar : ISearchService
+    public class UltimateGuitarSearch : ISearchService
     {
         #region Implementation of ISearchService
 
