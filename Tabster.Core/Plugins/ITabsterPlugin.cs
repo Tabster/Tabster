@@ -1,4 +1,6 @@
-﻿namespace Tabster.Core.Plugins
+﻿using System;
+
+namespace Tabster.Core.Plugins
 {
     public interface ITabsterPlugin
     {
@@ -6,6 +8,6 @@
         string Description { get; }
         string Author { get; }
         string Version { get; }
-        string[] PluginClasses { get; }
+        Type[] Types { get; }
     }
 }
