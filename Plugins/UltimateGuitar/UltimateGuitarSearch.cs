@@ -93,30 +93,6 @@ namespace UltimateGuitar
                             var rowURL = columns[colIndexSong].ChildNodes["a"].Attributes["href"].Value;
                             var rowSong = HttpUtility.HtmlDecode(columns[colIndexSong].ChildNodes["a"].InnerText);
 
-                            var ratingColumn = columns[colIndexRating];
-
-                            //todo rating and votes
-
-                            var rowRating = 0;
-                            var rowVotes = 0;
-
-                            //get rating/votes
-                            if (ratingColumn.InnerText.Contains("["))
-                            {
-                                var starSpan = ratingColumn.ChildNodes["span"].ChildNodes["span"];
-                                var voteSpan = ratingColumn.LastChild;
-
-                                if (starSpan != null)
-                                {
-                                    Int32.TryParse(starSpan.Attributes["class"].Value.Replace("r_", ""), out rowRating);
-                                }
-
-                                if (voteSpan != null)
-                                {
-                                    Int32.TryParse(voteSpan.InnerText.Replace("[", "").Replace("]", ""), out rowVotes);
-                                }
-                            }
-
                             if (rowType == TabType.Guitar || rowType == TabType.Chords || rowType == TabType.Bass || rowType == TabType.Drum || rowType == TabType.Ukulele)
                             {
                                 var tab = new UltimateGuitarTab(new Uri(rowURL), loopArtist, rowSong, rowType, null);
