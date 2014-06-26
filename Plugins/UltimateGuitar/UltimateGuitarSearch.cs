@@ -21,7 +21,7 @@ namespace UltimateGuitar
             get { return "Ultimate Guitar"; }
         }
 
-        public IRemoteTab[] Search(string artist, string title, TabType type)
+        public IRemoteTab[] Search(string artist, string title, TabType? type)
         {
             var results = new List<IRemoteTab>();
 
@@ -29,9 +29,30 @@ namespace UltimateGuitar
 
             var urlString = string.Format("http://www.ultimate-guitar.com/search.php?w=songs&s={0}", searchString);
 
-            if (type != TabType.Undefined)
+            if (type.HasValue)
             {
-                urlString += string.Format("&type={0}", (int) type);
+                var typeID = "0";
+
+                switch (type)
+                {
+                    case TabType.Guitar:
+                        typeID = "200";
+                        break;
+                    case TabType.Chords:
+                        typeID = "300";
+                        break;
+                    case TabType.Bass:
+                        typeID = "400";
+                        break;
+                    case TabType.Drum:
+                        typeID = "700";
+                        break;
+                    case TabType.Ukulele:
+                        typeID = "800";
+                        break;
+                }
+
+                urlString += string.Format("&type={0}", typeID);
             }
 
             var url = new Uri(urlString);
@@ -66,7 +87,6 @@ namespace UltimateGuitar
                             //column indexes
                             var colIndexArtist = 0;
                             var colIndexSong = 1;
-                            var colIndexRating = 2;
                             var colIndexType = 3;
 
                             var attemptedBreaking = row.InnerHtml.Contains("THIS APP DOESN'T HAVE RIGHTS TO DISPLAY TABS");
@@ -75,13 +95,8 @@ namespace UltimateGuitar
                             {
                                 colIndexArtist += 1;
                                 colIndexSong += 1;
-                                colIndexRating += 1;
                                 colIndexType += 1;
                             }
-
-                            var ugTabType = GetTabType(columns[colIndexType].InnerText);
-                            var rowType = ConvertTabType(ugTabType);
-
 
                             var rowArtist = columns[colIndexArtist].InnerText;
 
@@ -90,13 +105,18 @@ namespace UltimateGuitar
                                 loopArtist = HttpUtility.HtmlDecode(rowArtist);
                             }
 
-                            var rowURL = columns[colIndexSong].ChildNodes["a"].Attributes["href"].Value;
-                            var rowSong = HttpUtility.HtmlDecode(columns[colIndexSong].ChildNodes["a"].InnerText);
-
-                            if (rowType == TabType.Guitar || rowType == TabType.Chords || rowType == TabType.Bass || rowType == TabType.Drum || rowType == TabType.Ukulele)
+                            var rowType = GetTabType(columns[colIndexType].InnerText);
+  
+                            if (rowType.HasValue)
                             {
-                                var tab = new UltimateGuitarTab(new Uri(rowURL), loopArtist, rowSong, rowType, null);
-                                results.Add(tab);
+                                var rowURL = columns[colIndexSong].ChildNodes["a"].Attributes["href"].Value;
+                                var rowSong = HttpUtility.HtmlDecode(columns[colIndexSong].ChildNodes["a"].InnerText);
+
+                                if (!type.HasValue || rowType == type)
+                                {
+                                    var tab = new UltimateGuitarTab(new Uri(rowURL), loopArtist, rowSong, rowType.Value, null);
+                                    results.Add(tab);
+                                }
                             }
                         }
 
@@ -108,70 +128,39 @@ namespace UltimateGuitar
             return results.ToArray();
         }
 
+        public bool SupportsTabType(TabType type)
+        {
+            switch(type)
+            {
+                case TabType.Guitar:
+                case TabType.Chords:
+                case TabType.Bass:
+                case TabType.Drum:
+                case TabType.Ukulele:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         #endregion
 
         #region Static Methods
 
-        private static TabType ConvertTabType(UltimateGuitarTabType type)
-        {
-            switch (type)
-            {
-                case UltimateGuitarTabType.GuitarTab:
-                    return TabType.Guitar;
-                case UltimateGuitarTabType.GuitarChords:
-                    return TabType.Chords;
-                case UltimateGuitarTabType.BassTab:
-                    return TabType.Bass;
-                case UltimateGuitarTabType.DrumTab:
-                    return TabType.Drum;
-                case UltimateGuitarTabType.Ukulele:
-                    return TabType.Ukulele;
-                default:
-                    return TabType.Undefined;
-            }
-        }
-
-        private static UltimateGuitarTabType ConvertTabType(TabType type)
-        {
-            switch (type)
-            {
-                case TabType.Guitar:
-                    return UltimateGuitarTabType.GuitarTab;
-                case TabType.Chords:
-                    return UltimateGuitarTabType.GuitarChords;
-                case TabType.Bass:
-                    return UltimateGuitarTabType.BassTab;
-                case TabType.Drum:
-                    return UltimateGuitarTabType.DrumTab;
-                case TabType.Ukulele:
-                    return UltimateGuitarTabType.Ukulele;
-                default:
-                    return UltimateGuitarTabType.Undefined;
-            }
-        }
-
-        private static UltimateGuitarTabType GetTabType(string str)
+        private static TabType? GetTabType(string str)
         {
             if (str.Equals("tab", StringComparison.InvariantCultureIgnoreCase))
-                return UltimateGuitarTabType.GuitarTab;
+                return TabType.Guitar;
             if (str.Equals("chords", StringComparison.InvariantCultureIgnoreCase))
-                return UltimateGuitarTabType.GuitarChords;
+                return TabType.Chords;
             if (str.Equals("bass", StringComparison.InvariantCultureIgnoreCase))
-                return UltimateGuitarTabType.BassTab;
+                return TabType.Bass;
             if (str.Equals("drums", StringComparison.InvariantCultureIgnoreCase))
-                return UltimateGuitarTabType.DrumTab;
-            if (str.Equals("guitar pro", StringComparison.InvariantCultureIgnoreCase))
-                return UltimateGuitarTabType.GuitarPro;
-            if (str.Equals("power tab", StringComparison.InvariantCultureIgnoreCase))
-                return UltimateGuitarTabType.PowerTab;
-            if (str.Equals("video lesson", StringComparison.InvariantCultureIgnoreCase))
-                return UltimateGuitarTabType.Video;
-            if (str.Equals("tab pro", StringComparison.InvariantCultureIgnoreCase))
-                return UltimateGuitarTabType.TabPro;
+                return TabType.Drum;
             if (str.Equals("ukulele", StringComparison.InvariantCultureIgnoreCase))
-                return UltimateGuitarTabType.Ukulele;
+                return TabType.Ukulele;
 
-            return UltimateGuitarTabType.Undefined;
+            return null;
         }
 
         #endregion

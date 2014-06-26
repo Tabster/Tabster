@@ -8,7 +8,6 @@ namespace Tabster.Core
 {
     public enum TabType
     {
-        Undefined,
         Guitar,
         Chords,
         Bass,
@@ -20,7 +19,7 @@ namespace Tabster.Core
     {
         Download,
         FileImport,
-        UserCreated,
+        UserCreated
     }
 
     public enum Difficulty
