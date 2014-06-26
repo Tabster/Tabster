@@ -1,13 +1,46 @@
-﻿using System;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace Tabster.Core.Plugins
 {
     public interface ITabsterPlugin
     {
-        string Name { get; }
-        string Description { get; }
+        /// <summary>
+        /// Plugin author.
+        /// </summary>
         string Author { get; }
-        string Version { get; }
+
+        /// <summary>
+        /// Plugin copyright.
+        /// </summary>
+        string Copyright { get; }
+
+        /// <summary>
+        /// Plugin description.
+        /// </summary>
+        string Description { get; }
+
+        /// <summary>
+        /// Plugin display name.
+        /// </summary>
+        string DisplayName { get; }
+
+        /// <summary>
+        /// Plugin version.
+        /// </summary>
+        Version Version { get; }
+
+        /// <summary>
+        /// Plguin website.
+        /// </summary>
+        Uri Website { get; }
+
+        /// <summary>
+        /// Publically exposed plugin types.
+        /// </summary>
         Type[] Types { get; }
     }
 }

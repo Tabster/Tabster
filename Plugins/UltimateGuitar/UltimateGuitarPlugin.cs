@@ -11,9 +11,14 @@ namespace UltimateGuitar
     {
         #region Implementation of ITabsterPlugin
 
-        public string Name
+        public string Author
         {
-            get { return "Ultimate Guitar Plugin"; }
+            get { return "Nate Shoffner"; }
+        }
+
+        public string Copyright
+        {
+            get { return "Copyright © Nate Shoffner 2014"; }
         }
 
         public string Description
@@ -21,19 +26,24 @@ namespace UltimateGuitar
             get { return "Supports ultimate-guitar.com tab searching and downloading."; }
         }
 
-        public string Author
+        public string DisplayName
         {
-            get { return "Nate Shoffner"; }
+            get { return "Ultimate Guitar"; }
         }
 
-        public string Version
+        public Version Version
         {
-            get { return "1.0"; }
+            get { return new Version("1.0"); }
+        }
+
+        public Uri Website
+        {
+            get { return new Uri("http://nateshoffner.com"); }
         }
 
         public Type[] Types
         {
-            get { return new[] { typeof(UltimateGuitarSearch), typeof(UltimateGuitarParser) }; }
+            get { return new[] {typeof (UltimateGuitarSearch), typeof (UltimateGuitarParser)}; }
         }
 
         #endregion
