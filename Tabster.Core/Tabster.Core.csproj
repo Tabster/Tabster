@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common.cs" />
     <Compile Include="Plugins\ITabParser.cs" />
     <Compile Include="Plugins\IRemoteTab.cs" />
     <Compile Include="Plugins\ISearchService.cs" />
