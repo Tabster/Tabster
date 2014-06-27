@@ -31,11 +31,6 @@ namespace UltimateGuitar
 
         public string Contents { get; set; }
 
-        public Tab ToTab()
-        {
-            return new Tab(Artist, Title, Type, Contents) {Source = Url, SourceType = TabSource.Download};
-        }
-
         #endregion
     }
 }

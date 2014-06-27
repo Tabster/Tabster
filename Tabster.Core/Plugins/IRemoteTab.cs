@@ -12,8 +12,6 @@ namespace Tabster.Core.Plugins
         string Artist { get; set; }
         string Title { get; set; }
         TabType Type { get; set; }
-        string Contents { get; set; }
-
-        Tab ToTab();
+        string Contents { get; set; } 
     }
 }
