@@ -15,9 +15,10 @@ namespace Tabster.Core.Plugins
         /// <summary>
         /// Parses tab from text source.
         /// </summary>
-        /// <param name="sourceText"></param>
-        /// <returns></returns>
-        IRemoteTab ParseTabFromSource(string sourceText);
+        /// <param name="sourceText">Source text to parse.</param>
+        /// <param name="type">Explicitly defined type.</param>
+        /// <returns>Parsed tab.</returns>
+        IRemoteTab ParseTabFromSource(string sourceText, TabType? type);
 
         /// <summary>
         /// Determines whether a specified URL matches a specific pattern used by the parser. Used for web-based parsing.

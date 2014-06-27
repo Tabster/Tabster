@@ -19,12 +19,12 @@ namespace UltimateGuitar
             get { return "Ultimate Guitar"; }
         }
 
-        public IRemoteTab ParseTabFromSource(string source)
+        public IRemoteTab ParseTabFromSource(string source, TabType? type)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(source);
 
-            var tabType = TabType.Guitar;
+            var tabType = type;
             string song = null, artist = null;
 
             //get values from meta keywords
@@ -38,14 +38,17 @@ namespace UltimateGuitar
 
                     var typeStr = split[1].Trim();
 
-                    if (typeStr.IndexOf("bass", StringComparison.OrdinalIgnoreCase) > -1)
-                        tabType = TabType.Bass;
-                    else if (typeStr.IndexOf("chord", StringComparison.OrdinalIgnoreCase) > -1)
-                        tabType = TabType.Chords;
-                    else if (typeStr.IndexOf("drum", StringComparison.OrdinalIgnoreCase) > -1)
-                        tabType = TabType.Drum;
-                    else if (typeStr.IndexOf("ukulele", StringComparison.OrdinalIgnoreCase) > -1)
-                        tabType = TabType.Ukulele;
+                    if (!type.HasValue)
+                    {
+                        if (typeStr.IndexOf("bass", StringComparison.OrdinalIgnoreCase) > -1)
+                            tabType = TabType.Bass;
+                        else if (typeStr.IndexOf("chord", StringComparison.OrdinalIgnoreCase) > -1)
+                            tabType = TabType.Chords;
+                        else if (typeStr.IndexOf("drum", StringComparison.OrdinalIgnoreCase) > -1)
+                            tabType = TabType.Drum;
+                        else if (typeStr.IndexOf("ukulele", StringComparison.OrdinalIgnoreCase) > -1)
+                            tabType = TabType.Ukulele;
+                    }
 
                     artist = split[2].Trim();
                     break;
@@ -58,7 +61,7 @@ namespace UltimateGuitar
             {
                 var contents = StripHTML(contentsNode.InnerHtml);
                 contents = ConvertNewlines(contents);
-                return new UltimateGuitarTab(null, artist, song, tabType, contents);
+                return new UltimateGuitarTab(null, artist, song, tabType.GetValueOrDefault(), contents);
             }
 
             return null;
