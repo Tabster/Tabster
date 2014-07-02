@@ -21,6 +21,11 @@ namespace UltimateGuitar
             get { return "Ultimate Guitar"; }
         }
 
+        public ITabParser Parser
+        {
+            get { return new UltimateGuitarParser(); }
+        }
+
         public IRemoteTab[] Search(string artist, string title, TabType? type)
         {
             var results = new List<IRemoteTab>();
@@ -165,4 +170,4 @@ namespace UltimateGuitar
 
         #endregion
     }
-}
+} 

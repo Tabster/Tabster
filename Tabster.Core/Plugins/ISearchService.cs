@@ -11,6 +11,11 @@
         string Name { get; }
 
         /// <summary>
+        /// Associated parser.
+        /// </summary>
+        ITabParser Parser { get; }
+
+        /// <summary>
         /// Queries service and returns results based on search parameters.
         /// </summary>
         /// <param name="artist">The tab artist.</param>
