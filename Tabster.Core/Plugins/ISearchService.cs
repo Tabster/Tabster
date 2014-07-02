@@ -22,7 +22,7 @@
         /// <param name="title">The tab title.</param>
         /// <param name="type">The tab type.</param>
         /// <returns>Array of results.</returns>
-        IRemoteTab[] Search(string artist, string title, TabType? type);
+        RemoteTab[] Search(string artist, string title, TabType? type);
 
         /// <summary>
         /// Determines whether a specific TabType is supported by the service.

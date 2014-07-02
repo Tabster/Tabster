@@ -26,9 +26,9 @@ namespace UltimateGuitar
             get { return new UltimateGuitarParser(); }
         }
 
-        public IRemoteTab[] Search(string artist, string title, TabType? type)
+        public RemoteTab[] Search(string artist, string title, TabType? type)
         {
-            var results = new List<IRemoteTab>();
+            var results = new List<RemoteTab>();
 
             var searchString = (artist + " " + title).Trim().Replace(" ", "+");
 
@@ -119,7 +119,7 @@ namespace UltimateGuitar
 
                                 if (!type.HasValue || rowType == type)
                                 {
-                                    var tab = new UltimateGuitarTab(new Uri(rowURL), loopArtist, rowSong, rowType.Value, null);
+                                    var tab = new RemoteTab(new Uri(rowURL), loopArtist, rowSong, rowType.Value, null);
                                     results.Add(tab);
                                 }
                             }

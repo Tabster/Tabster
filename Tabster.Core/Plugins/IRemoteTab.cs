@@ -6,12 +6,13 @@ using System;
 
 namespace Tabster.Core.Plugins
 {
-    public interface IRemoteTab
+    public class RemoteTab : Tab
     {
-        Uri Url { get; set; }
-        string Artist { get; set; }
-        string Title { get; set; }
-        TabType Type { get; set; }
-        string Contents { get; set; } 
+        public RemoteTab(Uri url, string artist, string title, TabType type, string contents) : base(artist, title, type, contents)
+        {
+            Url = url;
+        }
+
+        public Uri Url { get; private set; }
     }
 }
