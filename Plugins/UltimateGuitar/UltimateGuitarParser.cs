@@ -19,7 +19,7 @@ namespace UltimateGuitar
             get { return "Ultimate Guitar"; }
         }
 
-        public RemoteTab ParseTabFromSource(string source, TabType? type)
+        public Tab ParseTabFromSource(string source, TabType? type)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(source);
@@ -61,7 +61,7 @@ namespace UltimateGuitar
             {
                 var contents = StripHTML(contentsNode.InnerHtml);
                 contents = ConvertNewlines(contents);
-                return new RemoteTab(null, artist, song, tabType.GetValueOrDefault(), contents);
+                return new Tab(artist, song, tabType.GetValueOrDefault(), contents);
             }
 
             return null;

@@ -26,9 +26,9 @@ namespace UltimateGuitar
             get { return new UltimateGuitarParser(); }
         }
 
-        public RemoteTab[] Search(string artist, string title, TabType? type)
+        public Tab[] Search(string artist, string title, TabType? type)
         {
-            var results = new List<RemoteTab>();
+            var results = new List<Tab>();
 
             var searchString = (artist + " " + title).Trim().Replace(" ", "+");
 
@@ -111,7 +111,7 @@ namespace UltimateGuitar
                             }
 
                             var rowType = GetTabType(columns[colIndexType].InnerText);
-  
+
                             if (rowType.HasValue)
                             {
                                 var rowURL = columns[colIndexSong].ChildNodes["a"].Attributes["href"].Value;
@@ -119,7 +119,7 @@ namespace UltimateGuitar
 
                                 if (!type.HasValue || rowType == type)
                                 {
-                                    var tab = new RemoteTab(new Uri(rowURL), loopArtist, rowSong, rowType.Value, null);
+                                    var tab = new Tab(loopArtist, rowSong, rowType.Value, null) { Source = new Uri(rowURL) };
                                     results.Add(tab);
                                 }
                             }
@@ -135,7 +135,7 @@ namespace UltimateGuitar
 
         public bool SupportsTabType(TabType type)
         {
-            switch(type)
+            switch (type)
             {
                 case TabType.Guitar:
                 case TabType.Chords:
@@ -170,4 +170,4 @@ namespace UltimateGuitar
 
         #endregion
     }
-} 
+}

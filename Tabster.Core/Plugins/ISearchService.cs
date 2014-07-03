@@ -22,7 +22,7 @@
         /// <param name="title">The tab title.</param>
         /// <param name="type">The tab type.</param>
         /// <returns>Array of results.</returns>
-        RemoteTab[] Search(string artist, string title, TabType? type);
+        Tab[] Search(string artist, string title, TabType? type);
 
         /// <summary>
         /// Determines whether a specific TabType is supported by the service.

@@ -18,7 +18,7 @@ namespace Tabster.Core.Plugins
         /// <param name="sourceText">Source text to parse.</param>
         /// <param name="type">Explicitly defined type.</param>
         /// <returns>Parsed tab.</returns>
-        RemoteTab ParseTabFromSource(string sourceText, TabType? type);
+        Tab ParseTabFromSource(string sourceText, TabType? type);
 
         /// <summary>
         /// Determines whether a specified URL matches a specific pattern used by the parser. Used for web-based parsing.

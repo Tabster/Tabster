@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="Common.cs" />
     <Compile Include="Plugins\ITabParser.cs" />
-    <Compile Include="Plugins\IRemoteTab.cs" />
     <Compile Include="Plugins\ISearchService.cs" />
     <Compile Include="Playlist.cs" />
     <Compile Include="PlaylistFile.cs" />
