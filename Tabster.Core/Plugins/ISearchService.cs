@@ -1,34 +1,56 @@
-﻿namespace Tabster.Core.Plugins
+﻿#region
+
+using System;
+
+#endregion
+
+namespace Tabster.Core.Plugins
 {
     /// <summary>
-    /// Tab service which enables searching.
+    ///   Tab service which enables searching.
     /// </summary>
     public interface ISearchService
     {
         /// <summary>
-        /// Service name.
+        ///   Service name.
         /// </summary>
         string Name { get; }
 
         /// <summary>
-        /// Associated parser.
+        ///   Associated parser.
         /// </summary>
         ITabParser Parser { get; }
 
         /// <summary>
-        /// Queries service and returns results based on search parameters.
+        ///   Service options.
         /// </summary>
-        /// <param name="artist">The tab artist.</param>
-        /// <param name="title">The tab title.</param>
-        /// <param name="type">The tab type.</param>
-        /// <returns>Array of results.</returns>
-        Tab[] Search(string artist, string title, TabType? type);
+        SearchServiceOptions Options { get; }
 
         /// <summary>
-        /// Determines whether a specific TabType is supported by the service.
+        ///   Queries service and returns results based on search parameters.
         /// </summary>
-        /// <param name="type">The type to check.</param>
-        ///<returns>True if the type is supported by the service; otherwise, False.</returns>
+        /// <param name="artist"> The tab artist. </param>
+        /// <param name="title"> The tab title. </param>
+        /// <param name="type"> The tab type. </param>
+        /// <returns> Array of results. </returns>
+        Tab[] Search(string artist, string title, TabType? type);
+
+        ///<summary>
+        ///  Determines whether a specific TabType is supported by the service.
+        ///</summary>
+        ///<param name="type"> The type to check. </param>
+        ///<returns> True if the type is supported by the service; otherwise, False. </returns>
         bool SupportsTabType(TabType type);
+    }
+
+    /// <summary>
+    ///   Search service option flags.
+    /// </summary>
+    [Flags]
+    public enum SearchServiceOptions
+    {
+        None,
+        RequiresArtistParameter,
+        RequiresTitleParameter
     }
 }

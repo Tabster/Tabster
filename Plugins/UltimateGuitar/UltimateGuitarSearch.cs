@@ -26,6 +26,11 @@ namespace UltimateGuitar
             get { return new UltimateGuitarParser(); }
         }
 
+        public SearchServiceOptions Options
+        {
+            get { return SearchServiceOptions.None; }
+        }
+
         public Tab[] Search(string artist, string title, TabType? type)
         {
             var results = new List<Tab>();
