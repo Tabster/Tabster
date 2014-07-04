@@ -98,8 +98,6 @@ namespace GuitartabsDotCC
                     var rowTitle = rowHref.InnerText;
                     var rowType = columns[5].InnerText;
 
-                    Console.WriteLine(rowType);
-
                     var tabType = GetTabType(rowType);
 
                     if (tabType.HasValue)
