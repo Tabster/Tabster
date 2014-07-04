@@ -98,6 +98,8 @@ namespace GuitartabsDotCC
                     var rowTitle = rowHref.InnerText;
                     var rowType = columns[5].InnerText;
 
+                    Console.WriteLine(rowType);
+
                     var tabType = GetTabType(rowType);
 
                     if (tabType.HasValue)
@@ -150,13 +152,13 @@ namespace GuitartabsDotCC
 
         private static TabType? GetTabType(string str)
         {
-            if (str.Equals("Chords", StringComparison.InvariantCultureIgnoreCase))
+            if (str.IndexOf("Chords", StringComparison.InvariantCultureIgnoreCase) >= 0)
                 return TabType.Chords;
-            if (str.Equals("Bass", StringComparison.InvariantCultureIgnoreCase))
+            if (str.IndexOf("Bass", StringComparison.InvariantCultureIgnoreCase) >= 0)
                 return TabType.Bass;
-            if (str.Equals("Drum", StringComparison.InvariantCultureIgnoreCase))
+            if (str.IndexOf("Drum", StringComparison.InvariantCultureIgnoreCase) >= 0)
                 return TabType.Drum;
-            if (str.Equals("Tab", StringComparison.InvariantCultureIgnoreCase))
+            if (str.IndexOf("Tab", StringComparison.InvariantCultureIgnoreCase) >= 0)
                 return TabType.Guitar;
 
             return null;
