@@ -9,37 +9,37 @@ namespace Tabster.Core.Plugins
     public interface ITabsterPlugin
     {
         /// <summary>
-        /// Plugin author.
+        ///   Plugin author.
         /// </summary>
         string Author { get; }
 
         /// <summary>
-        /// Plugin copyright.
+        ///   Plugin copyright.
         /// </summary>
         string Copyright { get; }
 
         /// <summary>
-        /// Plugin description.
+        ///   Plugin description.
         /// </summary>
         string Description { get; }
 
         /// <summary>
-        /// Plugin display name.
+        ///   Plugin display name.
         /// </summary>
         string DisplayName { get; }
 
         /// <summary>
-        /// Plugin version.
+        ///   Plugin version.
         /// </summary>
         Version Version { get; }
 
         /// <summary>
-        /// Plguin website.
+        ///   Plguin website.
         /// </summary>
         Uri Website { get; }
 
         /// <summary>
-        /// Publically exposed plugin types.
+        ///   Publically exposed plugin types.
         /// </summary>
         Type[] Types { get; }
     }
