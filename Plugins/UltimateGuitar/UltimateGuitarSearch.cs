@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text;
 using System.Web;
 using HtmlAgilityPack;
 using Tabster.Core;
@@ -31,41 +32,43 @@ namespace UltimateGuitar
             get { return SearchServiceFlags.None; }
         }
 
-        public Tab[] Search(string artist, string title, TabType? type)
+        public SearchResult[] Search(SearchQuery query)
         {
-            var results = new List<Tab>();
+            var results = new List<SearchResult>();
 
-            var searchString = (artist + " " + title).Trim().Replace(" ", "+");
+            var urlEncodedQuery = HttpUtility.UrlEncode(string.Format("{0} {1}", query.Artist, query.Title));
 
-            var urlString = string.Format("http://www.ultimate-guitar.com/search.php?w=songs&s={0}", searchString);
+            string typeStr = null;
 
-            if (type.HasValue)
+            if (query.Type.HasValue)
             {
-                var typeID = "0";
-
-                switch (type)
+                switch (query.Type)
                 {
                     case TabType.Guitar:
-                        typeID = "200";
+                        typeStr = "200";
                         break;
                     case TabType.Chords:
-                        typeID = "300";
+                        typeStr = "300";
                         break;
                     case TabType.Bass:
-                        typeID = "400";
+                        typeStr = "400";
                         break;
                     case TabType.Drum:
-                        typeID = "700";
+                        typeStr = "700";
                         break;
                     case TabType.Ukulele:
-                        typeID = "800";
+                        typeStr = "800";
                         break;
                 }
-
-                urlString += string.Format("&type={0}", typeID);
             }
 
-            var url = new Uri(urlString);
+            var urlBuilder = new StringBuilder();
+            urlBuilder.AppendFormat("http://www.ultimate-guitar.com/search.php?w=songs&s={0}", urlEncodedQuery);
+
+            if (!string.IsNullOrEmpty(typeStr))
+                urlBuilder.AppendFormat("&type={0}", typeStr);
+
+            var url = new Uri(urlBuilder.ToString());
 
             string data;
 
@@ -122,10 +125,10 @@ namespace UltimateGuitar
                                 var rowURL = columns[colIndexSong].ChildNodes["a"].Attributes["href"].Value;
                                 var rowSong = HttpUtility.HtmlDecode(columns[colIndexSong].ChildNodes["a"].InnerText);
 
-                                if (!type.HasValue || rowType == type)
+                                if (!query.Type.HasValue || rowType == query.Type)
                                 {
-                                    var tab = new Tab(loopArtist, rowSong, rowType.Value, null) { Source = new Uri(rowURL) };
-                                    results.Add(tab);
+                                    var tab = new Tab(loopArtist, rowSong, rowType.Value, null) {Source = new Uri(rowURL)};
+                                    results.Add(new SearchResult(query, tab));
                                 }
                             }
                         }

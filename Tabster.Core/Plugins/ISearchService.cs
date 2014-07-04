@@ -29,11 +29,8 @@ namespace Tabster.Core.Plugins
         /// <summary>
         ///   Queries service and returns results based on search parameters.
         /// </summary>
-        /// <param name="artist"> The tab artist. </param>
-        /// <param name="title"> The tab title. </param>
-        /// <param name="type"> The tab type. </param>
-        /// <returns> Array of results. </returns>
-        Tab[] Search(string artist, string title, TabType? type);
+        /// <param name="query"> Search query. </param>
+        SearchResult[] Search(SearchQuery query);
 
         ///<summary>
         ///  Determines whether a specific TabType is supported by the service.
@@ -53,5 +50,61 @@ namespace Tabster.Core.Plugins
         RequiresArtistParameter = 2,
         RequiresTitleParameter = 4,
         RequiresTypeParamter = 8,
+    }
+
+    /// <summary>
+    ///   Tab search query.
+    /// </summary>
+    public class SearchQuery
+    {
+        public SearchQuery(ISearchService service, string artist, string title, TabType? type)
+        {
+            Service = service;
+            Artist = artist;
+            Title = title;
+            Type = type;
+        }
+
+        /// <summary>
+        ///   The associated search service.
+        /// </summary>
+        public ISearchService Service { get; private set; }
+
+        /// <summary>
+        ///   Artist search parameter.
+        /// </summary>
+        public string Artist { get; private set; }
+
+        /// <summary>
+        ///   Title search parameter.
+        /// </summary>
+        public string Title { get; private set; }
+
+        /// <summary>
+        ///   Type search parameter.
+        /// </summary>
+        public TabType? Type { get; private set; }
+    }
+
+    /// <summary>
+    ///   Tab search result.
+    /// </summary>
+    public class SearchResult
+    {
+        public SearchResult(SearchQuery query, Tab tab)
+        {
+            Query = query;
+            Tab = tab;
+        }
+
+        /// <summary>
+        ///   The initial search query.
+        /// </summary>
+        public SearchQuery Query { get; private set; }
+
+        /// <summary>
+        ///   Tab result.
+        /// </summary>
+        public Tab Tab { get; private set; }
     }
 }

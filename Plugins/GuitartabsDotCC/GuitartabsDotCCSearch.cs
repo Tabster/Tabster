@@ -32,18 +32,18 @@ namespace GuitartabsDotCC
             get { return SearchServiceFlags.RequiresTitleParameter; }
         }
 
-        public Tab[] Search(string artist, string title, TabType? type)
+        public SearchResult[] Search(SearchQuery query)
         {
-            var results = new List<Tab>();
+            var results = new List<SearchResult>();
 
-            var urlEncodedArtist = HttpUtility.UrlEncode(artist);
-            var urlEncodedTitle = HttpUtility.UrlEncode(title);
+            var urlEncodedArtist = HttpUtility.UrlEncode(query.Artist);
+            var urlEncodedTitle = HttpUtility.UrlEncode(query.Title);
 
             var typeStr = "any";
 
-            if (type.HasValue)
+            if (query.Type.HasValue)
             {
-                switch (type.Value)
+                switch (query.Type.Value)
                 {
                     case TabType.Guitar:
                     case TabType.Chords:
@@ -105,7 +105,7 @@ namespace GuitartabsDotCC
                         rowTitle = RemoveTypeFromTitle(rowTitle, tabType.Value);
 
                         var tab = new Tab(rowArtist, rowTitle, tabType.Value, null) {Source = new Uri(string.Format("http://guitartabs.cc{0}", rowUrl))};
-                        results.Add(tab);
+                        results.Add(new SearchResult(query, tab));
                     }
                 }
             }
