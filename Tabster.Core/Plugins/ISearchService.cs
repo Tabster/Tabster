@@ -22,9 +22,9 @@ namespace Tabster.Core.Plugins
         ITabParser Parser { get; }
 
         /// <summary>
-        ///   Service options.
+        ///   Service flags.
         /// </summary>
-        SearchServiceOptions Options { get; }
+        SearchServiceFlags Flags { get; }
 
         /// <summary>
         ///   Queries service and returns results based on search parameters.
@@ -44,13 +44,14 @@ namespace Tabster.Core.Plugins
     }
 
     /// <summary>
-    ///   Search service option flags.
+    ///   Search service flags.
     /// </summary>
     [Flags]
-    public enum SearchServiceOptions
+    public enum SearchServiceFlags
     {
-        None,
-        RequiresArtistParameter,
-        RequiresTitleParameter
+        None = 1,
+        RequiresArtistParameter = 2,
+        RequiresTitleParameter = 4,
+        RequiresTypeParamter = 8,
     }
 }
