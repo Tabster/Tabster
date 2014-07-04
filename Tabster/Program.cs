@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 #endregion
@@ -12,10 +13,16 @@ namespace Tabster
         public static TabViewerManager TabHandler;
         public static readonly LibraryManager libraryManager = new LibraryManager();
         public static SingleInstanceController instanceController;
+        public static PluginController pluginController;
 
         [STAThread]
         public static void Main(string[] args)
         {
+            var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
+
+            pluginController = new PluginController(pluginDirectory);
+            pluginController.LoadPlugins();
+
             libraryManager.Load();
 
             Application.EnableVisualStyles();

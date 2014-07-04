@@ -70,15 +70,10 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\Nate\Downloads\HtmlAgilityPack.1.4.6\Net20\HtmlAgilityPack.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -93,6 +88,7 @@
     <Compile Include="Controls\ToolStripRenderer.cs" />
     <Compile Include="FormState.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="PluginController.cs" />
     <Compile Include="PortableSettingsProvider.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -200,9 +196,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="TabViewerManager.cs" />
-    <Compile Include="UltimateGuitar\SearchManager.cs" />
-    <Compile Include="UltimateGuitar\Top100.cs" />
-    <Compile Include="UltimateGuitar\UltimateGuitarTab.cs" />
     <Compile Include="Updater\DownloadManager.cs" />
     <Compile Include="Updater\UpdateDialog.cs">
       <SubType>Form</SubType>
