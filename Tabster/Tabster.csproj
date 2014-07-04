@@ -275,11 +275,6 @@
     <None Include="Resources\folder_go.png" />
     <None Include="Resources\printer.png" />
     <None Include="Resources\loading-icon.gif" />
-    <None Include="Resources\r4.png" />
-    <None Include="Resources\r3.png" />
-    <None Include="Resources\r2.png" />
-    <None Include="Resources\r1.png" />
-    <None Include="Resources\r5.png" />
     <None Include="Resources\guitar128.png" />
   </ItemGroup>
   <ItemGroup>
