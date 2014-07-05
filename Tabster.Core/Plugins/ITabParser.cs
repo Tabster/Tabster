@@ -31,4 +31,16 @@ namespace Tabster.Core.Plugins
         ///<returns> True if the URL matches the supported pattern; otherwise, False. </returns>
         bool MatchesUrlPattern(Uri url);
     }
+
+    public class TabParserException : Exception
+    {
+        public TabParserException()
+        {
+        }
+
+        public TabParserException(string message)
+            : base(message)
+        {
+        }
+    }
 }
