@@ -127,4 +127,16 @@ namespace Tabster.Core.Plugins
         /// </summary>
         public SearchResultRating Rating { get; private set; }
     }
+
+    public class SearchServiceException : Exception
+    {
+        public SearchServiceException()
+        {
+        }
+
+        public SearchServiceException(string message)
+            : base(message)
+        {
+        }
+    }
 }
