@@ -436,7 +436,7 @@ namespace Tabster.Forms
                 (selectedLibrary == LibraryType.MyDownloads && tab.TabData.SourceType == TabSource.Download) ||
                 (selectedLibrary == LibraryType.MyImports && tab.TabData.SourceType == TabSource.FileImport) ||
                 (selectedLibrary == LibraryType.GuitarTabs && tab.TabData.Type == TabType.Guitar) ||
-                (selectedLibrary == LibraryType.GuitarChords && tab.TabData.Type == TabType.Chord) ||
+                (selectedLibrary == LibraryType.GuitarChords && tab.TabData.Type == TabType.Chords) ||
                 (selectedLibrary == LibraryType.BassTabs && tab.TabData.Type == TabType.Bass) ||
                 (selectedLibrary == LibraryType.DrumTabs && tab.TabData.Type == TabType.Drum) ||
                 (selectedLibrary == LibraryType.UkuleleTabs && tab.TabData.Type == TabType.Ukulele) ||

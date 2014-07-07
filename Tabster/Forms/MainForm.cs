@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Core;
+using Tabster.Core.Plugins;
 using Tabster.Properties;
 using Tabster.Updater;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
@@ -23,8 +24,6 @@ namespace Tabster.Forms
             InitializeComponent();
 
             Text = string.Format("Tabster v{0}", Common.TruncateVersion(Application.ProductVersion));
-
-            searchManager.Completed += searchSession_OnCompleted;
 
             //tabviewermanager events
             Program.TabHandler.TabOpened += TabHandler_OnTabOpened;
@@ -54,6 +53,9 @@ namespace Tabster.Forms
                 txtsearchtype.Items.Add(str);
             }
             txtsearchtype.Text = "All Types";
+
+            _searchServices.AddRange(Program.pluginController.GetClassInstances<ISearchService>());
+            _tabParsers.AddRange(Program.pluginController.GetClassInstances<ITabParser>());
         }
 
         public MainForm(TabFile tabFile) : this()

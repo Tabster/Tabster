@@ -84,6 +84,7 @@ namespace Tabster.Forms
             this.searchSplitContainer = new System.Windows.Forms.SplitContainer();
             this.searchDisplay = new Tabster.Controls.DataGridViewExtended();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblSearchStatus = new System.Windows.Forms.Label();
             this.lblsearchresults = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -148,11 +149,12 @@ namespace Tabster.Forms
             this.filtertext = new Tabster.Controls.SearchBox();
             this.PreviewDelay = new System.Windows.Forms.Timer(this.components);
             this.SearchPreviewBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.SearchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.searchcol_artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchcol_song = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchcol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.searchcol_rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.searchcol_votes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.searchcol_service = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.display_library.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -539,7 +541,7 @@ namespace Tabster.Forms
             this.offToolStripMenuItem,
             this.onToolStripMenuItem});
             this.toolStripButton3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.toolStripButton3.Image = global::Tabster.Properties.Resources.cursor;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(96, 22);
@@ -661,8 +663,8 @@ namespace Tabster.Forms
             this.searchcol_artist,
             this.searchcol_song,
             this.searchcol_type,
-            this.searchcol_rating,
-            this.searchcol_votes});
+            this.col_rating,
+            this.searchcol_service});
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -705,6 +707,7 @@ namespace Tabster.Forms
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.lblSearchStatus);
             this.panel1.Controls.Add(this.lblsearchresults);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.label2);
@@ -719,6 +722,16 @@ namespace Tabster.Forms
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1024, 31);
             this.panel1.TabIndex = 28;
+            // 
+            // lblSearchStatus
+            // 
+            this.lblSearchStatus.AutoSize = true;
+            this.lblSearchStatus.Location = new System.Drawing.Point(591, 8);
+            this.lblSearchStatus.Name = "lblSearchStatus";
+            this.lblSearchStatus.Size = new System.Drawing.Size(64, 13);
+            this.lblSearchStatus.TabIndex = 31;
+            this.lblSearchStatus.Text = "Searching...";
+            this.lblSearchStatus.Visible = false;
             // 
             // lblsearchresults
             // 
@@ -854,6 +867,7 @@ namespace Tabster.Forms
             // 
             // saveTabToolStripMenuItem1
             // 
+            this.saveTabToolStripMenuItem1.Enabled = false;
             this.saveTabToolStripMenuItem1.Name = "saveTabToolStripMenuItem1";
             this.saveTabToolStripMenuItem1.Size = new System.Drawing.Size(101, 22);
             this.saveTabToolStripMenuItem1.Text = "Save Tab";
@@ -1295,6 +1309,14 @@ namespace Tabster.Forms
             this.SearchPreviewBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchPreviewBackgroundWorker_DoWork);
             this.SearchPreviewBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchPreviewBackgroundWorker_RunWorkerCompleted);
             // 
+            // SearchBackgroundWorker
+            // 
+            this.SearchBackgroundWorker.WorkerReportsProgress = true;
+            this.SearchBackgroundWorker.WorkerSupportsCancellation = true;
+            this.SearchBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchBackgroundWorker_DoWork);
+            this.SearchBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.SearchBackgroundWorker_ProgressChanged);
+            this.SearchBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchBackgroundWorker_RunWorkerCompleted);
+            // 
             // searchcol_artist
             // 
             this.searchcol_artist.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -1317,21 +1339,21 @@ namespace Tabster.Forms
             this.searchcol_type.Name = "searchcol_type";
             this.searchcol_type.ReadOnly = true;
             // 
-            // searchcol_rating
+            // col_rating
             // 
+            this.col_rating.HeaderText = "Rating";
+            this.col_rating.Name = "col_rating";
+            this.col_rating.ReadOnly = true;
+            // 
+            // searchcol_service
+            // 
+            this.searchcol_service.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle8.Format = "N0";
-            this.searchcol_rating.DefaultCellStyle = dataGridViewCellStyle8;
-            this.searchcol_rating.HeaderText = "Rating";
-            this.searchcol_rating.Name = "searchcol_rating";
-            this.searchcol_rating.ReadOnly = true;
-            this.searchcol_rating.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // searchcol_votes
-            // 
-            this.searchcol_votes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.searchcol_votes.HeaderText = "Votes";
-            this.searchcol_votes.Name = "searchcol_votes";
-            this.searchcol_votes.ReadOnly = true;
+            this.searchcol_service.DefaultCellStyle = dataGridViewCellStyle8;
+            this.searchcol_service.HeaderText = "Service";
+            this.searchcol_service.Name = "searchcol_service";
+            this.searchcol_service.ReadOnly = true;
+            this.searchcol_service.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // MainForm
             // 
@@ -1489,11 +1511,13 @@ namespace Tabster.Forms
         private DataGridViewTextBoxColumn location;
         private Label lblopenedexternally;
         private ToolStripMenuItem onToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker SearchBackgroundWorker;
+        private Label lblSearchStatus;
         private DataGridViewTextBoxColumn searchcol_artist;
         private DataGridViewTextBoxColumn searchcol_song;
         private DataGridViewTextBoxColumn searchcol_type;
-        private DataGridViewTextBoxColumn searchcol_rating;
-        private DataGridViewTextBoxColumn searchcol_votes;
+        private DataGridViewTextBoxColumn col_rating;
+        private DataGridViewTextBoxColumn searchcol_service;
     }
 }
 
