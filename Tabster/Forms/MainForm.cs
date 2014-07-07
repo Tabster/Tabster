@@ -58,7 +58,8 @@ namespace Tabster.Forms
             CachePluginResources();
         }
 
-        public MainForm(TabFile tabFile) : this()
+        public MainForm(TabFile tabFile)
+            : this()
         {
             _queuedTabfile = tabFile;
         }
@@ -98,7 +99,7 @@ namespace Tabster.Forms
         private void CachePluginResources()
         {
             _tabParsers = new List<ITabParser>(Program.pluginController.GetClassInstances<ITabParser>());
-            _searchServices = new List<ISearchService>(Program.pluginController.GetClassInstances<ISearchService>());  
+            _searchServices = new List<ISearchService>(Program.pluginController.GetClassInstances<ISearchService>());
         }
 
         private void recentlyViewedToolStripMenuItem_OnItemClicked(object sender, EventArgs e)
@@ -284,14 +285,6 @@ namespace Tabster.Forms
         #endregion
 
         #region Menu Items
-
-        private void multiDownloaderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var d = new DownloadDialog(this))
-            {
-                d.ShowDialog();
-            }
-        }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {

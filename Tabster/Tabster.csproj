@@ -88,6 +88,9 @@
     <Compile Include="Controls\ToolStripRenderer.cs" />
     <Compile Include="FormState.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Forms\MainForm.Download.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PluginController.cs" />
     <Compile Include="PortableSettingsProvider.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -149,12 +152,6 @@
     </Compile>
     <Compile Include="Forms\TabbedViewer.Designer.cs">
       <DependentUpon>TabbedViewer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\DownloadDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DownloadDialog.Designer.cs">
-      <DependentUpon>DownloadDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\NewTabDialog.cs">
       <SubType>Form</SubType>
@@ -237,9 +234,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TabbedViewer.resx">
       <DependentUpon>TabbedViewer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DownloadDialog.resx">
-      <DependentUpon>DownloadDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
