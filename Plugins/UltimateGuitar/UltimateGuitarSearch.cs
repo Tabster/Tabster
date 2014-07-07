@@ -100,6 +100,7 @@ namespace UltimateGuitar
                             //column indexes
                             var colIndexArtist = 0;
                             var colIndexSong = 1;
+                            var colIndexRating = 2;
                             var colIndexType = 3;
 
                             var attemptedBreaking = row.InnerHtml.Contains("THIS APP DOESN'T HAVE RIGHTS TO DISPLAY TABS");
@@ -108,6 +109,7 @@ namespace UltimateGuitar
                             {
                                 colIndexArtist += 1;
                                 colIndexSong += 1;
+                                colIndexRating += 1;
                                 colIndexType += 1;
                             }
 
@@ -125,10 +127,44 @@ namespace UltimateGuitar
                                 var rowURL = columns[colIndexSong].ChildNodes["a"].Attributes["href"].Value;
                                 var rowSong = HttpUtility.HtmlDecode(columns[colIndexSong].ChildNodes["a"].InnerText);
 
+                                var rating = SearchResultRating.None;
+                                var ratingColumn = columns[colIndexRating];
+
+                                if (ratingColumn.InnerText.Contains("["))
+                                {
+                                    var ratingSpan = ratingColumn.ChildNodes["span"].ChildNodes["span"];
+
+                                    if (ratingSpan != null)
+                                    {
+                                        int rowRating;
+                                        Int32.TryParse(ratingSpan.Attributes["class"].Value.Replace("r_", ""), out rowRating);
+                                        rating = (SearchResultRating) rowRating + 1;
+
+                                        switch(rowRating)
+                                        {
+                                            case 1:
+                                                rating = SearchResultRating.Stars1;
+                                                break;
+                                            case 2:
+                                                rating = SearchResultRating.Stars2;
+                                                break;
+                                            case 3:
+                                                rating = SearchResultRating.Stars3;
+                                                break;
+                                            case 4:
+                                                rating = SearchResultRating.Stars4;
+                                                break;
+                                            case 5:
+                                                rating = SearchResultRating.Stars5;
+                                                break;
+                                        }
+                                    }
+                                }
+
                                 if (!query.Type.HasValue || rowType == query.Type)
                                 {
                                     var tab = new Tab(loopArtist, rowSong, rowType.Value, null) {Source = new Uri(rowURL)};
-                                    results.Add(new SearchResult(query, tab));
+                                    results.Add(new SearchResult(query, tab, rating));
                                 }
                             }
                         }
