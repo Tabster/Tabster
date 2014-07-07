@@ -100,12 +100,14 @@ namespace GuitartabsDotCC
 
                     var tabType = GetTabType(rowType);
 
+                    var rowRating = GetRating(columns[4].FirstChild.Attributes["style"].Value);
+
                     if (tabType.HasValue)
                     {
                         rowTitle = RemoveTypeFromTitle(rowTitle, tabType.Value);
 
                         var tab = new Tab(rowArtist, rowTitle, tabType.Value, null) {Source = new Uri(string.Format("http://guitartabs.cc{0}", rowUrl))};
-                        results.Add(new SearchResult(query, tab));
+                        results.Add(new SearchResult(query, tab, rowRating));
                     }
                 }
             }
@@ -130,6 +132,27 @@ namespace GuitartabsDotCC
         #endregion
 
         #region Static Methods
+
+        private static SearchResultRating GetRating(string style)
+        {
+            switch (style)
+            {
+                case "background-position: -60px 5%;":
+                    return SearchResultRating.None;
+                case "background-position: -48px 50%;":
+                    return SearchResultRating.Stars1;
+                case "background-position: -36px 50%;":
+                    return SearchResultRating.Stars2;
+                case "background-position: -24px 50%;":
+                    return SearchResultRating.Stars3;
+                case "background-position: -12px 50%;":
+                    return SearchResultRating.Stars4;
+                case "background-position: -0px 50%;":
+                    return SearchResultRating.Stars5;
+                default:
+                    return SearchResultRating.None;
+            }
+        }
 
         private static string RemoveTypeFromTitle(string title, TabType type)
         {
