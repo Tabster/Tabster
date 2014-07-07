@@ -15,8 +15,8 @@ namespace Tabster.Forms
     {
         private readonly List<SearchResult> _searchResults = new List<SearchResult>();
         private readonly Dictionary<Uri, Tab> _searchResultsCache = new Dictionary<Uri, Tab>();
-        private readonly List<ISearchService> _searchServices = new List<ISearchService>();
-        private readonly List<ITabParser> _tabParsers = new List<ITabParser>();
+        private List<ISearchService> _searchServices = new List<ISearchService>();
+        private List<ITabParser> _tabParsers = new List<ITabParser>();
 
         private SearchResult SelectedSearchResult()
         {

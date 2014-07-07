@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Tabster.Controls;
@@ -54,8 +55,7 @@ namespace Tabster.Forms
             }
             txtsearchtype.Text = "All Types";
 
-            _searchServices.AddRange(Program.pluginController.GetClassInstances<ISearchService>());
-            _tabParsers.AddRange(Program.pluginController.GetClassInstances<ITabParser>());
+            CachePluginResources();
         }
 
         public MainForm(TabFile tabFile) : this()
@@ -93,6 +93,12 @@ namespace Tabster.Forms
             {
                 PopoutTab(_queuedTabfile);
             }
+        }
+
+        private void CachePluginResources()
+        {
+            _tabParsers = new List<ITabParser>(Program.pluginController.GetClassInstances<ITabParser>());
+            _searchServices = new List<ISearchService>(Program.pluginController.GetClassInstances<ISearchService>());  
         }
 
         private void recentlyViewedToolStripMenuItem_OnItemClicked(object sender, EventArgs e)
@@ -312,6 +318,7 @@ namespace Tabster.Forms
                 if (p.ShowDialog() == DialogResult.OK)
                 {
                     LoadSettings(false);
+                    CachePluginResources();
                 }
             }
         }

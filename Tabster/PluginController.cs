@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Tabster.Core.Plugins;
 
 #endregion
@@ -15,6 +16,27 @@ namespace Tabster
     {
         public Assembly Assembly { get; private set; }
         public ITabsterPlugin Interface { get; private set; }
+
+        private Guid _guid;
+
+        public Guid GUID
+        {
+            get
+            {
+                if (_guid == Guid.Empty)
+                {
+                    var attributes = Assembly.GetCustomAttributes(typeof(GuidAttribute), false);
+
+                    if (attributes.Length > 0)
+                    {
+                        _guid = new Guid(((GuidAttribute)attributes[0]).Value);
+                       
+                    }
+                }
+
+                return _guid;
+            }
+        }
 
         public TabsterPlugin(Assembly assembly, ITabsterPlugin pluginInterface)
         {
@@ -45,6 +67,7 @@ namespace Tabster
     {
         private readonly string _pluginsDirectory;
         private readonly List<TabsterPlugin> _plugins = new List<TabsterPlugin>();
+        private List<Guid> _disabledPlugins = new List<Guid>();
 
         public PluginController(string pluginsDirectory)
         {
@@ -84,6 +107,7 @@ namespace Tabster
             //todo cache instances?
             foreach(var plugin in _plugins)
             {
+                if (IsEnabled(plugin.GUID))
                 instances.AddRange(plugin.GetClassInstances<T>());
             }
 
@@ -128,6 +152,19 @@ namespace Tabster
         public TabsterPlugin[] GetPlugins()
         {
             return _plugins.ToArray();
+        }
+
+        public void SetStatus(Guid guid, bool enabled)
+        {
+            if (enabled)
+                _disabledPlugins.Remove(guid);
+            else
+                _disabledPlugins.Add(guid);
+        }
+
+        public bool IsEnabled(Guid guid)
+        {
+            return !_disabledPlugins.Contains(guid);
         }
 
         #region Implementation of IEnumerable
