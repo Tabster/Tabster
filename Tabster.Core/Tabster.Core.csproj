@@ -12,6 +12,7 @@
     <AssemblyName>Tabster.Core</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.cs" />
+    <Compile Include="ExtensionAttribute.cs" />
     <Compile Include="Plugins\ITabParser.cs" />
     <Compile Include="Plugins\ISearchService.cs" />
     <Compile Include="Playlist.cs" />
@@ -46,6 +48,7 @@
     <Compile Include="Tab.cs" />
     <Compile Include="TabFile.cs" />
     <Compile Include="TabsterFile.cs" />
+    <Compile Include="TabType.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

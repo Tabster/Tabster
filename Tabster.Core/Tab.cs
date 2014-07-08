@@ -1,20 +1,12 @@
 ﻿#region
 
 using System;
+using System.Text;
 
 #endregion
 
 namespace Tabster.Core
 {
-    public enum TabType
-    {
-        Guitar,
-        Chords,
-        Bass,
-        Drum,
-        Ukulele
-    }
-
     public enum TabSource
     {
         Download,
@@ -50,15 +42,26 @@ namespace Tabster.Core
         OpenG
     }
 
+    public interface ITablature
+    {
+        string Artist { get; set; }
+        string Title { get; set; }
+        string Contents { get; set; }
+        TabType Type { get; set; }
+        TabSource SourceType { get; set; }
+        Uri Source { get; set; }
+    }
+
+    public static class ITablatureExtensions
+    {
+        public static string ToFriendlyString(this ITablature tab)
+        {
+            return string.Format("{0} - {1} ({2})", tab.Artist, tab.Title, tab.Type.ToFriendlyString());
+        }
+    }
+
     public class Tab
     {
-        public static readonly string[] TabTypes;
-
-        static Tab()
-        {
-            TabTypes = new[] {"Guitar Tab", "Guitar Chords", "Bass Tab", "Drum Tab", "Ukulele Tab"};
-        }
-
         public Tab(string artist, string title, TabType type, string contents)
         {
             Comment = "";
@@ -110,34 +113,12 @@ namespace Tabster.Core
 
         public string Lyrics { get; set; }
 
-        public string GetName()
+        public string ToFriendlyName()
         {
-            return string.Format("{0} - {1} ({2})", Artist, Title, GetTabString(Type));
+            return string.Format("{0} - {1} ({2})", Artist, Title, Type.ToFriendlyString());
         }
-
-        #region Overrides
-
-        public override string ToString()
-        {
-            return GetName();
-        }
-
-        #endregion
 
         #region Static Methods
-
-        public static TabSource GetTabSource(string source)
-        {
-            switch (source)
-            {
-                case "UserCreated":
-                    return TabSource.UserCreated;
-                case "FileImport":
-                    return TabSource.FileImport;
-                default:
-                    return TabSource.Download;
-            }
-        }
 
         public static TabType GetTabType(string type)
         {
@@ -156,25 +137,6 @@ namespace Tabster.Core
             }
 
             return TabType.Guitar;
-        }
-
-        public static string GetTabString(TabType type)
-        {
-            switch (type)
-            {
-                case TabType.Guitar:
-                    return TabTypes[0];
-                case TabType.Chords:
-                    return TabTypes[1];
-                case TabType.Bass:
-                    return TabTypes[2];
-                case TabType.Drum:
-                    return TabTypes[3];
-                case TabType.Ukulele:
-                    return TabTypes[4];
-            }
-
-            return TabTypes[0];
         }
 
         #endregion

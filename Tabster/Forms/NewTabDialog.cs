@@ -13,15 +13,16 @@ namespace Tabster.Forms
         public NewTabDialog()
         {
             InitializeComponent();
-            txttype.DataSource = Tab.TabTypes;
+
             txtartist.Text = Environment.UserName;
             txtartist.Select(txtartist.Text.Length, 0);
+
+            foreach (TabType type in Enum.GetValues(typeof(TabType)))
+                txttype.Items.Add(type.ToFriendlyString());
         }
 
-        public NewTabDialog(string artist, string song, TabType type)
+        public NewTabDialog(string artist, string song, TabType type) : this()
         {
-            InitializeComponent();
-            txttype.DataSource = Tab.TabTypes;
             txtartist.Text = artist;
             txtsong.Text = song;
             txttype.SelectedIndex = (int) type;

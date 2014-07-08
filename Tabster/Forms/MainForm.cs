@@ -48,9 +48,10 @@ namespace Tabster.Forms
             }
 
             txtsearchtype.Items.Add("All Types");
-            foreach (var s in Tab.TabTypes)
+            foreach (TabType type in Enum.GetValues(typeof(TabType)))
             {
-                var str = s.EndsWith("s") ? s : string.Format("{0}s", s);
+                var typeStr = type.ToFriendlyString();
+                var str = typeStr.EndsWith("s") ? typeStr : string.Format("{0}s", typeStr);
                 txtsearchtype.Items.Add(str);
             }
             txtsearchtype.Text = "All Types";

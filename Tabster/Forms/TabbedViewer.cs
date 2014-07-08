@@ -107,7 +107,7 @@ namespace Tabster.Forms
 
             if (instance.Modified)
             {
-                var result = MessageBox.Show(string.Format("Save modified changes for {0}?", instance.File.TabData.GetName()), "Save", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                var result = MessageBox.Show(string.Format("Save modified changes for {0}?", instance.File.TabData.ToFriendlyName()), "Save", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Cancel)
                     return false;
@@ -274,7 +274,7 @@ namespace Tabster.Forms
         public TabInstance(TabFile file, TabEditor editor = null)
         {
             File = file;
-            Page = new TabPage {Text = file.TabData.GetName(), ToolTipText = file.FileInfo.FullName};
+            Page = new TabPage {Text = file.TabData.ToFriendlyName(), ToolTipText = file.FileInfo.FullName};
             Editor = editor ?? new TabEditor {Dock = DockStyle.Fill};
 
             Page.Controls.Add(Editor);
@@ -299,7 +299,7 @@ namespace Tabster.Forms
 
         public void SetHeader(bool modified)
         {
-            Page.Text = string.Format("{0} {1}", File.TabData.GetName(), modified ? "*" : "");
+            Page.Text = string.Format("{0} {1}", File.TabData.ToFriendlyName(), modified ? "*" : "");
         }
     }
 }

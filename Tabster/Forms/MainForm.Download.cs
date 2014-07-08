@@ -197,7 +197,7 @@ namespace Tabster.Forms
                     {
                         lvi.SubItems.Add(state.Tab.Artist);
                         lvi.SubItems.Add(state.Tab.Title);
-                        lvi.SubItems.Add(Tab.GetTabString(state.Tab.Type));
+                        lvi.SubItems.Add(state.Tab.Type.ToFriendlyString());
                     }
 
                     listView1.Items.Add(lvi);

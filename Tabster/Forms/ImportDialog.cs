@@ -14,14 +14,18 @@ namespace Tabster.Forms
         public ImportDialog()
         {
             InitializeComponent();
-            txttype.DataSource = Tab.TabTypes;
+
             txtartist.Select(txtartist.Text.Length, 0);
+
+            foreach (TabType type in Enum.GetValues(typeof(TabType)))
+                txttype.Items.Add(type.ToFriendlyString());
         }
 
         public Tab TabData { get; private set; }
 
         private void okbtn_Click(object sender, EventArgs e)
         {
+            
             TabData = new Tab(txtartist.Text.Trim(), txtsong.Text.Trim(), Tab.GetTabType(txttype.Text), File.ReadAllText(txtimportfile.Text)) {Source = new Uri(txtimportfile.Text), SourceType = TabSource.FileImport};
         }
 

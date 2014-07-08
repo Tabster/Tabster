@@ -120,7 +120,7 @@ namespace Tabster.Forms
                     if (result.Rating != SearchResultRating.None)
                         ratingString = new string('\u2605', (int) result.Rating - 1).PadRight(5, '\u2606');
 
-                    newRow.CreateCells(searchDisplay, result.Tab.Artist, result.Tab.Title, Tab.GetTabString(result.Tab.Type), ratingString, result.Query.Service.Name);
+                    newRow.CreateCells(searchDisplay, result.Tab.Artist, result.Tab.Title, result.Tab.Type.ToFriendlyString(), ratingString, result.Query.Service.Name);
                     searchDisplay.Rows.Add(newRow);
                 }
             }

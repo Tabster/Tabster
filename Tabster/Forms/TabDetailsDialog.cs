@@ -16,7 +16,10 @@ namespace Tabster.Forms
         {
             InitializeComponent();
             _tabFile = tab;
-            txttype.DataSource = Tab.TabTypes;
+
+            foreach (TabType type in Enum.GetValues(typeof(TabType)))
+                txttype.Items.Add(type.ToFriendlyString());
+
             LoadData();
         }
 
@@ -26,7 +29,7 @@ namespace Tabster.Forms
 
             txtartist.Text = _tabFile.TabData.Artist;
             txtsong.Text = _tabFile.TabData.Title;
-            txttype.Text = Tab.GetTabString(_tabFile.TabData.Type);
+            txttype.Text = _tabFile.TabData.Type.ToFriendlyString();
             txtcomment.Text = _tabFile.TabData.Comment;
 
             lblFormat.Text += _tabFile.FileVersion;

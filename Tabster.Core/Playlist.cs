@@ -3,11 +3,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Tabster.Core;
 
 #endregion
 
-namespace Tabster
+namespace Tabster.Core
 {
     public class Playlist : IEnumerable<TabFile>
     {

@@ -210,7 +210,7 @@ namespace Tabster.Controls
         {
             stringToPrint = txtContents.Text;
 
-            var printDocument = new PrintDocument {DocumentName = TabData.GetName()};
+            var printDocument = new PrintDocument {DocumentName = TabData.ToFriendlyName()};
             printDocument.PrintPage += printPage;
 
             if (showDialog)

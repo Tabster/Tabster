@@ -46,7 +46,7 @@ namespace Tabster.Core
 
         public static TabFile Create(Tab tab, string directory)
         {
-            var filePath = GenerateUniqueFilename(directory, string.Format("{0} - {1} ({2}){3}", tab.Artist, tab.Title, Tab.GetTabString(tab.Type), FILE_EXTENSION));
+            var filePath = GenerateUniqueFilename(directory, string.Format("{0} - {1} ({2}){3}", tab.Artist, tab.Title, tab.Type.ToFriendlyString(), FILE_EXTENSION));
             var tabFile = new TabFile(filePath, false) {TabData = tab, FileInfo = new FileInfo(filePath)};
             tabFile.Save();
             return tabFile;
@@ -155,7 +155,7 @@ namespace Tabster.Core
             BeginFileWrite("tabster", FILE_VERSION);
             WriteNode("title", TabData.Title);
             WriteNode("artist", TabData.Artist);
-            WriteNode("type", Tab.GetTabString(TabData.Type));
+            WriteNode("type", TabData.Type.ToFriendlyString());
             WriteNode("tab", TabData.Contents);
 
             var sourceValue = "UserCreated";
