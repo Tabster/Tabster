@@ -225,7 +225,7 @@ namespace Tabster.Forms
 
                     if (selectedPlaylist != null)
                     {
-                        if (MessageBox.Show("Are you sure you want to remove this tab from the playlist?", "Remove Tab", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        if (MessageBox.Show(string.Format("Are you sure you want to remove this tab from the playlist?{0}{0}{1}", Environment.NewLine, SelectedTab.TabData.GetName()), "Remove Tab", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
                             selectedPlaylist.PlaylistData.Remove(SelectedTab);
                             removed = true;
@@ -235,7 +235,7 @@ namespace Tabster.Forms
 
                 else
                 {
-                    if (MessageBox.Show("Are you sure you want to delete this tab?", "Delete Tab", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show(string.Format("Are you sure you want to delete this tab?{0}{0}{1}", Environment.NewLine, SelectedTab.TabData.GetName()), "Delete Tab", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         Program.libraryManager.RemoveTab(SelectedTab, true);
                         removed = true;
