@@ -7,6 +7,7 @@ Dependencies
 ------------
 
 * [.NET 2.0](http://www.microsoft.com/net)
+* [HTMLAgilityPack](http://htmlagilitypack.codeplex.com/) (In References directory)
 
 Building
 ---------------
