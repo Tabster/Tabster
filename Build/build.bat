@@ -11,7 +11,6 @@ SET SOLUTION_DIRECTORY=%CD%
 ::build
 ECHO.
 ECHO Building Solution...
-ECHO "%SOLUTION_DIRECTORY%\Tabster.sln"
 C:\windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe "%SOLUTION_DIRECTORY%\Tabster.sln" /p:Configuration=Release
 
 ::run NSIS compiler
