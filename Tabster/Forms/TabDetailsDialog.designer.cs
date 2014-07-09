@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TabDetailsDialog));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -50,11 +49,6 @@
             this.txtsong = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.txtlyrics = new System.Windows.Forms.TextBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtaudio = new System.Windows.Forms.TextBox();
-            this.browseaudiobtn = new System.Windows.Forms.Button();
             this.okbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
             this.txtlocation = new System.Windows.Forms.TextBox();
@@ -64,18 +58,15 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -98,9 +89,9 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.lblPlaylistCount);
             this.groupBox3.Controls.Add(this.lblfavorited);
             this.groupBox3.Location = new System.Drawing.Point(277, 104);
@@ -131,9 +122,9 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.lblModified);
             this.groupBox2.Controls.Add(this.lblCreated);
             this.groupBox2.Controls.Add(this.lblLength);
@@ -183,9 +174,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.txtcomment);
             this.groupBox1.Controls.Add(this.label17);
@@ -302,7 +293,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(480, 211);
+            this.tabPage3.Size = new System.Drawing.Size(480, 175);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Lyrics";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -315,64 +306,8 @@
             this.txtlyrics.Location = new System.Drawing.Point(3, 3);
             this.txtlyrics.Multiline = true;
             this.txtlyrics.Name = "txtlyrics";
-            this.txtlyrics.Size = new System.Drawing.Size(474, 205);
+            this.txtlyrics.Size = new System.Drawing.Size(474, 169);
             this.txtlyrics.TabIndex = 17;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.axWindowsMediaPlayer1);
-            this.tabPage4.Controls.Add(this.label14);
-            this.tabPage4.Controls.Add(this.txtaudio);
-            this.tabPage4.Controls.Add(this.browseaudiobtn);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(480, 175);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Audio";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // axWindowsMediaPlayer1
-            // 
-            this.axWindowsMediaPlayer1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.axWindowsMediaPlayer1.Enabled = true;
-            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(3, 54);
-            this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
-            this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
-            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(474, 118);
-            this.axWindowsMediaPlayer1.TabIndex = 15;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.Color.Transparent;
-            this.label14.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label14.Location = new System.Drawing.Point(6, 11);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(56, 13);
-            this.label14.TabIndex = 12;
-            this.label14.Text = "Audio File:";
-            // 
-            // txtaudio
-            // 
-            this.txtaudio.BackColor = System.Drawing.Color.White;
-            this.txtaudio.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtaudio.ForeColor = System.Drawing.Color.Black;
-            this.txtaudio.Location = new System.Drawing.Point(6, 28);
-            this.txtaudio.Name = "txtaudio";
-            this.txtaudio.Size = new System.Drawing.Size(356, 20);
-            this.txtaudio.TabIndex = 13;
-            // 
-            // browseaudiobtn
-            // 
-            this.browseaudiobtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.browseaudiobtn.Location = new System.Drawing.Point(368, 25);
-            this.browseaudiobtn.Name = "browseaudiobtn";
-            this.browseaudiobtn.Size = new System.Drawing.Size(75, 23);
-            this.browseaudiobtn.TabIndex = 14;
-            this.browseaudiobtn.Text = "Browse...";
-            this.browseaudiobtn.UseVisualStyleBackColor = true;
-            this.browseaudiobtn.Click += new System.EventHandler(this.browseaudiobtn_Click);
             // 
             // okbtn
             // 
@@ -438,9 +373,6 @@
             this.groupBox1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -457,14 +389,9 @@
         public System.Windows.Forms.TextBox txtsong;
         private System.Windows.Forms.TabPage tabPage3;
         public System.Windows.Forms.TextBox txtlyrics;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Label label14;
-        public System.Windows.Forms.Button browseaudiobtn;
-        public System.Windows.Forms.TextBox txtaudio;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
         public System.Windows.Forms.Label label5;
-        private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
         private System.Windows.Forms.Button okbtn;
         private System.Windows.Forms.Button cancelbtn;
         public System.Windows.Forms.TextBox txtlocation;
