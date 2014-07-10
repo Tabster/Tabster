@@ -8,12 +8,6 @@ using System.Xml;
 
 namespace Tabster.Core
 {
-    public enum ExportFormat
-    {
-        Tabster,
-        Text
-    }
-
     public class TabFile : TabsterFile, ITabsterFile
     {
         public const string FILE_EXTENSION = ".tabster";
@@ -28,19 +22,6 @@ namespace Tabster.Core
         }
 
         public Tab TabData { get; private set; }
-
-        public void Export(ExportFormat format, string filePath)
-        {
-            switch (format)
-            {
-                case ExportFormat.Tabster:
-                    File.Copy(FileInfo.FullName, filePath);
-                    break;
-                case ExportFormat.Text:
-                    File.WriteAllText(filePath, TabData.Contents);
-                    break;
-            }
-        }
 
         #region Static Methods
 

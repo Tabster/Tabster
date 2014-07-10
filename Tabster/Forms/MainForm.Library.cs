@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Core;
@@ -121,13 +122,20 @@ namespace Tabster.Forms
                                          Title = "Export Tab - Tabster",
                                          AddExtension = true,
                                          Filter = string.Format("Tabster File (*{0})|*{0}|Text File (*.txt)|*.txt", TabFile.FILE_EXTENSION),
-                                         FileName = SelectedTab.TabData.ToString()
+                                         FileName = SelectedTab.TabData.ToFriendlyName()
                                      })
                 {
                     if (sfd.ShowDialog() != DialogResult.Cancel)
                     {
-                        var format = sfd.FilterIndex == 1 ? ExportFormat.Tabster : ExportFormat.Text;
-                        SelectedTab.Export(format, sfd.FileName);
+                        switch(sfd.FilterIndex)
+                        {
+                            case 1:
+                                File.Copy(SelectedTab.FileInfo.FullName, sfd.FileName);
+                                break;
+                            case 2:
+                                File.WriteAllText(sfd.FileName, SelectedTab.TabData.Contents);
+                                break;
+                        }
                     }
                 }
             }
