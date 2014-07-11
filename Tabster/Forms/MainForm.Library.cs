@@ -518,7 +518,7 @@ namespace Tabster.Forms
             TabFile source;
             if (TabFile.TryParse(path, out source))
             {
-                var alreadyExists = playlist != null ? playlist.PlaylistData.Contains(path) : Program.libraryManager.FindTabByPath(path) != null;
+                var alreadyExists = playlist != null ? playlist.PlaylistData.ContainsPath(path) : Program.libraryManager.FindTabByPath(path) != null;
 
                 if (!alreadyExists)
                 {

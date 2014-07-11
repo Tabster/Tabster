@@ -47,6 +47,7 @@
     <Compile Include="Plugins\TabsterPluginException.cs" />
     <Compile Include="Tab.cs" />
     <Compile Include="TabFile.cs" />
+    <Compile Include="TabFileCollection.cs" />
     <Compile Include="TabsterFile.cs" />
     <Compile Include="TabType.cs" />
   </ItemGroup>
