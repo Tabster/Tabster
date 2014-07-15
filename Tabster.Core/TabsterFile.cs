@@ -208,12 +208,6 @@ namespace Tabster.Core
             }
         }
 
-        public static bool IsValidFileName(string filename)
-        {
-            var containsABadCharacter = new Regex(String.Format("[{0}]", Regex.Escape(new string(Path.GetInvalidFileNameChars()))));
-            return !containsABadCharacter.IsMatch(filename);
-        }
-
         public static string GenerateUniqueFilename(string directory, string filename)
         {
             //remove invalid file path characters
