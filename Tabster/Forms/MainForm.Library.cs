@@ -640,7 +640,7 @@ namespace Tabster.Forms
                                 {
                                     tab.TabData.Title,
                                     tab.TabData.Artist,
-                                    tab.TabData.ToFriendlyName(),
+                                    tab.TabData.Type.ToFriendlyString(),
                                     tab.TabData.Created,
                                     tab.FileInfo.LastWriteTime,
                                     string.Format("{0:0.##} KB", tab.FileInfo.Length/1024d),
