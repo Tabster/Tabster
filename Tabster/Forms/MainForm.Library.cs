@@ -211,7 +211,7 @@ namespace Tabster.Forms
             if (SelectedTab != null)
             {
                 txtsearchartist.Text = SelectedTab.TabData.Artist;
-                txtsearchsong.Text = SelectedTab.TabData.Title;
+                txtsearchsong.Text = SelectedTab.TabData.Title.Remove(SelectedTab.TabData.Title.IndexOf(" (ver ", StringComparison.InvariantCultureIgnoreCase)); ;
                 txtsearchtype.SelectedIndex = 0;
                 tabControl1.SelectedTab = display_search;
                 onlinesearchbtn.PerformClick();
