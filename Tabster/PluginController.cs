@@ -67,7 +67,7 @@ namespace Tabster
     {
         private readonly string _pluginsDirectory;
         private readonly List<TabsterPlugin> _plugins = new List<TabsterPlugin>();
-        private List<Guid> _disabledPlugins = new List<Guid>();
+        private readonly List<Guid> _disabledPlugins = new List<Guid>();
 
         public PluginController(string pluginsDirectory)
         {
@@ -114,7 +114,7 @@ namespace Tabster
             return instances;
         }
 
-        private void LoadPluginFromDisk(string path)
+        public void LoadPluginFromDisk(string path)
         {
             try
             {
