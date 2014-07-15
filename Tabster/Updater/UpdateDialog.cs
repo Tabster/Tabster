@@ -21,7 +21,6 @@ namespace Tabster.Updater
         {
             InitializeComponent();
 
-            Icon = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
             fullSize = Size;
             Size = new Size(433, 128);
         }

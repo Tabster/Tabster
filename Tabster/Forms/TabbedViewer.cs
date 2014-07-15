@@ -23,8 +23,6 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
-            Icon = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
-
             controlsToolStrip.Renderer = new ToolStripRenderer();
         }
 

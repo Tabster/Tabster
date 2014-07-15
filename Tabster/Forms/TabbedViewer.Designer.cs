@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TabbedViewer));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabControlMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeTabContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -161,6 +162,7 @@
             this.ClientSize = new System.Drawing.Size(738, 513);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.controlsToolStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "TabbedViewer";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
