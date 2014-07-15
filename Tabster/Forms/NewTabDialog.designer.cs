@@ -60,6 +60,7 @@
             this.txttype.Name = "txttype";
             this.txttype.Size = new System.Drawing.Size(119, 21);
             this.txttype.TabIndex = 3;
+            this.txttype.SelectedIndexChanged += new System.EventHandler(this.ValidateInput);
             // 
             // label2
             // 
@@ -81,7 +82,7 @@
             this.txtartist.Name = "txtartist";
             this.txtartist.Size = new System.Drawing.Size(206, 20);
             this.txtartist.TabIndex = 0;
-            this.txtartist.TextChanged += new System.EventHandler(this.txtartist_TextChanged);
+            this.txtartist.TextChanged += new System.EventHandler(this.ValidateInput);
             // 
             // label1
             // 
@@ -103,7 +104,7 @@
             this.txtsong.Name = "txtsong";
             this.txtsong.Size = new System.Drawing.Size(206, 20);
             this.txtsong.TabIndex = 1;
-            this.txtsong.TextChanged += new System.EventHandler(this.txtsong_TextChanged);
+            this.txtsong.TextChanged += new System.EventHandler(this.ValidateInput);
             // 
             // okbtn
             // 

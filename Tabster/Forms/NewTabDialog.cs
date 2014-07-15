@@ -26,28 +26,20 @@ namespace Tabster.Forms
             txtartist.Text = artist;
             txtsong.Text = song;
             txttype.SelectedIndex = (int) type;
+
+            ValidateInput();
         }
 
         public Tab TabData { get; private set; }
 
+        private void ValidateInput(object sender = null, EventArgs e = null)
+        {
+            okbtn.Enabled = okbtn.Enabled = txtartist.Text.Trim().Length > 0 && txtsong.Text.Trim().Length > 0 && txttype.SelectedIndex > 0;
+        }
+
         private void okbtn_Click(object sender, EventArgs e)
         {
             TabData = new Tab(txtartist.Text.Trim(), txtsong.Text.Trim(), Tab.GetTabType(txttype.Text), "") {SourceType = TabSource.UserCreated};
-        }
-
-        private void ValidateData()
-        {
-            okbtn.Enabled = okbtn.Enabled = txtartist.Text.Trim().Length > 0 && txtsong.Text.Trim().Length > 0;
-        }
-
-        private void txtartist_TextChanged(object sender, EventArgs e)
-        {
-            ValidateData();
-        }
-
-        private void txtsong_TextChanged(object sender, EventArgs e)
-        {
-            ValidateData();
         }
     }
 }
