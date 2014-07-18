@@ -211,7 +211,16 @@ namespace Tabster.Forms
             if (SelectedTab != null)
             {
                 txtsearchartist.Text = SelectedTab.TabData.Artist;
-                txtsearchsong.Text = SelectedTab.TabData.Title.Remove(SelectedTab.TabData.Title.IndexOf(" (ver ", StringComparison.InvariantCultureIgnoreCase)); ;
+
+                //check for version convention
+                var searchTitle = SelectedTab.TabData.Title;
+
+                var versionConventionIndex = SelectedTab.TabData.Title.IndexOf(" (ver ", StringComparison.InvariantCultureIgnoreCase);
+
+                if (versionConventionIndex >= 0)
+                    searchTitle = SelectedTab.TabData.Title.Remove(versionConventionIndex);
+
+                txtsearchsong.Text = searchTitle;
                 txtsearchtype.SelectedIndex = 0;
                 tabControl1.SelectedTab = display_search;
                 onlinesearchbtn.PerformClick();
