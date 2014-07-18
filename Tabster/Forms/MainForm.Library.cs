@@ -740,7 +740,7 @@ namespace Tabster.Forms
         {
             if (SelectedTab != null)
             {
-                lblpreviewtitle.Text = SelectedTab.TabData.ToString();
+                lblpreviewtitle.Text = SelectedTab.TabData.ToFriendlyName();
 
                 bool openedExternally, isNew;
                 var editor = Program.TabHandler.TryGetEditor(SelectedTab, out openedExternally, out isNew);
