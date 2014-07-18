@@ -82,7 +82,7 @@ namespace Tabster.Core
             var artistValue = ReadNodeValue("artist");
             var typeValue = Tab.GetTabType(ReadNodeValue("type"));
             var contentsValue = ReadNodeValue("tab");
-            var createdValue = ReadNodeValue("date", true) ?? ReadNodeValue("created", true);
+            var createdValue = ReadNodeValue("date", true) ?? ReadNodeValue("created", true) ?? FileInfo.CreationTime.ToString();
             var sourceValue = ReadNodeValue("source", true);
 
             var sourceType = TabSource.UserCreated;
