@@ -5,69 +5,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using Tabster.Core.Plugins;
 
 #endregion
 
-namespace Tabster
+namespace Tabster.Plugins
 {
-    public class TabsterPlugin
-    {
-        public Assembly Assembly { get; private set; }
-        public ITabsterPlugin Interface { get; private set; }
-
-        private Guid _guid;
-
-        public Guid GUID
-        {
-            get
-            {
-                if (_guid == Guid.Empty)
-                {
-                    var attributes = Assembly.GetCustomAttributes(typeof(GuidAttribute), false);
-
-                    if (attributes.Length > 0)
-                    {
-                        _guid = new Guid(((GuidAttribute)attributes[0]).Value);
-                       
-                    }
-                }
-
-                return _guid;
-            }
-        }
-
-        public TabsterPlugin(Assembly assembly, ITabsterPlugin pluginInterface)
-        {
-            Interface = pluginInterface;
-            Assembly = assembly;
-        }
-
-        public IEnumerable<T> GetClassInstances<T>()
-        {
-            var instances = new List<T>();
-
-            var cType = typeof (T);
-
-            foreach (var type in Interface.Types)
-            {
-                if (cType.IsAssignableFrom(type))
-                {
-                    var instance = (T)Activator.CreateInstance(type);
-                    instances.Add(instance);
-                }
-            }
-
-            return instances;
-        }
-    }
-
     public class PluginController : IEnumerable<TabsterPlugin>
     {
-        private readonly string _pluginsDirectory;
-        private readonly List<TabsterPlugin> _plugins = new List<TabsterPlugin>();
         private readonly List<Guid> _disabledPlugins = new List<Guid>();
+        private readonly List<TabsterPlugin> _plugins = new List<TabsterPlugin>();
+        private readonly string _pluginsDirectory;
 
         public PluginController(string pluginsDirectory)
         {
@@ -105,10 +53,10 @@ namespace Tabster
             var instances = new List<T>();
 
             //todo cache instances?
-            foreach(var plugin in _plugins)
+            foreach (var plugin in _plugins)
             {
                 if (IsEnabled(plugin.GUID))
-                instances.AddRange(plugin.GetClassInstances<T>());
+                    instances.AddRange(plugin.GetClassInstances<T>());
             }
 
             return instances;
@@ -126,7 +74,7 @@ namespace Tabster
 
                     foreach (var objType in assembly.GetTypes())
                     {
-                        if (typeof(ITabsterPlugin).IsAssignableFrom(objType))
+                        if (typeof (ITabsterPlugin).IsAssignableFrom(objType))
                         {
                             pluginType = objType;
                             break;
@@ -135,9 +83,9 @@ namespace Tabster
 
                     if (pluginType != null)
                     {
-                        var plguinInterface = (ITabsterPlugin) Activator.CreateInstance(pluginType);
+                        var pluginInterface = (ITabsterPlugin) Activator.CreateInstance(pluginType);
 
-                        var plugin = new TabsterPlugin(assembly, plguinInterface);
+                        var plugin = new TabsterPlugin(assembly, pluginInterface);
                         _plugins.Add(plugin);
                     }
                 }

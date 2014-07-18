@@ -91,7 +91,7 @@
     <Compile Include="Forms\MainForm.Download.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PluginController.cs" />
+    <Compile Include="Plugins\PluginController.cs" />
     <Compile Include="PortableSettingsProvider.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -189,6 +189,7 @@
     <Compile Include="Controls\TabEditor.Designer.cs">
       <DependentUpon>TabEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\TabsterPlugin.cs" />
     <Compile Include="TabsterWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
