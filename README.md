@@ -1,13 +1,13 @@
 Tabster
 ====================
 
-Tabster is a guitar tab manager that stores tabs in a library for easy viewing, editing, and printing.
+Tabster is a guitar tablature manager that stores tabs in a library for easy viewing, editing, and printing.
 
 Dependencies
 ------------
 
 * [.NET 2.0](http://www.microsoft.com/net)
-* [HTMLAgilityPack](http://htmlagilitypack.codeplex.com/) (In References directory)
+* [HTMLAgilityPack](http://htmlagilitypack.codeplex.com/) (In References directory - used for web-scraping functionality found in native plugins)
 
 Building
 ---------------
