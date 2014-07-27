@@ -41,7 +41,7 @@ namespace Tabster
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var exception = ((Exception)e.ExceptionObject).GetBaseException();
+            var exception = ((Exception) e.ExceptionObject).GetBaseException();
 
             var assembly = Assembly.GetExecutingAssembly();
 
