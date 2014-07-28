@@ -1,6 +1,7 @@
 ﻿#region
 
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
 using Tabster.Core.FileTypes;
@@ -43,7 +44,7 @@ namespace Tabster.Utilities
 
                 var firstArg = commandLine[0];
 
-                if (Common.IsFilePath(firstArg, true))
+                if (File.Exists(firstArg))
                 {
                     var processor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
 
