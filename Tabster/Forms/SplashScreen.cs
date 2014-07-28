@@ -15,10 +15,7 @@ namespace Tabster.Forms
         public bool SplashComplete;
         public int _Progress;
 
-        public string[] status = {
-                                     "Loading startup events...", "Loading plugins...", "Organizing library content...", "Checking for updates...", "Loading playlists...",
-                                     "Scanning tabs and loading library...", "Performing caching..."
-                                 };
+        public string[] status = { "Loading plugins...", "Loading tabs...", "Loading playlists...", "Checking for updates..." };
 
         public SplashScreen()
         {
