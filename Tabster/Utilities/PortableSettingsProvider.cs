@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 #endregion
 
-namespace Tabster
+namespace Tabster.Utilities
 {
     public class PortableSettingsProvider : SettingsProvider
     {

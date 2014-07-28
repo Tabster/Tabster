@@ -92,7 +92,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Plugins\PluginController.cs" />
-    <Compile Include="PortableSettingsProvider.cs" />
+    <Compile Include="Utilities\PortableSettingsProvider.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

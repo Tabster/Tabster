@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 using Tabster;
+using Tabster.Utilities;
 
 namespace Tabster.Properties {
     
