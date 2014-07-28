@@ -4,11 +4,10 @@ using System;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
-using Tabster.Utilities;
 
 #endregion
 
-namespace Tabster
+namespace Tabster.Utilities
 {
     public class TabsterWebClient : WebClient
     {

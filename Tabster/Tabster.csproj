@@ -189,7 +189,7 @@
       <DependentUpon>TabEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Plugins\TabsterPlugin.cs" />
-    <Compile Include="TabsterWebClient.cs">
+    <Compile Include="Utilities\TabsterWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="TabViewerManager.cs" />
