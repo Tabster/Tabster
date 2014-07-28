@@ -39,7 +39,7 @@
     <Compile Include="FileTypes\TabsterXmlDocument.cs" />
     <Compile Include="Types\ITablatureSourced.cs" />
     <Compile Include="Types\ITablaturePlaylist.cs" />
-    <Compile Include="ExtensionAttribute.cs" />
+    <Compile Include="Utilities\ExtensionAttribute.cs" />
     <Compile Include="FileTypes\TablatureDocument.cs" />
     <Compile Include="FileTypes\TabsterDocumentProcessor.cs" />
     <Compile Include="FileTypes\ITabsterDocument.cs" />
