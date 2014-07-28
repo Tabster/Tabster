@@ -17,11 +17,9 @@ namespace Tabster
 {
     public class LibraryItem
     {
-        public LibraryItem(TablatureDocument doc, int views = 0, bool favorited = false)
+        public LibraryItem(TablatureDocument doc)
         {
             Document = doc;
-            Views = views;
-            Favorited = favorited;
         }
 
         public TablatureDocument Document { get; private set; }
@@ -336,7 +334,7 @@ namespace Tabster
                     if (doc != null)
                     {
                         var favorited = node.Attributes["favorite"] != null && node.Attributes["favorite"].Value == "true";
-                        _items.Add(new LibraryItem(doc, favorited: favorited));
+                        _items.Add(new LibraryItem(doc) {Favorited = favorited});
                     }
                 }
             }
