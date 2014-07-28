@@ -205,6 +205,8 @@
     <Compile Include="Updater\UpdateWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utilities\ExtensionAttribute.cs" />
+    <Compile Include="Utilities\TabsterDocumentExtensions.cs" />
     <EmbeddedResource Include="Forms\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>

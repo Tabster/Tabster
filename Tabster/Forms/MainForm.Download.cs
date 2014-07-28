@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
 using Tabster.Core.Plugins;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -20,14 +21,14 @@ namespace Tabster.Forms
 
         public Uri Url { get; private set; }
         public ITabParser Parser { get; set; }
-        public Tab Tab { get; set; }
+        public TablatureDocument Tab { get; set; }
         public Exception Error { get; set; }
         public bool Cancelled { get; set; }
     }
 
     partial class MainForm
     {
-        private readonly List<Tab> downloadedTabs = new List<Tab>();
+        private readonly List<TablatureDocument> downloadedTabs = new List<TablatureDocument>();
 
         private Uri[] GetUrls()
         {
@@ -134,7 +135,7 @@ namespace Tabster.Forms
                             if (tab != null)
                             {
                                 tab.Source = state.Url;
-                                tab.SourceType = TabSource.Download;
+                                tab.SourceType = TablatureSourceType.Download;
                             }
 
                             state.Tab = tab;
@@ -214,9 +215,8 @@ namespace Tabster.Forms
         {
             foreach (var tab in downloadedTabs)
             {
-                var tabFile = TabFile.Create(tab, Program.libraryManager.TabsDirectory);
-                Program.libraryManager.AddTab(tabFile, true);
-                UpdateLibraryItem(tabFile);
+                Program.libraryManager.AddTab(tab, true);
+                UpdateLibraryItem(tab);
             }
 
             downloadedTabs.Clear();

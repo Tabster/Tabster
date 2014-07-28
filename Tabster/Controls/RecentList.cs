@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
 
 #endregion
 
@@ -26,7 +26,7 @@ namespace Tabster.Controls
 
         public event EventHandler OnItemClicked;
 
-        private bool IsRecent(TabFile tab, out int index)
+        private bool IsRecent(TablatureDocument tab, out int index)
         {
             for (var i = 0; i < DropDownItems.Count; i++)
             {
@@ -48,7 +48,7 @@ namespace Tabster.Controls
             return false;
         }
 
-        public void Add(TabFile tab, bool save = true)
+        public void Add(TablatureDocument tab, bool save = true)
         {
             //check if it's already on the list
             int existingIndex;
@@ -57,7 +57,7 @@ namespace Tabster.Controls
                 DropDownItems.RemoveAt(existingIndex);
             }
 
-            var item = new ToolStripMenuItem(string.Format("{0} - {1}", tab.TabData.Artist, tab.TabData.Title)) {ToolTipText = tab.FileInfo.FullName};
+            var item = new ToolStripMenuItem(string.Format("{0} - {1}", tab.Artist, tab.Title)) {ToolTipText = tab.FileInfo.FullName};
             item.Click += item_clicked;
             ((ToolStripDropDownMenu) item.DropDown).ShowImageMargin = false;
             ((ToolStripDropDownMenu) item.DropDown).ShowCheckMargin = false;
@@ -134,13 +134,15 @@ namespace Tabster.Controls
 
             if (files.Count > 0)
             {
+                var processor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
+
                 foreach (XmlNode file in files)
                 {
-                    TabFile tab;
+                    var tabDoc = processor.Load(file.InnerText);
 
-                    if (TabFile.TryParse(file.InnerText, out tab))
+                    if (tabDoc != null)
                     {
-                        Add(tab, false);
+                        Add(tabDoc);
                     }
                 }
 

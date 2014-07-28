@@ -33,7 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtartist = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtsong = new System.Windows.Forms.TextBox();
+            this.txttitle = new System.Windows.Forms.TextBox();
             this.okbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -76,7 +76,6 @@
             // txtartist
             // 
             this.txtartist.BackColor = System.Drawing.SystemColors.Window;
-            this.txtartist.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtartist.ForeColor = System.Drawing.SystemColors.ControlText;
             this.txtartist.Location = new System.Drawing.Point(53, 7);
             this.txtartist.Name = "txtartist";
@@ -89,22 +88,21 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(10, 35);
+            this.label1.Location = new System.Drawing.Point(15, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(30, 13);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Song:";
+            this.label1.Text = "Title:";
             // 
-            // txtsong
+            // txttitle
             // 
-            this.txtsong.BackColor = System.Drawing.SystemColors.Window;
-            this.txtsong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtsong.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txtsong.Location = new System.Drawing.Point(53, 33);
-            this.txtsong.Name = "txtsong";
-            this.txtsong.Size = new System.Drawing.Size(206, 20);
-            this.txtsong.TabIndex = 1;
-            this.txtsong.TextChanged += new System.EventHandler(this.ValidateInput);
+            this.txttitle.BackColor = System.Drawing.SystemColors.Window;
+            this.txttitle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.txttitle.Location = new System.Drawing.Point(53, 33);
+            this.txttitle.Name = "txttitle";
+            this.txttitle.Size = new System.Drawing.Size(206, 20);
+            this.txttitle.TabIndex = 1;
+            this.txttitle.TextChanged += new System.EventHandler(this.ValidateInput);
             // 
             // okbtn
             // 
@@ -143,7 +141,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txttype);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtsong);
+            this.Controls.Add(this.txttitle);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtartist);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -167,7 +165,7 @@
         public System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox txtartist;
         public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.TextBox txtsong;
+        public System.Windows.Forms.TextBox txttitle;
         private System.Windows.Forms.Button okbtn;
         private System.Windows.Forms.Button cancelbtn;
     }

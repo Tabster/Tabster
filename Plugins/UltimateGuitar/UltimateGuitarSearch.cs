@@ -6,8 +6,9 @@ using System.Net;
 using System.Text;
 using System.Web;
 using HtmlAgilityPack;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
 using Tabster.Core.Plugins;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -140,7 +141,7 @@ namespace UltimateGuitar
                                         Int32.TryParse(ratingSpan.Attributes["class"].Value.Replace("r_", ""), out rowRating);
                                         rating = (SearchResultRating) rowRating + 1;
 
-                                        switch(rowRating)
+                                        switch (rowRating)
                                         {
                                             case 1:
                                                 rating = SearchResultRating.Stars1;
@@ -163,7 +164,7 @@ namespace UltimateGuitar
 
                                 if (!query.Type.HasValue || rowType == query.Type)
                                 {
-                                    var tab = new Tab(loopArtist, rowSong, rowType.Value, null) {Source = new Uri(rowURL)};
+                                    var tab = new TablatureDocument(loopArtist, rowSong, rowType.Value, null) {Source = new Uri(rowURL)};
                                     results.Add(new SearchResult(query, tab, rating));
                                 }
                             }

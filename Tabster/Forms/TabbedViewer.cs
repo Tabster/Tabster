@@ -2,11 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Reflection;
 using System.Windows.Forms;
 using Tabster.Controls;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
+using Tabster.Core.Types;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion
@@ -28,15 +27,15 @@ namespace Tabster.Forms
 
         #region Methods
 
-        public bool AlreadyOpened(TabFile tab)
+        public bool AlreadyOpened(TablatureDocument doc)
         {
             TabPage t;
-            return AlreadyOpened(tab, out t);
+            return AlreadyOpened(doc, out t);
         }
 
-        public bool AlreadyOpened(TabFile tab, out TabPage associatedTabPage)
+        public bool AlreadyOpened(TablatureDocument doc, out TabPage associatedTabPage)
         {
-            var instance = _tabInstances.Find(x => x.File.FileInfo.FullName.Equals(tab.FileInfo.FullName, StringComparison.OrdinalIgnoreCase));
+            var instance = _tabInstances.Find(x => x.File.FileInfo.FullName.Equals(doc.FileInfo.FullName, StringComparison.OrdinalIgnoreCase));
             associatedTabPage = instance != null ? instance.Page : null;
             return instance != null;
         }
@@ -65,10 +64,10 @@ namespace Tabster.Forms
             }
         }
 
-        public void LoadTab(TabFile tabFile, TabEditor editor)
+        public void LoadTab(TablatureDocument tabDocument, TabEditor editor)
         {
             TabPage tp;
-            var alreadyOpened = AlreadyOpened(tabFile, out tp);
+            var alreadyOpened = AlreadyOpened(tabDocument, out tp);
 
             if (alreadyOpened)
             {
@@ -77,7 +76,7 @@ namespace Tabster.Forms
 
             else
             {
-                var instance = new TabInstance(tabFile, editor);
+                var instance = new TabInstance(tabDocument, editor);
                 instance.SetHeader(false);
 
                 _tabInstances.Add(instance);
@@ -105,7 +104,7 @@ namespace Tabster.Forms
 
             if (instance.Modified)
             {
-                var result = MessageBox.Show(string.Format("Save modified changes for {0}?", instance.File.TabData.ToFriendlyName()), "Save", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                var result = MessageBox.Show(string.Format("Save modified changes for {0}?", instance.File.ToFriendlyString()), "Save", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Cancel)
                     return false;
@@ -115,7 +114,7 @@ namespace Tabster.Forms
 
             if (saveBeforeClosing)
             {
-                instance.File.Save();
+                instance.File.Save(instance.File.FileInfo.FullName);
             }
 
             tabControl1.TabPages.Remove(instance.Page);
@@ -259,8 +258,8 @@ namespace Tabster.Forms
 
             if (instance != null)
             {
-                instance.File.TabData.Contents = instance.Editor.GetText();
-                instance.File.Save();
+                instance.File.Contents = instance.Editor.GetText();
+                instance.File.Save(instance.File.FileInfo.FullName);
                 instance.Editor.ModificationCheck();
                 savebtn.Enabled = false;
             }
@@ -269,21 +268,21 @@ namespace Tabster.Forms
 
     public class TabInstance
     {
-        public TabInstance(TabFile file, TabEditor editor = null)
+        public TabInstance(TablatureDocument file, TabEditor editor = null)
         {
             File = file;
-            Page = new TabPage {Text = file.TabData.ToFriendlyName(), ToolTipText = file.FileInfo.FullName};
+            Page = new TabPage {Text = file.ToFriendlyString(), ToolTipText = file.FileInfo.FullName};
             Editor = editor ?? new TabEditor {Dock = DockStyle.Fill};
 
             Page.Controls.Add(Editor);
 
-            Editor.LoadTab(file.TabData);
+            Editor.LoadTab(file);
             Editor.TabModified += editor_TabModified;
         }
 
         public TabPage Page { get; private set; }
         public TabEditor Editor { get; private set; }
-        public TabFile File { get; private set; }
+        public TablatureDocument File { get; private set; }
 
         public bool Modified
         {
@@ -297,7 +296,7 @@ namespace Tabster.Forms
 
         public void SetHeader(bool modified)
         {
-            Page.Text = string.Format("{0} {1}", File.TabData.ToFriendlyName(), modified ? "*" : "");
+            Page.Text = string.Format("{0} {1}", File.ToFriendlyString(), modified ? "*" : "");
         }
     }
 }

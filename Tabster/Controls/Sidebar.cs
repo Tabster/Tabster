@@ -5,7 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
 using Tabster.Forms;
 
 #endregion
@@ -172,14 +172,14 @@ namespace Tabster.Controls
 
         #region Playlists
 
-        public void AddPlaylist(PlaylistFile p)
+        public void AddPlaylist(TablaturePlaylistDocument p)
         {
-            var node = new TreeNode(p.PlaylistData.Name) {Tag = p.FileInfo.FullName, NodeFont = ChildFont};
+            var node = new TreeNode(p.Name) {Tag = p.FileInfo.FullName, NodeFont = ChildFont};
             NodePlaylists.Nodes.Add(node);
             ExpandAll();
         }
 
-        public void RemovePlaylist(PlaylistFile p)
+        public void RemovePlaylist(TablaturePlaylistDocument p)
         {
             foreach (TreeNode node in NodePlaylists.Nodes)
             {
@@ -197,7 +197,7 @@ namespace Tabster.Controls
             return SelectedNode != null && SelectedNode.Parent == Nodes["node_playlists"];
         }
 
-        public PlaylistFile SelectedPlaylist()
+        public TablaturePlaylistDocument SelectedPlaylist()
         {
             return PlaylistNodeSelected() ? Program.libraryManager.FindPlaylistByPath(SelectedNode.Tag.ToString()) : null;
         }

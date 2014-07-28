@@ -2,7 +2,8 @@
 
 using System;
 using System.Windows.Forms;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -10,40 +11,37 @@ namespace Tabster.Forms
 {
     public partial class TabDetailsDialog : Form
     {
-        private readonly TabFile _tabFile;
+        private readonly TablatureDocument _tabDocument;
 
-        public TabDetailsDialog(TabFile tab)
+        public TabDetailsDialog(TablatureDocument tab)
         {
             InitializeComponent();
-            _tabFile = tab;
+            _tabDocument = tab;
 
-            foreach (TabType type in Enum.GetValues(typeof(TabType)))
-                txttype.Items.Add(type.ToFriendlyString());
+            txttype.DataSource = TabTypeUtilities.FriendlyStrings();
 
             LoadData();
         }
 
         private void LoadData()
         {
-            txtlocation.Text = _tabFile.FileInfo.FullName;
+            txtlocation.Text = _tabDocument.FileInfo.FullName;
 
-            txtartist.Text = _tabFile.TabData.Artist;
-            txtsong.Text = _tabFile.TabData.Title;
-            txttype.Text = _tabFile.TabData.Type.ToFriendlyString();
-            txtcomment.Text = _tabFile.TabData.Comment;
+            txtartist.Text = _tabDocument.Artist;
+            txtsong.Text = _tabDocument.Title;
+            txttype.Text = _tabDocument.Type.ToFriendlyString();
+            txtcomment.Text = _tabDocument.Comment;
 
-            lblFormat.Text += _tabFile.FileVersion;
-            lblLength.Text += string.Format(" {0:n0} bytes", _tabFile.FileInfo.Length);
-            lblCreated.Text += string.Format(" {0}", _tabFile.FileInfo.CreationTime);
-            lblModified.Text += string.Format(" {0}", _tabFile.FileInfo.LastWriteTime);
+            lblFormat.Text += _tabDocument.FileVersion;
+            lblLength.Text += string.Format(" {0:n0} bytes", _tabDocument.FileInfo.Length);
+            lblCreated.Text += string.Format(" {0}", _tabDocument.FileInfo.CreationTime);
+            lblModified.Text += string.Format(" {0}", _tabDocument.FileInfo.LastWriteTime);
 
-            var favorited = Program.libraryManager.FindTab(_tabFile).Favorited;
+            var favorited = Program.libraryManager.FindTab(_tabDocument).Favorited;
             lblfavorited.Text = string.Format("Favorited: {0}", (favorited ? "Yes" : "No"));
 
-            var playlistCount = Program.libraryManager.FindPlaylistsContaining(_tabFile).Count;
+            var playlistCount = Program.libraryManager.FindPlaylistsContaining(_tabDocument).Count;
             lblPlaylistCount.Text = string.Format("Founds in {0} playlist{1}.", playlistCount, playlistCount == 1 ? "" : "s");
-
-            txtlyrics.Text = _tabFile.TabData.Lyrics;
         }
 
         private void cancelbtn_Click(object sender, EventArgs e)
@@ -53,16 +51,11 @@ namespace Tabster.Forms
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            _tabFile.TabData.Artist = txtartist.Text;
-            _tabFile.TabData.Title = txtsong.Text;
-            _tabFile.TabData.Type = Tab.GetTabType(txttype.Text);
-            _tabFile.TabData.Lyrics = txtlyrics.Text;
-            _tabFile.TabData.Comment = txtcomment.Text;
-            _tabFile.Save();
-        }
-
-        private void groupBox3_Enter(object sender, EventArgs e)
-        {
+            _tabDocument.Artist = txtartist.Text;
+            _tabDocument.Title = txtsong.Text;
+            _tabDocument.Type = TabTypeUtilities.FromFriendlyString(txttype.Text).Value;
+            _tabDocument.Comment = txtcomment.Text;
+            _tabDocument.Save();
         }
     }
 }

@@ -6,8 +6,9 @@ using System.Net;
 using System.Text;
 using System.Web;
 using HtmlAgilityPack;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
 using Tabster.Core.Plugins;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -106,7 +107,7 @@ namespace GuitartabsDotCC
                     {
                         rowTitle = RemoveTypeFromTitle(rowTitle, tabType.Value);
 
-                        var tab = new Tab(rowArtist, rowTitle, tabType.Value, null) {Source = new Uri(string.Format("http://guitartabs.cc{0}", rowUrl))};
+                        var tab = new TablatureDocument(rowArtist, rowTitle, tabType.Value, null) {Source = new Uri(string.Format("http://guitartabs.cc{0}", rowUrl))};
                         results.Add(new SearchResult(query, tab, rowRating));
                     }
                 }

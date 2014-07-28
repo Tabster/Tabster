@@ -4,7 +4,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
-using Tabster.Core;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -61,7 +61,7 @@ namespace Tabster.Controls
             }
         }
 
-        public Tab TabData { get; private set; }
+        public ITablature TabData { get; private set; }
 
         public bool HasBeenModified { get; private set; }
 
@@ -132,7 +132,7 @@ namespace Tabster.Controls
             txtContents.Text = text;
         }
 
-        public void LoadTab(Tab t)
+        public void LoadTab(ITablature t)
         {
             TabData = t;
 
@@ -210,7 +210,7 @@ namespace Tabster.Controls
         {
             stringToPrint = txtContents.Text;
 
-            var printDocument = new PrintDocument {DocumentName = TabData.ToFriendlyName()};
+            var printDocument = new PrintDocument {DocumentName = TabData.ToFriendlyString()};
             printDocument.PrintPage += printPage;
 
             if (showDialog)

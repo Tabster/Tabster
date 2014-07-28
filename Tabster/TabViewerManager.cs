@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Tabster.Controls;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
 using Tabster.Forms;
 
 #endregion
@@ -15,11 +15,11 @@ namespace Tabster
     {
         #region Delegates
 
-        public delegate void TabHandler(object sender, TabFile tabFile);
+        public delegate void TabHandler(object sender, TablatureDocument TablatureDocument);
 
         #endregion
 
-        private readonly Dictionary<TabFile, TabEditor> _editors = new Dictionary<TabFile, TabEditor>();
+        private readonly Dictionary<TablatureDocument, TabEditor> _editors = new Dictionary<TablatureDocument, TabEditor>();
 
         private TabbedViewer _viewer;
 
@@ -36,20 +36,20 @@ namespace Tabster
             return _viewer;
         }
 
-        public void Restore(TabFile tabFile)
+        public void Restore(TablatureDocument doc)
         {
             if (TabClosed != null)
-                TabClosed(this, tabFile);
+                TabClosed(this, doc);
         }
 
-        public void LoadExternally(TabFile tabFile, bool show, bool forceFront = true)
+        public void LoadExternally(TablatureDocument doc, bool show, bool forceFront = true)
         {
             var viewer = GetViewer(true);
 
             bool openedExternall, isNew;
-            var editor = TryGetEditor(tabFile, out openedExternall, out isNew);
+            var editor = TryGetEditor(doc, out openedExternall, out isNew);
 
-            viewer.LoadTab(tabFile, editor);
+            viewer.LoadTab(doc, editor);
 
             if (show && !viewer.Visible)
             {
@@ -60,13 +60,13 @@ namespace Tabster
             }
         }
 
-        public bool IsOpenedExternally(TabFile tab)
+        public bool IsOpenedExternally(TablatureDocument tab)
         {
             var v = GetViewer(false);
             return v != null && v.AlreadyOpened(tab);
         }
 
-        public TabEditor TryGetEditor(TabFile tab, out bool openedExternally, out bool isNew)
+        public TabEditor TryGetEditor(TablatureDocument tab, out bool openedExternally, out bool isNew)
         {
             if (_editors.ContainsKey(tab))
             {

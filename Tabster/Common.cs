@@ -23,7 +23,6 @@ namespace Tabster
             return version;
         }
 
-
         public static bool IsFilePath(string path, bool checkExists)
         {
             try

@@ -3,7 +3,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
 using Tabster.Forms;
 
 #endregion
@@ -12,7 +12,7 @@ namespace Tabster
 {
     public class SingleInstanceController : WindowsFormsApplicationBase
     {
-        private static TabFile _queuedTabfile;
+        private static TablatureDocument _queuedTabfile;
         private static bool _isLibraryOpen;
         private static bool _noSplash;
 
@@ -41,15 +41,20 @@ namespace Tabster
                     _noSplash = true;
                 }
 
-                if (Common.IsFilePath(commandLine[0], true))
+                var firstArg = commandLine[0];
+
+                if (Common.IsFilePath(firstArg, true))
                 {
-                    TabFile t;
-                    if (TabFile.TryParse(commandLine[0], out t))
+                    var processor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
+
+                    var tab = processor.Load(firstArg);
+
+                    if (tab != null)
                     {
-                        _queuedTabfile = t;
+                        _queuedTabfile = tab;
 
                         if (_isLibraryOpen)
-                            Program.TabHandler.LoadExternally(t, true);
+                            Program.TabHandler.LoadExternally(tab, true);
                     }
                 }
             }

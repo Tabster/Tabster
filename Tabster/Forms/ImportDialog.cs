@@ -3,7 +3,8 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -16,17 +17,18 @@ namespace Tabster.Forms
             InitializeComponent();
 
             txtartist.Select(txtartist.Text.Length, 0);
-
-            foreach (TabType type in Enum.GetValues(typeof(TabType)))
-                txttype.Items.Add(type.ToFriendlyString());
+            txttype.DataSource = TabTypeUtilities.FriendlyStrings();
         }
 
-        public Tab TabData { get; private set; }
+        public TablatureDocument Tab { get; private set; }
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            
-            TabData = new Tab(txtartist.Text.Trim(), txtsong.Text.Trim(), Tab.GetTabType(txttype.Text), File.ReadAllText(txtimportfile.Text)) {Source = new Uri(txtimportfile.Text), SourceType = TabSource.FileImport};
+            Tab = new TablatureDocument(txtartist.Text.Trim(), txttitle.Text.Trim(), TabTypeUtilities.FromFriendlyString(txttype.Text).Value, File.ReadAllText(txtimportfile.Text))
+                      {
+                          Source = new Uri(txtimportfile.Text),
+                          SourceType = TablatureSourceType.FileImport
+                      };
         }
 
         private void browsebtn_Click(object sender, EventArgs e)
@@ -46,24 +48,9 @@ namespace Tabster.Forms
             }
         }
 
-        private void ValidateData()
+        private void ValidateData(object sender = null, EventArgs e = null)
         {
-            okbtn.Enabled = okbtn.Enabled = txtartist.Text.Trim().Length > 0 && txtsong.Text.Trim().Length > 0 && txtimportfile.Text.Trim().Length > 0;
-        }
-
-        private void txtimportfile_TextChanged(object sender, EventArgs e)
-        {
-            ValidateData();
-        }
-
-        private void txtsong_TextChanged(object sender, EventArgs e)
-        {
-            ValidateData();
-        }
-
-        private void txtartist_TextChanged(object sender, EventArgs e)
-        {
-            ValidateData();
+            okbtn.Enabled = okbtn.Enabled = txtartist.Text.Trim().Length > 0 && txttitle.Text.Trim().Length > 0 && txtimportfile.Text.Trim().Length > 0;
         }
     }
 }

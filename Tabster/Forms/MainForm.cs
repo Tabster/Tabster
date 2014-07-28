@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Tabster.Controls;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
 using Tabster.Core.Plugins;
+using Tabster.Core.Types;
 using Tabster.Properties;
 using Tabster.Updater;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
@@ -17,7 +18,8 @@ namespace Tabster.Forms
 {
     public partial class MainForm : Form
     {
-        private readonly TabFile _queuedTabfile;
+        private readonly TablatureDocument _queuedTabfile;
+        private readonly TabsterDocumentProcessor<TablatureDocument> _tablatureProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
         private readonly UpdateQuery _updateQuery = new UpdateQuery();
 
         public MainForm()
@@ -48,7 +50,7 @@ namespace Tabster.Forms
             }
 
             txtsearchtype.Items.Add("All Types");
-            foreach (TabType type in Enum.GetValues(typeof(TabType)))
+            foreach (TabType type in Enum.GetValues(typeof (TabType)))
             {
                 var typeStr = type.ToFriendlyString();
                 var str = typeStr.EndsWith("s") ? typeStr : string.Format("{0}s", typeStr);
@@ -59,10 +61,10 @@ namespace Tabster.Forms
             CachePluginResources();
         }
 
-        public MainForm(TabFile tabFile)
+        public MainForm(TablatureDocument tabDocument)
             : this()
         {
-            _queuedTabfile = tabFile;
+            _queuedTabfile = tabDocument;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -105,11 +107,11 @@ namespace Tabster.Forms
 
         private void recentlyViewedToolStripMenuItem_OnItemClicked(object sender, EventArgs e)
         {
-            TabFile tab;
-
             var path = ((ToolStripMenuItem) sender).ToolTipText;
 
-            if (TabFile.TryParse(path, out tab))
+            var tab = _tablatureProcessor.Load(path);
+
+            if (tab != null)
             {
                 PopoutTab(tab);
             }

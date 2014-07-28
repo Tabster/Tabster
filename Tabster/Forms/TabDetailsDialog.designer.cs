@@ -47,8 +47,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txttype = new System.Windows.Forms.ComboBox();
             this.txtsong = new System.Windows.Forms.TextBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.txtlyrics = new System.Windows.Forms.TextBox();
             this.okbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
             this.txtlocation = new System.Windows.Forms.TextBox();
@@ -57,7 +55,6 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -66,7 +63,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -100,7 +96,6 @@
             this.groupBox3.TabIndex = 40;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Library Information:";
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // lblPlaylistCount
             // 
@@ -286,29 +281,6 @@
             this.txtsong.Size = new System.Drawing.Size(193, 20);
             this.txtsong.TabIndex = 1;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.txtlyrics);
-            this.tabPage3.ForeColor = System.Drawing.Color.Black;
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(480, 175);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Lyrics";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // txtlyrics
-            // 
-            this.txtlyrics.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtlyrics.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtlyrics.ForeColor = System.Drawing.Color.Black;
-            this.txtlyrics.Location = new System.Drawing.Point(3, 3);
-            this.txtlyrics.Multiline = true;
-            this.txtlyrics.Name = "txtlyrics";
-            this.txtlyrics.Size = new System.Drawing.Size(474, 169);
-            this.txtlyrics.TabIndex = 17;
-            // 
             // okbtn
             // 
             this.okbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -371,8 +343,6 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -387,8 +357,6 @@
         public System.Windows.Forms.ComboBox txttype;
         public System.Windows.Forms.TextBox txtartist;
         public System.Windows.Forms.TextBox txtsong;
-        private System.Windows.Forms.TabPage tabPage3;
-        public System.Windows.Forms.TextBox txtlyrics;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
         public System.Windows.Forms.Label label5;

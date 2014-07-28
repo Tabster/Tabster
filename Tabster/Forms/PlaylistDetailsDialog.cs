@@ -2,7 +2,7 @@
 
 using System;
 using System.Windows.Forms;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
 
 #endregion
 
@@ -10,10 +10,10 @@ namespace Tabster.Forms
 {
     public partial class PlaylistDetailsDialog : Form
     {
-        private readonly PlaylistFile _playlistFile;
+        private readonly TablaturePlaylistDocument _playlistFile;
         private string _originalName;
 
-        public PlaylistDetailsDialog(PlaylistFile playlist)
+        public PlaylistDetailsDialog(TablaturePlaylistDocument playlist)
         {
             InitializeComponent();
             _playlistFile = playlist;
@@ -24,19 +24,19 @@ namespace Tabster.Forms
 
         private void LoadData()
         {
-            _originalName = _playlistFile.PlaylistData.Name;
+            _originalName = _playlistFile.Name;
 
             txtlocation.Text = _playlistFile.FileInfo.FullName;
-            txtname.Text = _playlistFile.PlaylistData.Name;
+            txtname.Text = _playlistFile.Name;
 
             lblFormat.Text += _playlistFile.FileVersion;
             lblLength.Text += string.Format(" {0:n0} bytes", _playlistFile.FileInfo.Length);
             lblCreated.Text += string.Format(" {0}", _playlistFile.FileInfo.CreationTime);
             lblModified.Text += string.Format(" {0}", _playlistFile.FileInfo.LastWriteTime);
 
-            foreach (var tab in _playlistFile.PlaylistData)
+            foreach (var tab in _playlistFile)
             {
-                listView1.Items.Add(tab.TabData.Artist + " - " + tab.TabData.Title);
+                listView1.Items.Add(string.Format("{0} - {1}", tab.Artist, tab.Title));
             }
 
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -49,10 +49,10 @@ namespace Tabster.Forms
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            _playlistFile.PlaylistData.Name = txtname.Text.Trim();
+            _playlistFile.Name = txtname.Text.Trim();
             _playlistFile.Save();
 
-            PlaylistRenamed = _playlistFile.PlaylistData.Name != _originalName;
+            PlaylistRenamed = _playlistFile.Name != _originalName;
         }
 
         private void txtname_TextChanged(object sender, EventArgs e)

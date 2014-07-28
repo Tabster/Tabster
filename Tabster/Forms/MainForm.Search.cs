@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
 using Tabster.Core.Plugins;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -14,7 +15,7 @@ namespace Tabster.Forms
     partial class MainForm
     {
         private readonly List<SearchResult> _searchResults = new List<SearchResult>();
-        private readonly Dictionary<Uri, Tab> _searchResultsCache = new Dictionary<Uri, Tab>();
+        private readonly Dictionary<Uri, TablatureDocument> _searchResultsCache = new Dictionary<Uri, TablatureDocument>();
         private List<ISearchService> _searchServices = new List<ISearchService>();
         private List<ITabParser> _tabParsers = new List<ITabParser>();
 
@@ -173,11 +174,10 @@ namespace Tabster.Forms
                     {
                         var cachedTab = _searchResultsCache[selectedResult.Tab.Source];
 
-                        cachedTab.SourceType = TabSource.Download;
+                        cachedTab.SourceType = TablatureSourceType.Download;
 
-                        var tabFile = TabFile.Create(cachedTab, Program.libraryManager.TabsDirectory);
-                        Program.libraryManager.AddTab(tabFile, true);
-                        UpdateLibraryItem(tabFile);
+                        Program.libraryManager.AddTab(cachedTab, true);
+                        UpdateLibraryItem(cachedTab);
                     }
                 }
             }
@@ -241,7 +241,7 @@ namespace Tabster.Forms
                     urlSource = client.DownloadString(result.Tab.Source);
                 }
 
-                Tab tab;
+                TablatureDocument tab;
 
                 try
                 {

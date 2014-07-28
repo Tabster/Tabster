@@ -1,6 +1,8 @@
 ﻿#region
 
 using System;
+using Tabster.Core.FileTypes;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -53,7 +55,7 @@ namespace Tabster.Core.Plugins
     }
 
     /// <summary>
-    /// Search result rating.
+    ///   Search result rating.
     /// </summary>
     public enum SearchResultRating
     {
@@ -105,7 +107,7 @@ namespace Tabster.Core.Plugins
     /// </summary>
     public class SearchResult
     {
-        public SearchResult(SearchQuery query, Tab tab, SearchResultRating rating)
+        public SearchResult(SearchQuery query, TablatureDocument tab, SearchResultRating rating)
         {
             Query = query;
             Tab = tab;
@@ -120,10 +122,10 @@ namespace Tabster.Core.Plugins
         /// <summary>
         ///   Tab result.
         /// </summary>
-        public Tab Tab { get; private set; }
+        public TablatureDocument Tab { get; private set; }
 
         /// <summary>
-        /// Search result rating.
+        ///   Search result rating.
         /// </summary>
         public SearchResultRating Rating { get; private set; }
     }

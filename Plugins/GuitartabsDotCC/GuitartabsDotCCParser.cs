@@ -2,8 +2,9 @@
 
 using System;
 using HtmlAgilityPack;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
 using Tabster.Core.Plugins;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -18,7 +19,7 @@ namespace GuitartabsDotCC
             get { return "Guitartabs.cc"; }
         }
 
-        public Tab ParseTabFromSource(string source, TabType? type)
+        public TablatureDocument ParseTabFromSource(string source, TabType? type)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(source);
@@ -91,7 +92,7 @@ namespace GuitartabsDotCC
             if (!tabType.HasValue || artist == null || title == null || contents == null)
                 return null;
 
-            return new Tab(artist, title, tabType.Value, contents);
+            return new TablatureDocument(artist, title, tabType.Value, contents);
         }
 
         public bool MatchesUrlPattern(Uri url)

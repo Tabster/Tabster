@@ -3,8 +3,9 @@
 using System;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
-using Tabster.Core;
+using Tabster.Core.FileTypes;
 using Tabster.Core.Plugins;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -19,7 +20,7 @@ namespace UltimateGuitar
             get { return "Ultimate Guitar"; }
         }
 
-        public Tab ParseTabFromSource(string source, TabType? type)
+        public TablatureDocument ParseTabFromSource(string source, TabType? type)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(source);
@@ -61,7 +62,7 @@ namespace UltimateGuitar
             {
                 var contents = StripHTML(contentsNode.InnerHtml);
                 contents = ConvertNewlines(contents);
-                return new Tab(artist, song, tabType.GetValueOrDefault(), contents);
+                return new TablatureDocument(artist, song, tabType.GetValueOrDefault(), contents);
             }
 
             return null;
