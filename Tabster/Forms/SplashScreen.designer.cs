@@ -65,7 +65,7 @@ namespace Tabster.Forms
             // 
             // lblversion
             // 
-            this.lblversion.AutoSize = true;
+            this.lblversion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblversion.BackColor = System.Drawing.Color.Transparent;
             this.lblversion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblversion.ForeColor = System.Drawing.Color.Gray;
@@ -74,6 +74,7 @@ namespace Tabster.Forms
             this.lblversion.Size = new System.Drawing.Size(52, 16);
             this.lblversion.TabIndex = 49;
             this.lblversion.Text = "v0.0.0.0";
+            this.lblversion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label2
             // 

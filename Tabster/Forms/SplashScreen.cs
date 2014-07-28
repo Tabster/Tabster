@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Tabster.Properties;
+using Tabster.Utilities;
 
 #endregion
 
@@ -23,7 +24,7 @@ namespace Tabster.Forms
         {
             InitializeComponent();
             pictureBox1.Image = Resources.guitar128;
-            lblversion.Text = string.Format("v{0}", Application.ProductVersion);
+            lblversion.Text = string.Format("v{0}", new Version(Application.ProductVersion).ToShortString());
 
             simpleProgressBar1.Maximum = status.Length*(simpleProgressBar1.Maximum/status.Length);
 
