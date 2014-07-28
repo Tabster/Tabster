@@ -4,43 +4,43 @@
               GeneratedClassNamespace="Tabster.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="SidePanel" Provider="Tabster.PortableSettingsProvider" Type="System.Boolean" Scope="User">
+    <Setting Name="SidePanel" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="StatusBar" Provider="Tabster.PortableSettingsProvider" Type="System.Boolean" Scope="User">
+    <Setting Name="StatusBar" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="StartupUpdate" Provider="Tabster.PortableSettingsProvider" Type="System.Boolean" Scope="User">
+    <Setting Name="StartupUpdate" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="ClientState" Provider="Tabster.PortableSettingsProvider" Type="System.Windows.Forms.FormWindowState"
+    <Setting Name="ClientState" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Windows.Forms.FormWindowState"
              Scope="User">
       <Value Profile="(Default)">Maximized</Value>
     </Setting>
-    <Setting Name="ToolbarDock" Provider="Tabster.PortableSettingsProvider" Type="System.Windows.Forms.DockStyle"
+    <Setting Name="ToolbarDock" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Windows.Forms.DockStyle"
              Scope="User">
       <Value Profile="(Default)">Top</Value>
     </Setting>
-    <Setting Name="ClientSize" Provider="Tabster.PortableSettingsProvider" Type="System.Drawing.Size" Scope="User">
+    <Setting Name="ClientSize" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">1024, 625</Value>
     </Setting>
-    <Setting Name="SearchPreviewOrientation" Provider="Tabster.PortableSettingsProvider"
+    <Setting Name="SearchPreviewOrientation" Provider="Tabster.Utilities.PortableSettingsProvider"
              Type="Tabster.PreviewPanelOrientation" Scope="User">
       <Value Profile="(Default)">Horizontal</Value>
     </Setting>
-    <Setting Name="LibraryPreviewOrientation" Provider="Tabster.PortableSettingsProvider"
+    <Setting Name="LibraryPreviewOrientation" Provider="Tabster.Utilities.PortableSettingsProvider"
              Type="Tabster.PreviewPanelOrientation" Scope="User">
       <Value Profile="(Default)">Horizontal</Value>
     </Setting>
-    <Setting Name="LibraryPreviewPanelDistance" Provider="Tabster.PortableSettingsProvider" Type="System.Int32"
+    <Setting Name="LibraryPreviewPanelDistance" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Int32"
              Scope="User">
       <Value Profile="(Default)">365</Value>
     </Setting>
-    <Setting Name="SearchPreviewPanelDistance" Provider="Tabster.PortableSettingsProvider" Type="System.Int32"
+    <Setting Name="SearchPreviewPanelDistance" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Int32"
              Scope="User">
       <Value Profile="(Default)">365</Value>
     </Setting>
-    <Setting Name="DisabledPlugins" Provider="Tabster.PortableSettingsProvider"
+    <Setting Name="DisabledPlugins" Provider="Tabster.Utilities.PortableSettingsProvider"
              Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">
         &lt;?xml version="1.0" encoding="utf-16"?&gt;
