@@ -10,6 +10,7 @@ using Tabster.Core.Plugins;
 using Tabster.Core.Types;
 using Tabster.Properties;
 using Tabster.Updater;
+using Tabster.Utilities;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion
@@ -26,7 +27,7 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
-            Text = string.Format("Tabster v{0}", Common.TruncateVersion(Application.ProductVersion));
+            Text = string.Format("Tabster v{0}", new Version(Application.ProductVersion).ToShortString());
 
             //tabviewermanager events
             Program.TabHandler.TabOpened += TabHandler_OnTabOpened;
