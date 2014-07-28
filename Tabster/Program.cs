@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using Tabster.Plugins;
+using Tabster.Utilities;
 
 #endregion
 

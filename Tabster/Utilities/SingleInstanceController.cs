@@ -8,7 +8,7 @@ using Tabster.Forms;
 
 #endregion
 
-namespace Tabster
+namespace Tabster.Utilities
 {
     public class SingleInstanceController : WindowsFormsApplicationBase
     {
