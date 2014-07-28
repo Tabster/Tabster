@@ -3,11 +3,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Tabster.Core.FileTypes;
 
 #endregion
 
-namespace Tabster.Core
+namespace Tabster.Core.FileTypes
 {
     public class TablatureDocumentCollection : ICollection<TablatureDocument>
     {
