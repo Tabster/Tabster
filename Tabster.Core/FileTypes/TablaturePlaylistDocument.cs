@@ -8,7 +8,7 @@ using Tabster.Core.Types;
 
 namespace Tabster.Core.FileTypes
 {
-    public class TablaturePlaylistDocument : TablatureDocumentCollection, ITablaturePlaylist, ITabsterDocument
+    public class TablaturePlaylistDocument : TabsterDocumentCollection<TablatureDocument>, ITablaturePlaylist, ITabsterDocument
     {
         #region Constants
 
