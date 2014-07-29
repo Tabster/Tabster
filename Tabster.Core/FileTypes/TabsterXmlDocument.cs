@@ -20,6 +20,7 @@ namespace Tabster.Core.FileTypes
     public class TabsterXmlDocument
     {
         private readonly string _rootNode;
+        private Version _version = new Version("1.0");
 
         private XmlDocument _xmlDoc = new XmlDocument();
         private XmlDocument _xmlDocTemp;
@@ -29,7 +30,11 @@ namespace Tabster.Core.FileTypes
             _rootNode = rootNode;
         }
 
-        public Version Version { get; set; }
+        public Version Version
+        {
+            get { return _version; }
+            set { _version = value; }
+        }
 
         private void PrepareTempDocument()
         {
