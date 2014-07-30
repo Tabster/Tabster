@@ -21,6 +21,12 @@ namespace Tabster.Core.FileTypes
 
         public T Load(string fileName)
         {
+            Exception error;
+            return Load(fileName, out error);
+        }
+
+        public T Load(string fileName, out Exception error)
+        {
             Error = null;
 
             var doc = new T();
@@ -34,11 +40,13 @@ namespace Tabster.Core.FileTypes
                     doc.Update();
                 }
 
+                error = null;
                 return doc;
             }
 
             catch (Exception ex)
             {
+                error = ex;
                 Error = ex;
                 return null;
             }
