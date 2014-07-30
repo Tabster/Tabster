@@ -76,7 +76,7 @@ namespace Tabster.Core.FileTypes
 
             var elem = _xmlDoc.GetElementByTagName(name);
 
-            if (elem.HasChildNodes)
+            if (elem != null && elem.HasChildNodes)
             {
                 foreach (XmlNode child in elem.ChildNodes)
                 {
