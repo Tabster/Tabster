@@ -102,5 +102,20 @@ namespace Tabster.Core.FileTypes
         }
 
         #endregion
+
+        #region Implementation of IEquatable<ITabsterDocument>
+
+        public bool Equals(ITabsterDocument other)
+        {
+            return Equals((object)other);
+        }
+
+        public override bool Equals(object other)
+        {
+            var doc = other as TablaturePlaylistDocument;
+            return doc != null && FileInfo.FullName.Equals(doc.FileInfo.FullName, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        #endregion
     }
 }
