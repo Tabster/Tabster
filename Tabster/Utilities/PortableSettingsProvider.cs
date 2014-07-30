@@ -30,7 +30,7 @@ namespace Tabster.Utilities
         private const string USERNODE = "userSettings";
 
         // Application Specific Node
-        private string APPNODE = APPLICATION_NAME + ".Properties.Settings";
+        private const string APPNODE = APPLICATION_NAME + ".Properties.Settings";
 
         private XmlDocument xmlDoc;
 
@@ -41,7 +41,7 @@ namespace Tabster.Utilities
         public override string ApplicationName
         {
             get { return APPLICATION_NAME; }
-            set { return; }
+            set { }
         }
 
         private XmlDocument XMLConfig
@@ -136,15 +136,12 @@ namespace Tabster.Utilities
             var retValues = new SettingsPropertyValueCollection();
 
             // Create a temporary SettingsPropertyValue to reuse
-            SettingsPropertyValue setVal;
 
             // Loop through the list of settings that the application has requested and add them
             // to our collection of return values.
             foreach (SettingsProperty sProp in settingsColl)
             {
-                setVal = new SettingsPropertyValue(sProp);
-                setVal.IsDirty = false;
-                setVal.SerializedValue = GetSetting(sProp);
+                var setVal = new SettingsPropertyValue(sProp) {IsDirty = false, SerializedValue = GetSetting(sProp)};
                 retValues.Add(setVal);
             }
             return retValues;
@@ -164,16 +161,9 @@ namespace Tabster.Utilities
             {
                 XMLConfig.Save(Path.Combine(GetAppPath(), GetSettingsFilename()));
             }
-            catch (Exception ex)
+            catch
             {
-                // Create an informational message for the user if we cannot save the settings.
-                // Enable whichever applies to your application type.
-
-                // Uncomment the following line to enable a MessageBox for forms-based apps
-                //System.Windows.Forms.MessageBox.Show(ex.Message, "Error writting configuration file to disk", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-
-                // Uncomment the following line to enable a console message for console-based apps
-                //Console.WriteLine("Error writing configuration file to disk: " + ex.Message);
+                //unhandled
             }
         }
 
@@ -270,14 +260,7 @@ namespace Tabster.Utilities
                 var newSetting = xmlDoc.CreateElement("setting");
                 newSetting.SetAttribute("name", setProp.Name);
 
-                if (setProp.Property.SerializeAs.ToString() == "String")
-                {
-                    newSetting.SetAttribute("serializeAs", "String");
-                }
-                else
-                {
-                    newSetting.SetAttribute("serializeAs", "Xml");
-                }
+                newSetting.SetAttribute("serializeAs", setProp.Property.SerializeAs.ToString() == "String" ? "String" : "Xml");
 
                 // Append this node to the application settings node (<Appname.Properties.Settings>)
                 tmpNode.AppendChild(newSetting);
