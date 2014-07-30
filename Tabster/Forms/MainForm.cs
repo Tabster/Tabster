@@ -119,7 +119,6 @@ namespace Tabster.Forms
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveSettings();
-            Program.libraryManager.Save();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
