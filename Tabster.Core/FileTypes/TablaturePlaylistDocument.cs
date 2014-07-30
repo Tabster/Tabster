@@ -60,11 +60,14 @@ namespace Tabster.Core.FileTypes
 
             foreach (var file in files)
             {
-                var doc = _processor.Load(file);
-
-                if (doc != null)
+                if (File.Exists(file))
                 {
-                    Add(doc);
+                    var doc = _processor.Load(file);
+
+                    if (doc != null)
+                    {
+                        Add(doc);
+                    }
                 }
             }
         }
