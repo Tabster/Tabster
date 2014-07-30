@@ -21,9 +21,9 @@ namespace Tabster.Core.FileTypes
 
         public IEnumerator<T> GetEnumerator()
         {
-            foreach (var tab in _documents)
+            foreach (var doc in _documents)
             {
-                yield return tab;
+                yield return doc;
             }
         }
 
