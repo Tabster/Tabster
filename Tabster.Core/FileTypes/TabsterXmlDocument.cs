@@ -72,7 +72,7 @@ namespace Tabster.Core.FileTypes
 
         public List<XmlNode> ReadChildNodes(string name)
         {
-            var values = new List<XmlNode>();
+            var nodes = new List<XmlNode>();
 
             var elem = _xmlDoc.GetElementByTagName(name);
 
@@ -80,11 +80,11 @@ namespace Tabster.Core.FileTypes
             {
                 foreach (XmlNode child in elem.ChildNodes)
                 {
-                    values.Add(child);
+                    nodes.Add(child);
                 }
             }
 
-            return values;
+            return nodes;
         }
 
         public List<string> ReadChildNodeValues(string name)
