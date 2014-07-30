@@ -37,10 +37,18 @@ namespace Tabster.Forms
             lblCreated.Text += string.Format(" {0}", _tabDocument.FileInfo.CreationTime);
             lblModified.Text += string.Format(" {0}", _tabDocument.FileInfo.LastWriteTime);
 
-            var favorited = Program.libraryManager.FindTab(_tabDocument).Favorited;
-            lblfavorited.Text = string.Format("Favorited: {0}", (favorited ? "Yes" : "No"));
+            var attributes = Program.libraryManager.GetLibraryAttributes(_tabDocument);
 
-            var playlistCount = Program.libraryManager.FindPlaylistsContaining(_tabDocument).Count;
+            lblfavorited.Text = string.Format("Favorited: {0}", (attributes.Favorited ? "Yes" : "No"));
+
+            var playlistCount = 0;
+
+            foreach (var playlist in Program.libraryManager.Playlists)
+            {
+                if (playlist.ContainsPath(_tabDocument.FileInfo.FullName))
+                    playlistCount++;
+            }
+
             lblPlaylistCount.Text = string.Format("Founds in {0} playlist{1}.", playlistCount, playlistCount == 1 ? "" : "s");
         }
 

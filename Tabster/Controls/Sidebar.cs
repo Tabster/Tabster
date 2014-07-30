@@ -137,7 +137,7 @@ namespace Tabster.Controls
                     toRemove.Remove();
 
                     var p = Program.libraryManager.FindPlaylistByPath(playlist_path);
-                    Program.libraryManager.RemovePlaylist(p);
+                    Program.libraryManager.Remove(p);
                     return;
                 }
             }
@@ -172,21 +172,21 @@ namespace Tabster.Controls
 
         #region Playlists
 
-        public void AddPlaylist(TablaturePlaylistDocument p)
+        public void Add(TablaturePlaylistDocument p)
         {
             var node = new TreeNode(p.Name) {Tag = p.FileInfo.FullName, NodeFont = ChildFont};
             NodePlaylists.Nodes.Add(node);
             ExpandAll();
         }
 
-        public void RemovePlaylist(TablaturePlaylistDocument p)
+        public void Remove(TablaturePlaylistDocument p)
         {
             foreach (TreeNode node in NodePlaylists.Nodes)
             {
                 if (node.Tag.ToString().Equals(p.FileInfo.FullName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     NodePlaylists.Nodes.Remove(node);
-                    Program.libraryManager.RemovePlaylist(p);
+                    Program.libraryManager.Remove(p);
                     break;
                 }
             }

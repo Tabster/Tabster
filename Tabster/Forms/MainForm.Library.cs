@@ -102,7 +102,7 @@ namespace Tabster.Forms
 
                 if (playlist != null && MessageBox.Show("Are you sure you want to delete this playlist?", "Delete Playlist", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    Program.libraryManager.RemovePlaylist(playlist);
+                    Program.libraryManager.Remove(playlist);
                     PopulatePlaylists();
                     UpdateDetails();
                 }
@@ -147,7 +147,7 @@ namespace Tabster.Forms
             if (tablibrary.SelectedRows.Count > 0)
             {
                 var selectedTabLocation = tablibrary.SelectedRows[0].Cells[tablibrary.Columns.Count - 1].Value.ToString();
-                SelectedTab = Program.libraryManager.FindTabByPath(selectedTabLocation).Document;
+                SelectedTab = Program.libraryManager.FindByPath(selectedTabLocation);
 
                 var openedExternally = Program.TabHandler.IsOpenedExternally(SelectedTab);
 
@@ -191,7 +191,7 @@ namespace Tabster.Forms
             {
                 if (n.ShowDialog() == DialogResult.OK)
                 {
-                    Program.libraryManager.AddTab(n.Tab, true);
+                    Program.libraryManager.Add(n.Tab, true);
                     UpdateLibraryItem(n.Tab);
                 }
             }
@@ -254,7 +254,7 @@ namespace Tabster.Forms
                 {
                     if (MessageBox.Show(string.Format("Are you sure you want to delete this tab?{0}{0}{1}", Environment.NewLine, SelectedTab.ToFriendlyString()), "Delete Tab", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        Program.libraryManager.RemoveTab(SelectedTab, true);
+                        Program.libraryManager.Remove(SelectedTab, true);
                         removed = true;
                     }
                 }
@@ -328,12 +328,13 @@ namespace Tabster.Forms
         {
             if (SelectedTab != null)
             {
-                var libraryItem = Program.libraryManager.FindTab(SelectedTab);
-                libraryItem.Favorited = !libraryItem.Favorited;
+                var attributes = Program.libraryManager.GetLibraryAttributes(SelectedTab);
+                attributes.Favorited = !attributes.Favorited;
+
                 Program.libraryManager.Save();
 
                 //remove item from favorites display
-                if (!libraryItem.Favorited && SelectedLibrary() == LibraryType.MyFavorites)
+                if (!attributes.Favorited && SelectedLibrary() == LibraryType.MyFavorites)
                 {
                     RemoveSelectedLibraryItem();
                 }
@@ -382,8 +383,8 @@ namespace Tabster.Forms
                     }
                 }
 
-                var libraryItem = Program.libraryManager.FindTab(SelectedTab);
-                librarycontextfavorites.Text = libraryItem.Favorited ? "Remove from favorites" : "Add to favorites";
+                var attributes = Program.libraryManager.GetLibraryAttributes(SelectedTab);
+                librarycontextfavorites.Text = attributes.Favorited ? "Remove from favorites" : "Add to favorites";
             }
         }
 
@@ -434,9 +435,9 @@ namespace Tabster.Forms
 
             else
             {
-                foreach (var item in Program.libraryManager)
+                foreach (var doc in Program.libraryManager)
                 {
-                    tabCollection.Add(item.Document);
+                    tabCollection.Add(doc);
                 }
             }
 
@@ -456,7 +457,7 @@ namespace Tabster.Forms
                 (selectedLibrary == LibraryType.BassTabs && tab.Type == TabType.Bass) ||
                 (selectedLibrary == LibraryType.DrumTabs && tab.Type == TabType.Drum) ||
                 (selectedLibrary == LibraryType.UkuleleTabs && tab.Type == TabType.Ukulele) ||
-                (selectedLibrary == LibraryType.MyFavorites && Program.libraryManager.FindTab(tab).Favorited);
+                (selectedLibrary == LibraryType.MyFavorites && Program.libraryManager.GetLibraryAttributes(tab).Favorited);
 
             if (libraryMatch)
             {
@@ -505,7 +506,7 @@ namespace Tabster.Forms
                     if (!string.IsNullOrEmpty(name))
                     {
                         var playlist = new TablaturePlaylistDocument(name);
-                        Program.libraryManager.AddPlaylist(playlist, true);
+                        Program.libraryManager.Add(playlist);
 
                         PopulatePlaylists();
 
@@ -526,7 +527,7 @@ namespace Tabster.Forms
 
             if (doc != null)
             {
-                var alreadyExists = playlist != null ? playlist.ContainsPath(path) : Program.libraryManager.FindTabByPath(path) != null;
+                var alreadyExists = playlist != null ? playlist.ContainsPath(path) : Program.libraryManager.FindByPath(path) != null;
 
                 if (!alreadyExists)
                 {
@@ -539,7 +540,7 @@ namespace Tabster.Forms
 
                     else
                     {
-                        Program.libraryManager.AddTab(doc, true);
+                        Program.libraryManager.Add(doc, true);
                         UpdateLibraryItem(doc);
                     }
                 }
@@ -552,7 +553,7 @@ namespace Tabster.Forms
             {
                 if (i.ShowDialog() == DialogResult.OK)
                 {
-                    Program.libraryManager.AddTab(i.Tab, true);
+                    Program.libraryManager.Add(i.Tab, true);
                     UpdateLibraryItem(i.Tab);
                 }
             }
@@ -594,7 +595,7 @@ namespace Tabster.Forms
 
             foreach (var playlist in Program.libraryManager.Playlists)
             {
-                sidemenu.AddPlaylist(playlist);
+                sidemenu.Add(playlist);
 
                 var menuItem = new ToolStripMenuItem(playlist.Name) {Tag = playlist.FileInfo.FullName};
 
@@ -628,10 +629,16 @@ namespace Tabster.Forms
 
         private void UpdateDetails()
         {
-            lblcount.Text = string.Format("Total Tabs: {0}", Program.libraryManager.TabCount);
-            lblplaylists.Text = string.Format("Playlists: {0}", Program.libraryManager.PlaylistCount);
+            lblcount.Text = string.Format("Total Tabs: {0}", Program.libraryManager.Count);
+            lblplaylists.Text = string.Format("Playlists: {0}", Program.libraryManager.Playlists.Count);
 
-            var usage = Program.libraryManager.DiskUsage;
+            long usage = 0;
+
+            foreach (var doc in Program.libraryManager)
+            {
+                usage += doc.FileInfo.Length;
+            }
+
             var kilobytes = usage/1024d;
             var megabytes = usage/1024d/1024d;
 

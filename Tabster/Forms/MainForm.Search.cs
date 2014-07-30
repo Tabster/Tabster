@@ -177,7 +177,7 @@ namespace Tabster.Forms
 
                         cachedTab.SourceType = TablatureSourceType.Download;
 
-                        Program.libraryManager.AddTab(cachedTab, true);
+                        Program.libraryManager.Add(cachedTab, true);
                         UpdateLibraryItem(cachedTab);
                     }
                 }

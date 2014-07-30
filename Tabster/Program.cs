@@ -15,9 +15,10 @@ namespace Tabster
     internal static class Program
     {
         public static TabViewerManager TabHandler;
-        public static readonly LibraryManager libraryManager = new LibraryManager();
+        public static LibraryManager libraryManager;
         public static SingleInstanceController instanceController;
         public static PluginController pluginController;
+        public static string ApplicationDirectory;
 
         [STAThread]
         public static void Main(string[] args)
@@ -29,6 +30,12 @@ namespace Tabster
             pluginController = new PluginController(pluginDirectory);
             pluginController.LoadPlugins();
 
+            var workingDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
+            ApplicationDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
+
+            libraryManager = new LibraryManager(Path.Combine(ApplicationDirectory, "library.dat"),
+                                                Path.Combine(workingDirectory, "Library"),
+                                                Path.Combine(workingDirectory, "Playlists"));
             libraryManager.Load();
 
             Application.EnableVisualStyles();
@@ -72,7 +79,7 @@ namespace Tabster
             sb.AppendLine();
             sb.AppendLine();
 
-            File.AppendAllText(Path.Combine(libraryManager.ApplicationDirectory, "error.log"), sb.ToString());
+            File.AppendAllText(Path.Combine(ApplicationDirectory, "error.log"), sb.ToString());
         }
     }
 }

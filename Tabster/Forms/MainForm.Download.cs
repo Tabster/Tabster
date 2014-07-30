@@ -216,7 +216,7 @@ namespace Tabster.Forms
         {
             foreach (var tab in downloadedTabs)
             {
-                Program.libraryManager.AddTab(tab, true);
+                Program.libraryManager.Add(tab, true);
                 UpdateLibraryItem(tab);
             }
 

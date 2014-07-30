@@ -1,11 +1,9 @@
 ﻿#region
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Xml;
 using Microsoft.VisualBasic.FileIO;
 using Tabster.Core.FileTypes;
 using Tabster.Utilities;
@@ -15,126 +13,210 @@ using SearchOption = System.IO.SearchOption;
 
 namespace Tabster
 {
-    public class LibraryItem
+    internal class LibraryAttributes
     {
-        public LibraryItem(TablatureDocument doc)
-        {
-            Document = doc;
-        }
-
-        public TablatureDocument Document { get; private set; }
-        public int Views { get; private set; }
         public bool Favorited { get; set; }
+        public int Views { get; set; }
     }
 
-    public class LibraryManager : ITabsterDocument, IEnumerable<LibraryItem>
+    internal class LibraryManager : TabsterDocumentCollection<TablatureDocument>
     {
-        private static readonly Version FILE_VERSION = new Version("1.0");
+        private static readonly Version INDEX_VERSION = new Version("1.0");
 
-        private readonly TabsterXmlDocument _doc = new TabsterXmlDocument("library");
+        private readonly TabsterXmlDocument _indexDoc = new TabsterXmlDocument("library");
         private readonly string _indexPath;
 
-        private List<LibraryItem> _items = new List<LibraryItem>();
-        private List<TablaturePlaylistDocument> _playlists = new List<TablaturePlaylistDocument>();
+        private readonly Dictionary<TablatureDocument, LibraryAttributes> FileAttributes = new Dictionary<TablatureDocument, LibraryAttributes>();
 
-        public LibraryManager()
+        private readonly TabsterDocumentProcessor<TablatureDocument> _documentProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
+        private readonly TabsterDocumentProcessor<TablaturePlaylistDocument> _playlistProcessor = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true);
+
+        private readonly List<TablaturePlaylistDocument> _playlists = new List<TablaturePlaylistDocument>();
+
+        public LibraryManager(string indexPath, string libraryDirectory, string playlistDirectory)
         {
-            LibraryDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
-            TabsDirectory = Path.Combine(LibraryDirectory, "Library");
-            PlaylistsDirectory = Path.Combine(LibraryDirectory, "Playlists");
-            ApplicationDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
-            TemporaryDirectory = Path.Combine(ApplicationDirectory, "Temp");
+            _indexPath = indexPath;
+
+            LibraryDirectory = libraryDirectory;
+            PlaylistDirectory = playlistDirectory;
 
             if (!Directory.Exists(LibraryDirectory))
                 Directory.CreateDirectory(LibraryDirectory);
 
-            if (!Directory.Exists(TabsDirectory))
-                Directory.CreateDirectory(TabsDirectory);
-
-            if (!Directory.Exists(PlaylistsDirectory))
-                Directory.CreateDirectory(PlaylistsDirectory);
-
-            if (!Directory.Exists(ApplicationDirectory))
-                Directory.CreateDirectory(ApplicationDirectory);
-
-            if (!Directory.Exists(TemporaryDirectory))
-                Directory.CreateDirectory(TemporaryDirectory);
-
-            _indexPath = Path.Combine(ApplicationDirectory, "library.dat");
+            if (!Directory.Exists(PlaylistDirectory))
+                Directory.CreateDirectory(PlaylistDirectory);
         }
 
-        #region Active Files
-
-        public List<TablaturePlaylistDocument> GetTablaturePlaylistDocuments()
+        public ReadOnlyCollection<TablaturePlaylistDocument> Playlists
         {
-            var tempList = new List<TablaturePlaylistDocument>();
+            get { return _playlists.AsReadOnly(); }
+        }
 
-            var processor = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true);
+        public string LibraryDirectory { get; private set; }
+        public string PlaylistDirectory { get; private set; }
 
-            foreach (var file in Directory.GetFiles(PlaylistsDirectory, string.Format("*{0}", TablaturePlaylistDocument.FILE_EXTENSION), SearchOption.TopDirectoryOnly))
+        public void Load()
+        {
+            Clear();
+            _playlists.Clear();
+
+            var loadFromCache = File.Exists(_indexPath);
+
+            if (loadFromCache)
             {
-                var playlist = processor.Load(file);
+                var tabNodes = _indexDoc.ReadChildNodes("tabs");
 
-                if (playlist != null)
+                if (tabNodes != null)
                 {
-                    tempList.Add(playlist);
+                    foreach (var node in tabNodes)
+                    {
+                        if (File.Exists(node.InnerText))
+                        {
+                            var doc = _documentProcessor.Load(node.InnerText);
+
+                            if (doc != null)
+                            {
+                                var favorited = node.Attributes["favorite"] != null && node.Attributes["favorite"].Value == "true";
+
+                                var attributes = new LibraryAttributes {Favorited = favorited};
+
+                                Add(doc);
+
+                                FileAttributes[doc] = attributes;
+                            }
+                        }
+                    }
+                }
+
+                var playlistPaths = _indexDoc.ReadChildNodeValues("playlists");
+
+                if (playlistPaths != null)
+                {
+                    foreach (var file in playlistPaths)
+                    {
+                        if (File.Exists(file))
+                        {
+                            var playlist = _playlistProcessor.Load(file);
+
+                            if (playlist != null)
+                            {
+                                _playlists.Add(playlist);
+                            }
+                        }
+                    }
                 }
             }
 
-            return tempList;
+            else
+            {
+                foreach (var doc in LoadTablatureDocumentsFromDisk())
+                {
+                    Add(doc);
+                }
+
+                foreach (var playlist in LoadTablaturePlaylistsFromDisk())
+                {
+                    _playlists.Add(playlist);
+                }
+            }
         }
 
-        public List<LibraryItem> GetTablatureDocuments()
+        public void Save()
         {
-            var tempList = new List<LibraryItem>();
+            _indexDoc.Version = INDEX_VERSION;
 
-            var processor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
+            _indexDoc.WriteNode("tabs");
 
-            foreach (var file in Directory.GetFiles(TabsDirectory, string.Format("*{0}", TablatureDocument.FILE_EXTENSION), SearchOption.AllDirectories))
+            foreach (var tab in this)
             {
-                var doc = processor.Load(file);
+                if (File.Exists(tab.FileInfo.FullName))
+                {
+                    var attributes = GetLibraryAttributes(tab);
+
+                    _indexDoc.WriteNode("tab",
+                                        tab.FileInfo.FullName,
+                                        "tabs",
+                                        new SortedDictionary<string, string>
+                                            {
+                                                {"favorite", attributes.Favorited ? "true" : "false"},
+                                                {"views", attributes.Views.ToString()}
+                                            });
+                }
+            }
+
+            _indexDoc.WriteNode("playlists");
+
+            foreach (var playlist in _playlists)
+            {
+                if (File.Exists(playlist.FileInfo.FullName))
+                {
+                    _indexDoc.WriteNode("playlist", playlist.FileInfo.FullName, "playlists");
+                }
+            }
+
+            _indexDoc.Save(_indexPath);
+        }
+
+        public LibraryAttributes GetLibraryAttributes(TablatureDocument doc)
+        {
+            return FileAttributes.ContainsKey(doc) ? FileAttributes[doc] : new LibraryAttributes();
+        }
+
+        #region Tablature Methods
+
+        private IEnumerable<TablatureDocument> LoadTablatureDocumentsFromDisk()
+        {
+            var tempList = new List<TablatureDocument>();
+
+            foreach (var file in Directory.GetFiles(LibraryDirectory, string.Format("*{0}", TablatureDocument.FILE_EXTENSION), SearchOption.AllDirectories))
+            {
+                var doc = _documentProcessor.Load(file);
 
                 if (doc != null)
                 {
-                    tempList.Add(new LibraryItem(doc));
+                    tempList.Add(doc);
                 }
             }
 
             return tempList;
         }
 
-        #endregion
-
-        #region Tabs
-
-        public void AddTab(TablatureDocument doc, bool saveCache)
+        public void Add(TablatureDocument doc, bool saveIndex = false)
         {
             if (doc.FileInfo == null)
             {
-                var uniqueName = doc.GenerateUniqueFilename(TabsDirectory);
+                var uniqueName = doc.GenerateUniqueFilename(LibraryDirectory);
                 doc.Save(uniqueName);
             }
 
-            _items.Add(new LibraryItem(doc));
+            base.Add(doc);
 
-            if (saveCache)
-                Save(_indexPath);
+            if (saveIndex)
+                Save();
         }
 
-        public bool RemoveTab(TablatureDocument doc, bool diskDelete)
+        public bool Remove(TablatureDocument doc, bool diskDelete, bool saveIndex = false)
         {
             try
             {
-                _items.RemoveAll(x => x.Document.FileInfo.FullName.Equals(doc.FileInfo.FullName, StringComparison.InvariantCultureIgnoreCase));
+                var success = RemoveByPath(doc.FileInfo.FullName);
 
-                if (diskDelete)
+                if (success)
                 {
-                    FileSystem.DeleteFile(doc.FileInfo.FullName, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                    FileAttributes.Remove(doc);
+
+                    if (File.Exists(doc.FileInfo.FullName) && diskDelete)
+                    {
+                        FileSystem.DeleteFile(doc.FileInfo.FullName, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                    }
+
+                    if (saveIndex)
+                        Save();
+
+                    return true;
                 }
 
-                Save(_indexPath);
-
-                return true;
+                return false;
             }
 
             catch
@@ -143,57 +225,48 @@ namespace Tabster
             }
         }
 
-        public LibraryItem FindTabByPath(string path)
-        {
-            return FindTab(x => x.Document.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
-        }
+        #endregion
 
-        public LibraryItem FindTab(Predicate<LibraryItem> match)
+        #region Playlist Methods
+
+        private IEnumerable<TablaturePlaylistDocument> LoadTablaturePlaylistsFromDisk()
         {
-            foreach (var tab in _items)
+            var tempList = new List<TablaturePlaylistDocument>();
+
+            foreach (var file in Directory.GetFiles(PlaylistDirectory, string.Format("*{0}", TablaturePlaylistDocument.FILE_EXTENSION), SearchOption.TopDirectoryOnly))
             {
-                if (match(tab))
+                var doc = _playlistProcessor.Load(file);
+
+                if (doc != null)
                 {
-                    return tab;
+                    tempList.Add(doc);
                 }
             }
 
-            return null;
+            return tempList;
         }
 
-        public LibraryItem FindTab(TablatureDocument tab)
+        public void Add(TablaturePlaylistDocument playlist)
         {
-            return _items.Find(x => ReferenceEquals(x.Document, tab));
-        }
-
-        #endregion
-
-        #region Playlists
-
-        public void AddPlaylist(TablaturePlaylistDocument doc, bool saveCache)
-        {
-            if (doc.FileInfo == null)
+            if (playlist.FileInfo == null)
             {
-                var uniqueName = doc.GenerateUniqueFilename(PlaylistsDirectory);
-                doc.Save(uniqueName);
+                var uniqueName = playlist.GenerateUniqueFilename(PlaylistDirectory);
+                playlist.Save(uniqueName);
             }
 
-            _playlists.Add(doc);
+            _playlists.Add(playlist);
 
-            if (saveCache)
-                Save(_indexPath);
+            Save();
         }
 
-        public void RemovePlaylist(TablaturePlaylistDocument p)
+        public void Remove(TablaturePlaylistDocument playlist)
         {
-            _playlists.Remove(p);
+            _playlists.Remove(playlist);
 
-            if (File.Exists(p.FileInfo.FullName))
-            {
-                File.Delete(p.FileInfo.FullName);
-            }
+            if (File.Exists(playlist.FileInfo.FullName))
+                File.Delete(playlist.FileInfo.FullName);
 
-            Save(_indexPath);
+            Save();
         }
 
         public TablaturePlaylistDocument FindPlaylist(Predicate<TablaturePlaylistDocument> match)
@@ -211,197 +284,7 @@ namespace Tabster
 
         public TablaturePlaylistDocument FindPlaylistByPath(string path)
         {
-            return FindPlaylist(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
-        }
-
-        public List<TablaturePlaylistDocument> FindPlaylistsContaining(TablatureDocument doc)
-        {
-            return _playlists.FindAll(x => x.Contains(doc));
-        }
-
-        #endregion
-
-        public string LibraryDirectory { get; private set; }
-        public string TabsDirectory { get; private set; }
-        public string PlaylistsDirectory { get; private set; }
-        public string ApplicationDirectory { get; private set; }
-        public string TemporaryDirectory { get; private set; }
-
-        public ReadOnlyCollection<TablaturePlaylistDocument> Playlists
-        {
-            get { return _playlists.AsReadOnly(); }
-        }
-
-        public long DiskUsage
-        {
-            get
-            {
-                long total = 0;
-                foreach (var tab in _items)
-                    total += tab.Document.FileInfo.Length;
-                return total;
-            }
-        }
-
-        public bool TabsLoaded { get; private set; }
-        public bool PlaylistsLoaded { get; private set; }
-
-        public int TabCount
-        {
-            get { return _items.Count; }
-        }
-
-        public int PlaylistCount
-        {
-            get { return _playlists.Count; }
-        }
-
-        public event EventHandler OnTabsLoaded;
-        public event EventHandler OnPlaylistsLoaded;
-
-        public void CleanupTempFiles()
-        {
-            try
-            {
-                var files = new DirectoryInfo(TemporaryDirectory);
-                foreach (var f in files.GetFiles(string.Format("*.{0}", TablatureDocument.FILE_EXTENSION), SearchOption.TopDirectoryOnly))
-                {
-                    f.Delete();
-                }
-            }
-
-            catch
-            {
-            }
-        }
-
-        #region Implementation of IEnumerable
-
-        public IEnumerator<LibraryItem> GetEnumerator()
-        {
-            foreach (var t in _items)
-            {
-                yield return t;
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        #endregion
-
-        #region Implementation of ITabsterFile
-
-        public Version FileVersion { get; set; }
-
-        public FileInfo FileInfo { get; set; }
-
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Load(string filename = null)
-        {
-            if (!File.Exists(_indexPath))
-            {
-                _items = GetTablatureDocuments();
-                _playlists = GetTablaturePlaylistDocuments();
-            }
-
-            FileInfo = new FileInfo(_indexPath);
-
-            _items.Clear();
-            _playlists.Clear();
-            TabsLoaded = false;
-            PlaylistsLoaded = false;
-
-            _doc.Load(FileInfo.FullName);
-
-            var tabNodes = _doc.ReadChildNodes("tabs") ?? new List<XmlNode>();
-            var playlistPaths = _doc.ReadChildNodeValues("playlists") ?? new List<string>();
-
-            var tabProcessor = new TabsterDocumentProcessor<TablatureDocument>(FILE_VERSION, true);
-
-            foreach (var node in tabNodes)
-            {
-                if (File.Exists(node.InnerText))
-                {
-                    var doc = tabProcessor.Load(node.InnerText);
-
-                    if (doc != null)
-                    {
-                        var favorited = node.Attributes["favorite"] != null && node.Attributes["favorite"].Value == "true";
-                        _items.Add(new LibraryItem(doc) {Favorited = favorited});
-                    }
-                }
-            }
-
-            TabsLoaded = true;
-
-            if (OnTabsLoaded != null)
-                OnTabsLoaded(this, EventArgs.Empty);
-
-            var playlistProcessor = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true);
-
-            foreach (var file in playlistPaths)
-            {
-                if (File.Exists(file))
-                {
-                    var playlist = playlistProcessor.Load(file);
-
-                    if (playlist != null)
-                    {
-                        _playlists.Add(playlist);
-                    }
-                }
-            }
-
-            PlaylistsLoaded = true;
-
-            if (OnPlaylistsLoaded != null)
-                OnPlaylistsLoaded(this, EventArgs.Empty);
-        }
-
-        public void Save()
-        {
-            Save(FileInfo.FullName);
-        }
-
-        public void Save(string fileName)
-        {
-            _doc.Version = FILE_VERSION;
-
-            _doc.WriteNode("tabs");
-
-            foreach (var tab in _items)
-            {
-                if (File.Exists(tab.Document.FileInfo.FullName))
-                {
-                    _doc.WriteNode("tab",
-                                   tab.Document.FileInfo.FullName,
-                                   "tabs",
-                                   new SortedDictionary<string, string>
-                                       {
-                                           {"favorite", tab.Favorited ? "true" : "false"},
-                                           {"views", tab.Views.ToString()}
-                                       });
-                }
-            }
-
-            _doc.WriteNode("playlists");
-
-            foreach (var playlist in _playlists)
-            {
-                if (File.Exists(playlist.FileInfo.FullName))
-                {
-                    _doc.WriteNode("playlist", playlist.FileInfo.FullName, "playlists");
-                }
-            }
-
-            _doc.Save(fileName);
+            return FindPlaylist(x => x.FileInfo.FullName.Equals(path, StringComparison.InvariantCultureIgnoreCase));
         }
 
         #endregion

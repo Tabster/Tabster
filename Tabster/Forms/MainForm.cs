@@ -70,18 +70,16 @@ namespace Tabster.Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            recentlyViewedToolStripMenuItem.FilePath = Path.Combine(Program.libraryManager.ApplicationDirectory, "recent.dat");
+            recentlyViewedToolStripMenuItem.FilePath = Path.Combine(Program.ApplicationDirectory, "recent.dat");
             recentlyViewedToolStripMenuItem.ShowClear = true;
             recentlyViewedToolStripMenuItem.Load();
             recentlyViewedToolStripMenuItem.OnItemClicked += recentlyViewedToolStripMenuItem_OnItemClicked;
 
             sidemenu.SelectedNode = sidemenu.Nodes[0].FirstNode;
 
-            if (Program.libraryManager.TabsLoaded)
-                LoadLibrary();
+            LoadLibrary();
 
-            if (Program.libraryManager.PlaylistsLoaded)
-                PopulatePlaylists();
+            PopulatePlaylists();
 
             LoadSettings(true);
         }
@@ -121,7 +119,6 @@ namespace Tabster.Forms
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveSettings();
-            Program.libraryManager.CleanupTempFiles();
             Program.libraryManager.Save();
         }
 
