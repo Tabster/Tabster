@@ -61,9 +61,11 @@ namespace Tabster
             _playlists.Clear();
 
             var loadFromCache = File.Exists(_indexPath);
-
+            
             if (loadFromCache)
             {
+                _indexDoc.Load(_indexPath);
+
                 var tabNodes = _indexDoc.ReadChildNodes("tabs");
 
                 if (tabNodes != null)
@@ -118,6 +120,8 @@ namespace Tabster
                 {
                     _playlists.Add(playlist);
                 }
+
+                Save();
             }
         }
 
