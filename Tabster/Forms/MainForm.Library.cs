@@ -246,6 +246,7 @@ namespace Tabster.Forms
                         {
                             selectedPlaylist.Remove(SelectedTab);
                             removed = true;
+                            selectedPlaylist.Save();
                         }
                     }
                 }
@@ -376,7 +377,6 @@ namespace Tabster.Forms
                     {
                         var playlistPath = toolItem.Tag.ToString();
                         var associatedPlaylist = Program.libraryManager.FindPlaylistByPath(playlistPath);
-
                         var alreadyExistsInPlaylist = associatedPlaylist.Contains(SelectedTab);
 
                         toolItem.Enabled = !alreadyExistsInPlaylist;
