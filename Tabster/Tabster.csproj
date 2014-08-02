@@ -92,6 +92,7 @@
     </Compile>
     <Compile Include="LibraryManager.cs" />
     <Compile Include="Plugins\PluginController.cs" />
+    <Compile Include="Utilities\ITablatureExtensions.cs" />
     <Compile Include="Utilities\PortableSettingsProvider.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
