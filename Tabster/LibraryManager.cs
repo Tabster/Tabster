@@ -263,14 +263,16 @@ namespace Tabster
             Save();
         }
 
-        public void Remove(TablaturePlaylistDocument playlist)
+        public bool Remove(TablaturePlaylistDocument playlist, bool diskDelete)
         {
-            _playlists.Remove(playlist);
+            var result = _playlists.Remove(playlist);
 
-            if (File.Exists(playlist.FileInfo.FullName))
+            if (result && diskDelete && File.Exists(playlist.FileInfo.FullName))
                 File.Delete(playlist.FileInfo.FullName);
 
             Save();
+
+            return result;
         }
 
         public TablaturePlaylistDocument FindPlaylist(Predicate<TablaturePlaylistDocument> match)

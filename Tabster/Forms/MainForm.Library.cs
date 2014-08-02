@@ -102,7 +102,7 @@ namespace Tabster.Forms
 
                 if (playlist != null && MessageBox.Show("Are you sure you want to delete this playlist?", "Delete Playlist", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    Program.libraryManager.Remove(playlist);
+                    Program.libraryManager.Remove(playlist, true);
                     PopulatePlaylists();
                     UpdateDetails();
                 }

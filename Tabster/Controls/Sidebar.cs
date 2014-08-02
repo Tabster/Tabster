@@ -12,6 +12,11 @@ using Tabster.Forms;
 
 namespace Tabster.Controls
 {
+    public class TreeViewExtended : TreeView
+    {
+        
+    }
+
     public class Sidebar : TreeView
     {
         private const int TVM_SETEXTENDEDSTYLE = 0x1100 + 44;
@@ -137,7 +142,7 @@ namespace Tabster.Controls
                     toRemove.Remove();
 
                     var p = Program.libraryManager.FindPlaylistByPath(playlist_path);
-                    Program.libraryManager.Remove(p);
+                    Program.libraryManager.Remove(p, true);
                     return;
                 }
             }
@@ -186,7 +191,7 @@ namespace Tabster.Controls
                 if (node.Tag.ToString().Equals(p.FileInfo.FullName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     NodePlaylists.Nodes.Remove(node);
-                    Program.libraryManager.Remove(p);
+                    Program.libraryManager.Remove(p, true);
                     break;
                 }
             }
