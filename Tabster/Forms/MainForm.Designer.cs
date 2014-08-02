@@ -33,29 +33,48 @@ namespace Tabster.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("All Tabs");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("My Tabs");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("My Downloads");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("My Imports");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("My Favorites");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Library", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Playlists");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.deletePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renamePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.display_library = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.sidemenu = new Tabster.Controls.Sidebar();
+            this.sidemenu = new Tabster.Controls.StaticTreeView();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.librarySplitContainer = new System.Windows.Forms.SplitContainer();
             this.tablibrary = new Tabster.Controls.DataGridViewExtended();
+            this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.created = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modified = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.size = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblopenedexternally = new System.Windows.Forms.Label();
             this.previewToolStrip = new System.Windows.Forms.ToolStrip();
             this.lblpreviewtitle = new System.Windows.Forms.ToolStripLabel();
@@ -163,13 +182,6 @@ namespace Tabster.Forms
             this.SearchPreviewBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SearchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.DownloadBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.created = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.modified = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.size = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.display_library.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -266,9 +278,43 @@ namespace Tabster.Forms
             // 
             // sidemenu
             // 
+            this.sidemenu.AllowRootNodeSelection = false;
             this.sidemenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sidemenu.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F);
+            this.sidemenu.FullRowSelect = true;
+            this.sidemenu.HideSelection = false;
+            this.sidemenu.Indent = 15;
+            this.sidemenu.ItemHeight = 24;
+            this.sidemenu.LineColor = System.Drawing.Color.White;
             this.sidemenu.Location = new System.Drawing.Point(0, 0);
             this.sidemenu.Name = "sidemenu";
+            treeNode1.Name = "node_alltabs";
+            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode1.Text = "All Tabs";
+            treeNode2.Name = "node_mytabs";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode2.Text = "My Tabs";
+            treeNode3.Name = "node_mydownloads";
+            treeNode3.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode3.Text = "My Downloads";
+            treeNode4.Name = "node_myimports";
+            treeNode4.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode4.Text = "My Imports";
+            treeNode5.Name = "node_myfavorites";
+            treeNode5.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode5.Text = "My Favorites";
+            treeNode6.Name = "node_library";
+            treeNode6.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode6.Text = "Library";
+            treeNode7.Name = "node_playlists";
+            treeNode7.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode7.Text = "Playlists";
+            this.sidemenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode7});
+            this.sidemenu.ShowLines = false;
+            this.sidemenu.ShowPlusMinus = false;
+            this.sidemenu.ShowRootLines = false;
             this.sidemenu.Size = new System.Drawing.Size(140, 393);
             this.sidemenu.TabIndex = 0;
             this.sidemenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.sidemenu_AfterSelect);
@@ -392,6 +438,73 @@ namespace Tabster.Forms
             this.tablibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.tablibrary_DragDrop);
             this.tablibrary.DragEnter += new System.Windows.Forms.DragEventHandler(this.tablibrary_DragEnter);
             this.tablibrary.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tablibrary_MouseClick);
+            // 
+            // title
+            // 
+            this.title.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.title.HeaderText = "Title";
+            this.title.MinimumWidth = 250;
+            this.title.Name = "title";
+            this.title.ReadOnly = true;
+            this.title.Width = 250;
+            // 
+            // artist
+            // 
+            this.artist.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.artist.HeaderText = "Artist";
+            this.artist.MinimumWidth = 150;
+            this.artist.Name = "artist";
+            this.artist.ReadOnly = true;
+            this.artist.Width = 150;
+            // 
+            // type
+            // 
+            this.type.HeaderText = "Type";
+            this.type.MinimumWidth = 65;
+            this.type.Name = "type";
+            this.type.ReadOnly = true;
+            // 
+            // created
+            // 
+            dataGridViewCellStyle2.Format = "g";
+            dataGridViewCellStyle2.NullValue = null;
+            this.created.DefaultCellStyle = dataGridViewCellStyle2;
+            this.created.HeaderText = "Created";
+            this.created.MinimumWidth = 120;
+            this.created.Name = "created";
+            this.created.ReadOnly = true;
+            this.created.Width = 120;
+            // 
+            // modified
+            // 
+            dataGridViewCellStyle3.Format = "g";
+            dataGridViewCellStyle3.NullValue = null;
+            this.modified.DefaultCellStyle = dataGridViewCellStyle3;
+            this.modified.HeaderText = "Last Modified";
+            this.modified.MinimumWidth = 120;
+            this.modified.Name = "modified";
+            this.modified.ReadOnly = true;
+            this.modified.Width = 120;
+            // 
+            // size
+            // 
+            this.size.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle4.Format = "N0";
+            dataGridViewCellStyle4.NullValue = null;
+            this.size.DefaultCellStyle = dataGridViewCellStyle4;
+            this.size.HeaderText = "Size";
+            this.size.MinimumWidth = 65;
+            this.size.Name = "size";
+            this.size.ReadOnly = true;
+            this.size.Width = 65;
+            // 
+            // location
+            // 
+            this.location.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.location.HeaderText = "Location";
+            this.location.MinimumWidth = 65;
+            this.location.Name = "location";
+            this.location.ReadOnly = true;
             // 
             // lblopenedexternally
             // 
@@ -1432,73 +1545,6 @@ namespace Tabster.Forms
             this.DownloadBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.DownloadBackgroundWorker_ProgressChanged);
             this.DownloadBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.DownloadBackgroundWorker_RunWorkerCompleted);
             // 
-            // title
-            // 
-            this.title.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.title.HeaderText = "Title";
-            this.title.MinimumWidth = 250;
-            this.title.Name = "title";
-            this.title.ReadOnly = true;
-            this.title.Width = 250;
-            // 
-            // artist
-            // 
-            this.artist.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.artist.HeaderText = "Artist";
-            this.artist.MinimumWidth = 150;
-            this.artist.Name = "artist";
-            this.artist.ReadOnly = true;
-            this.artist.Width = 150;
-            // 
-            // type
-            // 
-            this.type.HeaderText = "Type";
-            this.type.MinimumWidth = 65;
-            this.type.Name = "type";
-            this.type.ReadOnly = true;
-            // 
-            // created
-            // 
-            dataGridViewCellStyle2.Format = "g";
-            dataGridViewCellStyle2.NullValue = null;
-            this.created.DefaultCellStyle = dataGridViewCellStyle2;
-            this.created.HeaderText = "Created";
-            this.created.MinimumWidth = 120;
-            this.created.Name = "created";
-            this.created.ReadOnly = true;
-            this.created.Width = 120;
-            // 
-            // modified
-            // 
-            dataGridViewCellStyle3.Format = "g";
-            dataGridViewCellStyle3.NullValue = null;
-            this.modified.DefaultCellStyle = dataGridViewCellStyle3;
-            this.modified.HeaderText = "Last Modified";
-            this.modified.MinimumWidth = 120;
-            this.modified.Name = "modified";
-            this.modified.ReadOnly = true;
-            this.modified.Width = 120;
-            // 
-            // size
-            // 
-            this.size.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.Format = "N0";
-            dataGridViewCellStyle4.NullValue = null;
-            this.size.DefaultCellStyle = dataGridViewCellStyle4;
-            this.size.HeaderText = "Size";
-            this.size.MinimumWidth = 65;
-            this.size.Name = "size";
-            this.size.ReadOnly = true;
-            this.size.Width = 65;
-            // 
-            // location
-            // 
-            this.location.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.location.HeaderText = "Location";
-            this.location.MinimumWidth = 65;
-            this.location.Name = "location";
-            this.location.ReadOnly = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1617,7 +1663,7 @@ namespace Tabster.Forms
         private Button button2;
         private Button button1;
         private PictureBox pictureBox1;
-        private Sidebar sidemenu;
+        private StaticTreeView sidemenu;
         private SplitContainer librarySplitContainer;
         private DataGridViewExtended tablibrary;
         private ToolStrip previewToolStrip;

@@ -29,11 +29,11 @@ namespace Tabster.Forms
 
             Text = string.Format("Tabster v{0}", new Version(Application.ProductVersion).ToShortString());
 
+            PopulateTabTypeControls();
+
             //tabviewermanager events
             Program.TabHandler.TabOpened += TabHandler_OnTabOpened;
             Program.TabHandler.TabClosed += TabHandler_OnTabClosed;
-
-            sidemenu.LoadNodes();
 
             _updateQuery.Completed += _updateQuery_Completed;
 
@@ -50,17 +50,8 @@ namespace Tabster.Forms
                 menuStrip1.Renderer = new MenuStripRenderer();
             }
 
-            txtsearchtype.Items.Add("All Types");
-            foreach (TabType type in Enum.GetValues(typeof (TabType)))
-            {
-                var typeStr = type.ToFriendlyString();
-                var str = typeStr.EndsWith("s") ? typeStr : string.Format("{0}s", typeStr);
-                txtsearchtype.Items.Add(str);
-            }
-            txtsearchtype.Text = "All Types";
-
             CachePluginResources();
-        }
+        } 
 
         public MainForm(TablatureDocument tabDocument)
             : this()
@@ -96,6 +87,25 @@ namespace Tabster.Forms
             {
                 PopoutTab(_queuedTabfile);
             }
+        }
+
+        private void PopulateTabTypeControls()
+        {  
+            txtsearchtype.Items.Add("All Types");
+
+            foreach (TabType t in Enum.GetValues(typeof(TabType)))
+            {
+                var typeStr = t.ToFriendlyString();
+                var str = typeStr.EndsWith("s") ? typeStr : string.Format("{0}s", typeStr);
+
+                //search options
+                txtsearchtype.Items.Add(str);
+
+                //library menu
+                sidemenu.FirstNode.Nodes.Add(new TreeNode(str) { NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = t.ToString() });
+            }
+
+            txtsearchtype.SelectedIndex = 0;
         }
 
         private void CachePluginResources()

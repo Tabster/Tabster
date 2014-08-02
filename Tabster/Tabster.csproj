@@ -180,7 +180,7 @@
     <Compile Include="Controls\SearchBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\Sidebar.cs">
+    <Compile Include="Controls\StaticTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\TabEditor.cs">
