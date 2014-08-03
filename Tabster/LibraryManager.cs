@@ -144,7 +144,7 @@ namespace Tabster
                                             {
                                                 {"favorite", attributes.Favorited ? "true" : "false"},
                                                 {"views", attributes.Views.ToString()}
-                                            });
+                                            }, false);
                 }
             }
 
@@ -154,7 +154,7 @@ namespace Tabster
             {
                 if (File.Exists(playlist.FileInfo.FullName))
                 {
-                    _indexDoc.WriteNode("playlist", playlist.FileInfo.FullName, "playlists");
+                    _indexDoc.WriteNode("playlist", playlist.FileInfo.FullName, "playlists", preventNodeDuplication: false);
                 }
             }
 

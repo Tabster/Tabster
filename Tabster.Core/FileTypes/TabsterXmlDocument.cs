@@ -118,7 +118,7 @@ namespace Tabster.Core.FileTypes
             return values;
         }
 
-        public void WriteNode(string name, string value = null, string parentNode = null, SortedDictionary<string, string> attributes = null)
+        public void WriteNode(string name, string value = null, string parentNode = null, SortedDictionary<string, string> attributes = null, bool preventNodeDuplication = true)
         {
             if (_xmlDocTemp == null)
                 PrepareTempDocument();
@@ -135,10 +135,15 @@ namespace Tabster.Core.FileTypes
                 }
             }
 
-            //check if node already exists
-            var existingNode = _xmlDocTemp.GetElementByTagName(name);
+            XmlNode workingNode = null;
 
-            var workingNode = existingNode ?? _xmlDocTemp.CreateElement(name);
+            if (preventNodeDuplication)
+            {
+                workingNode = _xmlDocTemp.GetElementByTagName(name);
+            }
+
+            if (workingNode == null)
+                workingNode = _xmlDocTemp.CreateElement(name);
 
             if (value != null)
                 workingNode.InnerText = value;
