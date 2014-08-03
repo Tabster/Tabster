@@ -55,6 +55,16 @@ namespace Tabster
         public string LibraryDirectory { get; private set; }
         public string PlaylistDirectory { get; private set; }
 
+        #region Events
+
+        public event EventHandler Loaded;
+        public event EventHandler TabAdded;
+        public event EventHandler TabRemoved;
+        public event EventHandler PlaylistAdded;
+        public event EventHandler PlaylistRemoved;
+
+        #endregion
+
         public void Load()
         {
             Clear();
@@ -123,6 +133,9 @@ namespace Tabster
 
                 Save();
             }
+
+            if (Loaded != null)
+                Loaded(this, EventArgs.Empty);
         }
 
         public void Save()
@@ -197,10 +210,15 @@ namespace Tabster
 
             if (saveIndex)
                 Save();
+
+            if (TabAdded != null)
+                TabAdded(this, EventArgs.Empty);
         }
 
         public bool Remove(TablatureDocument doc, bool diskDelete, bool saveIndex = false)
         {
+            var result = false;
+
             try
             {
                 var success = RemoveByPath(doc.FileInfo.FullName);
@@ -217,16 +235,19 @@ namespace Tabster
                     if (saveIndex)
                         Save();
 
-                    return true;
+                    result = true;
                 }
-
-                return false;
             }
 
             catch
             {
-                return false;
+                //unhandled
             }
+
+            if (TabRemoved != null)
+                TabRemoved(this, EventArgs.Empty);
+
+            return result;
         }
 
         #endregion
@@ -261,6 +282,9 @@ namespace Tabster
             _playlists.Add(playlist);
 
             Save();
+
+            if (PlaylistAdded != null)
+                PlaylistAdded(this, EventArgs.Empty);
         }
 
         public bool Remove(TablaturePlaylistDocument playlist, bool diskDelete)
@@ -271,6 +295,9 @@ namespace Tabster
                 File.Delete(playlist.FileInfo.FullName);
 
             Save();
+
+            if (PlaylistRemoved != null)
+                PlaylistRemoved(this, EventArgs.Empty);
 
             return result;
         }
