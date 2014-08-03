@@ -18,6 +18,8 @@ namespace Tabster.Core.Plugins
         /// </summary>
         string Name { get; }
 
+        Version Version { get; }
+
         /// <summary>
         ///   Parses tab from text source.
         /// </summary>

@@ -20,6 +20,11 @@ namespace UltimateGuitar
             get { return "Ultimate Guitar"; }
         }
 
+        public Version Version
+        {
+            get { return new Version("1.0"); }
+        }
+
         public TablatureDocument ParseTabFromSource(string source, TabType? type)
         {
             var doc = new HtmlDocument();
