@@ -2,10 +2,12 @@
 
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
 using Tabster.Core.FileTypes;
 using Tabster.Forms;
+using Tabster.Properties;
 
 #endregion
 
@@ -13,6 +15,7 @@ namespace Tabster.Utilities
 {
     public class SingleInstanceController : WindowsFormsApplicationBase
     {
+        private const int MIN_SPLASH_TIME = 4500;
         private static TablatureDocument _queuedTabfile;
         private static bool _isLibraryOpen;
         private static bool _noSplash;
@@ -78,7 +81,7 @@ namespace Tabster.Utilities
 
             if (!_noSplash)
             {
-                MinimumSplashScreenDisplayTime = 3500; //seems to make MainForm show prematurely
+                MinimumSplashScreenDisplayTime = MIN_SPLASH_TIME;
                 base.SplashScreen = new SplashScreen {Cursor = Cursors.AppStarting};
             }
         }
@@ -86,8 +89,39 @@ namespace Tabster.Utilities
         protected override void OnCreateMainForm()
         {
             base.OnCreateMainForm();
+
+            PerformStartupEvents();
+
             base.MainForm = _queuedTabfile != null ? new MainForm(_queuedTabfile) : new MainForm();
             _isLibraryOpen = true;
+        }
+
+        private void PerformStartupEvents()
+        {
+            var splashStatuses = new[] {"Initializing plugins...", "Loading library...", "Checking for updates..."};
+            var sleepDuration = MIN_SPLASH_TIME/splashStatuses.Length / 2;
+
+            var splash = ((SplashScreen) SplashScreen);
+
+            splash.SetStatus("Initializing plugins...");
+
+            Thread.Sleep(sleepDuration);
+
+            Program.pluginController.LoadPlugins();
+
+            splash.SetStatus("Loading library...");
+
+            Program.libraryManager.Load();
+
+            Thread.Sleep(sleepDuration);
+
+            if (Settings.Default.StartupUpdate)
+            {
+                splash.SetStatus("Checking for updates...");
+
+                Thread.Sleep(sleepDuration);
+                Program.updateQuery.Check(false);
+            }
         }
     }
 }

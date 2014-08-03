@@ -21,7 +21,7 @@ namespace Tabster.Forms
     {
         private readonly TablatureDocument _queuedTabfile;
         private readonly TabsterDocumentProcessor<TablatureDocument> _tablatureProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
-        private readonly UpdateQuery _updateQuery = new UpdateQuery();
+        
 
         public MainForm()
         {
@@ -35,7 +35,7 @@ namespace Tabster.Forms
             Program.TabHandler.TabOpened += TabHandler_OnTabOpened;
             Program.TabHandler.TabClosed += TabHandler_OnTabClosed;
 
-            _updateQuery.Completed += _updateQuery_Completed;
+            Program.updateQuery.Completed += updateQuery_Completed;
 
             previewToolStrip.Renderer = new ToolStripRenderer();
 
@@ -77,9 +77,9 @@ namespace Tabster.Forms
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            if (Settings.Default.StartupUpdate)
+            if (Program.updateQuery.UpdateAvailable)
             {
-                _updateQuery.Check(false);
+                ShowUpdateDialog();
             }
 
             //loads queued tab after splash
@@ -273,14 +273,13 @@ namespace Tabster.Forms
 
         #region Updater
 
-        private void _updateQuery_Completed(object sender, UpdateQueryCompletedEventArgs e)
+        private static void updateQuery_Completed(object sender, UpdateQueryCompletedEventArgs e)
         {
             var showUpdatedDialog = e.UserState != null && (bool) e.UserState;
 
-            if (_updateQuery.UpdateAvailable)
+            if (Program.updateQuery.UpdateAvailable)
             {
-                var updateDialog = new UpdateDialog(_updateQuery) {StartPosition = FormStartPosition.CenterParent};
-                updateDialog.ShowDialog();
+                ShowUpdateDialog();
             }
 
             else
@@ -290,6 +289,12 @@ namespace Tabster.Forms
                     MessageBox.Show("Your version of Tabster is up to date.", "Updated");
                 }
             }
+        }
+
+        private static void ShowUpdateDialog()
+        {
+            var updateDialog = new UpdateDialog(Program.updateQuery) { StartPosition = FormStartPosition.CenterParent };
+            updateDialog.ShowDialog();
         }
 
         #endregion
@@ -311,7 +316,7 @@ namespace Tabster.Forms
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _updateQuery.Check(true);
+            Program.updateQuery.Check(true);
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)

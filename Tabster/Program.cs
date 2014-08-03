@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using Tabster.Plugins;
+using Tabster.Updater;
 using Tabster.Utilities;
 
 #endregion
@@ -19,6 +20,7 @@ namespace Tabster
         public static SingleInstanceController instanceController;
         public static PluginController pluginController;
         public static string ApplicationDirectory;
+        public static UpdateQuery updateQuery = new UpdateQuery();
 
         [STAThread]
         public static void Main(string[] args)
@@ -29,7 +31,6 @@ namespace Tabster
             var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
 
             pluginController = new PluginController(pluginDirectory);
-            pluginController.LoadPlugins();
 
             var workingDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
             ApplicationDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
@@ -37,7 +38,6 @@ namespace Tabster
             libraryManager = new LibraryManager(Path.Combine(ApplicationDirectory, "library.dat"),
                                                 Path.Combine(workingDirectory, "Library"),
                                                 Path.Combine(workingDirectory, "Playlists"));
-            libraryManager.Load();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

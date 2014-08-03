@@ -30,15 +30,12 @@ namespace Tabster.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.lbltitle = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblversion = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblloading = new System.Windows.Forms.Label();
             this.lblname = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.simpleProgressBar1 = new Tabster.Controls.SimpleProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,7 +45,7 @@ namespace Tabster.Forms
             this.lbltitle.BackColor = System.Drawing.Color.Transparent;
             this.lbltitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltitle.ForeColor = System.Drawing.Color.Black;
-            this.lbltitle.Location = new System.Drawing.Point(153, 64);
+            this.lbltitle.Location = new System.Drawing.Point(153, 77);
             this.lbltitle.Name = "lbltitle";
             this.lbltitle.Size = new System.Drawing.Size(425, 16);
             this.lbltitle.TabIndex = 51;
@@ -69,7 +66,7 @@ namespace Tabster.Forms
             this.lblversion.BackColor = System.Drawing.Color.Transparent;
             this.lblversion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblversion.ForeColor = System.Drawing.Color.Gray;
-            this.lblversion.Location = new System.Drawing.Point(526, 192);
+            this.lblversion.Location = new System.Drawing.Point(526, 173);
             this.lblversion.Name = "lblversion";
             this.lblversion.Size = new System.Drawing.Size(52, 16);
             this.lblversion.TabIndex = 49;
@@ -78,11 +75,12 @@ namespace Tabster.Forms
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(9, 192);
+            this.label2.Location = new System.Drawing.Point(9, 173);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(223, 16);
             this.label2.TabIndex = 48;
@@ -94,11 +92,10 @@ namespace Tabster.Forms
             this.lblloading.BackColor = System.Drawing.Color.Transparent;
             this.lblloading.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblloading.ForeColor = System.Drawing.Color.Black;
-            this.lblloading.Location = new System.Drawing.Point(153, 94);
+            this.lblloading.Location = new System.Drawing.Point(153, 109);
             this.lblloading.Name = "lblloading";
-            this.lblloading.Size = new System.Drawing.Size(216, 16);
+            this.lblloading.Size = new System.Drawing.Size(0, 16);
             this.lblloading.TabIndex = 10;
-            this.lblloading.Text = "Scanning tabs and loading library...";
             // 
             // lblname
             // 
@@ -112,30 +109,13 @@ namespace Tabster.Forms
             this.lblname.TabIndex = 4;
             this.lblname.Text = "Tabster";
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // simpleProgressBar1
-            // 
-            this.simpleProgressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
-            this.simpleProgressBar1.Location = new System.Drawing.Point(156, 126);
-            this.simpleProgressBar1.Maximum = 140;
-            this.simpleProgressBar1.Name = "simpleProgressBar1";
-            this.simpleProgressBar1.Size = new System.Drawing.Size(422, 14);
-            this.simpleProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.simpleProgressBar1.TabIndex = 52;
-            // 
             // SplashScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(590, 217);
-            this.Controls.Add(this.simpleProgressBar1);
+            this.ClientSize = new System.Drawing.Size(590, 198);
             this.Controls.Add(this.lbltitle);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblversion);
@@ -165,8 +145,6 @@ namespace Tabster.Forms
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.Label lblloading;
         private System.Windows.Forms.Label lblname;
-        private SimpleProgressBar simpleProgressBar1;
-        private System.Windows.Forms.Timer timer1;
 
     }
 }
