@@ -347,8 +347,6 @@ namespace Tabster.Forms
             foreach (var str in titleStrings)
                 titleSuggestions.Add(str);
 
-            Console.WriteLine(titleSuggestions.Count);
-
             txtSearchArtist.AutoCompleteCustomSource = artistSuggestions;
             txtSearchTitle.AutoCompleteCustomSource = titleSuggestions;
         }
