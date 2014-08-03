@@ -556,7 +556,6 @@ namespace Tabster.Forms
                                     tab.Type.ToFriendlyString(),
                                     tab.Created,
                                     tab.FileInfo.LastWriteTime,
-                                    string.Format("{0:0.##} KB", tab.FileInfo.Length/1024d),
                                     tab.FileInfo.FullName
                                 };
 
