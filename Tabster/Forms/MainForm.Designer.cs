@@ -148,8 +148,8 @@ namespace Tabster.Forms
             this.newTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recentlyViewedToolStripMenuItem = new Tabster.Controls.RecentToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentlyViewedToolStripMenuItem = new Tabster.Controls.RecentToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sidebarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -279,6 +279,7 @@ namespace Tabster.Forms
             // sidemenu
             // 
             this.sidemenu.AllowRootNodeSelection = false;
+            this.sidemenu.AutoSelectChildNode = false;
             this.sidemenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sidemenu.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F);
             this.sidemenu.FullRowSelect = true;
@@ -1214,8 +1215,8 @@ namespace Tabster.Forms
             this.newTabToolStripMenuItem,
             this.newPlaylistToolStripMenuItem,
             this.openTabToolStripMenuItem,
-            this.recentlyViewedToolStripMenuItem,
             this.importToolStripMenuItem,
+            this.recentlyViewedToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -1247,22 +1248,28 @@ namespace Tabster.Forms
             this.openTabToolStripMenuItem.Text = "&Open...";
             this.openTabToolStripMenuItem.Click += new System.EventHandler(this.BrowseTab);
             // 
-            // recentlyViewedToolStripMenuItem
-            // 
-            this.recentlyViewedToolStripMenuItem.Enabled = false;
-            this.recentlyViewedToolStripMenuItem.FilePath = null;
-            this.recentlyViewedToolStripMenuItem.MaxItems = 10;
-            this.recentlyViewedToolStripMenuItem.Name = "recentlyViewedToolStripMenuItem";
-            this.recentlyViewedToolStripMenuItem.ShowClear = true;
-            this.recentlyViewedToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.recentlyViewedToolStripMenuItem.Text = "Open Recent";
-            // 
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.importToolStripMenuItem.Text = "Import...";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            // 
+            // recentlyViewedToolStripMenuItem
+            // 
+            this.recentlyViewedToolStripMenuItem.ClearOptionText = "Clear All Recent Items";
+            this.recentlyViewedToolStripMenuItem.DisplayClearOption = true;
+            this.recentlyViewedToolStripMenuItem.DisplayMode = Tabster.Controls.RecentToolStripMenuItem.RecentFilesDisplayMode.Consecutive;
+            this.recentlyViewedToolStripMenuItem.DisplayOpenAllOption = true;
+            this.recentlyViewedToolStripMenuItem.Enabled = false;
+            this.recentlyViewedToolStripMenuItem.MaxDisplayItems = 10;
+            this.recentlyViewedToolStripMenuItem.Name = "recentlyViewedToolStripMenuItem";
+            this.recentlyViewedToolStripMenuItem.OpenAllOptionText = "Open All Recent Items";
+            this.recentlyViewedToolStripMenuItem.PrependItemNumbers = true;
+            this.recentlyViewedToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.recentlyViewedToolStripMenuItem.Text = "Open Recent";
+            this.recentlyViewedToolStripMenuItem.Visible = false;
+            this.recentlyViewedToolStripMenuItem.OnAllItemsOpened += new System.EventHandler(this.recentlyViewedToolStripMenuItem_OnAllItemsOpened);
             // 
             // exitToolStripMenuItem
             // 

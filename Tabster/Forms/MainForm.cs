@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using System.Xml;
 using Tabster.Controls;
 using Tabster.Core.FileTypes;
 using Tabster.Core.Plugins;
@@ -19,9 +20,9 @@ namespace Tabster.Forms
 {
     public partial class MainForm : Form
     {
+        private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDirectory, "recent.dat");
         private readonly TablatureDocument _queuedTabfile;
         private readonly TabsterDocumentProcessor<TablatureDocument> _tablatureProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
-        
 
         public MainForm()
         {
@@ -51,7 +52,7 @@ namespace Tabster.Forms
             }
 
             CachePluginResources();
-        } 
+        }
 
         public MainForm(TablatureDocument tabDocument)
             : this()
@@ -61,10 +62,11 @@ namespace Tabster.Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            recentlyViewedToolStripMenuItem.FilePath = Path.Combine(Program.ApplicationDirectory, "recent.dat");
-            recentlyViewedToolStripMenuItem.ShowClear = true;
-            recentlyViewedToolStripMenuItem.Load();
+            //tode use designer
+            recentlyViewedToolStripMenuItem.DisplayClearOption = true;
             recentlyViewedToolStripMenuItem.OnItemClicked += recentlyViewedToolStripMenuItem_OnItemClicked;
+
+            LoadRecentFilesList();
 
             sidemenu.SelectedNode = sidemenu.Nodes[0].FirstNode;
 
@@ -89,11 +91,67 @@ namespace Tabster.Forms
             }
         }
 
+        private void LoadRecentFilesList()
+        {
+            if (!File.Exists(_recentFilesPath))
+                return;
+
+            var xml = new XmlDocument();
+            xml.Load(_recentFilesPath);
+
+            var files = xml.GetElementsByTagName("recent")[0].ChildNodes;
+
+            if (files.Count > 0)
+            {
+                var documents = new List<TablatureDocument>();
+
+                foreach (XmlNode file in files)
+                {
+                    var doc = _tablatureProcessor.Load(file.InnerText);
+
+                    if (doc != null)
+                    {
+                        //keep document view order by inserting
+                        documents.Insert(0, doc);
+                    }
+                }
+
+                for (var i = 0; i < documents.Count; i++)
+                {
+                    var doc = documents[i];
+                    
+                    //only update display on last document
+                    var updateDisplay = i == files.Count - 1;
+
+                    recentlyViewedToolStripMenuItem.Add(doc.FileInfo, doc.ToFriendlyString(), updateDisplay);
+                }
+            }
+        }
+
+        private void SaveRecentFilesList()
+        {
+            var doc = new XmlDocument();
+
+            doc.AppendChild(doc.CreateXmlDeclaration("1.0", "UTF-8", null));
+
+            var root = doc.CreateElement("recent");
+            doc.AppendChild(root);
+
+            foreach (var item in recentlyViewedToolStripMenuItem.Items)
+            {
+                var elem = doc.CreateElement("item");
+                elem.InnerText = item.File.FullName;
+                root.AppendChild(elem);
+            }
+
+            doc.Save(_recentFilesPath);
+        }
+
         private void PopulateTabTypeControls()
-        {  
+        {
             txtsearchtype.Items.Add("All Types");
 
-            foreach (TabType t in Enum.GetValues(typeof(TabType)))
+            foreach (TabType t in Enum.GetValues(typeof (TabType)))
             {
                 var typeStr = t.ToFriendlyString();
                 var str = typeStr.EndsWith("s") ? typeStr : string.Format("{0}s", typeStr);
@@ -102,7 +160,7 @@ namespace Tabster.Forms
                 txtsearchtype.Items.Add(str);
 
                 //library menu
-                sidemenu.FirstNode.Nodes.Add(new TreeNode(str) { NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = t.ToString() });
+                sidemenu.FirstNode.Nodes.Add(new TreeNode(str) {NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = t.ToString()});
             }
 
             txtsearchtype.SelectedIndex = 0;
@@ -114,20 +172,34 @@ namespace Tabster.Forms
             _searchServices = new List<ISearchService>(Program.pluginController.GetClassInstances<ISearchService>());
         }
 
-        private void recentlyViewedToolStripMenuItem_OnItemClicked(object sender, EventArgs e)
+        private void OpenRecentFile(ToolStripMenuItem item)
         {
-            var path = ((ToolStripMenuItem) sender).ToolTipText;
+            var path = item.ToolTipText;
 
             var tab = _tablatureProcessor.Load(path);
 
             if (tab != null)
             {
-                PopoutTab(tab);
+                PopoutTab(tab, false);
+            }
+        }
+
+        private void recentlyViewedToolStripMenuItem_OnItemClicked(object sender, EventArgs e)
+        {
+            OpenRecentFile((ToolStripMenuItem) sender);
+        }
+
+        private void recentlyViewedToolStripMenuItem_OnAllItemsOpened(object sender, EventArgs e)
+        {
+            foreach (var item in recentlyViewedToolStripMenuItem.Items)
+            {
+                OpenRecentFile(item.MenuItem);
             }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            SaveRecentFilesList();
             SaveSettings();
         }
 
@@ -293,7 +365,7 @@ namespace Tabster.Forms
 
         private static void ShowUpdateDialog()
         {
-            var updateDialog = new UpdateDialog(Program.updateQuery) { StartPosition = FormStartPosition.CenterParent };
+            var updateDialog = new UpdateDialog(Program.updateQuery) {StartPosition = FormStartPosition.CenterParent};
             updateDialog.ShowDialog();
         }
 

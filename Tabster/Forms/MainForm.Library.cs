@@ -179,11 +179,13 @@ namespace Tabster.Forms
             }
         }
 
-        private void PopoutTab(TablatureDocument tab)
+        private void PopoutTab(TablatureDocument tab, bool updateRecentFiles = true)
         {
             Program.TabHandler.LoadExternally(tab, true);
 
-            recentlyViewedToolStripMenuItem.Add(tab);
+            if (updateRecentFiles)
+                recentlyViewedToolStripMenuItem.Add(tab.FileInfo, tab.ToFriendlyString());
+            
             UpdateTabControls(false);
             LoadTabPreview();
         }
