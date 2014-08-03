@@ -28,21 +28,21 @@ namespace Tabster.Forms
 
         private void onlinesearchbtn_Click(object sender, EventArgs e)
         {
-            if (txtsearchartist.Text.Trim().Length > 0 || txtsearchsong.Text.Trim().Length > 0)
+            if (txtSearchArtist.Text.Trim().Length > 0 || txtSearchTitle.Text.Trim().Length > 0)
             {
                 if (SearchBackgroundWorker.IsBusy)
                     SearchBackgroundWorker.CancelAsync();
 
                 pictureBox1.Visible = true;
 
-                var searchArtist = txtsearchartist.Text.Trim();
-                var searchTitle = txtsearchsong.Text.Trim();
+                var searchArtist = txtSearchArtist.Text.Trim();
+                var searchTitle = txtSearchTitle.Text.Trim();
 
                 TabType? searchType = null;
 
                 //ignore "all tabs"
-                if (txtsearchtype.SelectedIndex > 0)
-                    searchType = (TabType) (txtsearchtype.SelectedIndex - 1);
+                if (txtSearchType.SelectedIndex > 0)
+                    searchType = (TabType) (txtSearchType.SelectedIndex - 1);
 
                 var searchQueries = new List<SearchQuery>();
 
@@ -293,6 +293,64 @@ namespace Tabster.Forms
                     }
                 }
             }
+        }
+
+        private static string RemoveVersionConventionFromTitle(string title)
+        {
+            var versionConventionIndex = title.IndexOf(" (ver ", StringComparison.InvariantCultureIgnoreCase);
+
+            if (versionConventionIndex >= 0)
+                title = title.Remove(versionConventionIndex);
+
+            return title;
+        }
+
+        private void BuildSearchSuggestions()
+        {
+            var artistStrings = new List<string>();
+            var titleStrings = new List<string>();
+
+            var tabs = new List<TablatureDocument>();
+
+            foreach (var tab in Program.libraryManager)
+                tabs.Add(tab);
+
+            foreach (var playlist in Program.libraryManager.Playlists)
+            {
+                foreach (var tab in playlist)
+                {
+                    tabs.Add(tab);
+                }
+            }
+
+            foreach (var tab in tabs)
+            {
+                if (artistStrings.Find(x => x.Equals(tab.Artist, StringComparison.InvariantCultureIgnoreCase)) == null)
+                {
+                    artistStrings.Add(tab.Artist);
+                }
+
+                var title = RemoveVersionConventionFromTitle(tab.Title);
+
+                if (titleStrings.Find(x => x.Equals(title, StringComparison.InvariantCultureIgnoreCase)) == null)
+                {
+                    titleStrings.Add(title);
+                }
+            }
+
+            var artistSuggestions = new AutoCompleteStringCollection();
+            var titleSuggestions = new AutoCompleteStringCollection();
+
+            foreach (var str in artistStrings)
+                artistSuggestions.Add(str);
+
+            foreach (var str in titleStrings)
+                titleSuggestions.Add(str);
+
+            Console.WriteLine(titleSuggestions.Count);
+
+            txtSearchArtist.AutoCompleteCustomSource = artistSuggestions;
+            txtSearchTitle.AutoCompleteCustomSource = titleSuggestions;
         }
     }
 }

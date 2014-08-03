@@ -33,30 +33,30 @@ namespace Tabster.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("All Tabs");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("My Tabs");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("My Downloads");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("My Imports");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("My Favorites");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Library", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Playlists");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("All Tabs");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("My Tabs");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("My Downloads");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("My Imports");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("My Favorites");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Library", new System.Windows.Forms.TreeNode[] {
+            treeNode15,
+            treeNode16,
+            treeNode17,
+            treeNode18,
+            treeNode19});
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Playlists");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             this.deletePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renamePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -67,6 +67,12 @@ namespace Tabster.Forms
             this.button2 = new System.Windows.Forms.Button();
             this.librarySplitContainer = new System.Windows.Forms.SplitContainer();
             this.tablibrary = new Tabster.Controls.DataGridViewExtended();
+            this.libraryCol_title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.libraryCol_artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.libraryCol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.libraryCol_created = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.libraryCol_modified = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.libraryCol_location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblopenedexternally = new System.Windows.Forms.Label();
             this.previewToolStrip = new System.Windows.Forms.ToolStrip();
             this.lblpreviewtitle = new System.Windows.Forms.ToolStripLabel();
@@ -93,10 +99,10 @@ namespace Tabster.Forms
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.onlinesearchbtn = new System.Windows.Forms.Button();
-            this.txtsearchartist = new System.Windows.Forms.TextBox();
+            this.txtSearchArtist = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtsearchsong = new System.Windows.Forms.TextBox();
-            this.txtsearchtype = new System.Windows.Forms.ComboBox();
+            this.txtSearchTitle = new System.Windows.Forms.TextBox();
+            this.txtSearchType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.searchPreviewEditor = new Tabster.Controls.TabEditor();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -174,12 +180,6 @@ namespace Tabster.Forms
             this.SearchPreviewBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SearchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.DownloadBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.libraryCol_title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_created = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_modified = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.display_library.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -287,30 +287,30 @@ namespace Tabster.Forms
             this.sidemenu.LineColor = System.Drawing.Color.White;
             this.sidemenu.Location = new System.Drawing.Point(0, 0);
             this.sidemenu.Name = "sidemenu";
-            treeNode1.Name = "node_alltabs";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode1.Text = "All Tabs";
-            treeNode2.Name = "node_mytabs";
-            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode2.Text = "My Tabs";
-            treeNode3.Name = "node_mydownloads";
-            treeNode3.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode3.Text = "My Downloads";
-            treeNode4.Name = "node_myimports";
-            treeNode4.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode4.Text = "My Imports";
-            treeNode5.Name = "node_myfavorites";
-            treeNode5.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode5.Text = "My Favorites";
-            treeNode6.Name = "node_library";
-            treeNode6.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode6.Text = "Library";
-            treeNode7.Name = "node_playlists";
-            treeNode7.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode7.Text = "Playlists";
+            treeNode15.Name = "node_alltabs";
+            treeNode15.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode15.Text = "All Tabs";
+            treeNode16.Name = "node_mytabs";
+            treeNode16.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode16.Text = "My Tabs";
+            treeNode17.Name = "node_mydownloads";
+            treeNode17.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode17.Text = "My Downloads";
+            treeNode18.Name = "node_myimports";
+            treeNode18.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode18.Text = "My Imports";
+            treeNode19.Name = "node_myfavorites";
+            treeNode19.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode19.Text = "My Favorites";
+            treeNode20.Name = "node_library";
+            treeNode20.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode20.Text = "Library";
+            treeNode21.Name = "node_playlists";
+            treeNode21.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode21.Text = "Playlists";
             this.sidemenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode7});
+            treeNode20,
+            treeNode21});
             this.sidemenu.ShowLines = false;
             this.sidemenu.ShowPlusMinus = false;
             this.sidemenu.ShowRootLines = false;
@@ -380,14 +380,14 @@ namespace Tabster.Forms
             this.tablibrary.AllowUserToResizeRows = false;
             this.tablibrary.BackgroundColor = System.Drawing.SystemColors.Window;
             this.tablibrary.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tablibrary.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle28.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle28.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tablibrary.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle28;
             this.tablibrary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.tablibrary.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.libraryCol_title,
@@ -396,33 +396,33 @@ namespace Tabster.Forms
             this.libraryCol_created,
             this.libraryCol_modified,
             this.libraryCol_location});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tablibrary.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle31.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle31.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle31.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tablibrary.DefaultCellStyle = dataGridViewCellStyle31;
             this.tablibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tablibrary.GridColor = System.Drawing.SystemColors.ControlLight;
             this.tablibrary.Location = new System.Drawing.Point(0, 0);
             this.tablibrary.MultiSelect = false;
             this.tablibrary.Name = "tablibrary";
             this.tablibrary.ReadOnly = true;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tablibrary.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle32.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle32.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tablibrary.RowHeadersDefaultCellStyle = dataGridViewCellStyle32;
             this.tablibrary.RowHeadersVisible = false;
             this.tablibrary.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            this.tablibrary.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle33.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle33.ForeColor = System.Drawing.Color.Black;
+            this.tablibrary.RowsDefaultCellStyle = dataGridViewCellStyle33;
             this.tablibrary.RowTemplate.Height = 18;
             this.tablibrary.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablibrary.ShowCellErrors = false;
@@ -436,6 +436,61 @@ namespace Tabster.Forms
             this.tablibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.tablibrary_DragDrop);
             this.tablibrary.DragEnter += new System.Windows.Forms.DragEventHandler(this.tablibrary_DragEnter);
             this.tablibrary.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tablibrary_MouseClick);
+            // 
+            // libraryCol_title
+            // 
+            this.libraryCol_title.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.libraryCol_title.HeaderText = "Title";
+            this.libraryCol_title.MinimumWidth = 250;
+            this.libraryCol_title.Name = "libraryCol_title";
+            this.libraryCol_title.ReadOnly = true;
+            this.libraryCol_title.Width = 250;
+            // 
+            // libraryCol_artist
+            // 
+            this.libraryCol_artist.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.libraryCol_artist.HeaderText = "Artist";
+            this.libraryCol_artist.MinimumWidth = 150;
+            this.libraryCol_artist.Name = "libraryCol_artist";
+            this.libraryCol_artist.ReadOnly = true;
+            this.libraryCol_artist.Width = 150;
+            // 
+            // libraryCol_type
+            // 
+            this.libraryCol_type.HeaderText = "Type";
+            this.libraryCol_type.MinimumWidth = 65;
+            this.libraryCol_type.Name = "libraryCol_type";
+            this.libraryCol_type.ReadOnly = true;
+            // 
+            // libraryCol_created
+            // 
+            dataGridViewCellStyle29.Format = "g";
+            dataGridViewCellStyle29.NullValue = null;
+            this.libraryCol_created.DefaultCellStyle = dataGridViewCellStyle29;
+            this.libraryCol_created.HeaderText = "Created";
+            this.libraryCol_created.MinimumWidth = 120;
+            this.libraryCol_created.Name = "libraryCol_created";
+            this.libraryCol_created.ReadOnly = true;
+            this.libraryCol_created.Width = 120;
+            // 
+            // libraryCol_modified
+            // 
+            dataGridViewCellStyle30.Format = "g";
+            dataGridViewCellStyle30.NullValue = null;
+            this.libraryCol_modified.DefaultCellStyle = dataGridViewCellStyle30;
+            this.libraryCol_modified.HeaderText = "Last Modified";
+            this.libraryCol_modified.MinimumWidth = 120;
+            this.libraryCol_modified.Name = "libraryCol_modified";
+            this.libraryCol_modified.ReadOnly = true;
+            this.libraryCol_modified.Width = 120;
+            // 
+            // libraryCol_location
+            // 
+            this.libraryCol_location.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.libraryCol_location.HeaderText = "Location";
+            this.libraryCol_location.MinimumWidth = 65;
+            this.libraryCol_location.Name = "libraryCol_location";
+            this.libraryCol_location.ReadOnly = true;
             // 
             // lblopenedexternally
             // 
@@ -595,14 +650,14 @@ namespace Tabster.Forms
             this.searchDisplay.AllowUserToResizeRows = false;
             this.searchDisplay.BackgroundColor = System.Drawing.Color.White;
             this.searchDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.searchDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.searchDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
             this.searchDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.searchDisplay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.searchcol_artist,
@@ -610,33 +665,33 @@ namespace Tabster.Forms
             this.searchcol_type,
             this.col_rating,
             this.searchcol_service});
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.searchDisplay.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.searchDisplay.DefaultCellStyle = dataGridViewCellStyle25;
             this.searchDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchDisplay.GridColor = System.Drawing.SystemColors.ControlLight;
             this.searchDisplay.Location = new System.Drawing.Point(0, 31);
             this.searchDisplay.MultiSelect = false;
             this.searchDisplay.Name = "searchDisplay";
             this.searchDisplay.ReadOnly = true;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.searchDisplay.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.searchDisplay.RowHeadersDefaultCellStyle = dataGridViewCellStyle26;
             this.searchDisplay.RowHeadersVisible = false;
             this.searchDisplay.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
-            this.searchDisplay.RowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle27.ForeColor = System.Drawing.Color.Black;
+            this.searchDisplay.RowsDefaultCellStyle = dataGridViewCellStyle27;
             this.searchDisplay.RowTemplate.Height = 18;
             this.searchDisplay.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.searchDisplay.ShowCellErrors = false;
@@ -680,8 +735,8 @@ namespace Tabster.Forms
             // searchcol_service
             // 
             this.searchcol_service.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle8.Format = "N0";
-            this.searchcol_service.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle24.Format = "N0";
+            this.searchcol_service.DefaultCellStyle = dataGridViewCellStyle24;
             this.searchcol_service.HeaderText = "Service";
             this.searchcol_service.Name = "searchcol_service";
             this.searchcol_service.ReadOnly = true;
@@ -695,10 +750,10 @@ namespace Tabster.Forms
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.onlinesearchbtn);
-            this.panel1.Controls.Add(this.txtsearchartist);
+            this.panel1.Controls.Add(this.txtSearchArtist);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.txtsearchsong);
-            this.panel1.Controls.Add(this.txtsearchtype);
+            this.panel1.Controls.Add(this.txtSearchTitle);
+            this.panel1.Controls.Add(this.txtSearchType);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -761,16 +816,18 @@ namespace Tabster.Forms
             this.onlinesearchbtn.UseVisualStyleBackColor = true;
             this.onlinesearchbtn.Click += new System.EventHandler(this.onlinesearchbtn_Click);
             // 
-            // txtsearchartist
+            // txtSearchArtist
             // 
-            this.txtsearchartist.BackColor = System.Drawing.SystemColors.Window;
-            this.txtsearchartist.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtsearchartist.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txtsearchartist.Location = new System.Drawing.Point(44, 5);
-            this.txtsearchartist.Name = "txtsearchartist";
-            this.txtsearchartist.Size = new System.Drawing.Size(124, 20);
-            this.txtsearchartist.TabIndex = 21;
-            this.txtsearchartist.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsearchartist_KeyDown);
+            this.txtSearchArtist.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtSearchArtist.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtSearchArtist.BackColor = System.Drawing.SystemColors.Window;
+            this.txtSearchArtist.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearchArtist.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.txtSearchArtist.Location = new System.Drawing.Point(44, 5);
+            this.txtSearchArtist.Name = "txtSearchArtist";
+            this.txtSearchArtist.Size = new System.Drawing.Size(124, 20);
+            this.txtSearchArtist.TabIndex = 21;
+            this.txtSearchArtist.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsearchartist_KeyDown);
             // 
             // label3
             // 
@@ -783,29 +840,31 @@ namespace Tabster.Forms
             this.label3.TabIndex = 26;
             this.label3.Text = "Type:";
             // 
-            // txtsearchsong
+            // txtSearchTitle
             // 
-            this.txtsearchsong.BackColor = System.Drawing.SystemColors.Window;
-            this.txtsearchsong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtsearchsong.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txtsearchsong.Location = new System.Drawing.Point(215, 5);
-            this.txtsearchsong.Name = "txtsearchsong";
-            this.txtsearchsong.Size = new System.Drawing.Size(124, 20);
-            this.txtsearchsong.TabIndex = 22;
-            this.txtsearchsong.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsearchartist_KeyDown);
+            this.txtSearchTitle.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtSearchTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtSearchTitle.BackColor = System.Drawing.SystemColors.Window;
+            this.txtSearchTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearchTitle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.txtSearchTitle.Location = new System.Drawing.Point(215, 5);
+            this.txtSearchTitle.Name = "txtSearchTitle";
+            this.txtSearchTitle.Size = new System.Drawing.Size(124, 20);
+            this.txtSearchTitle.TabIndex = 22;
+            this.txtSearchTitle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsearchartist_KeyDown);
             // 
-            // txtsearchtype
+            // txtSearchType
             // 
-            this.txtsearchtype.BackColor = System.Drawing.SystemColors.Window;
-            this.txtsearchtype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.txtsearchtype.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txtsearchtype.FormattingEnabled = true;
-            this.txtsearchtype.ItemHeight = 13;
-            this.txtsearchtype.Location = new System.Drawing.Point(385, 5);
-            this.txtsearchtype.Name = "txtsearchtype";
-            this.txtsearchtype.Size = new System.Drawing.Size(95, 21);
-            this.txtsearchtype.TabIndex = 23;
-            this.txtsearchtype.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsearchartist_KeyDown);
+            this.txtSearchType.BackColor = System.Drawing.SystemColors.Window;
+            this.txtSearchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.txtSearchType.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.txtSearchType.FormattingEnabled = true;
+            this.txtSearchType.ItemHeight = 13;
+            this.txtSearchType.Location = new System.Drawing.Point(385, 5);
+            this.txtSearchType.Name = "txtSearchType";
+            this.txtSearchType.Size = new System.Drawing.Size(95, 21);
+            this.txtSearchType.TabIndex = 23;
+            this.txtSearchType.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsearchartist_KeyDown);
             // 
             // label1
             // 
@@ -814,9 +873,9 @@ namespace Tabster.Forms
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.Location = new System.Drawing.Point(174, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(30, 13);
             this.label1.TabIndex = 24;
-            this.label1.Text = "Song:";
+            this.label1.Text = "Title:";
             // 
             // searchPreviewEditor
             // 
@@ -1482,61 +1541,6 @@ namespace Tabster.Forms
             this.DownloadBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.DownloadBackgroundWorker_ProgressChanged);
             this.DownloadBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.DownloadBackgroundWorker_RunWorkerCompleted);
             // 
-            // libraryCol_title
-            // 
-            this.libraryCol_title.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.libraryCol_title.HeaderText = "Title";
-            this.libraryCol_title.MinimumWidth = 250;
-            this.libraryCol_title.Name = "libraryCol_title";
-            this.libraryCol_title.ReadOnly = true;
-            this.libraryCol_title.Width = 250;
-            // 
-            // libraryCol_artist
-            // 
-            this.libraryCol_artist.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.libraryCol_artist.HeaderText = "Artist";
-            this.libraryCol_artist.MinimumWidth = 150;
-            this.libraryCol_artist.Name = "libraryCol_artist";
-            this.libraryCol_artist.ReadOnly = true;
-            this.libraryCol_artist.Width = 150;
-            // 
-            // libraryCol_type
-            // 
-            this.libraryCol_type.HeaderText = "Type";
-            this.libraryCol_type.MinimumWidth = 65;
-            this.libraryCol_type.Name = "libraryCol_type";
-            this.libraryCol_type.ReadOnly = true;
-            // 
-            // libraryCol_created
-            // 
-            dataGridViewCellStyle2.Format = "g";
-            dataGridViewCellStyle2.NullValue = null;
-            this.libraryCol_created.DefaultCellStyle = dataGridViewCellStyle2;
-            this.libraryCol_created.HeaderText = "Created";
-            this.libraryCol_created.MinimumWidth = 120;
-            this.libraryCol_created.Name = "libraryCol_created";
-            this.libraryCol_created.ReadOnly = true;
-            this.libraryCol_created.Width = 120;
-            // 
-            // libraryCol_modified
-            // 
-            dataGridViewCellStyle3.Format = "g";
-            dataGridViewCellStyle3.NullValue = null;
-            this.libraryCol_modified.DefaultCellStyle = dataGridViewCellStyle3;
-            this.libraryCol_modified.HeaderText = "Last Modified";
-            this.libraryCol_modified.MinimumWidth = 120;
-            this.libraryCol_modified.Name = "libraryCol_modified";
-            this.libraryCol_modified.ReadOnly = true;
-            this.libraryCol_modified.Width = 120;
-            // 
-            // libraryCol_location
-            // 
-            this.libraryCol_location.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.libraryCol_location.HeaderText = "Location";
-            this.libraryCol_location.MinimumWidth = 65;
-            this.libraryCol_location.Name = "libraryCol_location";
-            this.libraryCol_location.ReadOnly = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1630,11 +1634,11 @@ namespace Tabster.Forms
         private System.Windows.Forms.TabPage display_search;
         private DataGridViewExtended searchDisplay;
         private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.ComboBox txtsearchtype;
+        public System.Windows.Forms.ComboBox txtSearchType;
         public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.TextBox txtsearchsong;
+        public System.Windows.Forms.TextBox txtSearchTitle;
         public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.TextBox txtsearchartist;
+        public System.Windows.Forms.TextBox txtSearchArtist;
         private System.Windows.Forms.Button onlinesearchbtn;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ContextMenuStrip SearchMenu;

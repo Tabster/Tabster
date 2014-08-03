@@ -20,9 +20,10 @@ namespace Tabster.Forms
 {
     public partial class MainForm : Form
     {
-        private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDirectory, "recent.dat");
         private readonly TablatureDocument _queuedTabfile;
+        private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDirectory, "recent.dat");
         private readonly TabsterDocumentProcessor<TablatureDocument> _tablatureProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
+        private bool _initialLibraryLoaded;
 
         public MainForm()
         {
@@ -35,6 +36,9 @@ namespace Tabster.Forms
             //tabviewermanager events
             Program.TabHandler.TabOpened += TabHandler_OnTabOpened;
             Program.TabHandler.TabClosed += TabHandler_OnTabClosed;
+
+            //libarymanager events
+            Program.libraryManager.TabRemoved += libraryManager_TabRemoved;
 
             Program.updateQuery.Completed += updateQuery_Completed;
 
@@ -52,6 +56,8 @@ namespace Tabster.Forms
             }
 
             CachePluginResources();
+
+            BuildSearchSuggestions();
         }
 
         public MainForm(TablatureDocument tabDocument)
@@ -119,7 +125,7 @@ namespace Tabster.Forms
                 for (var i = 0; i < documents.Count; i++)
                 {
                     var doc = documents[i];
-                    
+
                     //only update display on last document
                     var updateDisplay = i == files.Count - 1;
 
@@ -149,7 +155,7 @@ namespace Tabster.Forms
 
         private void PopulateTabTypeControls()
         {
-            txtsearchtype.Items.Add("All Types");
+            txtSearchType.Items.Add("All Types");
 
             foreach (TabType t in Enum.GetValues(typeof (TabType)))
             {
@@ -157,13 +163,13 @@ namespace Tabster.Forms
                 var str = typeStr.EndsWith("s") ? typeStr : string.Format("{0}s", typeStr);
 
                 //search options
-                txtsearchtype.Items.Add(str);
+                txtSearchType.Items.Add(str);
 
                 //library menu
                 sidemenu.FirstNode.Nodes.Add(new TreeNode(str) {NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = t.ToString()});
             }
 
-            txtsearchtype.SelectedIndex = 0;
+            txtSearchType.SelectedIndex = 0;
         }
 
         private void CachePluginResources()
@@ -207,7 +213,7 @@ namespace Tabster.Forms
         {
             if (tabControl1.SelectedTab == display_search)
             {
-                txtsearchartist.Focus();
+                txtSearchArtist.Focus();
             }
 
             filtertext.Visible = tabControl1.SelectedTab == display_library;
@@ -341,6 +347,12 @@ namespace Tabster.Forms
             {
                 onlinesearchbtn.PerformClick();
             }
+        }
+
+        private void libraryManager_TabRemoved(object sender, EventArgs e)
+        {
+            if (_initialLibraryLoaded)
+                BuildSearchSuggestions();
         }
 
         #region Updater

@@ -194,18 +194,13 @@ namespace Tabster.Forms
         {
             if (SelectedTab != null)
             {
-                txtsearchartist.Text = SelectedTab.Artist;
+                txtSearchArtist.Text = SelectedTab.Artist;
 
                 //check for version convention
-                var searchTitle = SelectedTab.Title;
+                var searchTitle = RemoveVersionConventionFromTitle(SelectedTab.Title);
 
-                var versionConventionIndex = SelectedTab.Title.IndexOf(" (ver ", StringComparison.InvariantCultureIgnoreCase);
-
-                if (versionConventionIndex >= 0)
-                    searchTitle = SelectedTab.Title.Remove(versionConventionIndex);
-
-                txtsearchsong.Text = searchTitle;
-                txtsearchtype.SelectedIndex = 0;
+                txtSearchTitle.Text = searchTitle;
+                txtSearchType.SelectedIndex = 0;
                 tabControl1.SelectedTab = display_search;
                 onlinesearchbtn.PerformClick();
             }
@@ -463,6 +458,8 @@ namespace Tabster.Forms
             }
 
             tablibrary.ResumeLayout();
+
+            _initialLibraryLoaded = true;
         }
 
         private void ImportTab(string path, TablaturePlaylistDocument playlist = null)
