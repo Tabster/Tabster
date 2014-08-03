@@ -172,7 +172,7 @@
     <Compile Include="Forms\SplashScreen.designer.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\RecentList.cs">
+    <Compile Include="Controls\RecentToolStripMenuItem.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\SearchBox.cs">
