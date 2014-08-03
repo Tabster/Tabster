@@ -135,7 +135,10 @@ namespace Tabster.Core.FileTypes
                 }
             }
 
-            XmlNode workingNode = _xmlDocTemp.CreateElement(name);
+            //check if node already exists
+            var existingNode = _xmlDocTemp.GetElementByTagName(name);
+
+            var workingNode = existingNode ?? _xmlDocTemp.CreateElement(name);
 
             if (value != null)
                 workingNode.InnerText = value;
