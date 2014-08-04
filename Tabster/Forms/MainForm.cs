@@ -55,9 +55,9 @@ namespace Tabster.Forms
                 menuStrip1.Renderer = new MenuStripRenderer();
             }
 
-            cbSearchRating.SelectedIndex = 0;
-
             CachePluginResources();
+
+            InitializeSearchControls();
 
             BuildSearchSuggestions();
         }
@@ -181,14 +181,7 @@ namespace Tabster.Forms
 
             _searchServices.Sort((s1, s2) => s1.Name.CompareTo(s2.Name));
 
-            listSearchServices.Items.Clear();
-
-            for (var i = 0; i < _searchServices.Count; i++)
-            {
-                var service = _searchServices[i];
-                listSearchServices.Items.Add(service.Name);
-                listSearchServices.SetSelected(i, true);
-            }           
+            InitializeSearchControls();
         }
 
         private void OpenRecentFile(ToolStripMenuItem item)

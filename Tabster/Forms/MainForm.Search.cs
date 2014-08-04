@@ -371,5 +371,29 @@ namespace Tabster.Forms
             txtSearchArtist.AutoCompleteCustomSource = artistSuggestions;
             txtSearchTitle.AutoCompleteCustomSource = titleSuggestions;
         }
+
+        private void InitializeSearchControls()
+        {
+            txtSearchArtist.Text = "";
+            txtSearchTitle.Text = "";
+
+            txtSearchType.SelectedIndex = 0;
+
+            listSearchServices.Items.Clear();
+
+            cbSearchRating.SelectedIndex = 0;
+
+            for (var i = 0; i < _searchServices.Count; i++)
+            {
+                var service = _searchServices[i];
+                listSearchServices.Items.Add(service.Name);
+                listSearchServices.SetSelected(i, true);
+            }
+        }
+
+        private void resetSearchbtn_Click(object sender, EventArgs e)
+        {
+            InitializeSearchControls();
+        }
     }
 }
