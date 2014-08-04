@@ -175,8 +175,6 @@ namespace Tabster.Forms
                     {
                         var cachedTab = _searchResultsCache[selectedResult.Tab.Source];
 
-                        cachedTab.SourceType = TablatureSourceType.Download;
-
                         Program.libraryManager.Add(cachedTab, true);
                         UpdateLibraryItem(cachedTab);
                     }
@@ -257,6 +255,8 @@ namespace Tabster.Forms
                 if (tab != null)
                 {
                     tab.Source = result.Tab.Source;
+                    tab.SourceType = TablatureSourceType.Download;
+                    tab.Method = Common.GetTablatureDocumentMethodString(parser);
                     _searchResultsCache[result.Tab.Source] = tab;
                 }
             }

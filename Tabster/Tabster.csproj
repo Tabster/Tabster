@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="LibraryManager.cs" />
     <Compile Include="Plugins\PluginController.cs" />
+    <Compile Include="Utilities\Common.cs" />
     <Compile Include="Utilities\ControlInvoker.cs" />
     <Compile Include="Utilities\ITablatureExtensions.cs" />
     <Compile Include="Utilities\PortableSettingsProvider.cs" />

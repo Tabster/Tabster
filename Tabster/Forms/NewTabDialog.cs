@@ -4,6 +4,7 @@ using System;
 using System.Windows.Forms;
 using Tabster.Core.FileTypes;
 using Tabster.Core.Types;
+using Tabster.Utilities;
 
 #endregion
 
@@ -41,7 +42,8 @@ namespace Tabster.Forms
         {
             Tab = new TablatureDocument(txtartist.Text.Trim(), txttitle.Text.Trim(), TabTypeUtilities.FromFriendlyString(txttype.Text).Value, "")
                       {
-                          SourceType = TablatureSourceType.UserCreated
+                          SourceType = TablatureSourceType.UserCreated,
+                          Method = Common.GetTablatureDocumentMethodString()
                       };
         }
     }

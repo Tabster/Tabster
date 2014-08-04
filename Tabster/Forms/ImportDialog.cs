@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using Tabster.Core.FileTypes;
 using Tabster.Core.Types;
+using Tabster.Utilities;
 
 #endregion
 
@@ -27,7 +28,8 @@ namespace Tabster.Forms
             Tab = new TablatureDocument(txtartist.Text.Trim(), txttitle.Text.Trim(), TabTypeUtilities.FromFriendlyString(txttype.Text).Value, File.ReadAllText(txtimportfile.Text))
                       {
                           Source = new Uri(txtimportfile.Text),
-                          SourceType = TablatureSourceType.FileImport
+                          SourceType = TablatureSourceType.FileImport,
+                          Method = Common.GetTablatureDocumentMethodString()
                       };
         }
 

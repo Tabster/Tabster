@@ -137,6 +137,7 @@ namespace Tabster.Forms
                             {
                                 tab.Source = state.Url;
                                 tab.SourceType = TablatureSourceType.Download;
+                                tab.Method = Common.GetTablatureDocumentMethodString(state.Parser);
                             }
 
                             state.Tab = tab;

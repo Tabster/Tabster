@@ -22,9 +22,8 @@ namespace Tabster.Core.FileTypes
 
         public TablatureDocument()
         {
-            
         }
-        
+
         public TablatureDocument(string artist, string title, TabType type, string contents) : this()
         {
             Artist = artist;
@@ -88,6 +87,8 @@ namespace Tabster.Core.FileTypes
                 }
             }
 
+            Method = _doc.TryReadNodeValue("method", string.Empty);
+
             Update();
         }
 
@@ -115,6 +116,7 @@ namespace Tabster.Core.FileTypes
                 sourceValue = "UserCreated";
 
             _doc.WriteNode("source", sourceValue);
+            _doc.WriteNode("method", Method);
             _doc.WriteNode("created", Created == DateTime.MinValue ? DateTime.Now.ToString() : Created.ToString());
             _doc.WriteNode("comment", Comment);
 
@@ -131,7 +133,7 @@ namespace Tabster.Core.FileTypes
                 var newlineRegex = new Regex("(?<!\r)\n", RegexOptions.Compiled);
 
                 Contents = newlineRegex.Replace(Contents, Environment.NewLine);
-                Contents = StripHTML(Contents);   
+                Contents = StripHTML(Contents);
             }
         }
 
@@ -142,6 +144,8 @@ namespace Tabster.Core.FileTypes
         public TablatureSourceType SourceType { get; set; }
 
         public Uri Source { get; set; }
+
+        public string Method { get; set; }
 
         #endregion
 
@@ -189,7 +193,7 @@ namespace Tabster.Core.FileTypes
 
         public bool Equals(ITabsterDocument other)
         {
-            return Equals((object)other);
+            return Equals((object) other);
         }
 
         public override bool Equals(object other)
