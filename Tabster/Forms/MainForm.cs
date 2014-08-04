@@ -55,6 +55,8 @@ namespace Tabster.Forms
                 menuStrip1.Renderer = new MenuStripRenderer();
             }
 
+            cbSearchRating.SelectedIndex = 0;
+
             CachePluginResources();
 
             BuildSearchSuggestions();

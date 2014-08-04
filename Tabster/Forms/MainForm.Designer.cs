@@ -95,6 +95,8 @@ namespace Tabster.Forms
             this.searchcol_service = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchPreviewEditor = new Tabster.Controls.TabEditor();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cbSearchRating = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.listSearchServices = new System.Windows.Forms.ListBox();
             this.lblSearchStatus = new System.Windows.Forms.Label();
@@ -755,6 +757,8 @@ namespace Tabster.Forms
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.cbSearchRating);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.listSearchServices);
             this.panel1.Controls.Add(this.lblSearchStatus);
@@ -772,12 +776,42 @@ namespace Tabster.Forms
             this.panel1.Size = new System.Drawing.Size(199, 449);
             this.panel1.TabIndex = 28;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label6.Location = new System.Drawing.Point(4, 100);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 13);
+            this.label6.TabIndex = 35;
+            this.label6.Text = "Rating:";
+            // 
+            // cbSearchRating
+            // 
+            this.cbSearchRating.BackColor = System.Drawing.SystemColors.Window;
+            this.cbSearchRating.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSearchRating.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cbSearchRating.FormattingEnabled = true;
+            this.cbSearchRating.ItemHeight = 13;
+            this.cbSearchRating.Items.AddRange(new object[] {
+            "All Ratings",
+            "★",
+            "★★",
+            "★★★",
+            "★★★★",
+            "★★★★★"});
+            this.cbSearchRating.Location = new System.Drawing.Point(56, 97);
+            this.cbSearchRating.Name = "cbSearchRating";
+            this.cbSearchRating.Size = new System.Drawing.Size(137, 21);
+            this.cbSearchRating.TabIndex = 34;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label5.Location = new System.Drawing.Point(8, 104);
+            this.label5.Location = new System.Drawing.Point(8, 129);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 13);
             this.label5.TabIndex = 33;
@@ -786,7 +820,7 @@ namespace Tabster.Forms
             // listSearchServices
             // 
             this.listSearchServices.FormattingEnabled = true;
-            this.listSearchServices.Location = new System.Drawing.Point(11, 120);
+            this.listSearchServices.Location = new System.Drawing.Point(11, 145);
             this.listSearchServices.Name = "listSearchServices";
             this.listSearchServices.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.listSearchServices.Size = new System.Drawing.Size(172, 108);
@@ -806,7 +840,7 @@ namespace Tabster.Forms
             // 
             this.lblsearchresults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblsearchresults.AutoSize = true;
-            this.lblsearchresults.Location = new System.Drawing.Point(105, 266);
+            this.lblsearchresults.Location = new System.Drawing.Point(105, 318);
             this.lblsearchresults.Name = "lblsearchresults";
             this.lblsearchresults.Size = new System.Drawing.Size(54, 13);
             this.lblsearchresults.TabIndex = 30;
@@ -828,7 +862,7 @@ namespace Tabster.Forms
             // 
             this.onlinesearchbtn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.onlinesearchbtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.onlinesearchbtn.Location = new System.Drawing.Point(108, 234);
+            this.onlinesearchbtn.Location = new System.Drawing.Point(108, 259);
             this.onlinesearchbtn.Name = "onlinesearchbtn";
             this.onlinesearchbtn.Size = new System.Drawing.Size(75, 23);
             this.onlinesearchbtn.TabIndex = 27;
@@ -844,7 +878,7 @@ namespace Tabster.Forms
             this.txtSearchArtist.ForeColor = System.Drawing.SystemColors.ControlText;
             this.txtSearchArtist.Location = new System.Drawing.Point(44, 18);
             this.txtSearchArtist.Name = "txtSearchArtist";
-            this.txtSearchArtist.Size = new System.Drawing.Size(139, 20);
+            this.txtSearchArtist.Size = new System.Drawing.Size(149, 20);
             this.txtSearchArtist.TabIndex = 21;
             this.txtSearchArtist.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsearchartist_KeyDown);
             // 
@@ -867,7 +901,7 @@ namespace Tabster.Forms
             this.txtSearchTitle.ForeColor = System.Drawing.SystemColors.ControlText;
             this.txtSearchTitle.Location = new System.Drawing.Point(44, 44);
             this.txtSearchTitle.Name = "txtSearchTitle";
-            this.txtSearchTitle.Size = new System.Drawing.Size(139, 20);
+            this.txtSearchTitle.Size = new System.Drawing.Size(150, 20);
             this.txtSearchTitle.TabIndex = 22;
             this.txtSearchTitle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsearchartist_KeyDown);
             // 
@@ -878,9 +912,9 @@ namespace Tabster.Forms
             this.txtSearchType.ForeColor = System.Drawing.SystemColors.ControlText;
             this.txtSearchType.FormattingEnabled = true;
             this.txtSearchType.ItemHeight = 13;
-            this.txtSearchType.Location = new System.Drawing.Point(44, 70);
+            this.txtSearchType.Location = new System.Drawing.Point(56, 70);
             this.txtSearchType.Name = "txtSearchType";
-            this.txtSearchType.Size = new System.Drawing.Size(139, 21);
+            this.txtSearchType.Size = new System.Drawing.Size(137, 21);
             this.txtSearchType.TabIndex = 23;
             this.txtSearchType.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsearchartist_KeyDown);
             // 
@@ -1727,6 +1761,8 @@ namespace Tabster.Forms
         private DataGridViewTextBoxColumn searchcol_service;
         private Label lblSearchStatus;
         private Label lblsearchresults;
+        private Label label6;
+        public ComboBox cbSearchRating;
     }
 }
 

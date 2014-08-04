@@ -20,6 +20,10 @@ namespace Tabster.Forms
         private List<ISearchService> _searchServices = new List<ISearchService>();
         private List<ITabParser> _tabParsers = new List<ITabParser>();
 
+        //used for filtering after search is complete
+        private TabType? _activeSearchType;
+        private SearchResultRating? _activeSearchRating;
+
         private SearchResult SelectedSearchResult()
         {
             var selectedURL = searchDisplay.SelectedRows.Count > 0 ? new Uri(searchDisplay.SelectedRows[0].Tag.ToString()) : null;
@@ -36,12 +40,17 @@ namespace Tabster.Forms
                 var searchArtist = txtSearchArtist.Text.Trim();
                 var searchTitle = txtSearchTitle.Text.Trim();
 
-                TabType? searchType = null;
+                _activeSearchType = null;
 
                 //todo don't use TabType->int cast
                 //ignore "all tabs"
                 if (txtSearchType.SelectedIndex > 0)
-                    searchType = (TabType) (txtSearchType.SelectedIndex - 1);
+                    _activeSearchType = (TabType)(txtSearchType.SelectedIndex - 1);
+
+                _activeSearchRating = null;
+
+                if (cbSearchRating.SelectedIndex > 0)
+                    _activeSearchRating = (SearchResultRating)(cbSearchRating.SelectedIndex);
 
                 var searchQueries = new List<SearchQuery>();
 
@@ -59,12 +68,12 @@ namespace Tabster.Forms
                 {
                     if (((service.Flags & SearchServiceFlags.RequiresArtistParameter) == SearchServiceFlags.RequiresArtistParameter && string.IsNullOrEmpty(searchArtist)) ||
                         (((service.Flags & SearchServiceFlags.RequiresTitleParameter) == SearchServiceFlags.RequiresTitleParameter && string.IsNullOrEmpty(searchTitle))) ||
-                        (((service.Flags & SearchServiceFlags.RequiresTypeParamter) == SearchServiceFlags.RequiresTypeParamter && !searchType.HasValue)))
+                        (((service.Flags & SearchServiceFlags.RequiresTypeParamter) == SearchServiceFlags.RequiresTypeParamter && !_activeSearchType.HasValue)))
                     {
                         continue;
                     }
 
-                    searchQueries.Add(new SearchQuery(service, searchArtist, searchTitle, searchType));
+                    searchQueries.Add(new SearchQuery(service, searchArtist, searchTitle, _activeSearchType));
                 }
 
                 if (searchQueries.Count > 0)
@@ -124,11 +133,19 @@ namespace Tabster.Forms
 
                 foreach (var result in results)
                 {
+                    //subpar rating
+                    if (_activeSearchRating.HasValue && (!result.Rating.HasValue || result.Rating.Value <= _activeSearchRating.Value))
+                        continue;
+
+                    //tab type mismatch
+                    if (_activeSearchType.HasValue && result.Tab.Type != _activeSearchType.Value)
+                        continue;
+
                     var newRow = new DataGridViewRow {Tag = result.Tab.Source.ToString()};
 
                     var ratingString = "";
 
-                    if (result.Rating != SearchResultRating.None)
+                    if (result.Rating.HasValue)
                         ratingString = new string('\u2605', (int) result.Rating - 1).PadRight(5, '\u2606');
 
                     newRow.CreateCells(searchDisplay, result.Tab.Artist, result.Tab.Title, result.Tab.Type.ToFriendlyString(), ratingString, result.Query.Service.Name);
