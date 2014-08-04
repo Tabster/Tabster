@@ -17,12 +17,12 @@ namespace Tabster.Forms
     {
         private readonly List<SearchResult> _searchResults = new List<SearchResult>();
         private readonly Dictionary<Uri, TablatureDocument> _searchResultsCache = new Dictionary<Uri, TablatureDocument>();
+        private SearchResultRating? _activeSearchRating;
+        private TabType? _activeSearchType;
         private List<ISearchService> _searchServices = new List<ISearchService>();
         private List<ITabParser> _tabParsers = new List<ITabParser>();
 
         //used for filtering after search is complete
-        private TabType? _activeSearchType;
-        private SearchResultRating? _activeSearchRating;
 
         private SearchResult SelectedSearchResult()
         {
@@ -45,12 +45,12 @@ namespace Tabster.Forms
                 //todo don't use TabType->int cast
                 //ignore "all tabs"
                 if (txtSearchType.SelectedIndex > 0)
-                    _activeSearchType = (TabType)(txtSearchType.SelectedIndex - 1);
+                    _activeSearchType = (TabType) (txtSearchType.SelectedIndex - 1);
 
                 _activeSearchRating = null;
 
                 if (cbSearchRating.SelectedIndex > 0)
-                    _activeSearchRating = (SearchResultRating)(cbSearchRating.SelectedIndex);
+                    _activeSearchRating = (SearchResultRating) (cbSearchRating.SelectedIndex);
 
                 var searchQueries = new List<SearchQuery>();
 
@@ -155,18 +155,14 @@ namespace Tabster.Forms
 
             searchDisplay.ResumeLayout();
 
-            lblsearchresults.Visible = true;
-            lblsearchresults.Text = string.Format("Results: {0}", searchDisplay.Rows.Count);
-            lblSearchStatus.Visible = false;
+            lblStatus.Text = string.Format("Search Results: {0}", searchDisplay.Rows.Count);
         }
 
         private void SearchBackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            lblSearchStatus.Visible = true;
-
             var serviceName = _searchServices[e.ProgressPercentage - 1].Name;
             if (serviceName != null)
-                lblSearchStatus.Text = string.Format("Searching: {0}", serviceName);
+                lblStatus.Text = string.Format("Searching: {0}", serviceName);
         }
 
         private void dataGridViewExtended1_MouseClick(object sender, MouseEventArgs e)

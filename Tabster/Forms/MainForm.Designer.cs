@@ -99,8 +99,6 @@ namespace Tabster.Forms
             this.cbSearchRating = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.listSearchServices = new System.Windows.Forms.ListBox();
-            this.lblSearchStatus = new System.Windows.Forms.Label();
-            this.lblsearchresults = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.onlinesearchbtn = new System.Windows.Forms.Button();
             this.txtSearchArtist = new System.Windows.Forms.TextBox();
@@ -127,6 +125,7 @@ namespace Tabster.Forms
             this.lblcount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.lblplaylists = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.SearchMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.saveTabToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -759,8 +758,6 @@ namespace Tabster.Forms
             this.panel1.Controls.Add(this.cbSearchRating);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.listSearchServices);
-            this.panel1.Controls.Add(this.lblSearchStatus);
-            this.panel1.Controls.Add(this.lblsearchresults);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.onlinesearchbtn);
             this.panel1.Controls.Add(this.txtSearchArtist);
@@ -823,27 +820,6 @@ namespace Tabster.Forms
             this.listSearchServices.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.listSearchServices.Size = new System.Drawing.Size(172, 108);
             this.listSearchServices.TabIndex = 32;
-            // 
-            // lblSearchStatus
-            // 
-            this.lblSearchStatus.AutoSize = true;
-            this.lblSearchStatus.Location = new System.Drawing.Point(8, 292);
-            this.lblSearchStatus.Name = "lblSearchStatus";
-            this.lblSearchStatus.Size = new System.Drawing.Size(64, 13);
-            this.lblSearchStatus.TabIndex = 31;
-            this.lblSearchStatus.Text = "Searching...";
-            this.lblSearchStatus.Visible = false;
-            // 
-            // lblsearchresults
-            // 
-            this.lblsearchresults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblsearchresults.AutoSize = true;
-            this.lblsearchresults.Location = new System.Drawing.Point(105, 318);
-            this.lblsearchresults.Name = "lblsearchresults";
-            this.lblsearchresults.Size = new System.Drawing.Size(54, 13);
-            this.lblsearchresults.TabIndex = 30;
-            this.lblsearchresults.Text = "Results: 0";
-            this.lblsearchresults.Visible = false;
             // 
             // label2
             // 
@@ -1073,7 +1049,8 @@ namespace Tabster.Forms
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblcount,
             this.toolStripSeparator2,
-            this.lblplaylists});
+            this.lblplaylists,
+            this.lblStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 501);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1034, 23);
@@ -1097,6 +1074,13 @@ namespace Tabster.Forms
             this.lblplaylists.Name = "lblplaylists";
             this.lblplaylists.Size = new System.Drawing.Size(61, 18);
             this.lblplaylists.Text = "Playlists: 0";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(878, 18);
+            this.lblStatus.Spring = true;
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // SearchMenu
             // 
@@ -1742,10 +1726,9 @@ namespace Tabster.Forms
         private DataGridViewTextBoxColumn searchcol_type;
         private DataGridViewTextBoxColumn col_rating;
         private DataGridViewTextBoxColumn searchcol_service;
-        private Label lblSearchStatus;
-        private Label lblsearchresults;
         private Label label6;
         public ComboBox cbSearchRating;
+        private ToolStripStatusLabel lblStatus;
     }
 }
 
