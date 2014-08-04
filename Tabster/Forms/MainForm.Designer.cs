@@ -1041,7 +1041,7 @@ namespace Tabster.Forms
             this.tabimagelist.TransparentColor = System.Drawing.Color.Transparent;
             this.tabimagelist.Images.SetKeyName(0, "application_view_detail.png");
             this.tabimagelist.Images.SetKeyName(1, "search_plus.png");
-            this.tabimagelist.Images.SetKeyName(2, "download.png");
+            this.tabimagelist.Images.SetKeyName(2, "page_save.png");
             // 
             // statusStrip1
             // 
@@ -1072,13 +1072,13 @@ namespace Tabster.Forms
             // lblplaylists
             // 
             this.lblplaylists.Name = "lblplaylists";
-            this.lblplaylists.Size = new System.Drawing.Size(61, 18);
-            this.lblplaylists.Text = "Playlists: 0";
+            this.lblplaylists.Size = new System.Drawing.Size(91, 18);
+            this.lblplaylists.Text = "Total Playlists: 0";
             // 
             // lblStatus
             // 
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(878, 18);
+            this.lblStatus.Size = new System.Drawing.Size(848, 18);
             this.lblStatus.Spring = true;
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
