@@ -528,20 +528,6 @@ namespace Tabster.Forms
         {
             lblcount.Text = string.Format("Total Tabs: {0}", Program.libraryManager.Count);
             lblplaylists.Text = string.Format("Playlists: {0}", Program.libraryManager.Playlists.Count);
-
-            long usage = 0;
-
-            foreach (var doc in Program.libraryManager)
-            {
-                usage += doc.FileInfo.Length;
-            }
-
-            var kilobytes = usage/1024d;
-            var megabytes = usage/1024d/1024d;
-
-            lbldisk.Text = string.Format("Disk Space: {0}KB ({1}MB)",
-                                         (usage == 0 ? "0" : kilobytes.ToString("#.##")),
-                                         (usage == 0 ? "0" : megabytes.ToString("#.##")));
         }
 
         public void UpdateLibraryItem(TablatureDocument tab, bool append = true)

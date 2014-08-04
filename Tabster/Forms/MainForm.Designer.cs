@@ -127,8 +127,6 @@ namespace Tabster.Forms
             this.lblcount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.lblplaylists = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.lbldisk = new System.Windows.Forms.ToolStripStatusLabel();
             this.SearchMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.saveTabToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1075,9 +1073,7 @@ namespace Tabster.Forms
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblcount,
             this.toolStripSeparator2,
-            this.lblplaylists,
-            this.toolStripSeparator3,
-            this.lbldisk});
+            this.lblplaylists});
             this.statusStrip1.Location = new System.Drawing.Point(0, 501);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1034, 23);
@@ -1101,17 +1097,6 @@ namespace Tabster.Forms
             this.lblplaylists.Name = "lblplaylists";
             this.lblplaylists.Size = new System.Drawing.Size(61, 18);
             this.lblplaylists.Text = "Playlists: 0";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 23);
-            // 
-            // lbldisk
-            // 
-            this.lbldisk.Name = "lbldisk";
-            this.lbldisk.Size = new System.Drawing.Size(124, 18);
-            this.lbldisk.Text = "Disk Space: 0KB (0MB)";
             // 
             // SearchMenu
             // 
@@ -1688,8 +1673,6 @@ namespace Tabster.Forms
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblcount;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripStatusLabel lbldisk;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripStatusLabel lblplaylists;
         private System.Windows.Forms.ToolStripMenuItem searchUltimateGuitarToolStripMenuItem;
         private ToolStripMenuItem librarycontextdetails;
