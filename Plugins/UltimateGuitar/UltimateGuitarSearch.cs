@@ -128,7 +128,7 @@ namespace UltimateGuitar
                                 var rowURL = columns[colIndexSong].ChildNodes["a"].Attributes["href"].Value;
                                 var rowSong = HttpUtility.HtmlDecode(columns[colIndexSong].ChildNodes["a"].InnerText);
 
-                                var rating = SearchResultRating.None;
+                                SearchResultRating? rating = null;
                                 var ratingColumn = columns[colIndexRating];
 
                                 if (ratingColumn.InnerText.Contains("["))
@@ -138,26 +138,9 @@ namespace UltimateGuitar
                                     if (ratingSpan != null)
                                     {
                                         int rowRating;
-                                        Int32.TryParse(ratingSpan.Attributes["class"].Value.Replace("r_", ""), out rowRating);
-                                        rating = (SearchResultRating) rowRating + 1;
-
-                                        switch (rowRating)
+                                        if (Int32.TryParse(ratingSpan.Attributes["class"].Value.Replace("r_", ""), out rowRating))
                                         {
-                                            case 1:
-                                                rating = SearchResultRating.Stars1;
-                                                break;
-                                            case 2:
-                                                rating = SearchResultRating.Stars2;
-                                                break;
-                                            case 3:
-                                                rating = SearchResultRating.Stars3;
-                                                break;
-                                            case 4:
-                                                rating = SearchResultRating.Stars4;
-                                                break;
-                                            case 5:
-                                                rating = SearchResultRating.Stars5;
-                                                break;
+                                            rating = GetRating(rowRating);
                                         }
                                     }
                                 }
@@ -196,6 +179,25 @@ namespace UltimateGuitar
         #endregion
 
         #region Static Methods
+
+        private static SearchResultRating? GetRating(int value)
+        {
+            switch (value)
+            {
+                case 1:
+                    return SearchResultRating.Stars1;
+                case 2:
+                    return SearchResultRating.Stars2;
+                case 3:
+                    return SearchResultRating.Stars3;
+                case 4:
+                    return SearchResultRating.Stars4;
+                case 5:
+                    return SearchResultRating.Stars5;
+            }
+
+            return null;
+        }
 
         private static TabType? GetTabType(string str)
         {

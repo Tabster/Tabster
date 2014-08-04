@@ -134,12 +134,12 @@ namespace GuitartabsDotCC
 
         #region Static Methods
 
-        private static SearchResultRating GetRating(string style)
+        private static SearchResultRating? GetRating(string style)
         {
             switch (style)
             {
                 case "background-position: -60px 5%;":
-                    return SearchResultRating.None;
+                    return null;
                 case "background-position: -48px 50%;":
                     return SearchResultRating.Stars1;
                 case "background-position: -36px 50%;":
@@ -151,7 +151,7 @@ namespace GuitartabsDotCC
                 case "background-position: -0px 50%;":
                     return SearchResultRating.Stars5;
                 default:
-                    return SearchResultRating.None;
+                    return null;
             }
         }
 
