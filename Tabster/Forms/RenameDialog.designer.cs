@@ -48,7 +48,6 @@
             // txtname
             // 
             this.txtname.BackColor = System.Drawing.SystemColors.Window;
-            this.txtname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtname.ForeColor = System.Drawing.SystemColors.ControlText;
             this.txtname.Location = new System.Drawing.Point(12, 28);
             this.txtname.Name = "txtname";
