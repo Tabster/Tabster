@@ -28,25 +28,34 @@ namespace Tabster.Forms
 
         private void onlinesearchbtn_Click(object sender, EventArgs e)
         {
-            if (txtSearchArtist.Text.Trim().Length > 0 || txtSearchTitle.Text.Trim().Length > 0)
+            if (listSearchServices.SelectedItems.Count > 0 && (txtSearchArtist.Text.Trim().Length > 0 || txtSearchTitle.Text.Trim().Length > 0))
             {
                 if (SearchBackgroundWorker.IsBusy)
                     SearchBackgroundWorker.CancelAsync();
-
-                pictureBox1.Visible = true;
 
                 var searchArtist = txtSearchArtist.Text.Trim();
                 var searchTitle = txtSearchTitle.Text.Trim();
 
                 TabType? searchType = null;
 
+                //todo don't use TabType->int cast
                 //ignore "all tabs"
                 if (txtSearchType.SelectedIndex > 0)
                     searchType = (TabType) (txtSearchType.SelectedIndex - 1);
 
                 var searchQueries = new List<SearchQuery>();
 
-                foreach (var service in _searchServices)
+                var selectedServices = new List<ISearchService>();
+
+                for (var i = 0; i < listSearchServices.Items.Count; i++)
+                {
+                    if (listSearchServices.GetSelected(i))
+                    {
+                        selectedServices.Add(_searchServices[i]);
+                    }
+                }
+
+                foreach (var service in selectedServices)
                 {
                     if (((service.Flags & SearchServiceFlags.RequiresArtistParameter) == SearchServiceFlags.RequiresArtistParameter && string.IsNullOrEmpty(searchArtist)) ||
                         (((service.Flags & SearchServiceFlags.RequiresTitleParameter) == SearchServiceFlags.RequiresTitleParameter && string.IsNullOrEmpty(searchTitle))) ||
@@ -131,7 +140,6 @@ namespace Tabster.Forms
 
             lblsearchresults.Visible = true;
             lblsearchresults.Text = string.Format("Results: {0}", searchDisplay.Rows.Count);
-            pictureBox1.Visible = false;
             lblSearchStatus.Visible = false;
         }
 

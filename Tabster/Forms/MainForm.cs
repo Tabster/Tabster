@@ -176,6 +176,17 @@ namespace Tabster.Forms
         {
             _tabParsers = new List<ITabParser>(Program.pluginController.GetClassInstances<ITabParser>());
             _searchServices = new List<ISearchService>(Program.pluginController.GetClassInstances<ISearchService>());
+
+            _searchServices.Sort((s1, s2) => s1.Name.CompareTo(s2.Name));
+
+            listSearchServices.Items.Clear();
+
+            for (var i = 0; i < _searchServices.Count; i++)
+            {
+                var service = _searchServices[i];
+                listSearchServices.Items.Add(service.Name);
+                listSearchServices.SetSelected(i, true);
+            }           
         }
 
         private void OpenRecentFile(ToolStripMenuItem item)
