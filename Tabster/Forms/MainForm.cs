@@ -29,7 +29,7 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
-            Text = string.Format("Tabster v{0}", new Version(Application.ProductVersion).ToShortString());
+            Text = string.Format("{0} v{1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
 
             PopulateTabTypeControls();
 

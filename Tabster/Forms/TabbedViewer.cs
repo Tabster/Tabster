@@ -208,7 +208,7 @@ namespace Tabster.Forms
             if (tabControl1.SelectedTab != null)
             {
                 offToolStripMenuItem.PerformClick();
-                Text = string.Format("Tabster - {0}", tabControl1.SelectedTab.Text);
+                Text = string.Format("{0} - {1}", Application.ProductName, tabControl1.SelectedTab.Text);
 
                 savebtn.Enabled = GetSelectedInstance().Modified;
             }

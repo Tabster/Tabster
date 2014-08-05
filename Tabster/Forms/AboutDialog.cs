@@ -15,8 +15,8 @@ namespace Tabster.Forms
         public AboutDialog()
         {
             InitializeComponent();
-            Text = string.Format("Tabster v{0}", new Version(Application.ProductVersion).ToShortString());
-            lblname.Text = string.Format("Tabster {0}", new Version(Application.ProductVersion).ToShortString());
+            Text = string.Format("{0} v{1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
+            lblname.Text = string.Format("{0} {1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
             pictureBox1.Image = Resources.guitar128;
         }
 
