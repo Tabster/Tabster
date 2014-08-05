@@ -34,11 +34,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.colpluginName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colpluginFilename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colpluginVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listPlugins = new System.Windows.Forms.ListView();
             this.colPluginEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colpluginName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colpluginVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colpluginFilename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -101,7 +101,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.listView1);
+            this.tabPage2.Controls.Add(this.listPlugins);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -110,44 +110,45 @@
             this.tabPage2.Text = "Plugins";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // listView1
+            // listPlugins
             // 
-            this.listView1.CheckBoxes = true;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listPlugins.CheckBoxes = true;
+            this.listPlugins.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colPluginEnabled,
             this.colpluginName,
             this.colpluginVersion,
             this.colpluginFilename});
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(3, 3);
-            this.listView1.Name = "listView1";
-            this.listView1.ShowItemToolTips = true;
-            this.listView1.Size = new System.Drawing.Size(395, 174);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listPlugins.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listPlugins.FullRowSelect = true;
+            this.listPlugins.GridLines = true;
+            this.listPlugins.Location = new System.Drawing.Point(3, 3);
+            this.listPlugins.Name = "listPlugins";
+            this.listPlugins.ShowItemToolTips = true;
+            this.listPlugins.Size = new System.Drawing.Size(395, 174);
+            this.listPlugins.TabIndex = 0;
+            this.listPlugins.UseCompatibleStateImageBehavior = false;
+            this.listPlugins.View = System.Windows.Forms.View.Details;
+            this.listPlugins.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listPlugins_ItemChecked);
+            // 
+            // colPluginEnabled
+            // 
+            this.colPluginEnabled.Text = "Enabled";
+            this.colPluginEnabled.Width = 55;
             // 
             // colpluginName
             // 
             this.colpluginName.Text = "Name";
             this.colpluginName.Width = 122;
             // 
-            // colpluginFilename
-            // 
-            this.colpluginFilename.Text = "Filename";
-            this.colpluginFilename.Width = 135;
-            // 
             // colpluginVersion
             // 
             this.colpluginVersion.Text = "Version";
             this.colpluginVersion.Width = 75;
             // 
-            // colPluginEnabled
+            // colpluginFilename
             // 
-            this.colPluginEnabled.Text = "Enabled";
-            this.colPluginEnabled.Width = 55;
+            this.colpluginFilename.Text = "Filename";
+            this.colpluginFilename.Width = 135;
             // 
             // PreferencesDialog
             // 
@@ -185,7 +186,7 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listPlugins;
         private System.Windows.Forms.ColumnHeader colpluginName;
         private System.Windows.Forms.ColumnHeader colpluginFilename;
         private System.Windows.Forms.ColumnHeader colpluginVersion;

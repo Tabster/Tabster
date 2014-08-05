@@ -416,7 +416,9 @@ namespace Tabster.Forms
                 if (p.ShowDialog() == DialogResult.OK)
                 {
                     LoadSettings(false);
-                    CachePluginResources();
+
+                    if (p.PluginsModified)
+                        CachePluginResources();
                 }
             }
         }

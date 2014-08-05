@@ -11,6 +11,8 @@ namespace Tabster.Forms
 {
     public partial class PreferencesDialog : Form
     {
+        public bool PluginsModified { get; private set; }
+
         public PreferencesDialog()
         {
             InitializeComponent();
@@ -21,22 +23,25 @@ namespace Tabster.Forms
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            //save plugins
-            foreach (ListViewItem lvi in listView1.Items)
+            if (PluginsModified)
             {
-                var guid = new Guid(lvi.Tag.ToString());
-                var pluginEnabled = lvi.Checked;
+                //save plugins
+                foreach (ListViewItem lvi in listPlugins.Items)
+                {
+                    var guid = new Guid(lvi.Tag.ToString());
+                    var pluginEnabled = lvi.Checked;
 
-                Program.pluginController.SetStatus(guid, pluginEnabled);
+                    Program.pluginController.SetStatus(guid, pluginEnabled);
 
-                if (pluginEnabled)
-                    Settings.Default.DisabledPlugins.Remove(guid.ToString());
-                else
-                    Settings.Default.DisabledPlugins.Add(guid.ToString());
+                    if (pluginEnabled)
+                        Settings.Default.DisabledPlugins.Remove(guid.ToString());
+                    else
+                        Settings.Default.DisabledPlugins.Add(guid.ToString());
+                }
+
+                Settings.Default.StartupUpdate = chkupdatestartup.Checked;
+                Settings.Default.Save();
             }
-
-            Settings.Default.StartupUpdate = chkupdatestartup.Checked;
-            Settings.Default.Save();
         }
 
         private void LoadPlugins()
@@ -56,9 +61,14 @@ namespace Tabster.Forms
                     lvi.SubItems.Add(plugin.Interface.Version.ToString());
                     lvi.SubItems.Add(Path.GetFileName(plugin.Assembly.Location));
 
-                    listView1.Items.Add(lvi);
+                    listPlugins.Items.Add(lvi);
                 }
             }
+        }
+
+        private void listPlugins_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            PluginsModified = true;
         }
     }
 }
