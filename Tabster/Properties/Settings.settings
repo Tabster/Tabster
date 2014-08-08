@@ -10,18 +10,20 @@
     <Setting Name="StatusBar" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="StartupUpdate" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Boolean" Scope="User">
+    <Setting Name="StartupUpdate" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Boolean"
+             Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="ClientState" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Windows.Forms.FormWindowState"
-             Scope="User">
+    <Setting Name="ClientState" Provider="Tabster.Utilities.PortableSettingsProvider"
+             Type="System.Windows.Forms.FormWindowState" Scope="User">
       <Value Profile="(Default)">Maximized</Value>
     </Setting>
-    <Setting Name="ToolbarDock" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Windows.Forms.DockStyle"
-             Scope="User">
+    <Setting Name="ToolbarDock" Provider="Tabster.Utilities.PortableSettingsProvider"
+             Type="System.Windows.Forms.DockStyle" Scope="User">
       <Value Profile="(Default)">Top</Value>
     </Setting>
-    <Setting Name="ClientSize" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Drawing.Size" Scope="User">
+    <Setting Name="ClientSize" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Drawing.Size"
+             Scope="User">
       <Value Profile="(Default)">1024, 625</Value>
     </Setting>
     <Setting Name="SearchPreviewOrientation" Provider="Tabster.Utilities.PortableSettingsProvider"
@@ -32,12 +34,12 @@
              Type="Tabster.PreviewPanelOrientation" Scope="User">
       <Value Profile="(Default)">Horizontal</Value>
     </Setting>
-    <Setting Name="LibraryPreviewPanelDistance" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Int32"
-             Scope="User">
+    <Setting Name="LibraryPreviewPanelDistance" Provider="Tabster.Utilities.PortableSettingsProvider"
+             Type="System.Int32" Scope="User">
       <Value Profile="(Default)">365</Value>
     </Setting>
-    <Setting Name="SearchPreviewPanelDistance" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Int32"
-             Scope="User">
+    <Setting Name="SearchPreviewPanelDistance" Provider="Tabster.Utilities.PortableSettingsProvider"
+             Type="System.Int32" Scope="User">
       <Value Profile="(Default)">365</Value>
     </Setting>
     <Setting Name="DisabledPlugins" Provider="Tabster.Utilities.PortableSettingsProvider"
