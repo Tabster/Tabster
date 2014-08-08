@@ -123,9 +123,6 @@ namespace Tabster.Controls
 
             var trimmed = Text.Trim();
 
-            //Console.WriteLine("Search: '" + trimmed + "'");
-            //Console.WriteLine("Default: '" + DefaultText + "'");
-
             //cleared
             if (trimmed.Length == 0 && _previousSearch != "")
             {
@@ -146,8 +143,6 @@ namespace Tabster.Controls
 
             IsFilterSet = hasSearchableContents;
             _previousSearch = trimmed;
-
-            //Console.WriteLine("OnTextChanged: [" + IsFilterSet + "] [" + Text + "]");
 
             base.OnTextChanged(e);
         }
