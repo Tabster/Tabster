@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Tabster.Core.FileTypes
 {
-    public interface ITabsterDocument : IEquatable<ITabsterDocument>
+    public interface ITabsterDocument
     {
         Version FileVersion { get; }
         FileInfo FileInfo { get; }
