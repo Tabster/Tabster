@@ -101,6 +101,28 @@ namespace Tabster.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;html&gt;
+        ///&lt;head&gt;
+        ///	&lt;style type=&quot;&quot; text/css&quot;&quot;&gt;
+        ///	pre {
+        ///		color: Black; 
+        ///		background-color: White;
+        ///		font: 12px Courier New,Courier, monospace;
+        ///	}
+        ///	&lt;/style&gt;
+        ///&lt;/head&gt;
+        ///	&lt;body&gt;
+        ///		&lt;pre&gt;{TAB_CONTENTS}&lt;/pre&gt;
+        ///	&lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        internal static string HTML_Export_Template {
+            get {
+                return ResourceManager.GetString("HTML_Export_Template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap loading_icon {

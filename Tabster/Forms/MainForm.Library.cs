@@ -104,7 +104,7 @@ namespace Tabster.Forms
                                      {
                                          Title = "Export Tab - Tabster",
                                          AddExtension = true,
-                                         Filter = string.Format("Tabster File (*{0})|*{0}|Text File (*.txt)|*.txt", TablatureDocument.FILE_EXTENSION),
+                                         Filter = string.Format("Tabster File (*{0})|*{0}|Text File (*.txt)|*.txt|HTML File (*.html)|*.html", TablatureDocument.FILE_EXTENSION),
                                          FileName = SelectedTab.ToFriendlyString()
                                      })
                 {
@@ -117,6 +117,9 @@ namespace Tabster.Forms
                                 break;
                             case 2:
                                 File.WriteAllText(sfd.FileName, SelectedTab.Contents);
+                                break;
+                            case 3:
+                                File.WriteAllText(sfd.FileName, Resources.HTML_Export_Template.Replace("{TAB_CONTENTS}", SelectedTab.Contents));
                                 break;
                         }
                     }
