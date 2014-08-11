@@ -2,8 +2,8 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Printing;
 using System.Windows.Forms;
+using Tabster.Core.Printing;
 using Tabster.Core.Types;
 using Tabster.Utilities;
 
@@ -194,40 +194,35 @@ namespace Tabster.Controls
 
         #region Printing
 
-        private string stringToPrint;
+        public TablaturePrintDocumentSettings PrintSettings { get; set; }
 
-        private void printPage(object sender, PrintPageEventArgs e)
+        private bool _showPrintDialog = true;
+        public bool ShowPrintDialog
         {
-            int charactersOnPage;
-            int linesPerPage;
-
-            e.Graphics.MeasureString(stringToPrint, txtContents.Font, e.MarginBounds.Size, StringFormat.GenericTypographic, out charactersOnPage, out linesPerPage);
-            e.Graphics.DrawString(stringToPrint, txtContents.Font, Brushes.Black, e.MarginBounds, StringFormat.GenericTypographic);
-            stringToPrint = stringToPrint.Substring(charactersOnPage);
-            e.HasMorePages = (stringToPrint.Length > 0);
+            get { return _showPrintDialog; }
+            set { _showPrintDialog = value; }
         }
 
-        public void Print(bool showDialog = true)
+        public void Print()
         {
-            stringToPrint = txtContents.Text;
-
-            var printDocument = new PrintDocument {DocumentName = TabData.ToFriendlyString()};
-            printDocument.PrintPage += printPage;
-
-            if (showDialog)
+            using (var printDocument = new TablaturePrintDocument(TabData, txtContents.Font) {DocumentName = TabData.ToFriendlyString(), Settings = PrintSettings})
             {
-                using (var dialog = new PrintDialog {Document = printDocument})
+                if (ShowPrintDialog)
                 {
-                    if (dialog.ShowDialog() == DialogResult.OK)
+                    //todo remove clientsize
+                    using (var dialog = new PrintPreviewDialog {Document = printDocument, ClientSize = new Size(1920, 1000), DesktopLocation = new Point(0, 0)})
                     {
-                        printDocument.Print();
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            printDocument.Print();
+                        }
                     }
                 }
-            }
 
-            else
-            {
-                printDocument.Print();
+                else
+                {
+                    printDocument.Print();
+                }
             }
         }
 
