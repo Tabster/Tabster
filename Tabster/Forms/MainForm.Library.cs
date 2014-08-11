@@ -50,7 +50,7 @@ namespace Tabster.Forms
 
         private TablatureDocument SelectedTab;
 
-        private TabEditor _currentEditor;
+        private TablatureEditor _currentEditor;
 
         private bool IsViewingLibrary()
         {

@@ -1,6 +1,6 @@
 ﻿namespace Tabster.Controls
 {
-    partial class TabEditor
+    partial class TablatureEditor
     {
         /// <summary> 
         /// Required designer variable.

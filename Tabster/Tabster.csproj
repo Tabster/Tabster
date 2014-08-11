@@ -183,11 +183,11 @@
     <Compile Include="Controls\StaticTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\TabEditor.cs">
+    <Compile Include="Controls\TablatureEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\TabEditor.Designer.cs">
-      <DependentUpon>TabEditor.cs</DependentUpon>
+    <Compile Include="Controls\TablatureEditor.Designer.cs">
+      <DependentUpon>TablatureEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Plugins\TabsterPlugin.cs" />
     <Compile Include="Utilities\TabsterWebClient.cs">
@@ -247,8 +247,8 @@
     <EmbeddedResource Include="Forms\SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TabEditor.resx">
-      <DependentUpon>TabEditor.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\TablatureEditor.resx">
+      <DependentUpon>TablatureEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Updater\UpdateDialog.resx">
       <DependentUpon>UpdateDialog.cs</DependentUpon>

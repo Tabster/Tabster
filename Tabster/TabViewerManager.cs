@@ -19,7 +19,7 @@ namespace Tabster
 
         #endregion
 
-        private readonly Dictionary<TablatureDocument, TabEditor> _editors = new Dictionary<TablatureDocument, TabEditor>();
+        private readonly Dictionary<TablatureDocument, TablatureEditor> _editors = new Dictionary<TablatureDocument, TablatureEditor>();
 
         private TabbedViewer _viewer;
 
@@ -66,7 +66,7 @@ namespace Tabster
             return v != null && v.AlreadyOpened(tab);
         }
 
-        public TabEditor TryGetEditor(TablatureDocument tab, out bool openedExternally, out bool isNew)
+        public TablatureEditor TryGetEditor(TablatureDocument tab, out bool openedExternally, out bool isNew)
         {
             if (_editors.ContainsKey(tab))
             {
@@ -77,7 +77,7 @@ namespace Tabster
 
             openedExternally = false;
             isNew = true;
-            var editor = new TabEditor {Dock = DockStyle.Fill};
+            var editor = new TablatureEditor {Dock = DockStyle.Fill};
             _editors[tab] = editor;
             return editor;
         }

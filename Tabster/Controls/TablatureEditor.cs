@@ -11,11 +11,11 @@ using Tabster.Utilities;
 
 namespace Tabster.Controls
 {
-    public partial class TabEditor : UserControl
+    public partial class TablatureEditor : UserControl
     {
         #region Constructor
 
-        public TabEditor()
+        public TablatureEditor()
         {
             InitializeComponent();
 

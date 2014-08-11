@@ -65,7 +65,7 @@ namespace Tabster.Forms
             }
         }
 
-        public void LoadTab(TablatureDocument tabDocument, TabEditor editor)
+        public void LoadTab(TablatureDocument tabDocument, TablatureEditor editor)
         {
             TabPage tp;
             var alreadyOpened = AlreadyOpened(tabDocument, out tp);
@@ -96,7 +96,7 @@ namespace Tabster.Forms
 
         private void editor_TabModified(object sender, EventArgs e)
         {
-            savebtn.Enabled = ((TabEditor) sender).HasBeenModified;
+            savebtn.Enabled = ((TablatureEditor) sender).HasBeenModified;
         }
 
         private bool CloseTab(TabInstance instance, bool closeIfLast)
@@ -269,11 +269,11 @@ namespace Tabster.Forms
 
     public class TabInstance
     {
-        public TabInstance(TablatureDocument file, TabEditor editor = null)
+        public TabInstance(TablatureDocument file, TablatureEditor editor = null)
         {
             File = file;
             Page = new TabPage {Text = file.ToFriendlyString(), ToolTipText = file.FileInfo.FullName};
-            Editor = editor ?? new TabEditor {Dock = DockStyle.Fill};
+            Editor = editor ?? new TablatureEditor {Dock = DockStyle.Fill};
 
             Page.Controls.Add(Editor);
 
@@ -282,7 +282,7 @@ namespace Tabster.Forms
         }
 
         public TabPage Page { get; private set; }
-        public TabEditor Editor { get; private set; }
+        public TablatureEditor Editor { get; private set; }
         public TablatureDocument File { get; private set; }
 
         public bool Modified

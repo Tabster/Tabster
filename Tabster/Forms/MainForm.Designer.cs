@@ -93,7 +93,7 @@ namespace Tabster.Forms
             this.searchcol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchcol_service = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.searchPreviewEditor = new Tabster.Controls.TabEditor();
+            this.searchPreviewEditor = new Tabster.Controls.TablatureEditor();
             this.panel1 = new System.Windows.Forms.Panel();
             this.resetSearchbtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -1693,7 +1693,7 @@ namespace Tabster.Forms
         private RecentToolStripMenuItem recentlyViewedToolStripMenuItem;
         private ToolStripMenuItem previewToolStripMenuItem;
         private SplitContainer searchSplitContainer;
-        private TabEditor searchPreviewEditor;
+        private TablatureEditor searchPreviewEditor;
         private ToolStripSeparator toolStripSeparator8;
         private ToolStripDropDownButton toolStripButton3;
         private ToolStripMenuItem offToolStripMenuItem;
