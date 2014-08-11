@@ -134,22 +134,22 @@ namespace GuitartabsDotCC
 
         #region Static Methods
 
-        private static SearchResultRating? GetRating(string style)
+        private static TabRating? GetRating(string style)
         {
             switch (style)
             {
                 case "background-position: -60px 5%;":
                     return null;
                 case "background-position: -48px 50%;":
-                    return SearchResultRating.Stars1;
+                    return TabRating.Stars1;
                 case "background-position: -36px 50%;":
-                    return SearchResultRating.Stars2;
+                    return TabRating.Stars2;
                 case "background-position: -24px 50%;":
-                    return SearchResultRating.Stars3;
+                    return TabRating.Stars3;
                 case "background-position: -12px 50%;":
-                    return SearchResultRating.Stars4;
+                    return TabRating.Stars4;
                 case "background-position: -0px 50%;":
-                    return SearchResultRating.Stars5;
+                    return TabRating.Stars5;
                 default:
                     return null;
             }

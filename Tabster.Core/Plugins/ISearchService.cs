@@ -55,18 +55,6 @@ namespace Tabster.Core.Plugins
     }
 
     /// <summary>
-    ///   Search result rating.
-    /// </summary>
-    public enum SearchResultRating
-    {
-        Stars1 = 1,
-        Stars2 = 2,
-        Stars3 = 3,
-        Stars4 = 4,
-        Stars5 = 5
-    }
-
-    /// <summary>
     ///   Tab search query.
     /// </summary>
     public class SearchQuery
@@ -105,7 +93,7 @@ namespace Tabster.Core.Plugins
     /// </summary>
     public class SearchResult
     {
-        public SearchResult(SearchQuery query, TablatureDocument tab, SearchResultRating? rating)
+        public SearchResult(SearchQuery query, TablatureDocument tab, TabRating? rating)
         {
             Query = query;
             Tab = tab;
@@ -125,7 +113,7 @@ namespace Tabster.Core.Plugins
         /// <summary>
         ///   Search result rating.
         /// </summary>
-        public SearchResultRating? Rating { get; private set; }
+        public TabRating? Rating { get; private set; }
     }
 
     public class SearchServiceException : Exception

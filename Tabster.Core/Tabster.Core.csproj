@@ -45,6 +45,7 @@
     <Compile Include="Printing\TablaturePrintDocumentSettings.cs" />
     <Compile Include="Types\ITablatureSourced.cs" />
     <Compile Include="Types\ITablaturePlaylist.cs" />
+    <Compile Include="Types\TabRating.cs" />
     <Compile Include="Utilities\ExtensionAttribute.cs" />
     <Compile Include="FileTypes\TablatureDocument.cs" />
     <Compile Include="FileTypes\TabsterDocumentProcessor.cs" />

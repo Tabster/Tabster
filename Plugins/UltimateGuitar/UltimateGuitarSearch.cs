@@ -128,7 +128,7 @@ namespace UltimateGuitar
                                 var rowURL = columns[colIndexSong].ChildNodes["a"].Attributes["href"].Value;
                                 var rowSong = HttpUtility.HtmlDecode(columns[colIndexSong].ChildNodes["a"].InnerText);
 
-                                SearchResultRating? rating = null;
+                                TabRating? rating = null;
                                 var ratingColumn = columns[colIndexRating];
 
                                 if (ratingColumn.InnerText.Contains("["))
@@ -180,20 +180,20 @@ namespace UltimateGuitar
 
         #region Static Methods
 
-        private static SearchResultRating? GetRating(int value)
+        private static TabRating? GetRating(int value)
         {
             switch (value)
             {
                 case 1:
-                    return SearchResultRating.Stars1;
+                    return TabRating.Stars1;
                 case 2:
-                    return SearchResultRating.Stars2;
+                    return TabRating.Stars2;
                 case 3:
-                    return SearchResultRating.Stars3;
+                    return TabRating.Stars3;
                 case 4:
-                    return SearchResultRating.Stars4;
+                    return TabRating.Stars4;
                 case 5:
-                    return SearchResultRating.Stars5;
+                    return TabRating.Stars5;
             }
 
             return null;
