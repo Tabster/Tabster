@@ -138,6 +138,9 @@ namespace Tabster.Core.FileTypes
                 Contents = newlineRegex.Replace(Contents, Environment.NewLine);
                 Contents = StripHTML(Contents);
             }
+
+            if (FileVersion != FILE_VERSION)
+                Save();
         }
 
         #endregion
