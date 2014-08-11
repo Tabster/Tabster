@@ -78,8 +78,6 @@ namespace Tabster.Forms
 
             sidemenu.SelectedNode = sidemenu.Nodes[0].FirstNode;
 
-            LoadLibrary();
-
             PopulatePlaylists();
 
             LoadSettings(true);
