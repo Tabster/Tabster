@@ -209,8 +209,7 @@ namespace Tabster.Controls
             {
                 if (ShowPrintDialog)
                 {
-                    //todo remove clientsize
-                    using (var dialog = new PrintPreviewDialog {Document = printDocument, ClientSize = new Size(1920, 1000), DesktopLocation = new Point(0, 0)})
+                    using (var dialog = new PrintPreviewDialog { Document = printDocument })
                     {
                         if (dialog.ShowDialog() == DialogResult.OK)
                         {
