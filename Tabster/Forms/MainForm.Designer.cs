@@ -167,7 +167,7 @@ namespace Tabster.Forms
             this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTabLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchUltimateGuitarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchSimilarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1388,7 +1388,7 @@ namespace Tabster.Forms
             this.detailsToolStripMenuItem,
             this.exportToolStripMenuItem,
             this.openTabLocationToolStripMenuItem,
-            this.searchUltimateGuitarToolStripMenuItem,
+            this.searchSimilarToolStripMenuItem,
             this.searchToolStripMenuItem});
             this.libraryToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.libraryToolStripMenuItem.Name = "libraryToolStripMenuItem";
@@ -1439,11 +1439,11 @@ namespace Tabster.Forms
             // 
             // searchUltimateGuitarToolStripMenuItem
             // 
-            this.searchUltimateGuitarToolStripMenuItem.Enabled = false;
-            this.searchUltimateGuitarToolStripMenuItem.Name = "searchUltimateGuitarToolStripMenuItem";
-            this.searchUltimateGuitarToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.searchUltimateGuitarToolStripMenuItem.Text = "Search Similar Tabs";
-            this.searchUltimateGuitarToolStripMenuItem.Click += new System.EventHandler(this.SearchSimilarTabs);
+            this.searchSimilarToolStripMenuItem.Enabled = false;
+            this.searchSimilarToolStripMenuItem.Name = "searchUltimateGuitarToolStripMenuItem";
+            this.searchSimilarToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.searchSimilarToolStripMenuItem.Text = "Search Similar Tabs";
+            this.searchSimilarToolStripMenuItem.Click += new System.EventHandler(this.SearchSimilarTabs);
             // 
             // searchToolStripMenuItem
             // 
@@ -1672,7 +1672,7 @@ namespace Tabster.Forms
         private System.Windows.Forms.ToolStripStatusLabel lblcount;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripStatusLabel lblplaylists;
-        private System.Windows.Forms.ToolStripMenuItem searchUltimateGuitarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem searchSimilarToolStripMenuItem;
         private ToolStripMenuItem librarycontextdetails;
         private ToolStripMenuItem librarycontextdelete;
         private ToolStripMenuItem librarycontextexport;

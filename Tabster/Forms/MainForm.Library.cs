@@ -150,7 +150,7 @@ namespace Tabster.Forms
             viewTabToolStripMenuItem.Enabled = SelectedTab != null;
             exportToolStripMenuItem.Enabled = SelectedTab != null;
             openTabLocationToolStripMenuItem.Enabled = SelectedTab != null;
-            searchUltimateGuitarToolStripMenuItem.Enabled = SelectedTab != null;
+            searchSimilarToolStripMenuItem.Enabled = SelectedTab != null;
 
             if (beginPreviewLoad)
             {
