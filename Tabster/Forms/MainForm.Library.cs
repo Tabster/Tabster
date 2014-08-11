@@ -178,6 +178,7 @@ namespace Tabster.Forms
                 {
                     Program.libraryManager.Add(n.Tab, true);
                     UpdateLibraryItem(n.Tab);
+                    PopoutTab(n.Tab);
                 }
             }
         }
