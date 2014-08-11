@@ -77,7 +77,6 @@ namespace Tabster.Core.FileTypes
                 //legacy
                 if (sourceValue == "UserCreated")
                     SourceType = TablatureSourceType.UserCreated;
-
                 else if (sourceValue == "FileImport")
                     SourceType = TablatureSourceType.FileImport;
 
@@ -111,11 +110,18 @@ namespace Tabster.Core.FileTypes
             var sourceValue = "UserCreated";
 
             if (Source != null)
+            {
                 sourceValue = Source.ToString();
-            else if (SourceType == TablatureSourceType.FileImport)
-                sourceValue = "FileImport";
-            else if (SourceType == TablatureSourceType.UserCreated)
-                sourceValue = "UserCreated";
+            }
+
+            else
+            {
+                //legacy
+                if (SourceType == TablatureSourceType.FileImport)
+                    sourceValue = "FileImport";
+                if (SourceType == TablatureSourceType.UserCreated)
+                    sourceValue = "UserCreated";
+            }
 
             _doc.WriteNode("source", sourceValue);
             _doc.WriteNode("method", Method);
