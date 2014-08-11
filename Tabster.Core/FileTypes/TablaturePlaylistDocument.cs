@@ -98,7 +98,8 @@ namespace Tabster.Core.FileTypes
 
         public void Update()
         {
-            throw new NotImplementedException();
+            if (FileVersion != FILE_VERSION)
+                Save();
         }
 
         #endregion
