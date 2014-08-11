@@ -316,6 +316,7 @@ namespace Tabster.Forms
             this.sidemenu.ShowRootLines = false;
             this.sidemenu.Size = new System.Drawing.Size(140, 393);
             this.sidemenu.TabIndex = 0;
+            this.sidemenu.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.sidemenu_BeforeSelect);
             this.sidemenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.sidemenu_AfterSelect);
             this.sidemenu.MouseClick += new System.Windows.Forms.MouseEventHandler(this.sidemenu_MouseClick);
             // 
@@ -431,8 +432,8 @@ namespace Tabster.Forms
             this.tablibrary.ShowRowErrors = false;
             this.tablibrary.Size = new System.Drawing.Size(883, 274);
             this.tablibrary.TabIndex = 19;
-            this.tablibrary.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExtended2_CellDoubleClick);
-            this.tablibrary.SelectionChanged += new System.EventHandler(this.dataGridViewExtended2_SelectionChanged);
+            this.tablibrary.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablibrary_CellDoubleClick);
+            this.tablibrary.SelectionChanged += new System.EventHandler(this.tablibrary_SelectionChanged);
             this.tablibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.tablibrary_DragDrop);
             this.tablibrary.DragEnter += new System.Windows.Forms.DragEventHandler(this.tablibrary_DragEnter);
             this.tablibrary.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tablibrary_MouseClick);
@@ -748,7 +749,9 @@ namespace Tabster.Forms
             this.searchPreviewEditor.Location = new System.Drawing.Point(0, 0);
             this.searchPreviewEditor.Margin = new System.Windows.Forms.Padding(0);
             this.searchPreviewEditor.Name = "searchPreviewEditor";
+            this.searchPreviewEditor.PrintSettings = null;
             this.searchPreviewEditor.ReadOnly = false;
+            this.searchPreviewEditor.ShowPrintDialog = true;
             this.searchPreviewEditor.Size = new System.Drawing.Size(148, 23);
             this.searchPreviewEditor.TabIndex = 24;
             // 
@@ -1437,10 +1440,10 @@ namespace Tabster.Forms
             this.openTabLocationToolStripMenuItem.Text = "Open Tab Location";
             this.openTabLocationToolStripMenuItem.Click += new System.EventHandler(this.OpenTabLocation);
             // 
-            // searchUltimateGuitarToolStripMenuItem
+            // searchSimilarToolStripMenuItem
             // 
             this.searchSimilarToolStripMenuItem.Enabled = false;
-            this.searchSimilarToolStripMenuItem.Name = "searchUltimateGuitarToolStripMenuItem";
+            this.searchSimilarToolStripMenuItem.Name = "searchSimilarToolStripMenuItem";
             this.searchSimilarToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.searchSimilarToolStripMenuItem.Text = "Search Similar Tabs";
             this.searchSimilarToolStripMenuItem.Click += new System.EventHandler(this.SearchSimilarTabs);

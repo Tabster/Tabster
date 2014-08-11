@@ -52,6 +52,9 @@ namespace Tabster.Forms
 
         private TablatureEditor _currentEditor;
 
+        //used to prevent double-triggering of OnSelectedIndexChanged for tablibrary when using navigation menu
+        private bool _usingNavigationMenu;
+
         private bool IsViewingLibrary()
         {
             return tabControl1.SelectedTab == display_library;
@@ -65,7 +68,7 @@ namespace Tabster.Forms
             }
         }
 
-        private void dataGridViewExtended2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void tablibrary_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
@@ -165,9 +168,15 @@ namespace Tabster.Forms
                 _currentEditor.Print();
         }
 
-        private void dataGridViewExtended2_SelectionChanged(object sender, EventArgs e)
+        private void tablibrary_SelectionChanged(object sender, EventArgs e)
         {
-            UpdateTabControls(true);
+            if (!_usingNavigationMenu)
+            {
+                UpdateTabControls(true);
+            }
+
+            if (_usingNavigationMenu)
+                _usingNavigationMenu = false;
         }
 
         private void NewTab(object sender, EventArgs e)
@@ -302,6 +311,11 @@ namespace Tabster.Forms
             }
         }
 
+        private void sidemenu_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        {
+            _usingNavigationMenu = true;
+        }
+
         private void sidemenu_AfterSelect(object sender, TreeViewEventArgs e)
         {
             filtertext.Reset(true);
@@ -347,8 +361,6 @@ namespace Tabster.Forms
             if (e.Button == MouseButtons.Right && (currentMouseOverRow >= 0 && currentMouseOverRow < tablibrary.Rows.Count) && SelectedTab != null)
             {
                 tablibrary.Rows[currentMouseOverRow].Selected = true;
-
-                UpdateTabControls(false);
 
                 LibraryMenu.Show(tablibrary.PointToScreen(e.Location));
 
