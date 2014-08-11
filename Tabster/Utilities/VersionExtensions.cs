@@ -19,7 +19,7 @@ namespace Tabster.Utilities
 
             if (enforceDecimal && !versionStr.Contains("."))
             {
-                versionStr = string.Format("{0}.0", version);
+                versionStr = string.Format("{0}.0", versionStr);
             }
 
             return versionStr;
