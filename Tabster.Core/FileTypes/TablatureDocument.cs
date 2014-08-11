@@ -14,7 +14,7 @@ namespace Tabster.Core.FileTypes
         #region Constants
 
         public const string FILE_EXTENSION = ".tabster";
-        public static readonly Version FILE_VERSION = new Version("1.4");
+        public static readonly Version FILE_VERSION = new Version("1.4.1");
 
         #endregion
 
