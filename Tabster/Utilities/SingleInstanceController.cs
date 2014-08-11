@@ -15,7 +15,12 @@ namespace Tabster.Utilities
 {
     public class SingleInstanceController : WindowsFormsApplicationBase
     {
-        private const int MIN_SPLASH_TIME = 4500;
+
+#if DEBUG
+        private const int MIN_SPLASH_TIME = 1000;
+#else
+        private const int MIN_SPLASH_TIME = 3500;
+#endif
         private static TablatureDocument _queuedTabfile;
         private static bool _isLibraryOpen;
         private static bool _noSplash;
@@ -105,7 +110,9 @@ namespace Tabster.Utilities
 
             splash.SetStatus("Initializing plugins...");
 
+#if DEBUG
             Thread.Sleep(sleepDuration);
+#endif
 
             Program.pluginController.LoadPlugins();
 
@@ -113,13 +120,17 @@ namespace Tabster.Utilities
 
             Program.libraryManager.Load();
 
+#if DEBUG
             Thread.Sleep(sleepDuration);
+#endif
 
             if (Settings.Default.StartupUpdate)
             {
                 splash.SetStatus("Checking for updates...");
 
+#if DEBUG
                 Thread.Sleep(sleepDuration);
+#endif
                 Program.updateQuery.Check(false);
             }
         }
