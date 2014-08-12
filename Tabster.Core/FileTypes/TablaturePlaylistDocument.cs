@@ -24,12 +24,11 @@ namespace Tabster.Core.FileTypes
 
         public TablaturePlaylistDocument()
         {
-            
         }
 
         public TablaturePlaylistDocument(string name)
         {
-            Name = name;      
+            Name = name;
         }
 
         #endregion
