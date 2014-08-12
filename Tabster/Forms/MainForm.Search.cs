@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using Tabster.Core.FileTypes;
 using Tabster.Core.Plugins;
+using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Utilities;
 

@@ -43,6 +43,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Printing\TablaturePrintDocumentSettings.cs" />
+    <Compile Include="Searching\SearchQuery.cs" />
+    <Compile Include="Searching\SearchResult.cs" />
+    <Compile Include="Searching\SearchServiceException.cs" />
+    <Compile Include="Searching\SearchServiceFlags.cs" />
     <Compile Include="Types\ITablatureSourced.cs" />
     <Compile Include="Types\ITablaturePlaylist.cs" />
     <Compile Include="Types\TabRating.cs" />
@@ -53,7 +57,7 @@
     <Compile Include="FileTypes\TablaturePlaylistDocument.cs" />
     <Compile Include="Types\ITablature.cs" />
     <Compile Include="Plugins\ITabParser.cs" />
-    <Compile Include="Plugins\ISearchService.cs" />
+    <Compile Include="Searching\ISearchService.cs" />
     <Compile Include="Plugins\ITabsterPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Plugins\TabsterPluginException.cs" />

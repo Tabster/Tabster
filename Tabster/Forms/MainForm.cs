@@ -8,6 +8,7 @@ using System.Xml;
 using Tabster.Controls;
 using Tabster.Core.FileTypes;
 using Tabster.Core.Plugins;
+using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Properties;
 using Tabster.Updater;
