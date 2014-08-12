@@ -50,10 +50,10 @@ namespace Tabster.Forms
 
         private TablatureDocument SelectedTab;
 
-        private TablatureEditor _currentEditor;
+        private TablatureEditor _tabPreviewEditor;
 
         //used to prevent double-triggering of OnSelectedIndexChanged for tablibrary when using navigation menu
-        private bool _usingNavigationMenu;
+        private bool _switchingNavigationOption;
 
         private bool IsViewingLibrary()
         {
@@ -164,19 +164,31 @@ namespace Tabster.Forms
 
         private void printbtn_Click(object sender, EventArgs e)
         {
-            if (_currentEditor != null)
-                _currentEditor.Print();
+            if (_tabPreviewEditor != null)
+                _tabPreviewEditor.Print();
         }
 
         private void tablibrary_SelectionChanged(object sender, EventArgs e)
         {
-            if (!_usingNavigationMenu)
+            //ignore events triggered by prior sublibrary
+            if (_switchingNavigationOption)
             {
-                UpdateTabControls(true);
+                //first load, instantly load tab preview
+                if (!_initialLibraryLoaded)
+                {
+                    UpdateTabControls(false);
+                    LoadTabPreview();
+                }
+
+                _switchingNavigationOption = false;
             }
 
-            if (_usingNavigationMenu)
-                _usingNavigationMenu = false;
+            //normal event
+            else
+            {
+                //load tab preview with delay
+                UpdateTabControls(true);
+            }
         }
 
         private void NewTab(object sender, EventArgs e)
@@ -297,7 +309,7 @@ namespace Tabster.Forms
 
         private void autoScrollChange(object sender, EventArgs e)
         {
-            if (_currentEditor != null)
+            if (_tabPreviewEditor != null)
             {
                 var item = ((ToolStripMenuItem) sender);
                 var text = item.Text;
@@ -307,13 +319,13 @@ namespace Tabster.Forms
                     menuItem.Checked = menuItem.Text == item.Text;
                 }
 
-                _currentEditor.AutoScroll = text == "On";
+                _tabPreviewEditor.AutoScroll = text == "On";
             }
         }
 
         private void sidemenu_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
-            _usingNavigationMenu = true;
+            _switchingNavigationOption = true;
         }
 
         private void sidemenu_AfterSelect(object sender, TreeViewEventArgs e)
@@ -571,8 +583,6 @@ namespace Tabster.Forms
                 var selectedIndex = tablibrary.SelectedRows[0].Index;
                 tablibrary.Rows[selectedIndex].SetValues(objValues);
             }
-
-            UpdateDetails();
         }
 
         private void RemoveSelectedLibraryItem()
@@ -667,14 +677,14 @@ namespace Tabster.Forms
                     editor.ReadOnly = true;
 
                     //cancel autoscroll of existing editor
-                    if (_currentEditor != null)
+                    if (_tabPreviewEditor != null)
                     {
-                        _currentEditor.AutoScroll = false;
-                        _currentEditor.ScrollToLine(0);
+                        _tabPreviewEditor.AutoScroll = false;
+                        _tabPreviewEditor.ScrollToLine(0);
                         offToolStripMenuItem.PerformClick();
                     }
 
-                    _currentEditor = editor;
+                    _tabPreviewEditor = editor;
                 }
 
                 librarySplitContainer.Panel2.Enabled = !openedExternally;
@@ -685,6 +695,11 @@ namespace Tabster.Forms
             {
                 previewToolStrip.Enabled = false;
                 lblpreviewtitle.Text = "";
+
+                if (_tabPreviewEditor != null)
+                {
+                    _tabPreviewEditor.SetText(string.Empty);
+                }   
             }
         }
 
