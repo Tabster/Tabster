@@ -38,6 +38,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileTypes\TabsterXmlDocument.cs" />
+    <Compile Include="Parsing\IStringTabParser.cs" />
+    <Compile Include="Parsing\IWebTabParser.cs" />
+    <Compile Include="Parsing\TabParserException.cs" />
     <Compile Include="Printing\PageCountPrintController .cs" />
     <Compile Include="Printing\TablaturePrintDocument.cs">
       <SubType>Component</SubType>
@@ -56,7 +59,7 @@
     <Compile Include="FileTypes\ITabsterDocument.cs" />
     <Compile Include="FileTypes\TablaturePlaylistDocument.cs" />
     <Compile Include="Types\ITablature.cs" />
-    <Compile Include="Plugins\ITabParser.cs" />
+    <Compile Include="Parsing\ITabParser.cs" />
     <Compile Include="Searching\ISearchService.cs" />
     <Compile Include="Plugins\ITabsterPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

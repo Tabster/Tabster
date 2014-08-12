@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Tabster.Core.FileTypes;
-using Tabster.Core.Plugins;
+using Tabster.Core.Parsing;
 using Tabster.Core.Types;
 using Tabster.Utilities;
 
@@ -21,7 +21,7 @@ namespace Tabster.Forms
         }
 
         public Uri Url { get; private set; }
-        public ITabParser Parser { get; set; }
+        public IWebTabParser Parser { get; set; }
         public TablatureDocument Tab { get; set; }
         public Exception Error { get; set; }
         public bool Cancelled { get; set; }
@@ -131,7 +131,7 @@ namespace Tabster.Forms
                         {
                             var src = client.DownloadString(state.Url);
 
-                            var tab = state.Parser.ParseTabFromSource(src, null);
+                            var tab = state.Parser.Parse(src, null);
 
                             if (tab != null)
                             {

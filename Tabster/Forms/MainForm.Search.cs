@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Tabster.Core.FileTypes;
+using Tabster.Core.Parsing;
 using Tabster.Core.Plugins;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
@@ -21,7 +22,7 @@ namespace Tabster.Forms
         private TabRating? _activeSearchRating;
         private TabType? _activeSearchType;
         private List<ISearchService> _searchServices = new List<ISearchService>();
-        private List<ITabParser> _tabParsers = new List<ITabParser>();
+        private List<IWebTabParser> _tabParsers = new List<IWebTabParser>();
 
         //used for filtering after search is complete
 
@@ -266,7 +267,7 @@ namespace Tabster.Forms
 
                 try
                 {
-                    tab = parser.ParseTabFromSource(urlSource, null);
+                    tab = parser.Parse(urlSource, null);
                 }
 
                 catch (Exception ex)

@@ -7,7 +7,7 @@ using System.Text;
 using System.Web;
 using HtmlAgilityPack;
 using Tabster.Core.FileTypes;
-using Tabster.Core.Plugins;
+using Tabster.Core.Parsing;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 
@@ -24,7 +24,7 @@ namespace GuitartabsDotCC
             get { return "Guitartabs.cc"; }
         }
 
-        public ITabParser Parser
+        public IWebTabParser Parser
         {
             get { return new GuitartabsDotCCParser(); }
         }

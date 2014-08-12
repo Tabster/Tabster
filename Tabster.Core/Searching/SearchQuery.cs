@@ -1,4 +1,8 @@
+#region
+
 using Tabster.Core.Types;
+
+#endregion
 
 namespace Tabster.Core.Searching
 {

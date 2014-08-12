@@ -1,5 +1,9 @@
+#region
+
 using Tabster.Core.FileTypes;
 using Tabster.Core.Types;
+
+#endregion
 
 namespace Tabster.Core.Searching
 {

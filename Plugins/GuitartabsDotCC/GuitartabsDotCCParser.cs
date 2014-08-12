@@ -3,14 +3,14 @@
 using System;
 using HtmlAgilityPack;
 using Tabster.Core.FileTypes;
-using Tabster.Core.Plugins;
+using Tabster.Core.Parsing;
 using Tabster.Core.Types;
 
 #endregion
 
 namespace GuitartabsDotCC
 {
-    internal class GuitartabsDotCCParser : ITabParser
+    internal class GuitartabsDotCCParser : IWebTabParser
     {
         #region Implementation of ITabParser
 
@@ -24,16 +24,16 @@ namespace GuitartabsDotCC
             get { return new Version("1.0"); }
         }
 
-        public TablatureDocument ParseTabFromSource(string source, TabType? type)
+        public TablatureDocument Parse(string text, TabType? type)
         {
             var doc = new HtmlDocument();
-            doc.LoadHtml(source);
+            doc.LoadHtml(text);
 
             var tabType = type;
             string contents = null;
 
             var pageTitle = doc.DocumentNode.SelectSingleNode("//head/title").InnerText;
-            var titleSplit = pageTitle.Split(new[] {" - "}, StringSplitOptions.None);
+            var titleSplit = pageTitle.Split(new[] { " - " }, StringSplitOptions.None);
 
             if (titleSplit.Length < 2)
             {
@@ -98,6 +98,11 @@ namespace GuitartabsDotCC
                 return null;
 
             return new TablatureDocument(artist, title, tabType.Value, contents);
+        }
+
+        public TablatureDocument Parse(Uri url, TabType? type)
+        {
+            throw new NotImplementedException();
         }
 
         public bool MatchesUrlPattern(Uri url)

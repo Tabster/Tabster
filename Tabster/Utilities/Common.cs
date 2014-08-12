@@ -1,6 +1,7 @@
 ﻿#region
 
 using System.Windows.Forms;
+using Tabster.Core.Parsing;
 using Tabster.Core.Plugins;
 
 #endregion

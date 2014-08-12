@@ -1,4 +1,4 @@
-﻿#region
+#region
 
 using System;
 using Tabster.Core.FileTypes;
@@ -6,27 +6,20 @@ using Tabster.Core.Types;
 
 #endregion
 
-namespace Tabster.Core.Plugins
+namespace Tabster.Core.Parsing
 {
     /// <summary>
-    ///   Text-based tab parser.
+    ///   Web-based tab parser.
     /// </summary>
-    public interface ITabParser
+    public interface IWebTabParser : IStringTabParser
     {
         /// <summary>
-        ///   Parser name.
+        ///   Parses tab from URL.
         /// </summary>
-        string Name { get; }
-
-        Version Version { get; }
-
-        /// <summary>
-        ///   Parses tab from text source.
-        /// </summary>
-        /// <param name="sourceText"> Source text to parse. </param>
+        /// <param name="url"> Source url to parse. </param>
         /// <param name="type"> Explicitly defined type. </param>
         /// <returns> Parsed tab. </returns>
-        TablatureDocument ParseTabFromSource(string sourceText, TabType? type);
+        TablatureDocument Parse(Uri url, TabType? type);
 
         ///<summary>
         ///  Determines whether a specified URL matches a specific pattern used by the parser. Used for web-based parsing.
@@ -34,17 +27,5 @@ namespace Tabster.Core.Plugins
         ///<param name="url"> The URL to check. </param>
         ///<returns> True if the URL matches the supported pattern; otherwise, False. </returns>
         bool MatchesUrlPattern(Uri url);
-    }
-
-    public class TabParserException : Exception
-    {
-        public TabParserException()
-        {
-        }
-
-        public TabParserException(string message)
-            : base(message)
-        {
-        }
     }
 }

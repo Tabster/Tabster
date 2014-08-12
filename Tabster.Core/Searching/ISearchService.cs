@@ -1,6 +1,6 @@
 ﻿#region
 
-using Tabster.Core.Plugins;
+using Tabster.Core.Parsing;
 using Tabster.Core.Types;
 
 #endregion
@@ -20,7 +20,7 @@ namespace Tabster.Core.Searching
         /// <summary>
         ///   Associated parser.
         /// </summary>
-        ITabParser Parser { get; }
+        IWebTabParser Parser { get; }
 
         /// <summary>
         ///   Service flags.

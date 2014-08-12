@@ -4,14 +4,14 @@ using System;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Tabster.Core.FileTypes;
-using Tabster.Core.Plugins;
+using Tabster.Core.Parsing;
 using Tabster.Core.Types;
 
 #endregion
 
 namespace UltimateGuitar
 {
-    internal class UltimateGuitarParser : ITabParser
+    internal class UltimateGuitarParser : IWebTabParser
     {
         #region Implementation of ITabParser
 
@@ -25,10 +25,10 @@ namespace UltimateGuitar
             get { return new Version("1.0"); }
         }
 
-        public TablatureDocument ParseTabFromSource(string source, TabType? type)
+        public TablatureDocument Parse(string text, TabType? type)
         {
             var doc = new HtmlDocument();
-            doc.LoadHtml(source);
+            doc.LoadHtml(text);
 
             var tabType = type;
             string song = null, artist = null;
@@ -71,6 +71,11 @@ namespace UltimateGuitar
             }
 
             return null;
+        }
+
+        public TablatureDocument Parse(Uri url, TabType? type)
+        {
+            throw new NotImplementedException();
         }
 
         public bool MatchesUrlPattern(Uri url)
