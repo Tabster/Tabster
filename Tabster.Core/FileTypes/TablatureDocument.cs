@@ -82,7 +82,8 @@ namespace Tabster.Core.FileTypes
 
                 else if (Uri.IsWellFormedUriString(sourceValue, UriKind.Absolute))
                 {
-                    SourceType = new Uri(sourceValue).IsFile ? TablatureSourceType.FileImport : TablatureSourceType.Download;
+                    Source = new Uri(sourceValue);
+                    SourceType = Source.IsFile ? TablatureSourceType.FileImport : TablatureSourceType.Download;      
                 }
             }
 
