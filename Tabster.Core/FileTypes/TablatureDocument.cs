@@ -88,7 +88,10 @@ namespace Tabster.Core.FileTypes
 
             Method = _doc.TryReadNodeValue("method", string.Empty);
 
-            Rating = (TabRating)int.Parse(_doc.TryReadNodeValue("rating", "0"));
+            var ratingValue = _doc.TryReadNodeValue("rating");
+
+            if (!string.IsNullOrEmpty(ratingValue))
+                Rating = (TabRating)int.Parse(ratingValue);
             
             Update();
         }
@@ -125,7 +128,7 @@ namespace Tabster.Core.FileTypes
 
             _doc.WriteNode("source", sourceValue);
             _doc.WriteNode("method", Method);
-            _doc.WriteNode("rating", ((int)Rating).ToString());
+            _doc.WriteNode("rating", Rating.HasValue ? ((int)Rating).ToString() : string.Empty);
             _doc.WriteNode("created", Created == DateTime.MinValue ? DateTime.Now.ToString() : Created.ToString());
             _doc.WriteNode("comment", Comment);
 
