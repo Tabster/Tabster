@@ -172,8 +172,9 @@ namespace Tabster.Controls
                 if (PrependItemNumbers)
                     displayName = string.Format("{0}: {1}", i + 1, displayName);
 
-                //todo tooltiptext?
-                var menuItem = new ToolStripMenuItem(displayName) {Tag = item.File.FullName, ToolTipText = item.File.FullName};
+                var useTooltip = !displayName.Equals(item.File.FullName, StringComparison.InvariantCultureIgnoreCase);
+
+                var menuItem = new ToolStripMenuItem(displayName) { Tag = item.File.FullName, ToolTipText = item.File.FullName, AutoToolTip = useTooltip };
 
                 menuItem.Click += (s, e) =>
                                       {
