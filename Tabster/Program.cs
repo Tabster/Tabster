@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using Tabster.Plugins;
+using Tabster.Properties;
 using Tabster.Updater;
 using Tabster.Utilities;
 
@@ -31,6 +32,11 @@ namespace Tabster
             var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
 
             pluginController = new PluginController(pluginDirectory);
+
+            foreach (var guid in Settings.Default.DisabledPlugins)
+            {
+                pluginController.SetStatus(new Guid(guid), false);
+            }
 
             var workingDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
             ApplicationDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
