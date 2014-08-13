@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblname = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblName = new System.Windows.Forms.Label();
+            this.lblCopyright = new System.Windows.Forms.Label();
             this.closebtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -41,28 +41,28 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // lblname
+            // lblName
             // 
-            this.lblname.AutoSize = true;
-            this.lblname.BackColor = System.Drawing.Color.Transparent;
-            this.lblname.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblname.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblname.Location = new System.Drawing.Point(146, 9);
-            this.lblname.Name = "lblname";
-            this.lblname.Size = new System.Drawing.Size(80, 24);
-            this.lblname.TabIndex = 40;
-            this.lblname.Text = "Tabster";
+            this.lblName.AutoSize = true;
+            this.lblName.BackColor = System.Drawing.Color.Transparent;
+            this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblName.Location = new System.Drawing.Point(146, 9);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(80, 24);
+            this.lblName.TabIndex = 40;
+            this.lblName.Text = "Tabster";
             // 
-            // label2
+            // lblCopyright
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label2.Location = new System.Drawing.Point(147, 45);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(186, 13);
-            this.label2.TabIndex = 47;
-            this.label2.Text = "Copyright © 2010-2014 Nate Shoffner";
+            this.lblCopyright.AutoSize = true;
+            this.lblCopyright.BackColor = System.Drawing.Color.Transparent;
+            this.lblCopyright.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCopyright.Location = new System.Drawing.Point(147, 45);
+            this.lblCopyright.Name = "lblCopyright";
+            this.lblCopyright.Size = new System.Drawing.Size(51, 13);
+            this.lblCopyright.TabIndex = 47;
+            this.lblCopyright.Text = "Copyright";
             // 
             // closebtn
             // 
@@ -177,8 +177,8 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.closebtn);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.lblname);
+            this.Controls.Add(this.lblCopyright);
+            this.Controls.Add(this.lblName);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -196,8 +196,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblname;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label lblCopyright;
         private System.Windows.Forms.Button closebtn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;

@@ -30,26 +30,26 @@ namespace Tabster.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbltitle = new System.Windows.Forms.Label();
+            this.lblTypes = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblversion = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblloading = new System.Windows.Forms.Label();
-            this.lblname = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
+            this.lblCopyright = new System.Windows.Forms.Label();
+            this.lblProgress = new System.Windows.Forms.Label();
+            this.lblName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // lbltitle
+            // lblTypes
             // 
-            this.lbltitle.AutoSize = true;
-            this.lbltitle.BackColor = System.Drawing.Color.Transparent;
-            this.lbltitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltitle.ForeColor = System.Drawing.Color.Black;
-            this.lbltitle.Location = new System.Drawing.Point(153, 77);
-            this.lbltitle.Name = "lbltitle";
-            this.lbltitle.Size = new System.Drawing.Size(425, 16);
-            this.lbltitle.TabIndex = 51;
-            this.lbltitle.Text = "Guitar Tabs • Guitar Chords • Bass Tabs • Drum Tabs • Ukulele Tabs";
+            this.lblTypes.AutoSize = true;
+            this.lblTypes.BackColor = System.Drawing.Color.Transparent;
+            this.lblTypes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTypes.ForeColor = System.Drawing.Color.Black;
+            this.lblTypes.Location = new System.Drawing.Point(153, 77);
+            this.lblTypes.Name = "lblTypes";
+            this.lblTypes.Size = new System.Drawing.Size(425, 16);
+            this.lblTypes.TabIndex = 51;
+            this.lblTypes.Text = "Guitar Tabs • Guitar Chords • Bass Tabs • Drum Tabs • Ukulele Tabs";
             // 
             // pictureBox1
             // 
@@ -60,54 +60,54 @@ namespace Tabster.Forms
             this.pictureBox1.TabIndex = 50;
             this.pictureBox1.TabStop = false;
             // 
-            // lblversion
+            // lblVersion
             // 
-            this.lblversion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblversion.BackColor = System.Drawing.Color.Transparent;
-            this.lblversion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblversion.ForeColor = System.Drawing.Color.Gray;
-            this.lblversion.Location = new System.Drawing.Point(526, 173);
-            this.lblversion.Name = "lblversion";
-            this.lblversion.Size = new System.Drawing.Size(52, 16);
-            this.lblversion.TabIndex = 49;
-            this.lblversion.Text = "v0.0.0.0";
-            this.lblversion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.ForeColor = System.Drawing.Color.Gray;
+            this.lblVersion.Location = new System.Drawing.Point(526, 173);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(52, 16);
+            this.lblVersion.TabIndex = 49;
+            this.lblVersion.Text = "v0.0.0.0";
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // label2
+            // lblCopyright
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(9, 173);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(223, 16);
-            this.label2.TabIndex = 48;
-            this.label2.Text = "Copyright © 2010-2014 Nate Shoffner";
+            this.lblCopyright.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblCopyright.AutoSize = true;
+            this.lblCopyright.BackColor = System.Drawing.Color.Transparent;
+            this.lblCopyright.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCopyright.ForeColor = System.Drawing.Color.Gray;
+            this.lblCopyright.Location = new System.Drawing.Point(9, 173);
+            this.lblCopyright.Name = "lblCopyright";
+            this.lblCopyright.Size = new System.Drawing.Size(65, 16);
+            this.lblCopyright.TabIndex = 48;
+            this.lblCopyright.Text = "Copyright";
             // 
-            // lblloading
+            // lblProgress
             // 
-            this.lblloading.AutoSize = true;
-            this.lblloading.BackColor = System.Drawing.Color.Transparent;
-            this.lblloading.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblloading.ForeColor = System.Drawing.Color.Black;
-            this.lblloading.Location = new System.Drawing.Point(153, 109);
-            this.lblloading.Name = "lblloading";
-            this.lblloading.Size = new System.Drawing.Size(0, 16);
-            this.lblloading.TabIndex = 10;
+            this.lblProgress.AutoSize = true;
+            this.lblProgress.BackColor = System.Drawing.Color.Transparent;
+            this.lblProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProgress.ForeColor = System.Drawing.Color.Black;
+            this.lblProgress.Location = new System.Drawing.Point(153, 109);
+            this.lblProgress.Name = "lblProgress";
+            this.lblProgress.Size = new System.Drawing.Size(0, 16);
+            this.lblProgress.TabIndex = 10;
             // 
-            // lblname
+            // lblName
             // 
-            this.lblname.AutoSize = true;
-            this.lblname.BackColor = System.Drawing.Color.Transparent;
-            this.lblname.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblname.ForeColor = System.Drawing.Color.Black;
-            this.lblname.Location = new System.Drawing.Point(146, 9);
-            this.lblname.Name = "lblname";
-            this.lblname.Size = new System.Drawing.Size(194, 55);
-            this.lblname.TabIndex = 4;
-            this.lblname.Text = "Tabster";
+            this.lblName.AutoSize = true;
+            this.lblName.BackColor = System.Drawing.Color.Transparent;
+            this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.ForeColor = System.Drawing.Color.Black;
+            this.lblName.Location = new System.Drawing.Point(146, 9);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(194, 55);
+            this.lblName.TabIndex = 4;
+            this.lblName.Text = "Tabster";
             // 
             // SplashScreen
             // 
@@ -116,12 +116,12 @@ namespace Tabster.Forms
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(590, 198);
-            this.Controls.Add(this.lbltitle);
+            this.Controls.Add(this.lblTypes);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.lblversion);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.lblloading);
-            this.Controls.Add(this.lblname);
+            this.Controls.Add(this.lblVersion);
+            this.Controls.Add(this.lblCopyright);
+            this.Controls.Add(this.lblProgress);
+            this.Controls.Add(this.lblName);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -139,12 +139,12 @@ namespace Tabster.Forms
 
         #endregion
 
-        private System.Windows.Forms.Label lbltitle;
+        private System.Windows.Forms.Label lblTypes;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label lblversion;
-        private System.Windows.Forms.Label label2;
-        public System.Windows.Forms.Label lblloading;
-        private System.Windows.Forms.Label lblname;
+        private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.Label lblCopyright;
+        public System.Windows.Forms.Label lblProgress;
+        private System.Windows.Forms.Label lblName;
 
     }
 }

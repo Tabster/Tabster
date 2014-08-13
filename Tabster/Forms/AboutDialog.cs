@@ -16,7 +16,8 @@ namespace Tabster.Forms
         {
             InitializeComponent();
             Text = string.Format("{0} v{1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
-            lblname.Text = string.Format("{0} {1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
+            lblName.Text = string.Format("{0} {1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
+            lblCopyright.Text = Common.GetCopyrightString();
             pictureBox1.Image = Resources.guitar128;
         }
 

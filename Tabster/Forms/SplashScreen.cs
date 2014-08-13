@@ -16,15 +16,15 @@ namespace Tabster.Forms
         {
             InitializeComponent();
             pictureBox1.Image = Resources.guitar128;
-            lblversion.Text = string.Format("v{0}", new Version(Application.ProductVersion).ToShortString());
-
-            lblversion.ForeColor = Color.Gray;
+            lblVersion.Text = string.Format("v{0}", new Version(Application.ProductVersion).ToShortString());
+            lblCopyright.Text = Common.GetCopyrightString();
+            lblVersion.ForeColor = Color.Gray;
             BringToFront();
         }
 
         public void SetStatus(string status)
         {
-            lblloading.InvokeIfRequired(() => { lblloading.Text = status; });
+            lblProgress.InvokeIfRequired(() => { lblProgress.Text = status; });
         }
 
         protected override void OnPaint(PaintEventArgs e)
