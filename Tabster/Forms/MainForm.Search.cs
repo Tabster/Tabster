@@ -139,6 +139,10 @@ namespace Tabster.Forms
 
                 foreach (var result in results)
                 {
+                    //missing source url
+                    if (result.Tab.Source == null)
+                        continue;
+
                     //subpar rating
                     if (_activeSearchRating.HasValue && (!result.Rating.HasValue || result.Rating.Value <= _activeSearchRating.Value))
                         continue;
