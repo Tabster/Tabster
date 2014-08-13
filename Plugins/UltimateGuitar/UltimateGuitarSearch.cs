@@ -8,7 +8,6 @@ using System.Web;
 using HtmlAgilityPack;
 using Tabster.Core.FileTypes;
 using Tabster.Core.Parsing;
-using Tabster.Core.Plugins;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 
@@ -33,6 +32,11 @@ namespace UltimateGuitar
         public SearchServiceFlags Flags
         {
             get { return SearchServiceFlags.None; }
+        }
+
+        public bool SupportsRatings
+        {
+            get { return true; }
         }
 
         public SearchResult[] Search(SearchQuery query)

@@ -34,6 +34,11 @@ namespace GuitartabsDotCC
             get { return SearchServiceFlags.RequiresTitleParameter; }
         }
 
+        public bool SupportsRatings
+        {
+            get { return true; }
+        }
+
         public SearchResult[] Search(SearchQuery query)
         {
             var results = new List<SearchResult>();
