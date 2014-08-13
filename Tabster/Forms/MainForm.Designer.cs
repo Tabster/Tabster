@@ -137,7 +137,10 @@ namespace Tabster.Forms
             this.librarycontextdelete = new System.Windows.Forms.ToolStripMenuItem();
             this.librarycontextexport = new System.Windows.Forms.ToolStripMenuItem();
             this.librarycontextbrowse = new System.Windows.Forms.ToolStripMenuItem();
-            this.librarycontextsearch = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchSimilarTabsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchByArtistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchByTitleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchByArtistAndTitleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.librarycontextaddtoplaylist = new System.Windows.Forms.ToolStripMenuItem();
             this.librarycontextfavorites = new System.Windows.Forms.ToolStripMenuItem();
             this.PlaylistMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -177,10 +180,10 @@ namespace Tabster.Forms
             this.clearsearchbtn = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.filtertext = new Tabster.Controls.SearchBox();
-            this.PreviewDelay = new System.Windows.Forms.Timer(this.components);
             this.SearchPreviewBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SearchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.DownloadBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.PreviewDelay = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.display_library.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -750,7 +753,7 @@ namespace Tabster.Forms
             this.searchPreviewEditor.Margin = new System.Windows.Forms.Padding(0);
             this.searchPreviewEditor.Name = "searchPreviewEditor";
             this.searchPreviewEditor.PrintSettings = null;
-            this.searchPreviewEditor.ReadOnly = false;
+            this.searchPreviewEditor.ReadOnly = true;
             this.searchPreviewEditor.ShowPrintDialog = true;
             this.searchPreviewEditor.Size = new System.Drawing.Size(148, 23);
             this.searchPreviewEditor.TabIndex = 24;
@@ -1145,13 +1148,13 @@ namespace Tabster.Forms
             this.librarycontextdelete,
             this.librarycontextexport,
             this.librarycontextbrowse,
-            this.librarycontextsearch,
+            this.searchSimilarTabsToolStripMenuItem,
             this.librarycontextaddtoplaylist,
             this.librarycontextfavorites});
             this.LibraryMenu.Name = "contextMenuStrip1";
             this.LibraryMenu.ShowImageMargin = false;
             this.LibraryMenu.ShowItemToolTips = false;
-            this.LibraryMenu.Size = new System.Drawing.Size(152, 158);
+            this.LibraryMenu.Size = new System.Drawing.Size(152, 180);
             // 
             // librarycontextdetails
             // 
@@ -1181,12 +1184,36 @@ namespace Tabster.Forms
             this.librarycontextbrowse.Text = "Open Tab Location";
             this.librarycontextbrowse.Click += new System.EventHandler(this.OpenTabLocation);
             // 
-            // librarycontextsearch
+            // searchSimilarTabsToolStripMenuItem
             // 
-            this.librarycontextsearch.Name = "librarycontextsearch";
-            this.librarycontextsearch.Size = new System.Drawing.Size(151, 22);
-            this.librarycontextsearch.Text = "Search Similar Tabs";
-            this.librarycontextsearch.Click += new System.EventHandler(this.SearchSimilarTabs);
+            this.searchSimilarTabsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.searchByArtistToolStripMenuItem,
+            this.searchByTitleToolStripMenuItem,
+            this.searchByArtistAndTitleToolStripMenuItem});
+            this.searchSimilarTabsToolStripMenuItem.Name = "searchSimilarTabsToolStripMenuItem";
+            this.searchSimilarTabsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.searchSimilarTabsToolStripMenuItem.Text = "Search Similar Tabs";
+            // 
+            // searchByArtistToolStripMenuItem
+            // 
+            this.searchByArtistToolStripMenuItem.Name = "searchByArtistToolStripMenuItem";
+            this.searchByArtistToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.searchByArtistToolStripMenuItem.Text = "Search By Artist";
+            this.searchByArtistToolStripMenuItem.Click += new System.EventHandler(this.SearchSimilarTabs);
+            // 
+            // searchByTitleToolStripMenuItem
+            // 
+            this.searchByTitleToolStripMenuItem.Name = "searchByTitleToolStripMenuItem";
+            this.searchByTitleToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.searchByTitleToolStripMenuItem.Text = "Search By Title";
+            this.searchByTitleToolStripMenuItem.Click += new System.EventHandler(this.SearchSimilarTabs);
+            // 
+            // searchByArtistAndTitleToolStripMenuItem
+            // 
+            this.searchByArtistAndTitleToolStripMenuItem.Name = "searchByArtistAndTitleToolStripMenuItem";
+            this.searchByArtistAndTitleToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.searchByArtistAndTitleToolStripMenuItem.Text = "Search By Artist and Title";
+            this.searchByArtistAndTitleToolStripMenuItem.Click += new System.EventHandler(this.SearchSimilarTabs);
             // 
             // librarycontextaddtoplaylist
             // 
@@ -1543,11 +1570,6 @@ namespace Tabster.Forms
             this.filtertext.ToolTipText = "Filter through servers by name.";
             this.filtertext.OnNewSearch += new Tabster.Controls.SearchBox.NewSearchHandler(this.filtertext_OnNewSearch);
             // 
-            // PreviewDelay
-            // 
-            this.PreviewDelay.Enabled = true;
-            this.PreviewDelay.Tick += new System.EventHandler(this.PreviewDelay_Tick);
-            // 
             // SearchPreviewBackgroundWorker
             // 
             this.SearchPreviewBackgroundWorker.WorkerSupportsCancellation = true;
@@ -1569,6 +1591,11 @@ namespace Tabster.Forms
             this.DownloadBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DownloadBackgroundWorker_DoWork);
             this.DownloadBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.DownloadBackgroundWorker_ProgressChanged);
             this.DownloadBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.DownloadBackgroundWorker_RunWorkerCompleted);
+            // 
+            // PreviewDelay
+            // 
+            this.PreviewDelay.Enabled = true;
+            this.PreviewDelay.Tick += new System.EventHandler(this.PreviewDelay_Tick);
             // 
             // MainForm
             // 
@@ -1681,7 +1708,6 @@ namespace Tabster.Forms
         private ToolStripMenuItem librarycontextdelete;
         private ToolStripMenuItem librarycontextexport;
         private ToolStripMenuItem librarycontextbrowse;
-        private ToolStripMenuItem librarycontextsearch;
         private Button button2;
         private Button button1;
         private StaticTreeView sidemenu;
@@ -1693,7 +1719,6 @@ namespace Tabster.Forms
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripButton detailsbtn;
         private ToolStripButton printbtn;
-        private Timer PreviewDelay;
         private RecentToolStripMenuItem recentlyViewedToolStripMenuItem;
         private ToolStripMenuItem previewToolStripMenuItem;
         private SplitContainer searchSplitContainer;
@@ -1748,6 +1773,11 @@ namespace Tabster.Forms
         public ComboBox cbSearchRating;
         private ToolStripStatusLabel lblStatus;
         private Button resetSearchbtn;
+        private ToolStripMenuItem searchSimilarTabsToolStripMenuItem;
+        private ToolStripMenuItem searchByArtistToolStripMenuItem;
+        private ToolStripMenuItem searchByTitleToolStripMenuItem;
+        private ToolStripMenuItem searchByArtistAndTitleToolStripMenuItem;
+        private Timer PreviewDelay;
     }
 }
 

@@ -50,10 +50,9 @@ namespace Tabster.Forms
 
         private TablatureDocument SelectedTab;
 
-        private TablatureEditor _tabPreviewEditor;
-
         //used to prevent double-triggering of OnSelectedIndexChanged for tablibrary when using navigation menu
         private bool _switchingNavigationOption;
+        private TablatureEditor _tabPreviewEditor;
 
         private bool IsViewingLibrary()
         {
@@ -183,7 +182,7 @@ namespace Tabster.Forms
                 _switchingNavigationOption = false;
             }
 
-            //normal event
+                //normal event
             else
             {
                 //load tab preview with delay
@@ -210,7 +209,7 @@ namespace Tabster.Forms
 
             if (updateRecentFiles)
                 recentlyViewedToolStripMenuItem.Add(tab.FileInfo, tab.ToFriendlyString());
-            
+
             UpdateTabControls(false);
             LoadTabPreview();
         }
@@ -219,12 +218,14 @@ namespace Tabster.Forms
         {
             if (SelectedTab != null)
             {
-                txtSearchArtist.Text = SelectedTab.Artist;
+                txtSearchArtist.Text = sender == searchByArtistToolStripMenuItem || sender == searchByArtistAndTitleToolStripMenuItem
+                                           ? SelectedTab.Artist
+                                           : "";
 
-                //check for version convention
-                var searchTitle = RemoveVersionConventionFromTitle(SelectedTab.Title);
+                txtSearchTitle.Text = sender == searchByTitleToolStripMenuItem || sender == searchByArtistAndTitleToolStripMenuItem
+                                          ? RemoveVersionConventionFromTitle(SelectedTab.Title)
+                                          : "";
 
-                txtSearchTitle.Text = searchTitle;
                 txtSearchType.SelectedIndex = 0;
                 tabControl1.SelectedTab = display_search;
                 onlinesearchbtn.PerformClick();
@@ -406,7 +407,7 @@ namespace Tabster.Forms
             if (selectedNode.Parent != null && selectedNode.Parent.Name == "node_playlists")
                 return LibraryType.Playlist;
 
-            switch(sidemenu.SelectedNode.Name)
+            switch (sidemenu.SelectedNode.Name)
             {
                 case "node_alltabs":
                     return LibraryType.AllTabs;
@@ -699,7 +700,7 @@ namespace Tabster.Forms
                 if (_tabPreviewEditor != null)
                 {
                     _tabPreviewEditor.SetText(string.Empty);
-                }   
+                }
             }
         }
 
@@ -792,12 +793,12 @@ namespace Tabster.Forms
 
         private void AddPlaylistNode(TablaturePlaylistDocument playlist)
         {
-            sidemenu.Nodes["node_playlists"].Nodes.Add(new TreeNode(playlist.Name) { NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = playlist.FileInfo.FullName });
+            sidemenu.Nodes["node_playlists"].Nodes.Add(new TreeNode(playlist.Name) {NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = playlist.FileInfo.FullName});
         }
 
         private void RemovePlaylistNode(TablaturePlaylistDocument playlist)
         {
-            foreach(TreeNode node in sidemenu.Nodes["node_playlists"].Nodes)
+            foreach (TreeNode node in sidemenu.Nodes["node_playlists"].Nodes)
             {
                 if (node.Tag.ToString().Equals(playlist.FileInfo.FullName))
                 {
@@ -823,20 +824,20 @@ namespace Tabster.Forms
             {
                 AddPlaylistNode(playlist);
 
-                var menuItem = new ToolStripMenuItem(playlist.Name) { Tag = playlist.FileInfo.FullName };
+                var menuItem = new ToolStripMenuItem(playlist.Name) {Tag = playlist.FileInfo.FullName};
 
                 menuItem.Click += (s, e) =>
-                {
-                    var path = ((ToolStripMenuItem)s).Tag.ToString();
+                                      {
+                                          var path = ((ToolStripMenuItem) s).Tag.ToString();
 
-                    var pf = Program.libraryManager.FindPlaylistByPath(path);
+                                          var pf = Program.libraryManager.FindPlaylistByPath(path);
 
-                    if (pf != null)
-                    {
-                        pf.Add(SelectedTab);
-                        pf.Save();
-                    }
-                };
+                                          if (pf != null)
+                                          {
+                                              pf.Add(SelectedTab);
+                                              pf.Save();
+                                          }
+                                      };
 
                 librarycontextaddtoplaylist.DropDownItems.Add(menuItem);
             }
