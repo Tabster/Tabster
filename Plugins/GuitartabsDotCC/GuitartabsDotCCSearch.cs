@@ -92,29 +92,32 @@ namespace GuitartabsDotCC
 
                 var rows = tabslist.SelectNodes("tr");
 
-                for (var i = 1; i <= rows.Count - 1; i++)
+                if (rows != null)
                 {
-                    var row = rows[i];
-                    var columns = row.SelectNodes("td");
-
-                    var rowArtist = columns[2].InnerText;
-
-                    var rowHref = columns[3].ChildNodes["a"];
-
-                    var rowUrl = rowHref.Attributes["href"].Value;
-                    var rowTitle = rowHref.InnerText;
-                    var rowType = columns[5].InnerText;
-
-                    var tabType = GetTabType(rowType);
-
-                    var rowRating = GetRating(columns[4].FirstChild.Attributes["style"].Value);
-
-                    if (tabType.HasValue)
+                    for (var i = 1; i <= rows.Count - 1; i++)
                     {
-                        rowTitle = RemoveTypeFromTitle(rowTitle, tabType.Value);
+                        var row = rows[i];
+                        var columns = row.SelectNodes("td");
 
-                        var tab = new TablatureDocument(rowArtist, rowTitle, tabType.Value, null) {Source = new Uri(string.Format("http://guitartabs.cc{0}", rowUrl))};
-                        results.Add(new SearchResult(query, tab, rowRating));
+                        var rowArtist = columns[2].InnerText;
+
+                        var rowHref = columns[3].ChildNodes["a"];
+
+                        var rowUrl = rowHref.Attributes["href"].Value;
+                        var rowTitle = rowHref.InnerText;
+                        var rowType = columns[5].InnerText;
+
+                        var tabType = GetTabType(rowType);
+
+                        var rowRating = GetRating(columns[4].FirstChild.Attributes["style"].Value);
+
+                        if (tabType.HasValue)
+                        {
+                            rowTitle = RemoveTypeFromTitle(rowTitle, tabType.Value);
+
+                            var tab = new TablatureDocument(rowArtist, rowTitle, tabType.Value, null) {Source = new Uri(string.Format("http://guitartabs.cc{0}", rowUrl))};
+                            results.Add(new SearchResult(query, tab, rowRating));
+                        }
                     }
                 }
             }
