@@ -1244,7 +1244,7 @@ namespace Tabster.Forms
             // 
             this.newTabToolStripMenuItem.Name = "newTabToolStripMenuItem";
             this.newTabToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newTabToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.newTabToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.newTabToolStripMenuItem.Text = "&New Tab...";
             this.newTabToolStripMenuItem.Click += new System.EventHandler(this.NewTab);
             // 
@@ -1253,22 +1253,23 @@ namespace Tabster.Forms
             this.newPlaylistToolStripMenuItem.Name = "newPlaylistToolStripMenuItem";
             this.newPlaylistToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.N)));
-            this.newPlaylistToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.newPlaylistToolStripMenuItem.Text = "New &Playlist";
+            this.newPlaylistToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.newPlaylistToolStripMenuItem.Text = "New &Playlist...";
             this.newPlaylistToolStripMenuItem.Click += new System.EventHandler(this.NewPlaylist);
             // 
             // openTabToolStripMenuItem
             // 
             this.openTabToolStripMenuItem.Name = "openTabToolStripMenuItem";
             this.openTabToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openTabToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.openTabToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.openTabToolStripMenuItem.Text = "&Open...";
             this.openTabToolStripMenuItem.Click += new System.EventHandler(this.BrowseTab);
             // 
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.importToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.importToolStripMenuItem.Text = "Import...";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
@@ -1283,7 +1284,7 @@ namespace Tabster.Forms
             this.recentlyViewedToolStripMenuItem.Name = "recentlyViewedToolStripMenuItem";
             this.recentlyViewedToolStripMenuItem.OpenAllOptionText = "Open All Recent Items";
             this.recentlyViewedToolStripMenuItem.PrependItemNumbers = true;
-            this.recentlyViewedToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.recentlyViewedToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.recentlyViewedToolStripMenuItem.Text = "Open Recent";
             this.recentlyViewedToolStripMenuItem.Visible = false;
             this.recentlyViewedToolStripMenuItem.OnAllItemsOpened += new System.EventHandler(this.recentlyViewedToolStripMenuItem_OnAllItemsOpened);
@@ -1291,7 +1292,7 @@ namespace Tabster.Forms
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
