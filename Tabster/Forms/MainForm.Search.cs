@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using Tabster.Core.FileTypes;
 using Tabster.Core.Parsing;
-using Tabster.Core.Plugins;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Utilities;
@@ -68,12 +67,17 @@ namespace Tabster.Forms
 
                 foreach (var service in selectedServices)
                 {
+                    //check service flags
                     if (((service.Flags & SearchServiceFlags.RequiresArtistParameter) == SearchServiceFlags.RequiresArtistParameter && string.IsNullOrEmpty(searchArtist)) ||
                         (((service.Flags & SearchServiceFlags.RequiresTitleParameter) == SearchServiceFlags.RequiresTitleParameter && string.IsNullOrEmpty(searchTitle))) ||
                         (((service.Flags & SearchServiceFlags.RequiresTypeParamter) == SearchServiceFlags.RequiresTypeParamter && !_activeSearchType.HasValue)))
                     {
                         continue;
                     }
+
+                    //skip services that don't support ratings
+                    if (_activeSearchRating.HasValue && !service.SupportsRatings)
+                        continue;
 
                     searchQueries.Add(new SearchQuery(service, searchArtist, searchTitle, _activeSearchType));
                 }
