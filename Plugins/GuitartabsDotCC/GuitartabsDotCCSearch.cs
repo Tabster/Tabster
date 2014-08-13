@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using HtmlAgilityPack;
 using Tabster.Core.FileTypes;
@@ -43,8 +44,9 @@ namespace GuitartabsDotCC
         {
             var results = new List<SearchResult>();
 
-            var urlEncodedArtist = HttpUtility.UrlEncode(query.Artist);
-            var urlEncodedTitle = HttpUtility.UrlEncode(query.Title);
+            //sanitize parameters prior to encoding
+            var urlEncodedArtist = HttpUtility.UrlEncode(SanitizeParameter(query.Artist));
+            var urlEncodedTitle = HttpUtility.UrlEncode(SanitizeParameter(query.Title));
 
             var typeStr = "any";
 
@@ -142,6 +144,30 @@ namespace GuitartabsDotCC
         #endregion
 
         #region Static Methods
+
+        private static Regex _mappingRegex;
+
+        private static readonly Dictionary<string, string> _customCharacterMappings = new Dictionary<string, string>
+                                                                                          {
+                                                                                              {"//", "_"}
+                                                                                          };
+
+        private static string SanitizeParameter(string str, string defaultReplacement = "_")
+        {
+            if (_mappingRegex == null)
+            {
+                var pattern = new StringBuilder("[");
+                foreach (var key in _customCharacterMappings.Keys)
+                    pattern.Append(Regex.Escape(key));
+                pattern.Append("]");
+
+                _mappingRegex = new Regex(pattern.ToString(), RegexOptions.Compiled);
+            }
+
+            return _mappingRegex.Replace(str, match => _customCharacterMappings.ContainsKey(match.Value)
+                                                           ? _customCharacterMappings[match.Value]
+                                                           : defaultReplacement);
+        }
 
         private static TabRating? GetRating(string style)
         {
