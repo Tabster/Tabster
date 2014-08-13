@@ -24,11 +24,17 @@ namespace Tabster.Core.FileTypes
         {
         }
 
-        public TablatureDocument(string artist, string title, TabType type, string contents) : this()
+        public TablatureDocument(string artist, string title, TabType type)
+            : this()
         {
             Artist = artist;
             Title = title;
             Type = type;
+            
+        }
+
+        public TablatureDocument(string artist, string title, TabType type, string contents) : this(artist, title, type)
+        {
             Contents = contents;
         }
 
