@@ -58,7 +58,7 @@ namespace Tabster.Forms
         private const int PREVIEW_DISPLAY_DELAY_DURATION = 100;
 
         //time (in ms) where a tab is considered having been "viewed" while in preview editor
-        private const int PREVIEW_DISPLAY_VIEW_DURATION = 5000;
+        private const int PREVIEW_DISPLAY_VIEWED_DURATION = 5000;
 
         private bool IsViewingLibrary()
         {
