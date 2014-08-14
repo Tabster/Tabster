@@ -7,7 +7,7 @@ using Tabster.Core.Types;
 
 #endregion
 
-namespace Tabster.Core.FileTypes
+namespace Tabster.Core.Data
 {
     public class TablatureDocument : ITabsterDocument, ITablatureSourced, ITablatureUserDefined
     {

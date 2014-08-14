@@ -3,7 +3,7 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using Tabster.Core.FileTypes;
+using Tabster.Core.Data;
 using Tabster.Core.Types;
 
 #endregion

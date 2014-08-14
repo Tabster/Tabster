@@ -1,7 +1,7 @@
 ﻿#region
 
 using System.Collections.Generic;
-using Tabster.Core.FileTypes;
+using Tabster.Core.Data;
 
 #endregion
 

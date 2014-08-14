@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Tabster.Controls;
-using Tabster.Core.FileTypes;
+using Tabster.Core.Data;
 using Tabster.Core.Types;
 using Tabster.Properties;
 using Tabster.Utilities;

@@ -1,7 +1,7 @@
 #region
 
 using System;
-using Tabster.Core.FileTypes;
+using Tabster.Core.Data;
 using Tabster.Core.Types;
 
 #endregion
@@ -20,6 +20,7 @@ namespace Tabster.Core.Parsing
         /// <param name="type"> Explicitly defined type. </param>
         /// <returns> Parsed tab. </returns>
         TablatureDocument Parse(Uri url, TabType? type);
+        //todo remove nullable
 
         ///<summary>
         ///  Determines whether a specified URL matches a specific pattern used by the parser. Used for web-based parsing.

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Tabster.Controls;
-using Tabster.Core.FileTypes;
+using Tabster.Core.Data;
 using Tabster.Forms;
 
 #endregion

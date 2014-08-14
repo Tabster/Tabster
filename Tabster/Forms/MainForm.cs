@@ -6,7 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using Tabster.Controls;
-using Tabster.Core.FileTypes;
+using Tabster.Core.Data;
 using Tabster.Core.Parsing;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;

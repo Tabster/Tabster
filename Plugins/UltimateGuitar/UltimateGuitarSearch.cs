@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 using HtmlAgilityPack;
-using Tabster.Core.FileTypes;
+using Tabster.Core.Data;
 using Tabster.Core.Parsing;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;

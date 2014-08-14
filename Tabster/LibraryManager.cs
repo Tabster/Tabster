@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using Microsoft.VisualBasic.FileIO;
-using Tabster.Core.FileTypes;
+using Tabster.Core.Data;
 using Tabster.Utilities;
 using SearchOption = System.IO.SearchOption;
 

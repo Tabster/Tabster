@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Tabster.Controls;
-using Tabster.Core.FileTypes;
+using Tabster.Core.Data;
 using Tabster.Core.Types;
 using Tabster.Utilities;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;

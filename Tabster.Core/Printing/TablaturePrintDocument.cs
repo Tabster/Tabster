@@ -4,7 +4,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
-using Tabster.Core.FileTypes;
+using Tabster.Core.Data;
 using Tabster.Core.Types;
 
 #endregion

@@ -3,7 +3,7 @@
 using System;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
-using Tabster.Core.FileTypes;
+using Tabster.Core.Data;
 using Tabster.Core.Parsing;
 using Tabster.Core.Types;
 

@@ -37,7 +37,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileTypes\TabsterXmlDocument.cs" />
+    <Compile Include="Data\TabsterXmlDocument.cs" />
     <Compile Include="Parsing\IStringTabParser.cs" />
     <Compile Include="Parsing\IWebTabParser.cs" />
     <Compile Include="Parsing\TabParserException.cs" />
@@ -54,17 +54,17 @@
     <Compile Include="Types\ITablaturePlaylist.cs" />
     <Compile Include="Types\TabRating.cs" />
     <Compile Include="Utilities\ExtensionAttribute.cs" />
-    <Compile Include="FileTypes\TablatureDocument.cs" />
-    <Compile Include="FileTypes\TabsterDocumentProcessor.cs" />
-    <Compile Include="FileTypes\ITabsterDocument.cs" />
-    <Compile Include="FileTypes\TablaturePlaylistDocument.cs" />
+    <Compile Include="Data\TablatureDocument.cs" />
+    <Compile Include="Data\TabsterDocumentProcessor.cs" />
+    <Compile Include="Data\ITabsterDocument.cs" />
+    <Compile Include="Data\TablaturePlaylistDocument.cs" />
     <Compile Include="Types\ITablature.cs" />
     <Compile Include="Parsing\ITabParser.cs" />
     <Compile Include="Searching\ISearchService.cs" />
     <Compile Include="Plugins\ITabsterPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Plugins\TabsterPluginException.cs" />
-    <Compile Include="FileTypes\TabsterDocumentCollection.cs" />
+    <Compile Include="Data\TabsterDocumentCollection.cs" />
     <Compile Include="Types\ITablatureUserDefined.cs" />
     <Compile Include="Types\TablatureSourceType.cs" />
     <Compile Include="Types\TabType.cs" />

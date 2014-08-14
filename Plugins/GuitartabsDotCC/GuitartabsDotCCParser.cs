@@ -2,7 +2,7 @@
 
 using System;
 using HtmlAgilityPack;
-using Tabster.Core.FileTypes;
+using Tabster.Core.Data;
 using Tabster.Core.Parsing;
 using Tabster.Core.Types;
 

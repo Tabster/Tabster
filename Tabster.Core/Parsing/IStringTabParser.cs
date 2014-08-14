@@ -1,6 +1,6 @@
 #region
 
-using Tabster.Core.FileTypes;
+using Tabster.Core.Data;
 using Tabster.Core.Types;
 
 #endregion
@@ -19,5 +19,6 @@ namespace Tabster.Core.Parsing
         /// <param name="type"> Explicitly defined type. </param>
         /// <returns> Parsed tab. </returns>
         TablatureDocument Parse(string text, TabType? type);
+        //todo remove nullable
     }
 }

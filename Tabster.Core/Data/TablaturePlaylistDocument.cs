@@ -6,7 +6,7 @@ using Tabster.Core.Types;
 
 #endregion
 
-namespace Tabster.Core.FileTypes
+namespace Tabster.Core.Data
 {
     public class TablaturePlaylistDocument : TabsterDocumentCollection<TablatureDocument>, ITablaturePlaylist, ITabsterDocument
     {
