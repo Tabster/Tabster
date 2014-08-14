@@ -8,7 +8,6 @@ using System.Xml;
 using Tabster.Controls;
 using Tabster.Core.FileTypes;
 using Tabster.Core.Parsing;
-using Tabster.Core.Plugins;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Properties;
@@ -24,7 +23,7 @@ namespace Tabster.Forms
     {
         private readonly TablatureDocument _queuedTabfile;
         private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDirectory, "recent.dat");
-        private readonly TabsterDocumentProcessor<TablatureDocument> _tablatureProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
+        private readonly TabsterDocumentProcessor<TablatureDocument> _tablatureProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true, false);
         private bool _initialLibraryLoaded;
 
         public MainForm()

@@ -18,7 +18,7 @@ namespace Tabster.Core.FileTypes
         #endregion
 
         private readonly TabsterXmlDocument _doc = new TabsterXmlDocument("tablist");
-        private readonly TabsterDocumentProcessor<TablatureDocument> _processor = new TabsterDocumentProcessor<TablatureDocument>(FILE_VERSION, true);
+        private readonly TabsterDocumentProcessor<TablatureDocument> _processor = new TabsterDocumentProcessor<TablatureDocument>(FILE_VERSION, true, false);
 
         #region Constructors
 
@@ -59,14 +59,11 @@ namespace Tabster.Core.FileTypes
 
             foreach (var file in files)
             {
-                if (File.Exists(file))
-                {
-                    var doc = _processor.Load(file);
+                var doc = _processor.Load(file);
 
-                    if (doc != null)
-                    {
-                        Add(doc);
-                    }
+                if (doc != null)
+                {
+                    Add(doc);
                 }
             }
         }

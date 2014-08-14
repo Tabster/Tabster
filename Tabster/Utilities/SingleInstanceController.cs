@@ -54,7 +54,7 @@ namespace Tabster.Utilities
 
                 if (File.Exists(firstArg))
                 {
-                    var processor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
+                    var processor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true, false);
 
                     var tab = processor.Load(firstArg);
 
