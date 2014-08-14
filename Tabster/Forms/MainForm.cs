@@ -56,6 +56,9 @@ namespace Tabster.Forms
                 menuStrip1.Renderer = new MenuStripRenderer();
             }
 
+            PreviewDisplayDelay.Interval = PREVIEW_DISPLAY_DELAY_DURATION;
+            PreviewDisplayTimer.Interval = PREVIEW_DISPLAY_VIEWED_DURATION;
+
             CachePluginResources();
 
             InitializeSearchControls();

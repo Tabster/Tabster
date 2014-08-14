@@ -54,6 +54,12 @@ namespace Tabster.Forms
         private bool _switchingNavigationOption;
         private TablatureEditor _tabPreviewEditor;
 
+        //time (in ms) where tab is displayed in preview editor after being selected
+        private const int PREVIEW_DISPLAY_DELAY_DURATION = 100;
+
+        //time (in ms) where a tab is considered having been "viewed" while in preview editor
+        private const int PREVIEW_DISPLAY_VIEW_DURATION = 5000;
+
         private bool IsViewingLibrary()
         {
             return tabControl1.SelectedTab == display_library;
@@ -129,7 +135,7 @@ namespace Tabster.Forms
             }
         }
 
-        private void UpdateTabControls(bool beginPreviewLoad)
+        private void UpdateTabControls(bool beginPreviewLoadTimer)
         {
             if (tablibrary.SelectedRows.Count > 0)
             {
@@ -154,10 +160,10 @@ namespace Tabster.Forms
             openTabLocationToolStripMenuItem.Enabled = SelectedTab != null;
             searchSimilarToolStripMenuItem.Enabled = SelectedTab != null;
 
-            if (beginPreviewLoad)
+            if (beginPreviewLoadTimer)
             {
-                PreviewDelay.Stop();
-                PreviewDelay.Start();
+                PreviewDisplayDelay.Stop();
+                PreviewDisplayDelay.Start();
             }
         }
 
@@ -176,7 +182,7 @@ namespace Tabster.Forms
                 if (!_initialLibraryLoaded)
                 {
                     UpdateTabControls(false);
-                    LoadTabPreview();
+                    LoadTabPreview(false);
                 }
 
                 _switchingNavigationOption = false;
@@ -643,14 +649,16 @@ namespace Tabster.Forms
             }
         }
 
-        private void PreviewDelay_Tick(object sender, EventArgs e)
+        private void PreviewDisplayDelay_Tick(object sender, EventArgs e)
         {
-            PreviewDelay.Stop();
+            PreviewDisplayDelay.Stop();
             LoadTabPreview();
         }
 
-        private void LoadTabPreview()
+        private void LoadTabPreview(bool startViewCountTimer = true)
         {
+            PreviewDisplayTimer.Stop();
+
             if (SelectedTab != null)
             {
                 lblpreviewtitle.Text = SelectedTab.ToFriendlyString();
@@ -683,6 +691,11 @@ namespace Tabster.Forms
                         _tabPreviewEditor.AutoScroll = false;
                         _tabPreviewEditor.ScrollToLine(0);
                         offToolStripMenuItem.PerformClick();
+                    }
+
+                    if (startViewCountTimer)
+                    {
+                        PreviewDisplayTimer.Start();
                     }
 
                     _tabPreviewEditor = editor;
@@ -854,6 +867,20 @@ namespace Tabster.Forms
             librarycontextaddtoplaylist.DropDownItems.Add(newplaylistmenuitem);
 
             UpdateDetails();
+        }
+
+        #endregion
+
+        #region Preview Display
+
+        private void PreviewDisplayTimer_Tick(object sender, EventArgs e)
+        {
+            if (SelectedTab != null)
+            {
+                Program.libraryManager.IncrementViewCount(SelectedTab);
+            }
+
+            PreviewDisplayTimer.Stop();
         }
 
         #endregion
