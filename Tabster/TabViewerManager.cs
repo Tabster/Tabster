@@ -53,6 +53,9 @@ namespace Tabster
 
             if (show && !viewer.Visible)
             {
+                Program.libraryManager.IncrementViewCount(doc);
+
+
                 var mainForm = Program.instanceController.MainForm;
                 viewer.StartPosition = FormStartPosition.Manual;
                 viewer.Location = new Point(mainForm.Location.X + (mainForm.Width - viewer.Width)/2, mainForm.Location.Y + (mainForm.Height - viewer.Height)/2);
@@ -68,17 +71,23 @@ namespace Tabster
 
         public TablatureEditor TryGetEditor(TablatureDocument tab, out bool openedExternally, out bool isNew)
         {
+            TablatureEditor editor;
+
             if (_editors.ContainsKey(tab))
             {
                 openedExternally = IsOpenedExternally(tab);
                 isNew = false;
-                return _editors[tab];
+                editor = _editors[tab];
             }
 
-            openedExternally = false;
-            isNew = true;
-            var editor = new TablatureEditor {Dock = DockStyle.Fill};
-            _editors[tab] = editor;
+            else
+            {
+                openedExternally = false;
+                isNew = true;
+                editor = new TablatureEditor { Dock = DockStyle.Fill };
+                _editors[tab] = editor;
+            }
+
             return editor;
         }
     }

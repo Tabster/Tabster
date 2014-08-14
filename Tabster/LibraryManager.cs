@@ -23,12 +23,11 @@ namespace Tabster
     {
         private static readonly Version INDEX_VERSION = new Version("1.0");
 
-        private readonly TabsterXmlDocument _indexDoc = new TabsterXmlDocument("library");
-        private readonly string _indexPath;
-
         private readonly Dictionary<TablatureDocument, LibraryAttributes> FileAttributes = new Dictionary<TablatureDocument, LibraryAttributes>();
 
         private readonly TabsterDocumentProcessor<TablatureDocument> _documentProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true, false);
+        private readonly TabsterXmlDocument _indexDoc = new TabsterXmlDocument("library");
+        private readonly string _indexPath;
         private readonly TabsterDocumentProcessor<TablaturePlaylistDocument> _playlistProcessor = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true, false);
 
         private readonly List<TablaturePlaylistDocument> _playlists = new List<TablaturePlaylistDocument>();
@@ -71,7 +70,7 @@ namespace Tabster
             _playlists.Clear();
 
             var loadFromCache = File.Exists(_indexPath);
-            
+
             if (loadFromCache)
             {
                 _indexDoc.Load(_indexPath);
@@ -88,13 +87,22 @@ namespace Tabster
 
                             if (doc != null)
                             {
-                                var favorited = node.Attributes["favorite"] != null && node.Attributes["favorite"].Value == "true";
+                                var attributes = node.Attributes;
 
-                                var attributes = new LibraryAttributes {Favorited = favorited};
+                                if (attributes != null)
+                                {
+                                    var favorited = attributes["favorite"] != null && attributes["favorite"].Value == "true";
 
-                                Add(doc);
+                                    var views = 0;
+                                    if (attributes["views"] != null)
+                                        int.TryParse(attributes["views"].Value, out views);
 
-                                FileAttributes[doc] = attributes;
+                                    var libraryAttributes = new LibraryAttributes {Favorited = favorited, Views = views};
+
+                                    Add(doc);
+
+                                    FileAttributes[doc] = libraryAttributes;
+                                }
                             }
                         }
                     }
@@ -177,6 +185,22 @@ namespace Tabster
         public LibraryAttributes GetLibraryAttributes(TablatureDocument doc)
         {
             return FileAttributes.ContainsKey(doc) ? FileAttributes[doc] : new LibraryAttributes();
+        }
+
+        public void SetViewCount(TablatureDocument doc, int count)
+        {
+            var att = GetLibraryAttributes(doc);
+
+            if (att != null)
+                att.Views = count;
+        }
+
+        public void IncrementViewCount(TablatureDocument doc)
+        {
+            var att = GetLibraryAttributes(doc);
+
+            if (att != null)
+                att.Views += 1;
         }
 
         #region Tablature Methods
