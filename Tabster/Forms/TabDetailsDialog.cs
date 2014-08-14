@@ -40,6 +40,7 @@ namespace Tabster.Forms
             var attributes = Program.libraryManager.GetLibraryAttributes(_tabDocument);
 
             lblfavorited.Text = string.Format("Favorited: {0}", (attributes.Favorited ? "Yes" : "No"));
+            lblViewCount.Text = string.Format("Views: {0}", attributes.Views);
 
             var playlistCount = 0;
 
