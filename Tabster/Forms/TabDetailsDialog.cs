@@ -41,6 +41,7 @@ namespace Tabster.Forms
 
             lblfavorited.Text = string.Format("Favorited: {0}", (attributes.Favorited ? "Yes" : "No"));
             lblViewCount.Text = string.Format("Views: {0}", attributes.Views);
+            lblLastViewed.Text = string.Format("Last Viewed: {0}", attributes.LastViewed.HasValue ? attributes.LastViewed.Value.ToString() : "Never");
 
             var playlistCount = 0;
 

@@ -31,6 +31,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblPlaylistCount = new System.Windows.Forms.Label();
+            this.lblViewCount = new System.Windows.Forms.Label();
             this.lblfavorited = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblModified = new System.Windows.Forms.Label();
@@ -49,8 +51,7 @@
             this.okbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
             this.txtlocation = new System.Windows.Forms.TextBox();
-            this.lblViewCount = new System.Windows.Forms.Label();
-            this.lblPlaylistCount = new System.Windows.Forms.Label();
+            this.lblLastViewed = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -60,14 +61,13 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(488, 211);
+            this.tabControl1.Size = new System.Drawing.Size(538, 225);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -79,7 +79,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(480, 185);
+            this.tabPage1.Size = new System.Drawing.Size(530, 199);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Summary";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -89,15 +89,34 @@
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.lblLastViewed);
             this.groupBox3.Controls.Add(this.lblPlaylistCount);
             this.groupBox3.Controls.Add(this.lblViewCount);
             this.groupBox3.Controls.Add(this.lblfavorited);
-            this.groupBox3.Location = new System.Drawing.Point(277, 104);
+            this.groupBox3.Location = new System.Drawing.Point(309, 101);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(197, 75);
+            this.groupBox3.Size = new System.Drawing.Size(215, 92);
             this.groupBox3.TabIndex = 40;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Library Information:";
+            // 
+            // lblPlaylistCount
+            // 
+            this.lblPlaylistCount.AutoSize = true;
+            this.lblPlaylistCount.Location = new System.Drawing.Point(6, 67);
+            this.lblPlaylistCount.Name = "lblPlaylistCount";
+            this.lblPlaylistCount.Size = new System.Drawing.Size(99, 13);
+            this.lblPlaylistCount.TabIndex = 4;
+            this.lblPlaylistCount.Text = "Found in 0 playlists.";
+            // 
+            // lblViewCount
+            // 
+            this.lblViewCount.AutoSize = true;
+            this.lblViewCount.Location = new System.Drawing.Point(6, 33);
+            this.lblViewCount.Name = "lblViewCount";
+            this.lblViewCount.Size = new System.Drawing.Size(47, 13);
+            this.lblViewCount.TabIndex = 3;
+            this.lblViewCount.Text = "Views: 0";
             // 
             // lblfavorited
             // 
@@ -117,9 +136,9 @@
             this.groupBox2.Controls.Add(this.lblCreated);
             this.groupBox2.Controls.Add(this.lblLength);
             this.groupBox2.Controls.Add(this.lblFormat);
-            this.groupBox2.Location = new System.Drawing.Point(277, 6);
+            this.groupBox2.Location = new System.Drawing.Point(309, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(197, 102);
+            this.groupBox2.Size = new System.Drawing.Size(215, 96);
             this.groupBox2.TabIndex = 39;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "File Information:";
@@ -175,10 +194,10 @@
             this.groupBox1.Controls.Add(this.txtsong);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(265, 173);
+            this.groupBox1.Size = new System.Drawing.Size(347, 187);
             this.groupBox1.TabIndex = 38;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Metadata:";
+            this.groupBox1.Text = "Tablature Information:";
             // 
             // label16
             // 
@@ -201,7 +220,7 @@
             this.txtcomment.Location = new System.Drawing.Point(66, 95);
             this.txtcomment.Multiline = true;
             this.txtcomment.Name = "txtcomment";
-            this.txtcomment.Size = new System.Drawing.Size(193, 72);
+            this.txtcomment.Size = new System.Drawing.Size(225, 80);
             this.txtcomment.TabIndex = 4;
             // 
             // label17
@@ -236,7 +255,7 @@
             this.txtartist.ForeColor = System.Drawing.SystemColors.ControlText;
             this.txtartist.Location = new System.Drawing.Point(66, 16);
             this.txtartist.Name = "txtartist";
-            this.txtartist.Size = new System.Drawing.Size(193, 20);
+            this.txtartist.Size = new System.Drawing.Size(225, 20);
             this.txtartist.TabIndex = 0;
             // 
             // label3
@@ -271,14 +290,14 @@
             this.txtsong.ForeColor = System.Drawing.SystemColors.ControlText;
             this.txtsong.Location = new System.Drawing.Point(66, 42);
             this.txtsong.Name = "txtsong";
-            this.txtsong.Size = new System.Drawing.Size(193, 20);
+            this.txtsong.Size = new System.Drawing.Size(225, 20);
             this.txtsong.TabIndex = 1;
             // 
             // okbtn
             // 
             this.okbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okbtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okbtn.Location = new System.Drawing.Point(342, 255);
+            this.okbtn.Location = new System.Drawing.Point(394, 269);
             this.okbtn.Name = "okbtn";
             this.okbtn.Size = new System.Drawing.Size(75, 23);
             this.okbtn.TabIndex = 25;
@@ -290,7 +309,7 @@
             // 
             this.cancelbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelbtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelbtn.Location = new System.Drawing.Point(425, 255);
+            this.cancelbtn.Location = new System.Drawing.Point(475, 269);
             this.cancelbtn.Name = "cancelbtn";
             this.cancelbtn.Size = new System.Drawing.Size(75, 23);
             this.cancelbtn.TabIndex = 24;
@@ -300,31 +319,24 @@
             // 
             // txtlocation
             // 
+            this.txtlocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtlocation.BackColor = System.Drawing.SystemColors.Control;
             this.txtlocation.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txtlocation.Location = new System.Drawing.Point(12, 219);
+            this.txtlocation.Location = new System.Drawing.Point(12, 243);
             this.txtlocation.Name = "txtlocation";
             this.txtlocation.ReadOnly = true;
-            this.txtlocation.Size = new System.Drawing.Size(488, 20);
+            this.txtlocation.Size = new System.Drawing.Size(538, 20);
             this.txtlocation.TabIndex = 41;
             // 
-            // lblViewCount
+            // lblLastViewed
             // 
-            this.lblViewCount.AutoSize = true;
-            this.lblViewCount.Location = new System.Drawing.Point(6, 33);
-            this.lblViewCount.Name = "lblViewCount";
-            this.lblViewCount.Size = new System.Drawing.Size(47, 13);
-            this.lblViewCount.TabIndex = 3;
-            this.lblViewCount.Text = "Views: 0";
-            // 
-            // lblPlaylistCount
-            // 
-            this.lblPlaylistCount.AutoSize = true;
-            this.lblPlaylistCount.Location = new System.Drawing.Point(6, 50);
-            this.lblPlaylistCount.Name = "lblPlaylistCount";
-            this.lblPlaylistCount.Size = new System.Drawing.Size(99, 13);
-            this.lblPlaylistCount.TabIndex = 4;
-            this.lblPlaylistCount.Text = "Found in 0 playlists.";
+            this.lblLastViewed.AutoSize = true;
+            this.lblLastViewed.Location = new System.Drawing.Point(6, 50);
+            this.lblLastViewed.Name = "lblLastViewed";
+            this.lblLastViewed.Size = new System.Drawing.Size(100, 13);
+            this.lblLastViewed.TabIndex = 5;
+            this.lblLastViewed.Text = "Last Viewed: Never";
             // 
             // TabDetailsDialog
             // 
@@ -332,7 +344,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelbtn;
-            this.ClientSize = new System.Drawing.Size(512, 290);
+            this.ClientSize = new System.Drawing.Size(562, 304);
             this.Controls.Add(this.txtlocation);
             this.Controls.Add(this.okbtn);
             this.Controls.Add(this.cancelbtn);
@@ -384,5 +396,6 @@
         private System.Windows.Forms.Label lblfavorited;
         private System.Windows.Forms.Label lblPlaylistCount;
         private System.Windows.Forms.Label lblViewCount;
+        private System.Windows.Forms.Label lblLastViewed;
     }
 }
