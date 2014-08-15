@@ -17,6 +17,7 @@ namespace Tabster
     {
         public bool Favorited { get; set; }
         public int Views { get; set; }
+        public DateTime? LastViewed { get; set; }
     }
 
     internal class LibraryManager : TabsterDocumentCollection<TablatureDocument>
@@ -97,7 +98,12 @@ namespace Tabster
                                     if (attributes["views"] != null)
                                         int.TryParse(attributes["views"].Value, out views);
 
-                                    var libraryAttributes = new LibraryAttributes {Favorited = favorited, Views = views};
+                                    DateTime? lastViewed = null;
+                                    DateTime dt;
+                                    if (attributes["last_viewed"] != null && DateTime.TryParse(attributes["last_viewed"].Value, out dt))
+                                        lastViewed = dt;
+
+                                    var libraryAttributes = new LibraryAttributes { Favorited = favorited, Views = views, LastViewed = lastViewed };
 
                                     Add(doc);
 
@@ -164,7 +170,8 @@ namespace Tabster
                                         new SortedDictionary<string, string>
                                             {
                                                 {"favorite", attributes.Favorited ? "true" : "false"},
-                                                {"views", attributes.Views.ToString()}
+                                                {"views", attributes.Views.ToString()},
+                                                {"last_viewed", attributes.LastViewed == null ? string.Empty : attributes.LastViewed.Value.ToString()}
                                             }, false);
                 }
             }
@@ -201,6 +208,14 @@ namespace Tabster
 
             if (att != null)
                 att.Views += 1;
+        }
+
+        public void SetLastViewed(TablatureDocument doc, DateTime date)
+        {
+            var att = GetLibraryAttributes(doc);
+
+            if (att != null)
+                att.LastViewed = date;
         }
 
         #region Tablature Methods

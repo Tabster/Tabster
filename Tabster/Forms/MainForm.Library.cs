@@ -884,6 +884,7 @@ namespace Tabster.Forms
             if (SelectedTab != null)
             {
                 Program.libraryManager.IncrementViewCount(SelectedTab);
+                Program.libraryManager.SetLastViewed(SelectedTab, DateTime.Now);
                 UpdateLibraryItem(SelectedTab, false);
             }
 

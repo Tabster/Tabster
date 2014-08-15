@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -54,7 +55,7 @@ namespace Tabster
             if (show && !viewer.Visible)
             {
                 Program.libraryManager.IncrementViewCount(doc);
-
+                Program.libraryManager.SetLastViewed(doc, DateTime.Now);
 
                 var mainForm = Program.instanceController.MainForm;
                 viewer.StartPosition = FormStartPosition.Manual;
