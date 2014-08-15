@@ -567,28 +567,34 @@ namespace Tabster.Forms
 
         public void UpdateLibraryItem(TablatureDocument tab, bool append = true)
         {
-            var objValues = new object[]
-                                {
-                                    tab.Title,
-                                    tab.Artist,
-                                    tab.Type.ToFriendlyString(),
-                                    tab.Created,
-                                    tab.FileInfo.LastWriteTime,
-                                    tab.FileInfo.FullName
-                                };
+            var attributes = Program.libraryManager.GetLibraryAttributes(tab);
 
-            if (append)
+            if (attributes != null)
             {
-                tablibrary.Rows.Add(objValues);
+                var objValues = new object[]
+                                    {
+                                        tab.Title,
+                                        tab.Artist,
+                                        tab.Type.ToFriendlyString(),
+                                        tab.Created,
+                                        tab.FileInfo.LastWriteTime,
+                                        attributes.Views,
+                                        tab.FileInfo.FullName
+                                    };
 
-                if (tablibrary.SortedColumn != null)
-                    tablibrary.Sort(tablibrary.SortedColumn, tablibrary.SortOrder == SortOrder.Ascending ? ListSortDirection.Ascending : ListSortDirection.Descending);
-            }
+                if (append)
+                {
+                    tablibrary.Rows.Add(objValues);
 
-            else if (tablibrary.SelectedRows.Count > 0)
-            {
-                var selectedIndex = tablibrary.SelectedRows[0].Index;
-                tablibrary.Rows[selectedIndex].SetValues(objValues);
+                    if (tablibrary.SortedColumn != null)
+                        tablibrary.Sort(tablibrary.SortedColumn, tablibrary.SortOrder == SortOrder.Ascending ? ListSortDirection.Ascending : ListSortDirection.Descending);
+                }
+
+                else if (tablibrary.SelectedRows.Count > 0)
+                {
+                    var selectedIndex = tablibrary.SelectedRows[0].Index;
+                    tablibrary.Rows[selectedIndex].SetValues(objValues);
+                }
             }
         }
 
@@ -878,6 +884,7 @@ namespace Tabster.Forms
             if (SelectedTab != null)
             {
                 Program.libraryManager.IncrementViewCount(SelectedTab);
+                UpdateLibraryItem(SelectedTab, false);
             }
 
             PreviewDisplayTimer.Stop();
