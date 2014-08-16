@@ -5,6 +5,7 @@
     /// </summary>
     public enum TabRating
     {
+        None = 0,
         Stars1 = 1,
         Stars2 = 2,
         Stars3 = 3,
