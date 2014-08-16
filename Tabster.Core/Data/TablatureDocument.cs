@@ -67,7 +67,26 @@ namespace Tabster.Core.Data
 
             Title = _doc.TryReadNodeValue("song") ?? _doc.TryReadNodeValue("title", string.Empty);
             Artist = _doc.TryReadNodeValue("artist", string.Empty);
-            Type = TabTypeUtilities.FromFriendlyString(_doc.TryReadNodeValue("type", string.Empty)).Value;
+
+            var tabTypeValue = _doc.TryReadNodeValue("type");
+            TabType? type = null;
+
+            if (tabTypeValue != null && Enum.IsDefined(typeof(TabType), tabTypeValue))
+            {
+                type = (TabType)Enum.Parse(typeof(TabType), tabTypeValue);
+            }
+
+            else //legacy
+            {
+                var fromString = FromFriendlyString(tabTypeValue);
+
+                if (fromString.HasValue)
+                    type = fromString.Value;
+            }
+
+            if (!type.HasValue)
+                throw new TabsterDocumentException("Invalid or missing tab type");
+
             Contents = _doc.TryReadNodeValue("tab", string.Empty);
 
             Created = DateTime.Parse(_doc.TryReadNodeValue("date") ?? _doc.TryReadNodeValue("created") ?? FileInfo.CreationTime.ToString());
@@ -99,8 +118,6 @@ namespace Tabster.Core.Data
 
             if (!string.IsNullOrEmpty(ratingValue))
                 Rating = (TabRating) int.Parse(ratingValue);
-
-            Update();
         }
 
         public void Save()
@@ -114,7 +131,7 @@ namespace Tabster.Core.Data
 
             _doc.WriteNode("title", Title);
             _doc.WriteNode("artist", Artist);
-            _doc.WriteNode("type", Type.ToFriendlyString());
+            _doc.WriteNode("type", Type.ToString());
             _doc.WriteNode("tab", Contents);
 
             var sourceValue = "UserCreated";
@@ -181,6 +198,27 @@ namespace Tabster.Core.Data
 
         #endregion
 
+        #region Static Methods
+
+        public static TabType? FromFriendlyString(string str)
+        {
+            switch(str)
+            {
+                case "Guitar Tab":
+                    return TabType.Guitar;
+                case "Guitar Chords":
+                    return TabType.Chords;
+                case "Bass Tab":
+                    return TabType.Bass;
+                case "Drum Tab":
+                    return TabType.Drum;
+                case "Ukulele Tab":
+                    return TabType.Ukulele;
+            }
+
+            return null;
+        }
+
         private static string StripHTML(string source)
         {
             var array = new char[source.Length];
@@ -212,6 +250,8 @@ namespace Tabster.Core.Data
 
             return new string(array, 0, arrayIndex);
         }
+
+        #endregion
 
         #region Implementation of IEquatable<ITabsterDocument>
 
