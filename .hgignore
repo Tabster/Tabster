@@ -1,5 +1,9 @@
 syntax: glob
 
+## Build installers
+
+Build/*.exe
+
 ## User-specific files
 
 *.suo
