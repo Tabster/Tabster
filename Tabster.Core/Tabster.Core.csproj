@@ -37,6 +37,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\TabsterDocumentException.cs" />
     <Compile Include="Data\TabsterXmlDocument.cs" />
     <Compile Include="Parsing\IStringTabParser.cs" />
     <Compile Include="Parsing\IWebTabParser.cs" />
