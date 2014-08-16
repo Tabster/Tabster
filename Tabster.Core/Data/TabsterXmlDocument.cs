@@ -84,6 +84,21 @@ namespace Tabster.Core.Data
             return elem != null ? elem.InnerText : defaultValue;
         }
 
+        public string TryReadNodeValues(string[] names, string defaultValue = null)
+        {
+            foreach (var name in names)
+            {
+                var value = TryReadNodeValue(name);
+
+                if (value != null)
+                {
+                    return value;
+                }
+            }
+
+            return defaultValue;
+        }
+
         public List<XmlNode> ReadChildNodes(string name)
         {
             var nodes = new List<XmlNode>();
