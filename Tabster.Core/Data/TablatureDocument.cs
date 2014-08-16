@@ -20,6 +20,8 @@ namespace Tabster.Core.Data
 
         private readonly TabsterXmlDocument _doc = new TabsterXmlDocument("tabster");
 
+        #region Constructors
+
         public TablatureDocument()
         {
         }
@@ -36,6 +38,8 @@ namespace Tabster.Core.Data
         {
             Contents = contents;
         }
+
+        #endregion
 
         #region Implementation of ITablature
 
