@@ -30,7 +30,6 @@ namespace Tabster.Core.Data
             Artist = artist;
             Title = title;
             Type = type;
-            
         }
 
         public TablatureDocument(string artist, string title, TabType type, string contents) : this(artist, title, type)
@@ -65,15 +64,15 @@ namespace Tabster.Core.Data
 
             _doc.Load(fileName);
 
-            Title = _doc.TryReadNodeValue("song") ?? _doc.TryReadNodeValue("title", string.Empty);
             Artist = _doc.TryReadNodeValue("artist", string.Empty);
+            Title = _doc.TryReadNodeValues(new[] {"song", "title"}, string.Empty);
 
             var tabTypeValue = _doc.TryReadNodeValue("type");
             TabType? type = null;
 
-            if (tabTypeValue != null && Enum.IsDefined(typeof(TabType), tabTypeValue))
+            if (tabTypeValue != null && Enum.IsDefined(typeof (TabType), tabTypeValue))
             {
-                type = (TabType)Enum.Parse(typeof(TabType), tabTypeValue);
+                type = (TabType) Enum.Parse(typeof (TabType), tabTypeValue);
             }
 
             else //legacy
@@ -89,7 +88,13 @@ namespace Tabster.Core.Data
 
             Contents = _doc.TryReadNodeValue("tab", string.Empty);
 
-            Created = DateTime.Parse(_doc.TryReadNodeValue("date") ?? _doc.TryReadNodeValue("created") ?? FileInfo.CreationTime.ToString());
+            var createdValue = _doc.TryReadNodeValues(new[] {"date", "created"});
+
+            DateTime createDatetime;
+
+            Created = !string.IsNullOrEmpty(createdValue) && DateTime.TryParse(createdValue, out createDatetime)
+                          ? createDatetime
+                          : FileInfo.CreationTime;
 
             Comment = _doc.TryReadNodeValue("comment", string.Empty);
 
@@ -108,7 +113,7 @@ namespace Tabster.Core.Data
                 else if (Uri.IsWellFormedUriString(sourceValue, UriKind.Absolute))
                 {
                     Source = new Uri(sourceValue);
-                    SourceType = Source.IsFile ? TablatureSourceType.FileImport : TablatureSourceType.Download;      
+                    SourceType = Source.IsFile ? TablatureSourceType.FileImport : TablatureSourceType.Download;
                 }
             }
 
@@ -200,9 +205,9 @@ namespace Tabster.Core.Data
 
         #region Static Methods
 
-        public static TabType? FromFriendlyString(string str)
+        private static TabType? FromFriendlyString(string str)
         {
-            switch(str)
+            switch (str)
             {
                 case "Guitar Tab":
                     return TabType.Guitar;
