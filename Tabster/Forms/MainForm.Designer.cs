@@ -174,7 +174,7 @@ namespace Tabster.Forms
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearsearchbtn = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.filtertext = new Tabster.Controls.SearchBox();
+            this.filtertext = new Tabster.Controls.DelayedToolStripTextBox();
             this.SearchPreviewBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SearchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.DownloadBackgroundWorker = new System.ComponentModel.BackgroundWorker();
@@ -1517,7 +1517,7 @@ namespace Tabster.Forms
             this.filtertext.Size = new System.Drawing.Size(130, 20);
             this.filtertext.Text = " Search Library";
             this.filtertext.ToolTipText = "Filter through servers by name.";
-            this.filtertext.OnNewSearch += new Tabster.Controls.SearchBox.NewSearchHandler(this.filtertext_OnNewSearch);
+            this.filtertext.OnNewSearch += new Tabster.Controls.DelayedToolStripTextBox.NewSearchHandler(this.filtertext_OnNewSearch);
             // 
             // SearchPreviewBackgroundWorker
             // 
@@ -1703,7 +1703,7 @@ namespace Tabster.Forms
         private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton clearsearchbtn;
-        private SearchBox filtertext;
+        private DelayedToolStripTextBox filtertext;
         private System.Windows.Forms.TabPage display_search;
         private DataGridViewExtended searchDisplay;
         private System.Windows.Forms.Label label3;

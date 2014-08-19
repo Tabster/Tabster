@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Tabster.Controls
 {
-    internal class SearchBox : ToolStripTextBox
+    internal class DelayedToolStripTextBox : ToolStripTextBox
     {
         #region Delegates
 
@@ -22,7 +22,7 @@ namespace Tabster.Controls
         private ToolStripButton _clearButton;
         private string _previousSearch = "";
 
-        public SearchBox()
+        public DelayedToolStripTextBox()
         {
             _delayTimer.Interval = DelayInterval;
             _delayTimer.Tick += _delayTimer_Tick;

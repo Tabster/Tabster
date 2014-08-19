@@ -73,6 +73,7 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -177,7 +178,7 @@
     <Compile Include="Controls\RecentToolStripMenuItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SearchBox.cs">
+    <Compile Include="Controls\DelayedToolStripTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\StaticTreeView.cs">
