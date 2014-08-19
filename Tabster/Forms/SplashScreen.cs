@@ -43,10 +43,5 @@ namespace Tabster.Forms
                                     borderColor, borderWidth, borderStyle,
                                     borderColor, borderWidth, borderStyle);
         }
-
-        private void SplashScreen_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
