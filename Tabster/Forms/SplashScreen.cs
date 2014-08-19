@@ -15,7 +15,9 @@ namespace Tabster.Forms
         public SplashScreen()
         {
             InitializeComponent();
-            pictureBox1.Image = Resources.guitar128;
+
+            lblProgress.Text = string.Empty;
+
             lblVersion.Text = string.Format("v{0}", new Version(Application.ProductVersion).ToShortString());
             lblCopyright.Text = Common.GetCopyrightString();
             lblVersion.ForeColor = Color.Gray;
@@ -40,6 +42,11 @@ namespace Tabster.Forms
                                     borderColor, borderWidth, borderStyle,
                                     borderColor, borderWidth, borderStyle,
                                     borderColor, borderWidth, borderStyle);
+        }
+
+        private void SplashScreen_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

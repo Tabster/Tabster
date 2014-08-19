@@ -45,7 +45,7 @@ namespace Tabster.Forms
             this.lblTypes.BackColor = System.Drawing.Color.Transparent;
             this.lblTypes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTypes.ForeColor = System.Drawing.Color.Black;
-            this.lblTypes.Location = new System.Drawing.Point(153, 77);
+            this.lblTypes.Location = new System.Drawing.Point(179, 72);
             this.lblTypes.Name = "lblTypes";
             this.lblTypes.Size = new System.Drawing.Size(425, 16);
             this.lblTypes.TabIndex = 51;
@@ -53,9 +53,10 @@ namespace Tabster.Forms
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Image = global::Tabster.Properties.Resources.Guitar256;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
+            this.pictureBox1.Size = new System.Drawing.Size(161, 157);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 50;
             this.pictureBox1.TabStop = false;
@@ -66,7 +67,7 @@ namespace Tabster.Forms
             this.lblVersion.BackColor = System.Drawing.Color.Transparent;
             this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.ForeColor = System.Drawing.Color.Gray;
-            this.lblVersion.Location = new System.Drawing.Point(526, 173);
+            this.lblVersion.Location = new System.Drawing.Point(586, 153);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(52, 16);
             this.lblVersion.TabIndex = 49;
@@ -80,7 +81,7 @@ namespace Tabster.Forms
             this.lblCopyright.BackColor = System.Drawing.Color.Transparent;
             this.lblCopyright.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCopyright.ForeColor = System.Drawing.Color.Gray;
-            this.lblCopyright.Location = new System.Drawing.Point(9, 173);
+            this.lblCopyright.Location = new System.Drawing.Point(179, 153);
             this.lblCopyright.Name = "lblCopyright";
             this.lblCopyright.Size = new System.Drawing.Size(65, 16);
             this.lblCopyright.TabIndex = 48;
@@ -92,10 +93,11 @@ namespace Tabster.Forms
             this.lblProgress.BackColor = System.Drawing.Color.Transparent;
             this.lblProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProgress.ForeColor = System.Drawing.Color.Black;
-            this.lblProgress.Location = new System.Drawing.Point(153, 109);
+            this.lblProgress.Location = new System.Drawing.Point(179, 115);
             this.lblProgress.Name = "lblProgress";
-            this.lblProgress.Size = new System.Drawing.Size(0, 16);
+            this.lblProgress.Size = new System.Drawing.Size(77, 16);
             this.lblProgress.TabIndex = 10;
+            this.lblProgress.Text = "lblProgress";
             // 
             // lblName
             // 
@@ -103,7 +105,7 @@ namespace Tabster.Forms
             this.lblName.BackColor = System.Drawing.Color.Transparent;
             this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblName.ForeColor = System.Drawing.Color.Black;
-            this.lblName.Location = new System.Drawing.Point(146, 9);
+            this.lblName.Location = new System.Drawing.Point(179, 9);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(194, 55);
             this.lblName.TabIndex = 4;
@@ -115,13 +117,13 @@ namespace Tabster.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(590, 198);
-            this.Controls.Add(this.lblTypes);
-            this.Controls.Add(this.pictureBox1);
+            this.ClientSize = new System.Drawing.Size(650, 181);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.lblCopyright);
-            this.Controls.Add(this.lblProgress);
             this.Controls.Add(this.lblName);
+            this.Controls.Add(this.lblTypes);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.lblProgress);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
