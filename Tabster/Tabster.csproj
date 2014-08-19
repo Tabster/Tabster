@@ -268,6 +268,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Guitar.ico" />
+    <None Include="Resources\Guitar256.png" />
     <None Include="Resources\arrow_out.png" />
     <None Include="Resources\page_save.png" />
     <None Include="Resources\cursor.png" />

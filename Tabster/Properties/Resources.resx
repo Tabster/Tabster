@@ -121,9 +121,6 @@
   <data name="printer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\printer.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="guitar128" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\guitar128.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="loading_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\loading-icon.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -154,5 +151,9 @@
 		&lt;pre&gt;{TAB_CONTENTS}&lt;/pre&gt;
 	&lt;/body&gt;
 &lt;/html&gt;</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Guitar256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Guitar256.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
