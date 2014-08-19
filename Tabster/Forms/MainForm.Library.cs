@@ -540,22 +540,6 @@ namespace Tabster.Forms
             }
         }
 
-        private void sidebarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            sidebarToolStripMenuItem.Checked = !sidebarToolStripMenuItem.Checked;
-            splitContainer1.Panel1Collapsed = !sidebarToolStripMenuItem.Checked;
-            Settings.Default.SidePanel = !splitContainer1.Panel1Collapsed;
-            Settings.Default.Save();
-        }
-
-        private void statusBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            statusBarToolStripMenuItem.Checked = !statusBarToolStripMenuItem.Checked;
-            statusStrip1.Visible = statusBarToolStripMenuItem.Checked;
-            Settings.Default.StatusBar = statusBarToolStripMenuItem.Checked;
-            Settings.Default.Save();
-        }
-
         private void UpdateDetails()
         {
             lblcount.Text = string.Format("Total Tabs: {0}", Program.libraryManager.Count);

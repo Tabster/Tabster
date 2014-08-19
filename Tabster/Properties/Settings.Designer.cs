@@ -27,32 +27,6 @@ namespace Tabster.Properties {
         [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SidePanel {
-            get {
-                return ((bool)(this["SidePanel"]));
-            }
-            set {
-                this["SidePanel"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool StatusBar {
-            get {
-                return ((bool)(this["StatusBar"]));
-            }
-            set {
-                this["StatusBar"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool StartupUpdate {
             get {
                 return ((bool)(this["StartupUpdate"]));

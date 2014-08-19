@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
-using Tabster.Controls;
 using Tabster.Core.Data;
 using Tabster.Core.Parsing;
 using Tabster.Core.Searching;
@@ -296,21 +295,7 @@ namespace Tabster.Forms
         {
             if (startup)
             {
-                splitContainer1.Panel1Collapsed = !Settings.Default.SidePanel;
-                sidebarToolStripMenuItem.Checked = Settings.Default.SidePanel;
-
-                //librarySplitContainer.Panel2Collapsed = Settings.Default.LibraryPreviewOrientation == PreviewPanelOrientation.Hidden;
-                //librarySplitContainer.Orientation = Settings.Default.LibraryPreviewOrientation == PreviewPanelOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
-
-                /*
-                searchSplitContainer.Panel2Collapsed = Settings.Default.SearchPreviewOrientation == PreviewPanelOrientation.Hidden;
-                searchSplitContainer.Orientation = Settings.Default.SearchPreviewOrientation == PreviewPanelOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
-                */
-
                 librarySplitContainer.SplitterDistance = Settings.Default.LibraryPreviewPanelDistance;
-
-                statusStrip1.Visible = Settings.Default.StatusBar;
-                statusBarToolStripMenuItem.Checked = Settings.Default.StatusBar;
 
                 switch (Settings.Default.LibraryPreviewOrientation)
                 {
