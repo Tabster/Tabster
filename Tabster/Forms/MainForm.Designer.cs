@@ -33,31 +33,31 @@ namespace Tabster.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("All Tabs");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("My Tabs");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("My Downloads");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("My Imports");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("My Favorites");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Library", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Playlists");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("All Tabs");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("My Tabs");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("My Downloads");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("My Imports");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("My Favorites");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Library", new System.Windows.Forms.TreeNode[] {
+            treeNode8,
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12});
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Playlists");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             this.deletePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renamePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -68,6 +68,17 @@ namespace Tabster.Forms
             this.button2 = new System.Windows.Forms.Button();
             this.librarySplitContainer = new System.Windows.Forms.SplitContainer();
             this.tablibrary = new Tabster.Controls.DataGridViewExtended();
+            this.libraryCol_title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.libraryCol_artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.libraryCol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.libraryCol_created = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.libraryCol_modified = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.libraryCol_views = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.libraryCol_location = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.clearsearchbtn = new System.Windows.Forms.ToolStripButton();
+            this.filtertext = new Tabster.Controls.SearchBox();
             this.lblopenedexternally = new System.Windows.Forms.Label();
             this.previewToolStrip = new System.Windows.Forms.ToolStrip();
             this.lblpreviewtitle = new System.Windows.Forms.ToolStripLabel();
@@ -141,52 +152,41 @@ namespace Tabster.Forms
             this.PlaylistMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteplaylistcontextmenuitem = new System.Windows.Forms.ToolStripMenuItem();
             this.playlistInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recentlyViewedToolStripMenuItem = new Tabster.Controls.RecentToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sidebarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.libraryPreviewPaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.libraryhiddenpreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.libraryhorizontalpreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.libraryverticalpreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchPreviewPaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchhiddenpreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchhorizontalpreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchverticalpreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.libraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openTabLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchSimilarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearsearchbtn = new System.Windows.Forms.ToolStripButton();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.filtertext = new Tabster.Controls.DelayedToolStripTextBox();
             this.SearchPreviewBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SearchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.DownloadBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.PreviewDisplayDelay = new System.Windows.Forms.Timer(this.components);
             this.PreviewDisplayTimer = new System.Windows.Forms.Timer(this.components);
-            this.libraryCol_title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_created = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_modified = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_views = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_location = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.newTabMenuItem = new System.Windows.Forms.MenuItem();
+            this.newPlaylistMenuItem = new System.Windows.Forms.MenuItem();
+            this.openTabMenuItem = new System.Windows.Forms.MenuItem();
+            this.importMenuItem = new System.Windows.Forms.MenuItem();
+            this.recentlyViewedMenuItem = new Tabster.Controls.RecentToolStripMenuItem();
+            this.exitMenuItem = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
+            this.sidebarToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.statusBarToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.libraryPreviewPaneToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.libraryhiddenpreviewToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.libraryhorizontalpreviewToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.libraryverticalpreviewToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.searchPreviewPaneToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.searchhiddenpreviewToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.searchhorizontalpreviewToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.searchverticalpreviewToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.menuItem3 = new System.Windows.Forms.MenuItem();
+            this.viewTabToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.detailsToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.deleteTabToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.openTabLocationToolStripMenuItem = new System.Windows.Forms.MenuItem();
+            this.menuItem4 = new System.Windows.Forms.MenuItem();
+            this.preferencesMenuItem = new System.Windows.Forms.MenuItem();
+            this.menuItem5 = new System.Windows.Forms.MenuItem();
+            this.checkForUpdatesMenuItem = new System.Windows.Forms.MenuItem();
+            this.aboutMenuItem = new System.Windows.Forms.MenuItem();
             this.tabControl1.SuspendLayout();
             this.display_library.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -196,6 +196,7 @@ namespace Tabster.Forms
             this.librarySplitContainer.Panel2.SuspendLayout();
             this.librarySplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablibrary)).BeginInit();
+            this.toolStrip1.SuspendLayout();
             this.previewToolStrip.SuspendLayout();
             this.display_search.SuspendLayout();
             this.searchSplitContainer.Panel1.SuspendLayout();
@@ -208,7 +209,6 @@ namespace Tabster.Forms
             this.SearchMenu.SuspendLayout();
             this.LibraryMenu.SuspendLayout();
             this.PlaylistMenu.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // deletePlaylistToolStripMenuItem
@@ -231,13 +231,13 @@ namespace Tabster.Forms
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.ImageList = this.tabimagelist;
             this.tabControl1.ItemSize = new System.Drawing.Size(80, 20);
-            this.tabControl1.Location = new System.Drawing.Point(0, 24);
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(15, 4);
             this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1034, 477);
+            this.tabControl1.Size = new System.Drawing.Size(1034, 501);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -249,7 +249,7 @@ namespace Tabster.Forms
             this.display_library.ImageIndex = 0;
             this.display_library.Location = new System.Drawing.Point(4, 24);
             this.display_library.Name = "display_library";
-            this.display_library.Size = new System.Drawing.Size(1026, 449);
+            this.display_library.Size = new System.Drawing.Size(1026, 473);
             this.display_library.TabIndex = 1;
             this.display_library.Text = "Library";
             // 
@@ -275,7 +275,7 @@ namespace Tabster.Forms
             this.splitContainer1.Panel2.Controls.Add(this.librarySplitContainer);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer1.Panel2MinSize = 0;
-            this.splitContainer1.Size = new System.Drawing.Size(1026, 449);
+            this.splitContainer1.Size = new System.Drawing.Size(1026, 473);
             this.splitContainer1.SplitterDistance = 140;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 9;
@@ -293,34 +293,34 @@ namespace Tabster.Forms
             this.sidemenu.LineColor = System.Drawing.Color.White;
             this.sidemenu.Location = new System.Drawing.Point(0, 0);
             this.sidemenu.Name = "sidemenu";
-            treeNode1.Name = "node_alltabs";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode1.Text = "All Tabs";
-            treeNode2.Name = "node_mytabs";
-            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode2.Text = "My Tabs";
-            treeNode3.Name = "node_mydownloads";
-            treeNode3.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode3.Text = "My Downloads";
-            treeNode4.Name = "node_myimports";
-            treeNode4.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode4.Text = "My Imports";
-            treeNode5.Name = "node_myfavorites";
-            treeNode5.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode5.Text = "My Favorites";
-            treeNode6.Name = "node_library";
-            treeNode6.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode6.Text = "Library";
-            treeNode7.Name = "node_playlists";
-            treeNode7.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode7.Text = "Playlists";
+            treeNode8.Name = "node_alltabs";
+            treeNode8.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode8.Text = "All Tabs";
+            treeNode9.Name = "node_mytabs";
+            treeNode9.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode9.Text = "My Tabs";
+            treeNode10.Name = "node_mydownloads";
+            treeNode10.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode10.Text = "My Downloads";
+            treeNode11.Name = "node_myimports";
+            treeNode11.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode11.Text = "My Imports";
+            treeNode12.Name = "node_myfavorites";
+            treeNode12.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode12.Text = "My Favorites";
+            treeNode13.Name = "node_library";
+            treeNode13.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode13.Text = "Library";
+            treeNode14.Name = "node_playlists";
+            treeNode14.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode14.Text = "Playlists";
             this.sidemenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode7});
+            treeNode13,
+            treeNode14});
             this.sidemenu.ShowLines = false;
             this.sidemenu.ShowPlusMinus = false;
             this.sidemenu.ShowRootLines = false;
-            this.sidemenu.Size = new System.Drawing.Size(140, 393);
+            this.sidemenu.Size = new System.Drawing.Size(140, 417);
             this.sidemenu.TabIndex = 0;
             this.sidemenu.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.sidemenu_BeforeSelect);
             this.sidemenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.sidemenu_AfterSelect);
@@ -331,7 +331,7 @@ namespace Tabster.Forms
             this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(0, 393);
+            this.button1.Location = new System.Drawing.Point(0, 417);
             this.button1.Name = "button1";
             this.button1.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.button1.Size = new System.Drawing.Size(140, 28);
@@ -345,7 +345,7 @@ namespace Tabster.Forms
             this.button2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(0, 421);
+            this.button2.Location = new System.Drawing.Point(0, 445);
             this.button2.Name = "button2";
             this.button2.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.button2.Size = new System.Drawing.Size(140, 28);
@@ -367,6 +367,7 @@ namespace Tabster.Forms
             // librarySplitContainer.Panel1
             // 
             this.librarySplitContainer.Panel1.Controls.Add(this.tablibrary);
+            this.librarySplitContainer.Panel1.Controls.Add(this.toolStrip1);
             this.librarySplitContainer.Panel1MinSize = 140;
             // 
             // librarySplitContainer.Panel2
@@ -374,8 +375,8 @@ namespace Tabster.Forms
             this.librarySplitContainer.Panel2.Controls.Add(this.lblopenedexternally);
             this.librarySplitContainer.Panel2.Controls.Add(this.previewToolStrip);
             this.librarySplitContainer.Panel2MinSize = 140;
-            this.librarySplitContainer.Size = new System.Drawing.Size(885, 449);
-            this.librarySplitContainer.SplitterDistance = 276;
+            this.librarySplitContainer.Size = new System.Drawing.Size(885, 473);
+            this.librarySplitContainer.SplitterDistance = 300;
             this.librarySplitContainer.TabIndex = 25;
             // 
             // tablibrary
@@ -387,14 +388,14 @@ namespace Tabster.Forms
             this.tablibrary.AllowUserToResizeRows = false;
             this.tablibrary.BackgroundColor = System.Drawing.SystemColors.Window;
             this.tablibrary.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tablibrary.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tablibrary.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.tablibrary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.tablibrary.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.libraryCol_title,
@@ -404,46 +405,157 @@ namespace Tabster.Forms
             this.libraryCol_modified,
             this.libraryCol_views,
             this.libraryCol_location});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tablibrary.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tablibrary.DefaultCellStyle = dataGridViewCellStyle17;
             this.tablibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tablibrary.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.tablibrary.Location = new System.Drawing.Point(0, 0);
+            this.tablibrary.Location = new System.Drawing.Point(0, 25);
             this.tablibrary.MultiSelect = false;
             this.tablibrary.Name = "tablibrary";
             this.tablibrary.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tablibrary.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tablibrary.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.tablibrary.RowHeadersVisible = false;
             this.tablibrary.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            this.tablibrary.RowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.Black;
+            this.tablibrary.RowsDefaultCellStyle = dataGridViewCellStyle19;
             this.tablibrary.RowTemplate.Height = 18;
             this.tablibrary.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablibrary.ShowCellErrors = false;
             this.tablibrary.ShowCellToolTips = false;
             this.tablibrary.ShowEditingIcon = false;
             this.tablibrary.ShowRowErrors = false;
-            this.tablibrary.Size = new System.Drawing.Size(883, 274);
+            this.tablibrary.Size = new System.Drawing.Size(883, 273);
             this.tablibrary.TabIndex = 19;
             this.tablibrary.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablibrary_CellDoubleClick);
             this.tablibrary.SelectionChanged += new System.EventHandler(this.tablibrary_SelectionChanged);
             this.tablibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.tablibrary_DragDrop);
             this.tablibrary.DragEnter += new System.Windows.Forms.DragEventHandler(this.tablibrary_DragEnter);
             this.tablibrary.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tablibrary_MouseClick);
+            // 
+            // libraryCol_title
+            // 
+            this.libraryCol_title.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.libraryCol_title.HeaderText = "Title";
+            this.libraryCol_title.MinimumWidth = 250;
+            this.libraryCol_title.Name = "libraryCol_title";
+            this.libraryCol_title.ReadOnly = true;
+            this.libraryCol_title.Width = 250;
+            // 
+            // libraryCol_artist
+            // 
+            this.libraryCol_artist.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.libraryCol_artist.HeaderText = "Artist";
+            this.libraryCol_artist.MinimumWidth = 150;
+            this.libraryCol_artist.Name = "libraryCol_artist";
+            this.libraryCol_artist.ReadOnly = true;
+            this.libraryCol_artist.Width = 150;
+            // 
+            // libraryCol_type
+            // 
+            this.libraryCol_type.HeaderText = "Type";
+            this.libraryCol_type.MinimumWidth = 65;
+            this.libraryCol_type.Name = "libraryCol_type";
+            this.libraryCol_type.ReadOnly = true;
+            // 
+            // libraryCol_created
+            // 
+            dataGridViewCellStyle14.Format = "g";
+            dataGridViewCellStyle14.NullValue = null;
+            this.libraryCol_created.DefaultCellStyle = dataGridViewCellStyle14;
+            this.libraryCol_created.HeaderText = "Created";
+            this.libraryCol_created.MinimumWidth = 120;
+            this.libraryCol_created.Name = "libraryCol_created";
+            this.libraryCol_created.ReadOnly = true;
+            this.libraryCol_created.Width = 120;
+            // 
+            // libraryCol_modified
+            // 
+            dataGridViewCellStyle15.Format = "g";
+            dataGridViewCellStyle15.NullValue = null;
+            this.libraryCol_modified.DefaultCellStyle = dataGridViewCellStyle15;
+            this.libraryCol_modified.HeaderText = "Last Modified";
+            this.libraryCol_modified.MinimumWidth = 120;
+            this.libraryCol_modified.Name = "libraryCol_modified";
+            this.libraryCol_modified.ReadOnly = true;
+            this.libraryCol_modified.Width = 120;
+            // 
+            // libraryCol_views
+            // 
+            dataGridViewCellStyle16.NullValue = "Never";
+            this.libraryCol_views.DefaultCellStyle = dataGridViewCellStyle16;
+            this.libraryCol_views.FillWeight = 60F;
+            this.libraryCol_views.HeaderText = "Views";
+            this.libraryCol_views.Name = "libraryCol_views";
+            this.libraryCol_views.ReadOnly = true;
+            this.libraryCol_views.Width = 60;
+            // 
+            // libraryCol_location
+            // 
+            this.libraryCol_location.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.libraryCol_location.HeaderText = "Location";
+            this.libraryCol_location.MinimumWidth = 65;
+            this.libraryCol_location.Name = "libraryCol_location";
+            this.libraryCol_location.ReadOnly = true;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel1,
+            this.clearsearchbtn,
+            this.filtertext});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
+            this.toolStrip1.Size = new System.Drawing.Size(883, 25);
+            this.toolStrip1.TabIndex = 24;
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(0, 22);
+            // 
+            // clearsearchbtn
+            // 
+            this.clearsearchbtn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.clearsearchbtn.AutoSize = false;
+            this.clearsearchbtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.clearsearchbtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.clearsearchbtn.Margin = new System.Windows.Forms.Padding(-5, 0, 0, 0);
+            this.clearsearchbtn.Name = "clearsearchbtn";
+            this.clearsearchbtn.Size = new System.Drawing.Size(10, 17);
+            this.clearsearchbtn.Text = "x";
+            this.clearsearchbtn.Visible = false;
+            // 
+            // filtertext
+            // 
+            this.filtertext.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.filtertext.AutoSize = false;
+            this.filtertext.BackColor = System.Drawing.SystemColors.Window;
+            this.filtertext.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.filtertext.ClearButton = this.clearsearchbtn;
+            this.filtertext.DefaultText = " Search Library";
+            this.filtertext.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.filtertext.ForeColor = System.Drawing.Color.Gray;
+            this.filtertext.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.filtertext.Name = "filtertext";
+            this.filtertext.Size = new System.Drawing.Size(130, 20);
+            this.filtertext.Text = " Search Library";
+            this.filtertext.OnNewSearch += new Tabster.Controls.SearchBox.NewSearchHandler(this.filtertext_OnNewSearch);
             // 
             // lblopenedexternally
             // 
@@ -568,7 +680,7 @@ namespace Tabster.Forms
             this.display_search.ImageIndex = 1;
             this.display_search.Location = new System.Drawing.Point(4, 24);
             this.display_search.Name = "display_search";
-            this.display_search.Size = new System.Drawing.Size(1026, 449);
+            this.display_search.Size = new System.Drawing.Size(1026, 473);
             this.display_search.TabIndex = 5;
             this.display_search.Text = "Search";
             // 
@@ -590,7 +702,7 @@ namespace Tabster.Forms
             this.searchSplitContainer.Panel2.Controls.Add(this.searchPreviewEditor);
             this.searchSplitContainer.Panel2Collapsed = true;
             this.searchSplitContainer.Panel2MinSize = 100;
-            this.searchSplitContainer.Size = new System.Drawing.Size(827, 449);
+            this.searchSplitContainer.Size = new System.Drawing.Size(827, 473);
             this.searchSplitContainer.SplitterDistance = 200;
             this.searchSplitContainer.TabIndex = 29;
             // 
@@ -603,14 +715,14 @@ namespace Tabster.Forms
             this.searchDisplay.AllowUserToResizeRows = false;
             this.searchDisplay.BackgroundColor = System.Drawing.Color.White;
             this.searchDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.searchDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.searchDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
             this.searchDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.searchDisplay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.searchcol_artist,
@@ -618,40 +730,40 @@ namespace Tabster.Forms
             this.searchcol_type,
             this.col_rating,
             this.searchcol_service});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.searchDisplay.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle22.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.searchDisplay.DefaultCellStyle = dataGridViewCellStyle22;
             this.searchDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchDisplay.GridColor = System.Drawing.SystemColors.ControlLight;
             this.searchDisplay.Location = new System.Drawing.Point(0, 0);
             this.searchDisplay.MultiSelect = false;
             this.searchDisplay.Name = "searchDisplay";
             this.searchDisplay.ReadOnly = true;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.searchDisplay.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.searchDisplay.RowHeadersDefaultCellStyle = dataGridViewCellStyle23;
             this.searchDisplay.RowHeadersVisible = false;
             this.searchDisplay.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black;
-            this.searchDisplay.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle24.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.Black;
+            this.searchDisplay.RowsDefaultCellStyle = dataGridViewCellStyle24;
             this.searchDisplay.RowTemplate.Height = 18;
             this.searchDisplay.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.searchDisplay.ShowCellErrors = false;
             this.searchDisplay.ShowCellToolTips = false;
             this.searchDisplay.ShowEditingIcon = false;
             this.searchDisplay.ShowRowErrors = false;
-            this.searchDisplay.Size = new System.Drawing.Size(825, 447);
+            this.searchDisplay.Size = new System.Drawing.Size(825, 471);
             this.searchDisplay.TabIndex = 20;
             this.searchDisplay.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SaveSelectedTab);
             this.searchDisplay.SelectionChanged += new System.EventHandler(this.dataGridViewExtended1_SelectionChanged);
@@ -688,8 +800,8 @@ namespace Tabster.Forms
             // searchcol_service
             // 
             this.searchcol_service.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle9.Format = "N0";
-            this.searchcol_service.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle21.Format = "N0";
+            this.searchcol_service.DefaultCellStyle = dataGridViewCellStyle21;
             this.searchcol_service.HeaderText = "Service";
             this.searchcol_service.Name = "searchcol_service";
             this.searchcol_service.ReadOnly = true;
@@ -725,7 +837,7 @@ namespace Tabster.Forms
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(199, 449);
+            this.panel1.Size = new System.Drawing.Size(199, 473);
             this.panel1.TabIndex = 28;
             // 
             // resetSearchbtn
@@ -886,7 +998,7 @@ namespace Tabster.Forms
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1026, 449);
+            this.tabPage1.Size = new System.Drawing.Size(1026, 473);
             this.tabPage1.TabIndex = 6;
             this.tabPage1.Text = "Download";
             // 
@@ -1202,323 +1314,6 @@ namespace Tabster.Forms
             this.playlistInformationToolStripMenuItem.Text = "Playlist Information";
             this.playlistInformationToolStripMenuItem.Click += new System.EventHandler(this.PlaylistDetails);
             // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newTabToolStripMenuItem,
-            this.newPlaylistToolStripMenuItem,
-            this.openTabToolStripMenuItem,
-            this.importToolStripMenuItem,
-            this.recentlyViewedToolStripMenuItem,
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "&File";
-            // 
-            // newTabToolStripMenuItem
-            // 
-            this.newTabToolStripMenuItem.Name = "newTabToolStripMenuItem";
-            this.newTabToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newTabToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.newTabToolStripMenuItem.Text = "&New Tab...";
-            this.newTabToolStripMenuItem.Click += new System.EventHandler(this.NewTab);
-            // 
-            // newPlaylistToolStripMenuItem
-            // 
-            this.newPlaylistToolStripMenuItem.Name = "newPlaylistToolStripMenuItem";
-            this.newPlaylistToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.N)));
-            this.newPlaylistToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.newPlaylistToolStripMenuItem.Text = "New &Playlist...";
-            this.newPlaylistToolStripMenuItem.Click += new System.EventHandler(this.NewPlaylist);
-            // 
-            // openTabToolStripMenuItem
-            // 
-            this.openTabToolStripMenuItem.Name = "openTabToolStripMenuItem";
-            this.openTabToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openTabToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.openTabToolStripMenuItem.Text = "&Open...";
-            this.openTabToolStripMenuItem.Click += new System.EventHandler(this.BrowseTab);
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.importToolStripMenuItem.Text = "Import...";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
-            // 
-            // recentlyViewedToolStripMenuItem
-            // 
-            this.recentlyViewedToolStripMenuItem.ClearOptionText = "Clear All Recent Items";
-            this.recentlyViewedToolStripMenuItem.DisplayClearOption = true;
-            this.recentlyViewedToolStripMenuItem.DisplayMode = Tabster.Controls.RecentToolStripMenuItem.RecentFilesDisplayMode.Consecutive;
-            this.recentlyViewedToolStripMenuItem.DisplayOpenAllOption = true;
-            this.recentlyViewedToolStripMenuItem.Enabled = false;
-            this.recentlyViewedToolStripMenuItem.MaxDisplayItems = 10;
-            this.recentlyViewedToolStripMenuItem.Name = "recentlyViewedToolStripMenuItem";
-            this.recentlyViewedToolStripMenuItem.OpenAllOptionText = "Open All Recent Items";
-            this.recentlyViewedToolStripMenuItem.PrependItemNumbers = true;
-            this.recentlyViewedToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.recentlyViewedToolStripMenuItem.Text = "Open Recent";
-            this.recentlyViewedToolStripMenuItem.Visible = false;
-            this.recentlyViewedToolStripMenuItem.OnAllItemsOpened += new System.EventHandler(this.recentlyViewedToolStripMenuItem_OnAllItemsOpened);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.exitToolStripMenuItem.Text = "&Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sidebarToolStripMenuItem,
-            this.statusBarToolStripMenuItem,
-            this.libraryPreviewPaneToolStripMenuItem,
-            this.searchPreviewPaneToolStripMenuItem});
-            this.viewToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "&View";
-            // 
-            // sidebarToolStripMenuItem
-            // 
-            this.sidebarToolStripMenuItem.Name = "sidebarToolStripMenuItem";
-            this.sidebarToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.sidebarToolStripMenuItem.Text = "Sidebar";
-            this.sidebarToolStripMenuItem.Click += new System.EventHandler(this.sidebarToolStripMenuItem_Click);
-            // 
-            // statusBarToolStripMenuItem
-            // 
-            this.statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
-            this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.statusBarToolStripMenuItem.Text = "Status Bar";
-            this.statusBarToolStripMenuItem.Click += new System.EventHandler(this.statusBarToolStripMenuItem_Click);
-            // 
-            // libraryPreviewPaneToolStripMenuItem
-            // 
-            this.libraryPreviewPaneToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.libraryhiddenpreviewToolStripMenuItem,
-            this.libraryhorizontalpreviewToolStripMenuItem,
-            this.libraryverticalpreviewToolStripMenuItem});
-            this.libraryPreviewPaneToolStripMenuItem.Name = "libraryPreviewPaneToolStripMenuItem";
-            this.libraryPreviewPaneToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.libraryPreviewPaneToolStripMenuItem.Text = "Library Preview Pane";
-            // 
-            // libraryhiddenpreviewToolStripMenuItem
-            // 
-            this.libraryhiddenpreviewToolStripMenuItem.Name = "libraryhiddenpreviewToolStripMenuItem";
-            this.libraryhiddenpreviewToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.libraryhiddenpreviewToolStripMenuItem.Text = "Hidden";
-            this.libraryhiddenpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
-            // 
-            // libraryhorizontalpreviewToolStripMenuItem
-            // 
-            this.libraryhorizontalpreviewToolStripMenuItem.Name = "libraryhorizontalpreviewToolStripMenuItem";
-            this.libraryhorizontalpreviewToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.libraryhorizontalpreviewToolStripMenuItem.Text = "Horizontal";
-            this.libraryhorizontalpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
-            // 
-            // libraryverticalpreviewToolStripMenuItem
-            // 
-            this.libraryverticalpreviewToolStripMenuItem.Name = "libraryverticalpreviewToolStripMenuItem";
-            this.libraryverticalpreviewToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.libraryverticalpreviewToolStripMenuItem.Text = "Vertical";
-            this.libraryverticalpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
-            // 
-            // searchPreviewPaneToolStripMenuItem
-            // 
-            this.searchPreviewPaneToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.searchhiddenpreviewToolStripMenuItem,
-            this.searchhorizontalpreviewToolStripMenuItem,
-            this.searchverticalpreviewToolStripMenuItem});
-            this.searchPreviewPaneToolStripMenuItem.Name = "searchPreviewPaneToolStripMenuItem";
-            this.searchPreviewPaneToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.searchPreviewPaneToolStripMenuItem.Text = "Search Preview Pane";
-            // 
-            // searchhiddenpreviewToolStripMenuItem
-            // 
-            this.searchhiddenpreviewToolStripMenuItem.Name = "searchhiddenpreviewToolStripMenuItem";
-            this.searchhiddenpreviewToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.searchhiddenpreviewToolStripMenuItem.Text = "Hidden";
-            this.searchhiddenpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
-            // 
-            // searchhorizontalpreviewToolStripMenuItem
-            // 
-            this.searchhorizontalpreviewToolStripMenuItem.Name = "searchhorizontalpreviewToolStripMenuItem";
-            this.searchhorizontalpreviewToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.searchhorizontalpreviewToolStripMenuItem.Text = "Horizontal";
-            this.searchhorizontalpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
-            // 
-            // searchverticalpreviewToolStripMenuItem
-            // 
-            this.searchverticalpreviewToolStripMenuItem.Name = "searchverticalpreviewToolStripMenuItem";
-            this.searchverticalpreviewToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.searchverticalpreviewToolStripMenuItem.Text = "Vertical";
-            this.searchverticalpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
-            // 
-            // libraryToolStripMenuItem
-            // 
-            this.libraryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewTabToolStripMenuItem,
-            this.deleteTabToolStripMenuItem,
-            this.detailsToolStripMenuItem,
-            this.exportToolStripMenuItem,
-            this.openTabLocationToolStripMenuItem,
-            this.searchSimilarToolStripMenuItem,
-            this.searchToolStripMenuItem});
-            this.libraryToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.libraryToolStripMenuItem.Name = "libraryToolStripMenuItem";
-            this.libraryToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
-            this.libraryToolStripMenuItem.Text = "&Library";
-            // 
-            // viewTabToolStripMenuItem
-            // 
-            this.viewTabToolStripMenuItem.Enabled = false;
-            this.viewTabToolStripMenuItem.Name = "viewTabToolStripMenuItem";
-            this.viewTabToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.viewTabToolStripMenuItem.Text = "View Tab";
-            this.viewTabToolStripMenuItem.Click += new System.EventHandler(this.viewTabToolStripMenuItem_Click);
-            // 
-            // deleteTabToolStripMenuItem
-            // 
-            this.deleteTabToolStripMenuItem.Enabled = false;
-            this.deleteTabToolStripMenuItem.Name = "deleteTabToolStripMenuItem";
-            this.deleteTabToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.deleteTabToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.deleteTabToolStripMenuItem.Text = "Delete";
-            this.deleteTabToolStripMenuItem.Click += new System.EventHandler(this.DeleteTab);
-            // 
-            // detailsToolStripMenuItem
-            // 
-            this.detailsToolStripMenuItem.Enabled = false;
-            this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
-            this.detailsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.detailsToolStripMenuItem.Text = "Details";
-            this.detailsToolStripMenuItem.Click += new System.EventHandler(this.TabDetails);
-            // 
-            // exportToolStripMenuItem
-            // 
-            this.exportToolStripMenuItem.Enabled = false;
-            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.exportToolStripMenuItem.Text = "Export";
-            this.exportToolStripMenuItem.Click += new System.EventHandler(this.ExportTab);
-            // 
-            // openTabLocationToolStripMenuItem
-            // 
-            this.openTabLocationToolStripMenuItem.Enabled = false;
-            this.openTabLocationToolStripMenuItem.Name = "openTabLocationToolStripMenuItem";
-            this.openTabLocationToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.openTabLocationToolStripMenuItem.Text = "Open Tab Location";
-            this.openTabLocationToolStripMenuItem.Click += new System.EventHandler(this.OpenTabLocation);
-            // 
-            // searchSimilarToolStripMenuItem
-            // 
-            this.searchSimilarToolStripMenuItem.Enabled = false;
-            this.searchSimilarToolStripMenuItem.Name = "searchSimilarToolStripMenuItem";
-            this.searchSimilarToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.searchSimilarToolStripMenuItem.Text = "Search Similar Tabs";
-            this.searchSimilarToolStripMenuItem.Click += new System.EventHandler(this.SearchSimilarTabs);
-            // 
-            // searchToolStripMenuItem
-            // 
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.searchToolStripMenuItem.Text = "Search Library";
-            this.searchToolStripMenuItem.Click += new System.EventHandler(this.searchToolStripMenuItem_Click);
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.preferencesToolStripMenuItem});
-            this.toolsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.toolsToolStripMenuItem.Text = "&Tools";
-            // 
-            // preferencesToolStripMenuItem
-            // 
-            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.preferencesToolStripMenuItem.Text = "Preferences";
-            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.checkForUpdatesToolStripMenuItem,
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "&Help";
-            // 
-            // checkForUpdatesToolStripMenuItem
-            // 
-            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
-            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // clearsearchbtn
-            // 
-            this.clearsearchbtn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.clearsearchbtn.AutoSize = false;
-            this.clearsearchbtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.clearsearchbtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.clearsearchbtn.Margin = new System.Windows.Forms.Padding(-5, 0, 0, 0);
-            this.clearsearchbtn.Name = "clearsearchbtn";
-            this.clearsearchbtn.Size = new System.Drawing.Size(10, 17);
-            this.clearsearchbtn.Text = "x";
-            this.clearsearchbtn.Visible = false;
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.viewToolStripMenuItem,
-            this.libraryToolStripMenuItem,
-            this.toolsToolStripMenuItem,
-            this.helpToolStripMenuItem,
-            this.clearsearchbtn,
-            this.filtertext});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1034, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // filtertext
-            // 
-            this.filtertext.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.filtertext.AutoSize = false;
-            this.filtertext.BackColor = System.Drawing.SystemColors.Window;
-            this.filtertext.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.filtertext.ClearButton = this.clearsearchbtn;
-            this.filtertext.DefaultText = " Search Library";
-            this.filtertext.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.filtertext.ForeColor = System.Drawing.Color.Gray;
-            this.filtertext.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.filtertext.Name = "filtertext";
-            this.filtertext.Size = new System.Drawing.Size(130, 20);
-            this.filtertext.Text = " Search Library";
-            this.filtertext.ToolTipText = "Filter through servers by name.";
-            this.filtertext.OnNewSearch += new Tabster.Controls.DelayedToolStripTextBox.NewSearchHandler(this.filtertext_OnNewSearch);
-            // 
             // SearchPreviewBackgroundWorker
             // 
             this.SearchPreviewBackgroundWorker.WorkerSupportsCancellation = true;
@@ -1550,70 +1345,228 @@ namespace Tabster.Forms
             this.PreviewDisplayTimer.Interval = 1000;
             this.PreviewDisplayTimer.Tick += new System.EventHandler(this.PreviewDisplayTimer_Tick);
             // 
-            // libraryCol_title
+            // mainMenu1
             // 
-            this.libraryCol_title.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.libraryCol_title.HeaderText = "Title";
-            this.libraryCol_title.MinimumWidth = 250;
-            this.libraryCol_title.Name = "libraryCol_title";
-            this.libraryCol_title.ReadOnly = true;
-            this.libraryCol_title.Width = 250;
+            this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem1,
+            this.menuItem2,
+            this.menuItem3,
+            this.menuItem4,
+            this.menuItem5});
             // 
-            // libraryCol_artist
+            // menuItem1
             // 
-            this.libraryCol_artist.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.libraryCol_artist.HeaderText = "Artist";
-            this.libraryCol_artist.MinimumWidth = 150;
-            this.libraryCol_artist.Name = "libraryCol_artist";
-            this.libraryCol_artist.ReadOnly = true;
-            this.libraryCol_artist.Width = 150;
+            this.menuItem1.Index = 0;
+            this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.newTabMenuItem,
+            this.newPlaylistMenuItem,
+            this.openTabMenuItem,
+            this.importMenuItem,
+            this.recentlyViewedMenuItem,
+            this.exitMenuItem});
+            this.menuItem1.Text = "&File";
             // 
-            // libraryCol_type
+            // newTabMenuItem
             // 
-            this.libraryCol_type.HeaderText = "Type";
-            this.libraryCol_type.MinimumWidth = 65;
-            this.libraryCol_type.Name = "libraryCol_type";
-            this.libraryCol_type.ReadOnly = true;
+            this.newTabMenuItem.Index = 0;
+            this.newTabMenuItem.Shortcut = System.Windows.Forms.Shortcut.CtrlN;
+            this.newTabMenuItem.Text = "New Tab...";
+            this.newTabMenuItem.Click += new System.EventHandler(this.NewTab);
             // 
-            // libraryCol_created
+            // newPlaylistMenuItem
             // 
-            dataGridViewCellStyle2.Format = "g";
-            dataGridViewCellStyle2.NullValue = null;
-            this.libraryCol_created.DefaultCellStyle = dataGridViewCellStyle2;
-            this.libraryCol_created.HeaderText = "Created";
-            this.libraryCol_created.MinimumWidth = 120;
-            this.libraryCol_created.Name = "libraryCol_created";
-            this.libraryCol_created.ReadOnly = true;
-            this.libraryCol_created.Width = 120;
+            this.newPlaylistMenuItem.Index = 1;
+            this.newPlaylistMenuItem.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftN;
+            this.newPlaylistMenuItem.Text = "New Playlist...";
+            this.newPlaylistMenuItem.Click += new System.EventHandler(this.NewPlaylist);
             // 
-            // libraryCol_modified
+            // openTabMenuItem
             // 
-            dataGridViewCellStyle3.Format = "g";
-            dataGridViewCellStyle3.NullValue = null;
-            this.libraryCol_modified.DefaultCellStyle = dataGridViewCellStyle3;
-            this.libraryCol_modified.HeaderText = "Last Modified";
-            this.libraryCol_modified.MinimumWidth = 120;
-            this.libraryCol_modified.Name = "libraryCol_modified";
-            this.libraryCol_modified.ReadOnly = true;
-            this.libraryCol_modified.Width = 120;
+            this.openTabMenuItem.Index = 2;
+            this.openTabMenuItem.Shortcut = System.Windows.Forms.Shortcut.CtrlO;
+            this.openTabMenuItem.Text = "Open...";
+            this.openTabMenuItem.Click += new System.EventHandler(this.BrowseTab);
             // 
-            // libraryCol_views
+            // importMenuItem
             // 
-            dataGridViewCellStyle4.NullValue = "Never";
-            this.libraryCol_views.DefaultCellStyle = dataGridViewCellStyle4;
-            this.libraryCol_views.FillWeight = 60F;
-            this.libraryCol_views.HeaderText = "Views";
-            this.libraryCol_views.Name = "libraryCol_views";
-            this.libraryCol_views.ReadOnly = true;
-            this.libraryCol_views.Width = 60;
+            this.importMenuItem.Index = 3;
+            this.importMenuItem.Shortcut = System.Windows.Forms.Shortcut.CtrlI;
+            this.importMenuItem.Text = "Import...";
+            this.importMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
-            // libraryCol_location
+            // recentlyViewedMenuItem
             // 
-            this.libraryCol_location.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.libraryCol_location.HeaderText = "Location";
-            this.libraryCol_location.MinimumWidth = 65;
-            this.libraryCol_location.Name = "libraryCol_location";
-            this.libraryCol_location.ReadOnly = true;
+            this.recentlyViewedMenuItem.ClearOptionText = "Clear All Recent Items";
+            this.recentlyViewedMenuItem.DisplayClearOption = true;
+            this.recentlyViewedMenuItem.DisplayMode = Tabster.Controls.RecentToolStripMenuItem.RecentFilesDisplayMode.Consecutive;
+            this.recentlyViewedMenuItem.DisplayOpenAllOption = true;
+            this.recentlyViewedMenuItem.Enabled = false;
+            this.recentlyViewedMenuItem.Index = 4;
+            this.recentlyViewedMenuItem.MaxDisplayItems = 10;
+            this.recentlyViewedMenuItem.OpenAllOptionText = "Open All Recent Items";
+            this.recentlyViewedMenuItem.PrependItemNumbers = true;
+            this.recentlyViewedMenuItem.Text = "Open Recent";
+            this.recentlyViewedMenuItem.Visible = false;
+            this.recentlyViewedMenuItem.OnItemClicked += new System.EventHandler(this.recentlyViewedMenuItem_OnItemClicked);
+            this.recentlyViewedMenuItem.OnAllItemsOpened += new System.EventHandler(this.recentlyViewedMenuItem_OnAllItemsOpened);
+            // 
+            // exitMenuItem
+            // 
+            this.exitMenuItem.Index = 5;
+            this.exitMenuItem.Text = "&Exit";
+            this.exitMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Index = 1;
+            this.menuItem2.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.sidebarToolStripMenuItem,
+            this.statusBarToolStripMenuItem,
+            this.libraryPreviewPaneToolStripMenuItem,
+            this.searchPreviewPaneToolStripMenuItem});
+            this.menuItem2.Text = "&View";
+            // 
+            // sidebarToolStripMenuItem
+            // 
+            this.sidebarToolStripMenuItem.Index = 0;
+            this.sidebarToolStripMenuItem.Text = "Sidebar";
+            this.sidebarToolStripMenuItem.Click += new System.EventHandler(this.sidebarToolStripMenuItem_Click);
+            // 
+            // statusBarToolStripMenuItem
+            // 
+            this.statusBarToolStripMenuItem.Index = 1;
+            this.statusBarToolStripMenuItem.Text = "Status Bar";
+            this.statusBarToolStripMenuItem.Click += new System.EventHandler(this.statusBarToolStripMenuItem_Click);
+            // 
+            // libraryPreviewPaneToolStripMenuItem
+            // 
+            this.libraryPreviewPaneToolStripMenuItem.Index = 2;
+            this.libraryPreviewPaneToolStripMenuItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.libraryhiddenpreviewToolStripMenuItem,
+            this.libraryhorizontalpreviewToolStripMenuItem,
+            this.libraryverticalpreviewToolStripMenuItem});
+            this.libraryPreviewPaneToolStripMenuItem.Text = "Library Preview Pane";
+            // 
+            // libraryhiddenpreviewToolStripMenuItem
+            // 
+            this.libraryhiddenpreviewToolStripMenuItem.Index = 0;
+            this.libraryhiddenpreviewToolStripMenuItem.Text = "Hidden";
+            this.libraryhiddenpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
+            // 
+            // libraryhorizontalpreviewToolStripMenuItem
+            // 
+            this.libraryhorizontalpreviewToolStripMenuItem.Index = 1;
+            this.libraryhorizontalpreviewToolStripMenuItem.Text = "Horizontal";
+            this.libraryhorizontalpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
+            // 
+            // libraryverticalpreviewToolStripMenuItem
+            // 
+            this.libraryverticalpreviewToolStripMenuItem.Index = 2;
+            this.libraryverticalpreviewToolStripMenuItem.Text = "Vertical";
+            this.libraryverticalpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
+            // 
+            // searchPreviewPaneToolStripMenuItem
+            // 
+            this.searchPreviewPaneToolStripMenuItem.Index = 3;
+            this.searchPreviewPaneToolStripMenuItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.searchhiddenpreviewToolStripMenuItem,
+            this.searchhorizontalpreviewToolStripMenuItem,
+            this.searchverticalpreviewToolStripMenuItem});
+            this.searchPreviewPaneToolStripMenuItem.Text = "Search Preview Pane";
+            // 
+            // searchhiddenpreviewToolStripMenuItem
+            // 
+            this.searchhiddenpreviewToolStripMenuItem.Index = 0;
+            this.searchhiddenpreviewToolStripMenuItem.Text = "Hidden";
+            this.searchhiddenpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
+            // 
+            // searchhorizontalpreviewToolStripMenuItem
+            // 
+            this.searchhorizontalpreviewToolStripMenuItem.Index = 1;
+            this.searchhorizontalpreviewToolStripMenuItem.Text = "Horizontal";
+            this.searchhorizontalpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
+            // 
+            // searchverticalpreviewToolStripMenuItem
+            // 
+            this.searchverticalpreviewToolStripMenuItem.Index = 2;
+            this.searchverticalpreviewToolStripMenuItem.Text = "Vertical";
+            this.searchverticalpreviewToolStripMenuItem.Click += new System.EventHandler(this.TogglePreviewPane);
+            // 
+            // menuItem3
+            // 
+            this.menuItem3.Enabled = false;
+            this.menuItem3.Index = 2;
+            this.menuItem3.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.viewTabToolStripMenuItem,
+            this.detailsToolStripMenuItem,
+            this.deleteTabToolStripMenuItem,
+            this.exportToolStripMenuItem,
+            this.openTabLocationToolStripMenuItem});
+            this.menuItem3.Text = "&Library";
+            // 
+            // viewTabToolStripMenuItem
+            // 
+            this.viewTabToolStripMenuItem.Index = 0;
+            this.viewTabToolStripMenuItem.Text = "Popout Tab";
+            this.viewTabToolStripMenuItem.Click += new System.EventHandler(this.viewTabToolStripMenuItem_Click);
+            // 
+            // detailsToolStripMenuItem
+            // 
+            this.detailsToolStripMenuItem.Index = 1;
+            this.detailsToolStripMenuItem.Text = "Details...";
+            this.detailsToolStripMenuItem.Click += new System.EventHandler(this.TabDetails);
+            // 
+            // deleteTabToolStripMenuItem
+            // 
+            this.deleteTabToolStripMenuItem.Index = 2;
+            this.deleteTabToolStripMenuItem.Shortcut = System.Windows.Forms.Shortcut.Del;
+            this.deleteTabToolStripMenuItem.Text = "Delete";
+            this.deleteTabToolStripMenuItem.Click += new System.EventHandler(this.DeleteTab);
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Index = 3;
+            this.exportToolStripMenuItem.Text = "Export...";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.ExportTab);
+            // 
+            // openTabLocationToolStripMenuItem
+            // 
+            this.openTabLocationToolStripMenuItem.Index = 4;
+            this.openTabLocationToolStripMenuItem.Text = "Open Tab Location";
+            this.openTabLocationToolStripMenuItem.Click += new System.EventHandler(this.OpenTabLocation);
+            // 
+            // menuItem4
+            // 
+            this.menuItem4.Index = 3;
+            this.menuItem4.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.preferencesMenuItem});
+            this.menuItem4.Text = "&Tools";
+            // 
+            // preferencesMenuItem
+            // 
+            this.preferencesMenuItem.Index = 0;
+            this.preferencesMenuItem.Text = "Preferences";
+            this.preferencesMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
+            // 
+            // menuItem5
+            // 
+            this.menuItem5.Index = 4;
+            this.menuItem5.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.checkForUpdatesMenuItem,
+            this.aboutMenuItem});
+            this.menuItem5.Text = "&Help";
+            // 
+            // checkForUpdatesMenuItem
+            // 
+            this.checkForUpdatesMenuItem.Index = 0;
+            this.checkForUpdatesMenuItem.Text = "Check for Updates...";
+            this.checkForUpdatesMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
+            // 
+            // aboutMenuItem
+            // 
+            this.aboutMenuItem.Index = 1;
+            this.aboutMenuItem.Text = "About...";
+            this.aboutMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1622,11 +1575,11 @@ namespace Tabster.Forms
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1034, 524);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.KeyPreview = true;
+            this.Menu = this.mainMenu1;
             this.MinimumSize = new System.Drawing.Size(960, 500);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1634,16 +1587,20 @@ namespace Tabster.Forms
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.tabControl1.ResumeLayout(false);
             this.display_library.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.librarySplitContainer.Panel1.ResumeLayout(false);
+            this.librarySplitContainer.Panel1.PerformLayout();
             this.librarySplitContainer.Panel2.ResumeLayout(false);
             this.librarySplitContainer.Panel2.PerformLayout();
             this.librarySplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tablibrary)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.previewToolStrip.ResumeLayout(false);
             this.previewToolStrip.PerformLayout();
             this.display_search.ResumeLayout(false);
@@ -1660,8 +1617,6 @@ namespace Tabster.Forms
             this.SearchMenu.ResumeLayout(false);
             this.LibraryMenu.ResumeLayout(false);
             this.PlaylistMenu.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1680,30 +1635,6 @@ namespace Tabster.Forms
         private System.Windows.Forms.ContextMenuStrip PlaylistMenu;
         private System.Windows.Forms.ToolStripMenuItem deleteplaylistcontextmenuitem;
         private System.Windows.Forms.ImageList tabimagelist;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newTabToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newPlaylistToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openTabToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sidebarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem statusBarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem libraryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewTabToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteTabToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem detailsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openTabLocationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton clearsearchbtn;
-        private DelayedToolStripTextBox filtertext;
         private System.Windows.Forms.TabPage display_search;
         private DataGridViewExtended searchDisplay;
         private System.Windows.Forms.Label label3;
@@ -1721,7 +1652,6 @@ namespace Tabster.Forms
         private System.Windows.Forms.ToolStripStatusLabel lblcount;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripStatusLabel lblplaylists;
-        private System.Windows.Forms.ToolStripMenuItem searchSimilarToolStripMenuItem;
         private ToolStripMenuItem librarycontextdetails;
         private ToolStripMenuItem librarycontextdelete;
         private ToolStripMenuItem librarycontextexport;
@@ -1737,21 +1667,12 @@ namespace Tabster.Forms
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripButton detailsbtn;
         private ToolStripButton printbtn;
-        private RecentToolStripMenuItem recentlyViewedToolStripMenuItem;
         private ToolStripMenuItem previewToolStripMenuItem;
         private SplitContainer searchSplitContainer;
         private TablatureEditor searchPreviewEditor;
         private ToolStripSeparator toolStripSeparator8;
         private ToolStripDropDownButton toolStripButton3;
         private ToolStripMenuItem offToolStripMenuItem;
-        private ToolStripMenuItem libraryPreviewPaneToolStripMenuItem;
-        private ToolStripMenuItem libraryhiddenpreviewToolStripMenuItem;
-        private ToolStripMenuItem libraryhorizontalpreviewToolStripMenuItem;
-        private ToolStripMenuItem libraryverticalpreviewToolStripMenuItem;
-        private ToolStripMenuItem searchPreviewPaneToolStripMenuItem;
-        private ToolStripMenuItem searchhiddenpreviewToolStripMenuItem;
-        private ToolStripMenuItem searchhorizontalpreviewToolStripMenuItem;
-        private ToolStripMenuItem searchverticalpreviewToolStripMenuItem;
         private ToolStripMenuItem playlistInformationToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker SearchPreviewBackgroundWorker;
         private ToolStripSeparator toolStripSeparator4;
@@ -1798,6 +1719,40 @@ namespace Tabster.Forms
         private DataGridViewTextBoxColumn libraryCol_modified;
         private DataGridViewTextBoxColumn libraryCol_views;
         private DataGridViewTextBoxColumn libraryCol_location;
+        private MainMenu mainMenu1;
+        private MenuItem menuItem1;
+        private MenuItem menuItem2;
+        private MenuItem menuItem3;
+        private MenuItem menuItem4;
+        private MenuItem menuItem5;
+        private MenuItem newTabMenuItem;
+        private MenuItem newPlaylistMenuItem;
+        private MenuItem openTabMenuItem;
+        private MenuItem importMenuItem;
+        private MenuItem exitMenuItem;
+        private MenuItem checkForUpdatesMenuItem;
+        private MenuItem aboutMenuItem;
+        private MenuItem preferencesMenuItem;
+        private RecentToolStripMenuItem recentlyViewedMenuItem;
+        private MenuItem viewTabToolStripMenuItem;
+        private MenuItem detailsToolStripMenuItem;
+        private MenuItem deleteTabToolStripMenuItem;
+        private MenuItem exportToolStripMenuItem;
+        private MenuItem openTabLocationToolStripMenuItem;
+        private MenuItem sidebarToolStripMenuItem;
+        private MenuItem statusBarToolStripMenuItem;
+        private MenuItem libraryPreviewPaneToolStripMenuItem;
+        private MenuItem searchPreviewPaneToolStripMenuItem;
+        private MenuItem libraryhiddenpreviewToolStripMenuItem;
+        private MenuItem libraryhorizontalpreviewToolStripMenuItem;
+        private MenuItem libraryverticalpreviewToolStripMenuItem;
+        private MenuItem searchhiddenpreviewToolStripMenuItem;
+        private MenuItem searchhorizontalpreviewToolStripMenuItem;
+        private MenuItem searchverticalpreviewToolStripMenuItem;
+        private ToolStrip toolStrip1;
+        private ToolStripLabel toolStripLabel1;
+        private ToolStripButton clearsearchbtn;
+        private SearchBox filtertext;
     }
 }
 

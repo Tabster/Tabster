@@ -50,12 +50,6 @@ namespace Tabster.Forms
             else
                 Size = Settings.Default.ClientSize;
 
-            if (Environment.OSVersion.Version.Major < 6)
-            {
-                menuStrip1.RenderMode = ToolStripRenderMode.System;
-                menuStrip1.Renderer = new MenuStripRenderer();
-            }
-
             PreviewDisplayDelay.Interval = PREVIEW_DISPLAY_DELAY_DURATION;
             PreviewDisplayTimer.Interval = PREVIEW_DISPLAY_VIEWED_DURATION;
 
@@ -74,10 +68,6 @@ namespace Tabster.Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //tode use designer
-            recentlyViewedToolStripMenuItem.DisplayClearOption = true;
-            recentlyViewedToolStripMenuItem.OnItemClicked += recentlyViewedToolStripMenuItem_OnItemClicked;
-
             LoadRecentFilesList();
 
             sidemenu.SelectedNode = sidemenu.Nodes[0].FirstNode;
@@ -133,7 +123,7 @@ namespace Tabster.Forms
                     //only update display on last document
                     var updateDisplay = i == files.Count - 1;
 
-                    recentlyViewedToolStripMenuItem.Add(doc.FileInfo, doc.ToFriendlyString(), updateDisplay);
+                    recentlyViewedMenuItem.Add(doc.FileInfo, doc.ToFriendlyString(), updateDisplay);
                 }
             }
         }
@@ -147,7 +137,7 @@ namespace Tabster.Forms
             var root = doc.CreateElement("recent");
             doc.AppendChild(root);
 
-            foreach (var item in recentlyViewedToolStripMenuItem.Items)
+            foreach (var item in recentlyViewedMenuItem.Items)
             {
                 var elem = doc.CreateElement("item");
                 elem.InnerText = item.File.FullName;
@@ -186,9 +176,9 @@ namespace Tabster.Forms
             InitializeSearchControls();
         }
 
-        private void OpenRecentFile(ToolStripMenuItem item)
+        private void OpenRecentFile(MenuItem item)
         {
-            var path = item.ToolTipText;
+            var path = item.Tag.ToString();
 
             var tab = _tablatureProcessor.Load(path);
 
@@ -198,14 +188,14 @@ namespace Tabster.Forms
             }
         }
 
-        private void recentlyViewedToolStripMenuItem_OnItemClicked(object sender, EventArgs e)
+        private void recentlyViewedMenuItem_OnItemClicked(object sender, EventArgs e)
         {
-            OpenRecentFile((ToolStripMenuItem) sender);
+            OpenRecentFile((MenuItem)sender);
         }
 
-        private void recentlyViewedToolStripMenuItem_OnAllItemsOpened(object sender, EventArgs e)
+        private void recentlyViewedMenuItem_OnAllItemsOpened(object sender, EventArgs e)
         {
-            foreach (var item in recentlyViewedToolStripMenuItem.Items)
+            foreach (var item in recentlyViewedMenuItem.Items)
             {
                 OpenRecentFile(item.MenuItem);
             }
@@ -225,63 +215,78 @@ namespace Tabster.Forms
             }
 
             filtertext.Visible = tabControl1.SelectedTab == display_library;
-            libraryToolStripMenuItem.Enabled = tabControl1.SelectedTab == display_library;
+            menuItem3.Enabled = tabControl1.SelectedTab == display_library;
+        }
+
+        private void SetLibraryPreviewPanelOrientation(PreviewPanelOrientation orientation)
+        {
+            librarySplitContainer.Panel2Collapsed = orientation == PreviewPanelOrientation.Hidden;
+            librarySplitContainer.Orientation = orientation == PreviewPanelOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
+
+            libraryhiddenpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Hidden;
+            libraryhorizontalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Horizontal;
+            libraryverticalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Vertical;
+
+            Settings.Default.LibraryPreviewOrientation = librarySplitContainer.Panel2Collapsed
+                                                             ? PreviewPanelOrientation.Hidden
+                                                             : (librarySplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
+        }
+
+        private void SetSearchPreviewPanelOrientation(PreviewPanelOrientation orientation)
+        {
+            searchSplitContainer.Panel2Collapsed = orientation == PreviewPanelOrientation.Hidden;
+            searchSplitContainer.Orientation = orientation == PreviewPanelOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
+
+            searchhiddenpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Hidden;
+            searchhorizontalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Horizontal;
+            searchverticalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Vertical;
+
+            Settings.Default.SearchPreviewOrientation = searchSplitContainer.Panel2Collapsed
+                                                            ? PreviewPanelOrientation.Hidden
+                                                            : (searchSplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
+ 
         }
 
         private void TogglePreviewPane(object sender, EventArgs e)
         {
-            var ts = (ToolStripMenuItem) sender;
-            var orientation = PreviewPanelOrientation.Hidden;
+            var menuItem = sender as MenuItem;
 
-            switch (ts.Text)
+            //mainmenu item
+            if (menuItem != null)
             {
-                case "Hidden":
-                    orientation = PreviewPanelOrientation.Hidden;
-                    break;
-                case "Horizontal":
-                    orientation = PreviewPanelOrientation.Horizontal;
-                    break;
-                case "Vertical":
-                    orientation = PreviewPanelOrientation.Vertical;
-                    break;
-            }
+                var orientation = PreviewPanelOrientation.Hidden;
 
-            if (ts.OwnerItem == libraryPreviewPaneToolStripMenuItem)
-            {
-                librarySplitContainer.Panel2Collapsed = orientation == PreviewPanelOrientation.Hidden;
-                librarySplitContainer.Orientation = orientation == PreviewPanelOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
-
-                libraryhiddenpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Hidden;
-                libraryhorizontalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Horizontal;
-                libraryverticalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Vertical;
-
-                Settings.Default.LibraryPreviewOrientation = librarySplitContainer.Panel2Collapsed
-                                                                 ? PreviewPanelOrientation.Hidden
-                                                                 : (librarySplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
-            }
-
-            if (ts.OwnerItem == searchPreviewPaneToolStripMenuItem || ts == previewToolStripMenuItem)
-            {
-                if (ts == previewToolStripMenuItem && searchSplitContainer.Panel2Collapsed)
-                    orientation = PreviewPanelOrientation.Horizontal;
-
-                searchSplitContainer.Panel2Collapsed = orientation == PreviewPanelOrientation.Hidden;
-                searchSplitContainer.Orientation = orientation == PreviewPanelOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
-
-                searchhiddenpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Hidden;
-                searchhorizontalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Horizontal;
-                searchverticalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Vertical;
-
-                Settings.Default.SearchPreviewOrientation = searchSplitContainer.Panel2Collapsed
-                                                                ? PreviewPanelOrientation.Hidden
-                                                                : (searchSplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
-
-                if (orientation != PreviewPanelOrientation.Hidden && SelectedSearchResult() == null)
+                switch (menuItem.Text)
                 {
-                    searchSplitContainer.Panel2Collapsed = true;
+                    case "Hidden":
+                        orientation = PreviewPanelOrientation.Hidden;
+                        break;
+                    case "Horizontal":
+                        orientation = PreviewPanelOrientation.Horizontal;
+                        break;
+                    case "Vertical":
+                        orientation = PreviewPanelOrientation.Vertical;
+                        break;
                 }
 
-                previewToolStrip.Enabled = previewToolStripMenuItem.Enabled = searchSplitContainer.Panel2Collapsed;
+                if (menuItem.Parent == libraryPreviewPaneToolStripMenuItem)
+                    SetLibraryPreviewPanelOrientation(orientation);
+                if (menuItem.Parent == searchPreviewPaneToolStripMenuItem)
+                    SetSearchPreviewPanelOrientation(orientation);
+            }
+
+            //search context menu
+            else if (sender == previewToolStripMenuItem)
+            {
+                var orientation = PreviewPanelOrientation.Hidden; 
+
+                if (searchSplitContainer.Panel2Collapsed)
+                    orientation = PreviewPanelOrientation.Horizontal;
+
+                if (orientation != PreviewPanelOrientation.Hidden && SelectedSearchResult() == null)
+                    searchSplitContainer.Panel2Collapsed = true;
+
+                SetSearchPreviewPanelOrientation(orientation);
             }
 
             Settings.Default.Save();
@@ -426,5 +431,17 @@ namespace Tabster.Forms
         }
 
         #endregion
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control)
+            {
+                if (e.KeyCode == Keys.F)
+                {
+                    filtertext.Focus();
+                    filtertext.SelectAll();
+                }
+            }
+        }
     }
 }

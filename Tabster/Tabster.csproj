@@ -82,7 +82,6 @@
     <Compile Include="Controls\DataGridViewExtended.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\MenuStripRenderer.cs" />
     <Compile Include="Controls\ToolStripRenderer.cs" />
     <Compile Include="FormState.cs" />
     <Compile Include="Forms\MainForm.Download.cs">

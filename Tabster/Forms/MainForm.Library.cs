@@ -155,10 +155,7 @@ namespace Tabster.Forms
                 detailsToolStripMenuItem.Enabled = false;
             }
 
-            viewTabToolStripMenuItem.Enabled = SelectedTab != null;
-            exportToolStripMenuItem.Enabled = SelectedTab != null;
-            openTabLocationToolStripMenuItem.Enabled = SelectedTab != null;
-            searchSimilarToolStripMenuItem.Enabled = SelectedTab != null;
+            menuItem3.Enabled = SelectedTab != null;
 
             if (beginPreviewLoadTimer)
             {
@@ -214,7 +211,7 @@ namespace Tabster.Forms
             Program.TabHandler.LoadExternally(tab, true);
 
             if (updateRecentFiles)
-                recentlyViewedToolStripMenuItem.Add(tab.FileInfo, tab.ToFriendlyString());
+                recentlyViewedMenuItem.Add(tab.FileInfo, tab.ToFriendlyString());
 
             UpdateTabControls(false);
             LoadTabPreview();
@@ -744,12 +741,6 @@ namespace Tabster.Forms
         #endregion
 
         #region Searching
-
-        private void searchToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            filtertext.Focus();
-            filtertext.SelectAll();
-        }
 
         private void filtertext_OnNewSearch(object sender, string value)
         {
