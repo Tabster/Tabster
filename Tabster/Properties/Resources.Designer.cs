@@ -61,6 +61,17 @@ namespace Tabster.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This software is provided &apos;as-is&apos;, without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software. 
+        ///
+        ///Redistribution of this software is allowed, but the origin of this software must not be misrepresented; you must not claim that you wrote the original software..
+        /// </summary>
+        internal static string ApplicationLicense {
+            get {
+                return ResourceManager.GetString("ApplicationLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap arrow_out {
