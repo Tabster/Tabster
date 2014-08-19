@@ -15,10 +15,9 @@ namespace Tabster.Forms
         public AboutDialog()
         {
             InitializeComponent();
-            Text = string.Format("{0} v{1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
             lblName.Text = string.Format("{0} {1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
             lblCopyright.Text = Common.GetCopyrightString();
-            pictureBox1.Image = Resources.guitar128;
+            txtLicense.Text = Resources.ApplicationLicense;
         }
 
         private void LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
