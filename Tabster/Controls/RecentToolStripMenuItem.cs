@@ -10,7 +10,15 @@ using System.Windows.Forms;
 
 namespace Tabster.Controls
 {
-    internal class RecentToolStripMenuItem : ToolStripMenuItem
+    internal class MenuItemSeperator : MenuItem
+    {
+        public MenuItemSeperator()
+        {
+            Text = "-";
+        }
+    }
+
+    internal class RecentToolStripMenuItem : MenuItem
     {
         #region RecentFilesDisplayMode enum
 
@@ -22,11 +30,11 @@ namespace Tabster.Controls
 
         #endregion
 
-        private readonly ToolStripMenuItem _clearMenuItem = new ToolStripMenuItem();
+        private readonly MenuItem _clearMenuItem = new MenuItem();
 
-        private readonly List<ToolStripItem> _consecutiveItems = new List<ToolStripItem>();
+        private readonly List<MenuItem> _consecutiveItems = new List<MenuItem>();
         private readonly List<RecentToolStripMenuElement> _items = new List<RecentToolStripMenuElement>();
-        private readonly ToolStripMenuItem _openAllMenuItem = new ToolStripMenuItem();
+        private readonly MenuItem _openAllMenuItem = new MenuItem();
 
         private string _clearOptionText = "Clear All Recent Items";
 
@@ -158,7 +166,7 @@ namespace Tabster.Controls
 
         private void PopulateItems()
         {
-            var menuItems = new List<ToolStripItem>();
+            var menuItems = new List<MenuItem>();
 
             for (var i = 0; i < _items.Count; i++)
             {
@@ -172,18 +180,13 @@ namespace Tabster.Controls
                 if (PrependItemNumbers)
                     displayName = string.Format("{0}: {1}", i + 1, displayName);
 
-                var useTooltip = !displayName.Equals(item.File.FullName, StringComparison.InvariantCultureIgnoreCase);
-
-                var menuItem = new ToolStripMenuItem(displayName) { Tag = item.File.FullName, ToolTipText = item.File.FullName, AutoToolTip = useTooltip };
+                var menuItem = new MenuItem(displayName) {Tag = item.File.FullName};
 
                 menuItem.Click += (s, e) =>
                                       {
                                           if (OnItemClicked != null)
                                               OnItemClicked(s, e);
                                       };
-
-                ((ToolStripDropDownMenu) menuItem.DropDown).ShowImageMargin = false;
-                ((ToolStripDropDownMenu) menuItem.DropDown).ShowCheckMargin = false;
 
                 item.MenuItem = menuItem;
 
@@ -207,7 +210,7 @@ namespace Tabster.Controls
 
         #region RecentFilesDisplayMode.Child Methods
 
-        private void PopulateChildItems(IEnumerable<ToolStripItem> items)
+        private void PopulateChildItems(IEnumerable<MenuItem> items)
         {
             foreach (var item in items)
             {
@@ -216,30 +219,30 @@ namespace Tabster.Controls
 
             if (DisplayOpenAllOption || DisplayClearOption)
             {
-                DropDownItems.Add(new ToolStripSeparator());
+                MenuItems.Add(new MenuItemSeperator());
             }
 
             if (DisplayOpenAllOption)
             {
-                DropDownItems.Add(_openAllMenuItem);
+                MenuItems.Add(_openAllMenuItem);
             }
 
             if (DisplayClearOption)
             {
-                DropDownItems.Add(_clearMenuItem);
+                MenuItems.Add(_clearMenuItem);
             }
         }
 
-        private void PopulateChildItem(ToolStripItem item)
+        private void PopulateChildItem(MenuItem item)
         {
             Visible = true;
-            DropDownItems.Insert(0, item);
-            Enabled = DropDownItems.Count > 0;
+            MenuItems.Add(0, item);
+            Enabled = MenuItems.Count > 0;
         }
 
         private void ClearChildItems()
         {
-            DropDownItems.Clear();
+            MenuItems.Clear();
             Enabled = false;
         }
 
@@ -247,14 +250,15 @@ namespace Tabster.Controls
 
         #region RecentFilesDisplayMode.Consecutive Methods
 
-        private void PopulateConsecutiveItems(IEnumerable<ToolStripItem> items)
+        private void PopulateConsecutiveItems(IEnumerable<MenuItem> items)
         {
             Visible = false;
-            var index = ((ToolStripMenuItem)OwnerItem).DropDownItems.IndexOf(this);
+
+            var index = Parent.MenuItems.IndexOf(this);
 
             var count = index;
 
-            PopulateConsecutiveItem(index, new ToolStripSeparator());
+            PopulateConsecutiveItem(index, new MenuItemSeperator());
 
             foreach (var item in items)
             {
@@ -264,7 +268,7 @@ namespace Tabster.Controls
 
             if (DisplayOpenAllOption || DisplayClearOption)
             {
-                PopulateConsecutiveItem(count, new ToolStripSeparator());
+                PopulateConsecutiveItem(count, new MenuItemSeperator());
                 count++;
             }
 
@@ -280,22 +284,22 @@ namespace Tabster.Controls
                 count++;
             }
 
-            PopulateConsecutiveItem(index, new ToolStripSeparator());
+            PopulateConsecutiveItem(index, new MenuItemSeperator());
         }
 
-        private void PopulateConsecutiveItem(int index, ToolStripItem item)
+        private void PopulateConsecutiveItem(int index, MenuItem item)
         {
-            ((ToolStripMenuItem) OwnerItem).DropDownItems.Insert(index, item);
+            Parent.MenuItems.Add(index, item);
             _consecutiveItems.Add(item);
         }
 
         private void ClearConsecutiveItems()
         {
-            var owner = (OwnerItem as ToolStripMenuItem);
+            var owner = (Parent as MenuItem);
 
             foreach (var item in _consecutiveItems)
             {
-                owner.DropDownItems.Remove(item);
+                owner.MenuItems.Remove(item);
             }
 
             _consecutiveItems.Clear();
@@ -305,7 +309,7 @@ namespace Tabster.Controls
 
         #region Nested type: RecentToolStripMenuElement
 
-        public class RecentToolStripMenuElement
+        internal class RecentToolStripMenuElement
         {
             public RecentToolStripMenuElement(FileInfo file, string displayName)
             {
@@ -315,7 +319,7 @@ namespace Tabster.Controls
 
             public FileInfo File { get; private set; }
             public string DisplayName { get; private set; }
-            public ToolStripMenuItem MenuItem { get; set; }
+            public MenuItem MenuItem { get; set; }
         }
 
         #endregion
