@@ -3,7 +3,6 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Tabster.Properties;
 using Tabster.Utilities;
 
 #endregion
