@@ -83,6 +83,7 @@ namespace GuitartabsDotCC
 
                 if (contentsNode != null)
                 {
+                    //embedded hyperlink
                     var span = contentsNode.SelectSingleNode("span");
 
                     if (span != null)
