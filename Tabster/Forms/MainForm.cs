@@ -213,7 +213,7 @@ namespace Tabster.Forms
                 txtSearchArtist.Focus();
             }
 
-            filtertext.Visible = tabControl1.SelectedTab == display_library;
+            txtLibraryFilter.Visible = tabControl1.SelectedTab == display_library;
             menuItem3.Enabled = tabControl1.SelectedTab == display_library;
         }
 
@@ -423,8 +423,7 @@ namespace Tabster.Forms
             {
                 if (e.KeyCode == Keys.F)
                 {
-                    filtertext.Focus();
-                    filtertext.SelectAll();
+                    txtLibraryFilter.Focus();
                 }
             }
         }

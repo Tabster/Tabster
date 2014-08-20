@@ -75,10 +75,8 @@ namespace Tabster.Forms
             this.libraryCol_modified = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.libraryCol_views = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.libraryCol_location = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.clearsearchbtn = new System.Windows.Forms.ToolStripButton();
-            this.filtertext = new Tabster.Controls.SearchBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.txtLibraryFilter = new Tabster.Controls.TextBoxExtended();
             this.lblopenedexternally = new System.Windows.Forms.Label();
             this.previewToolStrip = new System.Windows.Forms.ToolStrip();
             this.lblpreviewtitle = new System.Windows.Forms.ToolStripLabel();
@@ -194,7 +192,7 @@ namespace Tabster.Forms
             this.librarySplitContainer.Panel2.SuspendLayout();
             this.librarySplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablibrary)).BeginInit();
-            this.toolStrip1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.previewToolStrip.SuspendLayout();
             this.display_search.SuspendLayout();
             this.searchSplitContainer.Panel1.SuspendLayout();
@@ -235,7 +233,7 @@ namespace Tabster.Forms
             this.tabControl1.Padding = new System.Drawing.Point(15, 4);
             this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1034, 501);
+            this.tabControl1.Size = new System.Drawing.Size(1034, 459);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -247,7 +245,7 @@ namespace Tabster.Forms
             this.display_library.ImageIndex = 0;
             this.display_library.Location = new System.Drawing.Point(4, 24);
             this.display_library.Name = "display_library";
-            this.display_library.Size = new System.Drawing.Size(1026, 473);
+            this.display_library.Size = new System.Drawing.Size(1026, 431);
             this.display_library.TabIndex = 1;
             this.display_library.Text = "Library";
             // 
@@ -273,7 +271,7 @@ namespace Tabster.Forms
             this.splitContainer1.Panel2.Controls.Add(this.librarySplitContainer);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer1.Panel2MinSize = 0;
-            this.splitContainer1.Size = new System.Drawing.Size(1026, 473);
+            this.splitContainer1.Size = new System.Drawing.Size(1026, 431);
             this.splitContainer1.SplitterDistance = 140;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 9;
@@ -318,7 +316,7 @@ namespace Tabster.Forms
             this.sidemenu.ShowLines = false;
             this.sidemenu.ShowPlusMinus = false;
             this.sidemenu.ShowRootLines = false;
-            this.sidemenu.Size = new System.Drawing.Size(140, 417);
+            this.sidemenu.Size = new System.Drawing.Size(140, 375);
             this.sidemenu.TabIndex = 0;
             this.sidemenu.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.sidemenu_BeforeSelect);
             this.sidemenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.sidemenu_AfterSelect);
@@ -329,7 +327,7 @@ namespace Tabster.Forms
             this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(0, 417);
+            this.button1.Location = new System.Drawing.Point(0, 375);
             this.button1.Name = "button1";
             this.button1.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.button1.Size = new System.Drawing.Size(140, 28);
@@ -343,7 +341,7 @@ namespace Tabster.Forms
             this.button2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(0, 445);
+            this.button2.Location = new System.Drawing.Point(0, 403);
             this.button2.Name = "button2";
             this.button2.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.button2.Size = new System.Drawing.Size(140, 28);
@@ -365,7 +363,7 @@ namespace Tabster.Forms
             // librarySplitContainer.Panel1
             // 
             this.librarySplitContainer.Panel1.Controls.Add(this.tablibrary);
-            this.librarySplitContainer.Panel1.Controls.Add(this.toolStrip1);
+            this.librarySplitContainer.Panel1.Controls.Add(this.panel2);
             this.librarySplitContainer.Panel1MinSize = 140;
             // 
             // librarySplitContainer.Panel2
@@ -373,8 +371,8 @@ namespace Tabster.Forms
             this.librarySplitContainer.Panel2.Controls.Add(this.lblopenedexternally);
             this.librarySplitContainer.Panel2.Controls.Add(this.previewToolStrip);
             this.librarySplitContainer.Panel2MinSize = 140;
-            this.librarySplitContainer.Size = new System.Drawing.Size(885, 473);
-            this.librarySplitContainer.SplitterDistance = 300;
+            this.librarySplitContainer.Size = new System.Drawing.Size(885, 431);
+            this.librarySplitContainer.SplitterDistance = 258;
             this.librarySplitContainer.TabIndex = 25;
             // 
             // tablibrary
@@ -413,7 +411,7 @@ namespace Tabster.Forms
             this.tablibrary.DefaultCellStyle = dataGridViewCellStyle5;
             this.tablibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tablibrary.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.tablibrary.Location = new System.Drawing.Point(0, 25);
+            this.tablibrary.Location = new System.Drawing.Point(0, 29);
             this.tablibrary.MultiSelect = false;
             this.tablibrary.Name = "tablibrary";
             this.tablibrary.ReadOnly = true;
@@ -436,7 +434,7 @@ namespace Tabster.Forms
             this.tablibrary.ShowCellToolTips = false;
             this.tablibrary.ShowEditingIcon = false;
             this.tablibrary.ShowRowErrors = false;
-            this.tablibrary.Size = new System.Drawing.Size(883, 273);
+            this.tablibrary.Size = new System.Drawing.Size(883, 227);
             this.tablibrary.TabIndex = 19;
             this.tablibrary.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablibrary_CellDoubleClick);
             this.tablibrary.SelectionChanged += new System.EventHandler(this.tablibrary_SelectionChanged);
@@ -509,51 +507,27 @@ namespace Tabster.Forms
             this.libraryCol_location.Name = "libraryCol_location";
             this.libraryCol_location.ReadOnly = true;
             // 
-            // toolStrip1
+            // panel2
             // 
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
-            this.clearsearchbtn,
-            this.filtertext});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.Size = new System.Drawing.Size(883, 25);
-            this.toolStrip1.TabIndex = 24;
+            this.panel2.Controls.Add(this.txtLibraryFilter);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(883, 29);
+            this.panel2.TabIndex = 20;
             // 
-            // toolStripLabel1
+            // txtLibraryFilter
             // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(0, 22);
-            // 
-            // clearsearchbtn
-            // 
-            this.clearsearchbtn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.clearsearchbtn.AutoSize = false;
-            this.clearsearchbtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.clearsearchbtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.clearsearchbtn.Margin = new System.Windows.Forms.Padding(-5, 0, 0, 0);
-            this.clearsearchbtn.Name = "clearsearchbtn";
-            this.clearsearchbtn.Size = new System.Drawing.Size(10, 17);
-            this.clearsearchbtn.Text = "x";
-            this.clearsearchbtn.Visible = false;
-            // 
-            // filtertext
-            // 
-            this.filtertext.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.filtertext.AutoSize = false;
-            this.filtertext.BackColor = System.Drawing.SystemColors.Window;
-            this.filtertext.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.filtertext.ClearButton = this.clearsearchbtn;
-            this.filtertext.DefaultText = " Search Library";
-            this.filtertext.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.filtertext.ForeColor = System.Drawing.Color.Gray;
-            this.filtertext.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.filtertext.Name = "filtertext";
-            this.filtertext.Size = new System.Drawing.Size(130, 20);
-            this.filtertext.Text = " Search Library";
-            this.filtertext.OnNewSearch += new Tabster.Controls.SearchBox.NewSearchHandler(this.filtertext_OnNewSearch);
+            this.txtLibraryFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLibraryFilter.Location = new System.Drawing.Point(739, 3);
+            this.txtLibraryFilter.Name = "txtLibraryFilter";
+            this.txtLibraryFilter.PlaceholderForecolor = System.Drawing.Color.DarkGray;
+            this.txtLibraryFilter.PlaceholderText = " Search Library";
+            this.txtLibraryFilter.SelectOnFocus = true;
+            this.txtLibraryFilter.Size = new System.Drawing.Size(137, 20);
+            this.txtLibraryFilter.TabIndex = 0;
+            this.txtLibraryFilter.TextChangedDelay = 250;
+            this.txtLibraryFilter.TextChanged += new System.EventHandler(this.txtLibraryFilter_TextChanged);
             // 
             // lblopenedexternally
             // 
@@ -678,7 +652,7 @@ namespace Tabster.Forms
             this.display_search.ImageIndex = 1;
             this.display_search.Location = new System.Drawing.Point(4, 24);
             this.display_search.Name = "display_search";
-            this.display_search.Size = new System.Drawing.Size(1026, 473);
+            this.display_search.Size = new System.Drawing.Size(1026, 431);
             this.display_search.TabIndex = 5;
             this.display_search.Text = "Search";
             // 
@@ -700,7 +674,7 @@ namespace Tabster.Forms
             this.searchSplitContainer.Panel2.Controls.Add(this.searchPreviewEditor);
             this.searchSplitContainer.Panel2Collapsed = true;
             this.searchSplitContainer.Panel2MinSize = 100;
-            this.searchSplitContainer.Size = new System.Drawing.Size(827, 473);
+            this.searchSplitContainer.Size = new System.Drawing.Size(827, 431);
             this.searchSplitContainer.SplitterDistance = 200;
             this.searchSplitContainer.TabIndex = 29;
             // 
@@ -761,7 +735,7 @@ namespace Tabster.Forms
             this.searchDisplay.ShowCellToolTips = false;
             this.searchDisplay.ShowEditingIcon = false;
             this.searchDisplay.ShowRowErrors = false;
-            this.searchDisplay.Size = new System.Drawing.Size(825, 471);
+            this.searchDisplay.Size = new System.Drawing.Size(825, 429);
             this.searchDisplay.TabIndex = 20;
             this.searchDisplay.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SaveSelectedTab);
             this.searchDisplay.SelectionChanged += new System.EventHandler(this.dataGridViewExtended1_SelectionChanged);
@@ -835,7 +809,7 @@ namespace Tabster.Forms
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(199, 473);
+            this.panel1.Size = new System.Drawing.Size(199, 431);
             this.panel1.TabIndex = 28;
             // 
             // resetSearchbtn
@@ -996,7 +970,7 @@ namespace Tabster.Forms
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1026, 473);
+            this.tabPage1.Size = new System.Drawing.Size(1026, 431);
             this.tabPage1.TabIndex = 6;
             this.tabPage1.Text = "Download";
             // 
@@ -1130,7 +1104,7 @@ namespace Tabster.Forms
             this.toolStripSeparator2,
             this.lblplaylists,
             this.lblStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 501);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 459);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1034, 23);
             this.statusStrip1.SizingGrip = false;
@@ -1557,7 +1531,7 @@ namespace Tabster.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1034, 524);
+            this.ClientSize = new System.Drawing.Size(1034, 482);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -1578,13 +1552,12 @@ namespace Tabster.Forms
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.librarySplitContainer.Panel1.ResumeLayout(false);
-            this.librarySplitContainer.Panel1.PerformLayout();
             this.librarySplitContainer.Panel2.ResumeLayout(false);
             this.librarySplitContainer.Panel2.PerformLayout();
             this.librarySplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tablibrary)).EndInit();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.previewToolStrip.ResumeLayout(false);
             this.previewToolStrip.PerformLayout();
             this.display_search.ResumeLayout(false);
@@ -1731,10 +1704,8 @@ namespace Tabster.Forms
         private MenuItem searchhiddenpreviewToolStripMenuItem;
         private MenuItem searchhorizontalpreviewToolStripMenuItem;
         private MenuItem searchverticalpreviewToolStripMenuItem;
-        private ToolStrip toolStrip1;
-        private ToolStripLabel toolStripLabel1;
-        private ToolStripButton clearsearchbtn;
-        private SearchBox filtertext;
+        private Panel panel2;
+        private TextBoxExtended txtLibraryFilter;
     }
 }
 

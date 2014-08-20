@@ -334,8 +334,15 @@ namespace Tabster.Forms
 
         private void sidemenu_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            filtertext.Reset(true);
-            LoadLibrary();
+            if (!string.IsNullOrEmpty(txtLibraryFilter.Text))
+            {
+                txtLibraryFilter.Clear();
+            }
+
+            else
+            {
+                LoadLibrary();
+            }
         }
 
         private void ToggleFavorite(object sender, EventArgs e)
@@ -726,12 +733,9 @@ namespace Tabster.Forms
 
         #region Searching
 
-        private void filtertext_OnNewSearch(object sender, string value)
+        private void txtLibraryFilter_TextChanged(object sender, EventArgs e)
         {
-            if (filtertext.IsFilterSet || filtertext.FilterReset)
-            {
-                LoadLibrary(value);
-            }
+            LoadLibrary(txtLibraryFilter.Text);
         }
 
         #endregion
