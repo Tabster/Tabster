@@ -90,6 +90,9 @@
     <Compile Include="LibraryManager.cs" />
     <Compile Include="Plugins\PluginController.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Controls\TextBoxExtended.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utilities\Common.cs" />
     <Compile Include="Utilities\ControlInvoker.cs" />
     <Compile Include="Utilities\ITablatureExtensions.cs" />
@@ -175,9 +178,6 @@
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\RecentToolStripMenuItem.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\DelayedToolStripTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\StaticTreeView.cs">
