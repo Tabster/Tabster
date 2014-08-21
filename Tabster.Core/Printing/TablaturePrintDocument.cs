@@ -4,7 +4,6 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
-using Tabster.Core.Data;
 using Tabster.Core.Types;
 
 #endregion
@@ -16,25 +15,26 @@ namespace Tabster.Core.Printing
         private readonly Font _font;
         private readonly ITablature _tab;
 
-        private Rectangle _pageBounds;
+        private Rectangle _realPageBounds;
 
         private int _pageCount;
         private bool _performingPageCount;
+        private PrintAction _printAction;
         private string _printContents;
         private TablaturePrintDocumentSettings _settings;
-        private int _totalPages;
 
-        public TablaturePrintDocument(TablatureDocument doc, Font font)
-        {
-            _tab = doc;
-            _font = font;
-        }
+        protected int TotalPages { get; private set; }
+
+        #region Constructors
 
         public TablaturePrintDocument(ITablature tab, Font font)
         {
             _tab = tab;
             _font = font;
+            _settings = new TablaturePrintDocumentSettings {DisplayTitle = true, DisplayPageNumbers = true, DisplayPrintTime = true};
         }
+
+        #endregion
 
         #region Properties
 
@@ -46,7 +46,7 @@ namespace Tabster.Core.Printing
 
         #endregion
 
-        private int GetPageCount()
+        protected void CountTotalPages()
         {
             var _originalPrintContents = string.Copy(_printContents);
 
@@ -58,28 +58,32 @@ namespace Tabster.Core.Printing
 
             _printContents = _originalPrintContents;
 
-            return controller.PageCount;
+            TotalPages = controller.PageCount;
         }
 
         private void InternalPrintPage(PrintPageEventArgs e)
         {
-            if (_pageBounds == Rectangle.Empty)
-                _pageBounds = GetRealPageBounds(e, false);
+            if (_realPageBounds == Rectangle.Empty)
+                _realPageBounds = GetRealPageBounds(e, _printAction == PrintAction.PrintToPreview);
+
+            var printPageArgs = new TablaturePrintPageEventArgs(e.Graphics, e.MarginBounds, e.PageBounds, e.PageSettings) {CurrentPage = _pageCount, RealPageBounds = _realPageBounds};
 
             if (_printContents.Length > 0)
             {
                 _pageCount++;
 
-                if (Settings.DisplayHeaderFirstPage && _pageCount == 1)
-                    DrawHeader(e);
-
-                else if (Settings.DisplayHeaderAllPages)
-                    DrawHeader(e);
+                if (Settings.DisplayTitle)
+                    OnDrawTitle(printPageArgs);
 
                 if (Settings.DisplayPageNumbers)
-                    DrawPageNumbers(e.Graphics, _pageCount);
+                    OnDrawPageNumbers(printPageArgs);
 
-                DrawTabContents(e);
+                if (Settings.DisplayPrintTime)
+                    OnDrawPrintTime(printPageArgs);
+
+                DrawTabContents(printPageArgs);
+
+                e.HasMorePages = printPageArgs.HasMorePages;
             }
         }
 
@@ -87,7 +91,9 @@ namespace Tabster.Core.Printing
 
         protected override void OnBeginPrint(PrintEventArgs e)
         {
+            _printAction = e.PrintAction;
             _pageCount = 0;
+            _realPageBounds = Rectangle.Empty;
 
             //todo detect tab structure and split pages accordingly
             _printContents = string.Copy(_tab.Contents);
@@ -95,7 +101,9 @@ namespace Tabster.Core.Printing
             if (!_performingPageCount)
             {
                 _performingPageCount = true;
-                _totalPages = GetPageCount();
+
+                if (TotalPages == 0)
+                    CountTotalPages();
             }
 
             base.OnBeginPrint(e);
@@ -120,6 +128,17 @@ namespace Tabster.Core.Printing
 
         #region Drawing Methods
 
+        private void OnDrawTitle(PrintPageEventArgs e)
+        {
+            var title = string.Format("{0} - {1} ({2})", _tab.Artist, _tab.Title, _tab.Type.ToFriendlyString());
+
+            e.Graphics.DrawString(title, _font, Brushes.Black, _realPageBounds, new StringFormat
+                                                                                {
+                                                                                    Alignment = StringAlignment.Near,
+                                                                                    LineAlignment = StringAlignment.Near
+                                                                                });
+        }
+
         private void DrawTabContents(PrintPageEventArgs e)
         {
             var printBounds = e.MarginBounds;
@@ -135,62 +154,22 @@ namespace Tabster.Core.Printing
             e.HasMorePages = _printContents.Length > 0;
         }
 
-        private void DrawHeader(PrintPageEventArgs e)
+        protected virtual void OnDrawPageNumbers(TablaturePrintPageEventArgs e)
         {
-            var tableBasePosition = new Point(_pageBounds.X, _pageBounds.Y);
-            var tablePosition = tableBasePosition;
-
-            var verticalSeparatorPosition = new Point(tablePosition.X + 60, tablePosition.Y);
-
-            const int propertyValuePadding = 10;
-            const int horizontalLineWidth = 550;
-            var horizontalLinePadding = (int) e.Graphics.MeasureString("TEST", _font).Height + 3;
-
-            var tableLineColor = Pens.LightGray;
-            var tablePropertyColor = Brushes.Gray;
-            var tableValueColor = Brushes.Black;
-
-            //artist
-            e.Graphics.DrawString("Artist", _font, tablePropertyColor, tablePosition.X, tablePosition.Y);
-            e.Graphics.DrawString(_tab.Artist, _font, tableValueColor, verticalSeparatorPosition.X + propertyValuePadding, tablePosition.Y);
-            e.Graphics.DrawLine(tableLineColor, tablePosition.X, tablePosition.Y + horizontalLinePadding, horizontalLineWidth, tablePosition.Y + horizontalLinePadding);
-
-            tablePosition.Y += 20;
-
-            //title
-            e.Graphics.DrawString("Title", _font, tablePropertyColor, tablePosition.X, tablePosition.Y);
-            e.Graphics.DrawString(_tab.Title, _font, tableValueColor, verticalSeparatorPosition.X + propertyValuePadding, tablePosition.Y);
-            e.Graphics.DrawLine(tableLineColor, tablePosition.X, tablePosition.Y + horizontalLinePadding, horizontalLineWidth, tablePosition.Y + horizontalLinePadding);
-
-            tablePosition.Y += 20;
-
-            //type
-            e.Graphics.DrawString("Type", _font, tablePropertyColor, tablePosition.X, tablePosition.Y);
-            e.Graphics.DrawString(_tab.Type.ToFriendlyString(), _font, tableValueColor, verticalSeparatorPosition.X + propertyValuePadding, tablePosition.Y);
-            e.Graphics.DrawLine(tableLineColor, tablePosition.X, tablePosition.Y + horizontalLinePadding, horizontalLineWidth, tablePosition.Y + horizontalLinePadding);
-
-            tablePosition.Y += 20;
-
-            if (Settings.DisplayPrintTime)
-            {
-                e.Graphics.DrawString("Date", _font, tablePropertyColor, tablePosition.X, tablePosition.Y);
-                e.Graphics.DrawString(DateTime.Now.ToString(), _font, tableValueColor, verticalSeparatorPosition.X + propertyValuePadding, tablePosition.Y);
-                e.Graphics.DrawLine(tableLineColor, tablePosition.X, tablePosition.Y + horizontalLinePadding, horizontalLineWidth, tablePosition.Y + horizontalLinePadding);
-
-                tablePosition.Y += 20;
-            }
-
-            //vertical separator
-            e.Graphics.DrawLine(tableLineColor, verticalSeparatorPosition.X, tableBasePosition.Y, verticalSeparatorPosition.X, tablePosition.Y - 1);
+            e.Graphics.DrawString(string.Format("Page {0} of {1}", e.CurrentPage, TotalPages), _font, Brushes.Black, _realPageBounds, new StringFormat
+                                                                                                                                      {
+                                                                                                                                          Alignment = StringAlignment.Far,
+                                                                                                                                          LineAlignment = StringAlignment.Near
+                                                                                                                                      });
         }
 
-        private void DrawPageNumbers(Graphics g, int currentPage)
+        protected virtual void OnDrawPrintTime(PrintPageEventArgs e)
         {
-            g.DrawString(string.Format("Page {0} of {1}", currentPage, _totalPages), _font, Brushes.Black, _pageBounds, new StringFormat
-                                                                                                                            {
-                                                                                                                                Alignment = StringAlignment.Far,
-                                                                                                                                LineAlignment = StringAlignment.Near
-                                                                                                                            });
+            e.Graphics.DrawString(DateTime.Now.ToString(), _font, Brushes.Black, _realPageBounds, new StringFormat
+                                                                                                  {
+                                                                                                      Alignment = StringAlignment.Far,
+                                                                                                      LineAlignment = StringAlignment.Far
+                                                                                                  });
         }
 
         #endregion

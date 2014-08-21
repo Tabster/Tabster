@@ -2,8 +2,7 @@
 {
     public sealed class TablaturePrintDocumentSettings
     {
-        public bool DisplayHeaderFirstPage { get; set; }
-        public bool DisplayHeaderAllPages { get; set; }
+        public bool DisplayTitle { get; set; }
         public bool DisplayPageNumbers { get; set; }
         public bool DisplayPrintTime { get; set; }
     }
