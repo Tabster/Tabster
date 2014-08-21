@@ -66,11 +66,12 @@ namespace Tabster.Core.Printing
             if (_realPageBounds == Rectangle.Empty)
                 _realPageBounds = GetRealPageBounds(e, _printAction == PrintAction.PrintToPreview);
 
+            _pageCount++;
+
             var printPageArgs = new TablaturePrintPageEventArgs(e.Graphics, e.MarginBounds, e.PageBounds, e.PageSettings) {CurrentPage = _pageCount, RealPageBounds = _realPageBounds};
 
             if (_printContents.Length > 0)
             {
-                _pageCount++;
 
                 if (Settings.DisplayTitle)
                     OnDrawTitle(printPageArgs);
