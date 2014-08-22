@@ -46,19 +46,23 @@ namespace Tabster.Core.Printing
 
         #endregion
 
-        protected void CountTotalPages()
+        protected int CountTotalPages()
         {
             var _originalPrintContents = string.Copy(_printContents);
 
+            //backup existing controller
             var existingController = PrintController;
-            var controller = new PageCountPrintController();
-            PrintController = controller;
+
+            var pageCountController = new PageCountPrintController();
+            PrintController = pageCountController;
             Print();
+
             PrintController = existingController;
 
             _printContents = _originalPrintContents;
 
-            TotalPages = controller.PageCount;
+            TotalPages = pageCountController.PageCount;
+            return pageCountController.PageCount;
         }
 
         private void InternalPrintPage(PrintPageEventArgs e)
@@ -72,7 +76,6 @@ namespace Tabster.Core.Printing
 
             if (_printContents.Length > 0)
             {
-
                 if (Settings.DisplayTitle)
                     OnDrawTitle(printPageArgs);
 
