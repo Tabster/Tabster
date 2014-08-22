@@ -47,7 +47,7 @@ namespace Tabster.Controls
 
         [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [Category("Appearance")]
+        [Category("Behavior")]
         [Description("The amount of time, in milliseconds to wait after user input has stopped to trigger the TextChanged event.")]
         public int TextChangedDelay
         {
