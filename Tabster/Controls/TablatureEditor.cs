@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using Tabster.Core.Printing;
 using Tabster.Core.Types;
-using Tabster.Utilities;
 
 #endregion
 
@@ -18,9 +17,6 @@ namespace Tabster.Controls
         public TablatureEditor()
         {
             InitializeComponent();
-
-            _scrollTimer.Interval = 1000;
-            _scrollTimer.Tick += _scrollTimer_Tick;
         }
 
         #endregion
@@ -160,9 +156,7 @@ namespace Tabster.Controls
 
         #region AutoScroll
 
-        private readonly Timer _scrollTimer = new Timer();
-
-        private void _scrollTimer_Tick(object sender, EventArgs e)
+        private void autoscrollTimer_Tick(object sender, EventArgs e)
         {
             var visibleLines = txtContents.Size.Height/_lineSize.Height;
             var totalLines = txtContents.Lines.Length;
@@ -179,13 +173,13 @@ namespace Tabster.Controls
         {
             if (enabled)
             {
-                _scrollTimer.Stop();
-                _scrollTimer.Start();
+                autoscrollTimer.Stop();
+                autoscrollTimer.Start();
             }
 
             else
             {
-                _scrollTimer.Stop();
+                autoscrollTimer.Stop();
             }
         }
 
@@ -204,7 +198,9 @@ namespace Tabster.Controls
 
         public void Print()
         {
-            using (var printDocument = new TablaturePrintDocument(TabData, txtContents.Font) {DocumentName = TabData.ToFriendlyString(), Settings = PrintSettings})
+            var documentName = string.Format("{0} - {1} ({2})", TabData.Artist, TabData.Title, TabData.Type);
+
+            using (var printDocument = new TablaturePrintDocument(TabData, txtContents.Font) { DocumentName = documentName, Settings = PrintSettings })
             {
                 if (ShowPrintDialog)
                 {
