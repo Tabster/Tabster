@@ -57,7 +57,6 @@ namespace Tabster.Controls
             set
             {
                 txtContents.ReadOnly = value;
-                txtContents.ShortcutsEnabled = !value;
                 txtContents.BackColor = SystemColors.Window;
             }
         }
