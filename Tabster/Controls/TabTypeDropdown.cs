@@ -26,6 +26,9 @@ namespace Tabster.Controls
             PopulateList();
         }
 
+        /// <summary>
+        /// Selects the default text option.
+        /// </summary>
         public void SelectDefault()
         {
             if (DisplayDefault)
