@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Tabster.Core.Types;
 
@@ -9,6 +10,7 @@ using Tabster.Core.Types;
 
 namespace Tabster.Controls
 {
+    [DefaultEvent("TypeChanged")]
     public partial class TabTypeDropdown : UserControl
     {
         private readonly List<TabType> types = new List<TabType>();
@@ -106,8 +108,8 @@ namespace Tabster.Controls
                 _placeholderRemoved = true;
             }
 
-            if (OnTypeChanged != null)
-                OnTypeChanged(this, EventArgs.Empty);
+            if (TypeChanged != null)
+                TypeChanged(this, EventArgs.Empty);
         }
 
         private void comboBox1_DropDown(object sender, EventArgs e)
@@ -124,7 +126,7 @@ namespace Tabster.Controls
 
         #region Events
 
-        public event EventHandler OnTypeChanged;
+        public event EventHandler TypeChanged;
 
         #endregion
 
