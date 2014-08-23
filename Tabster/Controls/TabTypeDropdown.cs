@@ -1,7 +1,6 @@
 ﻿#region
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Tabster.Core.Types;
@@ -16,9 +15,7 @@ namespace Tabster.Controls
     [DefaultEvent("TypeChanged")]
     public partial class TabTypeDropdown : UserControl
     {
-        private readonly List<TabType> types = new List<TabType>();
         private bool _controlLoaded;
-        private bool _placeholderRemoved;
 
         /// <summary>
         ///   Initializes a new TabTypeDropdown instance.
@@ -26,41 +23,28 @@ namespace Tabster.Controls
         public TabTypeDropdown()
         {
             InitializeComponent();
+            PopulateList();
+        }
 
-            foreach (TabType type in Enum.GetValues(typeof (TabType)))
-            {
-                types.Add(type);
-            }
+        public void SelectDefault()
+        {
+            if (DisplayDefault)
+                comboBox1.SelectedIndex = 0;
         }
 
         private void PopulateList()
         {
-            var selectedText = !DisplayPlaceholder || (DisplayPlaceholder && comboBox1.SelectedIndex > 0)
-                                   ? comboBox1.SelectedText
-                                   : null;
-
             comboBox1.Items.Clear();
 
-            foreach (var type in types)
+            if (DisplayDefault)
+                comboBox1.Items.Add(DefaultText);
+
+            foreach (TabType type in Enum.GetValues(typeof (TabType)))
             {
                 comboBox1.Items.Add(GetDisplayString(type));
             }
 
-            if (DisplayPlaceholder)
-                ShowPlaceholder(false);
-
-            if (selectedText != null)
-            {
-                comboBox1.Text = selectedText;
-            }
-
-            else
-            {
-                if (DisplayPlaceholder)
-                    comboBox1.Text = PlaceholderText;
-                else
-                    comboBox1.SelectedIndex = 0;
-            }
+            comboBox1.SelectedIndex = 0;
         }
 
         private string GetDisplayString(TabType type)
@@ -75,59 +59,37 @@ namespace Tabster.Controls
 
         private int GetTypeIndex(TabType type)
         {
-            return types.IndexOf(type);
+            var str = GetDisplayString(type);
+
+            for (var i = 0; i < comboBox1.Items.Count; i++)
+            {
+                var item = comboBox1.Items[i];
+
+                if (item.ToString() == str)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
-        private void SelectIndex(int index)
-        {
-            if (index >= 0 && index < comboBox1.Items.Count)
-                comboBox1.SelectedIndex = index;
-        }
-
-        private void ShowPlaceholder(bool select)
-        {
-            comboBox1.Items.Insert(0, PlaceholderText);
-
-            if (select)
-                comboBox1.SelectedIndex = 0;
-        }
-
-        private void HidePlaceholder()
-        {
-            var selectedIndex = comboBox1.SelectedIndex;
-            comboBox1.Items.RemoveAt(0);
-            SelectIndex(--selectedIndex);
-        }
-
-        private void TabTypeDropdown_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
             _controlLoaded = true;
-
-            PopulateList();
+            base.OnLoad(e);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (DisplayPlaceholder && comboBox1.SelectedIndex > 0 && !_placeholderRemoved)
-            {
-                HidePlaceholder();
-                _placeholderRemoved = true;
-            }
+            if (_controlLoaded)
+                return;
+
+            if (DisplayDefault && comboBox1.SelectedIndex == 0)
+                return;
 
             if (TypeChanged != null)
                 TypeChanged(this, EventArgs.Empty);
-        }
-
-        private void comboBox1_DropDown(object sender, EventArgs e)
-        {
-            if (DisplayPlaceholder)
-                HidePlaceholder();
-        }
-
-        private void comboBox1_DropDownClosed(object sender, EventArgs e)
-        {
-            if (DisplayPlaceholder)
-                ShowPlaceholder(comboBox1.SelectedIndex == -1);
         }
 
         #region Events
@@ -139,40 +101,42 @@ namespace Tabster.Controls
 
         #region Properties
 
-        private bool _displayPlaceholder;
-        private string _placeholderText;
+        private string _defaultText;
+        private bool _displayDefault;
+        private TabType _selectedType;
 
         private bool _usePluralizedNames;
 
         /// <summary>
-        ///   Determines whether to display the placeholder text.
+        ///   Determines whether to display the default text.
         /// </summary>
-        [Browsable(false)]
-        [Category("Data")]
-        [Description("Determines whether to display the placeholder text.")]
-        public bool DisplayPlaceholder
+        [Browsable(true)]
+        [Category("Appearance")]
+        [Description("Determines whether to display the default text.")]
+        public bool DisplayDefault
         {
-            get { return _displayPlaceholder; }
+            get { return _displayDefault; }
             set
             {
-                _displayPlaceholder = value;
+                _displayDefault = value;
+
                 if (_controlLoaded)
                     PopulateList();
             }
         }
 
         /// <summary>
-        ///   Placeholder text.
+        ///   Default text.
         /// </summary>
-        [Browsable(false)]
+        [Browsable(true)]
         [Category("Data")]
-        [Description("Placeholder text.")]
-        public string PlaceholderText
+        [Description("Default text.")]
+        public string DefaultText
         {
-            get { return _placeholderText; }
+            get { return _defaultText; }
             set
             {
-                _placeholderText = value;
+                _defaultText = value;
 
                 if (_controlLoaded)
                     PopulateList();
@@ -182,8 +146,8 @@ namespace Tabster.Controls
         /// <summary>
         ///   Pluralizes tab type.
         /// </summary>
-        [Browsable(false)]
-        [Category("Data")]
+        [Browsable(true)]
+        [Category("Appearance")]
         [Description("Pluralizes tab type.")]
         public bool UsePluralizedNames
         {
@@ -205,23 +169,28 @@ namespace Tabster.Controls
         [Description("Determines whether a tab t ype has been selected.")]
         public bool HasTypeSelected
         {
-            get { return DisplayPlaceholder ? comboBox1.SelectedIndex > 0 : comboBox1.SelectedIndex >= 0; }
+            get { return DisplayDefault ? comboBox1.SelectedIndex > 0 : comboBox1.SelectedIndex >= 0; }
         }
 
         /// <summary>
         ///   The currently selected tab type.
         /// </summary>
+        /// <exception cref="System.InvalidOperationException">Thrown when the default text is selected.</exception>
         [Browsable(true)]
         [Category("Data")]
         [Description("The currently selected tab type.")]
         public TabType SelectedType
         {
-            get { return types.Find(x => GetDisplayString(x) == comboBox1.SelectedText); }
+            get
+            {
+                if (!HasTypeSelected)
+                    throw new InvalidOperationException("No suitable type is selected.");
+                return _selectedType;
+            }
             set
             {
-                var index = GetTypeIndex(value);
-                if (index >= 0 && index < comboBox1.Items.Count)
-                    comboBox1.SelectedIndex = GetTypeIndex(value);
+                _selectedType = value;
+                comboBox1.SelectedIndex = GetTypeIndex(value);
             }
         }
 
