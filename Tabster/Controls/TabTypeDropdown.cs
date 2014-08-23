@@ -105,6 +105,9 @@ namespace Tabster.Controls
                 HidePlaceholder();
                 _placeholderRemoved = true;
             }
+
+            if (OnTypeChanged != null)
+                OnTypeChanged(this, EventArgs.Empty);
         }
 
         private void comboBox1_DropDown(object sender, EventArgs e)
@@ -118,6 +121,12 @@ namespace Tabster.Controls
             if (DisplayPlaceholder)
                 ShowPlaceholder(comboBox1.SelectedIndex == -1);
         }
+
+        #region Events
+
+        public event EventHandler OnTypeChanged;
+
+        #endregion
 
         #region Properties
 
