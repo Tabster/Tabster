@@ -1,4 +1,8 @@
-﻿using System;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace Tabster.Core.Types
 {
@@ -19,7 +23,7 @@ namespace Tabster.Core.Types
     {
         public static int ToInt(this TabRating rating)
         {
-            switch(rating)
+            switch (rating)
             {
                 case TabRating.None:
                     return 0;
