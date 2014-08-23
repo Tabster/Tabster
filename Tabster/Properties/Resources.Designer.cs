@@ -112,6 +112,16 @@ namespace Tabster.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Guitar98 {
+            get {
+                object obj = ResourceManager.GetObject("Guitar98", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;html&gt;
         ///&lt;head&gt;
         ///	&lt;style type=&quot;&quot; text/css&quot;&quot;&gt;
