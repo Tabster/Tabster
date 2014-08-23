@@ -1,10 +1,4 @@
-﻿#region
-
-using System;
-
-#endregion
-
-namespace Tabster.Core.Types
+﻿namespace Tabster.Core.Types
 {
     public enum TabType
     {
@@ -15,33 +9,23 @@ namespace Tabster.Core.Types
         Ukulele
     }
 
-    public static class TabTypeUtilities
+    public static class TabTypeExtensions
     {
-        internal static readonly string[] _typeStrings = new[] {"Guitar Tab", "Guitar Chords", "Bass Tab", "Drum Tab", "Ukulele Tab"};
-
         public static string ToFriendlyString(this TabType type)
         {
-            return _typeStrings[(int) type];
-        }
-
-        public static string[] FriendlyStrings()
-        {
-            return _typeStrings;
-        }
-
-        public static TabType? FromFriendlyString(string str)
-        {
-            for (var i = 0; i < _typeStrings.Length; i++)
+            switch (type)
             {
-                var typeString = _typeStrings[i];
-
-                if (typeString.Equals(str, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    var type = (TabType) i;
-                    return type;
-                }
+                case TabType.Guitar:
+                    return "Guitar Tab";
+                case TabType.Chords:
+                    return "Guitar Chords";
+                case TabType.Bass:
+                    return "Bass Tab";
+                case TabType.Drum:
+                    return "Drum Tab";
+                case TabType.Ukulele:
+                    return "Ukulele Tab";
             }
-
             return null;
         }
     }
