@@ -41,5 +41,10 @@ namespace Tabster.Core.Types
                     throw new ArgumentOutOfRangeException("rating");
             }
         }
+
+        public static int ToInt(this TabRating? rating)
+        {
+            return rating.HasValue ? ToInt(rating) : 0;
+        }
     }
 }
