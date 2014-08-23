@@ -10,6 +10,9 @@ using Tabster.Core.Types;
 
 namespace Tabster.Controls
 {
+    /// <summary>
+    ///   Represents a dropdown list of TabType strings.
+    /// </summary>
     [DefaultEvent("TypeChanged")]
     public partial class TabTypeDropdown : UserControl
     {
@@ -17,6 +20,9 @@ namespace Tabster.Controls
         private bool _controlLoaded;
         private bool _placeholderRemoved;
 
+        /// <summary>
+        ///   Initializes a new TabTypeDropdown instance.
+        /// </summary>
         public TabTypeDropdown()
         {
             InitializeComponent();
@@ -126,6 +132,7 @@ namespace Tabster.Controls
 
         #region Events
 
+        [Description("Raised when the type is changed.")]
         public event EventHandler TypeChanged;
 
         #endregion
@@ -137,6 +144,12 @@ namespace Tabster.Controls
 
         private bool _usePluralizedNames;
 
+        /// <summary>
+        ///   Determines whether to display the placeholder text.
+        /// </summary>
+        [Browsable(false)]
+        [Category("Data")]
+        [Description("Determines whether to display the placeholder text.")]
         public bool DisplayPlaceholder
         {
             get { return _displayPlaceholder; }
@@ -148,6 +161,12 @@ namespace Tabster.Controls
             }
         }
 
+        /// <summary>
+        ///   Placeholder text.
+        /// </summary>
+        [Browsable(false)]
+        [Category("Data")]
+        [Description("Placeholder text.")]
         public string PlaceholderText
         {
             get { return _placeholderText; }
@@ -160,6 +179,12 @@ namespace Tabster.Controls
             }
         }
 
+        /// <summary>
+        ///   Pluralizes tab type.
+        /// </summary>
+        [Browsable(false)]
+        [Category("Data")]
+        [Description("Pluralizes tab type.")]
         public bool UsePluralizedNames
         {
             get { return _usePluralizedNames; }
@@ -172,11 +197,23 @@ namespace Tabster.Controls
             }
         }
 
+        /// <summary>
+        ///   Determines whether a tab t ype has been selected.
+        /// </summary>
+        [Browsable(false)]
+        [Category("Data")]
+        [Description("Determines whether a tab t ype has been selected.")]
         public bool HasTypeSelected
         {
             get { return DisplayPlaceholder ? comboBox1.SelectedIndex > 0 : comboBox1.SelectedIndex >= 0; }
         }
 
+        /// <summary>
+        ///   The currently selected tab type.
+        /// </summary>
+        [Browsable(true)]
+        [Category("Data")]
+        [Description("The currently selected tab type.")]
         public TabType SelectedType
         {
             get { return types.Find(x => GetDisplayString(x) == comboBox1.SelectedText); }
