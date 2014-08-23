@@ -94,6 +94,9 @@ namespace Tabster.Controls
 
         #region Events
 
+        /// <summary>
+        /// Raised when the type is changed.
+        /// </summary>
         [Description("Raised when the type is changed.")]
         public event EventHandler TypeChanged;
 
