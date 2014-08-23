@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.label3 = new System.Windows.Forms.Label();
-            this.txttype = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtartist = new System.Windows.Forms.TextBox();
+            this.txtArtist = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txttitle = new System.Windows.Forms.TextBox();
+            this.txtTitle = new System.Windows.Forms.TextBox();
             this.okbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
+            this.typeList = new Tabster.Controls.TabTypeDropdown();
             this.SuspendLayout();
             // 
             // label3
@@ -49,19 +49,6 @@
             this.label3.TabIndex = 15;
             this.label3.Text = "Type:";
             // 
-            // txttype
-            // 
-            this.txttype.BackColor = System.Drawing.SystemColors.Window;
-            this.txttype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.txttype.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txttype.FormattingEnabled = true;
-            this.txttype.ItemHeight = 13;
-            this.txttype.Location = new System.Drawing.Point(53, 59);
-            this.txttype.Name = "txttype";
-            this.txttype.Size = new System.Drawing.Size(119, 21);
-            this.txttype.TabIndex = 3;
-            this.txttype.SelectedIndexChanged += new System.EventHandler(this.ValidateInput);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -73,15 +60,15 @@
             this.label2.TabIndex = 12;
             this.label2.Text = "Artist:";
             // 
-            // txtartist
+            // txtArtist
             // 
-            this.txtartist.BackColor = System.Drawing.SystemColors.Window;
-            this.txtartist.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txtartist.Location = new System.Drawing.Point(53, 7);
-            this.txtartist.Name = "txtartist";
-            this.txtartist.Size = new System.Drawing.Size(206, 20);
-            this.txtartist.TabIndex = 0;
-            this.txtartist.TextChanged += new System.EventHandler(this.ValidateInput);
+            this.txtArtist.BackColor = System.Drawing.SystemColors.Window;
+            this.txtArtist.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.txtArtist.Location = new System.Drawing.Point(53, 7);
+            this.txtArtist.Name = "txtArtist";
+            this.txtArtist.Size = new System.Drawing.Size(206, 20);
+            this.txtArtist.TabIndex = 0;
+            this.txtArtist.TextChanged += new System.EventHandler(this.ValidateInput);
             // 
             // label1
             // 
@@ -94,15 +81,15 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "Title:";
             // 
-            // txttitle
+            // txtTitle
             // 
-            this.txttitle.BackColor = System.Drawing.SystemColors.Window;
-            this.txttitle.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txttitle.Location = new System.Drawing.Point(53, 33);
-            this.txttitle.Name = "txttitle";
-            this.txttitle.Size = new System.Drawing.Size(206, 20);
-            this.txttitle.TabIndex = 1;
-            this.txttitle.TextChanged += new System.EventHandler(this.ValidateInput);
+            this.txtTitle.BackColor = System.Drawing.SystemColors.Window;
+            this.txtTitle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.txtTitle.Location = new System.Drawing.Point(53, 33);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(206, 20);
+            this.txtTitle.TabIndex = 1;
+            this.txtTitle.TextChanged += new System.EventHandler(this.ValidateInput);
             // 
             // okbtn
             // 
@@ -128,6 +115,17 @@
             this.cancelbtn.Text = "Cancel";
             this.cancelbtn.UseVisualStyleBackColor = true;
             // 
+            // typeList
+            // 
+            this.typeList.DefaultText = "";
+            this.typeList.DisplayDefault = false;
+            this.typeList.Location = new System.Drawing.Point(53, 59);
+            this.typeList.Name = "typeList";
+            this.typeList.Size = new System.Drawing.Size(119, 21);
+            this.typeList.TabIndex = 16;
+            this.typeList.UsePluralizedNames = false;
+            this.typeList.TypeChanged += new System.EventHandler(this.ValidateInput);
+            // 
             // NewTabDialog
             // 
             this.AcceptButton = this.okbtn;
@@ -136,14 +134,14 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.cancelbtn;
             this.ClientSize = new System.Drawing.Size(271, 123);
+            this.Controls.Add(this.typeList);
             this.Controls.Add(this.okbtn);
             this.Controls.Add(this.cancelbtn);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txttype);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txttitle);
+            this.Controls.Add(this.txtTitle);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtartist);
+            this.Controls.Add(this.txtArtist);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -161,12 +159,12 @@
         #endregion
 
         private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.ComboBox txttype;
         public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.TextBox txtartist;
+        public System.Windows.Forms.TextBox txtArtist;
         public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.TextBox txttitle;
+        public System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Button okbtn;
         private System.Windows.Forms.Button cancelbtn;
+        private Controls.TabTypeDropdown typeList;
     }
 }

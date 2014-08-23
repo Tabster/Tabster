@@ -43,10 +43,9 @@ namespace Tabster.Forms
 
                 _activeSearchType = null;
 
-                //todo don't use TabType->int cast
                 //ignore "all tabs"
-                if (txtSearchType.SelectedIndex > 0)
-                    _activeSearchType = (TabType) (txtSearchType.SelectedIndex - 1);
+                if (searchTypeList.HasTypeSelected)
+                    _activeSearchType = searchTypeList.SelectedType;
 
                 _activeSearchRating = null;
 
@@ -387,7 +386,7 @@ namespace Tabster.Forms
             txtSearchArtist.Text = "";
             txtSearchTitle.Text = "";
 
-            txtSearchType.SelectedIndex = 0;
+            searchTypeList.SelectDefault();
 
             listSearchServices.Items.Clear();
 

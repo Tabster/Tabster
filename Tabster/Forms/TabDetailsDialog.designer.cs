@@ -31,6 +31,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblLastViewed = new System.Windows.Forms.Label();
             this.lblPlaylistCount = new System.Windows.Forms.Label();
             this.lblViewCount = new System.Windows.Forms.Label();
             this.lblfavorited = new System.Windows.Forms.Label();
@@ -46,12 +47,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtartist = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txttype = new System.Windows.Forms.ComboBox();
             this.txtsong = new System.Windows.Forms.TextBox();
             this.okbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
             this.txtlocation = new System.Windows.Forms.TextBox();
-            this.lblLastViewed = new System.Windows.Forms.Label();
+            this.typeList = new Tabster.Controls.TabTypeDropdown();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -99,6 +99,15 @@
             this.groupBox3.TabIndex = 40;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Library Information:";
+            // 
+            // lblLastViewed
+            // 
+            this.lblLastViewed.AutoSize = true;
+            this.lblLastViewed.Location = new System.Drawing.Point(6, 50);
+            this.lblLastViewed.Name = "lblLastViewed";
+            this.lblLastViewed.Size = new System.Drawing.Size(100, 13);
+            this.lblLastViewed.TabIndex = 5;
+            this.lblLastViewed.Text = "Last Viewed: Never";
             // 
             // lblPlaylistCount
             // 
@@ -184,13 +193,13 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.typeList);
             this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.txtcomment);
             this.groupBox1.Controls.Add(this.label17);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtartist);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txttype);
             this.groupBox1.Controls.Add(this.txtsong);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
@@ -272,18 +281,6 @@
             this.label3.TabIndex = 12;
             this.label3.Text = "Type:";
             // 
-            // txttype
-            // 
-            this.txttype.BackColor = System.Drawing.SystemColors.Window;
-            this.txttype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.txttype.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txttype.FormattingEnabled = true;
-            this.txttype.ItemHeight = 13;
-            this.txttype.Location = new System.Drawing.Point(66, 68);
-            this.txttype.Name = "txttype";
-            this.txttype.Size = new System.Drawing.Size(136, 21);
-            this.txttype.TabIndex = 2;
-            // 
             // txtsong
             // 
             this.txtsong.BackColor = System.Drawing.SystemColors.Window;
@@ -329,14 +326,15 @@
             this.txtlocation.Size = new System.Drawing.Size(538, 20);
             this.txtlocation.TabIndex = 41;
             // 
-            // lblLastViewed
+            // typeList
             // 
-            this.lblLastViewed.AutoSize = true;
-            this.lblLastViewed.Location = new System.Drawing.Point(6, 50);
-            this.lblLastViewed.Name = "lblLastViewed";
-            this.lblLastViewed.Size = new System.Drawing.Size(100, 13);
-            this.lblLastViewed.TabIndex = 5;
-            this.lblLastViewed.Text = "Last Viewed: Never";
+            this.typeList.DefaultText = "";
+            this.typeList.DisplayDefault = false;
+            this.typeList.Location = new System.Drawing.Point(66, 68);
+            this.typeList.Name = "typeList";
+            this.typeList.Size = new System.Drawing.Size(119, 21);
+            this.typeList.TabIndex = 38;
+            this.typeList.UsePluralizedNames = false;
             // 
             // TabDetailsDialog
             // 
@@ -377,7 +375,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox txtcomment;
-        public System.Windows.Forms.ComboBox txttype;
         public System.Windows.Forms.TextBox txtartist;
         public System.Windows.Forms.TextBox txtsong;
         private System.Windows.Forms.Label label17;
@@ -397,5 +394,6 @@
         private System.Windows.Forms.Label lblPlaylistCount;
         private System.Windows.Forms.Label lblViewCount;
         private System.Windows.Forms.Label lblLastViewed;
+        private Controls.TabTypeDropdown typeList;
     }
 }

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.label3 = new System.Windows.Forms.Label();
-            this.txttype = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtartist = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,6 +39,7 @@
             this.lblfile = new System.Windows.Forms.Label();
             this.txtimportfile = new System.Windows.Forms.TextBox();
             this.chkusertab = new System.Windows.Forms.CheckBox();
+            this.typeList = new Tabster.Controls.TabTypeDropdown();
             this.SuspendLayout();
             // 
             // label3
@@ -52,18 +52,6 @@
             this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 15;
             this.label3.Text = "Type:";
-            // 
-            // txttype
-            // 
-            this.txttype.BackColor = System.Drawing.SystemColors.Window;
-            this.txttype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.txttype.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txttype.FormattingEnabled = true;
-            this.txttype.ItemHeight = 13;
-            this.txttype.Location = new System.Drawing.Point(53, 59);
-            this.txttype.Name = "txttype";
-            this.txttype.Size = new System.Drawing.Size(119, 21);
-            this.txttype.TabIndex = 3;
             // 
             // label2
             // 
@@ -174,6 +162,16 @@
             this.chkusertab.Text = "I created this tab";
             this.chkusertab.UseVisualStyleBackColor = true;
             // 
+            // typeList
+            // 
+            this.typeList.DefaultText = "";
+            this.typeList.DisplayDefault = false;
+            this.typeList.Location = new System.Drawing.Point(54, 59);
+            this.typeList.Name = "typeList";
+            this.typeList.Size = new System.Drawing.Size(119, 21);
+            this.typeList.TabIndex = 37;
+            this.typeList.UsePluralizedNames = false;
+            // 
             // ImportDialog
             // 
             this.AcceptButton = this.okbtn;
@@ -182,6 +180,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.cancelbtn;
             this.ClientSize = new System.Drawing.Size(271, 223);
+            this.Controls.Add(this.typeList);
             this.Controls.Add(this.chkusertab);
             this.Controls.Add(this.browsebtn);
             this.Controls.Add(this.lblfile);
@@ -189,7 +188,6 @@
             this.Controls.Add(this.okbtn);
             this.Controls.Add(this.cancelbtn);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txttype);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txttitle);
             this.Controls.Add(this.label2);
@@ -211,7 +209,6 @@
         #endregion
 
         private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.ComboBox txttype;
         public System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox txtartist;
         public System.Windows.Forms.Label label1;
@@ -222,5 +219,6 @@
         private System.Windows.Forms.Label lblfile;
         public System.Windows.Forms.TextBox txtimportfile;
         public System.Windows.Forms.CheckBox chkusertab;
+        private Controls.TabTypeDropdown typeList;
     }
 }

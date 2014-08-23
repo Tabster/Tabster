@@ -18,8 +18,6 @@ namespace Tabster.Forms
             InitializeComponent();
             _tabDocument = tab;
 
-            txttype.DataSource = TabTypeUtilities.FriendlyStrings();
-
             LoadData();
         }
 
@@ -29,7 +27,7 @@ namespace Tabster.Forms
 
             txtartist.Text = _tabDocument.Artist;
             txtsong.Text = _tabDocument.Title;
-            txttype.Text = _tabDocument.Type.ToFriendlyString();
+            typeList.SelectedType = _tabDocument.Type;
             txtcomment.Text = _tabDocument.Comment;
 
             lblFormat.Text += _tabDocument.FileVersion;
@@ -63,7 +61,7 @@ namespace Tabster.Forms
         {
             _tabDocument.Artist = txtartist.Text;
             _tabDocument.Title = txtsong.Text;
-            _tabDocument.Type = TabTypeUtilities.FromFriendlyString(txttype.Text).Value;
+            _tabDocument.Type = typeList.SelectedType;
             _tabDocument.Comment = txtcomment.Text;
             _tabDocument.Save();
         }

@@ -229,7 +229,7 @@ namespace Tabster.Forms
                                           ? RemoveVersionConventionFromTitle(SelectedTab.Title)
                                           : "";
 
-                txtSearchType.SelectedIndex = 0;
+                searchTypeList.SelectDefault();
                 tabControl1.SelectedTab = display_search;
                 onlinesearchbtn.PerformClick();
             }

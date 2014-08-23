@@ -148,21 +148,14 @@ namespace Tabster.Forms
 
         private void PopulateTabTypeControls()
         {
-            txtSearchType.Items.Add("All Types");
-
             foreach (TabType t in Enum.GetValues(typeof (TabType)))
             {
                 var typeStr = t.ToFriendlyString();
                 var str = typeStr.EndsWith("s") ? typeStr : string.Format("{0}s", typeStr);
 
-                //search options
-                txtSearchType.Items.Add(str);
-
                 //library menu
                 sidemenu.FirstNode.Nodes.Add(new TreeNode(str) {NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = t.ToString()});
             }
-
-            txtSearchType.SelectedIndex = 0;
         }
 
         private void CachePluginResources()

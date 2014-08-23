@@ -16,16 +16,14 @@ namespace Tabster.Forms
         public ImportDialog()
         {
             InitializeComponent();
-
             txtartist.Select(txtartist.Text.Length, 0);
-            txttype.DataSource = TabTypeUtilities.FriendlyStrings();
         }
 
         public TablatureDocument Tab { get; private set; }
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            Tab = new TablatureDocument(txtartist.Text.Trim(), txttitle.Text.Trim(), TabTypeUtilities.FromFriendlyString(txttype.Text).Value, File.ReadAllText(txtimportfile.Text))
+            Tab = new TablatureDocument(txtartist.Text.Trim(), txttitle.Text.Trim(), typeList.SelectedType, File.ReadAllText(txtimportfile.Text))
                       {
                           Source = new Uri(txtimportfile.Text),
                           SourceType = chkusertab.Checked ? TablatureSourceType.UserCreated : TablatureSourceType.FileImport,

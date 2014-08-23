@@ -16,17 +16,16 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
-            txtartist.Text = Environment.UserName;
-            txtartist.Select(txtartist.Text.Length, 0);
-            txttype.DataSource = TabTypeUtilities.FriendlyStrings();
+            txtArtist.Text = Environment.UserName;
+            txtArtist.Select(txtArtist.Text.Length, 0);
         }
 
         public NewTabDialog(string artist, string song, TabType type)
             : this()
         {
-            txtartist.Text = artist;
-            txttitle.Text = song;
-            txttype.SelectedIndex = (int) type;
+            txtArtist.Text = artist;
+            txtTitle.Text = song;
+            typeList.SelectedType = type;
 
             ValidateInput();
         }
@@ -35,12 +34,12 @@ namespace Tabster.Forms
 
         private void ValidateInput(object sender = null, EventArgs e = null)
         {
-            okbtn.Enabled = okbtn.Enabled = txtartist.Text.Trim().Length > 0 && txttitle.Text.Trim().Length > 0;
+            okbtn.Enabled = okbtn.Enabled = txtArtist.Text.Trim().Length > 0 && txtTitle.Text.Trim().Length > 0 ;
         }
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            Tab = new TablatureDocument(txtartist.Text.Trim(), txttitle.Text.Trim(), TabTypeUtilities.FromFriendlyString(txttype.Text).Value, "")
+            Tab = new TablatureDocument(txtArtist.Text.Trim(), txtTitle.Text.Trim(), typeList.SelectedType, "")
                       {
                           SourceType = TablatureSourceType.UserCreated,
                           Method = Common.GetTablatureDocumentMethodString()
