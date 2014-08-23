@@ -166,7 +166,7 @@ namespace Tabster.Controls
         /// </summary>
         [Browsable(false)]
         [Category("Data")]
-        [Description("Determines whether a tab t ype has been selected.")]
+        [Description("Determines whether a tab type has been selected.")]
         public bool HasTypeSelected
         {
             get { return DisplayDefault ? comboBox1.SelectedIndex > 0 : comboBox1.SelectedIndex >= 0; }
@@ -176,9 +176,10 @@ namespace Tabster.Controls
         ///   The currently selected tab type.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when the default text is selected.</exception>
-        [Browsable(true)]
+        [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
         [Category("Data")]
         [Description("The currently selected tab type.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public TabType SelectedType
         {
             get
