@@ -84,13 +84,13 @@ namespace Tabster.Controls
             if (!HasTypeSelected)
                 throw new InvalidOperationException("No suitable type is selected.");
 
-            var selectedText = comboBox1.SelectedText;
+            var text = comboBox1.Text;
 
             foreach (TabType type in Enum.GetValues(typeof (TabType)))
             {
                 var displayString = GetDisplayString(type);
 
-                if (selectedText == displayString)
+                if (text == displayString)
                     return type;
             }
 
