@@ -27,7 +27,7 @@ namespace Tabster.Controls
         }
 
         /// <summary>
-        /// Selects the default text option.
+        ///   Selects the default text option.
         /// </summary>
         public void SelectDefault()
         {
@@ -40,7 +40,9 @@ namespace Tabster.Controls
             comboBox1.Items.Clear();
 
             if (DisplayDefault)
+            {
                 comboBox1.Items.Add(DefaultText);
+            }
 
             foreach (TabType type in Enum.GetValues(typeof (TabType)))
             {
@@ -62,19 +64,37 @@ namespace Tabster.Controls
 
         private int GetTypeIndex(TabType type)
         {
-            var str = GetDisplayString(type);
+            var displayString = GetDisplayString(type);
 
             for (var i = 0; i < comboBox1.Items.Count; i++)
             {
                 var item = comboBox1.Items[i];
 
-                if (item.ToString() == str)
+                if (item.ToString() == displayString)
                 {
                     return i;
                 }
             }
 
             return -1;
+        }
+
+        private TabType GetSelectedType()
+        {
+            if (!HasTypeSelected)
+                throw new InvalidOperationException("No suitable type is selected.");
+
+            var selectedText = comboBox1.SelectedText;
+
+            foreach (TabType type in Enum.GetValues(typeof (TabType)))
+            {
+                var displayString = GetDisplayString(type);
+
+                if (selectedText == displayString)
+                    return type;
+            }
+
+            return default(TabType);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -98,7 +118,7 @@ namespace Tabster.Controls
         #region Events
 
         /// <summary>
-        /// Raised when the type is changed.
+        ///   Raised when the type is changed.
         /// </summary>
         [Description("Raised when the type is changed.")]
         public event EventHandler TypeChanged;
@@ -109,8 +129,6 @@ namespace Tabster.Controls
 
         private string _defaultText;
         private bool _displayDefault;
-        private TabType _selectedType;
-
         private bool _usePluralizedNames;
 
         /// <summary>
@@ -126,8 +144,7 @@ namespace Tabster.Controls
             {
                 _displayDefault = value;
 
-                if (_controlLoaded)
-                    PopulateList();
+                PopulateList();
             }
         }
 
@@ -144,8 +161,7 @@ namespace Tabster.Controls
             {
                 _defaultText = value;
 
-                if (_controlLoaded)
-                    PopulateList();
+                PopulateList();
             }
         }
 
@@ -162,8 +178,7 @@ namespace Tabster.Controls
             {
                 _usePluralizedNames = value;
 
-                if (_controlLoaded)
-                    PopulateList();
+                PopulateList();
             }
         }
 
@@ -188,17 +203,8 @@ namespace Tabster.Controls
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public TabType SelectedType
         {
-            get
-            {
-                if (!HasTypeSelected)
-                    throw new InvalidOperationException("No suitable type is selected.");
-                return _selectedType;
-            }
-            set
-            {
-                _selectedType = value;
-                comboBox1.SelectedIndex = GetTypeIndex(value);
-            }
+            get { return GetSelectedType(); }
+            set { comboBox1.SelectedIndex = GetTypeIndex(value); }
         }
 
         #endregion
