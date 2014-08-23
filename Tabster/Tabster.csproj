@@ -82,6 +82,12 @@
     <Compile Include="Controls\DataGridViewExtended.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\TabTypeDropdown.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TabTypeDropdown.Designer.cs">
+      <DependentUpon>TabTypeDropdown.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ToolStripRenderer.cs" />
     <Compile Include="FormState.cs" />
     <Compile Include="Forms\MainForm.Download.cs">
@@ -208,6 +214,9 @@
     <Compile Include="Utilities\ExtensionAttribute.cs" />
     <Compile Include="Utilities\TabsterDocumentExtensions.cs" />
     <Compile Include="Utilities\VersionExtensions.cs" />
+    <EmbeddedResource Include="Controls\TabTypeDropdown.resx">
+      <DependentUpon>TabTypeDropdown.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>
