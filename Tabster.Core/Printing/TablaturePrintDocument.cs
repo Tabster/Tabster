@@ -136,7 +136,7 @@ namespace Tabster.Core.Printing
         {
             var title = string.Format("{0} - {1} ({2})", _tab.Artist, _tab.Title, _tab.Type.ToFriendlyString());
 
-            e.Graphics.DrawString(title, _font, Brushes.Black, _realPageBounds, new StringFormat
+            e.Graphics.DrawString(title, _font, _settings.PrintColor, _realPageBounds, new StringFormat
                                                                                 {
                                                                                     Alignment = StringAlignment.Near,
                                                                                     LineAlignment = StringAlignment.Near
@@ -151,7 +151,7 @@ namespace Tabster.Core.Printing
             int linesPerPage;
 
             e.Graphics.MeasureString(_printContents, _font, printBounds.Size, StringFormat.GenericTypographic, out charactersOnPage, out linesPerPage);
-            e.Graphics.DrawString(_printContents, _font, Brushes.Black, printBounds, StringFormat.GenericTypographic);
+            e.Graphics.DrawString(_printContents, _font, _settings.PrintColor, printBounds, StringFormat.GenericTypographic);
 
             _printContents = _printContents.Substring(charactersOnPage);
 
@@ -160,7 +160,7 @@ namespace Tabster.Core.Printing
 
         protected virtual void OnDrawPageNumbers(TablaturePrintPageEventArgs e)
         {
-            e.Graphics.DrawString(string.Format("Page {0} of {1}", e.CurrentPage, TotalPages), _font, Brushes.Black, _realPageBounds, new StringFormat
+            e.Graphics.DrawString(string.Format("Page {0} of {1}", e.CurrentPage, TotalPages), _font, _settings.PrintColor, _realPageBounds, new StringFormat
                                                                                                                                       {
                                                                                                                                           Alignment = StringAlignment.Far,
                                                                                                                                           LineAlignment = StringAlignment.Near
@@ -169,7 +169,7 @@ namespace Tabster.Core.Printing
 
         protected virtual void OnDrawPrintTime(PrintPageEventArgs e)
         {
-            e.Graphics.DrawString(DateTime.Now.ToString(), _font, Brushes.Black, _realPageBounds, new StringFormat
+            e.Graphics.DrawString(DateTime.Now.ToString(), _font, _settings.PrintColor, _realPageBounds, new StringFormat
                                                                                                   {
                                                                                                       Alignment = StringAlignment.Far,
                                                                                                       LineAlignment = StringAlignment.Far
