@@ -41,6 +41,7 @@ Section "MainSection" SEC01
   SetOverwrite ifnewer
 
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.exe"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Controls.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Core.dll"
   
   CreateShortCut "$DESKTOP\Tabster.lnk" "$INSTDIR\Tabster.exe"
@@ -81,6 +82,7 @@ FunctionEnd
 
 Section Uninstall
   Delete "$INSTDIR\Tabster.exe"
+  Delete "$INSTDIR\Tabster.Controls.dll"
   Delete "$INSTDIR\Tabster.Core.dll"
   Delete "$INSTDIR\Uninstall.exe"
   Delete "$DESKTOP\Tabster.lnk"
