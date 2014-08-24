@@ -187,9 +187,9 @@ namespace Tabster.Controls
 
         #region Printing
 
+        private bool _showPrintDialog = true;
         public TablaturePrintDocumentSettings PrintSettings { get; set; }
 
-        private bool _showPrintDialog = true;
         public bool ShowPrintDialog
         {
             get { return _showPrintDialog; }
@@ -200,11 +200,11 @@ namespace Tabster.Controls
         {
             var documentName = string.Format("{0} - {1} ({2})", TabData.Artist, TabData.Title, TabData.Type);
 
-            using (var printDocument = new TablaturePrintDocument(TabData, txtContents.Font) { DocumentName = documentName, Settings = PrintSettings })
+            using (var printDocument = new TablaturePrintDocument(TabData, txtContents.Font) {DocumentName = documentName, Settings = PrintSettings})
             {
                 if (ShowPrintDialog)
                 {
-                    using (var dialog = new PrintPreviewDialog { Document = printDocument })
+                    using (var dialog = new PrintPreviewDialog {Document = printDocument})
                     {
                         if (dialog.ShowDialog() == DialogResult.OK)
                         {

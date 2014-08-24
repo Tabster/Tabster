@@ -82,12 +82,6 @@
     <Compile Include="Controls\DataGridViewExtended.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\TabTypeDropdown.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\TabTypeDropdown.Designer.cs">
-      <DependentUpon>TabTypeDropdown.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ToolStripRenderer.cs" />
     <Compile Include="FormState.cs" />
     <Compile Include="Forms\MainForm.Download.cs">
@@ -189,12 +183,6 @@
     <Compile Include="Controls\StaticTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\TablatureEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\TablatureEditor.Designer.cs">
-      <DependentUpon>TablatureEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Plugins\TabsterPlugin.cs" />
     <Compile Include="Utilities\TabsterWebClient.cs">
       <SubType>Component</SubType>
@@ -214,9 +202,6 @@
     <Compile Include="Utilities\ExtensionAttribute.cs" />
     <Compile Include="Utilities\TabsterDocumentExtensions.cs" />
     <Compile Include="Utilities\VersionExtensions.cs" />
-    <EmbeddedResource Include="Controls\TabTypeDropdown.resx">
-      <DependentUpon>TabTypeDropdown.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -255,9 +240,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TablatureEditor.resx">
-      <DependentUpon>TablatureEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Updater\UpdateDialog.resx">
       <DependentUpon>UpdateDialog.cs</DependentUpon>
@@ -305,6 +287,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tabster.Controls\Tabster.Controls.csproj">
+      <Project>{E000FEB4-0CBC-4187-B54B-93C701DD5D49}</Project>
+      <Name>Tabster.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tabster.Core\Tabster.Core.csproj">
       <Project>{B94FA030-4553-4F14-A867-F05849A14DC4}</Project>
       <Name>Tabster.Core</Name>
