@@ -54,7 +54,7 @@ namespace Tabster.Forms
 
             CachePluginResources();
 
-            InitializeSearchControls();
+            InitializeSearchControls(true);
 
             BuildSearchSuggestions();
         }

@@ -36,8 +36,9 @@ namespace Tabster.Forms
             if (listSearchServices.SelectedItems.Count > 0 && (txtSearchArtist.Text.Trim().Length > 0 || txtSearchTitle.Text.Trim().Length > 0))
             {
                 if (SearchBackgroundWorker.IsBusy)
+                {
                     SearchBackgroundWorker.CancelAsync();
-
+                }
                 var searchArtist = txtSearchArtist.Text.Trim();
                 var searchTitle = txtSearchTitle.Text.Trim();
 
@@ -381,16 +382,18 @@ namespace Tabster.Forms
             txtSearchTitle.AutoCompleteCustomSource = titleSuggestions;
         }
 
-        private void InitializeSearchControls()
+        private void InitializeSearchControls(bool resetUserFields = false)
         {
-            txtSearchArtist.Text = "";
-            txtSearchTitle.Text = "";
+            if (resetUserFields)
+            {
+                txtSearchArtist.Text = "";
+                txtSearchTitle.Text = "";
 
-            searchTypeList.SelectDefault();
+                searchTypeList.SelectDefault();
+                cbSearchRating.SelectedIndex = 0;
+            }
 
             listSearchServices.Items.Clear();
-
-            cbSearchRating.SelectedIndex = 0;
 
             for (var i = 0; i < _searchServices.Count; i++)
             {
@@ -402,7 +405,7 @@ namespace Tabster.Forms
 
         private void resetSearchbtn_Click(object sender, EventArgs e)
         {
-            InitializeSearchControls();
+            InitializeSearchControls(true);
         }
     }
 }
