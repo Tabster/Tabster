@@ -19,6 +19,47 @@ namespace Tabster.Core.Types
         Stars5 = 5
     }
 
+    public static class TabRatingUtilities
+    {
+        public static TabRating? FromString(string str)
+        {
+            int i;
+            if (int.TryParse(str, out i))
+                return FromInt(i);
+
+            try
+            {
+                return (TabRating) Enum.Parse(typeof (TabRating), str);
+            }
+
+            catch (ArgumentException)
+            {
+                return null;
+            }
+        }
+
+        public static TabRating? FromInt(int i)
+        {
+            switch (i)
+            {
+                case 0:
+                    return TabRating.None;
+                case 1:
+                    return TabRating.Stars1;
+                case 2:
+                    return TabRating.Stars2;
+                case 3:
+                    return TabRating.Stars3;
+                case 4:
+                    return TabRating.Stars4;
+                case 5:
+                    return TabRating.Stars5;
+            }
+
+            return null;
+        }
+    }
+
     public static class TabRatingExtensions
     {
         public static int ToInt(this TabRating rating)
