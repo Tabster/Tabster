@@ -139,27 +139,7 @@ namespace Tabster.Forms
 
                 foreach (var result in results)
                 {
-                    //missing source url
-                    if (result.Tab.Source == null)
-                        continue;
-
-                    //subpar rating
-                    if (_activeSearchRating.HasValue && (!result.Rating.HasValue || result.Rating.Value <= _activeSearchRating.Value))
-                        continue;
-
-                    //tab type mismatch
-                    if (_activeSearchType.HasValue && result.Tab.Type != _activeSearchType.Value)
-                        continue;
-
-                    var newRow = new DataGridViewRow {Tag = result.Tab.Source.ToString()};
-
-                    var ratingString = "";
-
-                    if (result.Rating.HasValue)
-                        ratingString = new string('\u2605', (int) result.Rating - 1).PadRight(5, '\u2606');
-
-                    newRow.CreateCells(searchDisplay, result.Tab.Artist, result.Tab.Title, result.Tab.Type.ToFriendlyString(), ratingString, result.Query.Service.Name);
-                    searchDisplay.Rows.Add(newRow);
+                    DisplaySearchResult(result);
                 }
             }
 
@@ -173,6 +153,31 @@ namespace Tabster.Forms
             var serviceName = _searchServices[e.ProgressPercentage - 1].Name;
             if (serviceName != null)
                 lblStatus.Text = string.Format("Searching: {0}", serviceName);
+        }
+
+        private void DisplaySearchResult(SearchResult result)
+        {
+            //missing source url
+            if (result.Tab.Source == null)
+                return;
+
+            //subpar rating
+            if (_activeSearchRating.HasValue && (!result.Rating.HasValue || result.Rating.Value <= _activeSearchRating.Value))
+                return;
+
+            //tab type mismatch
+            if (_activeSearchType.HasValue && result.Tab.Type != _activeSearchType.Value)
+                return;
+
+            var newRow = new DataGridViewRow { Tag = result.Tab.Source.ToString() };
+
+            var ratingString = "";
+
+            if (result.Rating.HasValue)
+                ratingString = new string('\u2605', (int)result.Rating - 1).PadRight(5, '\u2606');
+
+            newRow.CreateCells(searchDisplay, result.Tab.Artist, result.Tab.Title, result.Tab.Type.ToFriendlyString(), ratingString, result.Query.Service.Name);
+            searchDisplay.Rows.Add(newRow);   
         }
 
         private void dataGridViewExtended1_MouseClick(object sender, MouseEventArgs e)
