@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Tabster.Core.Data
 {
-    public class TabsterDocumentCollection<T> : IEnumerable where T : class, ITabsterDocument
+    public class TabsterDocumentCollection<T> : ICollection<T> where T : class, ITabsterDocument
     {
         private readonly List<T> _documents = new List<T>();
 
