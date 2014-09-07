@@ -160,6 +160,9 @@ namespace Tabster.Forms
 
         private void CachePluginResources()
         {
+            _fileExporters = new List<ITablatureFileExporter>(Program.pluginController.GetClassInstances<ITablatureFileExporter>());
+            _fileImporters = new List<ITablatureFileImporter>(Program.pluginController.GetClassInstances<ITablatureFileImporter>());
+
             _webImporters = new List<ITablatureWebpageImporter>(Program.pluginController.GetClassInstances<ITablatureWebpageImporter>());
             _searchServices = new List<ISearchService>(Program.pluginController.GetClassInstances<ISearchService>());
 

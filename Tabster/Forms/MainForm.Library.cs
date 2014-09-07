@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Core.Data;
+using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
 using Tabster.Properties;
 using Tabster.Utilities;
@@ -42,6 +43,9 @@ namespace Tabster.Forms
         }
 
         #endregion
+
+        private List<ITablatureFileImporter> _fileImporters = new List<ITablatureFileImporter>();
+        private List<ITablatureFileExporter> _fileExporters = new List<ITablatureFileExporter>();
 
         private readonly ToolStripMenuItem newplaylistmenuitem = new ToolStripMenuItem
                                                                      {
