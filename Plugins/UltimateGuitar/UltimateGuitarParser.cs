@@ -4,25 +4,20 @@ using System;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Tabster.Core.Data;
-using Tabster.Core.Parsing;
+using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
 
 #endregion
 
 namespace UltimateGuitar
 {
-    internal class UltimateGuitarParser : IWebTabParser
+    internal class UltimateGuitarParser : ITablatureWebpageImporter
     {
         #region Implementation of ITabParser
 
-        public string Name
+        public string SiteName
         {
             get { return "Ultimate Guitar"; }
-        }
-
-        public Version Version
-        {
-            get { return new Version("1.0"); }
         }
 
         public TablatureDocument Parse(string text, TabType? type)

@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using HtmlAgilityPack;
 using Tabster.Core.Data;
-using Tabster.Core.Parsing;
+using Tabster.Core.Data.Processing;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 
@@ -25,7 +25,7 @@ namespace GuitartabsDotCC
             get { return "Guitartabs.cc"; }
         }
 
-        public IWebTabParser Parser
+        public ITablatureWebpageImporter Parser
         {
             get { return new GuitartabsDotCCParser(); }
         }

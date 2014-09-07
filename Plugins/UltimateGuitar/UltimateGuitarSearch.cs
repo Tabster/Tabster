@@ -7,7 +7,7 @@ using System.Text;
 using System.Web;
 using HtmlAgilityPack;
 using Tabster.Core.Data;
-using Tabster.Core.Parsing;
+using Tabster.Core.Data.Processing;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 
@@ -24,7 +24,7 @@ namespace UltimateGuitar
             get { return "Ultimate Guitar"; }
         }
 
-        public IWebTabParser Parser
+        public ITablatureWebpageImporter Parser
         {
             get { return new UltimateGuitarParser(); }
         }

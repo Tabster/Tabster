@@ -3,25 +3,20 @@
 using System;
 using HtmlAgilityPack;
 using Tabster.Core.Data;
-using Tabster.Core.Parsing;
 using Tabster.Core.Types;
+using Tabster.Core.Data.Processing;
 
 #endregion
 
 namespace GuitartabsDotCC
 {
-    internal class GuitartabsDotCCParser : IWebTabParser
+    internal class GuitartabsDotCCParser : ITablatureWebpageImporter
     {
-        #region Implementation of ITabParser
+        #region Implementation of ITablatureWebpageImporter
 
-        public string Name
+        public string SiteName
         {
             get { return "Guitartabs.cc"; }
-        }
-
-        public Version Version
-        {
-            get { return new Version("1.0"); }
         }
 
         public TablatureDocument Parse(string text, TabType? type)
@@ -99,11 +94,6 @@ namespace GuitartabsDotCC
                 return null;
 
             return new TablatureDocument(artist, title, tabType.Value, contents);
-        }
-
-        public TablatureDocument Parse(Uri url, TabType? type)
-        {
-            throw new NotImplementedException();
         }
 
         public bool MatchesUrlPattern(Uri url)
