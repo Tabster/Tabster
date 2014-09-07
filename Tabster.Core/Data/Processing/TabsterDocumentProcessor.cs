@@ -10,14 +10,12 @@ namespace Tabster.Core.Data.Processing
     public class TabsterDocumentProcessor<T> where T : class, ITabsterDocument, new()
     {
         private readonly Version _latestVersion;
-        private readonly bool _throwIfMissing;
         private readonly bool _updateFormat;
 
-        public TabsterDocumentProcessor(Version latestVersion, bool updateFormat, bool throwIfMissing)
+        public TabsterDocumentProcessor(Version latestVersion, bool updateFormat)
         {
             _latestVersion = latestVersion;
             _updateFormat = updateFormat;
-            _throwIfMissing = throwIfMissing;
         }
 
         public Exception Error { get; private set; }
@@ -31,12 +29,6 @@ namespace Tabster.Core.Data.Processing
         public T Load(string fileName, out Exception error)
         {
             Error = null;
-
-            if (!_throwIfMissing && !File.Exists(fileName))
-            {
-                error = new FileNotFoundException();
-                return null;
-            }
 
             var doc = new T();
 

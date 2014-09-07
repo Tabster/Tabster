@@ -22,7 +22,7 @@ namespace Tabster.Forms
     {
         private readonly TablatureDocument _queuedTabfile;
         private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDirectory, "recent.dat");
-        private readonly TabsterDocumentProcessor<TablatureDocument> _tablatureProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true, false);
+        private readonly TabsterDocumentProcessor<TablatureDocument> _tablatureProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
         private bool _initialLibraryLoaded;
 
         public MainForm()

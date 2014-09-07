@@ -19,7 +19,7 @@ namespace Tabster.Core.Data
         #endregion
 
         private readonly TabsterXmlDocument _doc = new TabsterXmlDocument("tablist");
-        private readonly TabsterDocumentProcessor<TablatureDocument> _processor = new TabsterDocumentProcessor<TablatureDocument>(FILE_VERSION, true, false);
+        private readonly TabsterDocumentProcessor<TablatureDocument> _processor = new TabsterDocumentProcessor<TablatureDocument>(FILE_VERSION, true);
 
         #region Constructors
 

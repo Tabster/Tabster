@@ -91,7 +91,7 @@ namespace Tabster.Forms
 
     internal class TabsterFileProcessor : ITablatureFileImporter
     {
-        private readonly TabsterDocumentProcessor<TablatureDocument> _processor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true, false);
+        private readonly TabsterDocumentProcessor<TablatureDocument> _processor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
 
         public TabsterFileProcessor()
         {
