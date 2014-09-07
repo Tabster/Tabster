@@ -2,6 +2,7 @@
 
 using System;
 using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 using Tabster.Core.Printing;
 using Tabster.Core.Types;
@@ -19,7 +20,21 @@ namespace Tabster.Controls
             InitializeComponent();
         }
 
+        //disable resize flicker
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                const int WS_EX_COMPOSITED =  0x02000000;
+
+                var cp = base.CreateParams;
+                cp.ExStyle |= WS_EX_COMPOSITED;
+                return cp;
+            }
+        } 
+
         #endregion
+
 
         #region Properties
 
