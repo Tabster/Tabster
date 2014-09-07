@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Tabster.Core.Plugins;
 
 #endregion
@@ -52,7 +53,6 @@ namespace Tabster.Plugins
         {
             var instances = new List<T>();
 
-            //todo cache instances?
             foreach (var plugin in _plugins)
             {
                 if (IsEnabled(plugin.GUID))
@@ -68,8 +68,14 @@ namespace Tabster.Plugins
             {
                 var assembly = Assembly.LoadFrom(path);
 
+
                 if (assembly != null)
                 {
+                    Guid assemblyGuid;
+
+                    if (!AssemblyHasGuid(assembly, out assemblyGuid))
+                        return;
+
                     Type pluginType = null;
 
                     foreach (var objType in assembly.GetTypes())
@@ -85,7 +91,7 @@ namespace Tabster.Plugins
                     {
                         var pluginInterface = (ITabsterPlugin) Activator.CreateInstance(pluginType);
 
-                        var plugin = new TabsterPlugin(assembly, pluginInterface);
+                        var plugin = new TabsterPlugin(assembly, pluginInterface, assemblyGuid);
                         _plugins.Add(plugin);
                     }
                 }
@@ -131,5 +137,19 @@ namespace Tabster.Plugins
         }
 
         #endregion
+
+        private static bool AssemblyHasGuid(Assembly assembly, out Guid guid)
+        {
+            var attributes = assembly.GetCustomAttributes(typeof(GuidAttribute), false);
+
+            if (attributes.Length > 0)
+            {
+                guid = new Guid(((GuidAttribute)attributes[0]).Value);
+                return true;
+            }
+
+            guid = Guid.Empty;
+            return false;
+        }
     }
 }
