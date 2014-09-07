@@ -160,7 +160,7 @@ namespace Tabster.Forms
 
         private void CachePluginResources()
         {
-            _tabParsers = new List<ITablatureWebpageImporter>(Program.pluginController.GetClassInstances<ITablatureWebpageImporter>());
+            _webImporters = new List<ITablatureWebpageImporter>(Program.pluginController.GetClassInstances<ITablatureWebpageImporter>());
             _searchServices = new List<ISearchService>(Program.pluginController.GetClassInstances<ISearchService>());
 
             _searchServices.Sort((s1, s2) => s1.Name.CompareTo(s2.Name));

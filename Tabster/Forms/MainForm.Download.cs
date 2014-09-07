@@ -92,7 +92,7 @@ namespace Tabster.Forms
 
                     foreach (var url in urls)
                     {
-                        var state = new DownloadState(url) {Parser = _tabParsers.Find(x => x.MatchesUrlPattern(url))};
+                        var state = new DownloadState(url) {Parser = _webImporters.Find(x => x.MatchesUrlPattern(url))};
                         states.Add(state);
                     }
 

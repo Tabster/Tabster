@@ -21,7 +21,7 @@ namespace Tabster.Forms
         private TabRating? _activeSearchRating;
         private TabType? _activeSearchType;
         private List<ISearchService> _searchServices = new List<ISearchService>();
-        private List<ITablatureWebpageImporter> _tabParsers = new List<ITablatureWebpageImporter>();
+        private List<ITablatureWebpageImporter> _webImporters = new List<ITablatureWebpageImporter>();
 
         //used for filtering after search is complete
 
@@ -262,7 +262,7 @@ namespace Tabster.Forms
 
             if (!_searchResultsCache.ContainsKey(url))
             {
-                var parser = result.Query.Service.Parser ?? _tabParsers.Find(x => x.MatchesUrlPattern(result.Tab.Source));
+                var parser = result.Query.Service.Parser ?? _webImporters.Find(x => x.MatchesUrlPattern(result.Tab.Source));
 
                 if (parser == null)
                 {
