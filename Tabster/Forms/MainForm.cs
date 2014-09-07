@@ -6,7 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using Tabster.Core.Data;
-using Tabster.Core.Parsing;
+using Tabster.Core.Data.Processing;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Properties;
@@ -160,7 +160,7 @@ namespace Tabster.Forms
 
         private void CachePluginResources()
         {
-            _tabParsers = new List<IWebTabParser>(Program.pluginController.GetClassInstances<IWebTabParser>());
+            _tabParsers = new List<ITablatureWebpageImporter>(Program.pluginController.GetClassInstances<ITablatureWebpageImporter>());
             _searchServices = new List<ISearchService>(Program.pluginController.GetClassInstances<ISearchService>());
 
             _searchServices.Sort((s1, s2) => s1.Name.CompareTo(s2.Name));

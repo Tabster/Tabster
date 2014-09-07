@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using Microsoft.VisualBasic.FileIO;
 using Tabster.Core.Data;
+using Tabster.Core.Data.Processing;
 using Tabster.Utilities;
 using SearchOption = System.IO.SearchOption;
 

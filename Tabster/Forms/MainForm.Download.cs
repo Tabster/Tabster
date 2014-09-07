@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Tabster.Core.Data;
-using Tabster.Core.Parsing;
+using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
 using Tabster.Utilities;
 
@@ -21,7 +21,7 @@ namespace Tabster.Forms
         }
 
         public Uri Url { get; private set; }
-        public IWebTabParser Parser { get; set; }
+        public ITablatureWebpageImporter Parser { get; set; }
         public TablatureDocument Tab { get; set; }
         public Exception Error { get; set; }
         public bool Cancelled { get; set; }
@@ -181,7 +181,7 @@ namespace Tabster.Forms
 
                     var lvi = new ListViewItem {Text = state.Url.ToString()};
 
-                    lvi.SubItems.Add(state.Parser != null ? state.Parser.Name : "N/A");
+                    lvi.SubItems.Add(state.Parser != null ? state.Parser.SiteName : "N/A");
 
                     string status;
 

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Tabster.Core.Data;
-using Tabster.Core.Parsing;
+using Tabster.Core.Data.Processing;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Utilities;
@@ -21,7 +21,7 @@ namespace Tabster.Forms
         private TabRating? _activeSearchRating;
         private TabType? _activeSearchType;
         private List<ISearchService> _searchServices = new List<ISearchService>();
-        private List<IWebTabParser> _tabParsers = new List<IWebTabParser>();
+        private List<ITablatureWebpageImporter> _tabParsers = new List<ITablatureWebpageImporter>();
 
         //used for filtering after search is complete
 
@@ -266,7 +266,7 @@ namespace Tabster.Forms
 
                 if (parser == null)
                 {
-                    throw new TabParserException(string.Format("No parser found for URL: {0}", url));
+                    throw new TablatureProcessorException(string.Format("No parser found for URL: {0}", url));
                 }
 
                 string urlSource;
@@ -285,7 +285,7 @@ namespace Tabster.Forms
 
                 catch (Exception ex)
                 {
-                    throw new TabParserException(ex.Message);
+                    throw new TablatureProcessorException(ex.Message);
                 }
 
                 if (tab != null)
