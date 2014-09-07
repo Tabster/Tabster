@@ -2,7 +2,7 @@
 
 using System.Reflection;
 using System.Windows.Forms;
-using Tabster.Core.Parsing;
+using Tabster.Core.Data.Processing;
 
 #endregion
 
@@ -12,13 +12,13 @@ namespace Tabster.Utilities
     {
         private static string _copyrightString;
 
-        public static string GetTablatureDocumentMethodString(ITabParser parser = null)
+        public static string GetTablatureDocumentMethodString(ITablatureWebpageImporter importer = null)
         {
             var str = string.Format("{0} v{1}", Application.ProductName, Application.ProductVersion);
 
-            if (parser != null && !string.IsNullOrEmpty(parser.Name))
+            if (importer != null && !string.IsNullOrEmpty(importer.SiteName))
             {
-                str += string.Format(" / {0} v{1}", parser.Name, parser.Version);
+                str += string.Format(" / {0}", importer.SiteName);
             }
 
             return str;
