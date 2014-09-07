@@ -15,12 +15,11 @@ namespace Tabster.Core.Printing
         private readonly Font _font;
         private readonly ITablature _tab;
 
-        private Rectangle _realPageBounds;
-
         private int _pageCount;
         private bool _performingPageCount;
         private PrintAction _printAction;
         private string _printContents;
+        private Rectangle _realPageBounds;
         private TablaturePrintDocumentSettings _settings;
 
         protected int TotalPages { get; private set; }
@@ -137,10 +136,10 @@ namespace Tabster.Core.Printing
             var title = string.Format("{0} - {1} ({2})", _tab.Artist, _tab.Title, _tab.Type.ToFriendlyString());
 
             e.Graphics.DrawString(title, _font, _settings.PrintColor, _realPageBounds, new StringFormat
-                                                                                {
-                                                                                    Alignment = StringAlignment.Near,
-                                                                                    LineAlignment = StringAlignment.Near
-                                                                                });
+                                                                                           {
+                                                                                               Alignment = StringAlignment.Near,
+                                                                                               LineAlignment = StringAlignment.Near
+                                                                                           });
         }
 
         private void DrawTabContents(PrintPageEventArgs e)
@@ -161,19 +160,19 @@ namespace Tabster.Core.Printing
         protected virtual void OnDrawPageNumbers(TablaturePrintPageEventArgs e)
         {
             e.Graphics.DrawString(string.Format("Page {0} of {1}", e.CurrentPage, TotalPages), _font, _settings.PrintColor, _realPageBounds, new StringFormat
-                                                                                                                                      {
-                                                                                                                                          Alignment = StringAlignment.Far,
-                                                                                                                                          LineAlignment = StringAlignment.Near
-                                                                                                                                      });
+                                                                                                                                                 {
+                                                                                                                                                     Alignment = StringAlignment.Far,
+                                                                                                                                                     LineAlignment = StringAlignment.Near
+                                                                                                                                                 });
         }
 
         protected virtual void OnDrawPrintTime(PrintPageEventArgs e)
         {
             e.Graphics.DrawString(DateTime.Now.ToString(), _font, _settings.PrintColor, _realPageBounds, new StringFormat
-                                                                                                  {
-                                                                                                      Alignment = StringAlignment.Far,
-                                                                                                      LineAlignment = StringAlignment.Far
-                                                                                                  });
+                                                                                                             {
+                                                                                                                 Alignment = StringAlignment.Far,
+                                                                                                                 LineAlignment = StringAlignment.Far
+                                                                                                             });
         }
 
         #endregion
