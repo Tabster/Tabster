@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
 
 #endregion

@@ -4,15 +4,15 @@ using System;
 
 #endregion
 
-namespace Tabster.Core.Parsing
+namespace Tabster.Core.Data.Processing
 {
     /// <summary>
-    ///   Web-based tab parser.
+    ///   Web-based tab source.
     /// </summary>
-    public interface IWebTabParser : IStringTabParser
+    public interface ITablatureWebpageImporter : ITablatureTextImporter
     {
         ///<summary>
-        ///  Determines whether a specified URL matches a specific pattern used by the parser. Used for web-based parsing.
+        ///  Determines whether a specified URL matches a specific pattern used by source processor.
         ///</summary>
         ///<param name="url"> The URL to check. </param>
         ///<returns> True if the URL matches the supported pattern; otherwise, False. </returns>

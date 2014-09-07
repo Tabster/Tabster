@@ -5,13 +5,13 @@ using System.IO;
 
 #endregion
 
-namespace Tabster.Core.Data
+namespace Tabster.Core.Data.Processing
 {
     public class TabsterDocumentProcessor<T> where T : class, ITabsterDocument, new()
     {
         private readonly Version _latestVersion;
-        private readonly bool _updateFormat;
         private readonly bool _throwIfMissing;
+        private readonly bool _updateFormat;
 
         public TabsterDocumentProcessor(Version latestVersion, bool updateFormat, bool throwIfMissing)
         {

@@ -1,16 +1,15 @@
 #region
 
-using Tabster.Core.Data;
 using Tabster.Core.Types;
 
 #endregion
 
-namespace Tabster.Core.Parsing
+namespace Tabster.Core.Data.Processing
 {
     /// <summary>
-    ///   String-based tab parser.
+    ///   Text-based tab source.
     /// </summary>
-    public interface IStringTabParser : ITabParser
+    public interface ITablatureTextImporter
     {
         /// <summary>
         ///   Parses tab from text source.
@@ -19,6 +18,5 @@ namespace Tabster.Core.Parsing
         /// <param name="type"> Explicitly defined type. </param>
         /// <returns> Parsed tab. </returns>
         TablatureDocument Parse(string text, TabType? type);
-        //todo remove nullable
     }
 }

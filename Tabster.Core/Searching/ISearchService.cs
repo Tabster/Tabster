@@ -1,6 +1,6 @@
 ﻿#region
 
-using Tabster.Core.Parsing;
+using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
 
 #endregion
@@ -20,13 +20,16 @@ namespace Tabster.Core.Searching
         /// <summary>
         ///   Associated parser.
         /// </summary>
-        IWebTabParser Parser { get; }
+        ITablatureWebpageImporter Parser { get; }
 
         /// <summary>
         ///   Service flags.
         /// </summary>
         SearchServiceFlags Flags { get; }
 
+        /// <summary>
+        ///   Determines whether the service supports ratings.
+        /// </summary>
         bool SupportsRatings { get; }
 
         /// <summary>
