@@ -52,7 +52,6 @@ namespace Tabster.Forms
                 {
                     var lvi = new ListViewItem
                                   {
-                                      ToolTipText = plugin.Interface.Description,
                                       Tag = plugin.GUID.ToString(),
                                       Checked = Program.pluginController.IsEnabled(plugin.GUID)
                                   };
@@ -60,10 +59,13 @@ namespace Tabster.Forms
                     lvi.SubItems.Add(plugin.Interface.DisplayName);
                     lvi.SubItems.Add(plugin.Interface.Version.ToString());
                     lvi.SubItems.Add(Path.GetFileName(plugin.Assembly.Location));
+                    lvi.SubItems.Add(plugin.Interface.Description);
 
                     listPlugins.Items.Add(lvi);
                 }
             }
+
+            listPlugins.AutoResizeColumn(listPlugins.Columns.Count - 1, ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         private void listPlugins_ItemChecked(object sender, ItemCheckedEventArgs e)

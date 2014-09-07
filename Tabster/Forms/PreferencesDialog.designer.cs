@@ -39,6 +39,7 @@
             this.colpluginName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginFilename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colpluginDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -59,7 +60,7 @@
             // 
             this.cancelbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelbtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelbtn.Location = new System.Drawing.Point(349, 225);
+            this.cancelbtn.Location = new System.Drawing.Point(529, 251);
             this.cancelbtn.Name = "cancelbtn";
             this.cancelbtn.Size = new System.Drawing.Size(75, 23);
             this.cancelbtn.TabIndex = 22;
@@ -70,7 +71,7 @@
             // 
             this.okbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okbtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okbtn.Location = new System.Drawing.Point(268, 225);
+            this.okbtn.Location = new System.Drawing.Point(448, 251);
             this.okbtn.Name = "okbtn";
             this.okbtn.Size = new System.Drawing.Size(75, 23);
             this.okbtn.TabIndex = 23;
@@ -80,12 +81,15 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(409, 206);
+            this.tabControl1.Size = new System.Drawing.Size(589, 232);
             this.tabControl1.TabIndex = 24;
             // 
             // tabPage1
@@ -94,7 +98,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(401, 180);
+            this.tabPage1.Size = new System.Drawing.Size(624, 206);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -105,7 +109,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(401, 180);
+            this.tabPage2.Size = new System.Drawing.Size(581, 206);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Plugins";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -117,14 +121,15 @@
             this.colPluginEnabled,
             this.colpluginName,
             this.colpluginVersion,
-            this.colpluginFilename});
+            this.colpluginFilename,
+            this.colpluginDescription});
             this.listPlugins.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listPlugins.FullRowSelect = true;
             this.listPlugins.GridLines = true;
             this.listPlugins.Location = new System.Drawing.Point(3, 3);
             this.listPlugins.Name = "listPlugins";
             this.listPlugins.ShowItemToolTips = true;
-            this.listPlugins.Size = new System.Drawing.Size(395, 174);
+            this.listPlugins.Size = new System.Drawing.Size(575, 200);
             this.listPlugins.TabIndex = 0;
             this.listPlugins.UseCompatibleStateImageBehavior = false;
             this.listPlugins.View = System.Windows.Forms.View.Details;
@@ -150,6 +155,11 @@
             this.colpluginFilename.Text = "Filename";
             this.colpluginFilename.Width = 135;
             // 
+            // colpluginDescription
+            // 
+            this.colpluginDescription.Text = "Description";
+            this.colpluginDescription.Width = 180;
+            // 
             // PreferencesDialog
             // 
             this.AcceptButton = this.okbtn;
@@ -157,7 +167,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.cancelbtn;
-            this.ClientSize = new System.Drawing.Size(434, 258);
+            this.ClientSize = new System.Drawing.Size(614, 284);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.okbtn);
             this.Controls.Add(this.cancelbtn);
@@ -191,5 +201,6 @@
         private System.Windows.Forms.ColumnHeader colpluginFilename;
         private System.Windows.Forms.ColumnHeader colpluginVersion;
         private System.Windows.Forms.ColumnHeader colPluginEnabled;
+        private System.Windows.Forms.ColumnHeader colpluginDescription;
     }
 }
