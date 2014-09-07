@@ -11,6 +11,11 @@ namespace Tabster.Core.Data.Processing
     /// </summary>
     public interface ITablatureWebpageImporter : ITablatureTextImporter
     {
+        /// <summary>
+        /// The name of the site (if applicable) where the page text is from.
+        /// </summary>
+        string SiteName { get; }
+
         ///<summary>
         ///  Determines whether a specified URL matches a specific pattern used by source processor.
         ///</summary>
