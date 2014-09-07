@@ -28,7 +28,7 @@ namespace Tabster.Core.Searching
         SearchServiceFlags Flags { get; }
 
         /// <summary>
-        ///   Determines whether the service supports ratings.
+        /// Determines whether the service supports ratings.
         /// </summary>
         bool SupportsRatings { get; }
 
