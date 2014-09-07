@@ -5,13 +5,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabster", "Tabster\Tabster.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabster.Core", "Tabster.Core\Tabster.Core.csproj", "{B94FA030-4553-4F14-A867-F05849A14DC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateGuitar", "Plugins\UltimateGuitar\UltimateGuitar.csproj", "{1738169F-1BF6-4BF1-872B-7F2B60A02BB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateGuitar", "Plugins\SearchServices\UltimateGuitar\UltimateGuitar.csproj", "{1738169F-1BF6-4BF1-872B-7F2B60A02BB8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{24677B69-12E5-41EE-BAB6-A988EF132063}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuitartabsDotCC", "Plugins\GuitartabsDotCC\GuitartabsDotCC.csproj", "{4E8EAB0B-3689-45C7-959F-9F4E5DFA0BF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuitartabsDotCC", "Plugins\SearchServices\GuitartabsDotCC\GuitartabsDotCC.csproj", "{4E8EAB0B-3689-45C7-959F-9F4E5DFA0BF0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabster.Controls", "Tabster.Controls\Tabster.Controls.csproj", "{E000FEB4-0CBC-4187-B54B-93C701DD5D49}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchServices", "SearchServices", "{C1838C08-0FED-4722-A5E7-FC0B6E8364C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileTypes", "FileTypes", "{8EDEB572-C6AA-49CD-9C25-011EA031A5BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,7 +82,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{1738169F-1BF6-4BF1-872B-7F2B60A02BB8} = {24677B69-12E5-41EE-BAB6-A988EF132063}
-		{4E8EAB0B-3689-45C7-959F-9F4E5DFA0BF0} = {24677B69-12E5-41EE-BAB6-A988EF132063}
+		{C1838C08-0FED-4722-A5E7-FC0B6E8364C3} = {24677B69-12E5-41EE-BAB6-A988EF132063}
+		{8EDEB572-C6AA-49CD-9C25-011EA031A5BE} = {24677B69-12E5-41EE-BAB6-A988EF132063}
+		{4E8EAB0B-3689-45C7-959F-9F4E5DFA0BF0} = {C1838C08-0FED-4722-A5E7-FC0B6E8364C3}
+		{1738169F-1BF6-4BF1-872B-7F2B60A02BB8} = {C1838C08-0FED-4722-A5E7-FC0B6E8364C3}
 	EndGlobalSection
 EndGlobal
