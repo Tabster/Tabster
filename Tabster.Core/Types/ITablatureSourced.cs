@@ -11,6 +11,5 @@ namespace Tabster.Core.Types
         TablatureSourceType SourceType { get; set; }
         Uri Source { get; set; }
         string Method { get; set; }
-        TabRating? Rating { get; set; }
     }
 }

@@ -56,6 +56,7 @@
     <Compile Include="Searching\SearchResult.cs" />
     <Compile Include="Searching\SearchServiceException.cs" />
     <Compile Include="Searching\SearchServiceFlags.cs" />
+    <Compile Include="Types\ITablatureRated.cs" />
     <Compile Include="Types\ITablatureSourced.cs" />
     <Compile Include="Types\ITablaturePlaylist.cs" />
     <Compile Include="Types\TabRating.cs" />

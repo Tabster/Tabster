@@ -9,7 +9,7 @@ using Tabster.Core.Types;
 
 namespace Tabster.Core.Data
 {
-    public class TablatureDocument : ITabsterDocument, ITablatureSourced, ITablatureUserDefined
+    public class TablatureDocument : ITabsterDocument, ITablatureSourced, ITablatureUserDefined, ITablatureRated
     {
         #region Constants
 
@@ -195,8 +195,6 @@ namespace Tabster.Core.Data
 
         public string Method { get; set; }
 
-        public TabRating? Rating { get; set; }
-
         #endregion
 
         #region Implementation of ITablatureUserDefined
@@ -274,6 +272,12 @@ namespace Tabster.Core.Data
             var doc = other as TablatureDocument;
             return doc != null && FileInfo.FullName.Equals(doc.FileInfo.FullName, StringComparison.InvariantCultureIgnoreCase);
         }
+
+        #endregion
+
+        #region Implementation of ITablatureRated
+
+        public TabRating Rating { get; set; }
 
         #endregion
     }

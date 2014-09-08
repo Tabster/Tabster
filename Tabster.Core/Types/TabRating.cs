@@ -21,7 +21,7 @@ namespace Tabster.Core.Types
 
     public static class TabRatingUtilities
     {
-        public static TabRating? FromString(string str)
+        public static TabRating FromString(string str)
         {
             int i;
             if (int.TryParse(str, out i))
@@ -34,16 +34,14 @@ namespace Tabster.Core.Types
 
             catch (ArgumentException)
             {
-                return null;
+                return TabRating.None;
             }
         }
 
-        public static TabRating? FromInt(int i)
+        public static TabRating FromInt(int i)
         {
             switch (i)
             {
-                case 0:
-                    return TabRating.None;
                 case 1:
                     return TabRating.Stars1;
                 case 2:
@@ -54,9 +52,9 @@ namespace Tabster.Core.Types
                     return TabRating.Stars4;
                 case 5:
                     return TabRating.Stars5;
+                default:
+                    return TabRating.None;
             }
-
-            return null;
         }
     }
 
