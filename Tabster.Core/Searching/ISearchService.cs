@@ -1,5 +1,6 @@
 ﻿#region
 
+using System.Net;
 using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
 
@@ -26,6 +27,11 @@ namespace Tabster.Core.Searching
         ///   Service flags.
         /// </summary>
         SearchServiceFlags Flags { get; }
+
+        /// <summary>
+        /// Proxy settings.
+        /// </summary>
+        WebProxy Proxy { get; }
 
         /// <summary>
         /// Determines whether the service supports ratings.
