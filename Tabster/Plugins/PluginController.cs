@@ -40,7 +40,7 @@ namespace Tabster.Plugins
 
             if (Directory.Exists(_pluginsDirectory))
             {
-                var pluginFiles = Directory.GetFiles(_pluginsDirectory, "*.dll");
+                var pluginFiles = Directory.GetFiles(_pluginsDirectory, "*.dll", SearchOption.AllDirectories);
 
                 foreach (var pluginPath in pluginFiles)
                 {
