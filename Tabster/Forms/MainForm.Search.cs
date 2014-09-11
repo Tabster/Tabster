@@ -79,6 +79,9 @@ namespace Tabster.Forms
                     if (_activeSearchRating.HasValue && !service.SupportsRatings)
                         continue;
 
+                    //set active proxy
+                    service.Proxy = Program.CustomProxyController.GetProxy();
+
                     searchQueries.Add(new SearchQuery(service, searchArtist, searchTitle, _activeSearchType));
                 }
 
@@ -271,7 +274,7 @@ namespace Tabster.Forms
 
                 string urlSource;
 
-                using (var client = new TabsterWebClient())
+                using (var client = new TabsterWebClient(Program.CustomProxyController.GetProxy()))
                 {
                     urlSource = client.DownloadString(result.Tab.Source);
                 }

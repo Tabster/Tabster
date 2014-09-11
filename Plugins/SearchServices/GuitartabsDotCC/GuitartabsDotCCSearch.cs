@@ -35,6 +35,8 @@ namespace GuitartabsDotCC
             get { return SearchServiceFlags.RequiresTitleParameter; }
         }
 
+        public WebProxy Proxy { get; set; }
+
         public bool SupportsRatings
         {
             get { return true; }
@@ -80,7 +82,7 @@ namespace GuitartabsDotCC
 
             string data;
 
-            var client = new WebClient {Proxy = null};
+            var client = new WebClient { Proxy = Proxy };
             {
                 data = client.DownloadString(url);
             }

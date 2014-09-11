@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using Tabster.Utilities;
 
 #endregion
 
@@ -31,7 +32,7 @@ namespace Tabster.Updater
 
         public void Start()
         {
-            using (var client = new UpdateWebClient())
+            using (var client = new TabsterWebClient(Program.CustomProxyController.GetProxy()))
             {
                 client.DownloadFileCompleted += client_DownloadFileCompleted;
                 client.DownloadProgressChanged += client_DownloadProgressChanged;

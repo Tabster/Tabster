@@ -4,6 +4,7 @@ using System;
 using System.Net;
 using System.Windows.Forms;
 using System.Xml;
+using Tabster.Utilities;
 
 #endregion
 
@@ -33,7 +34,7 @@ namespace Tabster.Updater
         {
             try
             {
-                using (var client = new UpdateWebClient())
+                using (var client = new TabsterWebClient())
                 {
                     client.DownloadStringCompleted += client_DownloadStringCompleted;
                     client.DownloadStringAsync(new Uri("http://client.tabster.me/update"), userToken);
