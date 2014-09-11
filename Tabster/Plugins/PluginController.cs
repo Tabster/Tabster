@@ -110,9 +110,9 @@ namespace Tabster.Plugins
 
         public void SetStatus(Guid guid, bool enabled)
         {
-            if (enabled)
-                _disabledPlugins.Remove(guid);
-            else
+            _disabledPlugins.Remove(guid);
+
+            if (!enabled)
                 _disabledPlugins.Add(guid);
         }
 
