@@ -125,7 +125,7 @@ namespace Tabster.Forms
                     if (state.Parser == null)
                         continue;
 
-                    using (var client = new TabsterWebClient())
+                    using (var client = new TabsterWebClient(Program.CustomProxyController.GetProxy()))
                     {
                         try
                         {
