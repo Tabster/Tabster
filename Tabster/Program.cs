@@ -49,10 +49,6 @@ namespace Tabster
             instanceController = new SingleInstanceController();
             TabHandler = new TabViewerManager();
 
-
-            Application.Run(new PreferencesDialog());
-            return;
-
             instanceController.Run(args);
         }
 
