@@ -69,7 +69,7 @@ namespace Tabster.Core.Data
 
         #endregion
 
-        public bool ContainsPath(string path)
+        public bool Contains(string path)
         {
             return Find(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase)) != null;
         }
@@ -84,12 +84,12 @@ namespace Tabster.Core.Data
             return _documents.FindAll(match);
         }
 
-        public T FindByPath(string path)
+        public T Find(string path)
         {
             return Find(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
         }
 
-        public bool RemoveByPath(string path)
+        public bool Remove(string path)
         {
             var existing = _documents.Find(t => t.FileInfo.FullName.Equals(path, StringComparison.InvariantCultureIgnoreCase));
             return existing != null && _documents.Remove(existing);
