@@ -31,7 +31,7 @@ namespace Tabster.Core.Searching
         /// <summary>
         /// Proxy settings.
         /// </summary>
-        WebProxy Proxy { get; }
+        WebProxy Proxy { get; set; }
 
         /// <summary>
         /// Determines whether the service supports ratings.
