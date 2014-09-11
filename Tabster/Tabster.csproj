@@ -264,7 +264,6 @@
     <None Include="Resources\folder_go.png" />
     <None Include="Resources\printer.png" />
     <None Include="Resources\loading-icon.gif" />
-    <None Include="Resources\guitar128.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
