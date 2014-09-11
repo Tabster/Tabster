@@ -54,6 +54,7 @@
             this.numProxyPort = new System.Windows.Forms.NumericUpDown();
             this.txtProxyAddress = new System.Windows.Forms.TextBox();
             this.chkShowProxyPassword = new System.Windows.Forms.CheckBox();
+            this.btnEditSystemProxy = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -174,6 +175,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btnEditSystemProxy);
             this.tabPage3.Controls.Add(this.radioNoProxy);
             this.tabPage3.Controls.Add(this.radioManualProxy);
             this.tabPage3.Controls.Add(this.radioSystemProxy);
@@ -333,6 +335,17 @@
             this.chkShowProxyPassword.UseVisualStyleBackColor = true;
             this.chkShowProxyPassword.CheckedChanged += new System.EventHandler(this.chkShowProxyPassword_CheckedChanged);
             // 
+            // btnEditSystemProxy
+            // 
+            this.btnEditSystemProxy.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnEditSystemProxy.Location = new System.Drawing.Point(158, 26);
+            this.btnEditSystemProxy.Name = "btnEditSystemProxy";
+            this.btnEditSystemProxy.Size = new System.Drawing.Size(149, 23);
+            this.btnEditSystemProxy.TabIndex = 25;
+            this.btnEditSystemProxy.Text = "Edit System Proxy Settings";
+            this.btnEditSystemProxy.UseVisualStyleBackColor = true;
+            this.btnEditSystemProxy.Click += new System.EventHandler(this.btnEditSystemProxy_Click);
+            // 
             // PreferencesDialog
             // 
             this.AcceptButton = this.okbtn;
@@ -394,5 +407,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel customProxyPanel;
         private System.Windows.Forms.CheckBox chkShowProxyPassword;
+        private System.Windows.Forms.Button btnEditSystemProxy;
     }
 }

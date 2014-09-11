@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -204,6 +205,12 @@ namespace Tabster.Forms
         private void chkShowProxyPassword_CheckedChanged(object sender, EventArgs e)
         {
             txtProxyPassword.PasswordChar = chkShowProxyPassword.Checked ? '\0' : '*';
+        }
+
+        private void btnEditSystemProxy_Click(object sender, EventArgs e)
+        {
+            //thanks to google chrome
+            Process.Start("inetcpl.cpl", ",4");
         }
     }
 }
