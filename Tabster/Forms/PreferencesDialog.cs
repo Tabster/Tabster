@@ -99,9 +99,9 @@ namespace Tabster.Forms
 
                     Program.pluginController.SetStatus(guid, pluginEnabled);
 
-                    if (pluginEnabled)
-                        Settings.Default.DisabledPlugins.Remove(guid.ToString());
-                    else
+                    Settings.Default.DisabledPlugins.Remove(guid.ToString());
+                        
+                    if (!pluginEnabled)
                         Settings.Default.DisabledPlugins.Add(guid.ToString());
                 }
             }
