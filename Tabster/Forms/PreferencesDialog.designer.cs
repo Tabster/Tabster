@@ -35,14 +35,31 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.listPlugins = new System.Windows.Forms.ListView();
-            this.colPluginEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginFilename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.radioNoProxy = new System.Windows.Forms.RadioButton();
+            this.radioManualProxy = new System.Windows.Forms.RadioButton();
+            this.radioSystemProxy = new System.Windows.Forms.RadioButton();
+            this.customProxyPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtProxyUsername = new System.Windows.Forms.TextBox();
+            this.chkProxyAuthentication = new System.Windows.Forms.CheckBox();
+            this.txtProxyPassword = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numProxyPort = new System.Windows.Forms.NumericUpDown();
+            this.txtProxyAddress = new System.Windows.Forms.TextBox();
+            this.chkShowProxyPassword = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.customProxyPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numProxyPort)).BeginInit();
             this.SuspendLayout();
             // 
             // chkupdatestartup
@@ -60,7 +77,7 @@
             // 
             this.cancelbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelbtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelbtn.Location = new System.Drawing.Point(529, 251);
+            this.cancelbtn.Location = new System.Drawing.Point(474, 251);
             this.cancelbtn.Name = "cancelbtn";
             this.cancelbtn.Size = new System.Drawing.Size(75, 23);
             this.cancelbtn.TabIndex = 22;
@@ -71,7 +88,7 @@
             // 
             this.okbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okbtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okbtn.Location = new System.Drawing.Point(448, 251);
+            this.okbtn.Location = new System.Drawing.Point(393, 251);
             this.okbtn.Name = "okbtn";
             this.okbtn.Size = new System.Drawing.Size(75, 23);
             this.okbtn.TabIndex = 23;
@@ -86,10 +103,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(589, 232);
+            this.tabControl1.Size = new System.Drawing.Size(534, 232);
             this.tabControl1.TabIndex = 24;
             // 
             // tabPage1
@@ -98,7 +116,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(624, 206);
+            this.tabPage1.Size = new System.Drawing.Size(526, 206);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -109,7 +127,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(581, 206);
+            this.tabPage2.Size = new System.Drawing.Size(526, 206);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Plugins";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -118,7 +136,6 @@
             // 
             this.listPlugins.CheckBoxes = true;
             this.listPlugins.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colPluginEnabled,
             this.colpluginName,
             this.colpluginVersion,
             this.colpluginFilename,
@@ -129,16 +146,11 @@
             this.listPlugins.Location = new System.Drawing.Point(3, 3);
             this.listPlugins.Name = "listPlugins";
             this.listPlugins.ShowItemToolTips = true;
-            this.listPlugins.Size = new System.Drawing.Size(575, 200);
+            this.listPlugins.Size = new System.Drawing.Size(520, 200);
             this.listPlugins.TabIndex = 0;
             this.listPlugins.UseCompatibleStateImageBehavior = false;
             this.listPlugins.View = System.Windows.Forms.View.Details;
             this.listPlugins.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listPlugins_ItemChecked);
-            // 
-            // colPluginEnabled
-            // 
-            this.colPluginEnabled.Text = "Enabled";
-            this.colPluginEnabled.Width = 55;
             // 
             // colpluginName
             // 
@@ -160,6 +172,167 @@
             this.colpluginDescription.Text = "Description";
             this.colpluginDescription.Width = 180;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.radioNoProxy);
+            this.tabPage3.Controls.Add(this.radioManualProxy);
+            this.tabPage3.Controls.Add(this.radioSystemProxy);
+            this.tabPage3.Controls.Add(this.customProxyPanel);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(526, 206);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Network";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // radioNoProxy
+            // 
+            this.radioNoProxy.AutoSize = true;
+            this.radioNoProxy.Checked = true;
+            this.radioNoProxy.Location = new System.Drawing.Point(6, 6);
+            this.radioNoProxy.Name = "radioNoProxy";
+            this.radioNoProxy.Size = new System.Drawing.Size(139, 17);
+            this.radioNoProxy.TabIndex = 1;
+            this.radioNoProxy.TabStop = true;
+            this.radioNoProxy.Text = "Don\'t use a proxy server";
+            this.radioNoProxy.UseVisualStyleBackColor = true;
+            // 
+            // radioManualProxy
+            // 
+            this.radioManualProxy.AutoSize = true;
+            this.radioManualProxy.Location = new System.Drawing.Point(6, 52);
+            this.radioManualProxy.Name = "radioManualProxy";
+            this.radioManualProxy.Size = new System.Drawing.Size(127, 17);
+            this.radioManualProxy.TabIndex = 3;
+            this.radioManualProxy.TabStop = true;
+            this.radioManualProxy.Text = "Custom proxy settings";
+            this.radioManualProxy.UseVisualStyleBackColor = true;
+            this.radioManualProxy.CheckedChanged += new System.EventHandler(this.radioCustomProxy_CheckedChanged);
+            // 
+            // radioSystemProxy
+            // 
+            this.radioSystemProxy.AutoSize = true;
+            this.radioSystemProxy.Location = new System.Drawing.Point(6, 29);
+            this.radioSystemProxy.Name = "radioSystemProxy";
+            this.radioSystemProxy.Size = new System.Drawing.Size(146, 17);
+            this.radioSystemProxy.TabIndex = 2;
+            this.radioSystemProxy.TabStop = true;
+            this.radioSystemProxy.Text = "Use system proxy settings";
+            this.radioSystemProxy.UseVisualStyleBackColor = true;
+            // 
+            // customProxyPanel
+            // 
+            this.customProxyPanel.Controls.Add(this.chkShowProxyPassword);
+            this.customProxyPanel.Controls.Add(this.label1);
+            this.customProxyPanel.Controls.Add(this.label3);
+            this.customProxyPanel.Controls.Add(this.label2);
+            this.customProxyPanel.Controls.Add(this.txtProxyUsername);
+            this.customProxyPanel.Controls.Add(this.chkProxyAuthentication);
+            this.customProxyPanel.Controls.Add(this.txtProxyPassword);
+            this.customProxyPanel.Controls.Add(this.label4);
+            this.customProxyPanel.Controls.Add(this.numProxyPort);
+            this.customProxyPanel.Controls.Add(this.txtProxyAddress);
+            this.customProxyPanel.Enabled = false;
+            this.customProxyPanel.Location = new System.Drawing.Point(6, 75);
+            this.customProxyPanel.Name = "customProxyPanel";
+            this.customProxyPanel.Size = new System.Drawing.Size(354, 125);
+            this.customProxyPanel.TabIndex = 9;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Address:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(32, 57);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Username:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(208, 8);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Port:";
+            // 
+            // txtProxyUsername
+            // 
+            this.txtProxyUsername.Enabled = false;
+            this.txtProxyUsername.Location = new System.Drawing.Point(96, 54);
+            this.txtProxyUsername.Name = "txtProxyUsername";
+            this.txtProxyUsername.Size = new System.Drawing.Size(116, 20);
+            this.txtProxyUsername.TabIndex = 6;
+            // 
+            // chkProxyAuthentication
+            // 
+            this.chkProxyAuthentication.AutoSize = true;
+            this.chkProxyAuthentication.Location = new System.Drawing.Point(16, 31);
+            this.chkProxyAuthentication.Name = "chkProxyAuthentication";
+            this.chkProxyAuthentication.Size = new System.Drawing.Size(162, 17);
+            this.chkProxyAuthentication.TabIndex = 5;
+            this.chkProxyAuthentication.Text = "Proxy requires authentication";
+            this.chkProxyAuthentication.UseVisualStyleBackColor = true;
+            this.chkProxyAuthentication.CheckedChanged += new System.EventHandler(this.chkProxyAuthentication_CheckedChanged);
+            // 
+            // txtProxyPassword
+            // 
+            this.txtProxyPassword.Enabled = false;
+            this.txtProxyPassword.Location = new System.Drawing.Point(96, 80);
+            this.txtProxyPassword.Name = "txtProxyPassword";
+            this.txtProxyPassword.PasswordChar = '*';
+            this.txtProxyPassword.Size = new System.Drawing.Size(116, 20);
+            this.txtProxyPassword.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(34, 83);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Password:";
+            // 
+            // numProxyPort
+            // 
+            this.numProxyPort.Location = new System.Drawing.Point(243, 6);
+            this.numProxyPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numProxyPort.Name = "numProxyPort";
+            this.numProxyPort.Size = new System.Drawing.Size(71, 20);
+            this.numProxyPort.TabIndex = 2;
+            // 
+            // txtProxyAddress
+            // 
+            this.txtProxyAddress.Location = new System.Drawing.Point(57, 5);
+            this.txtProxyAddress.Name = "txtProxyAddress";
+            this.txtProxyAddress.Size = new System.Drawing.Size(145, 20);
+            this.txtProxyAddress.TabIndex = 0;
+            // 
+            // chkShowProxyPassword
+            // 
+            this.chkShowProxyPassword.AutoSize = true;
+            this.chkShowProxyPassword.Location = new System.Drawing.Point(218, 82);
+            this.chkShowProxyPassword.Name = "chkShowProxyPassword";
+            this.chkShowProxyPassword.Size = new System.Drawing.Size(101, 17);
+            this.chkShowProxyPassword.TabIndex = 9;
+            this.chkShowProxyPassword.Text = "Show password";
+            this.chkShowProxyPassword.UseVisualStyleBackColor = true;
+            this.chkShowProxyPassword.CheckedChanged += new System.EventHandler(this.chkShowProxyPassword_CheckedChanged);
+            // 
             // PreferencesDialog
             // 
             this.AcceptButton = this.okbtn;
@@ -167,7 +340,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.cancelbtn;
-            this.ClientSize = new System.Drawing.Size(614, 284);
+            this.ClientSize = new System.Drawing.Size(559, 284);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.okbtn);
             this.Controls.Add(this.cancelbtn);
@@ -184,6 +357,11 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.customProxyPanel.ResumeLayout(false);
+            this.customProxyPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numProxyPort)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -200,7 +378,21 @@
         private System.Windows.Forms.ColumnHeader colpluginName;
         private System.Windows.Forms.ColumnHeader colpluginFilename;
         private System.Windows.Forms.ColumnHeader colpluginVersion;
-        private System.Windows.Forms.ColumnHeader colPluginEnabled;
         private System.Windows.Forms.ColumnHeader colpluginDescription;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.RadioButton radioManualProxy;
+        private System.Windows.Forms.RadioButton radioSystemProxy;
+        private System.Windows.Forms.RadioButton radioNoProxy;
+        private System.Windows.Forms.NumericUpDown numProxyPort;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtProxyAddress;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtProxyPassword;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtProxyUsername;
+        private System.Windows.Forms.CheckBox chkProxyAuthentication;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel customProxyPanel;
+        private System.Windows.Forms.CheckBox chkShowProxyPassword;
     }
 }

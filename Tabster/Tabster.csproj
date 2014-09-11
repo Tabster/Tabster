@@ -93,6 +93,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utilities\Common.cs" />
+    <Compile Include="Utilities\CustomProxyController.cs" />
     <Compile Include="Utilities\ControlInvoker.cs" />
     <Compile Include="Utilities\ITablatureExtensions.cs" />
     <Compile Include="Utilities\PortableSettingsProvider.cs" />

@@ -2,9 +2,11 @@
 
 using System;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using Tabster.Forms;
 using Tabster.Plugins;
 using Tabster.Properties;
 using Tabster.Updater;
@@ -22,6 +24,7 @@ namespace Tabster
         public static PluginController pluginController;
         public static string ApplicationDirectory;
         public static UpdateQuery updateQuery = new UpdateQuery();
+        public static CustomProxyController CustomProxyController;
 
         [STAThread]
         public static void Main(string[] args)
@@ -29,14 +32,9 @@ namespace Tabster
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
-            var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
+            LoadProxySettings();
 
-            pluginController = new PluginController(pluginDirectory);
-
-            foreach (var guid in Settings.Default.DisabledPlugins)
-            {
-                pluginController.SetStatus(new Guid(guid), false);
-            }
+            LoadPlugins();
 
             var workingDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
             ApplicationDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
@@ -51,7 +49,40 @@ namespace Tabster
             instanceController = new SingleInstanceController();
             TabHandler = new TabViewerManager();
 
+
+            Application.Run(new PreferencesDialog());
+            return;
+
             instanceController.Run(args);
+        }
+
+        private static void LoadProxySettings()
+        {
+            var proxyConfig = (ProxyConfiguration) Enum.Parse(typeof (ProxyConfiguration), Settings.Default.ProxyConfig);
+
+            ManualProxyParameters manualProxyParams = null;
+
+            if (!string.IsNullOrEmpty((Settings.Default.ProxyAddress)))
+            {
+                manualProxyParams = new ManualProxyParameters(new Uri(Settings.Default.ProxyAddress));
+
+                if (!string.IsNullOrEmpty(Settings.Default.ProxyUsername) && !string.IsNullOrEmpty(Settings.Default.ProxyPassword))
+                    manualProxyParams.Credentials = new NetworkCredential(Settings.Default.ProxyUsername, Settings.Default.ProxyPassword);
+            }
+
+            CustomProxyController = new CustomProxyController(proxyConfig, manualProxyParams);
+        }
+
+        private static void LoadPlugins()
+        {
+            var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
+
+            pluginController = new PluginController(pluginDirectory);
+
+            foreach (var guid in Settings.Default.DisabledPlugins)
+            {
+                pluginController.SetStatus(new Guid(guid), false);
+            }
         }
 
         private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
