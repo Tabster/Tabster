@@ -144,7 +144,7 @@ namespace Tabster.Forms
             if (tablibrary.SelectedRows.Count > 0)
             {
                 var selectedTabLocation = tablibrary.SelectedRows[0].Cells[tablibrary.Columns.Count - 1].Value.ToString();
-                SelectedTab = Program.libraryManager.FindByPath(selectedTabLocation);
+                SelectedTab = Program.libraryManager.Find(selectedTabLocation);
 
                 var openedExternally = Program.TabHandler.IsOpenedExternally(SelectedTab);
 
@@ -511,7 +511,7 @@ namespace Tabster.Forms
 
             if (doc != null)
             {
-                var alreadyExists = playlist != null ? playlist.ContainsPath(path) : Program.libraryManager.FindByPath(path) != null;
+                var alreadyExists = playlist != null ? playlist.Contains(path) : Program.libraryManager.Find(path) != null;
 
                 if (!alreadyExists)
                 {

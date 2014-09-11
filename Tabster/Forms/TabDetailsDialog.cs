@@ -45,7 +45,7 @@ namespace Tabster.Forms
 
             foreach (var playlist in Program.libraryManager.Playlists)
             {
-                if (playlist.ContainsPath(_tabDocument.FileInfo.FullName))
+                if (playlist.Contains(_tabDocument.FileInfo.FullName))
                     playlistCount++;
             }
 

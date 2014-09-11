@@ -7,6 +7,7 @@ using System.IO;
 using Microsoft.VisualBasic.FileIO;
 using Tabster.Core.Data;
 using Tabster.Core.Data.Processing;
+using Tabster.Core.Types;
 using Tabster.Utilities;
 using SearchOption = System.IO.SearchOption;
 
@@ -104,7 +105,7 @@ namespace Tabster
                                     if (attributes["last_viewed"] != null && DateTime.TryParse(attributes["last_viewed"].Value, out dt))
                                         lastViewed = dt;
 
-                                    var libraryAttributes = new LibraryAttributes { Favorited = favorited, Views = views, LastViewed = lastViewed };
+                                    var libraryAttributes = new LibraryAttributes {Favorited = favorited, Views = views, LastViewed = lastViewed};
 
                                     Add(doc);
 
@@ -261,7 +262,7 @@ namespace Tabster
 
             try
             {
-                var success = RemoveByPath(doc.FileInfo.FullName);
+                var success = Remove(doc.FileInfo.FullName);
 
                 if (success)
                 {
