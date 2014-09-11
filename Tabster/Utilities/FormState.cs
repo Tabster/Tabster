@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 #endregion
 
-namespace Tabster
+namespace Tabster.Utilities
 {
     public class FormState
     {

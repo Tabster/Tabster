@@ -82,7 +82,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolStripRenderer.cs" />
-    <Compile Include="FormState.cs" />
+    <Compile Include="Utilities\FormState.cs" />
     <Compile Include="Forms\MainForm.Download.cs">
       <SubType>Form</SubType>
     </Compile>
