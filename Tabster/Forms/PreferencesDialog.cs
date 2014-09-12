@@ -83,12 +83,6 @@ namespace Tabster.Forms
 
         private void SavePreferences()
         {
-            if (!ValidateProxyInput())
-            {
-                MessageBox.Show("Invalid proxy settings.", "Proxy Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             //plugins
             if (PluginsModified)
             {
@@ -100,7 +94,7 @@ namespace Tabster.Forms
                     Program.pluginController.SetStatus(guid, pluginEnabled);
 
                     Settings.Default.DisabledPlugins.Remove(guid.ToString());
-                        
+
                     if (!pluginEnabled)
                         Settings.Default.DisabledPlugins.Add(guid.ToString());
                 }
@@ -184,6 +178,12 @@ namespace Tabster.Forms
 
         private void okbtn_Click(object sender, EventArgs e)
         {
+            if (!ValidateProxyInput())
+            {
+                MessageBox.Show("Invalid proxy settings.", "Proxy Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult = DialogResult.None;
+            }
+
             SavePreferences();
         }
 
