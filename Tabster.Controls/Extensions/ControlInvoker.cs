@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Tabster.Controls.Extensions
 {
-    internal static class ControlInvoker
+    public static class ControlInvoker
     {
         public static void InvokeIfRequired(this Control control, MethodInvoker action)
         {

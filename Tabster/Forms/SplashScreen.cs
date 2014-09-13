@@ -4,7 +4,7 @@ using System;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
-using Tabster.LocalUtilities;
+using Tabster.Controls.Extensions;
 using Tabster.Utilities.Extensions;
 using Tabster.Utilities.Reflection;
 
