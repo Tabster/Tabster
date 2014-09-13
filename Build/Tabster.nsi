@@ -43,6 +43,8 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.exe"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Controls.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Core.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster.Updater\bin\Release\Updater.exe"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Utils.dll"
   
   CreateShortCut "$DESKTOP\Tabster.lnk" "$INSTDIR\Tabster.exe"
   CreateDirectory "$SMPROGRAMS\Tabster"
@@ -52,8 +54,8 @@ Section "MainSection" SEC01
   SetOutPath "$INSTDIR\Plugins"
   
   ; native plugins
-  File "${SOLUTION_DIRECTORY}\Plugins\UltimateGuitar\bin\Release\UltimateGuitar.dll"
-  File "${SOLUTION_DIRECTORY}\Plugins\GuitartabsDotCC\bin\Release\GuitartabsDotCC.dll"
+  File "${SOLUTION_DIRECTORY}\Plugins\SearchServices\UltimateGuitar\bin\Release\UltimateGuitar.dll"
+  File "${SOLUTION_DIRECTORY}\Plugins\SearchServices\GuitartabsDotCC\bin\Release\GuitartabsDotCC.dll"
   
   ; file association
   ${registerExtension} "$INSTDIR\Tabster.exe" ".tabster" "Tabster File"
@@ -84,6 +86,8 @@ Section Uninstall
   Delete "$INSTDIR\Tabster.exe"
   Delete "$INSTDIR\Tabster.Controls.dll"
   Delete "$INSTDIR\Tabster.Core.dll"
+  Delete "$INSTDIR\Tabster.Utils.dll"
+  Delete "$INSTDIR\Updater.exe"
   Delete "$INSTDIR\Uninstall.exe"
   Delete "$DESKTOP\Tabster.lnk"
   Delete "$SMPROGRAMS\Tabster\Tabster.lnk"
