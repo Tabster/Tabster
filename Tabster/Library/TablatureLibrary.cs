@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -13,29 +14,21 @@ using SearchOption = System.IO.SearchOption;
 
 #endregion
 
-namespace Tabster
+namespace Tabster.Library
 {
-    internal class LibraryAttributes
-    {
-        public bool Favorited { get; set; }
-        public int Views { get; set; }
-        public DateTime? LastViewed { get; set; }
-    }
-
-    internal class LibraryManager : TabsterDocumentCollection<TablatureDocument>
+    public class TablatureLibrary : ITablatureLibrary
     {
         private static readonly Version INDEX_VERSION = new Version("1.0");
-
-        private readonly Dictionary<TablatureDocument, LibraryAttributes> FileAttributes = new Dictionary<TablatureDocument, LibraryAttributes>();
 
         private readonly TabsterDocumentProcessor<TablatureDocument> _documentProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
         private readonly TabsterXmlDocument _indexDoc = new TabsterXmlDocument("library");
         private readonly string _indexPath;
+        private readonly List<LibraryItem> _libraryItems = new List<LibraryItem>();
         private readonly TabsterDocumentProcessor<TablaturePlaylistDocument> _playlistProcessor = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true);
 
         private readonly List<TablaturePlaylistDocument> _playlists = new List<TablaturePlaylistDocument>();
 
-        public LibraryManager(string indexPath, string libraryDirectory, string playlistDirectory)
+        public TablatureLibrary(string indexPath, string libraryDirectory, string playlistDirectory)
         {
             _indexPath = indexPath;
 
@@ -57,19 +50,11 @@ namespace Tabster
         public string LibraryDirectory { get; private set; }
         public string PlaylistDirectory { get; private set; }
 
-        #region Events
-
-        public event EventHandler Loaded;
-        public event EventHandler TabAdded;
-        public event EventHandler TabRemoved;
-        public event EventHandler PlaylistAdded;
-        public event EventHandler PlaylistRemoved;
-
-        #endregion
+        #region Index File
 
         public void Load()
         {
-            Clear();
+            _libraryItems.Clear();
             _playlists.Clear();
 
             var loadFromCache = File.Exists(_indexPath);
@@ -78,40 +63,44 @@ namespace Tabster
             {
                 _indexDoc.Load(_indexPath);
 
-                var tabNodes = _indexDoc.ReadChildNodes("tabs");
+                var itemNodes = _indexDoc.ReadChildNodes("tabs");
 
-                if (tabNodes != null)
+                if (itemNodes != null)
                 {
-                    foreach (var node in tabNodes)
+                    foreach (var itemNode in itemNodes)
                     {
-                        if (File.Exists(node.InnerText))
+                        var path = itemNode.InnerText;
+
+                        if (File.Exists(path) && itemNode.Attributes != null)
                         {
-                            var doc = _documentProcessor.Load(node.InnerText);
+                            var artist = string.Empty;
+                            if (itemNode.Attributes["artist"] != null)
+                                artist = itemNode.Attributes["artist"].Value;
 
-                            if (doc != null)
-                            {
-                                var attributes = node.Attributes;
+                            var title = string.Empty;
+                            if (itemNode.Attributes["title"] != null)
+                                title = itemNode.Attributes["title"].Value;
 
-                                if (attributes != null)
-                                {
-                                    var favorited = attributes["favorite"] != null && attributes["favorite"].Value == "true";
+                            var type = default(TabType);
+                            if (itemNode.Attributes["type"] != null)
+                                type = (TabType) Enum.Parse(typeof (TabType), itemNode.Attributes["type"].Value);
 
-                                    var views = 0;
-                                    if (attributes["views"] != null)
-                                        int.TryParse(attributes["views"].Value, out views);
+                            var favorited = itemNode.Attributes["favorite"] != null && bool.Parse(itemNode.Attributes["favorite"].Value);
 
-                                    DateTime? lastViewed = null;
-                                    DateTime dt;
-                                    if (attributes["last_viewed"] != null && DateTime.TryParse(attributes["last_viewed"].Value, out dt))
-                                        lastViewed = dt;
+                            var views = 0;
+                            if (itemNode.Attributes["views"] != null)
+                                int.TryParse(itemNode.Attributes["views"].Value, out views);
 
-                                    var libraryAttributes = new LibraryAttributes {Favorited = favorited, Views = views, LastViewed = lastViewed};
+                            DateTime? lastViewed = null;
+                            DateTime dt;
+                            if (itemNode.Attributes["last_viewed"] != null && DateTime.TryParse(itemNode.Attributes["last_viewed"].Value, out dt))
+                                lastViewed = dt;
 
-                                    Add(doc);
+                            var fi = new FileInfo(path);
 
-                                    FileAttributes[doc] = libraryAttributes;
-                                }
-                            }
+                            var entry = new LibraryItem(fi, artist, title, type) {Favorited = favorited, Views = views, LastViewed = lastViewed};
+
+                            _libraryItems.Add(entry);
                         }
                     }
                 }
@@ -149,9 +138,6 @@ namespace Tabster
 
                 Save();
             }
-
-            if (Loaded != null)
-                Loaded(this, EventArgs.Empty);
         }
 
         public void Save()
@@ -160,20 +146,21 @@ namespace Tabster
 
             _indexDoc.WriteNode("tabs");
 
-            foreach (var tab in this)
+            foreach (var entry in _libraryItems)
             {
-                if (File.Exists(tab.FileInfo.FullName))
+                if (File.Exists(entry.FileInfo.FullName))
                 {
-                    var attributes = GetLibraryAttributes(tab);
-
                     _indexDoc.WriteNode("tab",
-                                        tab.FileInfo.FullName,
+                                        entry.FileInfo.FullName,
                                         "tabs",
                                         new SortedDictionary<string, string>
                                             {
-                                                {"favorite", attributes.Favorited ? "true" : "false"},
-                                                {"views", attributes.Views.ToString()},
-                                                {"last_viewed", attributes.LastViewed == null ? string.Empty : attributes.LastViewed.Value.ToString()}
+                                                {"artist", entry.Artist},
+                                                {"title", entry.Title},
+                                                {"type", entry.Type.ToString()},
+                                                {"favorite", entry.Favorited.ToString().ToLower()},
+                                                {"views", entry.Views.ToString()},
+                                                {"last_viewed", entry.LastViewed == null ? string.Empty : entry.LastViewed.Value.ToString()}
                                             }, false);
                 }
             }
@@ -191,34 +178,7 @@ namespace Tabster
             _indexDoc.Save(_indexPath);
         }
 
-        public LibraryAttributes GetLibraryAttributes(TablatureDocument doc)
-        {
-            return FileAttributes.ContainsKey(doc) ? FileAttributes[doc] : new LibraryAttributes();
-        }
-
-        public void SetViewCount(TablatureDocument doc, int count)
-        {
-            var att = GetLibraryAttributes(doc);
-
-            if (att != null)
-                att.Views = count;
-        }
-
-        public void IncrementViewCount(TablatureDocument doc)
-        {
-            var att = GetLibraryAttributes(doc);
-
-            if (att != null)
-                att.Views += 1;
-        }
-
-        public void SetLastViewed(TablatureDocument doc, DateTime date)
-        {
-            var att = GetLibraryAttributes(doc);
-
-            if (att != null)
-                att.LastViewed = date;
-        }
+        #endregion
 
         #region Tablature Methods
 
@@ -239,38 +199,18 @@ namespace Tabster
             return tempList;
         }
 
-        public void Add(TablatureDocument doc, bool saveIndex = false)
-        {
-            if (doc.FileInfo == null)
-            {
-                var uniqueName = doc.GenerateUniqueFilename(LibraryDirectory);
-                doc.Save(uniqueName);
-            }
-
-            base.Add(doc);
-
-            if (saveIndex)
-                Save();
-
-            if (TabAdded != null)
-                TabAdded(this, EventArgs.Empty);
-        }
-
-        public bool Remove(TablatureDocument doc, bool diskDelete, bool saveIndex = false)
+        public bool Remove(LibraryItem item, bool diskDelete, bool saveIndex = false)
         {
             var result = false;
-
             try
             {
-                var success = Remove(doc.FileInfo.FullName);
+                var success = _libraryItems.Remove(item);
 
                 if (success)
                 {
-                    FileAttributes.Remove(doc);
-
-                    if (File.Exists(doc.FileInfo.FullName) && diskDelete)
+                    if (File.Exists(item.FileInfo.FullName) && diskDelete)
                     {
-                        FileSystem.DeleteFile(doc.FileInfo.FullName, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                        FileSystem.DeleteFile(item.FileInfo.FullName, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                     }
 
                     if (saveIndex)
@@ -284,9 +224,6 @@ namespace Tabster
             {
                 //unhandled
             }
-
-            if (TabRemoved != null)
-                TabRemoved(this, EventArgs.Empty);
 
             return result;
         }
@@ -323,9 +260,6 @@ namespace Tabster
             _playlists.Add(playlist);
 
             Save();
-
-            if (PlaylistAdded != null)
-                PlaylistAdded(this, EventArgs.Empty);
         }
 
         public bool Remove(TablaturePlaylistDocument playlist, bool diskDelete)
@@ -336,9 +270,6 @@ namespace Tabster
                 File.Delete(playlist.FileInfo.FullName);
 
             Save();
-
-            if (PlaylistRemoved != null)
-                PlaylistRemoved(this, EventArgs.Empty);
 
             return result;
         }
@@ -359,6 +290,77 @@ namespace Tabster
         public TablaturePlaylistDocument FindPlaylistByPath(string path)
         {
             return FindPlaylist(x => x.FileInfo.FullName.Equals(path, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        #endregion
+
+        #region Implementation of ITablatureLibrary
+
+        public int TotalItems
+        {
+            get { return _libraryItems.Count; }
+        }
+
+        public void Add(LibraryItem item)
+        {
+            _libraryItems.Add(item);
+        }
+
+        public LibraryItem Add(TablatureDocument doc)
+        {
+            if (doc.FileInfo == null)
+            {
+                var uniqueName = doc.GenerateUniqueFilename(LibraryDirectory);
+                doc.Save(uniqueName);
+            }
+
+            var item = new LibraryItem(doc);
+
+            Add(item);
+
+            return item;
+        }
+
+        public bool Remove(LibraryItem item)
+        {
+            return _libraryItems.Remove(item);
+        }
+
+        public LibraryItem GetLibraryItem(TablatureDocument doc)
+        {
+            return _libraryItems.Find(x => x.Document.Equals(doc));
+        }
+
+        public LibraryItem Find(Predicate<LibraryItem> match)
+        {
+            return _libraryItems.Find(match);
+        }
+
+        public List<LibraryItem> FindAll(Predicate<LibraryItem> match)
+        {
+            return _libraryItems.FindAll(match);
+        }
+
+        public LibraryItem Find(string path)
+        {
+            return _libraryItems.Find(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
+        }
+
+        #endregion
+
+        #region Implementation of IEnumerable
+
+        public IEnumerator<LibraryItem> GetEnumerator()
+        {
+            foreach (var entry in _libraryItems)
+            {
+                yield return entry;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         #endregion

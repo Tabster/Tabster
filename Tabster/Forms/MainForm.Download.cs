@@ -13,20 +13,6 @@ using Tabster.Utilities;
 
 namespace Tabster.Forms
 {
-    internal class DownloadState
-    {
-        public DownloadState(Uri url)
-        {
-            Url = url;
-        }
-
-        public Uri Url { get; private set; }
-        public ITablatureWebpageImporter Parser { get; set; }
-        public TablatureDocument Tab { get; set; }
-        public Exception Error { get; set; }
-        public bool Cancelled { get; set; }
-    }
-
     partial class MainForm
     {
         private readonly List<TablatureDocument> downloadedTabs = new List<TablatureDocument>();
@@ -217,13 +203,32 @@ namespace Tabster.Forms
         {
             foreach (var tab in downloadedTabs)
             {
-                Program.libraryManager.Add(tab, true);
-                UpdateLibraryItem(tab);
+                var libraryItem = Program.tablatureLibrary.Add(tab);
+                Program.tablatureLibrary.Save();
+                UpdateLibraryItem(libraryItem);
             }
 
             downloadedTabs.Clear();
             listView1.Items.Clear();
             addtolibrarybtn.Enabled = false;
         }
+
+        #region Nested type: DownloadState
+
+        internal class DownloadState
+        {
+            public DownloadState(Uri url)
+            {
+                Url = url;
+            }
+
+            public Uri Url { get; private set; }
+            public ITablatureWebpageImporter Parser { get; set; }
+            public TablatureDocument Tab { get; set; }
+            public Exception Error { get; set; }
+            public bool Cancelled { get; set; }
+        }
+
+        #endregion
     }
 }

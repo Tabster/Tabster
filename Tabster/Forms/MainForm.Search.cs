@@ -214,8 +214,9 @@ namespace Tabster.Forms
                     {
                         var cachedTab = _searchResultsCache[selectedResult.Tab.Source];
 
-                        Program.libraryManager.Add(cachedTab, true);
-                        UpdateLibraryItem(cachedTab);
+                        var libraryItem = Program.tablatureLibrary.Add(cachedTab);
+                        Program.tablatureLibrary.Save();
+                        UpdateLibraryItem(libraryItem);
                     }
                 }
             }
@@ -349,32 +350,14 @@ namespace Tabster.Forms
             var artistStrings = new List<string>();
             var titleStrings = new List<string>();
 
-            var tabs = new List<TablatureDocument>();
-
-            foreach (var tab in Program.libraryManager)
-                tabs.Add(tab);
-
-            foreach (var playlist in Program.libraryManager.Playlists)
+            foreach (var item in Program.tablatureLibrary)
             {
-                foreach (var tab in playlist)
-                {
-                    tabs.Add(tab);
-                }
-            }
+                if (artistStrings.Find(x => x.Equals(item.Artist, StringComparison.InvariantCultureIgnoreCase)) == null)
+                    artistStrings.Add(item.Artist);
 
-            foreach (var tab in tabs)
-            {
-                if (artistStrings.Find(x => x.Equals(tab.Artist, StringComparison.InvariantCultureIgnoreCase)) == null)
-                {
-                    artistStrings.Add(tab.Artist);
-                }
-
-                var title = RemoveVersionConventionFromTitle(tab.Title);
-
+                var title = RemoveVersionConventionFromTitle(item.Title);
                 if (titleStrings.Find(x => x.Equals(title, StringComparison.InvariantCultureIgnoreCase)) == null)
-                {
                     titleStrings.Add(title);
-                }
             }
 
             var artistSuggestions = new AutoCompleteStringCollection();

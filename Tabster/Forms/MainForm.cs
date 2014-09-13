@@ -37,9 +37,6 @@ namespace Tabster.Forms
             Program.TabHandler.TabOpened += TabHandler_OnTabOpened;
             Program.TabHandler.TabClosed += TabHandler_OnTabClosed;
 
-            //libarymanager events
-            Program.libraryManager.TabRemoved += libraryManager_TabRemoved;
-
             Program.updateQuery.Completed += updateQuery_Completed;
 
             previewToolStrip.Renderer = new ToolStripRenderer();
@@ -343,7 +340,7 @@ namespace Tabster.Forms
             }
         }
 
-        private void libraryManager_TabRemoved(object sender, EventArgs e)
+        private void TablatureLibraryTabRemoved(object sender, EventArgs e)
         {
             if (_initialLibraryLoaded)
                 BuildSearchSuggestions();

@@ -82,11 +82,14 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolStripRenderer.cs" />
+    <Compile Include="Library\ILibraryItem.cs" />
+    <Compile Include="Library\ITablatureLibrary.cs" />
+    <Compile Include="Library\LibraryItem.cs" />
+    <Compile Include="Library\TablatureLibrary.cs" />
     <Compile Include="Utilities\FormState.cs" />
     <Compile Include="Forms\MainForm.Download.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LibraryManager.cs" />
     <Compile Include="Plugins\PluginController.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Controls\TextBoxExtended.cs">

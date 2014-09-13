@@ -117,9 +117,13 @@ namespace Tabster.Utilities
 
             Program.pluginController.LoadPlugins();
 
+            Program.pluginController.LoadPluginFromDisk(@"D:\Visual Studio\Projects\Tabster\Plugins\SearchServices\UltimateGuitar\bin\Debug\UltimateGuitar.dll");
+            Program.pluginController.LoadPluginFromDisk(@"D:\Visual Studio\Projects\Tabster\Plugins\SearchServices\GuitartabsDotCC\bin\Debug\GuitartabsDotCC.dll");
+            //Program.pluginController.LoadPluginFromDisk(@"D:\Visual Studio\Projects\Tabster\Plugins\Songsterr\bin\Debug\Songsterr.dll");
+
             splash.SetStatus("Loading library...");
 
-            Program.libraryManager.Load();
+            Program.tablatureLibrary.Load();
 
 #if DEBUG
             Thread.Sleep(sleepDuration);

@@ -54,8 +54,15 @@ namespace Tabster
 
             if (show && !viewer.Visible)
             {
-                Program.libraryManager.IncrementViewCount(doc);
-                Program.libraryManager.SetLastViewed(doc, DateTime.Now);
+                var libraryItem = Program.tablatureLibrary.GetLibraryItem(doc);
+
+                if (libraryItem != null)
+                {
+                    libraryItem.IncrementViewcount();
+                    libraryItem.LastViewed = DateTime.Now;
+
+                    Program.tablatureLibrary.Save();
+                }
 
                 var mainForm = Program.instanceController.MainForm;
                 viewer.StartPosition = FormStartPosition.Manual;
