@@ -192,7 +192,6 @@
       <DependentUpon>UpdateDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Updater\UpdateQuery.cs" />
-    <Compile Include="LocalUtilities\ExtensionAttribute.cs" />
     <EmbeddedResource Include="Forms\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>
