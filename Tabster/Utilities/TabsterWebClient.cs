@@ -11,11 +11,17 @@ namespace Tabster.Utilities
 {
     public class TabsterWebClient : WebClient
     {
-        public TabsterWebClient(IWebProxy proxy = null)
+        public TabsterWebClient(IWebProxy proxy = null, Version version = null)
         {
             Proxy = proxy;
             Encoding = Encoding.UTF8;
-            Headers.Add("user-agent", string.Format("Tabster {0}", new Version(Application.ProductVersion).ToShortString()));
+
+            var userAgent = "Tabster Web Client";
+
+            if (version != null)
+                userAgent += " " + version.ToShortString();
+
+            Headers.Add("user-agent", userAgent);
         }
     }
 }
