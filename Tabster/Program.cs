@@ -10,8 +10,8 @@ using Tabster.Library;
 using Tabster.LocalUtilities;
 using Tabster.Plugins;
 using Tabster.Properties;
-using Tabster.Updater;
 using Tabster.Utilities.Net;
+using Updater;
 
 #endregion
 

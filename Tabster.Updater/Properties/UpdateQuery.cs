@@ -8,7 +8,7 @@ using Tabster.Utilities.Net;
 
 #endregion
 
-namespace Tabster.Updater
+namespace Updater
 {
     public class UpdateQueryCompletedEventArgs : EventArgs
     {

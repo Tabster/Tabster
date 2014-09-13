@@ -32,7 +32,7 @@ namespace Tabster.Updater
 
         public void Start()
         {
-            using (var client = new TabsterWebClient(Program.CustomProxyController.GetProxy()))
+            using (var client = new TabsterWebClient())
             {
                 client.DownloadFileCompleted += client_DownloadFileCompleted;
                 client.DownloadProgressChanged += client_DownloadProgressChanged;

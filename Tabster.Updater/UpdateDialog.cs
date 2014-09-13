@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Net;
 using System.Windows.Forms;
+using Updater;
 
 #endregion
 
