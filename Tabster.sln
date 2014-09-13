@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchServices", "SearchSer
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileTypes", "FileTypes", "{8EDEB572-C6AA-49CD-9C25-011EA031A5BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabster.Utils", "Tabster.Utils\Tabster.Utils.csproj", "{E7386580-9E85-4C6E-A849-A745F40F21D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,16 @@ Global
 		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Release|x86.ActiveCfg = Release|Any CPU
+		{E7386580-9E85-4C6E-A849-A745F40F21D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7386580-9E85-4C6E-A849-A745F40F21D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7386580-9E85-4C6E-A849-A745F40F21D1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E7386580-9E85-4C6E-A849-A745F40F21D1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E7386580-9E85-4C6E-A849-A745F40F21D1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E7386580-9E85-4C6E-A849-A745F40F21D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7386580-9E85-4C6E-A849-A745F40F21D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7386580-9E85-4C6E-A849-A745F40F21D1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E7386580-9E85-4C6E-A849-A745F40F21D1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E7386580-9E85-4C6E-A849-A745F40F21D1}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
