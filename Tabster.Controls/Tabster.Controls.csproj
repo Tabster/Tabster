@@ -36,6 +36,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ControlInvoker.cs" />
     <Compile Include="Extensions\ExtensionAttribute.cs" />
     <Compile Include="Extensions\TabsterOpenFileDialogExtensions.cs" />
     <Compile Include="Extensions\TabsterSaveFileDialogExtensions.cs" />
