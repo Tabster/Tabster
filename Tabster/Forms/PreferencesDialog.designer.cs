@@ -40,10 +40,12 @@
             this.colpluginFilename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnEditSystemProxy = new System.Windows.Forms.Button();
             this.radioNoProxy = new System.Windows.Forms.RadioButton();
             this.radioManualProxy = new System.Windows.Forms.RadioButton();
             this.radioSystemProxy = new System.Windows.Forms.RadioButton();
             this.customProxyPanel = new System.Windows.Forms.Panel();
+            this.chkShowProxyPassword = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -53,8 +55,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.numProxyPort = new System.Windows.Forms.NumericUpDown();
             this.txtProxyAddress = new System.Windows.Forms.TextBox();
-            this.chkShowProxyPassword = new System.Windows.Forms.CheckBox();
-            this.btnEditSystemProxy = new System.Windows.Forms.Button();
+            this.colpluginEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -137,6 +138,7 @@
             // 
             this.listPlugins.CheckBoxes = true;
             this.listPlugins.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colpluginEnabled,
             this.colpluginName,
             this.colpluginVersion,
             this.colpluginFilename,
@@ -187,6 +189,17 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Network";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btnEditSystemProxy
+            // 
+            this.btnEditSystemProxy.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnEditSystemProxy.Location = new System.Drawing.Point(158, 26);
+            this.btnEditSystemProxy.Name = "btnEditSystemProxy";
+            this.btnEditSystemProxy.Size = new System.Drawing.Size(149, 23);
+            this.btnEditSystemProxy.TabIndex = 25;
+            this.btnEditSystemProxy.Text = "Edit System Proxy Settings";
+            this.btnEditSystemProxy.UseVisualStyleBackColor = true;
+            this.btnEditSystemProxy.Click += new System.EventHandler(this.btnEditSystemProxy_Click);
             // 
             // radioNoProxy
             // 
@@ -240,6 +253,17 @@
             this.customProxyPanel.Name = "customProxyPanel";
             this.customProxyPanel.Size = new System.Drawing.Size(354, 125);
             this.customProxyPanel.TabIndex = 9;
+            // 
+            // chkShowProxyPassword
+            // 
+            this.chkShowProxyPassword.AutoSize = true;
+            this.chkShowProxyPassword.Location = new System.Drawing.Point(218, 82);
+            this.chkShowProxyPassword.Name = "chkShowProxyPassword";
+            this.chkShowProxyPassword.Size = new System.Drawing.Size(101, 17);
+            this.chkShowProxyPassword.TabIndex = 9;
+            this.chkShowProxyPassword.Text = "Show password";
+            this.chkShowProxyPassword.UseVisualStyleBackColor = true;
+            this.chkShowProxyPassword.CheckedChanged += new System.EventHandler(this.chkShowProxyPassword_CheckedChanged);
             // 
             // label1
             // 
@@ -324,27 +348,10 @@
             this.txtProxyAddress.Size = new System.Drawing.Size(145, 20);
             this.txtProxyAddress.TabIndex = 0;
             // 
-            // chkShowProxyPassword
+            // colpluginEnabled
             // 
-            this.chkShowProxyPassword.AutoSize = true;
-            this.chkShowProxyPassword.Location = new System.Drawing.Point(218, 82);
-            this.chkShowProxyPassword.Name = "chkShowProxyPassword";
-            this.chkShowProxyPassword.Size = new System.Drawing.Size(101, 17);
-            this.chkShowProxyPassword.TabIndex = 9;
-            this.chkShowProxyPassword.Text = "Show password";
-            this.chkShowProxyPassword.UseVisualStyleBackColor = true;
-            this.chkShowProxyPassword.CheckedChanged += new System.EventHandler(this.chkShowProxyPassword_CheckedChanged);
-            // 
-            // btnEditSystemProxy
-            // 
-            this.btnEditSystemProxy.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnEditSystemProxy.Location = new System.Drawing.Point(158, 26);
-            this.btnEditSystemProxy.Name = "btnEditSystemProxy";
-            this.btnEditSystemProxy.Size = new System.Drawing.Size(149, 23);
-            this.btnEditSystemProxy.TabIndex = 25;
-            this.btnEditSystemProxy.Text = "Edit System Proxy Settings";
-            this.btnEditSystemProxy.UseVisualStyleBackColor = true;
-            this.btnEditSystemProxy.Click += new System.EventHandler(this.btnEditSystemProxy_Click);
+            this.colpluginEnabled.Text = "";
+            this.colpluginEnabled.Width = 20;
             // 
             // PreferencesDialog
             // 
@@ -408,5 +415,6 @@
         private System.Windows.Forms.Panel customProxyPanel;
         private System.Windows.Forms.CheckBox chkShowProxyPassword;
         private System.Windows.Forms.Button btnEditSystemProxy;
+        private System.Windows.Forms.ColumnHeader colpluginEnabled;
     }
 }
