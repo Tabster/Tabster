@@ -11,7 +11,7 @@ using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Properties;
 using Tabster.Updater;
-using Tabster.Utilities;
+using Tabster.Utilities.Extensions;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion
@@ -182,7 +182,7 @@ namespace Tabster.Forms
 
         private void recentlyViewedMenuItem_OnItemClicked(object sender, EventArgs e)
         {
-            OpenRecentFile((MenuItem)sender);
+            OpenRecentFile((MenuItem) sender);
         }
 
         private void recentlyViewedMenuItem_OnAllItemsOpened(object sender, EventArgs e)
@@ -236,7 +236,6 @@ namespace Tabster.Forms
             Settings.Default.SearchPreviewOrientation = searchSplitContainer.Panel2Collapsed
                                                             ? PreviewPanelOrientation.Hidden
                                                             : (searchSplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
- 
         }
 
         private void TogglePreviewPane(object sender, EventArgs e)
@@ -267,10 +266,10 @@ namespace Tabster.Forms
                     SetSearchPreviewPanelOrientation(orientation);
             }
 
-            //search context menu
+                //search context menu
             else if (sender == previewToolStripMenuItem)
             {
-                var orientation = PreviewPanelOrientation.Hidden; 
+                var orientation = PreviewPanelOrientation.Hidden;
 
                 if (searchSplitContainer.Panel2Collapsed)
                     orientation = PreviewPanelOrientation.Horizontal;
@@ -346,6 +345,17 @@ namespace Tabster.Forms
                 BuildSearchSuggestions();
         }
 
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control)
+            {
+                if (e.KeyCode == Keys.F)
+                {
+                    txtLibraryFilter.Focus();
+                }
+            }
+        }
+
         #region Updater
 
         private static void updateQuery_Completed(object sender, UpdateQueryCompletedEventArgs e)
@@ -409,16 +419,5 @@ namespace Tabster.Forms
         }
 
         #endregion
-
-        private void MainForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control)
-            {
-                if (e.KeyCode == Keys.F)
-                {
-                    txtLibraryFilter.Focus();
-                }
-            }
-        }
     }
 }

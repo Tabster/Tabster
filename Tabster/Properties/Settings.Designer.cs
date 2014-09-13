@@ -24,7 +24,7 @@ namespace Tabster.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool StartupUpdate {
@@ -37,7 +37,7 @@ namespace Tabster.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Maximized")]
         public global::System.Windows.Forms.FormWindowState ClientState {
@@ -50,7 +50,7 @@ namespace Tabster.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Top")]
         public global::System.Windows.Forms.DockStyle ToolbarDock {
@@ -63,7 +63,7 @@ namespace Tabster.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1024, 625")]
         public global::System.Drawing.Size ClientSize {
@@ -76,7 +76,7 @@ namespace Tabster.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Horizontal")]
         public global::Tabster.PreviewPanelOrientation SearchPreviewOrientation {
@@ -89,7 +89,7 @@ namespace Tabster.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Horizontal")]
         public global::Tabster.PreviewPanelOrientation LibraryPreviewOrientation {
@@ -102,7 +102,7 @@ namespace Tabster.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("365")]
         public int LibraryPreviewPanelDistance {
@@ -115,7 +115,7 @@ namespace Tabster.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("365")]
         public int SearchPreviewPanelDistance {
@@ -128,7 +128,7 @@ namespace Tabster.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
             "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
@@ -142,7 +142,7 @@ namespace Tabster.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ProxyAddress {
@@ -155,7 +155,7 @@ namespace Tabster.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ProxyUsername {
@@ -168,7 +168,7 @@ namespace Tabster.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ProxyPassword {
@@ -181,7 +181,7 @@ namespace Tabster.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("None")]
         public string ProxyConfig {

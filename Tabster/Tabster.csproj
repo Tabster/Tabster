@@ -86,7 +86,6 @@
     <Compile Include="Library\ITablatureLibrary.cs" />
     <Compile Include="Library\LibraryItem.cs" />
     <Compile Include="Library\TablatureLibrary.cs" />
-    <Compile Include="Utilities\FormState.cs" />
     <Compile Include="Forms\MainForm.Download.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,17 +94,15 @@
     <Compile Include="Controls\TextBoxExtended.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Utilities\Common.cs" />
-    <Compile Include="Utilities\CustomProxyController.cs" />
-    <Compile Include="Utilities\ControlInvoker.cs" />
-    <Compile Include="Utilities\ITablatureExtensions.cs" />
-    <Compile Include="Utilities\PortableSettingsProvider.cs" />
+    <Compile Include="LocalUtilities\Common.cs" />
+    <Compile Include="LocalUtilities\ControlInvoker.cs" />
+    <Compile Include="LocalUtilities\PortableSettingsProvider.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\SingleInstanceController.cs" />
+    <Compile Include="LocalUtilities\SingleInstanceController.cs" />
     <Compile Include="Forms\AboutDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,9 +184,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Plugins\TabsterPlugin.cs" />
-    <Compile Include="Utilities\TabsterWebClient.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="TabViewerManager.cs" />
     <Compile Include="Updater\DownloadManager.cs" />
     <Compile Include="Updater\UpdateDialog.cs">
@@ -199,9 +193,7 @@
       <DependentUpon>UpdateDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Updater\UpdateQuery.cs" />
-    <Compile Include="Utilities\ExtensionAttribute.cs" />
-    <Compile Include="Utilities\TabsterDocumentExtensions.cs" />
-    <Compile Include="Utilities\VersionExtensions.cs" />
+    <Compile Include="LocalUtilities\ExtensionAttribute.cs" />
     <EmbeddedResource Include="Forms\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -293,6 +285,10 @@
     <ProjectReference Include="..\Tabster.Core\Tabster.Core.csproj">
       <Project>{B94FA030-4553-4F14-A867-F05849A14DC4}</Project>
       <Name>Tabster.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tabster.Utils\Tabster.Utils.csproj">
+      <Project>{E7386580-9E85-4C6E-A849-A745F40F21D1}</Project>
+      <Name>Tabster.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

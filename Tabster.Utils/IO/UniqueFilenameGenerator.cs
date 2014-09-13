@@ -3,27 +3,14 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using Tabster.Core.Data;
-using Tabster.Core.Types;
 
 #endregion
 
-namespace Tabster.Utilities
+namespace Tabster.Utilities.IO
 {
-    public static class TabsterDocumentExtensions
+    internal class UniqueFilenameGenerator
     {
-        public static string GenerateUniqueFilename(this ITablaturePlaylist playlist, string directory)
-        {
-            return GenerateUniqueFilename(directory, playlist.Name + TablaturePlaylistDocument.FILE_EXTENSION);
-        }
-
-        public static string GenerateUniqueFilename(this ITablature tab, string directory)
-        {
-            var friendlyName = tab.ToFriendlyString();
-            return GenerateUniqueFilename(directory, friendlyName + TablatureDocument.FILE_EXTENSION);
-        }
-
-        private static string GenerateUniqueFilename(string directory, string filename)
+        public static string GenerateUniqueFilename(string directory, string filename)
         {
             //remove invalid file path characters
             var regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());

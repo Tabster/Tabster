@@ -5,9 +5,9 @@ using System.Net;
 
 #endregion
 
-namespace Tabster.Utilities
+namespace Tabster.Utilities.Net
 {
-    internal class ManualProxyParameters
+    public class ManualProxyParameters
     {
         public ManualProxyParameters(Uri address)
         {
@@ -23,14 +23,14 @@ namespace Tabster.Utilities
         public ICredentials Credentials { get; set; }
     }
 
-    internal enum ProxyConfiguration
+    public enum ProxyConfiguration
     {
         None,
         Manual,
         System
     }
 
-    internal class ProxyConfigurationException : Exception
+    public class ProxyConfigurationException : Exception
     {
         public ProxyConfigurationException()
         {
@@ -42,7 +42,7 @@ namespace Tabster.Utilities
         }
     }
 
-    internal class CustomProxyController
+    public class CustomProxyController
     {
         private ProxyConfiguration _configuration;
         private WebProxy _proxy;

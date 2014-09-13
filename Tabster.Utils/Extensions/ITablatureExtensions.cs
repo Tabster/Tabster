@@ -4,7 +4,7 @@ using Tabster.Core.Types;
 
 #endregion
 
-namespace Tabster.Utilities
+namespace Tabster.Utilities.Extensions
 {
     public static class ITablatureExtensions
     {

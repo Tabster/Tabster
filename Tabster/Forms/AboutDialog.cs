@@ -2,9 +2,11 @@
 
 using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows.Forms;
 using Tabster.Properties;
-using Tabster.Utilities;
+using Tabster.Utilities.Extensions;
+using Tabster.Utilities.Reflection;
 
 #endregion
 
@@ -16,7 +18,7 @@ namespace Tabster.Forms
         {
             InitializeComponent();
             lblName.Text = string.Format("{0} {1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
-            lblCopyright.Text = Common.GetCopyrightString();
+            lblCopyright.Text = AssemblyUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
             txtLicense.Text = Resources.ApplicationLicense;
         }
 

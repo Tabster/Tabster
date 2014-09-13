@@ -8,7 +8,8 @@ using Tabster.Core.Data;
 using Tabster.Core.Data.Processing;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
-using Tabster.Utilities;
+using Tabster.LocalUtilities;
+using Tabster.Utilities.Net;
 
 #endregion
 
@@ -51,7 +52,7 @@ namespace Tabster.Forms
                 _activeSearchRating = null;
 
                 if (cbSearchRating.SelectedIndex > 0)
-                    _activeSearchRating = (TabRating)(cbSearchRating.SelectedIndex);
+                    _activeSearchRating = (TabRating) (cbSearchRating.SelectedIndex);
 
                 var searchQueries = new List<SearchQuery>();
 
@@ -172,15 +173,15 @@ namespace Tabster.Forms
             if (_activeSearchType.HasValue && result.Tab.Type != _activeSearchType.Value)
                 return;
 
-            var newRow = new DataGridViewRow { Tag = result.Tab.Source.ToString() };
+            var newRow = new DataGridViewRow {Tag = result.Tab.Source.ToString()};
 
             var ratingString = "";
 
             if (result.Rating.HasValue)
-                ratingString = new string('\u2605', (int)result.Rating - 1).PadRight(5, '\u2606');
+                ratingString = new string('\u2605', (int) result.Rating - 1).PadRight(5, '\u2606');
 
             newRow.CreateCells(searchDisplay, result.Tab.Artist, result.Tab.Title, result.Tab.Type.ToFriendlyString(), ratingString, result.Query.Service.Name);
-            searchDisplay.Rows.Add(newRow);   
+            searchDisplay.Rows.Add(newRow);
         }
 
         private void dataGridViewExtended1_MouseClick(object sender, MouseEventArgs e)

@@ -92,7 +92,7 @@ namespace Tabster
             {
                 openedExternally = false;
                 isNew = true;
-                editor = new TablatureEditor { Dock = DockStyle.Fill };
+                editor = new TablatureEditor {Dock = DockStyle.Fill};
                 _editors[tab] = editor;
             }
 

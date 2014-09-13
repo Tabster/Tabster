@@ -1,37 +1,16 @@
 ﻿#region
 
 using System.Reflection;
-using System.Windows.Forms;
-using Tabster.Core.Data.Processing;
 
 #endregion
 
-namespace Tabster.Utilities
+namespace Tabster.Utilities.Reflection
 {
-    internal static class Common
+    public static class AssemblyUtilities
     {
-        private static string _copyrightString;
-
-        public static string GetTablatureDocumentMethodString(ITablatureWebpageImporter importer = null)
+        public static string GetCopyrightString(Assembly assembly, string prefix = "Copyright", bool appendCompanyName = true)
         {
-            var str = string.Format("{0} v{1}", Application.ProductName, Application.ProductVersion);
-
-            if (importer != null && !string.IsNullOrEmpty(importer.SiteName))
-            {
-                str += string.Format(" / {0}", importer.SiteName);
-            }
-
-            return str;
-        }
-
-        public static string GetCopyrightString(string prefix = "Copyright", bool appendCompanyName = true)
-        {
-            if (_copyrightString != null)
-                return _copyrightString;
-
             var str = "";
-
-            var assembly = Assembly.GetExecutingAssembly();
 
             var copyrightAttributes = assembly.GetCustomAttributes(typeof (AssemblyCopyrightAttribute), true);
             if (copyrightAttributes.Length > 0)
@@ -58,8 +37,6 @@ namespace Tabster.Utilities
 
             if (!str.StartsWith(prefix))
                 str = str.Insert(0, string.Format("{0} ", prefix));
-
-            _copyrightString = str;
 
             return str;
         }

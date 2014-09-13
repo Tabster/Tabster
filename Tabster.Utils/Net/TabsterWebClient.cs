@@ -3,11 +3,11 @@
 using System;
 using System.Net;
 using System.Text;
-using System.Windows.Forms;
+using Tabster.Utilities.Extensions;
 
 #endregion
 
-namespace Tabster.Utilities
+namespace Tabster.Utilities.Net
 {
     public class TabsterWebClient : WebClient
     {

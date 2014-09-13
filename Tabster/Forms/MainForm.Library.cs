@@ -12,7 +12,7 @@ using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
 using Tabster.Library;
 using Tabster.Properties;
-using Tabster.Utilities;
+using Tabster.Utilities.Extensions;
 
 #endregion
 
@@ -45,8 +45,10 @@ namespace Tabster.Forms
 
         #endregion
 
-        private List<ITablatureFileImporter> _fileImporters = new List<ITablatureFileImporter>();
-        private List<ITablatureFileExporter> _fileExporters = new List<ITablatureFileExporter>();
+        private const int PREVIEW_DISPLAY_DELAY_DURATION = 100;
+
+        //time (in ms) where a tab is considered having been "viewed" while in preview editor
+        private const int PREVIEW_DISPLAY_VIEWED_DURATION = 5000;
 
         private readonly ToolStripMenuItem newplaylistmenuitem = new ToolStripMenuItem
                                                                      {
@@ -54,16 +56,14 @@ namespace Tabster.Forms
                                                                      };
 
         private LibraryItem SelectedLibraryItem;
+        private List<ITablatureFileExporter> _fileExporters = new List<ITablatureFileExporter>();
+        private List<ITablatureFileImporter> _fileImporters = new List<ITablatureFileImporter>();
 
         //used to prevent double-triggering of OnSelectedIndexChanged for tablibrary when using navigation menu
         private bool _switchingNavigationOption;
         private TablatureEditor _tabPreviewEditor;
 
         //time (in ms) where tab is displayed in preview editor after being selected
-        private const int PREVIEW_DISPLAY_DELAY_DURATION = 100;
-
-        //time (in ms) where a tab is considered having been "viewed" while in preview editor
-        private const int PREVIEW_DISPLAY_VIEWED_DURATION = 5000;
 
         private bool IsViewingLibrary()
         {
@@ -591,7 +591,6 @@ namespace Tabster.Forms
                 var selectedIndex = tablibrary.SelectedRows[0].Index;
                 tablibrary.Rows[selectedIndex].SetValues(objValues);
             }
-
         }
 
         private void RemoveSelectedLibraryItem()
@@ -620,7 +619,7 @@ namespace Tabster.Forms
 
             if (SelectedLibraryItem != null)
             {
-                using (var details = new TabDetailsDialog(SelectedLibraryItem.Document) { Icon = Icon })
+                using (var details = new TabDetailsDialog(SelectedLibraryItem.Document) {Icon = Icon})
                 {
                     if (details.ShowDialog() == DialogResult.OK)
                     {

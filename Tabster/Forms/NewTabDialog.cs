@@ -4,7 +4,7 @@ using System;
 using System.Windows.Forms;
 using Tabster.Core.Data;
 using Tabster.Core.Types;
-using Tabster.Utilities;
+using Tabster.LocalUtilities;
 
 #endregion
 
@@ -34,7 +34,7 @@ namespace Tabster.Forms
 
         private void ValidateInput(object sender = null, EventArgs e = null)
         {
-            okbtn.Enabled = okbtn.Enabled = txtArtist.Text.Trim().Length > 0 && txtTitle.Text.Trim().Length > 0 ;
+            okbtn.Enabled = okbtn.Enabled = txtArtist.Text.Trim().Length > 0 && txtTitle.Text.Trim().Length > 0;
         }
 
         private void okbtn_Click(object sender, EventArgs e)

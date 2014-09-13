@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace Tabster.Utilities
+namespace Tabster.Utilities.Extensions
 {
     public static class VersionExtensions
     {

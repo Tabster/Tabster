@@ -7,10 +7,11 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using Tabster.Library;
+using Tabster.LocalUtilities;
 using Tabster.Plugins;
 using Tabster.Properties;
 using Tabster.Updater;
-using Tabster.Utilities;
+using Tabster.Utilities.Net;
 
 #endregion
 
@@ -40,8 +41,8 @@ namespace Tabster
             ApplicationDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
 
             tablatureLibrary = new TablatureLibrary(Path.Combine(ApplicationDirectory, "library.dat"),
-                                                Path.Combine(workingDirectory, "Library"),
-                                                Path.Combine(workingDirectory, "Playlists"));
+                                                    Path.Combine(workingDirectory, "Library"),
+                                                    Path.Combine(workingDirectory, "Playlists"));
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Reflection;
-using Tabster.Utilities;
+using Tabster.Utilities.Net;
 
 #endregion
 

@@ -121,6 +121,20 @@ namespace Tabster.Plugins
             return !_disabledPlugins.Contains(guid);
         }
 
+        private static bool AssemblyHasGuid(Assembly assembly, out Guid guid)
+        {
+            var attributes = assembly.GetCustomAttributes(typeof (GuidAttribute), false);
+
+            if (attributes.Length > 0)
+            {
+                guid = new Guid(((GuidAttribute) attributes[0]).Value);
+                return true;
+            }
+
+            guid = Guid.Empty;
+            return false;
+        }
+
         #region Implementation of IEnumerable
 
         public IEnumerator<TabsterPlugin> GetEnumerator()
@@ -137,19 +151,5 @@ namespace Tabster.Plugins
         }
 
         #endregion
-
-        private static bool AssemblyHasGuid(Assembly assembly, out Guid guid)
-        {
-            var attributes = assembly.GetCustomAttributes(typeof(GuidAttribute), false);
-
-            if (attributes.Length > 0)
-            {
-                guid = new Guid(((GuidAttribute)attributes[0]).Value);
-                return true;
-            }
-
-            guid = Guid.Empty;
-            return false;
-        }
     }
 }

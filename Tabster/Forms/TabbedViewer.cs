@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Core.Data;
-using Tabster.Core.Types;
-using Tabster.Utilities;
+using Tabster.Utilities.Extensions;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion
@@ -16,8 +15,9 @@ namespace Tabster.Forms
     public partial class TabbedViewer : Form
     {
         private readonly List<TabInstance> _tabInstances = new List<TabInstance>();
-        private readonly FormState formState = new FormState();
         private bool _isFullscreen;
+        private FormBorderStyle _previousBorderStyle;
+        private FormWindowState _previousWindowState;
 
         public TabbedViewer()
         {
@@ -218,14 +218,20 @@ namespace Tabster.Forms
         {
             if (_isFullscreen)
             {
-                formState.Restore(this);
+                FormBorderStyle = _previousBorderStyle;
+                WindowState = _previousWindowState;
+
                 _isFullscreen = false;
                 fullscreenbtn.Text = "Full Screen";
             }
 
             else
             {
-                formState.Maximize(this);
+                _previousBorderStyle = FormBorderStyle;
+                _previousWindowState = WindowState;
+
+                FormBorderStyle = FormBorderStyle.None;
+                WindowState = FormWindowState.Maximized;
                 _isFullscreen = true;
                 fullscreenbtn.Text = "Restore";
             }

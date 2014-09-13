@@ -6,7 +6,7 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using Tabster.Properties;
-using Tabster.Utilities;
+using Tabster.Utilities.Net;
 
 #endregion
 

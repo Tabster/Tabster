@@ -4,7 +4,7 @@ using System;
 using System.Net;
 using System.Windows.Forms;
 using System.Xml;
-using Tabster.Utilities;
+using Tabster.Utilities.Net;
 
 #endregion
 

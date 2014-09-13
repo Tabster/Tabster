@@ -12,11 +12,10 @@ using Tabster.Properties;
 
 #endregion
 
-namespace Tabster.Utilities
+namespace Tabster.LocalUtilities
 {
     public class SingleInstanceController : WindowsFormsApplicationBase
     {
-
 #if DEBUG
         private const int MIN_SPLASH_TIME = 1000;
 #else
@@ -105,7 +104,7 @@ namespace Tabster.Utilities
         private void PerformStartupEvents()
         {
             var splashStatuses = new[] {"Initializing plugins...", "Loading library...", "Checking for updates..."};
-            var sleepDuration = MIN_SPLASH_TIME/splashStatuses.Length / 2;
+            var sleepDuration = MIN_SPLASH_TIME/splashStatuses.Length/2;
 
             var splash = ((SplashScreen) SplashScreen);
 
@@ -116,10 +115,6 @@ namespace Tabster.Utilities
 #endif
 
             Program.pluginController.LoadPlugins();
-
-            Program.pluginController.LoadPluginFromDisk(@"D:\Visual Studio\Projects\Tabster\Plugins\SearchServices\UltimateGuitar\bin\Debug\UltimateGuitar.dll");
-            Program.pluginController.LoadPluginFromDisk(@"D:\Visual Studio\Projects\Tabster\Plugins\SearchServices\GuitartabsDotCC\bin\Debug\GuitartabsDotCC.dll");
-            //Program.pluginController.LoadPluginFromDisk(@"D:\Visual Studio\Projects\Tabster\Plugins\Songsterr\bin\Debug\Songsterr.dll");
 
             splash.SetStatus("Loading library...");
 

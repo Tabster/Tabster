@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 #endregion
 
-namespace Tabster.Utilities
+namespace Tabster.LocalUtilities
 {
     internal static class ControlInvoker
     {
