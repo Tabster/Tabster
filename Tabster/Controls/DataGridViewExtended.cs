@@ -24,5 +24,16 @@ namespace Tabster.Controls
         {
             return e.KeyCode == Keys.Enter ? ProcessRightKey(e.KeyData) : base.ProcessDataGridViewKey(e);
         }
+
+        public DataGridViewColumn GetColumnByHeaderText(string text)
+        {
+            foreach (DataGridViewColumn column in Columns)
+            {
+                if (column.HeaderText == text)
+                    return column;
+            }
+
+            return null;
+        }
     }
 }

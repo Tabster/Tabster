@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
@@ -24,6 +25,9 @@ namespace Tabster.Forms
         private readonly TablatureDocument _queuedTabfile;
         private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDirectory, "recent.dat");
         private readonly TabsterDocumentProcessor<TablatureDocument> _tablatureProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
+
+        private readonly ToolStripMenuItem ascendingMenuItem = new ToolStripMenuItem {Text = "Ascending"};
+        private readonly ToolStripMenuItem descendingMenuItem = new ToolStripMenuItem {Text = "Descending"};
         private bool _initialLibraryLoaded;
 
         public MainForm()
@@ -33,6 +37,11 @@ namespace Tabster.Forms
             Text = string.Format("{0} v{1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
 
             PopulateTabTypeControls();
+
+            UpdateSortColumnMenu(true);
+
+            ascendingMenuItem.Click += SortByDirectionMenuItem_Click;
+            descendingMenuItem.Click += SortByDirectionMenuItem_Click;
 
             //tabviewermanager events
             Program.TabHandler.TabOpened += TabHandler_OnTabOpened;
@@ -142,6 +151,67 @@ namespace Tabster.Forms
             }
 
             doc.Save(_recentFilesPath);
+        }
+
+        private void UpdateSortColumnMenu(bool populateItems = false)
+        {
+            if (populateItems)
+            {
+                sortByToolStripMenuItem.DropDownItems.Clear();
+
+                foreach (DataGridViewColumn column in tablibrary.Columns)
+                {
+                    var item = new ToolStripMenuItem(column.HeaderText);
+                    item.Click += SortByColumnMenuItem_Click;
+                    sortByToolStripMenuItem.DropDownItems.Add(item);
+                }
+
+                sortByToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
+
+                sortByToolStripMenuItem.DropDownItems.Add(ascendingMenuItem);
+                sortByToolStripMenuItem.DropDownItems.Add(descendingMenuItem);
+            }
+
+            var sortedColumn = tablibrary.SortedColumn ?? tablibrary.Columns[0];
+
+            foreach (var item in sortByToolStripMenuItem.DropDownItems)
+            {
+                if (item is ToolStripSeparator)
+                    break;
+
+                var menuItem = (ToolStripMenuItem) item;
+
+                var col = tablibrary.GetColumnByHeaderText(menuItem.Text);
+
+                if (col != null)
+                    menuItem.Checked = sortedColumn == col;
+            }
+
+            ascendingMenuItem.Checked = tablibrary.SortOrder == SortOrder.Ascending || tablibrary.SortOrder == SortOrder.None;
+            descendingMenuItem.Checked = !ascendingMenuItem.Checked;
+        }
+
+        private void SortByColumnMenuItem_Click(object sender, EventArgs e)
+        {
+            var direction = descendingMenuItem.Checked ? ListSortDirection.Descending : ListSortDirection.Ascending;
+
+            var item = (ToolStripMenuItem) sender;
+
+            var col = tablibrary.GetColumnByHeaderText(item.Text);
+
+            tablibrary.Sort(col, direction);
+        }
+
+        private void SortByDirectionMenuItem_Click(object sender, EventArgs e)
+        {
+            var col = tablibrary.SortedColumn ?? tablibrary.Columns[0];
+
+            var direction = ListSortDirection.Ascending;
+
+            if (sender == descendingMenuItem)
+                direction = ListSortDirection.Descending;
+
+            tablibrary.Sort(col, direction);
         }
 
         private void PopulateTabTypeControls()
@@ -355,6 +425,11 @@ namespace Tabster.Forms
                     txtLibraryFilter.Focus();
                 }
             }
+        }
+
+        private void tablibrary_Sorted(object sender, EventArgs e)
+        {
+            UpdateSortColumnMenu();
         }
 
         #region Updater
