@@ -45,6 +45,7 @@
             this.txtContents.Size = new System.Drawing.Size(737, 294);
             this.txtContents.TabIndex = 0;
             this.txtContents.TextChanged += new System.EventHandler(this.txtContents_TextChanged);
+            this.txtContents.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtContents_KeyDown);
             // 
             // autoscrollTimer
             // 

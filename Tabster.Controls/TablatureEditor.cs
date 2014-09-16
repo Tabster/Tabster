@@ -24,16 +24,15 @@ namespace Tabster.Controls
         {
             get
             {
-                const int WS_EX_COMPOSITED =  0x02000000;
+                const int WS_EX_COMPOSITED = 0x02000000;
 
                 var cp = base.CreateParams;
                 cp.ExStyle |= WS_EX_COMPOSITED;
                 return cp;
             }
-        } 
+        }
 
         #endregion
-
 
         #region Properties
 
@@ -235,5 +234,14 @@ namespace Tabster.Controls
         }
 
         #endregion
+
+        private void txtContents_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && (e.KeyCode == Keys.A))
+            {
+                txtContents.SelectAll();
+                e.Handled = true;
+            }
+        }
     }
 }
