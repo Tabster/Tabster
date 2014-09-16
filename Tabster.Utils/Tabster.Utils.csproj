@@ -45,6 +45,8 @@
     <Compile Include="Net\TabsterWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Plugins\PluginController.cs" />
+    <Compile Include="Plugins\TabsterPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\AssemblyUtilities.cs" />
   </ItemGroup>

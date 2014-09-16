@@ -7,7 +7,7 @@ using Tabster.Core.Plugins;
 
 #endregion
 
-namespace Tabster.Plugins
+namespace Tabster.Utilities.Plugins
 {
     public class TabsterPlugin
     {

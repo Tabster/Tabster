@@ -8,9 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using Tabster.Library;
 using Tabster.LocalUtilities;
-using Tabster.Plugins;
 using Tabster.Properties;
 using Tabster.Utilities.Net;
+using Tabster.Utilities.Plugins;
 using Updater;
 
 #endregion

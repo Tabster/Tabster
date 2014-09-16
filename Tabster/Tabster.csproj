@@ -89,7 +89,6 @@
     <Compile Include="Forms\MainForm.Download.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Plugins\PluginController.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Controls\TextBoxExtended.cs">
       <SubType>Component</SubType>
@@ -182,7 +181,6 @@
     <Compile Include="Controls\StaticTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Plugins\TabsterPlugin.cs" />
     <Compile Include="TabViewerManager.cs" />
     <EmbeddedResource Include="Forms\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
