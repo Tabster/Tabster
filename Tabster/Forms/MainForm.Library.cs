@@ -32,7 +32,7 @@ namespace Tabster.Forms
     {
         #region LibraryType enum
 
-        public enum LibraryType
+        private enum LibraryType
         {
             AllTabs,
             MyDownloads,
