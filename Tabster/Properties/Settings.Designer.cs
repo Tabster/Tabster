@@ -130,8 +130,9 @@ namespace Tabster.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
-            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\r\n        <?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n        <ArrayOfString xmlns:x" +
+            "si=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001" +
+            "/XMLSchema\" />\r\n      ")]
         public global::System.Collections.Specialized.StringCollection DisabledPlugins {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["DisabledPlugins"]));
