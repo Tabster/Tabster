@@ -289,7 +289,7 @@ namespace Tabster.Library
 
         public TablaturePlaylistDocument FindPlaylistByPath(string path)
         {
-            return FindPlaylist(x => x.FileInfo.FullName.Equals(path, StringComparison.InvariantCultureIgnoreCase));
+            return FindPlaylist(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
         }
 
         #endregion

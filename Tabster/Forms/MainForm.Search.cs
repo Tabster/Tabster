@@ -338,7 +338,7 @@ namespace Tabster.Forms
 
         private static string RemoveVersionConventionFromTitle(string title)
         {
-            var versionConventionIndex = title.IndexOf(" (ver ", StringComparison.InvariantCultureIgnoreCase);
+            var versionConventionIndex = title.IndexOf(" (ver ", StringComparison.OrdinalIgnoreCase);
 
             if (versionConventionIndex >= 0)
                 title = title.Remove(versionConventionIndex);
@@ -353,11 +353,11 @@ namespace Tabster.Forms
 
             foreach (var item in Program.tablatureLibrary)
             {
-                if (artistStrings.Find(x => x.Equals(item.Artist, StringComparison.InvariantCultureIgnoreCase)) == null)
+                if (artistStrings.Find(x => x.Equals(item.Artist, StringComparison.OrdinalIgnoreCase)) == null)
                     artistStrings.Add(item.Artist);
 
                 var title = RemoveVersionConventionFromTitle(item.Title);
-                if (titleStrings.Find(x => x.Equals(title, StringComparison.InvariantCultureIgnoreCase)) == null)
+                if (titleStrings.Find(x => x.Equals(title, StringComparison.OrdinalIgnoreCase)) == null)
                     titleStrings.Add(title);
             }
 

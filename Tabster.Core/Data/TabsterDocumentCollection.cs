@@ -91,7 +91,7 @@ namespace Tabster.Core.Data
 
         public bool Remove(string path)
         {
-            var existing = _documents.Find(t => t.FileInfo.FullName.Equals(path, StringComparison.InvariantCultureIgnoreCase));
+            var existing = _documents.Find(t => t.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
             return existing != null && _documents.Remove(existing);
         }
     }

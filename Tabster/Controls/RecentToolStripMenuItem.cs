@@ -124,7 +124,7 @@ namespace Tabster.Controls
 
         public void Remove(FileInfo file)
         {
-            _items.RemoveAll(x => x.File.FullName.Equals(file.FullName, StringComparison.InvariantCultureIgnoreCase));
+            _items.RemoveAll(x => x.File.FullName.Equals(file.FullName, StringComparison.OrdinalIgnoreCase));
         }
 
         public void Clear()
@@ -153,7 +153,7 @@ namespace Tabster.Controls
             {
                 var f = _items[i].File;
 
-                if (f.FullName.Equals(file.FullName, StringComparison.InvariantCultureIgnoreCase))
+                if (f.FullName.Equals(file.FullName, StringComparison.OrdinalIgnoreCase))
                 {
                     index = i;
                     return true;
