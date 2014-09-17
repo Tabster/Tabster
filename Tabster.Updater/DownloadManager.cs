@@ -55,6 +55,7 @@ namespace Tabster.Updater
                                   Arguments = silent ? string.Format("/S /D={0}", installPath) : "",
                               };
 
+                //todo bring installer window to front
                 var process = Process.Start(psi);
 
                 if (silent)

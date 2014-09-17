@@ -13,7 +13,6 @@ using Tabster.Core.Types;
 using Tabster.Properties;
 using Tabster.Updater;
 using Tabster.Utilities.Extensions;
-using Updater;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion

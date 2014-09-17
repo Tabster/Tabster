@@ -2,10 +2,8 @@
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Net;
 using System.Windows.Forms;
-using Updater;
 
 #endregion
 
@@ -13,48 +11,25 @@ namespace Tabster.Updater
 {
     public partial class UpdateDialog : Form
     {
-        private readonly Size fullSize;
-        private readonly UpdateQuery updateQuery;
+        private readonly UpdateQuery _updateQuery;
         private DownloadManager downloadManager;
 
-        public UpdateDialog()
+        public UpdateDialog(UpdateQuery query)
         {
             InitializeComponent();
 
-            fullSize = Size;
-            Size = new Size(433, 128);
-        }
-
-        public UpdateDialog(UpdateQuery query) : this()
-        {
-            updateQuery = query;
+            _updateQuery = query;
             LoadUpdateInformation();
         }
 
         private void LoadUpdateInformation()
         {
-            if (updateQuery.Error != null)
+            if (_updateQuery != null)
             {
-                lblstatus.Text = "Update check failed.";
-            }
-
-            else
-            {
-                if (updateQuery.UpdateAvailable)
-                {
-                    Size = fullSize;
-                    lblstatus.Text = string.Format("An update is available! You are running v{0} and v{1} is available.", Application.ProductVersion.Substring(0, Application.ProductVersion.Length - 2), updateQuery.Version);
-
-                    //need to convert to char array because hostgator is dumb with newlines it seems
-                    txtchangelog.Lines = updateQuery.Changelog.Split(Environment.NewLine.ToCharArray());
-                    txtchangelog.Visible = true;
-                    updatebtn.Enabled = true;
-                }
-
-                else
-                {
-                    lblstatus.Text = "No updates available.";
-                }
+                //need to convert to char array because hostgator is dumb with newlines it seems
+                txtchangelog.Lines = _updateQuery.Changelog.Split(Environment.NewLine.ToCharArray());
+                txtchangelog.Visible = true;
+                updatebtn.Enabled = true;
             }
         }
 
@@ -62,7 +37,7 @@ namespace Tabster.Updater
         {
             updatebtn.Enabled = false;
 
-            downloadManager = new DownloadManager(updateQuery.DownloadURL);
+            downloadManager = new DownloadManager(_updateQuery.DownloadURL);
             downloadManager.DownloadProgressChanged += downloadManager_DownloadProgressChanged;
             downloadManager.DownloadFileCompleted += downloadManager_DownloadFileCompleted;
             downloadManager.Start();

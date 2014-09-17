@@ -17,7 +17,7 @@ namespace Tabster.Updater
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new UpdateDialog());
+            Application.Run(new UpdateCheckDialog());
         }
     }
 }
