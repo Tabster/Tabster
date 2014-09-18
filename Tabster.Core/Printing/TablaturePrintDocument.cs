@@ -28,6 +28,11 @@ namespace Tabster.Core.Printing
 
         public TablaturePrintDocument(ITablature tab, Font font)
         {
+            if (tab == null)
+                throw new ArgumentNullException("tab");
+            if (font == null)
+                throw new ArgumentNullException("font");
+
             _tab = tab;
             _font = font;
             _settings = new TablaturePrintDocumentSettings {DisplayTitle = true, DisplayPageNumbers = true, DisplayPrintTime = true};
