@@ -11,7 +11,7 @@ using Tabster.Core.Data;
 using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
 using Tabster.Library;
-using Tabster.Properties;
+using Tabster.Controls.Extensions;
 using Tabster.Utilities.Extensions;
 
 #endregion
@@ -117,23 +117,24 @@ namespace Tabster.Forms
                                      {
                                          Title = "Export Tab - Tabster",
                                          AddExtension = true,
-                                         Filter = string.Format("Tabster File (*{0})|*{0}|Text File (*.txt)|*.txt|HTML File (*.html)|*.html", TablatureDocument.FILE_EXTENSION),
+                                         Filter = string.Format("Tabster File (*{0})|*{0}", TablatureDocument.FILE_EXTENSION),
                                          FileName = SelectedLibraryItem.Document.ToFriendlyString()
                                      })
                 {
+                    sfd.SetTabsterFilter(_fileExporters);
+
                     if (sfd.ShowDialog() != DialogResult.Cancel)
                     {
-                        switch (sfd.FilterIndex)
+                        //native TablatureDocument format
+                        if (sfd.FilterIndex == 1)
                         {
-                            case 1:
-                                File.Copy(SelectedLibraryItem.FileInfo.FullName, sfd.FileName);
-                                break;
-                            case 2:
-                                File.WriteAllText(sfd.FileName, SelectedLibraryItem.Document.Contents);
-                                break;
-                            case 3:
-                                File.WriteAllText(sfd.FileName, Resources.HTML_Export_Template.Replace("{TAB_CONTENTS}", SelectedLibraryItem.Document.Contents));
-                                break;
+                            File.Copy(SelectedLibraryItem.FileInfo.FullName, sfd.FileName);
+                        }
+
+                        else
+                        {
+                            var exporter = _fileExporters[sfd.FilterIndex - 2];  //FilterIndex is not 0-based and native Tabster format uses first index
+                            exporter.Export(SelectedLibraryItem.Document, sfd.FileName);
                         }
                     }
                 }
