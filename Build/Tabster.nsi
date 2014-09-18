@@ -59,6 +59,7 @@ Section "MainSection" SEC01
   
   ; file association
   ${registerExtension} "$INSTDIR\Tabster.exe" ".tabster" "Tabster File"
+  ${registerExtension} "$INSTDIR\Tabster.exe" ".tablist" "Tabster Playlist"
 SectionEnd
 
 Section -Post
@@ -98,6 +99,7 @@ Section Uninstall
   
   ; file association
   ${unregisterExtension} ".tabster" "Tabster File"
+  ${unregisterExtension} ".tablist" "Tabster Playlist"
   
   SetAutoClose true
 SectionEnd
