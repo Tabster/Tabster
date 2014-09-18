@@ -176,7 +176,7 @@ namespace Tabster.Controls
             var currentLine = txtContents.GetLineFromCharIndex(txtContents.SelectionStart) + 1;
             var nextLine = currentLine + 2;
 
-            if ((int) visibleLines == totalLines)
+            if ((int) visibleLines >= totalLines)
                 return;
 
             ScrollToLine(nextLine);
