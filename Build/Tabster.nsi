@@ -50,10 +50,21 @@ Section "MainSection" SEC01
   CreateDirectory "$SMPROGRAMS\Tabster"
   CreateShortCut "$SMPROGRAMS\Tabster\Tabster.lnk" "$INSTDIR\Tabster.exe"
   
-  CreateDirectory "$INSTDIR\Plugins"
-  SetOutPath "$INSTDIR\Plugins"
+  !define PLUGIN_DIRECTORY "$INSTDIR\Plugins"
+  !define PLUGIN_FILETYPES_DIRECTORY "${PLUGIN_DIRECTORY}\FileTypes"
+  !define PLUGIN_SEARCHSERVICES_DIRECTORY "${PLUGIN_DIRECTORY}\SearchServices"
   
-  ; native plugins
+  CreateDirectory "${PLUGIN_DIRECTORY}"
+  CreateDirectory "${PLUGIN_FILETYPES_DIRECTORY}"
+  CreateDirectory "${PLUGIN_SEARCHSERVICES_DIRECTORY}"
+  
+  ; native filetype plugins
+  SetOutPath "${PLUGIN_FILETYPES_DIRECTORY}"  
+  File "${SOLUTION_DIRECTORY}\Plugins\FileTypes\TextFile\bin\Release\TextFile.dll"
+  File "${SOLUTION_DIRECTORY}\Plugins\FileTypes\HtmlFile\bin\Release\HtmlFile.dll"
+  
+  ; native search plugins
+  SetOutPath "${PLUGIN_SEARCHSERVICES_DIRECTORY}"  
   File "${SOLUTION_DIRECTORY}\Plugins\SearchServices\UltimateGuitar\bin\Release\UltimateGuitar.dll"
   File "${SOLUTION_DIRECTORY}\Plugins\SearchServices\GuitartabsDotCC\bin\Release\GuitartabsDotCC.dll"
   
