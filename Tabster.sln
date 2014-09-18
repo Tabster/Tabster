@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabster.Utils", "Tabster.Ut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabster.Updater", "Tabster.Updater\Tabster.Updater.csproj", "{8C57A53E-17E1-4566-A2ED-FDADE6B3A874}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFile", "Plugins\FileTypes\TextFile\TextFile.csproj", "{898B9794-CE8E-4E1E-A114-574F6C520095}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,16 @@ Global
 		{8C57A53E-17E1-4566-A2ED-FDADE6B3A874}.Release|Mixed Platforms.Build.0 = Release|x86
 		{8C57A53E-17E1-4566-A2ED-FDADE6B3A874}.Release|x86.ActiveCfg = Release|x86
 		{8C57A53E-17E1-4566-A2ED-FDADE6B3A874}.Release|x86.Build.0 = Release|x86
+		{898B9794-CE8E-4E1E-A114-574F6C520095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{898B9794-CE8E-4E1E-A114-574F6C520095}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{898B9794-CE8E-4E1E-A114-574F6C520095}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{898B9794-CE8E-4E1E-A114-574F6C520095}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{898B9794-CE8E-4E1E-A114-574F6C520095}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{898B9794-CE8E-4E1E-A114-574F6C520095}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{898B9794-CE8E-4E1E-A114-574F6C520095}.Release|Any CPU.Build.0 = Release|Any CPU
+		{898B9794-CE8E-4E1E-A114-574F6C520095}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{898B9794-CE8E-4E1E-A114-574F6C520095}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{898B9794-CE8E-4E1E-A114-574F6C520095}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,5 +122,6 @@ Global
 		{8EDEB572-C6AA-49CD-9C25-011EA031A5BE} = {24677B69-12E5-41EE-BAB6-A988EF132063}
 		{4E8EAB0B-3689-45C7-959F-9F4E5DFA0BF0} = {C1838C08-0FED-4722-A5E7-FC0B6E8364C3}
 		{1738169F-1BF6-4BF1-872B-7F2B60A02BB8} = {C1838C08-0FED-4722-A5E7-FC0B6E8364C3}
+		{898B9794-CE8E-4E1E-A114-574F6C520095} = {8EDEB572-C6AA-49CD-9C25-011EA031A5BE}
 	EndGlobalSection
 EndGlobal
