@@ -12,7 +12,7 @@ namespace Tabster.Controls.Extensions
 {
     public static class TabsterOpenFileDialogExtensions
     {
-        public static void SetTabsterFilter(this OpenFileDialog openFileDialog, IEnumerable<ITablatureFileImporter> importers)
+        public static void SetTabsterFilter(this OpenFileDialog openFileDialog, IEnumerable<ITablatureFileImporter> importers, bool overwriteFilter = false)
         {
             var filterStringBuilder = new StringBuilder();
 
@@ -39,7 +39,20 @@ namespace Tabster.Controls.Extensions
             }
 
             if (filterStringBuilder.Length > 0)
-                openFileDialog.Filter = filterStringBuilder.ToString();
+            {
+                if (overwriteFilter)
+                {
+                    openFileDialog.Filter = filterStringBuilder.ToString();
+                }
+
+                else
+                {
+                    if (openFileDialog.Filter.Length > 0)
+                        filterStringBuilder.Insert(0, "|");
+
+                    openFileDialog.Filter += filterStringBuilder.ToString();
+                }
+            }
         }
     }
 }

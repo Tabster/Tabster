@@ -12,7 +12,7 @@ namespace Tabster.Controls.Extensions
 {
     public static class TabsterSaveFileDialogExtensions
     {
-        public static void SetTabsterFilter(this SaveFileDialog saveFileDialog, IEnumerable<ITablatureFileExporter> exporters)
+        public static void SetTabsterFilter(this SaveFileDialog saveFileDialog, IEnumerable<ITablatureFileExporter> exporters, bool overwriteFilter = false)
         {
             var filterStringBuilder = new StringBuilder();
 
@@ -25,12 +25,11 @@ namespace Tabster.Controls.Extensions
                     fileTypes.Add(exporter.FileType);
                 }
             }
-
             for (var i = 0; i < fileTypes.Count; i++)
             {
                 var fileType = fileTypes[i];
 
-                var extensionString = string.Join(";", fileType.Extensions.ToArray());
+                var extensionString = string.Join(";*", fileType.Extensions.ToArray());
 
                 filterStringBuilder.AppendFormat(string.Format("{0} (*{1})|*{1}", fileType.Name, extensionString));
 
@@ -39,7 +38,20 @@ namespace Tabster.Controls.Extensions
             }
 
             if (filterStringBuilder.Length > 0)
-                saveFileDialog.Filter = filterStringBuilder.ToString();
+            {
+                if (overwriteFilter)
+                {
+                    saveFileDialog.Filter = filterStringBuilder.ToString();
+                }
+
+                else
+                {
+                    if (saveFileDialog.Filter.Length > 0)
+                        filterStringBuilder.Insert(0, "|");
+
+                    saveFileDialog.Filter += filterStringBuilder.ToString();
+                }
+            }
         }
     }
 }
