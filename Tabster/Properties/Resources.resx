@@ -136,22 +136,6 @@
   <data name="page_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\page_save.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="HTML_Export_Template" xml:space="preserve">
-    <value>&lt;html&gt;
-&lt;head&gt;
-	&lt;style type="" text/css""&gt;
-	pre {
-		color: Black; 
-		background-color: White;
-		font: 12px Courier New,Courier, monospace;
-	}
-	&lt;/style&gt;
-&lt;/head&gt;
-	&lt;body&gt;
-		&lt;pre&gt;{TAB_CONTENTS}&lt;/pre&gt;
-	&lt;/body&gt;
-&lt;/html&gt;</value>
-  </data>
   <data name="ApplicationLicense" xml:space="preserve">
     <value>This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software. 
 
@@ -160,7 +144,6 @@ Redistribution of this software is allowed, but the origin of this software must
   <data name="Guitar256" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Guitar256.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Guitar98" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Guitar98.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
