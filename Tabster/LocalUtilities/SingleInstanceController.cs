@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading;
@@ -101,14 +102,32 @@ namespace Tabster.LocalUtilities
             _isLibraryOpen = true;
         }
 
+        #region Splash Screen
+
+        private void SetSplashStatus(string status)
+        {
+            var splash = ((SplashScreen) SplashScreen);
+
+            try
+            {
+                splash.SetStatus(status);
+            }
+
+            catch (InvalidOperationException)
+            {
+                //sometimes happens "randomly"
+            }
+        }
+
+        #endregion
+
         private void PerformStartupEvents()
         {
             var splashStatuses = new[] {"Initializing plugins...", "Loading library...", "Checking for updates..."};
+
             var sleepDuration = MIN_SPLASH_TIME/splashStatuses.Length/2;
 
-            var splash = ((SplashScreen) SplashScreen);
-
-            splash.SetStatus("Initializing plugins...");
+            SetSplashStatus(splashStatuses[0]);
 
 #if DEBUG
             Thread.Sleep(sleepDuration);
@@ -116,7 +135,7 @@ namespace Tabster.LocalUtilities
 
             Program.pluginController.LoadPlugins();
 
-            splash.SetStatus("Loading library...");
+            SetSplashStatus(splashStatuses[1]);
 
             Program.tablatureLibrary.Load();
 
@@ -126,7 +145,7 @@ namespace Tabster.LocalUtilities
 
             if (Settings.Default.StartupUpdate)
             {
-                splash.SetStatus("Checking for updates...");
+                SetSplashStatus(splashStatuses[2]);
 
 #if DEBUG
                 Thread.Sleep(sleepDuration);
