@@ -212,5 +212,15 @@ namespace Tabster.Forms
             //thanks to google chrome
             Process.Start("inetcpl.cpl", ",4");
         }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pluginsDirectorybtn.Visible = tabControl1.SelectedTab == tabPlugins;
+        }
+
+        private void pluginsDirectorybtn_Click(object sender, EventArgs e)
+        {
+            Process.Start(Program.pluginController.WorkingDirectory);
+        }
     }
 }

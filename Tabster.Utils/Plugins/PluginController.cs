@@ -16,20 +16,21 @@ namespace Tabster.Utilities.Plugins
     {
         private readonly List<Guid> _disabledPlugins = new List<Guid>();
         private readonly List<TabsterPlugin> _plugins = new List<TabsterPlugin>();
-        private readonly string _pluginsDirectory;
+
+        public string WorkingDirectory { get; private set; }
 
         public PluginController(string pluginsDirectory)
         {
-            _pluginsDirectory = pluginsDirectory;
+            WorkingDirectory = pluginsDirectory;
         }
 
         public void LoadPlugins()
         {
-            if (!Directory.Exists(_pluginsDirectory))
+            if (!Directory.Exists(WorkingDirectory))
             {
                 try
                 {
-                    Directory.CreateDirectory(_pluginsDirectory);
+                    Directory.CreateDirectory(WorkingDirectory);
                 }
 
                 catch
@@ -38,9 +39,9 @@ namespace Tabster.Utilities.Plugins
                 }
             }
 
-            if (Directory.Exists(_pluginsDirectory))
+            if (Directory.Exists(WorkingDirectory))
             {
-                var pluginFiles = Directory.GetFiles(_pluginsDirectory, "*.dll", SearchOption.AllDirectories);
+                var pluginFiles = Directory.GetFiles(WorkingDirectory, "*.dll", SearchOption.AllDirectories);
 
                 foreach (var pluginPath in pluginFiles)
                 {

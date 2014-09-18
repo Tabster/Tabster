@@ -33,8 +33,9 @@
             this.okbtn = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPlugins = new System.Windows.Forms.TabPage();
             this.listPlugins = new System.Windows.Forms.ListView();
+            this.colpluginEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginFilename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -55,10 +56,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.numProxyPort = new System.Windows.Forms.NumericUpDown();
             this.txtProxyAddress = new System.Windows.Forms.TextBox();
-            this.colpluginEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.pluginsDirectorybtn = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPlugins.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.customProxyPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numProxyPort)).BeginInit();
@@ -104,13 +105,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPlugins);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(534, 232);
             this.tabControl1.TabIndex = 24;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -123,16 +125,16 @@
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // tabPlugins
             // 
-            this.tabPage2.Controls.Add(this.listPlugins);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(526, 206);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Plugins";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPlugins.Controls.Add(this.listPlugins);
+            this.tabPlugins.Location = new System.Drawing.Point(4, 22);
+            this.tabPlugins.Name = "tabPlugins";
+            this.tabPlugins.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPlugins.Size = new System.Drawing.Size(526, 206);
+            this.tabPlugins.TabIndex = 1;
+            this.tabPlugins.Text = "Plugins";
+            this.tabPlugins.UseVisualStyleBackColor = true;
             // 
             // listPlugins
             // 
@@ -154,6 +156,11 @@
             this.listPlugins.UseCompatibleStateImageBehavior = false;
             this.listPlugins.View = System.Windows.Forms.View.Details;
             this.listPlugins.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listPlugins_ItemChecked);
+            // 
+            // colpluginEnabled
+            // 
+            this.colpluginEnabled.Text = "";
+            this.colpluginEnabled.Width = 20;
             // 
             // colpluginName
             // 
@@ -348,10 +355,17 @@
             this.txtProxyAddress.Size = new System.Drawing.Size(145, 20);
             this.txtProxyAddress.TabIndex = 0;
             // 
-            // colpluginEnabled
+            // pluginsDirectorybtn
             // 
-            this.colpluginEnabled.Text = "";
-            this.colpluginEnabled.Width = 20;
+            this.pluginsDirectorybtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pluginsDirectorybtn.Location = new System.Drawing.Point(13, 251);
+            this.pluginsDirectorybtn.Name = "pluginsDirectorybtn";
+            this.pluginsDirectorybtn.Size = new System.Drawing.Size(150, 23);
+            this.pluginsDirectorybtn.TabIndex = 25;
+            this.pluginsDirectorybtn.Text = "Browse Plugins Directory";
+            this.pluginsDirectorybtn.UseVisualStyleBackColor = true;
+            this.pluginsDirectorybtn.Visible = false;
+            this.pluginsDirectorybtn.Click += new System.EventHandler(this.pluginsDirectorybtn_Click);
             // 
             // PreferencesDialog
             // 
@@ -361,6 +375,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.cancelbtn;
             this.ClientSize = new System.Drawing.Size(559, 284);
+            this.Controls.Add(this.pluginsDirectorybtn);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.okbtn);
             this.Controls.Add(this.cancelbtn);
@@ -376,7 +391,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
+            this.tabPlugins.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.customProxyPanel.ResumeLayout(false);
@@ -393,7 +408,7 @@
         private System.Windows.Forms.Button okbtn;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPlugins;
         private System.Windows.Forms.ListView listPlugins;
         private System.Windows.Forms.ColumnHeader colpluginName;
         private System.Windows.Forms.ColumnHeader colpluginFilename;
@@ -416,5 +431,6 @@
         private System.Windows.Forms.CheckBox chkShowProxyPassword;
         private System.Windows.Forms.Button btnEditSystemProxy;
         private System.Windows.Forms.ColumnHeader colpluginEnabled;
+        private System.Windows.Forms.Button pluginsDirectorybtn;
     }
 }
