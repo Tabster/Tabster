@@ -797,9 +797,27 @@ namespace Tabster.Forms
             return Program.tablatureLibrary.FindPlaylistByPath(playlistPath);
         }
 
-        private void AddPlaylistNode(TablaturePlaylistDocument playlist)
+        private void AddPlaylistNode(TablaturePlaylistDocument playlist, bool select = false)
         {
-            sidemenu.Nodes["node_playlists"].Nodes.Add(new TreeNode(playlist.Name) {NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = playlist.FileInfo.FullName});
+            TreeNode node = null;
+
+            foreach (TreeNode n in sidemenu.Nodes)
+            {
+                if (n.Tag.ToString().Equals(playlist.FileInfo.FullName, StringComparison.OrdinalIgnoreCase))
+                {
+                    node = n;
+                    break;
+                }
+            }
+
+            if (node == null)
+            {
+                node = new TreeNode(playlist.Name) {NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = playlist.FileInfo.FullName};
+                 sidemenu.Nodes["node_playlists"].Nodes.Add(node);
+            }  
+
+            if (select)
+                sidemenu.SelectedNode = node;
         }
 
         private void RemovePlaylistNode(TablaturePlaylistDocument playlist)

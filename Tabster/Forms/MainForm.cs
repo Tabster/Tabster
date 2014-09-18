@@ -21,6 +21,7 @@ namespace Tabster.Forms
 {
     public partial class MainForm : Form
     {
+        private readonly TabsterDocumentProcessor<TablaturePlaylistDocument> _playlistProcessor = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true);
         private readonly TablatureDocument _queuedTabfile;
         private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDirectory, "recent.dat");
         private readonly TabsterDocumentProcessor<TablatureDocument> _tablatureProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
@@ -429,6 +430,23 @@ namespace Tabster.Forms
         private void tablibrary_Sorted(object sender, EventArgs e)
         {
             UpdateSortColumnMenu();
+        }
+
+        private void openPlaylistMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var ofd = new OpenFileDialog())
+            {
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    var playlist = _playlistProcessor.Load(ofd.FileName);
+
+                    if (playlist != null)
+                    {
+                        Program.tablatureLibrary.Add(playlist);
+                        AddPlaylistNode(playlist, true);
+                    }
+                }
+            }
         }
 
         #region Updater
