@@ -115,7 +115,7 @@ namespace Tabster.Forms
 
             if (saveBeforeClosing)
             {
-                instance.File.Save(instance.File.FileInfo.FullName);
+                instance.File.Save();
             }
 
             tabControl1.TabPages.Remove(instance.Page);
@@ -266,7 +266,7 @@ namespace Tabster.Forms
             if (instance != null)
             {
                 instance.File.Contents = instance.Editor.GetText();
-                instance.File.Save(instance.File.FileInfo.FullName);
+                instance.File.Save();
                 instance.Editor.ModificationCheck();
                 savebtn.Enabled = false;
             }

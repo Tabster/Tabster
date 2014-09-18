@@ -72,9 +72,10 @@ namespace Tabster.Core.Data
         public void Save()
         {
             Save(FileInfo.FullName);
+            FileInfo.Refresh();
         }
 
-        public void Save(string fileName)
+        private void Save(string fileName)
         {
             _doc.Version = FILE_VERSION;
             _doc.WriteNode("name", Name);
@@ -89,8 +90,14 @@ namespace Tabster.Core.Data
             }
 
             _doc.Save(fileName);
+        }
 
-            FileInfo = new FileInfo(fileName);
+        public ITabsterDocument SaveAs(string fileName)
+        {
+            Save(fileName);
+            var doc = new TablaturePlaylistDocument();
+            doc.Load(fileName);
+            return doc;
         }
 
         public void Update()

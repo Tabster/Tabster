@@ -254,7 +254,7 @@ namespace Tabster.Library
             if (playlist.FileInfo == null)
             {
                 var uniqueName = playlist.GenerateUniqueFilename(PlaylistDirectory);
-                playlist.Save(uniqueName);
+                playlist.SaveAs(uniqueName);
             }
 
             _playlists.Add(playlist);
@@ -311,7 +311,7 @@ namespace Tabster.Library
             if (doc.FileInfo == null)
             {
                 var uniqueName = doc.GenerateUniqueFilename(LibraryDirectory);
-                doc.Save(uniqueName);
+                doc.SaveAs(uniqueName);
             }
 
             var item = new LibraryItem(doc);

@@ -132,9 +132,10 @@ namespace Tabster.Core.Data
         public void Save()
         {
             Save(FileInfo.FullName);
+            FileInfo.Refresh();
         }
 
-        public void Save(string fileName)
+        private void Save(string fileName)
         {
             _doc.Version = FILE_VERSION;
 
@@ -166,8 +167,14 @@ namespace Tabster.Core.Data
             _doc.WriteNode("comment", Comment);
 
             _doc.Save(fileName);
+        }
 
-            FileInfo = new FileInfo(fileName);
+        public ITabsterDocument SaveAs(string fileName)
+        {
+            Save(fileName);
+            var doc = new TablatureDocument();
+            doc.Load(fileName);
+            return doc;
         }
 
         public void Update()

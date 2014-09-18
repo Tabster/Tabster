@@ -13,7 +13,7 @@ namespace Tabster.Core.Data
         FileInfo FileInfo { get; }
         void Load(string filename);
         void Save();
-        void Save(string fileName);
+        ITabsterDocument SaveAs(string fileName);
         void Update();
     }
 }
