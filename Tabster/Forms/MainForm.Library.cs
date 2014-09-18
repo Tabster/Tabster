@@ -801,7 +801,7 @@ namespace Tabster.Forms
         {
             TreeNode node = null;
 
-            foreach (TreeNode n in sidemenu.Nodes)
+            foreach (TreeNode n in sidemenu.Nodes["node_playlists"].Nodes)
             {
                 if (n.Tag.ToString().Equals(playlist.FileInfo.FullName, StringComparison.OrdinalIgnoreCase))
                 {
@@ -813,8 +813,8 @@ namespace Tabster.Forms
             if (node == null)
             {
                 node = new TreeNode(playlist.Name) {NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = playlist.FileInfo.FullName};
-                 sidemenu.Nodes["node_playlists"].Nodes.Add(node);
-            }  
+                sidemenu.Nodes["node_playlists"].Nodes.Add(node);
+            }
 
             if (select)
                 sidemenu.SelectedNode = node;

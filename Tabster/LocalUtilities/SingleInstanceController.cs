@@ -23,6 +23,7 @@ namespace Tabster.LocalUtilities
         private const int MIN_SPLASH_TIME = 3500;
 #endif
         private static TablatureDocument _queuedTabfile;
+        private static TablaturePlaylistDocument _queuedPlaylistFile;
         private static bool _isLibraryOpen;
         private static bool _noSplash;
 
@@ -55,16 +56,24 @@ namespace Tabster.LocalUtilities
 
                 if (File.Exists(firstArg))
                 {
-                    var processor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
+                    var tablatureDocument = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true).Load(firstArg);
 
-                    var tab = processor.Load(firstArg);
-
-                    if (tab != null)
+                    if (tablatureDocument != null)
                     {
-                        _queuedTabfile = tab;
+                        _queuedTabfile = tablatureDocument;
 
                         if (_isLibraryOpen)
-                            Program.TabHandler.LoadExternally(tab, true);
+                            Program.TabHandler.LoadExternally(tablatureDocument, true);
+                    }
+
+                    else
+                    {
+                        var playlistDocument = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true).Load(firstArg);
+
+                        if (playlistDocument != null)
+                        {
+                            _queuedPlaylistFile = playlistDocument;
+                        }
                     }
                 }
             }
@@ -98,7 +107,13 @@ namespace Tabster.LocalUtilities
 
             PerformStartupEvents();
 
-            base.MainForm = _queuedTabfile != null ? new MainForm(_queuedTabfile) : new MainForm();
+            if (_queuedTabfile != null)
+                base.MainForm = new MainForm(_queuedTabfile);
+            else if (_queuedPlaylistFile != null)
+                base.MainForm = new MainForm(_queuedPlaylistFile);
+            else
+                base.MainForm = new MainForm();
+
             _isLibraryOpen = true;
         }
 

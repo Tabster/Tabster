@@ -22,7 +22,8 @@ namespace Tabster.Forms
     public partial class MainForm : Form
     {
         private readonly TabsterDocumentProcessor<TablaturePlaylistDocument> _playlistProcessor = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true);
-        private readonly TablatureDocument _queuedTabfile;
+        private readonly TablatureDocument _queuedTablatureDocument;
+        private readonly TablaturePlaylistDocument _queuedTablaturePlaylist;
         private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDirectory, "recent.dat");
         private readonly TabsterDocumentProcessor<TablatureDocument> _tablatureProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
 
@@ -69,7 +70,13 @@ namespace Tabster.Forms
         public MainForm(TablatureDocument tabDocument)
             : this()
         {
-            _queuedTabfile = tabDocument;
+            _queuedTablatureDocument = tabDocument;
+        }
+
+        public MainForm(TablaturePlaylistDocument playlistDocument)
+            : this()
+        {
+            _queuedTablaturePlaylist = playlistDocument;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -91,9 +98,15 @@ namespace Tabster.Forms
             }
 
             //loads queued tab after splash
-            if (_queuedTabfile != null)
+            if (_queuedTablatureDocument != null)
             {
-                PopoutTab(_queuedTabfile);
+                PopoutTab(_queuedTablatureDocument);
+            }
+
+            //loads queued playlist after splash
+            if (_queuedTablaturePlaylist != null)
+            {
+                AddPlaylistNode(_queuedTablaturePlaylist, true);
             }
         }
 
