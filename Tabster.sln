@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFile", "Plugins\FileTyp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlFile", "Plugins\FileTypes\HtmlFile\HtmlFile.csproj", "{C65DA223-2A6C-4C5D-BFA9-3ABA621EB798}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfFile", "Plugins\FileTypes\PdfFile\PdfFile.csproj", "{973D98DA-6752-4067-8471-141357C451EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,26 @@ Global
 		{C65DA223-2A6C-4C5D-BFA9-3ABA621EB798}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C65DA223-2A6C-4C5D-BFA9-3ABA621EB798}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C65DA223-2A6C-4C5D-BFA9-3ABA621EB798}.Release|x86.ActiveCfg = Release|Any CPU
+		{5DDDC83F-B8E0-4865-A409-B29990C8F55A}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5DDDC83F-B8E0-4865-A409-B29990C8F55A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{5DDDC83F-B8E0-4865-A409-B29990C8F55A}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{5DDDC83F-B8E0-4865-A409-B29990C8F55A}.Debug|x86.ActiveCfg = Debug|x86
+		{5DDDC83F-B8E0-4865-A409-B29990C8F55A}.Debug|x86.Build.0 = Debug|x86
+		{5DDDC83F-B8E0-4865-A409-B29990C8F55A}.Release|Any CPU.ActiveCfg = Release|x86
+		{5DDDC83F-B8E0-4865-A409-B29990C8F55A}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{5DDDC83F-B8E0-4865-A409-B29990C8F55A}.Release|Mixed Platforms.Build.0 = Release|x86
+		{5DDDC83F-B8E0-4865-A409-B29990C8F55A}.Release|x86.ActiveCfg = Release|x86
+		{5DDDC83F-B8E0-4865-A409-B29990C8F55A}.Release|x86.Build.0 = Release|x86
+		{973D98DA-6752-4067-8471-141357C451EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{973D98DA-6752-4067-8471-141357C451EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{973D98DA-6752-4067-8471-141357C451EC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{973D98DA-6752-4067-8471-141357C451EC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{973D98DA-6752-4067-8471-141357C451EC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{973D98DA-6752-4067-8471-141357C451EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{973D98DA-6752-4067-8471-141357C451EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{973D98DA-6752-4067-8471-141357C451EC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{973D98DA-6752-4067-8471-141357C451EC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{973D98DA-6752-4067-8471-141357C451EC}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,5 +158,6 @@ Global
 		{1738169F-1BF6-4BF1-872B-7F2B60A02BB8} = {C1838C08-0FED-4722-A5E7-FC0B6E8364C3}
 		{898B9794-CE8E-4E1E-A114-574F6C520095} = {8EDEB572-C6AA-49CD-9C25-011EA031A5BE}
 		{C65DA223-2A6C-4C5D-BFA9-3ABA621EB798} = {8EDEB572-C6AA-49CD-9C25-011EA031A5BE}
+		{973D98DA-6752-4067-8471-141357C451EC} = {8EDEB572-C6AA-49CD-9C25-011EA031A5BE}
 	EndGlobalSection
 EndGlobal
