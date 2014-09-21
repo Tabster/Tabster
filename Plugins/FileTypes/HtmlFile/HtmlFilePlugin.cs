@@ -43,7 +43,7 @@ namespace HtmlFile
 
         public Type[] Types
         {
-            get { return new[] {typeof (HtmlFileExporter)}; }
+            get { return new[] {typeof (HtmlFileExporter), typeof (HtmlFileImporter)}; }
         }
 
         #endregion
