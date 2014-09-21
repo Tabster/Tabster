@@ -62,6 +62,8 @@ Section "MainSection" SEC01
   SetOutPath "${PLUGIN_FILETYPES_DIRECTORY}"  
   File "${SOLUTION_DIRECTORY}\Plugins\FileTypes\TextFile\bin\Release\TextFile.dll"
   File "${SOLUTION_DIRECTORY}\Plugins\FileTypes\HtmlFile\bin\Release\HtmlFile.dll"
+  File "${SOLUTION_DIRECTORY}\Plugins\FileTypes\PdfFile\bin\Release\PdfFile.dll"
+  File "${SOLUTION_DIRECTORY}\Plugins\FileTypes\PdfFile\bin\Release\itextsharp.dll" ;PdfFile dependency
   
   ; native search plugins
   SetOutPath "${PLUGIN_SEARCHSERVICES_DIRECTORY}"  
