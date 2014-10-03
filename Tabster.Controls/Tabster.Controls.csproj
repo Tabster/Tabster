@@ -38,7 +38,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ControlInvoker.cs" />
-    <Compile Include="Extensions\ExtensionAttribute.cs" />
     <Compile Include="Extensions\TabsterOpenFileDialogExtensions.cs" />
     <Compile Include="Extensions\TabsterSaveFileDialogExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -35,7 +35,6 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\ExtensionAttribute.cs" />
     <Compile Include="Extensions\ITablatureExtensions.cs" />
     <Compile Include="Extensions\TabsterDocumentExtensions.cs" />
     <Compile Include="Extensions\VersionExtensions.cs" />

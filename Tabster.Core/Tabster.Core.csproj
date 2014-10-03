@@ -62,7 +62,6 @@
     <Compile Include="Types\ITablaturePlaylist.cs" />
     <Compile Include="Types\TabRating.cs" />
     <Compile Include="Utilities\CustomTypeCollection.cs" />
-    <Compile Include="Utilities\ExtensionAttribute.cs" />
     <Compile Include="Data\TablatureDocument.cs" />
     <Compile Include="Data\Processing\TabsterDocumentProcessor.cs" />
     <Compile Include="Data\ITabsterDocument.cs" />
