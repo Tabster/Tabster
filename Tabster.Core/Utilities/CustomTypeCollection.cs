@@ -12,6 +12,11 @@ namespace Tabster.Core.Utilities
     {
         private readonly List<T> _items = new List<T>();
 
+        internal CustomTypeCollection()
+        {
+            
+        }
+
         internal CustomTypeCollection(IEnumerable<T> items)
         {
             _items = new List<T>(items);
@@ -91,6 +96,11 @@ namespace Tabster.Core.Utilities
         public T[] ToArray()
         {
             return _items.ToArray();
+        }
+
+        public void Reverse()
+        {
+            _items.Reverse();
         }
     }
 }
