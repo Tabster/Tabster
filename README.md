@@ -6,8 +6,10 @@ Tabster is a guitar tablature manager that stores tabs in a library for easy vie
 Dependencies
 ------------
 
-* [.NET 2.0](http://www.microsoft.com/net)
-* [HTMLAgilityPack](http://htmlagilitypack.codeplex.com/) (In References directory - used for web-scraping functionality found in native plugins)
+* [.NET 3.5](http://www.microsoft.com/net)
+* [NuGet] (https://www.nuget.org/)
+* [HTMLAgilityPack] Used by native search/HTML plugins.
+* [ITextSharp] Used for PDF plugin.
 
 Building
 ---------------
