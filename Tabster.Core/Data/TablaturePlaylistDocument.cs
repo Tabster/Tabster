@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
 
@@ -58,14 +59,9 @@ namespace Tabster.Core.Data
             Name = _doc.TryReadNodeValue("name", string.Empty);
             var files = _doc.ReadChildNodeValues("files");
 
-            foreach (var file in files)
+            foreach (var doc in files.Select(file => _processor.Load(file)).Where(doc => doc != null))
             {
-                var doc = _processor.Load(file);
-
-                if (doc != null)
-                {
-                    Add(doc);
-                }
+                Add(doc);
             }
         }
 
@@ -81,12 +77,9 @@ namespace Tabster.Core.Data
             _doc.WriteNode("name", Name);
             _doc.WriteNode("files");
 
-            foreach (var tab in this)
+            foreach (var tab in this.Where(tab => File.Exists(tab.FileInfo.FullName)))
             {
-                if (File.Exists(tab.FileInfo.FullName))
-                {
-                    _doc.WriteNode("file", tab.FileInfo.FullName, "files");
-                }
+                _doc.WriteNode("file", tab.FileInfo.FullName, "files");
             }
 
             _doc.Save(fileName);
