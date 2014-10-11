@@ -14,7 +14,6 @@ namespace Tabster.Core.Utilities
 
         internal CustomTypeCollection()
         {
-            
         }
 
         internal CustomTypeCollection(IEnumerable<T> items)
@@ -31,10 +30,7 @@ namespace Tabster.Core.Utilities
 
         public IEnumerator<T> GetEnumerator()
         {
-            foreach (var item in _items)
-            {
-                yield return item;
-            }
+            return ((IEnumerable<T>) _items).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
