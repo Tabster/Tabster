@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 
 #endregion
@@ -107,10 +108,7 @@ namespace Tabster.Core.Data
 
             if (elem != null && elem.HasChildNodes)
             {
-                foreach (XmlNode child in elem.ChildNodes)
-                {
-                    nodes.Add(child);
-                }
+                nodes.AddRange(elem.ChildNodes.Cast<XmlNode>());
             }
 
             return nodes;
@@ -124,10 +122,7 @@ namespace Tabster.Core.Data
 
             if (elem != null && elem.HasChildNodes)
             {
-                foreach (XmlNode child in elem.ChildNodes)
-                {
-                    values.Add(child.InnerText);
-                }
+                values.AddRange(from XmlNode child in elem.ChildNodes select child.InnerText);
             }
 
             return values;
