@@ -242,7 +242,7 @@ namespace Tabster.Forms
                 if (SearchPreviewBackgroundWorker.IsBusy)
                     SearchPreviewBackgroundWorker.CancelAsync();
 
-                searchPreviewEditor.SetText("Loading Preview...");
+                searchPreviewEditor.Text = "Loading Preview...";
 
                 if (!SearchPreviewBackgroundWorker.IsBusy)
                     SearchPreviewBackgroundWorker.RunWorkerAsync(selectedResult.Tab.Source);
@@ -307,7 +307,7 @@ namespace Tabster.Forms
         {
             if (e.Error != null)
             {
-                searchPreviewEditor.SetText(string.Format("Tab preview failed:{0}{0}{1}", Environment.NewLine, e.Error.Message));
+                searchPreviewEditor.Text = string.Format("Tab preview failed:{0}{0}{1}", Environment.NewLine, e.Error.Message);
             }
 
             if (!e.Cancelled && e.Error == null)
