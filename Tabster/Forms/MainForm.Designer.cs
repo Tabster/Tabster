@@ -97,7 +97,7 @@ namespace Tabster.Forms
             this.searchcol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchcol_service = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.searchPreviewEditor = new Tabster.Controls.TablatureEditor();
+            this.searchPreviewEditor = new Tabster.Controls.BasicTablatureTextEditor();
             this.panel1 = new System.Windows.Forms.Panel();
             this.searchTypeList = new Tabster.Controls.TabTypeDropdown();
             this.resetSearchbtn = new System.Windows.Forms.Button();
@@ -1640,7 +1640,7 @@ namespace Tabster.Forms
         private ToolStripButton printbtn;
         private ToolStripMenuItem previewToolStripMenuItem;
         private SplitContainer searchSplitContainer;
-        private TablatureEditor searchPreviewEditor;
+        private BasicTablatureTextEditor searchPreviewEditor;
         private ToolStripSeparator toolStripSeparator8;
         private ToolStripDropDownButton toolStripButton3;
         private ToolStripMenuItem offToolStripMenuItem;

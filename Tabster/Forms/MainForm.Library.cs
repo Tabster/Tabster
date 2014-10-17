@@ -61,7 +61,7 @@ namespace Tabster.Forms
 
         //used to prevent double-triggering of OnSelectedIndexChanged for tablibrary when using navigation menu
         private bool _switchingNavigationOption;
-        private TablatureEditor _tabPreviewEditor;
+        private BasicTablatureTextEditor _tabPreviewEditor;
 
         //time (in ms) where tab is displayed in preview editor after being selected
 
@@ -691,7 +691,6 @@ namespace Tabster.Forms
                     if (_tabPreviewEditor != null)
                     {
                         _tabPreviewEditor.AutoScroll = false;
-                        _tabPreviewEditor.ScrollToLine(0);
                         offToolStripMenuItem.PerformClick();
                     }
 
@@ -714,7 +713,7 @@ namespace Tabster.Forms
 
                 if (_tabPreviewEditor != null)
                 {
-                    _tabPreviewEditor.SetText(string.Empty);
+                    _tabPreviewEditor.Text = "";
                 }
             }
         }
