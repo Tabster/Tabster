@@ -35,10 +35,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\ITablatureExtensions.cs" />
-    <Compile Include="Extensions\TabsterDocumentExtensions.cs" />
     <Compile Include="Extensions\VersionExtensions.cs" />
-    <Compile Include="IO\UniqueFilenameGenerator.cs" />
     <Compile Include="Net\CustomProxyController.cs" />
     <Compile Include="Net\TabsterWebClient.cs">
       <SubType>Component</SubType>
