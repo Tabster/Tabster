@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Core.Data;
+using Tabster.Core.Types;
 using Tabster.Utilities.Extensions;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
@@ -65,7 +66,7 @@ namespace Tabster.Forms
             }
         }
 
-        public void LoadTab(TablatureDocument tabDocument, TablatureEditor editor)
+        public void LoadTab(TablatureDocument tabDocument, BasicTablatureTextEditor editor)
         {
             TabPage tp;
             var alreadyOpened = AlreadyOpened(tabDocument, out tp);
@@ -86,17 +87,16 @@ namespace Tabster.Forms
                 tabControl1.SelectedTab = instance.Page;
 
                 editor.ReadOnly = false;
-                editor.ScrollToPosition(0);
 
-                editor.TabModified += editor_TabModified;
-
+                editor.ContentsModified += editor_TabModified;
+                
                 tabControl1_SelectedIndexChanged(null, null);
             }
         }
 
         private void editor_TabModified(object sender, EventArgs e)
         {
-            savebtn.Enabled = ((TablatureEditor) sender).HasBeenModified;
+            savebtn.Enabled = ((BasicTablatureTextEditor) sender).Modified;
         }
 
         private bool CloseTab(TabInstance instance, bool closeIfLast)
@@ -265,9 +265,9 @@ namespace Tabster.Forms
 
             if (instance != null)
             {
-                instance.File.Contents = instance.Editor.GetText();
+                instance.File.Contents = instance.Editor.Text;
                 instance.File.Save();
-                instance.Editor.ModificationCheck();
+                //instance.Editor.ModificationCheck();
                 savebtn.Enabled = false;
             }
         }
@@ -275,30 +275,30 @@ namespace Tabster.Forms
 
     public class TabInstance
     {
-        public TabInstance(TablatureDocument file, TablatureEditor editor = null)
+        public TabInstance(TablatureDocument file, BasicTablatureTextEditor editor = null)
         {
             File = file;
             Page = new TabPage {Text = file.ToFriendlyString(), ToolTipText = file.FileInfo.FullName};
-            Editor = editor ?? new TablatureEditor {Dock = DockStyle.Fill};
+            Editor = editor ?? new BasicTablatureTextEditor {Dock = DockStyle.Fill};
 
             Page.Controls.Add(Editor);
 
             Editor.LoadTab(file);
-            Editor.TabModified += editor_TabModified;
+            Editor.ContentsModified += editor_TabModified;
         }
 
         public TabPage Page { get; private set; }
-        public TablatureEditor Editor { get; private set; }
+        public BasicTablatureTextEditor Editor { get; private set; }
         public TablatureDocument File { get; private set; }
 
         public bool Modified
         {
-            get { return Editor.HasBeenModified; }
+            get { return Editor.Modified; }
         }
 
         private void editor_TabModified(object sender, EventArgs e)
         {
-            SetHeader(Editor.HasBeenModified);
+            SetHeader(Editor.Modified);
         }
 
         public void SetHeader(bool modified)
