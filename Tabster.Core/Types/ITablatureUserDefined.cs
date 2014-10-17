@@ -6,7 +6,7 @@ using System;
 
 namespace Tabster.Core.Types
 {
-    public interface ITablatureUserDefined : ITablature
+    public interface ITablatureUserDefined : ITablatureAttributes
     {
         string Comment { get; set; }
         DateTime Created { get; set; }

@@ -6,6 +6,9 @@ using Tabster.Core.Types;
 
 namespace Tabster.Core.Data.Processing
 {
+
+//todo string importer
+
     /// <summary>
     ///   Text-based tab source.
     /// </summary>
@@ -17,6 +20,6 @@ namespace Tabster.Core.Data.Processing
         /// <param name="text"> Source text to parse. </param>
         /// <param name="type"> Explicitly defined type. </param>
         /// <returns> Parsed tab. </returns>
-        TablatureDocument Parse(string text, TabType? type);
+        TablatureDocument Parse(string text, TablatureType? type);
     }
 }

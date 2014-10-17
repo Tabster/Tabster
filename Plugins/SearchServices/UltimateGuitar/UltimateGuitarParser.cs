@@ -20,7 +20,7 @@ namespace UltimateGuitar
             get { return "Ultimate Guitar"; }
         }
 
-        public TablatureDocument Parse(string text, TabType? type)
+        public TablatureDocument Parse(string text, TablatureType? type)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(text);
@@ -42,13 +42,13 @@ namespace UltimateGuitar
                     if (!type.HasValue)
                     {
                         if (typeStr.IndexOf("bass", StringComparison.OrdinalIgnoreCase) > -1)
-                            tabType = TabType.Bass;
+                            tabType = TablatureType.Bass;
                         else if (typeStr.IndexOf("chord", StringComparison.OrdinalIgnoreCase) > -1)
-                            tabType = TabType.Chords;
+                            tabType = TablatureType.Chords;
                         else if (typeStr.IndexOf("drum", StringComparison.OrdinalIgnoreCase) > -1)
-                            tabType = TabType.Drum;
+                            tabType = TablatureType.Drum;
                         else if (typeStr.IndexOf("ukulele", StringComparison.OrdinalIgnoreCase) > -1)
-                            tabType = TabType.Ukulele;
+                            tabType = TablatureType.Ukulele;
                     }
 
                     artist = split[2].Trim();
@@ -68,7 +68,7 @@ namespace UltimateGuitar
             return null;
         }
 
-        public TablatureDocument Parse(Uri url, TabType? type)
+        public TablatureDocument Parse(Uri url, TablatureType? type)
         {
             throw new NotImplementedException();
         }

@@ -13,7 +13,7 @@ namespace Tabster.Library
     {
         private TablatureDocument _document;
 
-        public LibraryItem(FileInfo fileInfo, string artist, string title, TabType type)
+        public LibraryItem(FileInfo fileInfo, string artist, string title, TablatureType type)
         {
             FileInfo = fileInfo;
             Artist = artist;
@@ -32,7 +32,7 @@ namespace Tabster.Library
 
         public string Title { get; set; }
 
-        public TabType Type { get; set; }
+        public TablatureType Type { get; set; }
 
         #endregion
 

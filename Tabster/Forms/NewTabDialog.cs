@@ -20,7 +20,7 @@ namespace Tabster.Forms
             txtArtist.Select(txtArtist.Text.Length, 0);
         }
 
-        public NewTabDialog(string artist, string song, TabType type)
+        public NewTabDialog(string artist, string song, TablatureType type)
             : this()
         {
             txtArtist.Text = artist;

@@ -44,7 +44,7 @@ namespace Tabster.Controls
                 comboBox1.Items.Add(DefaultText);
             }
 
-            foreach (TabType type in Enum.GetValues(typeof (TabType)))
+            foreach (TablatureType type in Enum.GetValues(typeof (TablatureType)))
             {
                 comboBox1.Items.Add(GetDisplayString(type));
             }
@@ -52,7 +52,7 @@ namespace Tabster.Controls
             comboBox1.SelectedIndex = 0;
         }
 
-        private string GetDisplayString(TabType type)
+        private string GetDisplayString(TablatureType type)
         {
             var str = type.ToFriendlyString();
 
@@ -62,7 +62,7 @@ namespace Tabster.Controls
             return str;
         }
 
-        private int GetTypeIndex(TabType type)
+        private int GetTypeIndex(TablatureType type)
         {
             var displayString = GetDisplayString(type);
 
@@ -79,14 +79,14 @@ namespace Tabster.Controls
             return -1;
         }
 
-        private TabType GetSelectedType()
+        private TablatureType GetSelectedType()
         {
             if (!HasTypeSelected)
                 throw new InvalidOperationException("No suitable type is selected.");
 
             var text = comboBox1.Text;
 
-            foreach (TabType type in Enum.GetValues(typeof (TabType)))
+            foreach (TablatureType type in Enum.GetValues(typeof (TablatureType)))
             {
                 var displayString = GetDisplayString(type);
 
@@ -94,7 +94,7 @@ namespace Tabster.Controls
                     return type;
             }
 
-            return default(TabType);
+            return default(TablatureType);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -201,7 +201,7 @@ namespace Tabster.Controls
         [Category("Data")]
         [Description("The currently selected tab type.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public TabType SelectedType
+        public TablatureType SelectedType
         {
             get { return GetSelectedType(); }
             set { comboBox1.SelectedIndex = GetTypeIndex(value); }

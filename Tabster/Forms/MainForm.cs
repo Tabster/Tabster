@@ -229,7 +229,7 @@ namespace Tabster.Forms
 
         private void PopulateTabTypeControls()
         {
-            foreach (TabType t in Enum.GetValues(typeof (TabType)))
+            foreach (TablatureType t in Enum.GetValues(typeof (TablatureType)))
             {
                 var typeStr = t.ToFriendlyString();
                 var str = typeStr.EndsWith("s") ? typeStr : string.Format("{0}s", typeStr);

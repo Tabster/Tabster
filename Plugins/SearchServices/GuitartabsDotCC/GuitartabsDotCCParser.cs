@@ -19,7 +19,7 @@ namespace GuitartabsDotCC
             get { return "Guitartabs.cc"; }
         }
 
-        public TablatureDocument Parse(string text, TabType? type)
+        public TablatureDocument Parse(string text, TablatureType? type)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(text);
@@ -58,16 +58,16 @@ namespace GuitartabsDotCC
                             switch (typeCell.InnerText)
                             {
                                 case "Tab":
-                                    tabType = TabType.Guitar;
+                                    tabType = TablatureType.Guitar;
                                     break;
                                 case "Chords":
-                                    tabType = TabType.Chords;
+                                    tabType = TablatureType.Chords;
                                     break;
                                 case "Bass Tab":
-                                    tabType = TabType.Bass;
+                                    tabType = TablatureType.Bass;
                                     break;
                                 case "Drum Tab":
-                                    tabType = TabType.Drum;
+                                    tabType = TablatureType.Drum;
                                     break;
                             }
                         }

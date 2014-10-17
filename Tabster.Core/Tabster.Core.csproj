@@ -56,11 +56,14 @@
     <Compile Include="Searching\SearchResult.cs" />
     <Compile Include="Searching\SearchServiceException.cs" />
     <Compile Include="Searching\SearchServiceFlags.cs" />
+    <Compile Include="Types\TablatureSection.cs" />
+    <Compile Include="Types\TablatureSectionType.cs" />
     <Compile Include="Types\ITablatureAttributes.cs" />
-    <Compile Include="Types\ITablatureRated.cs" />
-    <Compile Include="Types\ITablatureSourced.cs" />
+    <Compile Include="Types\ITablatureRatedAttribute.cs" />
+    <Compile Include="Types\ITablatureSourceAttribute.cs" />
     <Compile Include="Types\ITablaturePlaylist.cs" />
-    <Compile Include="Types\TabRating.cs" />
+    <Compile Include="Types\TablatureRating.cs" />
+    <Compile Include="Types\TablatureType.cs" />
     <Compile Include="Utilities\CustomTypeCollection.cs" />
     <Compile Include="Data\TablatureDocument.cs" />
     <Compile Include="Data\Processing\TabsterDocumentProcessor.cs" />
@@ -75,7 +78,6 @@
     <Compile Include="Data\TabsterDocumentCollection.cs" />
     <Compile Include="Types\ITablatureUserDefined.cs" />
     <Compile Include="Types\TablatureSourceType.cs" />
-    <Compile Include="Types\TabType.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

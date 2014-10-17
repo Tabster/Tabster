@@ -19,8 +19,8 @@ namespace Tabster.Forms
     {
         private readonly List<SearchResult> _searchResults = new List<SearchResult>();
         private readonly Dictionary<Uri, TablatureDocument> _searchResultsCache = new Dictionary<Uri, TablatureDocument>();
-        private TabRating? _activeSearchRating;
-        private TabType? _activeSearchType;
+        private TablatureRating? _activeSearchRating;
+        private TablatureType? _activeSearchType;
         private List<ISearchService> _searchServices = new List<ISearchService>();
         private List<ITablatureWebpageImporter> _webImporters = new List<ITablatureWebpageImporter>();
 
@@ -52,7 +52,7 @@ namespace Tabster.Forms
                 _activeSearchRating = null;
 
                 if (cbSearchRating.SelectedIndex > 0)
-                    _activeSearchRating = (TabRating) (cbSearchRating.SelectedIndex);
+                    _activeSearchRating = (TablatureRating) (cbSearchRating.SelectedIndex);
 
                 var searchQueries = new List<SearchQuery>();
 

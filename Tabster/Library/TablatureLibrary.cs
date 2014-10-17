@@ -5,11 +5,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.VisualBasic.FileIO;
 using Tabster.Core.Data;
 using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
-using Tabster.Utilities.Extensions;
 using SearchOption = System.IO.SearchOption;
 
 #endregion
@@ -81,9 +82,9 @@ namespace Tabster.Library
                             if (itemNode.Attributes["title"] != null)
                                 title = itemNode.Attributes["title"].Value;
 
-                            var type = default(TabType);
+                            var type = default(TablatureType);
                             if (itemNode.Attributes["type"] != null)
-                                type = (TabType) Enum.Parse(typeof (TabType), itemNode.Attributes["type"].Value);
+                                type = (TablatureType) Enum.Parse(typeof (TablatureType), itemNode.Attributes["type"].Value);
 
                             var favorited = itemNode.Attributes["favorite"] != null && bool.Parse(itemNode.Attributes["favorite"].Value);
 
@@ -146,23 +147,20 @@ namespace Tabster.Library
 
             _indexDoc.WriteNode("tabs");
 
-            foreach (var entry in _libraryItems)
+            foreach (var entry in _libraryItems.Where(entry => File.Exists(entry.FileInfo.FullName)))
             {
-                if (File.Exists(entry.FileInfo.FullName))
-                {
-                    _indexDoc.WriteNode("tab",
-                                        entry.FileInfo.FullName,
-                                        "tabs",
-                                        new SortedDictionary<string, string>
-                                            {
-                                                {"artist", entry.Artist},
-                                                {"title", entry.Title},
-                                                {"type", entry.Type.ToString()},
-                                                {"favorite", entry.Favorited.ToString().ToLower()},
-                                                {"views", entry.Views.ToString()},
-                                                {"last_viewed", entry.LastViewed == null ? string.Empty : entry.LastViewed.Value.ToString()}
-                                            }, false);
-                }
+                _indexDoc.WriteNode("tab",
+                                    entry.FileInfo.FullName,
+                                    "tabs",
+                                    new SortedDictionary<string, string>
+                                        {
+                                            {"artist", entry.Artist},
+                                            {"title", entry.Title},
+                                            {"type", entry.Type.ToString()},
+                                            {"favorite", entry.Favorited.ToString().ToLower()},
+                                            {"views", entry.Views.ToString()},
+                                            {"last_viewed", entry.LastViewed == null ? string.Empty : entry.LastViewed.Value.ToString()}
+                                        }, false);
             }
 
             _indexDoc.WriteNode("playlists");
@@ -184,19 +182,7 @@ namespace Tabster.Library
 
         private IEnumerable<TablatureDocument> LoadTablatureDocumentsFromDisk()
         {
-            var tempList = new List<TablatureDocument>();
-
-            foreach (var file in Directory.GetFiles(LibraryDirectory, string.Format("*{0}", TablatureDocument.FILE_EXTENSION), SearchOption.AllDirectories))
-            {
-                var doc = _documentProcessor.Load(file);
-
-                if (doc != null)
-                {
-                    tempList.Add(doc);
-                }
-            }
-
-            return tempList;
+            return Directory.GetFiles(LibraryDirectory, string.Format("*{0}", TablatureDocument.FILE_EXTENSION), SearchOption.AllDirectories).Select(file => _documentProcessor.Load(file)).Where(doc => doc != null).ToList();
         }
 
         public bool Remove(LibraryItem item, bool diskDelete, bool saveIndex = false)
@@ -234,26 +220,14 @@ namespace Tabster.Library
 
         private IEnumerable<TablaturePlaylistDocument> LoadTablaturePlaylistsFromDisk()
         {
-            var tempList = new List<TablaturePlaylistDocument>();
-
-            foreach (var file in Directory.GetFiles(PlaylistDirectory, string.Format("*{0}", TablaturePlaylistDocument.FILE_EXTENSION), SearchOption.TopDirectoryOnly))
-            {
-                var doc = _playlistProcessor.Load(file);
-
-                if (doc != null)
-                {
-                    tempList.Add(doc);
-                }
-            }
-
-            return tempList;
+            return Directory.GetFiles(PlaylistDirectory, string.Format("*{0}", TablaturePlaylistDocument.FILE_EXTENSION), SearchOption.TopDirectoryOnly).Select(file => _playlistProcessor.Load(file)).Where(doc => doc != null).ToList();
         }
 
         public void Add(TablaturePlaylistDocument playlist)
         {
             if (playlist.FileInfo == null)
             {
-                var uniqueName = playlist.GenerateUniqueFilename(PlaylistDirectory);
+                var uniqueName = GenerateUniqueFilename(PlaylistDirectory, playlist.Name);
                 playlist.SaveAs(uniqueName);
             }
 
@@ -276,15 +250,7 @@ namespace Tabster.Library
 
         public TablaturePlaylistDocument FindPlaylist(Predicate<TablaturePlaylistDocument> match)
         {
-            foreach (var playlist in _playlists)
-            {
-                if (match(playlist))
-                {
-                    return playlist;
-                }
-            }
-
-            return null;
+            return _playlists.FirstOrDefault(playlist => match(playlist));
         }
 
         public TablaturePlaylistDocument FindPlaylistByPath(string path)
@@ -310,7 +276,8 @@ namespace Tabster.Library
         {
             if (doc.FileInfo == null)
             {
-                var uniqueName = doc.GenerateUniqueFilename(LibraryDirectory);
+                var filename = string.Format("{0} - {1} ({2})", doc.Artist, doc.Title, doc.Type.ToFriendlyString());
+                var uniqueName = GenerateUniqueFilename(LibraryDirectory, filename + TablatureDocument.FILE_EXTENSION);
                 doc.SaveAs(uniqueName);
             }
 
@@ -352,10 +319,7 @@ namespace Tabster.Library
 
         public IEnumerator<LibraryItem> GetEnumerator()
         {
-            foreach (var entry in _libraryItems)
-            {
-                yield return entry;
-            }
+            return ((IEnumerable<LibraryItem>) _libraryItems).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -364,5 +328,27 @@ namespace Tabster.Library
         }
 
         #endregion
+
+        private static string GenerateUniqueFilename(string directory, string filename)
+        {
+            //remove invalid file path characters
+            var regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+            var sanitized = new Regex(String.Format("[{0}]", Regex.Escape(regexSearch))).Replace(filename, "");
+
+            var fileName = Path.GetFileNameWithoutExtension(sanitized);
+            var fileExt = Path.GetExtension(sanitized);
+
+            var firstTry = Path.Combine(directory, String.Format("{0}{1}", fileName, fileExt));
+            if (!File.Exists(firstTry))
+                return firstTry;
+
+            for (var i = 1;; ++i)
+            {
+                var appendedPath = Path.Combine(directory, String.Format("{0} ({1}){2}", fileName, i, fileExt));
+
+                if (!File.Exists(appendedPath))
+                    return appendedPath;
+            }
+        }
     }
 }

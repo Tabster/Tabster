@@ -9,7 +9,7 @@ using Tabster.Core.Types;
 
 namespace Tabster.Core.Data
 {
-    public class TablatureDocument : ITabsterDocument, ITablatureSourced, ITablatureUserDefined, ITablatureRated
+    public class TablatureDocument : ITabsterDocument, ITablature, ITablatureAttributes, ITablatureSourceAttribute, ITablatureUserDefined, ITablatureRatedAttribute
     {
         #region Constants
 
@@ -26,7 +26,7 @@ namespace Tabster.Core.Data
         {
         }
 
-        public TablatureDocument(string artist, string title, TabType type)
+        public TablatureDocument(string artist, string title, TablatureType type)
             : this()
         {
             Artist = artist;
@@ -34,7 +34,7 @@ namespace Tabster.Core.Data
             Type = type;
         }
 
-        public TablatureDocument(string artist, string title, TabType type, string contents) : this(artist, title, type)
+        public TablatureDocument(string artist, string title, TablatureType type, string contents) : this(artist, title, type)
         {
             Contents = contents;
         }
@@ -49,7 +49,7 @@ namespace Tabster.Core.Data
 
         public string Contents { get; set; }
 
-        public TabType Type { get; set; }
+        public TablatureType Type { get; set; }
 
         #endregion
 
@@ -72,11 +72,11 @@ namespace Tabster.Core.Data
             Title = _doc.TryReadNodeValues(new[] {"song", "title"}, string.Empty);
 
             var tabTypeValue = _doc.TryReadNodeValue("type");
-            TabType? type = null;
+            TablatureType? type = null;
 
-            if (tabTypeValue != null && Enum.IsDefined(typeof (TabType), tabTypeValue))
+            if (tabTypeValue != null && Enum.IsDefined(typeof (TablatureType), tabTypeValue))
             {
-                type = (TabType) Enum.Parse(typeof (TabType), tabTypeValue);
+                type = (TablatureType) Enum.Parse(typeof (TablatureType), tabTypeValue);
             }
 
             else //legacy
@@ -126,7 +126,7 @@ namespace Tabster.Core.Data
             var ratingValue = _doc.TryReadNodeValue("rating");
 
             if (!string.IsNullOrEmpty(ratingValue))
-                Rating = TabRatingUtilities.FromString(ratingValue);
+                Rating = TablatureRatingUtilities.FromString(ratingValue);
         }
 
         public void Save()
@@ -214,20 +214,20 @@ namespace Tabster.Core.Data
 
         #region Static Methods
 
-        private static TabType? FromFriendlyString(string str)
+        private static TablatureType? FromFriendlyString(string str)
         {
             switch (str)
             {
                 case "Guitar Tab":
-                    return TabType.Guitar;
+                    return TablatureType.Guitar;
                 case "Guitar Chords":
-                    return TabType.Chords;
+                    return TablatureType.Chords;
                 case "Bass Tab":
-                    return TabType.Bass;
+                    return TablatureType.Bass;
                 case "Drum Tab":
-                    return TabType.Drum;
+                    return TablatureType.Drum;
                 case "Ukulele Tab":
-                    return TabType.Ukulele;
+                    return TablatureType.Ukulele;
             }
 
             return null;
@@ -269,7 +269,7 @@ namespace Tabster.Core.Data
 
         #region Implementation of ITablatureRated
 
-        public TabRating Rating { get; set; }
+        public TablatureRating Rating { get; set; }
 
         #endregion
     }

@@ -53,19 +53,19 @@ namespace UltimateGuitar
             {
                 switch (query.Type)
                 {
-                    case TabType.Guitar:
+                    case TablatureType.Guitar:
                         typeStr = "200";
                         break;
-                    case TabType.Chords:
+                    case TablatureType.Chords:
                         typeStr = "300";
                         break;
-                    case TabType.Bass:
+                    case TablatureType.Bass:
                         typeStr = "400";
                         break;
-                    case TabType.Drum:
+                    case TablatureType.Drum:
                         typeStr = "700";
                         break;
-                    case TabType.Ukulele:
+                    case TablatureType.Ukulele:
                         typeStr = "800";
                         break;
                 }
@@ -136,7 +136,7 @@ namespace UltimateGuitar
                                 var rowURL = columns[colIndexSong].ChildNodes["a"].Attributes["href"].Value;
                                 var rowSong = HttpUtility.HtmlDecode(columns[colIndexSong].ChildNodes["a"].InnerText);
 
-                                TabRating? rating = null;
+                                TablatureRating? rating = null;
                                 var ratingColumn = columns[colIndexRating];
 
                                 if (ratingColumn.InnerText.Contains("["))
@@ -169,15 +169,15 @@ namespace UltimateGuitar
             return results.ToArray();
         }
 
-        public bool SupportsTabType(TabType type)
+        public bool SupportsTabType(TablatureType type)
         {
             switch (type)
             {
-                case TabType.Guitar:
-                case TabType.Chords:
-                case TabType.Bass:
-                case TabType.Drum:
-                case TabType.Ukulele:
+                case TablatureType.Guitar:
+                case TablatureType.Chords:
+                case TablatureType.Bass:
+                case TablatureType.Drum:
+                case TablatureType.Ukulele:
                     return true;
                 default:
                     return false;
@@ -188,37 +188,37 @@ namespace UltimateGuitar
 
         #region Static Methods
 
-        private static TabRating? GetRating(int value)
+        private static TablatureRating? GetRating(int value)
         {
             switch (value)
             {
                 case 1:
-                    return TabRating.Stars1;
+                    return TablatureRating.Stars1;
                 case 2:
-                    return TabRating.Stars2;
+                    return TablatureRating.Stars2;
                 case 3:
-                    return TabRating.Stars3;
+                    return TablatureRating.Stars3;
                 case 4:
-                    return TabRating.Stars4;
+                    return TablatureRating.Stars4;
                 case 5:
-                    return TabRating.Stars5;
+                    return TablatureRating.Stars5;
             }
 
             return null;
         }
 
-        private static TabType? GetTabType(string str)
+        private static TablatureType? GetTabType(string str)
         {
             if (str.Equals("tab", StringComparison.InvariantCultureIgnoreCase))
-                return TabType.Guitar;
+                return TablatureType.Guitar;
             if (str.Equals("chords", StringComparison.InvariantCultureIgnoreCase))
-                return TabType.Chords;
+                return TablatureType.Chords;
             if (str.Equals("bass", StringComparison.InvariantCultureIgnoreCase))
-                return TabType.Bass;
+                return TablatureType.Bass;
             if (str.Equals("drums", StringComparison.InvariantCultureIgnoreCase))
-                return TabType.Drum;
+                return TablatureType.Drum;
             if (str.Equals("ukulele", StringComparison.InvariantCultureIgnoreCase))
-                return TabType.Ukulele;
+                return TablatureType.Ukulele;
 
             return null;
         }

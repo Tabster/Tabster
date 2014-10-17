@@ -56,14 +56,14 @@ namespace GuitartabsDotCC
             {
                 switch (query.Type.Value)
                 {
-                    case TabType.Guitar:
-                    case TabType.Chords:
+                    case TablatureType.Guitar:
+                    case TablatureType.Chords:
                         typeStr = "guitar";
                         break;
-                    case TabType.Bass:
+                    case TablatureType.Bass:
                         typeStr = "bass";
                         break;
-                    case TabType.Drum:
+                    case TablatureType.Drum:
                         typeStr = "drum";
                         break;
                 }
@@ -129,14 +129,14 @@ namespace GuitartabsDotCC
             return results.ToArray();
         }
 
-        public bool SupportsTabType(TabType type)
+        public bool SupportsTabType(TablatureType type)
         {
             switch (type)
             {
-                case TabType.Guitar:
-                case TabType.Chords:
-                case TabType.Bass:
-                case TabType.Drum:
+                case TablatureType.Guitar:
+                case TablatureType.Chords:
+                case TablatureType.Bass:
+                case TablatureType.Drum:
                     return true;
                 default:
                     return false;
@@ -171,54 +171,54 @@ namespace GuitartabsDotCC
                                                            : defaultReplacement);
         }
 
-        private static TabRating? GetRating(string style)
+        private static TablatureRating? GetRating(string style)
         {
             switch (style)
             {
                 case "background-position: -60px 5%;":
                     return null;
                 case "background-position: -48px 50%;":
-                    return TabRating.Stars1;
+                    return TablatureRating.Stars1;
                 case "background-position: -36px 50%;":
-                    return TabRating.Stars2;
+                    return TablatureRating.Stars2;
                 case "background-position: -24px 50%;":
-                    return TabRating.Stars3;
+                    return TablatureRating.Stars3;
                 case "background-position: -12px 50%;":
-                    return TabRating.Stars4;
+                    return TablatureRating.Stars4;
                 case "background-position: -0px 50%;":
-                    return TabRating.Stars5;
+                    return TablatureRating.Stars5;
                 default:
                     return null;
             }
         }
 
-        private static string RemoveTypeFromTitle(string title, TabType type)
+        private static string RemoveTypeFromTitle(string title, TablatureType type)
         {
             switch (type)
             {
-                case TabType.Guitar:
+                case TablatureType.Guitar:
                     return title.Remove(title.Length - " Tab".Length);
-                case TabType.Chords:
+                case TablatureType.Chords:
                     return title.Remove(title.Length - " Chords".Length);
-                case TabType.Bass:
+                case TablatureType.Bass:
                     return title.Remove(title.Length - " Bass Tab".Length);
-                case TabType.Drum:
+                case TablatureType.Drum:
                     return title.Remove(title.Length - " Drum Tab".Length);
             }
 
             return title;
         }
 
-        private static TabType? GetTabType(string str)
+        private static TablatureType? GetTabType(string str)
         {
             if (str.IndexOf("Chords", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                return TabType.Chords;
+                return TablatureType.Chords;
             if (str.IndexOf("Bass", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                return TabType.Bass;
+                return TablatureType.Bass;
             if (str.IndexOf("Drum", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                return TabType.Drum;
+                return TablatureType.Drum;
             if (str.IndexOf("Tab", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                return TabType.Guitar;
+                return TablatureType.Guitar;
 
             return null;
         }

@@ -12,7 +12,7 @@ namespace Tabster.Core.Searching
     /// </summary>
     public class SearchResult
     {
-        public SearchResult(SearchQuery query, TablatureDocument tab, TabRating? rating)
+        public SearchResult(SearchQuery query, TablatureDocument tab, TablatureRating? rating)
         {
             Query = query;
             Tab = tab;
@@ -32,6 +32,6 @@ namespace Tabster.Core.Searching
         /// <summary>
         ///   Search result rating.
         /// </summary>
-        public TabRating? Rating { get; private set; }
+        public TablatureRating? Rating { get; private set; }
     }
 }

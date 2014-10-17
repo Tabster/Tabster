@@ -50,7 +50,7 @@ namespace PdfFile
             return doc;
         }
 
-        public TablatureDocument Import(string fileName, string artist, string title, TabType type)
+        public TablatureDocument Import(string fileName, string artist, string title, TablatureType type)
         {
             var doc = Import(fileName);
             doc.Artist = artist;

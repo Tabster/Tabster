@@ -11,7 +11,7 @@ namespace Tabster.Core.Searching
     /// </summary>
     public class SearchQuery
     {
-        public SearchQuery(ISearchService service, string artist, string title, TabType? type)
+        public SearchQuery(ISearchService service, string artist, string title, TablatureType? type)
         {
             Service = service;
             Artist = artist;
@@ -37,6 +37,6 @@ namespace Tabster.Core.Searching
         /// <summary>
         ///   Type search parameter.
         /// </summary>
-        public TabType? Type { get; private set; }
+        public TablatureType? Type { get; private set; }
     }
 }

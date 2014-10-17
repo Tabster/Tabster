@@ -29,6 +29,6 @@ namespace Tabster.Core.Data.Processing
         /// <param name="artist"> Explicitly-defined artist. </param>
         /// <param name="title"> Explicitly-defined title. </param>
         /// <param name="type"> Explicitly-defined type. </param>
-        TablatureDocument Import(string fileName, string artist, string title, TabType type);
+        TablatureDocument Import(string fileName, string artist, string title, TablatureType type);
     }
 }

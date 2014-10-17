@@ -49,6 +49,6 @@ namespace Tabster.Core.Searching
         ///</summary>
         ///<param name="type"> The type to check. </param>
         ///<returns> True if the type is supported by the service; otherwise, False. </returns>
-        bool SupportsTabType(TabType type);
+        bool SupportsTabType(TablatureType type);
     }
 }

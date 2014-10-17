@@ -4,6 +4,14 @@ namespace Tabster.Core.Types
     {
         string Artist { get; set; }
         string Title { get; set; }
-        TabType Type { get; set; }
+        TablatureType Type { get; set; }
+    }
+
+    public static class ITablatureAttributesExtensions
+    {
+        public static string ToFriendlyString(this ITablatureAttributes tablatureAttributes)
+        {
+            return string.Format("{0} - {1} ({2})", tablatureAttributes.Artist, tablatureAttributes.Title, tablatureAttributes.Type.ToFriendlyString());
+        }
     }
 }
