@@ -3,9 +3,9 @@
 using System;
 using System.IO;
 using System.Text;
-using Tabster.Core.Data;
-using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
+using Tabster.Data;
+using Tabster.Data.Processing;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 

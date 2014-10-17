@@ -1,11 +1,10 @@
 ﻿#region
 
 using System;
-using System.IO;
 
 #endregion
 
-namespace Tabster.Core.Data.Processing
+namespace Tabster.Data.Processing
 {
     public class TabsterDocumentProcessor<T> where T : class, ITabsterDocument, new()
     {

@@ -4,9 +4,8 @@ using Tabster.Core.Types;
 
 #endregion
 
-namespace Tabster.Core.Data.Processing
+namespace Tabster.Data.Processing
 {
-
 //todo string importer
 
     /// <summary>

@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace Tabster.Core.Data.Processing
+namespace Tabster.Data.Processing
 {
     public class TablatureProcessorException : Exception
     {

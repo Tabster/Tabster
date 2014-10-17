@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace Tabster.Core.Data.Processing
+namespace Tabster.Data.Processing
 {
     /// <summary>
     ///   Web-based tab source.
@@ -12,7 +12,7 @@ namespace Tabster.Core.Data.Processing
     public interface ITablatureWebpageImporter : ITablatureTextImporter
     {
         /// <summary>
-        /// The name of the site (if applicable) where the page text is from.
+        ///   The name of the site (if applicable) where the page text is from.
         /// </summary>
         string SiteName { get; }
 

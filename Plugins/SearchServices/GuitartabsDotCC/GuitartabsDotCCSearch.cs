@@ -7,10 +7,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using HtmlAgilityPack;
-using Tabster.Core.Data;
-using Tabster.Core.Data.Processing;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
+using Tabster.Data.Processing;
 
 #endregion
 
@@ -20,14 +19,14 @@ namespace GuitartabsDotCC
     {
         #region Implementation of ISearchService
 
-        public string Name
-        {
-            get { return "Guitartabs.cc"; }
-        }
-
         public ITablatureWebpageImporter Parser
         {
             get { return new GuitartabsDotCCParser(); }
+        }
+
+        public string Name
+        {
+            get { return "Guitartabs.cc"; }
         }
 
         public SearchServiceFlags Flags
@@ -82,7 +81,7 @@ namespace GuitartabsDotCC
 
             string data;
 
-            var client = new WebClient { Proxy = Proxy };
+            var client = new WebClient {Proxy = Proxy};
             {
                 data = client.DownloadString(url);
             }
@@ -119,8 +118,8 @@ namespace GuitartabsDotCC
                         {
                             rowTitle = RemoveTypeFromTitle(rowTitle, tabType.Value);
 
-                            var tab = new TablatureDocument(rowArtist, rowTitle, tabType.Value, null) {Source = new Uri(string.Format("http://guitartabs.cc{0}", rowUrl))};
-                            results.Add(new SearchResult(query, tab, rowRating));
+                            var tab = new AttributedTablature(rowArtist, rowTitle, tabType.Value);
+                            results.Add(new SearchResult(query, tab, new Uri(string.Format("http://guitartabs.cc{0}", rowUrl)), rowRating));
                         }
                     }
                 }
@@ -171,12 +170,10 @@ namespace GuitartabsDotCC
                                                            : defaultReplacement);
         }
 
-        private static TablatureRating? GetRating(string style)
+        private static TablatureRating GetRating(string style)
         {
             switch (style)
             {
-                case "background-position: -60px 5%;":
-                    return null;
                 case "background-position: -48px 50%;":
                     return TablatureRating.Stars1;
                 case "background-position: -36px 50%;":
@@ -188,7 +185,7 @@ namespace GuitartabsDotCC
                 case "background-position: -0px 50%;":
                     return TablatureRating.Stars5;
                 default:
-                    return null;
+                    return TablatureRating.None;
             }
         }
 

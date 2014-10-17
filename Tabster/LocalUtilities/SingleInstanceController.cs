@@ -6,8 +6,8 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
-using Tabster.Core.Data;
-using Tabster.Core.Data.Processing;
+using Tabster.Data;
+using Tabster.Data.Processing;
 using Tabster.Forms;
 using Tabster.Properties;
 

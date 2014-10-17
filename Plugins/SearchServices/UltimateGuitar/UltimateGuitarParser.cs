@@ -3,9 +3,9 @@
 using System;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
-using Tabster.Core.Data;
-using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
+using Tabster.Data;
+using Tabster.Data.Processing;
 
 #endregion
 
@@ -68,15 +68,15 @@ namespace UltimateGuitar
             return null;
         }
 
-        public TablatureDocument Parse(Uri url, TablatureType? type)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool MatchesUrlPattern(Uri url)
         {
             return url.IsWellFormedOriginalString() && ((url.DnsSafeHost == "ultimate-guitar.com" || url.DnsSafeHost == "www.ultimate-guitar.com" ||
                                                          url.DnsSafeHost == "tabs.ultimate-guitar.com") && url.AbsolutePath.Split('/').Length >= 4);
+        }
+
+        public TablatureDocument Parse(Uri url, TablatureType? type)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

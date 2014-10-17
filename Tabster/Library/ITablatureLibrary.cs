@@ -2,7 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-using Tabster.Core.Data;
+using Tabster.Data;
 
 #endregion
 

@@ -37,15 +37,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\FileExtensionCollection.cs" />
-    <Compile Include="Data\FileType.cs" />
-    <Compile Include="Data\Processing\ITablatureFileExporter.cs" />
-    <Compile Include="Data\Processing\ITablatureFileImporter.cs" />
-    <Compile Include="Data\TabsterDocumentException.cs" />
-    <Compile Include="Data\TabsterXmlDocument.cs" />
-    <Compile Include="Data\Processing\ITablatureTextImporter.cs" />
-    <Compile Include="Data\Processing\ITablatureWebpageImporter.cs" />
-    <Compile Include="Data\Processing\TablatureProcessorException.cs" />
     <Compile Include="Printing\PageCountPrintController .cs" />
     <Compile Include="Printing\TablaturePrintDocument.cs">
       <SubType>Component</SubType>
@@ -56,26 +47,18 @@
     <Compile Include="Searching\SearchResult.cs" />
     <Compile Include="Searching\SearchServiceException.cs" />
     <Compile Include="Searching\SearchServiceFlags.cs" />
-    <Compile Include="Types\TablatureSection.cs" />
-    <Compile Include="Types\TablatureSectionType.cs" />
+    <Compile Include="Types\AttributedTablature.cs" />
     <Compile Include="Types\ITablatureAttributes.cs" />
     <Compile Include="Types\ITablatureRatedAttribute.cs" />
     <Compile Include="Types\ITablatureSourceAttribute.cs" />
-    <Compile Include="Types\ITablaturePlaylist.cs" />
     <Compile Include="Types\TablatureRating.cs" />
     <Compile Include="Types\TablatureType.cs" />
     <Compile Include="Utilities\CustomTypeCollection.cs" />
-    <Compile Include="Data\TablatureDocument.cs" />
-    <Compile Include="Data\Processing\TabsterDocumentProcessor.cs" />
-    <Compile Include="Data\ITabsterDocument.cs" />
-    <Compile Include="Data\TablaturePlaylistDocument.cs" />
     <Compile Include="Types\ITablature.cs" />
-    <Compile Include="Data\Processing\ITablatureImporter.cs" />
     <Compile Include="Searching\ISearchService.cs" />
     <Compile Include="Plugins\ITabsterPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Plugins\TabsterPluginException.cs" />
-    <Compile Include="Data\TabsterDocumentCollection.cs" />
     <Compile Include="Types\ITablatureUserDefined.cs" />
     <Compile Include="Types\TablatureSourceType.cs" />
   </ItemGroup>

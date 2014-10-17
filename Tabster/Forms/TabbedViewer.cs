@@ -4,9 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Tabster.Controls;
-using Tabster.Core.Data;
 using Tabster.Core.Types;
-using Tabster.Utilities.Extensions;
+using Tabster.Data;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion
@@ -89,7 +88,7 @@ namespace Tabster.Forms
                 editor.ReadOnly = false;
 
                 editor.ContentsModified += editor_TabModified;
-                
+
                 tabControl1_SelectedIndexChanged(null, null);
             }
         }

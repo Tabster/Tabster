@@ -3,14 +3,13 @@
 using System;
 using System.IO;
 using System.Linq;
-using Tabster.Core.Data.Processing;
-using Tabster.Core.Types;
+using Tabster.Data.Processing;
 
 #endregion
 
-namespace Tabster.Core.Data
+namespace Tabster.Data
 {
-    public class TablaturePlaylistDocument : TabsterDocumentCollection<TablatureDocument>, ITablaturePlaylist, ITabsterDocument
+    public class TablaturePlaylistDocument : TabsterDocumentCollection<TablatureDocument>, ITabsterDocument
     {
         #region Constants
 
@@ -71,20 +70,6 @@ namespace Tabster.Core.Data
             FileInfo.Refresh();
         }
 
-        private void Save(string fileName)
-        {
-            _doc.Version = FILE_VERSION;
-            _doc.WriteNode("name", Name);
-            _doc.WriteNode("files");
-
-            foreach (var tab in this.Where(tab => File.Exists(tab.FileInfo.FullName)))
-            {
-                _doc.WriteNode("file", tab.FileInfo.FullName, "files");
-            }
-
-            _doc.Save(fileName);
-        }
-
         public ITabsterDocument SaveAs(string fileName)
         {
             Save(fileName);
@@ -97,6 +82,20 @@ namespace Tabster.Core.Data
         {
             if (FileVersion != FILE_VERSION)
                 Save();
+        }
+
+        private void Save(string fileName)
+        {
+            _doc.Version = FILE_VERSION;
+            _doc.WriteNode("name", Name);
+            _doc.WriteNode("files");
+
+            foreach (var tab in this.Where(tab => File.Exists(tab.FileInfo.FullName)))
+            {
+                _doc.WriteNode("file", tab.FileInfo.FullName, "files");
+            }
+
+            _doc.Save(fileName);
         }
 
         #endregion

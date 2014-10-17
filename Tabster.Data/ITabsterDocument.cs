@@ -5,7 +5,7 @@ using System.IO;
 
 #endregion
 
-namespace Tabster.Core.Data
+namespace Tabster.Data
 {
     public interface ITabsterDocument
     {

@@ -1,4 +1,4 @@
-﻿namespace Tabster.Core.Data.Processing
+﻿namespace Tabster.Data.Processing
 {
     /// <summary>
     ///   Allows exporting of a tablature document.

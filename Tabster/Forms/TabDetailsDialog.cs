@@ -2,7 +2,7 @@
 
 using System;
 using System.Windows.Forms;
-using Tabster.Core.Data;
+using Tabster.Data;
 
 #endregion
 

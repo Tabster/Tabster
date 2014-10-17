@@ -95,8 +95,6 @@ namespace Tabster.Controls
             set { TextBoxBase.Modified = value; }
         }
 
-
-
         #endregion
 
         #region Events

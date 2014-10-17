@@ -3,9 +3,9 @@
 using System.Collections.Generic;
 using System.IO;
 using HtmlFile.Properties;
-using Tabster.Core.Data;
-using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
+using Tabster.Data;
+using Tabster.Data.Processing;
 
 #endregion
 

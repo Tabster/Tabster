@@ -2,9 +2,9 @@
 
 using System;
 using HtmlAgilityPack;
-using Tabster.Core.Data;
 using Tabster.Core.Types;
-using Tabster.Core.Data.Processing;
+using Tabster.Data;
+using Tabster.Data.Processing;
 
 #endregion
 
@@ -28,7 +28,7 @@ namespace GuitartabsDotCC
             string contents = null;
 
             var pageTitle = doc.DocumentNode.SelectSingleNode("//head/title").InnerText;
-            var titleSplit = pageTitle.Split(new[] { " - " }, StringSplitOptions.None);
+            var titleSplit = pageTitle.Split(new[] {" - "}, StringSplitOptions.None);
 
             if (titleSplit.Length < 2)
             {

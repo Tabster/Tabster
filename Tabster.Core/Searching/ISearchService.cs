@@ -1,7 +1,6 @@
 ﻿#region
 
 using System.Net;
-using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
 
 #endregion
@@ -19,22 +18,17 @@ namespace Tabster.Core.Searching
         string Name { get; }
 
         /// <summary>
-        ///   Associated parser.
-        /// </summary>
-        ITablatureWebpageImporter Parser { get; }
-
-        /// <summary>
         ///   Service flags.
         /// </summary>
         SearchServiceFlags Flags { get; }
 
         /// <summary>
-        /// Proxy settings.
+        ///   Proxy settings.
         /// </summary>
         WebProxy Proxy { get; set; }
 
         /// <summary>
-        /// Determines whether the service supports ratings.
+        ///   Determines whether the service supports ratings.
         /// </summary>
         bool SupportsRatings { get; }
 

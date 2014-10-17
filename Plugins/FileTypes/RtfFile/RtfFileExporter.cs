@@ -2,8 +2,8 @@
 
 using System.Drawing;
 using System.Windows.Forms;
-using Tabster.Core.Data;
-using Tabster.Core.Data.Processing;
+using Tabster.Data;
+using Tabster.Data.Processing;
 
 #endregion
 

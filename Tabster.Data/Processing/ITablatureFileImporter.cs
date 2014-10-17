@@ -4,7 +4,7 @@ using Tabster.Core.Types;
 
 #endregion
 
-namespace Tabster.Core.Data.Processing
+namespace Tabster.Data.Processing
 {
     /// <summary>
     ///   Allows importing of a tablature document from various file formats.

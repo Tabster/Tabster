@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Tabster.Controls;
-using Tabster.Core.Data;
+using Tabster.Data;
 using Tabster.Forms;
 
 #endregion

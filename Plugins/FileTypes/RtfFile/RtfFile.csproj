@@ -49,6 +49,10 @@
       <Project>{B94FA030-4553-4F14-A867-F05849A14DC4}</Project>
       <Name>Tabster.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Tabster.Data\Tabster.Data.csproj">
+      <Project>{6A9EB767-6651-492C-864E-79D71DB2A11F}</Project>
+      <Name>Tabster.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

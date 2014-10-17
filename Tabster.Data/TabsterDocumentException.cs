@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace Tabster.Core.Data
+namespace Tabster.Data
 {
     public class TabsterDocumentException : Exception
     {

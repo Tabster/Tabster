@@ -1,6 +1,6 @@
 #region
 
-using Tabster.Core.Data;
+using System;
 using Tabster.Core.Types;
 
 #endregion
@@ -8,14 +8,15 @@ using Tabster.Core.Types;
 namespace Tabster.Core.Searching
 {
     /// <summary>
-    ///   Tab search result.
+    ///   Tablature search result.
     /// </summary>
     public class SearchResult
     {
-        public SearchResult(SearchQuery query, TablatureDocument tab, TablatureRating? rating)
+        public SearchResult(SearchQuery query, AttributedTablature tab, Uri source, TablatureRating rating = TablatureRating.None)
         {
             Query = query;
             Tab = tab;
+            Source = source;
             Rating = rating;
         }
 
@@ -25,13 +26,18 @@ namespace Tabster.Core.Searching
         public SearchQuery Query { get; private set; }
 
         /// <summary>
-        ///   Tab result.
+        ///   Tablature result.
         /// </summary>
-        public TablatureDocument Tab { get; private set; }
+        public AttributedTablature Tab { get; private set; }
+
+        /// <summary>
+        ///   Tablature Url source.
+        /// </summary>
+        public Uri Source { get; private set; }
 
         /// <summary>
         ///   Search result rating.
         /// </summary>
-        public TablatureRating? Rating { get; private set; }
+        public TablatureRating Rating { get; private set; }
     }
 }

@@ -7,12 +7,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Tabster.Controls;
-using Tabster.Core.Data;
-using Tabster.Core.Data.Processing;
-using Tabster.Core.Types;
-using Tabster.Library;
 using Tabster.Controls.Extensions;
-using Tabster.Utilities.Extensions;
+using Tabster.Core.Types;
+using Tabster.Data;
+using Tabster.Data.Processing;
+using Tabster.Library;
 
 #endregion
 
@@ -30,21 +29,6 @@ namespace Tabster.Forms
 {
     partial class MainForm
     {
-        #region LibraryType enum
-
-        private enum LibraryType
-        {
-            AllTabs,
-            MyDownloads,
-            MyTabs,
-            MyImports,
-            MyFavorites,
-            TabType,
-            Playlist
-        }
-
-        #endregion
-
         private const int PREVIEW_DISPLAY_DELAY_DURATION = 100;
 
         //time (in ms) where a tab is considered having been "viewed" while in preview editor
@@ -133,7 +117,7 @@ namespace Tabster.Forms
 
                         else
                         {
-                            var exporter = _fileExporters[sfd.FilterIndex - 2];  //FilterIndex is not 0-based and native Tabster format uses first index
+                            var exporter = _fileExporters[sfd.FilterIndex - 2]; //FilterIndex is not 0-based and native Tabster format uses first index
                             exporter.Export(SelectedLibraryItem.Document, sfd.FileName);
                         }
                     }
@@ -894,6 +878,21 @@ namespace Tabster.Forms
             }
 
             PreviewDisplayTimer.Stop();
+        }
+
+        #endregion
+
+        #region Nested type: LibraryType
+
+        private enum LibraryType
+        {
+            AllTabs,
+            MyDownloads,
+            MyTabs,
+            MyImports,
+            MyFavorites,
+            TabType,
+            Playlist
         }
 
         #endregion

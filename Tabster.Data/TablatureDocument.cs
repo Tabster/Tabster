@@ -7,7 +7,7 @@ using Tabster.Core.Types;
 
 #endregion
 
-namespace Tabster.Core.Data
+namespace Tabster.Data
 {
     public class TablatureDocument : ITabsterDocument, ITablature, ITablatureAttributes, ITablatureSourceAttribute, ITablatureUserDefined, ITablatureRatedAttribute
     {
@@ -43,13 +43,21 @@ namespace Tabster.Core.Data
 
         #region Implementation of ITablature
 
+        #region ITablature Members
+
+        public string Contents { get; set; }
+
+        #endregion
+
+        #region ITablatureAttributes Members
+
         public string Artist { get; set; }
 
         public string Title { get; set; }
 
-        public string Contents { get; set; }
-
         public TablatureType Type { get; set; }
+
+        #endregion
 
         #endregion
 
@@ -135,6 +143,29 @@ namespace Tabster.Core.Data
             FileInfo.Refresh();
         }
 
+        public ITabsterDocument SaveAs(string fileName)
+        {
+            Save(fileName);
+            var doc = new TablatureDocument();
+            doc.Load(fileName);
+            return doc;
+        }
+
+        public void Update()
+        {
+            //fix carriage returns without newlines and strip html
+            if (FileVersion < new Version("1.4"))
+            {
+                var newlineRegex = new Regex("(?<!\r)\n", RegexOptions.Compiled);
+
+                Contents = newlineRegex.Replace(Contents, Environment.NewLine);
+                Contents = StripHTML(Contents);
+            }
+
+            if (FileVersion != FILE_VERSION)
+                Save();
+        }
+
         private void Save(string fileName)
         {
             _doc.Version = FILE_VERSION;
@@ -167,29 +198,6 @@ namespace Tabster.Core.Data
             _doc.WriteNode("comment", Comment);
 
             _doc.Save(fileName);
-        }
-
-        public ITabsterDocument SaveAs(string fileName)
-        {
-            Save(fileName);
-            var doc = new TablatureDocument();
-            doc.Load(fileName);
-            return doc;
-        }
-
-        public void Update()
-        {
-            //fix carriage returns without newlines and strip html
-            if (FileVersion < new Version("1.4"))
-            {
-                var newlineRegex = new Regex("(?<!\r)\n", RegexOptions.Compiled);
-
-                Contents = newlineRegex.Replace(Contents, Environment.NewLine);
-                Contents = StripHTML(Contents);
-            }
-
-            if (FileVersion != FILE_VERSION)
-                Save();
         }
 
         #endregion

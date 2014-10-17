@@ -12,16 +12,16 @@ namespace Tabster.Core.Utilities
     {
         private readonly List<T> _items = new List<T>();
 
-        internal CustomTypeCollection()
+        public CustomTypeCollection()
         {
         }
 
-        internal CustomTypeCollection(IEnumerable<T> items)
+        public CustomTypeCollection(IEnumerable<T> items)
         {
             _items = new List<T>(items);
         }
 
-        internal CustomTypeCollection(T item)
+        public CustomTypeCollection(T item)
             : this(new[] {item})
         {
         }

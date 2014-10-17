@@ -6,10 +6,9 @@ using System.Net;
 using System.Text;
 using System.Web;
 using HtmlAgilityPack;
-using Tabster.Core.Data;
-using Tabster.Core.Data.Processing;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
+using Tabster.Data.Processing;
 
 #endregion
 
@@ -19,14 +18,14 @@ namespace UltimateGuitar
     {
         #region Implementation of ISearchService
 
-        public string Name
-        {
-            get { return "Ultimate Guitar"; }
-        }
-
         public ITablatureWebpageImporter Parser
         {
             get { return new UltimateGuitarParser(); }
+        }
+
+        public string Name
+        {
+            get { return "Ultimate Guitar"; }
         }
 
         public SearchServiceFlags Flags
@@ -81,7 +80,7 @@ namespace UltimateGuitar
 
             string data;
 
-            var client = new WebClient { Proxy = Proxy };
+            var client = new WebClient {Proxy = Proxy};
             {
                 data = client.DownloadString(url);
             }
@@ -136,7 +135,8 @@ namespace UltimateGuitar
                                 var rowURL = columns[colIndexSong].ChildNodes["a"].Attributes["href"].Value;
                                 var rowSong = HttpUtility.HtmlDecode(columns[colIndexSong].ChildNodes["a"].InnerText);
 
-                                TablatureRating? rating = null;
+                                var rating = TablatureRating.None;
+
                                 var ratingColumn = columns[colIndexRating];
 
                                 if (ratingColumn.InnerText.Contains("["))
@@ -155,8 +155,8 @@ namespace UltimateGuitar
 
                                 if (!query.Type.HasValue || rowType == query.Type)
                                 {
-                                    var tab = new TablatureDocument(loopArtist, rowSong, rowType.Value, null) {Source = new Uri(rowURL)};
-                                    results.Add(new SearchResult(query, tab, rating));
+                                    var tab = new AttributedTablature(loopArtist, rowSong, rowType.Value);
+                                    results.Add(new SearchResult(query, tab, new Uri(rowURL), rating));
                                 }
                             }
                         }
@@ -188,7 +188,7 @@ namespace UltimateGuitar
 
         #region Static Methods
 
-        private static TablatureRating? GetRating(int value)
+        private static TablatureRating GetRating(int value)
         {
             switch (value)
             {
@@ -204,7 +204,7 @@ namespace UltimateGuitar
                     return TablatureRating.Stars5;
             }
 
-            return null;
+            return TablatureRating.None;
         }
 
         private static TablatureType? GetTabType(string str)

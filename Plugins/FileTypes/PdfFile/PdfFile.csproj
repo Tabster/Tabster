@@ -48,6 +48,10 @@
       <Project>{B94FA030-4553-4F14-A867-F05849A14DC4}</Project>
       <Name>Tabster.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Tabster.Data\Tabster.Data.csproj">
+      <Project>{6A9EB767-6651-492C-864E-79D71DB2A11F}</Project>
+      <Name>Tabster.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Tabster.Utils\Tabster.Utils.csproj">
       <Project>{E7386580-9E85-4C6E-A849-A745F40F21D1}</Project>
       <Name>Tabster.Utils</Name>

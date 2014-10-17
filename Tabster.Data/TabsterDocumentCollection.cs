@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace Tabster.Core.Data
+namespace Tabster.Data
 {
     public class TabsterDocumentCollection<T> : ICollection<T> where T : class, ITabsterDocument
     {

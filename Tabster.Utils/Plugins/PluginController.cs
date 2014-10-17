@@ -17,12 +17,12 @@ namespace Tabster.Utilities.Plugins
         private readonly List<Guid> _disabledPlugins = new List<Guid>();
         private readonly List<TabsterPlugin> _plugins = new List<TabsterPlugin>();
 
-        public string WorkingDirectory { get; private set; }
-
         public PluginController(string pluginsDirectory)
         {
             WorkingDirectory = pluginsDirectory;
         }
+
+        public string WorkingDirectory { get; private set; }
 
         public void LoadPlugins()
         {

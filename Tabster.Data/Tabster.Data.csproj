@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4E8EAB0B-3689-45C7-959F-9F4E5DFA0BF0}</ProjectGuid>
+    <ProjectGuid>{6A9EB767-6651-492C-864E-79D71DB2A11F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GuitartabsDotCC</RootNamespace>
-    <AssemblyName>GuitartabsDotCC</AssemblyName>
+    <RootNamespace>Tabster.Data</RootNamespace>
+    <AssemblyName>Tabster.Data</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,32 +31,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\HtmlAgilityPack.1.4.9\lib\Net20\HtmlAgilityPack.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Web" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GuitartabsDotCCPlugin.cs" />
-    <Compile Include="GuitartabsDotCCParser.cs" />
-    <Compile Include="GuitartabsDotCCSearch.cs" />
+    <Compile Include="FileExtensionCollection.cs" />
+    <Compile Include="FileType.cs" />
+    <Compile Include="ITabsterDocument.cs" />
+    <Compile Include="Processing\ITablatureFileExporter.cs" />
+    <Compile Include="Processing\ITablatureFileImporter.cs" />
+    <Compile Include="Processing\ITablatureImporter.cs" />
+    <Compile Include="Processing\ITablatureTextImporter.cs" />
+    <Compile Include="Processing\ITablatureWebpageImporter.cs" />
+    <Compile Include="Processing\TablatureProcessorException.cs" />
+    <Compile Include="Processing\TabsterDocumentProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TablatureDocument.cs" />
+    <Compile Include="TablaturePlaylistDocument.cs" />
+    <Compile Include="TabsterDocumentCollection.cs" />
+    <Compile Include="TabsterDocumentException.cs" />
+    <Compile Include="TabsterXmlDocument.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Tabster.Core\Tabster.Core.csproj">
+    <ProjectReference Include="..\Tabster.Core\Tabster.Core.csproj">
       <Project>{B94FA030-4553-4F14-A867-F05849A14DC4}</Project>
       <Name>Tabster.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Tabster.Data\Tabster.Data.csproj">
-      <Project>{6A9EB767-6651-492C-864E-79D71DB2A11F}</Project>
-      <Name>Tabster.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

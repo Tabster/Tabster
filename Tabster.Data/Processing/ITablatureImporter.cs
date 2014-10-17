@@ -1,4 +1,4 @@
-﻿namespace Tabster.Core.Data.Processing
+﻿namespace Tabster.Data.Processing
 {
     public interface ITablatureImporter
     {

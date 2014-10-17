@@ -5,7 +5,7 @@ using Tabster.Core.Utilities;
 
 #endregion
 
-namespace Tabster.Core.Data
+namespace Tabster.Data
 {
     public sealed class FileExtensionCollection : CustomTypeCollection<string>
     {

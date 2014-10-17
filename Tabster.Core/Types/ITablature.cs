@@ -1,6 +1,6 @@
 ﻿namespace Tabster.Core.Types
 {
-    public interface ITablature : ITablatureAttributes
+    public interface ITablature
     {
         string Contents { get; set; }
     }

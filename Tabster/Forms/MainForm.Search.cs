@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Tabster.Core.Data;
-using Tabster.Core.Data.Processing;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
+using Tabster.Data;
+using Tabster.Data.Processing;
 using Tabster.LocalUtilities;
 using Tabster.Utilities.Net;
 
@@ -29,7 +29,7 @@ namespace Tabster.Forms
         private SearchResult SelectedSearchResult()
         {
             var selectedURL = searchDisplay.SelectedRows.Count > 0 ? new Uri(searchDisplay.SelectedRows[0].Tag.ToString()) : null;
-            return selectedURL != null ? _searchResults.Find(x => x.Tab.Source.Equals(selectedURL)) : null;
+            return selectedURL != null ? _searchResults.Find(x => x.Source.Equals(selectedURL)) : null;
         }
 
         private void onlinesearchbtn_Click(object sender, EventArgs e)
@@ -162,23 +162,20 @@ namespace Tabster.Forms
         private void DisplaySearchResult(SearchResult result)
         {
             //missing source url
-            if (result.Tab.Source == null)
+            if (result.Source == null)
                 return;
 
             //subpar rating
-            if (_activeSearchRating.HasValue && (!result.Rating.HasValue || result.Rating.Value <= _activeSearchRating.Value))
+            if (_activeSearchRating.HasValue && (result.Rating <= _activeSearchRating.Value))
                 return;
 
             //tab type mismatch
             if (_activeSearchType.HasValue && result.Tab.Type != _activeSearchType.Value)
                 return;
 
-            var newRow = new DataGridViewRow {Tag = result.Tab.Source.ToString()};
+            var newRow = new DataGridViewRow {Tag = result.Source.ToString()};
 
-            var ratingString = "";
-
-            if (result.Rating.HasValue)
-                ratingString = new string('\u2605', (int) result.Rating - 1).PadRight(5, '\u2606');
+            var ratingString = new string('\u2605', (int) result.Rating - 1).PadRight(5, '\u2606');
 
             newRow.CreateCells(searchDisplay, result.Tab.Artist, result.Tab.Title, result.Tab.Type.ToFriendlyString(), ratingString, result.Query.Service.Name);
             searchDisplay.Rows.Add(newRow);
@@ -200,7 +197,7 @@ namespace Tabster.Forms
             LoadSelectedPreview();
 
             var selectedResult = SelectedSearchResult();
-            saveTabToolStripMenuItem1.Enabled = selectedResult != null && _searchResultsCache.ContainsKey(selectedResult.Tab.Source);
+            saveTabToolStripMenuItem1.Enabled = selectedResult != null && _searchResultsCache.ContainsKey(selectedResult.Source);
         }
 
         private void SaveSelectedTab(object sender, EventArgs e)
@@ -213,7 +210,7 @@ namespace Tabster.Forms
                 {
                     if (nt.ShowDialog() == DialogResult.OK)
                     {
-                        var cachedTab = _searchResultsCache[selectedResult.Tab.Source];
+                        var cachedTab = _searchResultsCache[selectedResult.Source];
 
                         var libraryItem = Program.tablatureLibrary.Add(cachedTab);
                         Program.tablatureLibrary.Save();
@@ -229,7 +226,7 @@ namespace Tabster.Forms
 
             if (result != null)
             {
-                Clipboard.SetDataObject(result.Tab.Source.ToString());
+                Clipboard.SetDataObject(result.Source.ToString());
             }
         }
 
@@ -245,7 +242,7 @@ namespace Tabster.Forms
                 searchPreviewEditor.Text = "Loading Preview...";
 
                 if (!SearchPreviewBackgroundWorker.IsBusy)
-                    SearchPreviewBackgroundWorker.RunWorkerAsync(selectedResult.Tab.Source);
+                    SearchPreviewBackgroundWorker.RunWorkerAsync(selectedResult.Source);
             }
         }
 
@@ -263,11 +260,11 @@ namespace Tabster.Forms
 
             e.Result = url;
 
-            var result = _searchResults.Find(x => x.Tab.Source == url);
+            var result = _searchResults.Find(x => x.Source == url);
 
             if (!_searchResultsCache.ContainsKey(url))
             {
-                var parser = result.Query.Service.Parser ?? _webImporters.Find(x => x.MatchesUrlPattern(result.Tab.Source));
+                var parser = _webImporters.Find(x => x.MatchesUrlPattern(result.Source));
 
                 if (parser == null)
                 {
@@ -278,7 +275,7 @@ namespace Tabster.Forms
 
                 using (var client = new TabsterWebClient(Program.CustomProxyController.GetProxy()))
                 {
-                    urlSource = client.DownloadString(result.Tab.Source);
+                    urlSource = client.DownloadString(result.Source);
                 }
 
                 TablatureDocument tab;
@@ -295,10 +292,10 @@ namespace Tabster.Forms
 
                 if (tab != null)
                 {
-                    tab.Source = result.Tab.Source;
+                    tab.Source = result.Source;
                     tab.SourceType = TablatureSourceType.Download;
                     tab.Method = Common.GetTablatureDocumentMethodString(parser);
-                    _searchResultsCache[result.Tab.Source] = tab;
+                    _searchResultsCache[result.Source] = tab;
                 }
             }
         }
@@ -328,7 +325,7 @@ namespace Tabster.Forms
                     //enable save tab option
                     var selectedResult = SelectedSearchResult();
 
-                    if (selectedResult != null && selectedResult.Tab.Source == url)
+                    if (selectedResult != null && selectedResult.Source == url)
                     {
                         saveTabToolStripMenuItem1.Enabled = true;
                     }

@@ -1,9 +1,9 @@
 #region
 
 using System.Windows.Forms;
-using Tabster.Core.Data;
-using Tabster.Core.Data.Processing;
 using Tabster.Core.Types;
+using Tabster.Data;
+using Tabster.Data.Processing;
 
 #endregion
 

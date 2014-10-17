@@ -55,7 +55,8 @@
              Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ProxyConfig" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.String" Scope="User">
+    <Setting Name="ProxyConfig" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.String"
+             Scope="User">
       <Value Profile="(Default)">None</Value>
     </Setting>
   </Settings>
