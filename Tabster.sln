@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfFile", "Plugins\FileType
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RtfFile", "Plugins\FileTypes\RtfFile\RtfFile.csproj", "{87508BC8-489B-4579-9FFF-E8FD18BFA177}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabster.Data", "Tabster.Data\Tabster.Data.csproj", "{6A9EB767-6651-492C-864E-79D71DB2A11F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +151,16 @@ Global
 		{87508BC8-489B-4579-9FFF-E8FD18BFA177}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{87508BC8-489B-4579-9FFF-E8FD18BFA177}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{87508BC8-489B-4579-9FFF-E8FD18BFA177}.Release|x86.ActiveCfg = Release|Any CPU
+		{6A9EB767-6651-492C-864E-79D71DB2A11F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A9EB767-6651-492C-864E-79D71DB2A11F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A9EB767-6651-492C-864E-79D71DB2A11F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6A9EB767-6651-492C-864E-79D71DB2A11F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6A9EB767-6651-492C-864E-79D71DB2A11F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6A9EB767-6651-492C-864E-79D71DB2A11F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A9EB767-6651-492C-864E-79D71DB2A11F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A9EB767-6651-492C-864E-79D71DB2A11F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6A9EB767-6651-492C-864E-79D71DB2A11F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6A9EB767-6651-492C-864E-79D71DB2A11F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
