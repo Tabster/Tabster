@@ -21,10 +21,7 @@ namespace Tabster.Core.Data
 
         public IEnumerator<T> GetEnumerator()
         {
-            foreach (var doc in _documents)
-            {
-                yield return doc;
-            }
+            return ((IEnumerable<T>) _documents).GetEnumerator();
         }
 
         #endregion
