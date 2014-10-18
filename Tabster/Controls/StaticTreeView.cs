@@ -25,9 +25,6 @@ namespace Tabster.Controls
             get { return Nodes.Count > 0 ? Nodes[0] : null; }
         }
 
-        [DllImport("user32.dll")]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
-
         public void SelectPreviousNode(bool defaultToFirstNode = false)
         {
             TreeNode previousNode = null;
@@ -127,11 +124,6 @@ namespace Tabster.Controls
             base.OnBeforeSelect(e);
         }
 
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            SendMessage(Handle, TVM_SETEXTENDEDSTYLE, (IntPtr) TVS_EX_DOUBLEBUFFER, (IntPtr) TVS_EX_DOUBLEBUFFER);
-            base.OnHandleCreated(e);
-        }
 
         #endregion
     }
