@@ -1,9 +1,3 @@
-#region
-
-
-
-#endregion
-
 namespace Tabster.Controls
 {
     public interface ITablatureTextEditor
