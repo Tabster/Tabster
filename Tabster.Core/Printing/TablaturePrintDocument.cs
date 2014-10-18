@@ -13,7 +13,7 @@ namespace Tabster.Core.Printing
     public class TablaturePrintDocument : PrintDocument
     {
         private readonly Font _font;
-        private readonly ITablature _tab;
+        private readonly AttributedTablature _tablature;
 
         private int _pageCount;
         private bool _performingPageCount;
@@ -26,14 +26,14 @@ namespace Tabster.Core.Printing
 
         #region Constructors
 
-        public TablaturePrintDocument(ITablature tab, Font font)
+        public TablaturePrintDocument(AttributedTablature tablature, Font font)
         {
-            if (tab == null)
-                throw new ArgumentNullException("tab");
+            if (tablature == null)
+                throw new ArgumentNullException("tablature");
             if (font == null)
                 throw new ArgumentNullException("font");
 
-            _tab = tab;
+            _tablature = tablature;
             _font = font;
             _settings = new TablaturePrintDocumentSettings {DisplayTitle = true, DisplayPageNumbers = true, DisplayPrintTime = true};
         }
@@ -103,8 +103,7 @@ namespace Tabster.Core.Printing
             _pageCount = 0;
             _realPageBounds = Rectangle.Empty;
 
-            //todo detect tab structure and split pages accordingly
-            _printContents = string.Copy(_tab.Contents);
+            _printContents = string.Copy(_tablature.Contents);
 
             if (!_performingPageCount)
             {
@@ -138,7 +137,7 @@ namespace Tabster.Core.Printing
 
         private void OnDrawTitle(PrintPageEventArgs e)
         {
-            var title = string.Format("{0} - {1} ({2})", _tab.Artist, _tab.Title, _tab.Type.ToFriendlyString());
+            var title = string.Format("{0} - {1} ({2})", _tablature.Artist, _tablature.Title, _tablature.Type.ToFriendlyString());
 
             e.Graphics.DrawString(title, _font, _settings.PrintColor, _realPageBounds, new StringFormat
                                                                                            {
