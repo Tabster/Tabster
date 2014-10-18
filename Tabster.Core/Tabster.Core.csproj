@@ -53,7 +53,6 @@
     <Compile Include="Types\ITablatureSourceAttribute.cs" />
     <Compile Include="Types\TablatureRating.cs" />
     <Compile Include="Types\TablatureType.cs" />
-    <Compile Include="Utilities\CustomTypeCollection.cs" />
     <Compile Include="Types\ITablature.cs" />
     <Compile Include="Searching\ISearchService.cs" />
     <Compile Include="Plugins\ITabsterPlugin.cs" />

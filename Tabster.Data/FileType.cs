@@ -10,7 +10,7 @@ namespace Tabster.Data
     {
         public readonly FileExtensionCollection Extensions;
 
-        public FileType(string name, IEnumerable<string> extensions)
+        public FileType(string name, IList<string> extensions)
         {
             Name = name;
             Extensions = new FileExtensionCollection(extensions);

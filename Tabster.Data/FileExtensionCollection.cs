@@ -1,15 +1,15 @@
 #region
 
 using System.Collections.Generic;
-using Tabster.Core.Utilities;
+using System.Collections.ObjectModel;
 
 #endregion
 
 namespace Tabster.Data
 {
-    public sealed class FileExtensionCollection : CustomTypeCollection<string>
+    public sealed class FileExtensionCollection : Collection<string>
     {
-        public FileExtensionCollection(IEnumerable<string> extensions) : base(extensions)
+        public FileExtensionCollection(IList<string> extensions) : base(extensions)
         {
         }
 
