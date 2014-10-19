@@ -61,16 +61,18 @@ Section "MainSection" SEC01
   
   ; native filetype plugins
   SetOutPath "${PLUGIN_FILETYPES_DIRECTORY}"  
-  File "${SOLUTION_DIRECTORY}\Plugins\FileTypes\TextFile\bin\Release\TextFile.dll"
-  File "${SOLUTION_DIRECTORY}\Plugins\FileTypes\HtmlFile\bin\Release\HtmlFile.dll"
-  File "${SOLUTION_DIRECTORY}\Plugins\FileTypes\PdfFile\bin\Release\PdfFile.dll"
-  File "${SOLUTION_DIRECTORY}\Plugins\FileTypes\PdfFile\bin\Release\itextsharp.dll" ;PdfFile dependency
-  File "${SOLUTION_DIRECTORY}\Plugins\FileTypes\RtfFile\bin\Release\RtfFile.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\TextFile.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\HtmlFile.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\PdfFile.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\itextsharp.dll" ;PdfFile dependency
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\RtfFile.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\WordDoc.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\DocX.dll" ;WordDoc dependency
   
   ; native search plugins
   SetOutPath "${PLUGIN_SEARCHSERVICES_DIRECTORY}"  
-  File "${SOLUTION_DIRECTORY}\Plugins\SearchServices\UltimateGuitar\bin\Release\UltimateGuitar.dll"
-  File "${SOLUTION_DIRECTORY}\Plugins\SearchServices\GuitartabsDotCC\bin\Release\GuitartabsDotCC.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\UltimateGuitar.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\GuitartabsDotCC.dll"
   
   ; file association
   ${registerExtension} "$INSTDIR\Tabster.exe" ".tabster" "Tabster File"
