@@ -28,7 +28,7 @@ namespace WordDoc
 
         public string DisplayName
         {
-            get { return "Textfile support"; }
+            get { return "Word Document support"; }
         }
 
         public Version Version
