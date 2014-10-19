@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using Tabster.Data;
 
@@ -12,13 +13,15 @@ namespace Tabster.Forms
     {
         private readonly TablatureDocument _tabDocument;
 
-        public TabDetailsDialog(TablatureDocument tab)
+        public TabDetailsDialog(TablatureDocument tab, bool showLibraryInformation = true)
         {
             InitializeComponent();
             _tabDocument = tab;
 
             LoadTablatureData();
-            LoadLibraryInformation();
+
+            if (showLibraryInformation)
+                LoadLibraryInformation();
         }
 
         private void LoadTablatureData()
@@ -46,13 +49,7 @@ namespace Tabster.Forms
                 lblViewCount.Text = string.Format("Views: {0}", libraryItem.Views);
                 lblLastViewed.Text = string.Format("Last Viewed: {0}", libraryItem.LastViewed.HasValue ? libraryItem.LastViewed.Value.ToString() : "Never");
 
-                var playlistCount = 0;
-
-                foreach (var playlist in Program.tablatureLibrary.Playlists)
-                {
-                    if (playlist.Contains(_tabDocument.FileInfo.FullName))
-                        playlistCount++;
-                }
+                var playlistCount = Program.tablatureLibrary.Playlists.Count(playlist => playlist.Contains(_tabDocument.FileInfo.FullName));
 
                 lblPlaylistCount.Text = string.Format("Founds in {0} playlist{1}.", playlistCount, playlistCount == 1 ? "" : "s");
             }
