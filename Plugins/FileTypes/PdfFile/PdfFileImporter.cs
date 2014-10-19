@@ -44,8 +44,6 @@ namespace PdfFile
                 pdfReader.Close();
             }
 
-            File.WriteAllText("C:\\test.txt", contentsBuilder.ToString());
-
             var doc = new TablatureDocument {Contents = contentsBuilder.ToString()};
             return doc;
         }
