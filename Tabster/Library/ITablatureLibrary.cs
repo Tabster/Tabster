@@ -8,7 +8,7 @@ using Tabster.Data;
 
 namespace Tabster.Library
 {
-    public interface ITablatureLibrary : IEnumerable<LibraryItem>
+    internal interface ITablatureLibrary : IEnumerable<LibraryItem>
     {
         int TotalItems { get; }
 

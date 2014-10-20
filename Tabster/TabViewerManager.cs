@@ -12,7 +12,7 @@ using Tabster.Forms;
 
 namespace Tabster
 {
-    public class TabViewerManager
+    internal class TabViewerManager
     {
         #region Delegates
 

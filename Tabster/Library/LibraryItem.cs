@@ -9,7 +9,7 @@ using Tabster.Data;
 
 namespace Tabster.Library
 {
-    public class LibraryItem : ILibraryItem
+    internal class LibraryItem : ILibraryItem
     {
         private TablatureDocument _document;
 

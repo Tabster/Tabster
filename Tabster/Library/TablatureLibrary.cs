@@ -17,7 +17,7 @@ using SearchOption = System.IO.SearchOption;
 
 namespace Tabster.Library
 {
-    public class TablatureLibrary : ITablatureLibrary
+    internal class TablatureLibrary : ITablatureLibrary
     {
         private static readonly Version INDEX_VERSION = new Version("1.0");
 

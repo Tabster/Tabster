@@ -1,14 +1,13 @@
 ﻿#region
 
 using System;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 #endregion
 
 namespace Tabster.Controls
 {
-    public class StaticTreeView : TreeView
+    internal class StaticTreeView : TreeView
     {
         private const int TVM_SETEXTENDEDSTYLE = 0x1100 + 44;
         private const int TVS_EX_DOUBLEBUFFER = 0x0004;
@@ -123,7 +122,6 @@ namespace Tabster.Controls
 
             base.OnBeforeSelect(e);
         }
-
 
         #endregion
     }

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Tabster.Controls
 {
-    public class DataGridViewExtended : DataGridView
+    internal class DataGridViewExtended : DataGridView
     {
         protected override void InitLayout()
         {

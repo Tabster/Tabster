@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Tabster.Controls
 {
-    public class ToolStripRenderer : ToolStripSystemRenderer
+    internal class ToolStripRenderer : ToolStripSystemRenderer
     {
         protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
         {

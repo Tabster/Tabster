@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace Tabster.LocalUtilities
 {
-    public class PortableSettingsProvider : SettingsProvider
+    internal class PortableSettingsProvider : SettingsProvider
     {
         private const string APPLICATION_NAME = "Tabster";
         private const string CONFIG_NAME = APPLICATION_NAME + ".config";

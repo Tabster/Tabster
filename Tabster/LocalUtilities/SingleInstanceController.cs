@@ -15,7 +15,7 @@ using Tabster.Properties;
 
 namespace Tabster.LocalUtilities
 {
-    public class SingleInstanceController : WindowsFormsApplicationBase
+    internal class SingleInstanceController : WindowsFormsApplicationBase
     {
 #if DEBUG
         private const int MIN_SPLASH_TIME = 1000;
