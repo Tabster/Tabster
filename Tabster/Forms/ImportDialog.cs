@@ -16,7 +16,8 @@ namespace Tabster.Forms
 {
     public partial class ImportDialog : Form
     {
-        private readonly List<ITablatureFileImporter> _importers = new List<ITablatureFileImporter> {new TabsterFileProcessor()};
+        private readonly TabsterDocumentProcessor<TablatureDocument> _documentProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
+        private readonly List<ITablatureFileImporter> _importers = new List<ITablatureFileImporter>();
 
         public ImportDialog()
         {
@@ -33,6 +34,7 @@ namespace Tabster.Forms
 
         private void ImportDialog_Load(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = string.Format("Tabster Files (*{0})|*{0}", TablatureDocument.FILE_EXTENSION);
             openFileDialog1.SetTabsterFilter(_importers);
 
             txtartist.Select(txtartist.Text.Length, 0);
@@ -57,28 +59,49 @@ namespace Tabster.Forms
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                var importer = _importers[openFileDialog1.FilterIndex - 1];
-
-                try
+                //tabster file
+                if (openFileDialog1.FilterIndex == 1)
                 {
-                    txtimportfile.Text = openFileDialog1.FileName;
+                    var doc = _documentProcessor.Load(openFileDialog1.FileName);
 
-                    var doc = importer.Import(openFileDialog1.FileName);
-
-                    if (!string.IsNullOrEmpty(doc.Artist))
+                    if (doc != null)
+                    {
                         txtartist.Text = doc.Artist;
-
-                    if (!string.IsNullOrEmpty(doc.Title))
                         txttitle.Text = doc.Title;
+                        typeList.SelectedType = doc.Type;
+                    }
 
-                    typeList.SelectedType = doc.Type;
-
-                    ValidateData();
+                    else
+                    {
+                        MessageBox.Show("Error occured processing the document.", "Document Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
 
-                catch
+                else //custom importer
                 {
-                    MessageBox.Show("Error occured while importing.", "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var importer = _importers[openFileDialog1.FilterIndex - 1];
+
+                    try
+                    {
+                        txtimportfile.Text = openFileDialog1.FileName;
+
+                        var doc = importer.Import(openFileDialog1.FileName);
+
+                        if (!string.IsNullOrEmpty(doc.Artist))
+                            txtartist.Text = doc.Artist;
+
+                        if (!string.IsNullOrEmpty(doc.Title))
+                            txttitle.Text = doc.Title;
+
+                        typeList.SelectedType = doc.Type;
+
+                        ValidateData();
+                    }
+
+                    catch
+                    {
+                        MessageBox.Show("Error occured while importing.", "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -87,44 +110,5 @@ namespace Tabster.Forms
         {
             okbtn.Enabled = txtartist.Text.Trim().Length > 0 && txttitle.Text.Trim().Length > 0 && txtimportfile.Text.Trim().Length > 0;
         }
-    }
-
-    internal class TabsterFileProcessor : ITablatureFileImporter
-    {
-        private readonly TabsterDocumentProcessor<TablatureDocument> _processor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
-
-        public TabsterFileProcessor()
-        {
-            FileType = new FileType("Tabster File", TablatureDocument.FILE_EXTENSION);
-        }
-
-        #region Implementation of ITablatureDocumentImporter
-
-        public TablatureDocument Import(string fileName)
-        {
-            return _processor.Load(fileName);
-        }
-
-        public TablatureDocument Import(string fileName, string artist, string title, TablatureType type)
-        {
-            var doc = Import(fileName);
-
-            if (doc != null)
-            {
-                doc.Artist = artist;
-                doc.Title = title;
-                doc.Type = type;
-            }
-
-            return doc;
-        }
-
-        #endregion
-
-        #region ITablatureFileImporter Members
-
-        public FileType FileType { get; private set; }
-
-        #endregion
     }
 }
