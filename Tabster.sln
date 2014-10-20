@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabster.Data", "Tabster.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordDoc", "Plugins\FileTypes\WordDoc\WordDoc.csproj", "{5A1DD6FB-5B7D-4E1F-880B-F8BDEFDA5250}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PngFile", "Plugins\FileTypes\PngFile\PngFile.csproj", "{7DD18033-5A5C-4226-8A3E-CDC6A9E15DF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -173,6 +175,16 @@ Global
 		{5A1DD6FB-5B7D-4E1F-880B-F8BDEFDA5250}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5A1DD6FB-5B7D-4E1F-880B-F8BDEFDA5250}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5A1DD6FB-5B7D-4E1F-880B-F8BDEFDA5250}.Release|x86.ActiveCfg = Release|Any CPU
+		{7DD18033-5A5C-4226-8A3E-CDC6A9E15DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD18033-5A5C-4226-8A3E-CDC6A9E15DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD18033-5A5C-4226-8A3E-CDC6A9E15DF1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7DD18033-5A5C-4226-8A3E-CDC6A9E15DF1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7DD18033-5A5C-4226-8A3E-CDC6A9E15DF1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7DD18033-5A5C-4226-8A3E-CDC6A9E15DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD18033-5A5C-4226-8A3E-CDC6A9E15DF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DD18033-5A5C-4226-8A3E-CDC6A9E15DF1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7DD18033-5A5C-4226-8A3E-CDC6A9E15DF1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7DD18033-5A5C-4226-8A3E-CDC6A9E15DF1}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -187,5 +199,6 @@ Global
 		{973D98DA-6752-4067-8471-141357C451EC} = {8EDEB572-C6AA-49CD-9C25-011EA031A5BE}
 		{87508BC8-489B-4579-9FFF-E8FD18BFA177} = {8EDEB572-C6AA-49CD-9C25-011EA031A5BE}
 		{5A1DD6FB-5B7D-4E1F-880B-F8BDEFDA5250} = {8EDEB572-C6AA-49CD-9C25-011EA031A5BE}
+		{7DD18033-5A5C-4226-8A3E-CDC6A9E15DF1} = {8EDEB572-C6AA-49CD-9C25-011EA031A5BE}
 	EndGlobalSection
 EndGlobal
