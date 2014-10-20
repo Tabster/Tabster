@@ -7,9 +7,9 @@ Dependencies
 ------------
 
 * [.NET 3.5](http://www.microsoft.com/net)
-* [NuGet] (https://www.nuget.org/)
-* [HTMLAgilityPack] Used by native search/HTML plugins.
-* [ITextSharp] Used for PDF plugin.
+* [NuGet](https://www.nuget.org/)
+* [HTMLAgilityPack]Used by native search/HTML plugins.
+* [ITextSharp]Used for PDF plugin.
 
 Building
 ---------------
