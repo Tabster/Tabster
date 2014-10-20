@@ -1,6 +1,7 @@
 ﻿#region
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 #endregion
 
@@ -8,12 +9,12 @@ namespace Tabster.Data
 {
     public sealed class FileType
     {
-        public readonly FileExtensionCollection Extensions;
+        public readonly Collection<string> Extensions;
 
         public FileType(string name, IList<string> extensions)
         {
             Name = name;
-            Extensions = new FileExtensionCollection(extensions);
+            Extensions = new Collection<string>(extensions);
         }
 
         public FileType(string name, string extension)

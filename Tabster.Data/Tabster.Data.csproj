@@ -36,7 +36,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileExtensionCollection.cs" />
     <Compile Include="FileType.cs" />
     <Compile Include="ITabsterDocument.cs" />
     <Compile Include="Processing\ITablatureFileExporter.cs" />
