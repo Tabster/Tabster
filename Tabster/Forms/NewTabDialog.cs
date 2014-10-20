@@ -10,7 +10,7 @@ using Tabster.LocalUtilities;
 
 namespace Tabster.Forms
 {
-    public partial class NewTabDialog : Form
+    internal partial class NewTabDialog : Form
     {
         public NewTabDialog()
         {

@@ -17,7 +17,7 @@ using Tabster.Library;
 
 namespace Tabster
 {
-    public enum PreviewPanelOrientation
+    internal enum PreviewPanelOrientation
     {
         Hidden,
         Horizontal,

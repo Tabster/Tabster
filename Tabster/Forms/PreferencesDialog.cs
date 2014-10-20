@@ -12,7 +12,7 @@ using Tabster.Utilities.Net;
 
 namespace Tabster.Forms
 {
-    public partial class PreferencesDialog : Form
+    internal partial class PreferencesDialog : Form
     {
         public PreferencesDialog()
         {

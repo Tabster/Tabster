@@ -12,7 +12,7 @@ using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 namespace Tabster.Forms
 {
-    public partial class TabbedViewer : Form
+    internal partial class TabbedViewer : Form
     {
         private readonly List<TabInstance> _tabInstances = new List<TabInstance>();
         private bool _isFullscreen;

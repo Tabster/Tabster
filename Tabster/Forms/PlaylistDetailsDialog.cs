@@ -8,7 +8,7 @@ using Tabster.Data;
 
 namespace Tabster.Forms
 {
-    public partial class PlaylistDetailsDialog : Form
+    internal partial class PlaylistDetailsDialog : Form
     {
         private readonly TablaturePlaylistDocument _playlistFile;
         private string _originalName;

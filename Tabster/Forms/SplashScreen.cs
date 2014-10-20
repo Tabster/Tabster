@@ -12,7 +12,7 @@ using Tabster.Utilities.Reflection;
 
 namespace Tabster.Forms
 {
-    public partial class SplashScreen : Form
+    internal partial class SplashScreen : Form
     {
         public SplashScreen()
         {

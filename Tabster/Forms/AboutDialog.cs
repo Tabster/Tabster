@@ -12,7 +12,7 @@ using Tabster.Utilities.Reflection;
 
 namespace Tabster.Forms
 {
-    public partial class AboutDialog : Form
+    internal partial class AboutDialog : Form
     {
         public AboutDialog()
         {

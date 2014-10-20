@@ -9,7 +9,7 @@ using Tabster.Data;
 
 namespace Tabster.Forms
 {
-    public partial class TabDetailsDialog : Form
+    internal partial class TabDetailsDialog : Form
     {
         private readonly TablatureDocument _tabDocument;
 

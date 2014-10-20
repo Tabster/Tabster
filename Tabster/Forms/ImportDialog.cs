@@ -14,7 +14,7 @@ using Tabster.LocalUtilities;
 
 namespace Tabster.Forms
 {
-    public partial class ImportDialog : Form
+    internal partial class ImportDialog : Form
     {
         private readonly TabsterDocumentProcessor<TablatureDocument> _documentProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
         private readonly List<ITablatureFileImporter> _importers = new List<ITablatureFileImporter>();

@@ -19,7 +19,7 @@ using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 namespace Tabster.Forms
 {
-    public partial class MainForm : Form
+    internal partial class MainForm : Form
     {
         private readonly TabsterDocumentProcessor<TablaturePlaylistDocument> _playlistProcessor = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true);
         private readonly TablatureDocument _queuedTablatureDocument;

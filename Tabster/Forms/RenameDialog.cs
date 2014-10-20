@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Tabster.Forms
 {
-    public partial class RenameDialog : Form
+    internal partial class RenameDialog : Form
     {
         public RenameDialog(string currentName)
         {

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Tabster.Forms
 {
-    public partial class NewPlaylistDialog : Form
+    internal partial class NewPlaylistDialog : Form
     {
         public string PlaylistName;
 
