@@ -1,6 +1,7 @@
 #region
 
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows.Forms;
 using Tabster.Data;
@@ -10,6 +11,7 @@ using Tabster.Data.Processing;
 
 namespace Tabster.Controls.Extensions
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public static class TabsterSaveFileDialogExtensions
     {
         public static void SetTabsterFilter(this SaveFileDialog saveFileDialog, IEnumerable<ITablatureFileExporter> exporters, bool overwriteFilter = false)
