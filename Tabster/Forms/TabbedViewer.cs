@@ -272,7 +272,7 @@ namespace Tabster.Forms
         }
     }
 
-    public class TabInstance
+    internal class TabInstance
     {
         public TabInstance(TablatureDocument file, BasicTablatureTextEditor editor = null)
         {
@@ -282,7 +282,7 @@ namespace Tabster.Forms
 
             Page.Controls.Add(Editor);
 
-            Editor.LoadTab(file);
+            Editor.LoadTablature(file);
             Editor.ContentsModified += editor_TabModified;
         }
 

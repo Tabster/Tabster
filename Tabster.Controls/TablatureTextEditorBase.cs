@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Tabster.Core.Printing;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -59,6 +60,11 @@ namespace Tabster.Controls
             ScrollToPosition(position);
         }
 
+        public virtual void LoadTablature(ITablature tablature)
+        {
+            Text = tablature.Contents;
+        }
+
         #region Properties
 
         public new Color ForeColor
@@ -105,24 +111,17 @@ namespace Tabster.Controls
 
         #region Printing
 
-        private bool _showPrintDialog = true;
-        public TablaturePrintDocumentSettings PrintSettings { get; set; }
-
-        public bool ShowPrintDialog
+        public void Print(TablaturePrintDocumentSettings settings = null, bool showDialog = true)
         {
-            get { return _showPrintDialog; }
-            set { _showPrintDialog = value; }
-        }
-
-        public void Print()
-        {
-            //todo print
+            
+            
+            
             /*
             var documentName = string.Format("Tablature Document {0}", DateTime.Now.ToString());
 
             using (var printDocument = new TablaturePrintDocument(Tablature, TextBoxBase.Font) {DocumentName = documentName, Settings = PrintSettings})
             {
-                if (ShowPrintDialog)
+                if (showDialog)
                 {
                     using (var dialog = new PrintPreviewDialog {Document = printDocument})
                     {

@@ -788,9 +788,7 @@ namespace Tabster.Forms
             this.searchPreviewEditor.Location = new System.Drawing.Point(0, 0);
             this.searchPreviewEditor.Margin = new System.Windows.Forms.Padding(0);
             this.searchPreviewEditor.Name = "searchPreviewEditor";
-            this.searchPreviewEditor.PrintSettings = null;
             this.searchPreviewEditor.ReadOnly = true;
-            this.searchPreviewEditor.ShowPrintDialog = true;
             this.searchPreviewEditor.Size = new System.Drawing.Size(148, 23);
             this.searchPreviewEditor.TabIndex = 24;
             // 

@@ -661,7 +661,7 @@ namespace Tabster.Forms
 
                 else
                 {
-                    editor.LoadTab(SelectedLibraryItem.Document);
+                    editor.LoadTablature(SelectedLibraryItem.Document);
 
                     lblopenedexternally.Visible = false;
 

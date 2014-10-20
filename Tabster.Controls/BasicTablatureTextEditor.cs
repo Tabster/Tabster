@@ -1,7 +1,6 @@
 ﻿#region
 
 using System.Windows.Forms;
-using Tabster.Data;
 
 #endregion
 
@@ -40,11 +39,6 @@ namespace Tabster.Controls
                            ScrollBars = ScrollBars.Both,
                            Font = TablatureDisplayFont.GetFont()
                        };
-        }
-
-        public void LoadTab(TablatureDocument document)
-        {
-            TextBoxBase.Text = document.Contents;
         }
     }
 }

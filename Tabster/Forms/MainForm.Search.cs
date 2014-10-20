@@ -314,7 +314,7 @@ namespace Tabster.Forms
                 if (_searchResultsCache.ContainsKey(url))
                 {
                     var tab = _searchResultsCache[url];
-                    searchPreviewEditor.LoadTab(tab);
+                    searchPreviewEditor.LoadTablature(tab);
 
                     if (!searchhiddenpreviewToolStripMenuItem.Checked && searchSplitContainer.Panel2Collapsed)
                     {
