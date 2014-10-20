@@ -1,7 +1,6 @@
 #region
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Tabster.Data;
@@ -26,13 +25,12 @@ namespace Tabster.Controls.Extensions
                     fileTypes.Add(exporter.FileType);
                 }
             }
+
             for (var i = 0; i < fileTypes.Count; i++)
             {
                 var fileType = fileTypes[i];
 
-                var extensionString = string.Join(";*", fileType.Extensions.ToArray());
-
-                filterStringBuilder.AppendFormat(string.Format("{0} (*{1})|*{1}", fileType.Name, extensionString));
+                filterStringBuilder.AppendFormat(string.Format("{0} (*{1})|*{1}", fileType.Name, fileType.Extensions[0]));
 
                 if (i + 1 < fileTypes.Count)
                     filterStringBuilder.Append("|");
