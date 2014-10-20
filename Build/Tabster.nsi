@@ -68,6 +68,7 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\RtfFile.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\WordDoc.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\DocX.dll" ;WordDoc dependency
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\PngFile.dll"
   
   ; native search plugins
   SetOutPath "${PLUGIN_SEARCHSERVICES_DIRECTORY}"  
