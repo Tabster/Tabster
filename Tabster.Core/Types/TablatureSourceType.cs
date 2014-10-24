@@ -2,8 +2,8 @@ namespace Tabster.Core.Types
 {
     public enum TablatureSourceType
     {
-        Download,
+        UserCreated,
         FileImport,
-        UserCreated
+        Download
     }
 }
