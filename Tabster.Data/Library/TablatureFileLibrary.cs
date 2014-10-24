@@ -9,27 +9,26 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.VisualBasic.FileIO;
 using Tabster.Core.Types;
-using Tabster.Data;
 using Tabster.Data.Processing;
 using SearchOption = System.IO.SearchOption;
 
 #endregion
 
-namespace Tabster.Library
+namespace Tabster.Data.Library
 {
-    internal class TablatureLibrary : ITablatureLibrary
+    public class TablatureFileLibrary : ITablatureFileLibrary
     {
         private static readonly Version INDEX_VERSION = new Version("1.0");
+        private readonly List<TablatureLibraryItem> _TablatureLibraryItems = new List<TablatureLibraryItem>();
 
         private readonly TabsterDocumentProcessor<TablatureDocument> _documentProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
         private readonly TabsterXmlDocument _indexDoc = new TabsterXmlDocument("library");
         private readonly string _indexPath;
-        private readonly List<LibraryItem> _libraryItems = new List<LibraryItem>();
         private readonly TabsterDocumentProcessor<TablaturePlaylistDocument> _playlistProcessor = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true);
 
         private readonly List<TablaturePlaylistDocument> _playlists = new List<TablaturePlaylistDocument>();
 
-        public TablatureLibrary(string indexPath, string libraryDirectory, string playlistDirectory)
+        public TablatureFileLibrary(string indexPath, string libraryDirectory, string playlistDirectory)
         {
             _indexPath = indexPath;
 
@@ -55,7 +54,7 @@ namespace Tabster.Library
 
         public void Load()
         {
-            _libraryItems.Clear();
+            _TablatureLibraryItems.Clear();
             _playlists.Clear();
 
             var loadFromCache = File.Exists(_indexPath);
@@ -98,14 +97,14 @@ namespace Tabster.Library
                                 lastViewed = dt;
 
                             DateTime added;
-                            if (itemNode.Attributes["added"] != null || !DateTime.TryParse(itemNode.Attributes["added"].Value, out added))
+                            if (itemNode.Attributes["added"] == null || !DateTime.TryParse(itemNode.Attributes["added"].Value, out added))
                                 added = DateTime.UtcNow;
 
                             var fi = new FileInfo(path);
 
-                            var entry = new LibraryItem(fi, artist, title, type) {Favorited = favorited, Views = views, LastViewed = lastViewed, Added = added};
+                            var entry = new TablatureLibraryItem(fi, artist, title, type) {Favorited = favorited, Views = views, LastViewed = lastViewed, Added = added};
 
-                            _libraryItems.Add(entry);
+                            _TablatureLibraryItems.Add(entry);
                         }
                     }
                 }
@@ -151,7 +150,7 @@ namespace Tabster.Library
 
             _indexDoc.WriteNode("tabs");
 
-            foreach (var entry in _libraryItems.Where(entry => File.Exists(entry.FileInfo.FullName)))
+            foreach (var entry in _TablatureLibraryItems.Where(entry => File.Exists(entry.FileInfo.FullName)))
             {
                 _indexDoc.WriteNode("tab",
                                     entry.FileInfo.FullName,
@@ -189,12 +188,12 @@ namespace Tabster.Library
             return Directory.GetFiles(LibraryDirectory, string.Format("*{0}", TablatureDocument.FILE_EXTENSION), SearchOption.AllDirectories).Select(file => _documentProcessor.Load(file)).Where(doc => doc != null).ToList();
         }
 
-        public bool Remove(LibraryItem item, bool diskDelete, bool saveIndex = false)
+        public bool Remove(TablatureLibraryItem item, bool diskDelete, bool saveIndex = false)
         {
             var result = false;
             try
             {
-                var success = _libraryItems.Remove(item);
+                var success = _TablatureLibraryItems.Remove(item);
 
                 if (success)
                 {
@@ -268,16 +267,16 @@ namespace Tabster.Library
 
         public int TotalItems
         {
-            get { return _libraryItems.Count; }
+            get { return _TablatureLibraryItems.Count; }
         }
 
-        public void Add(LibraryItem item)
+        public void Add(TablatureLibraryItem item)
         {
             item.Added = DateTime.UtcNow;
-            _libraryItems.Add(item);
+            _TablatureLibraryItems.Add(item);
         }
 
-        public LibraryItem Add(TablatureDocument doc)
+        public TablatureLibraryItem Add(TablatureDocument doc)
         {
             if (doc.FileInfo == null)
             {
@@ -286,45 +285,45 @@ namespace Tabster.Library
                 doc.SaveAs(uniqueName);
             }
 
-            var item = new LibraryItem(doc);
+            var item = new TablatureLibraryItem(doc);
 
             Add(item);
 
             return item;
         }
 
-        public bool Remove(LibraryItem item)
+        public bool Remove(TablatureLibraryItem item)
         {
-            return _libraryItems.Remove(item);
+            return _TablatureLibraryItems.Remove(item);
         }
 
-        public LibraryItem GetLibraryItem(TablatureDocument doc)
+        public TablatureLibraryItem GetLibraryItem(TablatureDocument doc)
         {
-            return _libraryItems.Find(x => x.Document.Equals(doc));
+            return _TablatureLibraryItems.Find(x => x.Document.Equals(doc));
         }
 
-        public LibraryItem Find(Predicate<LibraryItem> match)
+        public TablatureLibraryItem Find(Predicate<TablatureLibraryItem> match)
         {
-            return _libraryItems.Find(match);
+            return _TablatureLibraryItems.Find(match);
         }
 
-        public List<LibraryItem> FindAll(Predicate<LibraryItem> match)
+        public List<TablatureLibraryItem> FindAll(Predicate<TablatureLibraryItem> match)
         {
-            return _libraryItems.FindAll(match);
+            return _TablatureLibraryItems.FindAll(match);
         }
 
-        public LibraryItem Find(string path)
+        public TablatureLibraryItem Find(string path)
         {
-            return _libraryItems.Find(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
+            return _TablatureLibraryItems.Find(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
         }
 
         #endregion
 
         #region Implementation of IEnumerable
 
-        public IEnumerator<LibraryItem> GetEnumerator()
+        public IEnumerator<TablatureLibraryItem> GetEnumerator()
         {
-            return ((IEnumerable<LibraryItem>) _libraryItems).GetEnumerator();
+            return ((IEnumerable<TablatureLibraryItem>) _TablatureLibraryItems).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

@@ -54,14 +54,14 @@ namespace Tabster
 
             if (show && !viewer.Visible)
             {
-                var libraryItem = Program.tablatureLibrary.GetLibraryItem(doc);
+                var libraryItem = Program.TablatureFileLibrary.GetLibraryItem(doc);
 
                 if (libraryItem != null)
                 {
                     libraryItem.IncrementViewcount();
                     libraryItem.LastViewed = DateTime.UtcNow;
 
-                    Program.tablatureLibrary.Save();
+                    Program.TablatureFileLibrary.Save();
                 }
 
                 var mainForm = Program.instanceController.MainForm;

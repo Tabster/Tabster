@@ -152,7 +152,7 @@ namespace Tabster.LocalUtilities
 
             SetSplashStatus(splashStatuses[1]);
 
-            Program.tablatureLibrary.Load();
+            Program.TablatureFileLibrary.Load();
 
 #if DEBUG
             Thread.Sleep(sleepDuration);

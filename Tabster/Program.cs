@@ -6,7 +6,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
-using Tabster.Library;
+using Tabster.Data.Library;
 using Tabster.LocalUtilities;
 using Tabster.Properties;
 using Tabster.Updater;
@@ -20,7 +20,7 @@ namespace Tabster
     internal static class Program
     {
         public static TabViewerManager TabHandler;
-        public static TablatureLibrary tablatureLibrary;
+        public static TablatureFileLibrary TablatureFileLibrary;
         public static SingleInstanceController instanceController;
         public static PluginController pluginController;
         public static string ApplicationDirectory;
@@ -40,9 +40,9 @@ namespace Tabster
             var workingDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
             ApplicationDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
 
-            tablatureLibrary = new TablatureLibrary(Path.Combine(ApplicationDirectory, "library.dat"),
-                                                    Path.Combine(workingDirectory, "Library"),
-                                                    Path.Combine(workingDirectory, "Playlists"));
+            TablatureFileLibrary = new TablatureFileLibrary(Path.Combine(ApplicationDirectory, "library.dat"),
+                                                            Path.Combine(workingDirectory, "Library"),
+                                                            Path.Combine(workingDirectory, "Playlists"));
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -84,7 +84,7 @@ namespace Tabster
 
         private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            tablatureLibrary.Save();
+            TablatureFileLibrary.Save();
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

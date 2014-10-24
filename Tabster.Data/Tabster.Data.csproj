@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
@@ -38,6 +39,10 @@
   <ItemGroup>
     <Compile Include="FileType.cs" />
     <Compile Include="ITabsterDocument.cs" />
+    <Compile Include="Library\ITablatureLibraryItem.cs" />
+    <Compile Include="Library\ITablatureFileLibrary.cs" />
+    <Compile Include="Library\TablatureLibraryItem.cs" />
+    <Compile Include="Library\TablatureFileLibrary.cs" />
     <Compile Include="Processing\ITablatureFileExporter.cs" />
     <Compile Include="Processing\ITablatureFileImporter.cs" />
     <Compile Include="Processing\ITablatureImporter.cs" />
@@ -58,6 +63,7 @@
       <Name>Tabster.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

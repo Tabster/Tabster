@@ -14,7 +14,7 @@ using Tabster.Utilities.Net;
 
 namespace Tabster.Forms
 {
-    partial class MainForm
+    internal partial class MainForm
     {
         private readonly List<TablatureDocument> downloadedTabs = new List<TablatureDocument>();
 
@@ -204,8 +204,8 @@ namespace Tabster.Forms
         {
             foreach (var tab in downloadedTabs)
             {
-                var libraryItem = Program.tablatureLibrary.Add(tab);
-                Program.tablatureLibrary.Save();
+                var libraryItem = Program.TablatureFileLibrary.Add(tab);
+                Program.TablatureFileLibrary.Save();
                 UpdateLibraryItem(libraryItem);
             }
 

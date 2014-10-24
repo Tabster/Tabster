@@ -6,9 +6,9 @@ using Tabster.Core.Types;
 
 #endregion
 
-namespace Tabster.Library
+namespace Tabster.Data.Library
 {
-    internal interface ILibraryItem : ITablatureAttributes
+    public interface ITablatureLibraryItem : ITablatureAttributes
     {
         FileInfo FileInfo { get; }
         bool Favorited { get; set; }

@@ -83,10 +83,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolStripRenderer.cs" />
-    <Compile Include="Library\ILibraryItem.cs" />
-    <Compile Include="Library\ITablatureLibrary.cs" />
-    <Compile Include="Library\LibraryItem.cs" />
-    <Compile Include="Library\TablatureLibrary.cs" />
     <Compile Include="Forms\MainForm.Download.cs">
       <SubType>Form</SubType>
     </Compile>

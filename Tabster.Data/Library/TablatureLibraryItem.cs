@@ -3,17 +3,16 @@
 using System;
 using System.IO;
 using Tabster.Core.Types;
-using Tabster.Data;
 
 #endregion
 
-namespace Tabster.Library
+namespace Tabster.Data.Library
 {
-    internal class LibraryItem : ILibraryItem
+    public class TablatureLibraryItem : ITablatureLibraryItem
     {
         private TablatureDocument _document;
 
-        public LibraryItem(FileInfo fileInfo, string artist, string title, TablatureType type)
+        public TablatureLibraryItem(FileInfo fileInfo, string artist, string title, TablatureType type)
         {
             FileInfo = fileInfo;
             Artist = artist;
@@ -21,7 +20,8 @@ namespace Tabster.Library
             Type = type;
         }
 
-        public LibraryItem(TablatureDocument doc) : this(doc.FileInfo, doc.Artist, doc.Title, doc.Type)
+        public TablatureLibraryItem(TablatureDocument doc)
+            : this(doc.FileInfo, doc.Artist, doc.Title, doc.Type)
         {
             _document = doc;
         }

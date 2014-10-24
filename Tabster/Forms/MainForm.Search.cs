@@ -15,7 +15,7 @@ using Tabster.Utilities.Net;
 
 namespace Tabster.Forms
 {
-    partial class MainForm
+    internal partial class MainForm
     {
         private readonly List<SearchResult> _searchResults = new List<SearchResult>();
         private readonly Dictionary<Uri, TablatureDocument> _searchResultsCache = new Dictionary<Uri, TablatureDocument>();
@@ -212,8 +212,8 @@ namespace Tabster.Forms
                     {
                         var cachedTab = _searchResultsCache[selectedResult.Source];
 
-                        var libraryItem = Program.tablatureLibrary.Add(cachedTab);
-                        Program.tablatureLibrary.Save();
+                        var libraryItem = Program.TablatureFileLibrary.Add(cachedTab);
+                        Program.TablatureFileLibrary.Save();
                         UpdateLibraryItem(libraryItem);
                     }
                 }
@@ -348,7 +348,7 @@ namespace Tabster.Forms
             var artistStrings = new List<string>();
             var titleStrings = new List<string>();
 
-            foreach (var item in Program.tablatureLibrary)
+            foreach (var item in Program.TablatureFileLibrary)
             {
                 if (artistStrings.Find(x => x.Equals(item.Artist, StringComparison.OrdinalIgnoreCase)) == null)
                     artistStrings.Add(item.Artist);

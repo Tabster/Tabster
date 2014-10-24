@@ -455,7 +455,7 @@ namespace Tabster.Forms
 
                     if (playlist != null)
                     {
-                        Program.tablatureLibrary.Add(playlist);
+                        Program.TablatureFileLibrary.Add(playlist);
                         AddPlaylistNode(playlist, true);
                     }
                 }

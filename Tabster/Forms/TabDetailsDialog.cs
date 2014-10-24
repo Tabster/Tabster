@@ -41,7 +41,7 @@ namespace Tabster.Forms
 
         private void LoadLibraryInformation()
         {
-            var libraryItem = Program.tablatureLibrary.GetLibraryItem(_tabDocument);
+            var libraryItem = Program.TablatureFileLibrary.GetLibraryItem(_tabDocument);
 
             if (libraryItem != null)
             {
@@ -49,7 +49,7 @@ namespace Tabster.Forms
                 lblViewCount.Text = string.Format("Views: {0}", libraryItem.Views);
                 lblLastViewed.Text = string.Format("Last Viewed: {0}", libraryItem.LastViewed.HasValue ? libraryItem.LastViewed.Value.ToString() : "Never");
 
-                var playlistCount = Program.tablatureLibrary.Playlists.Count(playlist => playlist.Contains(_tabDocument.FileInfo.FullName));
+                var playlistCount = Program.TablatureFileLibrary.Playlists.Count(playlist => playlist.Contains(_tabDocument.FileInfo.FullName));
 
                 lblPlaylistCount.Text = string.Format("Founds in {0} playlist{1}.", playlistCount, playlistCount == 1 ? "" : "s");
             }
