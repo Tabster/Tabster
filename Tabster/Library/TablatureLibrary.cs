@@ -84,7 +84,7 @@ namespace Tabster.Library
 
                             var type = default(TablatureType);
                             if (itemNode.Attributes["type"] != null)
-                                type = (TablatureType) Enum.Parse(typeof (TablatureType), itemNode.Attributes["type"].Value);
+                                type = new TablatureType(itemNode.Attributes["type"].Value);
 
                             var favorited = itemNode.Attributes["favorite"] != null && bool.Parse(itemNode.Attributes["favorite"].Value);
 

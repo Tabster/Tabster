@@ -18,6 +18,6 @@ namespace Tabster.Data.Processing
         /// <param name="text"> Source text to parse. </param>
         /// <param name="type"> Explicitly defined type. </param>
         /// <returns> Parsed tab. </returns>
-        TablatureDocument Parse(string text, TablatureType? type);
+        TablatureDocument Parse(string text, TablatureType type);
     }
 }

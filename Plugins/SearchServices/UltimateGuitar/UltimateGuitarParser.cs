@@ -20,12 +20,11 @@ namespace UltimateGuitar
             get { return "Ultimate Guitar"; }
         }
 
-        public TablatureDocument Parse(string text, TablatureType? type)
+        public TablatureDocument Parse(string text, TablatureType type)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(text);
 
-            var tabType = type;
             string song = null, artist = null;
 
             //get values from meta keywords
@@ -39,16 +38,16 @@ namespace UltimateGuitar
 
                     var typeStr = split[1].Trim();
 
-                    if (!type.HasValue)
+                    if (type == null)
                     {
                         if (typeStr.IndexOf("bass", StringComparison.OrdinalIgnoreCase) > -1)
-                            tabType = TablatureType.Bass;
+                            type = TablatureType.Bass;
                         else if (typeStr.IndexOf("chord", StringComparison.OrdinalIgnoreCase) > -1)
-                            tabType = TablatureType.Chords;
+                            type = TablatureType.Chords;
                         else if (typeStr.IndexOf("drum", StringComparison.OrdinalIgnoreCase) > -1)
-                            tabType = TablatureType.Drum;
+                            type = TablatureType.Drum;
                         else if (typeStr.IndexOf("ukulele", StringComparison.OrdinalIgnoreCase) > -1)
-                            tabType = TablatureType.Ukulele;
+                            type = TablatureType.Ukulele;
                     }
 
                     artist = split[2].Trim();
@@ -62,7 +61,7 @@ namespace UltimateGuitar
             {
                 var contents = StripHTML(contentsNode.InnerHtml);
                 contents = ConvertNewlines(contents);
-                return new TablatureDocument(artist, song, tabType.GetValueOrDefault(), contents);
+                return new TablatureDocument(artist, song, type, contents);
             }
 
             return null;
@@ -72,11 +71,6 @@ namespace UltimateGuitar
         {
             return url.IsWellFormedOriginalString() && ((url.DnsSafeHost == "ultimate-guitar.com" || url.DnsSafeHost == "www.ultimate-guitar.com" ||
                                                          url.DnsSafeHost == "tabs.ultimate-guitar.com") && url.AbsolutePath.Split('/').Length >= 4);
-        }
-
-        public TablatureDocument Parse(Uri url, TablatureType? type)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion

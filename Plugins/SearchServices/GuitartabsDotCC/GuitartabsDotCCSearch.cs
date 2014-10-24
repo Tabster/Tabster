@@ -51,20 +51,19 @@ namespace GuitartabsDotCC
 
             var typeStr = "any";
 
-            if (query.Type.HasValue)
+            if (query.Type != null)
             {
-                switch (query.Type.Value)
+                if (query.Type == TablatureType.Guitar || query.Type == TablatureType.Chords)
                 {
-                    case TablatureType.Guitar:
-                    case TablatureType.Chords:
-                        typeStr = "guitar";
-                        break;
-                    case TablatureType.Bass:
-                        typeStr = "bass";
-                        break;
-                    case TablatureType.Drum:
-                        typeStr = "drum";
-                        break;
+                    typeStr = "guitar";
+                }
+                else if (query.Type == TablatureType.Bass)
+                {
+                    typeStr = "bass";
+                }
+                else if (query.Type == TablatureType.Drum)
+                {
+                    typeStr = "drum";
                 }
             }
 
@@ -114,11 +113,11 @@ namespace GuitartabsDotCC
 
                         var rowRating = GetRating(columns[4].FirstChild.Attributes["style"].Value);
 
-                        if (tabType.HasValue)
+                        if (tabType != null)
                         {
-                            rowTitle = RemoveTypeFromTitle(rowTitle, tabType.Value);
+                            rowTitle = RemoveTypeFromTitle(rowTitle, tabType);
 
-                            var tab = new AttributedTablature(rowArtist, rowTitle, tabType.Value);
+                            var tab = new AttributedTablature(rowArtist, rowTitle, tabType);
                             results.Add(new SearchResult(query, tab, new Uri(string.Format("http://guitartabs.cc{0}", rowUrl)), rowRating));
                         }
                     }
@@ -130,16 +129,7 @@ namespace GuitartabsDotCC
 
         public bool SupportsTabType(TablatureType type)
         {
-            switch (type)
-            {
-                case TablatureType.Guitar:
-                case TablatureType.Chords:
-                case TablatureType.Bass:
-                case TablatureType.Drum:
-                    return true;
-                default:
-                    return false;
-            }
+            return type == TablatureType.Guitar || type == TablatureType.Chords || type == TablatureType.Bass || type == TablatureType.Drum;
         }
 
         #endregion
@@ -191,22 +181,27 @@ namespace GuitartabsDotCC
 
         private static string RemoveTypeFromTitle(string title, TablatureType type)
         {
-            switch (type)
+            if (type == TablatureType.Guitar)
             {
-                case TablatureType.Guitar:
-                    return title.Remove(title.Length - " Tab".Length);
-                case TablatureType.Chords:
-                    return title.Remove(title.Length - " Chords".Length);
-                case TablatureType.Bass:
-                    return title.Remove(title.Length - " Bass Tab".Length);
-                case TablatureType.Drum:
-                    return title.Remove(title.Length - " Drum Tab".Length);
+                return title.Remove(title.Length - " Tab".Length);
+            }
+            else if (type == TablatureType.Chords)
+            {
+                return title.Remove(title.Length - " Chords".Length);
+            }
+            else if (type == TablatureType.Bass)
+            {
+                return title.Remove(title.Length - " Bass Tab".Length);
+            }
+            else if (type == TablatureType.Drum)
+            {
+                return title.Remove(title.Length - " Drum Tab".Length);
             }
 
             return title;
         }
 
-        private static TablatureType? GetTabType(string str)
+        private static TablatureType GetTabType(string str)
         {
             if (str.IndexOf("Chords", StringComparison.InvariantCultureIgnoreCase) >= 0)
                 return TablatureType.Chords;

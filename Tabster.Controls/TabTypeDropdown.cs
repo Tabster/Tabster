@@ -44,7 +44,7 @@ namespace Tabster.Controls
                 comboBox1.Items.Add(DefaultText);
             }
 
-            foreach (TablatureType type in Enum.GetValues(typeof (TablatureType)))
+            foreach (var type in TablatureType.GetKnownTypes())
             {
                 comboBox1.Items.Add(GetDisplayString(type));
             }

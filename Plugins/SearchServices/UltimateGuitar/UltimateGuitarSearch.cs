@@ -48,25 +48,27 @@ namespace UltimateGuitar
 
             string typeStr = null;
 
-            if (query.Type.HasValue)
+            if (query.Type != null)
             {
-                switch (query.Type)
+                if (query.Type == TablatureType.Guitar)
                 {
-                    case TablatureType.Guitar:
-                        typeStr = "200";
-                        break;
-                    case TablatureType.Chords:
-                        typeStr = "300";
-                        break;
-                    case TablatureType.Bass:
-                        typeStr = "400";
-                        break;
-                    case TablatureType.Drum:
-                        typeStr = "700";
-                        break;
-                    case TablatureType.Ukulele:
-                        typeStr = "800";
-                        break;
+                    typeStr = "200";
+                }
+                else if (query.Type == TablatureType.Chords)
+                {
+                    typeStr = "300";
+                }
+                else if (query.Type == TablatureType.Bass)
+                {
+                    typeStr = "400";
+                }
+                else if (query.Type == TablatureType.Drum)
+                {
+                    typeStr = "700";
+                }
+                else if (query.Type == TablatureType.Ukulele)
+                {
+                    typeStr = "800";
                 }
             }
 
@@ -130,7 +132,7 @@ namespace UltimateGuitar
 
                             var rowType = GetTabType(columns[colIndexType].InnerText);
 
-                            if (rowType.HasValue)
+                            if (rowType != null)
                             {
                                 var rowURL = columns[colIndexSong].ChildNodes["a"].Attributes["href"].Value;
                                 var rowSong = HttpUtility.HtmlDecode(columns[colIndexSong].ChildNodes["a"].InnerText);
@@ -153,9 +155,9 @@ namespace UltimateGuitar
                                     }
                                 }
 
-                                if (!query.Type.HasValue || rowType == query.Type)
+                                if (query.Type == null || rowType == query.Type)
                                 {
-                                    var tab = new AttributedTablature(loopArtist, rowSong, rowType.Value);
+                                    var tab = new AttributedTablature(loopArtist, rowSong, rowType);
                                     results.Add(new SearchResult(query, tab, new Uri(rowURL), rating));
                                 }
                             }
@@ -171,17 +173,7 @@ namespace UltimateGuitar
 
         public bool SupportsTabType(TablatureType type)
         {
-            switch (type)
-            {
-                case TablatureType.Guitar:
-                case TablatureType.Chords:
-                case TablatureType.Bass:
-                case TablatureType.Drum:
-                case TablatureType.Ukulele:
-                    return true;
-                default:
-                    return false;
-            }
+            return type == TablatureType.Guitar || type == TablatureType.Chords || type == TablatureType.Bass || type == TablatureType.Drum || type == TablatureType.Ukulele;
         }
 
         #endregion
@@ -207,7 +199,7 @@ namespace UltimateGuitar
             return TablatureRating.None;
         }
 
-        private static TablatureType? GetTabType(string str)
+        private static TablatureType GetTabType(string str)
         {
             if (str.Equals("tab", StringComparison.InvariantCultureIgnoreCase))
                 return TablatureType.Guitar;

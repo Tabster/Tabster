@@ -19,12 +19,11 @@ namespace GuitartabsDotCC
             get { return "Guitartabs.cc"; }
         }
 
-        public TablatureDocument Parse(string text, TablatureType? type)
+        public TablatureDocument Parse(string text, TablatureType type)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(text);
 
-            var tabType = type;
             string contents = null;
 
             var pageTitle = doc.DocumentNode.SelectSingleNode("//head/title").InnerText;
@@ -49,7 +48,7 @@ namespace GuitartabsDotCC
                     var infoCells = infoTable.SelectNodes("tr//th");
 
                     //get tab type
-                    if (!tabType.HasValue)
+                    if (type == null)
                     {
                         if (infoCells != null && infoCells.Count > 2)
                         {
@@ -58,16 +57,16 @@ namespace GuitartabsDotCC
                             switch (typeCell.InnerText)
                             {
                                 case "Tab":
-                                    tabType = TablatureType.Guitar;
+                                    type = TablatureType.Guitar;
                                     break;
                                 case "Chords":
-                                    tabType = TablatureType.Chords;
+                                    type = TablatureType.Chords;
                                     break;
                                 case "Bass Tab":
-                                    tabType = TablatureType.Bass;
+                                    type = TablatureType.Bass;
                                     break;
                                 case "Drum Tab":
-                                    tabType = TablatureType.Drum;
+                                    type = TablatureType.Drum;
                                     break;
                             }
                         }
@@ -90,10 +89,10 @@ namespace GuitartabsDotCC
                 }
             }
 
-            if (!tabType.HasValue || artist == null || title == null || contents == null)
+            if (type  == null || artist == null || title == null || contents == null)
                 return null;
 
-            return new TablatureDocument(artist, title, tabType.Value, contents);
+            return new TablatureDocument(artist, title, type, contents);
         }
 
         public bool MatchesUrlPattern(Uri url)

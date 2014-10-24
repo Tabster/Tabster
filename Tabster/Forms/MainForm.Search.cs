@@ -20,7 +20,7 @@ namespace Tabster.Forms
         private readonly List<SearchResult> _searchResults = new List<SearchResult>();
         private readonly Dictionary<Uri, TablatureDocument> _searchResultsCache = new Dictionary<Uri, TablatureDocument>();
         private TablatureRating? _activeSearchRating;
-        private TablatureType? _activeSearchType;
+        private TablatureType _activeSearchType;
         private List<ISearchService> _searchServices = new List<ISearchService>();
         private List<ITablatureWebpageImporter> _webImporters = new List<ITablatureWebpageImporter>();
 
@@ -71,7 +71,7 @@ namespace Tabster.Forms
                     //check service flags
                     if (((service.Flags & SearchServiceFlags.RequiresArtistParameter) == SearchServiceFlags.RequiresArtistParameter && string.IsNullOrEmpty(searchArtist)) ||
                         (((service.Flags & SearchServiceFlags.RequiresTitleParameter) == SearchServiceFlags.RequiresTitleParameter && string.IsNullOrEmpty(searchTitle))) ||
-                        (((service.Flags & SearchServiceFlags.RequiresTypeParamter) == SearchServiceFlags.RequiresTypeParamter && !_activeSearchType.HasValue)))
+                        (((service.Flags & SearchServiceFlags.RequiresTypeParamter) == SearchServiceFlags.RequiresTypeParamter && _activeSearchType == null)))
                     {
                         continue;
                     }
@@ -105,7 +105,7 @@ namespace Tabster.Forms
             {
                 try
                 {
-                    if (!query.Type.HasValue || query.Service.SupportsTabType(query.Type.Value))
+                    if (query.Type == null || query.Service.SupportsTabType(query.Type))
                     {
                         var results = query.Service.Search(query);
 
@@ -170,7 +170,7 @@ namespace Tabster.Forms
                 return;
 
             //tab type mismatch
-            if (_activeSearchType.HasValue && result.Tab.Type != _activeSearchType.Value)
+            if (_activeSearchType != null && result.Tab.Type != _activeSearchType)
                 return;
 
             var newRow = new DataGridViewRow {Tag = result.Source.ToString()};
