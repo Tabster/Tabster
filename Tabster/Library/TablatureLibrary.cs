@@ -97,9 +97,13 @@ namespace Tabster.Library
                             if (itemNode.Attributes["last_viewed"] != null && DateTime.TryParse(itemNode.Attributes["last_viewed"].Value, out dt))
                                 lastViewed = dt;
 
+                            DateTime added;
+                            if (itemNode.Attributes["added"] != null || !DateTime.TryParse(itemNode.Attributes["added"].Value, out added))
+                                added = DateTime.UtcNow;
+
                             var fi = new FileInfo(path);
 
-                            var entry = new LibraryItem(fi, artist, title, type) {Favorited = favorited, Views = views, LastViewed = lastViewed};
+                            var entry = new LibraryItem(fi, artist, title, type) {Favorited = favorited, Views = views, LastViewed = lastViewed, Added = added};
 
                             _libraryItems.Add(entry);
                         }
@@ -269,6 +273,7 @@ namespace Tabster.Library
 
         public void Add(LibraryItem item)
         {
+            item.Added = DateTime.UtcNow;
             _libraryItems.Add(item);
         }
 

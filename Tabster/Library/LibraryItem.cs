@@ -46,6 +46,8 @@ namespace Tabster.Library
 
         public DateTime? LastViewed { get; set; }
 
+        public DateTime Added { get; set; }
+
         #endregion
 
         public TablatureDocument Document

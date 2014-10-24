@@ -59,7 +59,7 @@ namespace Tabster
                 if (libraryItem != null)
                 {
                     libraryItem.IncrementViewcount();
-                    libraryItem.LastViewed = DateTime.Now;
+                    libraryItem.LastViewed = DateTime.UtcNow;
 
                     Program.tablatureLibrary.Save();
                 }

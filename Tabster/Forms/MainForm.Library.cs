@@ -872,7 +872,7 @@ namespace Tabster.Forms
             if (SelectedLibraryItem != null)
             {
                 SelectedLibraryItem.Views += 1;
-                SelectedLibraryItem.LastViewed = DateTime.Now;
+                SelectedLibraryItem.LastViewed = DateTime.UtcNow;
 
                 UpdateLibraryItem(SelectedLibraryItem, false);
             }

@@ -14,5 +14,6 @@ namespace Tabster.Library
         bool Favorited { get; set; }
         int Views { get; set; }
         DateTime? LastViewed { get; set; }
+        DateTime Added { get; }
     }
 }
