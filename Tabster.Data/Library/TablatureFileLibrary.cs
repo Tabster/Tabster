@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using Microsoft.VisualBasic.FileIO;
 using Tabster.Core.Types;
 using Tabster.Data.Processing;
+using Tabster.Data.Utilities;
 using SearchOption = System.IO.SearchOption;
 
 #endregion
@@ -96,8 +97,17 @@ namespace Tabster.Data.Library
                             if (itemNode.Attributes["last_viewed"] != null && DateTime.TryParse(itemNode.Attributes["last_viewed"].Value, out dt))
                                 lastViewed = dt;
 
-                            DateTime added;
-                            if (itemNode.Attributes["added"] == null || !DateTime.TryParse(itemNode.Attributes["added"].Value, out added))
+                            DateTime added = DateTime.MinValue;
+                            if (itemNode.Attributes["added"] != null)
+                            {
+                                int i;
+                                if (int.TryParse(itemNode.Attributes["added"].Value, out i))
+                                {
+                                    added = DateTimeUtilities.UnixTimestampToDateTime(i);
+                                }
+                            }
+
+                            if (added == DateTime.MinValue)
                                 added = DateTime.UtcNow;
 
                             var fi = new FileInfo(path);
@@ -162,7 +172,8 @@ namespace Tabster.Data.Library
                                             {"type", entry.Type.ToString()},
                                             {"favorite", entry.Favorited.ToString().ToLower()},
                                             {"views", entry.Views.ToString()},
-                                            {"last_viewed", entry.LastViewed == null ? string.Empty : entry.LastViewed.Value.ToString()}
+                                            {"last_viewed", entry.LastViewed == null ? string.Empty : entry.LastViewed.Value.ToString()},
+                                            {"added", DateTimeUtilities.GetUnixTimestamp().ToString()}
                                         }, false);
             }
 
