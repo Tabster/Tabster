@@ -35,9 +35,9 @@ namespace Tabster.Forms
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("All Tabs");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("My Tabs");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("My Downloads");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("My Imports");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("My Favorites");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Downloads");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Imports");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Favorites");
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Library", new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,
@@ -299,13 +299,13 @@ namespace Tabster.Forms
             treeNode2.Text = "My Tabs";
             treeNode3.Name = "node_mydownloads";
             treeNode3.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode3.Text = "My Downloads";
+            treeNode3.Text = "Downloads";
             treeNode4.Name = "node_myimports";
             treeNode4.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode4.Text = "My Imports";
+            treeNode4.Text = "Imports";
             treeNode5.Name = "node_myfavorites";
             treeNode5.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode5.Text = "My Favorites";
+            treeNode5.Text = "Favorites";
             treeNode6.Name = "node_library";
             treeNode6.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             treeNode6.Text = "Library";
