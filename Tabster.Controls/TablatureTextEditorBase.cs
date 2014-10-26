@@ -65,6 +65,11 @@ namespace Tabster.Controls
             Text = tablature.Contents;
         }
 
+        public void Clear()
+        {
+            TextBoxBase.Clear();
+        }
+
         #region Properties
 
         public new Color ForeColor
@@ -113,9 +118,6 @@ namespace Tabster.Controls
 
         public void Print(TablaturePrintDocumentSettings settings = null, bool showDialog = true)
         {
-            
-            
-            
             /*
             var documentName = string.Format("Tablature Document {0}", DateTime.Now.ToString());
 
