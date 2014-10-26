@@ -38,6 +38,8 @@ namespace Tabster.Forms
             {
                 onlinesearchbtn.Enabled = false;
 
+                searchPreviewEditor.Clear();
+
                 var searchArtist = txtSearchArtist.Text.Trim();
                 var searchTitle = txtSearchTitle.Text.Trim();
 
