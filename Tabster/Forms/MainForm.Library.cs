@@ -556,8 +556,7 @@ namespace Tabster.Forms
                                     item.Title,
                                     item.Artist,
                                     item.Type.ToFriendlyString(),
-                                    //todo item.Created,
-                                    DateTime.Now,
+                                    item.Document.Created,
                                     item.FileInfo.LastWriteTime,
                                     item.Views,
                                     item.FileInfo.FullName
