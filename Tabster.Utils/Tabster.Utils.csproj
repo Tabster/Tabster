@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="Controls\ControlInvoker.cs" />
     <Compile Include="Extensions\VersionExtensions.cs" />
+    <Compile Include="IO\FileHeaderChecker.cs" />
     <Compile Include="Net\CustomProxyController.cs" />
     <Compile Include="Net\TabsterWebClient.cs">
       <SubType>Component</SubType>
