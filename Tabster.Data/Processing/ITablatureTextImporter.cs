@@ -6,7 +6,6 @@ using Tabster.Core.Types;
 
 namespace Tabster.Data.Processing
 {
-
     /// <summary>
     ///   Text-based tab source.
     /// </summary>

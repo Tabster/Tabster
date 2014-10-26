@@ -89,7 +89,7 @@ namespace GuitartabsDotCC
                 }
             }
 
-            if (type  == null || artist == null || title == null || contents == null)
+            if (type == null || artist == null || title == null || contents == null)
                 return null;
 
             return new TablatureDocument(artist, title, type, contents);
