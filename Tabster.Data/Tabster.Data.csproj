@@ -41,6 +41,7 @@
     <Compile Include="ITabsterDocument.cs" />
     <Compile Include="Library\ITablatureLibraryItem.cs" />
     <Compile Include="Library\ITablatureFileLibrary.cs" />
+    <Compile Include="Library\TablatureLibraryIndexFile.cs" />
     <Compile Include="Library\TablatureLibraryItem.cs" />
     <Compile Include="Library\TablatureFileLibrary.cs" />
     <Compile Include="Processing\ITablatureFileExporter.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="TabsterDocumentCollection.cs" />
     <Compile Include="TabsterDocumentException.cs" />
     <Compile Include="TabsterXmlDocument.cs" />
+    <Compile Include="Utilities\BinaryStreamExtensions.cs" />
     <Compile Include="Utilities\DateTimeUtilities.cs" />
   </ItemGroup>
   <ItemGroup>

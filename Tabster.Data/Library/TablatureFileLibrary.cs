@@ -8,9 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.VisualBasic.FileIO;
-using Tabster.Core.Types;
 using Tabster.Data.Processing;
-using Tabster.Data.Utilities;
 using SearchOption = System.IO.SearchOption;
 
 #endregion
@@ -19,18 +17,18 @@ namespace Tabster.Data.Library
 {
     public class TablatureFileLibrary : ITablatureFileLibrary
     {
-        private static readonly Version INDEX_VERSION = new Version("1.0");
-        private readonly List<TablatureLibraryItem> _TablatureLibraryItems = new List<TablatureLibraryItem>();
+        private List<TablatureLibraryItem> _TablatureLibraryItems = new List<TablatureLibraryItem>();
 
         private readonly TabsterDocumentProcessor<TablatureDocument> _documentProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
-        private readonly TabsterXmlDocument _indexDoc = new TabsterXmlDocument("library");
+        private readonly TablatureLibraryIndexFile _indexFile;
         private readonly string _indexPath;
         private readonly TabsterDocumentProcessor<TablaturePlaylistDocument> _playlistProcessor = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true);
 
-        private readonly List<TablaturePlaylistDocument> _playlists = new List<TablaturePlaylistDocument>();
+        private List<TablaturePlaylistDocument> _playlists = new List<TablaturePlaylistDocument>();
 
         public TablatureFileLibrary(string indexPath, string libraryDirectory, string playlistDirectory)
         {
+            _indexFile = new TablatureLibraryIndexFile(this);
             _indexPath = indexPath;
 
             LibraryDirectory = libraryDirectory;
@@ -55,87 +53,11 @@ namespace Tabster.Data.Library
 
         public void Load()
         {
-            _TablatureLibraryItems.Clear();
-            _playlists.Clear();
-
-            var loadFromCache = File.Exists(_indexPath);
-
-            if (loadFromCache)
+            if (File.Exists(_indexPath))
             {
-                _indexDoc.Load(_indexPath);
-
-                var itemNodes = _indexDoc.ReadChildNodes("tabs");
-
-                if (itemNodes != null)
-                {
-                    foreach (var itemNode in itemNodes)
-                    {
-                        var path = itemNode.InnerText;
-
-                        if (File.Exists(path) && itemNode.Attributes != null)
-                        {
-                            var artist = string.Empty;
-                            if (itemNode.Attributes["artist"] != null)
-                                artist = itemNode.Attributes["artist"].Value;
-
-                            var title = string.Empty;
-                            if (itemNode.Attributes["title"] != null)
-                                title = itemNode.Attributes["title"].Value;
-
-                            var type = default(TablatureType);
-                            if (itemNode.Attributes["type"] != null)
-                                type = new TablatureType(itemNode.Attributes["type"].Value);
-
-                            var favorited = itemNode.Attributes["favorite"] != null && bool.Parse(itemNode.Attributes["favorite"].Value);
-
-                            var views = 0;
-                            if (itemNode.Attributes["views"] != null)
-                                int.TryParse(itemNode.Attributes["views"].Value, out views);
-
-                            DateTime? lastViewed = null;
-                            DateTime dt;
-                            if (itemNode.Attributes["last_viewed"] != null && DateTime.TryParse(itemNode.Attributes["last_viewed"].Value, out dt))
-                                lastViewed = dt;
-
-                            DateTime added = DateTime.MinValue;
-                            if (itemNode.Attributes["added"] != null)
-                            {
-                                int i;
-                                if (int.TryParse(itemNode.Attributes["added"].Value, out i))
-                                {
-                                    added = DateTimeUtilities.UnixTimestampToDateTime(i);
-                                }
-                            }
-
-                            if (added == DateTime.MinValue)
-                                added = DateTime.UtcNow;
-
-                            var fi = new FileInfo(path);
-
-                            var entry = new TablatureLibraryItem(fi, artist, title, type) {Favorited = favorited, Views = views, LastViewed = lastViewed, Added = added};
-
-                            _TablatureLibraryItems.Add(entry);
-                        }
-                    }
-                }
-
-                var playlistPaths = _indexDoc.ReadChildNodeValues("playlists");
-
-                if (playlistPaths != null)
-                {
-                    foreach (var file in playlistPaths)
-                    {
-                        if (File.Exists(file))
-                        {
-                            var playlist = _playlistProcessor.Load(file);
-
-                            if (playlist != null)
-                            {
-                                _playlists.Add(playlist);
-                            }
-                        }
-                    }
-                }
+                _indexFile.Load(_indexPath);
+                _TablatureLibraryItems = new List<TablatureLibraryItem>(_indexFile.LibraryItems);
+                _playlists = new List<TablaturePlaylistDocument>(_indexFile.Playlists);
             }
 
             else
@@ -156,38 +78,7 @@ namespace Tabster.Data.Library
 
         public void Save()
         {
-            _indexDoc.Version = INDEX_VERSION;
-
-            _indexDoc.WriteNode("tabs");
-
-            foreach (var entry in _TablatureLibraryItems.Where(entry => File.Exists(entry.FileInfo.FullName)))
-            {
-                _indexDoc.WriteNode("tab",
-                                    entry.FileInfo.FullName,
-                                    "tabs",
-                                    new SortedDictionary<string, string>
-                                        {
-                                            {"artist", entry.Artist},
-                                            {"title", entry.Title},
-                                            {"type", entry.Type.ToString()},
-                                            {"favorite", entry.Favorited.ToString().ToLower()},
-                                            {"views", entry.Views.ToString()},
-                                            {"last_viewed", entry.LastViewed == null ? string.Empty : entry.LastViewed.Value.ToString()},
-                                            {"added", DateTimeUtilities.GetUnixTimestamp().ToString()}
-                                        }, false);
-            }
-
-            _indexDoc.WriteNode("playlists");
-
-            foreach (var playlist in _playlists)
-            {
-                if (File.Exists(playlist.FileInfo.FullName))
-                {
-                    _indexDoc.WriteNode("playlist", playlist.FileInfo.FullName, "playlists", preventNodeDuplication: false);
-                }
-            }
-
-            _indexDoc.Save(_indexPath);
+            _indexFile.Save(_indexPath);
         }
 
         #endregion
