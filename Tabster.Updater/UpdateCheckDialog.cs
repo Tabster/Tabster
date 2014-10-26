@@ -47,7 +47,7 @@ namespace Tabster.Updater
                 else
                 {
                     updatebtn.Enabled = _query.UpdateAvailable;
-                    lblstatus.Text = string.Format("Tabser {0} is available for download!", _query.Version);
+                    lblstatus.Text = string.Format("Tabster {0} is available for download!", _query.Version);
                 }
             }
         }
