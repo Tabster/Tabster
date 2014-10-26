@@ -36,10 +36,8 @@ namespace Tabster.Forms
         {
             if (listSearchServices.SelectedItems.Count > 0 && (txtSearchArtist.Text.Trim().Length > 0 || txtSearchTitle.Text.Trim().Length > 0))
             {
-                if (SearchBackgroundWorker.IsBusy)
-                {
-                    SearchBackgroundWorker.CancelAsync();
-                }
+                onlinesearchbtn.Enabled = false;
+
                 var searchArtist = txtSearchArtist.Text.Trim();
                 var searchTitle = txtSearchTitle.Text.Trim();
 
@@ -135,6 +133,8 @@ namespace Tabster.Forms
             searchDisplay.Rows.Clear();
             _searchResults.Clear();
 
+            onlinesearchbtn.Enabled = true;
+
             if (e.Result != null)
             {
                 var results = (List<SearchResult>) e.Result;
@@ -175,7 +175,7 @@ namespace Tabster.Forms
 
             var newRow = new DataGridViewRow {Tag = result.Source.ToString()};
 
-            var ratingString = new string('\u2605', (int) result.Rating - 1).PadRight(5, '\u2606');
+            var ratingString = result.Rating == TablatureRating.None ? "" : new string('\u2605', (int) result.Rating - 1).PadRight(5, '\u2606');
 
             newRow.CreateCells(searchDisplay, result.Tab.Artist, result.Tab.Title, result.Tab.Type.ToFriendlyString(), ratingString, result.Query.Service.Name);
             searchDisplay.Rows.Add(newRow);
