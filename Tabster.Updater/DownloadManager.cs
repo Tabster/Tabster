@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Tabster.Utilities.Net;
 
 #endregion
@@ -40,6 +41,9 @@ namespace Tabster.Updater
             }
         }
 
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
         public void RunInstaller(bool silent)
         {
             if (_downloadLocation != null)
@@ -48,15 +52,14 @@ namespace Tabster.Updater
 
                 var psi = new ProcessStartInfo
                               {
-                                  //Verb = "runas",
-                                  //UseShellExecute = true,
                                   WorkingDirectory = Path.GetDirectoryName(_downloadLocation),
                                   FileName = Path.GetFileName(_downloadLocation),
                                   Arguments = silent ? string.Format("/S /D={0}", installPath) : "",
                               };
 
-                //todo bring installer window to front
                 var process = Process.Start(psi);
+
+                SetForegroundWindow(process.MainWindowHandle);
 
                 if (silent)
                     process.WaitForExit();
