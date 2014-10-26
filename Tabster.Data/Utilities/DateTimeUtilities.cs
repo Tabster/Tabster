@@ -15,6 +15,11 @@ namespace Tabster.Data.Utilities
             return (int) (DateTime.UtcNow.Subtract(EPOCH)).TotalSeconds;
         }
 
+        public static int GetUnixTimestamp(DateTime dateTime)
+        {
+            return (int)(dateTime.Subtract(EPOCH)).TotalSeconds;
+        }
+
         public static DateTime UnixTimestampToDateTime(int timestamp)
         {
             return EPOCH.AddSeconds(timestamp);
