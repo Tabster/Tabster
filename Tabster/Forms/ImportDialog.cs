@@ -45,8 +45,7 @@ namespace Tabster.Forms
             Tab = new TablatureDocument(txtartist.Text.Trim(), txttitle.Text.Trim(), typeList.SelectedType, File.ReadAllText(txtimportfile.Text))
                       {
                           Source = new Uri(txtimportfile.Text),
-                          SourceType = chkusertab.Checked ? TablatureSourceType.UserCreated : TablatureSourceType.FileImport,
-                          Method = Common.GetTablatureDocumentMethodString()
+                          SourceType = chkusertab.Checked ? TablatureSourceType.UserCreated : TablatureSourceType.FileImport
                       };
         }
 

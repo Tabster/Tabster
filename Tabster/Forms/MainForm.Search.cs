@@ -296,7 +296,6 @@ namespace Tabster.Forms
                 {
                     tab.Source = result.Source;
                     tab.SourceType = TablatureSourceType.Download;
-                    tab.Method = Common.GetTablatureDocumentMethodString(parser);
                     _searchResultsCache[result.Source] = tab;
                 }
             }

@@ -90,7 +90,6 @@
     <Compile Include="Controls\TextBoxExtended.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LocalUtilities\Common.cs" />
     <Compile Include="LocalUtilities\PortableSettingsProvider.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

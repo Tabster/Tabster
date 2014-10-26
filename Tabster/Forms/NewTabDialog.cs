@@ -42,7 +42,6 @@ namespace Tabster.Forms
             Tab = new TablatureDocument(txtArtist.Text.Trim(), txtTitle.Text.Trim(), typeList.SelectedType, "")
                       {
                           SourceType = TablatureSourceType.UserCreated,
-                          Method = Common.GetTablatureDocumentMethodString()
                       };
         }
     }
