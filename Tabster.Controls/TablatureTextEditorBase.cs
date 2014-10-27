@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Tabster.Core.Printing;
@@ -100,6 +101,7 @@ namespace Tabster.Controls
             }
         }
 
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Modified
         {
             get { return TextBoxBase.Modified; }
@@ -148,6 +150,7 @@ namespace Tabster.Controls
         private bool _autoScroll;
 
         //todo rename
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool AutoScroll
         {
             get { return _autoScroll; }
