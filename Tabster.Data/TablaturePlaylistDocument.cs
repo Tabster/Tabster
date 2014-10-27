@@ -75,6 +75,12 @@ namespace Tabster.Data
             Save(fileName);
             var doc = new TablaturePlaylistDocument();
             doc.Load(fileName);
+
+            if (FileInfo == null)
+            {
+                FileInfo = new FileInfo(fileName);
+            }
+
             return doc;
         }
 
