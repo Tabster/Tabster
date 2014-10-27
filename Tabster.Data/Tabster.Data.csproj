@@ -38,6 +38,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileType.cs" />
+    <Compile Include="ITablatureFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ITabsterDocument.cs" />
     <Compile Include="Library\ITablatureLibraryItem.cs" />
     <Compile Include="Library\ITablatureFileLibrary.cs" />
@@ -55,7 +58,7 @@
     <Compile Include="TablatureDocument.cs" />
     <Compile Include="TablaturePlaylistDocument.cs" />
     <Compile Include="TabsterDocumentCollection.cs" />
-    <Compile Include="TabsterDocumentException.cs" />
+    <Compile Include="TablatureFileException.cs" />
     <Compile Include="TabsterXmlDocument.cs" />
     <Compile Include="Utilities\BinaryStreamExtensions.cs" />
     <Compile Include="Utilities\DateTimeUtilities.cs" />
