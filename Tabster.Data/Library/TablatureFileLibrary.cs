@@ -17,12 +17,11 @@ namespace Tabster.Data.Library
 {
     public class TablatureFileLibrary : ITablatureFileLibrary
     {
-        private List<TablatureLibraryItem> _TablatureLibraryItems = new List<TablatureLibraryItem>();
-
         private readonly TabsterDocumentProcessor<TablatureDocument> _documentProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
         private readonly TablatureLibraryIndexFile _indexFile;
         private readonly string _indexPath;
         private readonly TabsterDocumentProcessor<TablaturePlaylistDocument> _playlistProcessor = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true);
+        private List<TablatureLibraryItem> _TablatureLibraryItems = new List<TablatureLibraryItem>();
 
         private List<TablaturePlaylistDocument> _playlists = new List<TablaturePlaylistDocument>();
 
@@ -132,7 +131,7 @@ namespace Tabster.Data.Library
         {
             if (playlist.FileInfo == null)
             {
-                var uniqueName = GenerateUniqueFilename(PlaylistDirectory, playlist.Name);
+                var uniqueName = GenerateUniqueFilename(PlaylistDirectory, playlist.Name + TablaturePlaylistDocument.FILE_EXTENSION);
                 playlist.SaveAs(uniqueName);
             }
 
@@ -174,7 +173,6 @@ namespace Tabster.Data.Library
 
         public void Add(TablatureLibraryItem item)
         {
-            item.Added = DateTime.UtcNow;
             _TablatureLibraryItems.Add(item);
         }
 
@@ -187,8 +185,7 @@ namespace Tabster.Data.Library
                 doc.SaveAs(uniqueName);
             }
 
-            var item = new TablatureLibraryItem(doc);
-
+            var item = new TablatureLibraryItem(doc) {Added = DateTime.UtcNow};
             Add(item);
 
             return item;
