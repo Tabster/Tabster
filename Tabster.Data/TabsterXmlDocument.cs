@@ -32,7 +32,7 @@ namespace Tabster.Data
         }
     }
 
-    public class TabsterXmlDocument
+    internal class TabsterXmlDocument
     {
         private readonly string _rootNode;
         private Version _version = new Version("1.0");
