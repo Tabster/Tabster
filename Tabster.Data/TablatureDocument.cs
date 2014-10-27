@@ -9,12 +9,12 @@ using Tabster.Core.Types;
 
 namespace Tabster.Data
 {
-    public class TablatureDocument : ITabsterDocument, ITablature, ITablatureAttributes, ITablatureSourceAttribute, ITablatureUserDefined, ITablatureRatedAttribute
+    public class TablatureDocument : AttributedTablature, ITabsterDocument, ITablatureSourceAttribute, ITablatureFileAttributes
     {
         #region Constants
 
         public const string FILE_EXTENSION = ".tabster";
-        public static readonly Version FILE_VERSION = new Version("1.4.1");
+        public static readonly Version FILE_VERSION = new Version("1.4");
 
         #endregion
 
@@ -41,26 +41,6 @@ namespace Tabster.Data
 
         #endregion
 
-        #region Implementation of ITablature
-
-        #region ITablature Members
-
-        public string Contents { get; set; }
-
-        #endregion
-
-        #region ITablatureAttributes Members
-
-        public string Artist { get; set; }
-
-        public string Title { get; set; }
-
-        public TablatureType Type { get; set; }
-
-        #endregion
-
-        #endregion
-
         #region Implementation of ITabsterDocument
 
         public Version FileVersion
@@ -80,23 +60,33 @@ namespace Tabster.Data
             Title = _doc.TryReadNodeValues(new[] {"song", "title"}, string.Empty);
 
             var tabTypeValue = _doc.TryReadNodeValue("type");
-            TablatureType? type = null;
+            TablatureType type = null;
 
-            if (tabTypeValue != null && Enum.IsDefined(typeof (TablatureType), tabTypeValue))
+            if (tabTypeValue != null)
             {
-                type = (TablatureType) Enum.Parse(typeof (TablatureType), tabTypeValue);
+                var knownTypes = TablatureType.GetKnownTypes();
+
+                var match = knownTypes.Find(x => x.Name == tabTypeValue);
+
+                if (match != null)
+                {
+                    type = match;
+                }
+
+                else
+                {
+                    //legacy
+                    var fromString = FromFriendlyString(tabTypeValue);
+
+                    if (fromString != null)
+                        type = fromString;
+                }
+
+                Type = type;
             }
 
-            else //legacy
-            {
-                var fromString = FromFriendlyString(tabTypeValue);
-
-                if (fromString.HasValue)
-                    type = fromString.Value;
-            }
-
-            if (!type.HasValue)
-                throw new TabsterDocumentException("Invalid or missing tab type");
+            if (Type == null)
+                throw new TablatureFileException("Invalid or missing tab type");
 
             Contents = _doc.TryReadNodeValue("tab", string.Empty);
 
@@ -128,13 +118,6 @@ namespace Tabster.Data
                     SourceType = Source.IsFile ? TablatureSourceType.FileImport : TablatureSourceType.Download;
                 }
             }
-
-            Method = _doc.TryReadNodeValue("method", string.Empty);
-
-            var ratingValue = _doc.TryReadNodeValue("rating");
-
-            if (!string.IsNullOrEmpty(ratingValue))
-                Rating = TablatureRatingUtilities.FromString(ratingValue);
         }
 
         public void Save()
@@ -148,6 +131,12 @@ namespace Tabster.Data
             Save(fileName);
             var doc = new TablatureDocument();
             doc.Load(fileName);
+
+            if (FileInfo == null)
+            {
+                FileInfo = new FileInfo(fileName);
+            }
+
             return doc;
         }
 
@@ -192,8 +181,6 @@ namespace Tabster.Data
             }
 
             _doc.WriteNode("source", sourceValue);
-            _doc.WriteNode("method", Method);
-            _doc.WriteNode("rating", Rating.ToInt().ToString());
             _doc.WriteNode("created", Created == DateTime.MinValue ? DateTime.Now.ToString() : Created.ToString());
             _doc.WriteNode("comment", Comment);
 
@@ -208,8 +195,6 @@ namespace Tabster.Data
 
         public Uri Source { get; set; }
 
-        public string Method { get; set; }
-
         #endregion
 
         #region Implementation of ITablatureUserDefined
@@ -222,7 +207,10 @@ namespace Tabster.Data
 
         #region Static Methods
 
-        private static TablatureType? FromFriendlyString(string str)
+        /// <summary>
+        ///   Deprecated format.
+        /// </summary>
+        private static TablatureType FromFriendlyString(string str)
         {
             switch (str)
             {
@@ -272,12 +260,6 @@ namespace Tabster.Data
 
             return new string(array, 0, arrayIndex);
         }
-
-        #endregion
-
-        #region Implementation of ITablatureRated
-
-        public TablatureRating Rating { get; set; }
 
         #endregion
     }
