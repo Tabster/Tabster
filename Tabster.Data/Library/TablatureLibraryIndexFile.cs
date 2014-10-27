@@ -20,9 +20,9 @@ namespace Tabster.Data.Library
         private static readonly Version FORMAT_VERSION = new Version("1.0");
 
         private readonly TablatureFileLibrary _library;
-        private readonly List<TablaturePlaylistDocument> _playlistFiles = new List<TablaturePlaylistDocument>();
 
         private readonly List<TablatureLibraryItem> _libraryItems = new List<TablatureLibraryItem>();
+        private readonly List<TablaturePlaylistDocument> _playlistFiles = new List<TablaturePlaylistDocument>();
 
         public TablatureLibraryIndexFile(TablatureFileLibrary library)
         {
@@ -99,6 +99,9 @@ namespace Tabster.Data.Library
 
             reader.BaseStream.Position = HEADER_SIZE;
 
+            if (reader.PeekChar() == -1)
+                return;
+
             var directoryTable = new List<string>();
             var directoryCount = reader.ReadInt32();
 
@@ -110,32 +113,39 @@ namespace Tabster.Data.Library
 
             var fileCount = reader.ReadInt32();
 
-            while (_libraryItems.Count < fileCount)
+            for (var i = 0; i < fileCount; i++)
             {
                 var directoryIndex = reader.ReadInt32();
 
                 var path = ReadFilePath(reader, directoryTable, directoryIndex, TablatureDocument.FILE_EXTENSION);
-                var added = DateTimeUtilities.UnixTimestampToDateTime(reader.ReadInt32());
-                var favorited = reader.ReadBoolean();
-                var views = reader.ReadInt32();
 
-                var lastViewedValue = reader.ReadInt32();
+                if (File.Exists(path))
+                {
+                    var added = DateTimeUtilities.UnixTimestampToDateTime(reader.ReadInt32());
+                    var favorited = reader.ReadBoolean();
+                    var views = reader.ReadInt32();
 
-                DateTime? lastViewed = null;
+                    var lastViewedValue = reader.ReadInt32();
 
-                if (lastViewedValue > 0)
-                    lastViewed = DateTimeUtilities.UnixTimestampToDateTime(lastViewedValue);
+                    DateTime? lastViewed = null;
 
-                var doc = new TablatureDocument();
-                doc.Load(path);
+                    if (lastViewedValue > 0)
+                        lastViewed = DateTimeUtilities.UnixTimestampToDateTime(lastViewedValue);
 
-                _libraryItems.Add(new TablatureLibraryItem(doc) { Added = added, Favorited = favorited, Views = views, LastViewed = lastViewed });
+                    var doc = new TablatureDocument();
+                    doc.Load(path);
+
+                    _libraryItems.Add(new TablatureLibraryItem(doc) {Added = added, Favorited = favorited, Views = views, LastViewed = lastViewed});
+                }
             }
         }
 
         protected virtual void ReadPlaylistEntries(BinaryReader reader)
         {
             _playlistFiles.Clear();
+
+            if (reader.PeekChar() == -1)
+                return;
 
             var directoryTable = new List<string>();
             var directoryCount = reader.ReadInt32();
@@ -148,16 +158,19 @@ namespace Tabster.Data.Library
 
             var fileCount = reader.ReadInt32();
 
-            while (_playlistFiles.Count < fileCount)
+            for (var i = 0; i < fileCount; i++)
             {
                 var directoryIndex = reader.ReadInt32();
 
                 var path = ReadFilePath(reader, directoryTable, directoryIndex, TablaturePlaylistDocument.FILE_EXTENSION);
 
-                var playlist = new TablaturePlaylistDocument();
-                playlist.Load(path);
+                if (File.Exists(path))
+                {
+                    var playlist = new TablaturePlaylistDocument();
+                    playlist.Load(path);
 
-                _playlistFiles.Add(playlist);
+                    _playlistFiles.Add(playlist);
+                }
             }
         }
 
