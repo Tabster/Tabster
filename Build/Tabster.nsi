@@ -53,11 +53,11 @@ Section "MainSection" SEC01
   
   !define PLUGIN_DIRECTORY "$INSTDIR\Plugins"
   !define PLUGIN_FILETYPES_DIRECTORY "${PLUGIN_DIRECTORY}\FileTypes"
-  !define PLUGIN_SEARCHSERVICES_DIRECTORY "${PLUGIN_DIRECTORY}\SearchServices"
+  !define PLUGIN_SEARCHING_DIRECTORY "${PLUGIN_DIRECTORY}\Searching"
   
   CreateDirectory "${PLUGIN_DIRECTORY}"
   CreateDirectory "${PLUGIN_FILETYPES_DIRECTORY}"
-  CreateDirectory "${PLUGIN_SEARCHSERVICES_DIRECTORY}"
+  CreateDirectory "${PLUGIN_SEARCHING_DIRECTORY}"
   
   ; native filetype plugins
   SetOutPath "${PLUGIN_FILETYPES_DIRECTORY}"  
@@ -71,7 +71,7 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\PngFile.dll"
   
   ; native search plugins
-  SetOutPath "${PLUGIN_SEARCHSERVICES_DIRECTORY}"  
+  SetOutPath "${PLUGIN_SEARCHING_DIRECTORY}"  
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\UltimateGuitar.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\GuitartabsDotCC.dll"
   
