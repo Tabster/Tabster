@@ -1,7 +1,7 @@
 #region
 
 using System;
-using System.Collections.Generic;
+using System.IO;
 using Tabster.Core.Types;
 
 #endregion
@@ -10,9 +10,8 @@ namespace Tabster.Data
 {
     public interface ITablatureFile : ITablatureAttributes
     {
+        FileInfo FileInfo { get; }
         Version Version { get; }
-        Dictionary<string, string> Attributes { get; }
-
         void Load(string fileName);
         void Save(string fileName);
     }
