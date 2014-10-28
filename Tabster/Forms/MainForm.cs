@@ -447,7 +447,13 @@ namespace Tabster.Forms
 
         private void openPlaylistMenuItem_Click(object sender, EventArgs e)
         {
-            using (var ofd = new OpenFileDialog())
+            using (var ofd = new OpenFileDialog
+                                 {
+                                     Title = "Open Plylist",
+                                     AddExtension = true,
+                                     Multiselect = false,
+                                     Filter = string.Format("Tabster Playlist Files (*{0})|*{0}", TablaturePlaylistDocument.FILE_EXTENSION)
+                                 })
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
