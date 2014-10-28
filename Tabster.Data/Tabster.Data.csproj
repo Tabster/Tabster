@@ -56,9 +56,8 @@
     <Compile Include="Processing\TabsterDocumentProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TablatureDocument.cs" />
-    <Compile Include="TablaturePlaylistDocument.cs" />
-    <Compile Include="TabsterDocumentCollection.cs" />
     <Compile Include="TablatureFileException.cs" />
+    <Compile Include="TablaturePlaylistDocument.cs" />
     <Compile Include="TabsterXmlDocument.cs" />
     <Compile Include="Utilities\BinaryStreamExtensions.cs" />
     <Compile Include="Utilities\DateTimeUtilities.cs" />

@@ -1,6 +1,8 @@
 ﻿#region
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Tabster.Data.Processing;
@@ -9,7 +11,7 @@ using Tabster.Data.Processing;
 
 namespace Tabster.Data
 {
-    public class TablaturePlaylistDocument : TabsterDocumentCollection<TablatureDocument>, ITabsterDocument
+    public class TablaturePlaylistDocument : ICollection<TablatureDocument>, ITabsterDocument
     {
         #region Constants
 
@@ -20,6 +22,7 @@ namespace Tabster.Data
 
         private readonly TabsterXmlDocument _doc = new TabsterXmlDocument("tablist");
         private readonly TabsterDocumentProcessor<TablatureDocument> _processor = new TabsterDocumentProcessor<TablatureDocument>(FILE_VERSION, true);
+        private readonly List<TablatureDocument> _documents = new List<TablatureDocument>();
 
         #region Constructors
 
@@ -34,11 +37,7 @@ namespace Tabster.Data
 
         #endregion
 
-        #region Implementation of ITablaturePlaylist
-
         public string Name { get; set; }
-
-        #endregion
 
         #region Implementation of ITabsterDocument
 
@@ -105,5 +104,69 @@ namespace Tabster.Data
         }
 
         #endregion
+
+        #region Implementation of IEnumerable
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<TablatureDocument> GetEnumerator()
+        {
+            return ((IEnumerable<TablatureDocument>)_documents).GetEnumerator();
+        }
+
+        #endregion
+
+        #region Implementation of ICollection<TablatureDocument>
+
+        public int Count
+        {
+            get { return _documents.Count; }
+        }
+
+        public bool IsReadOnly
+        {
+            get { return false; }
+        }
+
+        public void Add(TablatureDocument item)
+        {
+            Remove(item);
+            _documents.Add(item);
+        }
+
+        public void Clear()
+        {
+            _documents.Clear();
+        }
+
+        public bool Contains(TablatureDocument item)
+        {
+            return _documents.Contains(item);
+        }
+
+        public void CopyTo(TablatureDocument[] array, int arrayIndex)
+        {
+            _documents.CopyTo(array, arrayIndex);
+        }
+
+        public bool Remove(TablatureDocument item)
+        {
+            return _documents.Remove(item);
+        }
+
+        #endregion
+
+        public bool Contains(string path)
+        {
+            return Find(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase)) != null;
+        }
+
+        public TablatureDocument Find(Predicate<TablatureDocument> match)
+        {
+            return _documents.Find(match);
+        }
     }
 }
