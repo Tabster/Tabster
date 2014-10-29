@@ -19,11 +19,6 @@ namespace Tabster.Forms
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            if (txtname.Text.Trim().Length <= 0)
-            {
-                MessageBox.Show("Please enter a valid song/artist name.", "Tab Data");
-            }
-
             NewName = txtname.Text.Trim();
         }
 
