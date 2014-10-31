@@ -165,17 +165,13 @@ namespace Tabster.Forms
             //ignore events triggered by prior sublibrary
             if (_switchingNavigationOption)
             {
-                //first load, instantly load tab preview
-                if (!_initialLibraryLoaded)
-                {
-                    UpdateTabControls(false);
-                    LoadTabPreview(false);
-                }
+                UpdateTabControls(false);
+                LoadTabPreview(false);
 
                 _switchingNavigationOption = false;
             }
 
-                //normal event
+            //normal event
             else
             {
                 //load tab preview with delay
