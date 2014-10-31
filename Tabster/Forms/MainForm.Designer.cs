@@ -77,7 +77,7 @@ namespace Tabster.Forms
             this.libraryCol_location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtLibraryFilter = new Tabster.Controls.TextBoxExtended();
-            this.lblopenedexternally = new System.Windows.Forms.Label();
+            this.lblLibraryPreview = new System.Windows.Forms.Label();
             this.previewToolStrip = new System.Windows.Forms.ToolStrip();
             this.lblpreviewtitle = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -370,7 +370,7 @@ namespace Tabster.Forms
             // 
             // librarySplitContainer.Panel2
             // 
-            this.librarySplitContainer.Panel2.Controls.Add(this.lblopenedexternally);
+            this.librarySplitContainer.Panel2.Controls.Add(this.lblLibraryPreview);
             this.librarySplitContainer.Panel2.Controls.Add(this.previewToolStrip);
             this.librarySplitContainer.Panel2MinSize = 140;
             this.librarySplitContainer.Size = new System.Drawing.Size(885, 411);
@@ -532,17 +532,17 @@ namespace Tabster.Forms
             this.txtLibraryFilter.TextChangedDelay = 250;
             this.txtLibraryFilter.TextChanged += new System.EventHandler(this.txtLibraryFilter_TextChanged);
             // 
-            // lblopenedexternally
+            // lblLibraryPreview
             // 
-            this.lblopenedexternally.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblopenedexternally.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblopenedexternally.Location = new System.Drawing.Point(0, 25);
-            this.lblopenedexternally.Name = "lblopenedexternally";
-            this.lblopenedexternally.Size = new System.Drawing.Size(883, 142);
-            this.lblopenedexternally.TabIndex = 24;
-            this.lblopenedexternally.Text = "Tab is open in external viewer.";
-            this.lblopenedexternally.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblopenedexternally.Visible = false;
+            this.lblLibraryPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblLibraryPreview.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLibraryPreview.Location = new System.Drawing.Point(0, 25);
+            this.lblLibraryPreview.Name = "lblLibraryPreview";
+            this.lblLibraryPreview.Size = new System.Drawing.Size(883, 142);
+            this.lblLibraryPreview.TabIndex = 24;
+            this.lblLibraryPreview.Text = "";
+            this.lblLibraryPreview.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblLibraryPreview.Visible = false;
             // 
             // previewToolStrip
             // 
@@ -1646,7 +1646,7 @@ namespace Tabster.Forms
         private System.ComponentModel.BackgroundWorker SearchPreviewBackgroundWorker;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem librarycontextfavorites;
-        private Label lblopenedexternally;
+        private Label lblLibraryPreview;
         private ToolStripMenuItem onToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker SearchBackgroundWorker;
         private TabPage tabPage1;

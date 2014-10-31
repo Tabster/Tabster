@@ -45,8 +45,7 @@ namespace Tabster.Forms
             descendingMenuItem.Click += SortByDirectionMenuItem_Click;
 
             //tabviewermanager events
-            Program.TabHandler.TabOpened += TabHandler_OnTabOpened;
-            Program.TabHandler.TabClosed += TabHandler_OnTabClosed;
+            Program.TabbedViewer.TabClosed += TabHandler_OnTabClosed;
 
             Program.updateQuery.Completed += updateQuery_Completed;
 

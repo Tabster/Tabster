@@ -132,7 +132,7 @@ namespace Tabster.Forms
                 var selectedTabLocation = tablibrary.SelectedRows[0].Cells[tablibrary.Columns.Count - 1].Value.ToString();
                 SelectedLibraryItem = Program.TablatureFileLibrary.Find(selectedTabLocation);
 
-                var openedExternally = Program.TabHandler.IsOpenedExternally(SelectedLibraryItem.Document);
+                var openedExternally = Program.TabbedViewer.IsFileOpen(SelectedLibraryItem.Document);
 
                 deleteTabToolStripMenuItem.Enabled = librarycontextdelete.Enabled = !openedExternally;
                 detailsToolStripMenuItem.Enabled = librarycontextdetails.Enabled = !openedExternally;
@@ -199,10 +199,17 @@ namespace Tabster.Forms
 
         private void PopoutTab(TablatureDocument tab, bool updateRecentFiles = true)
         {
-            Program.TabHandler.LoadExternally(tab, true);
+            Program.TabbedViewer.LoadTablature(tab);
 
             if (updateRecentFiles)
                 recentlyViewedMenuItem.Add(tab.FileInfo, tab.ToFriendlyString());
+
+            var libraryItem = Program.TablatureFileLibrary.GetLibraryItem(tab);
+
+            libraryItem.IncrementViewcount();
+            libraryItem.LastViewed = DateTime.UtcNow;
+
+            Program.TablatureFileLibrary.Save();
 
             UpdateTabControls(false);
             LoadTabPreview();
@@ -644,38 +651,29 @@ namespace Tabster.Forms
         {
             PreviewDisplayTimer.Stop();
 
+            //destroy previous editor
+            if (_tabPreviewEditor != null && !_tabPreviewEditor.IsDisposed)
+                _tabPreviewEditor.Dispose();
+
             if (SelectedLibraryItem != null)
             {
                 lblpreviewtitle.Text = SelectedLibraryItem.Document.ToFriendlyString();
 
-                bool openedExternally, isNew;
-                var editor = Program.TabHandler.TryGetEditor(SelectedLibraryItem.Document, out openedExternally, out isNew);
+                var openedExternally = Program.TabbedViewer.IsFileOpen(SelectedLibraryItem.Document);
 
                 if (openedExternally)
                 {
-                    lblopenedexternally.BringToFront();
-                    lblopenedexternally.Visible = true;
-                    editor.BringToFront();
+                    lblLibraryPreview.Text = "Tab is open in external viewer.";
+                    lblLibraryPreview.Visible = true;
                 }
 
                 else
                 {
+                    lblLibraryPreview.Visible = false;
+
+                    var editor = new BasicTablatureTextEditor { Dock = DockStyle.Fill, ReadOnly = true };
                     editor.LoadTablature(SelectedLibraryItem.Document);
-
-                    lblopenedexternally.Visible = false;
-
                     librarySplitContainer.Panel2.Controls.Add(editor);
-
-                    editor.BringToFront();
-                    editor.Visible = true;
-                    editor.ReadOnly = true;
-
-                    //cancel autoscroll of existing editor
-                    if (_tabPreviewEditor != null)
-                    {
-                        _tabPreviewEditor.AutoScroll = false;
-                        offToolStripMenuItem.PerformClick();
-                    }
 
                     if (startViewCountTimer)
                     {
@@ -693,11 +691,7 @@ namespace Tabster.Forms
             {
                 previewToolStrip.Enabled = false;
                 lblpreviewtitle.Text = "";
-
-                if (_tabPreviewEditor != null)
-                {
-                    _tabPreviewEditor.Text = "";
-                }
+                lblLibraryPreview.Text = "";
             }
         }
 
@@ -708,14 +702,7 @@ namespace Tabster.Forms
             if (SelectedLibraryItem != null)
             {
                 LoadTabPreview();
-            }
-        }
-
-        private void TabHandler_OnTabOpened(object sender, TablatureDocument tabDocument)
-        {
-            if (SelectedLibraryItem != null)
-            {
-                LoadTabPreview();
+                UpdateTabControls(false);
             }
         }
 
@@ -870,7 +857,7 @@ namespace Tabster.Forms
         {
             if (SelectedLibraryItem != null)
             {
-                SelectedLibraryItem.Views += 1;
+                SelectedLibraryItem.IncrementViewcount();
                 SelectedLibraryItem.LastViewed = DateTime.UtcNow;
 
                 UpdateLibraryItem(SelectedLibraryItem, false);

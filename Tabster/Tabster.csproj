@@ -177,7 +177,6 @@
     <Compile Include="Controls\StaticTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="TabViewerManager.cs" />
     <EmbeddedResource Include="Forms\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>

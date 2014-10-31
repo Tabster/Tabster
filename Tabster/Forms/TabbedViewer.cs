@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Core.Types;
@@ -14,6 +15,13 @@ namespace Tabster.Forms
 {
     internal partial class TabbedViewer : Form
     {
+        #region Delegates
+
+        public delegate void TabHandler(object sender, TablatureDocument TablatureDocument);
+
+        #endregion
+
+        private readonly Form _owner;
         private readonly List<TabInstance> _tabInstances = new List<TabInstance>();
         private bool _isFullscreen;
         private FormBorderStyle _previousBorderStyle;
@@ -26,19 +34,81 @@ namespace Tabster.Forms
             controlsToolStrip.Renderer = new ToolStripRenderer();
         }
 
-        #region Methods
-
-        public bool AlreadyOpened(TablatureDocument doc)
+        public TabbedViewer(Form owner) : this()
         {
-            TabPage t;
-            return AlreadyOpened(doc, out t);
+            _owner = owner;
         }
 
-        public bool AlreadyOpened(TablatureDocument doc, out TabPage associatedTabPage)
+        #region Public Methods
+
+        public bool IsFileOpen(TablatureDocument doc)
         {
-            var instance = _tabInstances.Find(x => x.File.FileInfo.FullName.Equals(doc.FileInfo.FullName, StringComparison.OrdinalIgnoreCase));
-            associatedTabPage = instance != null ? instance.Page : null;
-            return instance != null;
+            return GetTabInstance(doc) != null;
+        }
+
+        public void LoadTablature(TablatureDocument doc)
+        {
+            if (IsFileOpen(doc))
+            {
+                var instance = GetTabInstance(doc);
+                SelectTabInstance(instance);
+            }
+
+            else
+            {
+                var instance = CreateTabInstance(doc);
+                SelectTabInstance(instance);
+            }
+
+            if (!Visible)
+            {
+                if (_owner != null)
+                {
+                    StartPosition = FormStartPosition.Manual;
+                    Location = new Point(_owner.Location.X + (_owner.Width - Width)/2, _owner.Location.Y + (_owner.Height - Height)/2);
+
+                    Show(_owner);
+                }
+
+                else
+                {
+                    Show();
+                }
+            }
+        }
+
+        #endregion
+
+        public event TabHandler TabClosed;
+        public event TabHandler TabOpened;
+
+        private TabInstance CreateTabInstance(TablatureDocument doc)
+        {
+            var editor = new BasicTablatureTextEditor {Dock = DockStyle.Fill, ReadOnly = false};
+            editor.LoadTablature(doc);
+            editor.ContentsModified += editor_TabModified;
+
+            var instance = new TabInstance(doc, editor);
+
+            _tabInstances.Add(instance);
+
+            tabControl1.TabPages.Add(instance.Page);
+
+            if (TabOpened != null)
+                TabOpened(this, doc);
+
+            return instance;
+        }
+
+        private void SelectTabInstance(TabInstance instance)
+        {
+            tabControl1.SelectedTab = instance.Page;
+            //tabControl1_SelectedIndexChanged(null, null);
+        }
+
+        private TabInstance GetTabInstance(ITabsterDocument doc)
+        {
+            return _tabInstances.Find(x => x.File.FileInfo.FullName.Equals(doc.FileInfo.FullName));
         }
 
         private TabInstance GetSelectedInstance()
@@ -65,40 +135,12 @@ namespace Tabster.Forms
             }
         }
 
-        public void LoadTab(TablatureDocument tabDocument, BasicTablatureTextEditor editor)
-        {
-            TabPage tp;
-            var alreadyOpened = AlreadyOpened(tabDocument, out tp);
-
-            if (alreadyOpened)
-            {
-                tabControl1.SelectedTab = tp;
-            }
-
-            else
-            {
-                var instance = new TabInstance(tabDocument, editor);
-                instance.SetHeader(false);
-
-                _tabInstances.Add(instance);
-
-                tabControl1.TabPages.Add(instance.Page);
-                tabControl1.SelectedTab = instance.Page;
-
-                editor.ReadOnly = false;
-
-                editor.ContentsModified += editor_TabModified;
-
-                tabControl1_SelectedIndexChanged(null, null);
-            }
-        }
-
         private void editor_TabModified(object sender, EventArgs e)
         {
             savebtn.Enabled = ((BasicTablatureTextEditor) sender).Modified;
         }
 
-        private bool CloseTab(TabInstance instance, bool closeIfLast)
+        private bool CloseInstance(TabInstance instance, bool closeIfLast)
         {
             var saveBeforeClosing = true;
 
@@ -119,7 +161,9 @@ namespace Tabster.Forms
 
             tabControl1.TabPages.Remove(instance.Page);
             _tabInstances.Remove(instance);
-            Program.TabHandler.Restore(instance.File);
+
+            if (TabClosed != null)
+                TabClosed(this, instance.File);
 
             if (closeIfLast && tabControl1.TabPages.Count == 0)
             {
@@ -128,8 +172,6 @@ namespace Tabster.Forms
 
             return true;
         }
-
-        #endregion
 
         private void PrintTab(object sender, EventArgs e)
         {
@@ -144,31 +186,17 @@ namespace Tabster.Forms
             var instance = GetSelectedInstance();
 
             if (instance != null)
-                CloseTab(instance, true);
+                CloseInstance(instance, true);
         }
 
         private void TabbedViewer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var modifiedInstances = _tabInstances.FindAll(x => x.Modified);
-
-            //remove in reverse order
-            for (var i = modifiedInstances.Count - 1; i > -1; i--)
-            {
-                var instance = _tabInstances[i];
-                var result = CloseTab(instance, false);
-
-                if (!result)
-                {
-                    e.Cancel = true;
-                    break;
-                }
-            }
-
             //remove in reverse order
             for (var i = _tabInstances.Count - 1; i > -1; i--)
             {
                 var instance = _tabInstances[i];
-                var result = CloseTab(instance, false);
+
+                var result = CloseInstance(instance, false);
 
                 if (!result)
                 {
@@ -176,6 +204,10 @@ namespace Tabster.Forms
                     break;
                 }
             }
+
+            //hide instead of closing
+            Hide();
+            e.Cancel = true;
         }
 
         private void tabControl1_MouseUp(object sender, MouseEventArgs e)
@@ -186,14 +218,13 @@ namespace Tabster.Forms
                 {
                     if (tabControl1.GetTabRect(i).Contains(e.Location))
                     {
-                        var tc = sender as TabControl;
-                        var tabPage = tc.TabPages[i];
+                        var tabPage = ((TabControl) sender).TabPages[i];
 
                         var match = _tabInstances.Find(x => x.Page == tabPage);
 
                         if (match != null)
                         {
-                            CloseTab(match, true);
+                            CloseInstance(match, true);
                         }
 
                         break;
@@ -266,8 +297,8 @@ namespace Tabster.Forms
             {
                 instance.File.Contents = instance.Editor.Text;
                 instance.File.Save();
-                //instance.Editor.ModificationCheck();
                 savebtn.Enabled = false;
+                instance.RefreshHeader();
             }
         }
     }
@@ -284,6 +315,8 @@ namespace Tabster.Forms
 
             Editor.LoadTablature(file);
             Editor.ContentsModified += editor_TabModified;
+
+            RefreshHeader();
         }
 
         public TabPage Page { get; private set; }
@@ -297,12 +330,17 @@ namespace Tabster.Forms
 
         private void editor_TabModified(object sender, EventArgs e)
         {
-            SetHeader(Editor.Modified);
+            RefreshHeader();
         }
 
-        public void SetHeader(bool modified)
+        public void RefreshHeader()
         {
-            Page.Text = string.Format("{0} {1}", File.ToFriendlyString(), modified ? "*" : "");
+            Page.Text = File.ToFriendlyString();
+
+            if (Editor.Modified)
+            {
+                Page.Text += " *";
+            }
         }
     }
 }

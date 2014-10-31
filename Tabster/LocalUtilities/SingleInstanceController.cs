@@ -63,7 +63,7 @@ namespace Tabster.LocalUtilities
                         _queuedTabfile = tablatureDocument;
 
                         if (_isLibraryOpen)
-                            Program.TabHandler.LoadExternally(tablatureDocument, true);
+                            Program.TabbedViewer.LoadTablature(tablatureDocument);
                     }
 
                     else

@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using Tabster.Data.Library;
+using Tabster.Forms;
 using Tabster.LocalUtilities;
 using Tabster.Properties;
 using Tabster.Updater;
@@ -19,13 +20,28 @@ namespace Tabster
 {
     internal static class Program
     {
-        public static TabViewerManager TabHandler;
         public static TablatureFileLibrary TablatureFileLibrary;
         public static SingleInstanceController instanceController;
         public static PluginController pluginController;
         public static string ApplicationDirectory;
         public static UpdateQuery updateQuery = new UpdateQuery();
         public static CustomProxyController CustomProxyController;
+
+        private static TabbedViewer _tabbedViewer;
+
+        public static TabbedViewer TabbedViewer
+        {
+            get
+            {
+                if (_tabbedViewer == null || _tabbedViewer.IsDisposed)
+                {
+                    var mainForm = instanceController.MainForm;
+                    _tabbedViewer = new TabbedViewer(mainForm);
+                }
+
+                return _tabbedViewer;
+            }
+        }
 
         [STAThread]
         public static void Main(string[] args)
@@ -48,7 +64,6 @@ namespace Tabster
             Application.SetCompatibleTextRenderingDefault(false);
 
             instanceController = new SingleInstanceController();
-            TabHandler = new TabViewerManager();
 
             instanceController.Run(args);
         }
