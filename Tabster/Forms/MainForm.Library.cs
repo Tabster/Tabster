@@ -525,7 +525,7 @@ namespace Tabster.Forms
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var i = new ImportDialog())
+            using (var i = new ImportDialog(_fileImporters))
             {
                 if (i.ShowDialog() == DialogResult.OK)
                 {
