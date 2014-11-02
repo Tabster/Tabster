@@ -231,10 +231,9 @@ namespace Tabster.Forms
             foreach (var t in TablatureType.GetKnownTypes())
             {
                 var typeStr = t.ToFriendlyString();
-                var str = typeStr.EndsWith("s") ? typeStr : string.Format("{0}s", typeStr);
 
                 //library menu
-                sidemenu.FirstNode.Nodes.Add(new TreeNode(str) {NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = t.ToString()});
+                sidemenu.FirstNode.Nodes.Add(new TreeNode(typeStr) { NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = t.ToString() });
             }
         }
 
