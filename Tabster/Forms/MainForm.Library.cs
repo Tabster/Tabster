@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Controls.Extensions;
+using Tabster.Core.Printing;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Library;
@@ -157,7 +158,17 @@ namespace Tabster.Forms
         private void printbtn_Click(object sender, EventArgs e)
         {
             if (_tabPreviewEditor != null)
-                _tabPreviewEditor.Print();
+            {
+                var settings = new TablaturePrintDocumentSettings
+                                   {
+                                       Title = SelectedLibraryItem.Document.ToFriendlyString(),
+                                       DisplayTitle = true,
+                                       DisplayPrintTime = true,
+                                       DisplayPageNumbers = true,
+                                   };
+
+                _tabPreviewEditor.Print(settings);
+            }
         }
 
         private void tablibrary_SelectionChanged(object sender, EventArgs e)

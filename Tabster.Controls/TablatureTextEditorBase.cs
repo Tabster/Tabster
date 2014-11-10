@@ -120,10 +120,9 @@ namespace Tabster.Controls
 
         public void Print(TablaturePrintDocumentSettings settings = null, bool showDialog = true)
         {
-            /*
             var documentName = string.Format("Tablature Document {0}", DateTime.Now.ToString());
 
-            using (var printDocument = new TablaturePrintDocument(Tablature, TextBoxBase.Font) {DocumentName = documentName, Settings = PrintSettings})
+            using (var printDocument = new TablaturePrintDocument(new AttributedTablature {Contents = Text}, TextBoxBase.Font) {DocumentName = documentName, Settings = settings ?? new TablaturePrintDocumentSettings()})
             {
                 if (showDialog)
                 {
@@ -140,7 +139,7 @@ namespace Tabster.Controls
                 {
                     printDocument.Print();
                 }
-            }*/
+            }
         }
 
         #endregion

@@ -12,8 +12,8 @@ namespace Tabster.Core.Printing
 {
     public class TablaturePrintDocument : PrintDocument
     {
+        private readonly ITablature _tablature;
         private readonly Font _font;
-        private readonly AttributedTablature _tablature;
 
         private int _pageCount;
         private bool _performingPageCount;
@@ -26,7 +26,7 @@ namespace Tabster.Core.Printing
 
         #region Constructors
 
-        public TablaturePrintDocument(AttributedTablature tablature, Font font)
+        public TablaturePrintDocument(ITablature tablature, Font font)
         {
             if (tablature == null)
                 throw new ArgumentNullException("tablature");
@@ -137,9 +137,7 @@ namespace Tabster.Core.Printing
 
         private void OnDrawTitle(PrintPageEventArgs e)
         {
-            var title = string.Format("{0} - {1} ({2})", _tablature.Artist, _tablature.Title, _tablature.Type.ToFriendlyString());
-
-            e.Graphics.DrawString(title, _font, _settings.PrintColor, _realPageBounds, new StringFormat
+            e.Graphics.DrawString(Settings.Title, _font, _settings.PrintColor, _realPageBounds, new StringFormat
                                                                                            {
                                                                                                Alignment = StringAlignment.Near,
                                                                                                LineAlignment = StringAlignment.Near
