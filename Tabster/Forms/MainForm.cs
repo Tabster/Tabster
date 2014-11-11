@@ -233,7 +233,7 @@ namespace Tabster.Forms
                 var typeStr = t.ToFriendlyString();
 
                 //library menu
-                sidemenu.FirstNode.Nodes.Add(new TreeNode(typeStr) { NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = t.ToString() });
+                sidemenu.FirstNode.Nodes.Add(new TreeNode(typeStr) {NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = t.ToString()});
             }
         }
 

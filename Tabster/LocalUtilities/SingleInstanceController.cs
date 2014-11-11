@@ -3,7 +3,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
 using Tabster.Data;

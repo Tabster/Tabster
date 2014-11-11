@@ -182,7 +182,7 @@ namespace Tabster.Forms
                 _switchingNavigationOption = false;
             }
 
-            //normal event
+                //normal event
             else
             {
                 //load tab preview with delay
@@ -678,7 +678,7 @@ namespace Tabster.Forms
                 {
                     lblLibraryPreview.Visible = false;
 
-                    var editor = new BasicTablatureTextEditor { Dock = DockStyle.Fill, ReadOnly = true };
+                    var editor = new BasicTablatureTextEditor {Dock = DockStyle.Fill, ReadOnly = true};
                     editor.LoadTablature(SelectedLibraryItem.Document);
                     librarySplitContainer.Panel2.Controls.Add(editor);
 
