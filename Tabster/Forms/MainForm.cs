@@ -24,7 +24,7 @@ namespace Tabster.Forms
         private readonly TabsterDocumentProcessor<TablaturePlaylistDocument> _playlistProcessor = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true);
         private readonly TablatureDocument _queuedTablatureDocument;
         private readonly TablaturePlaylistDocument _queuedTablaturePlaylist;
-        private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDirectory, "recent.dat");
+        private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDataDirectory, "recent.dat");
         private readonly TabsterDocumentProcessor<TablatureDocument> _tablatureProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
 
         private readonly ToolStripMenuItem ascendingMenuItem = new ToolStripMenuItem {Text = "Ascending"};

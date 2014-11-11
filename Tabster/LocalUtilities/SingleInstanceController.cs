@@ -165,7 +165,10 @@ namespace Tabster.LocalUtilities
 #if DEBUG
                 Thread.Sleep(sleepDuration);
 #endif
+
+#if !PORTABLE
                 Program.updateQuery.Check(false);
+#endif
             }
         }
     }

@@ -23,7 +23,7 @@ namespace Tabster
         public static TablatureFileLibrary TablatureFileLibrary;
         public static SingleInstanceController instanceController;
         public static PluginController pluginController;
-        public static string ApplicationDirectory;
+        public static string ApplicationDataDirectory;
         public static UpdateQuery updateQuery = new UpdateQuery();
         public static CustomProxyController CustomProxyController;
 
@@ -46,6 +46,8 @@ namespace Tabster
         [STAThread]
         public static void Main(string[] args)
         {
+            InitializeWorkingDirectories();
+
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
@@ -53,19 +55,35 @@ namespace Tabster
 
             LoadPlugins();
 
-            var workingDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
-            ApplicationDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
-
-            TablatureFileLibrary = new TablatureFileLibrary(Path.Combine(ApplicationDirectory, "library.dat"),
-                                                            Path.Combine(workingDirectory, "Library"),
-                                                            Path.Combine(workingDirectory, "Playlists"));
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             instanceController = new SingleInstanceController();
-
             instanceController.Run(args);
+        }
+
+        private static void InitializeWorkingDirectories()
+        {
+            const bool portableMode = false;
+
+#if PORTABLE
+            portableMode = true;
+#endif
+
+            var currentDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+            var userDirectory = portableMode ? Path.Combine(currentDirectory, "Test") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
+
+            ApplicationDataDirectory = portableMode ? Path.Combine(currentDirectory, "AppData") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
+
+            if (!Directory.Exists(ApplicationDataDirectory))
+                Directory.CreateDirectory(ApplicationDataDirectory);
+
+            if (!Directory.Exists(userDirectory))
+                Directory.CreateDirectory(userDirectory);
+
+            TablatureFileLibrary = new TablatureFileLibrary(Path.Combine(ApplicationDataDirectory, "library.dat"),
+                                                            Path.Combine(userDirectory, "Library"),
+                                                            Path.Combine(userDirectory, "Playlists"));
         }
 
         private static void LoadProxySettings()
@@ -134,7 +152,7 @@ namespace Tabster
             sb.AppendLine();
             sb.AppendLine();
 
-            File.AppendAllText(Path.Combine(ApplicationDirectory, "error.log"), sb.ToString());
+            File.AppendAllText(Path.Combine(ApplicationDataDirectory, "error.log"), sb.ToString());
         }
     }
 }
