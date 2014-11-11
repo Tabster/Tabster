@@ -71,10 +71,12 @@
     <ProjectReference Include="..\..\..\Tabster.Core\Tabster.Core.csproj">
       <Project>{B94FA030-4553-4F14-A867-F05849A14DC4}</Project>
       <Name>Tabster.Core</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Tabster.Data\Tabster.Data.csproj">
       <Project>{6A9EB767-6651-492C-864E-79D71DB2A11F}</Project>
       <Name>Tabster.Data</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
