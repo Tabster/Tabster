@@ -86,7 +86,7 @@ namespace Tabster.Controls
 
             var text = comboBox1.Text;
 
-            foreach (TablatureType type in TablatureType.GetKnownTypes())
+            foreach (var type in TablatureType.GetKnownTypes())
             {
                 var displayString = GetDisplayString(type);
 

@@ -12,8 +12,8 @@ namespace Tabster.Core.Printing
 {
     public class TablaturePrintDocument : PrintDocument
     {
-        private readonly ITablature _tablature;
         private readonly Font _font;
+        private readonly ITablature _tablature;
 
         private int _pageCount;
         private bool _performingPageCount;
@@ -138,10 +138,10 @@ namespace Tabster.Core.Printing
         private void OnDrawTitle(PrintPageEventArgs e)
         {
             e.Graphics.DrawString(Settings.Title, _font, _settings.PrintColor, _realPageBounds, new StringFormat
-                                                                                           {
-                                                                                               Alignment = StringAlignment.Near,
-                                                                                               LineAlignment = StringAlignment.Near
-                                                                                           });
+                                                                                                    {
+                                                                                                        Alignment = StringAlignment.Near,
+                                                                                                        LineAlignment = StringAlignment.Near
+                                                                                                    });
         }
 
         private void DrawTabContents(PrintPageEventArgs e)

@@ -21,8 +21,8 @@ namespace Tabster.Data
         #endregion
 
         private readonly TabsterXmlDocument _doc = new TabsterXmlDocument("tablist");
-        private readonly TabsterDocumentProcessor<TablatureDocument> _processor = new TabsterDocumentProcessor<TablatureDocument>(FILE_VERSION, true);
         private readonly List<TablatureDocument> _documents = new List<TablatureDocument>();
+        private readonly TabsterDocumentProcessor<TablatureDocument> _processor = new TabsterDocumentProcessor<TablatureDocument>(FILE_VERSION, true);
 
         #region Constructors
 
@@ -114,7 +114,7 @@ namespace Tabster.Data
 
         public IEnumerator<TablatureDocument> GetEnumerator()
         {
-            return ((IEnumerable<TablatureDocument>)_documents).GetEnumerator();
+            return ((IEnumerable<TablatureDocument>) _documents).GetEnumerator();
         }
 
         #endregion

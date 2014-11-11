@@ -540,7 +540,6 @@ namespace Tabster.Forms
             this.lblLibraryPreview.Name = "lblLibraryPreview";
             this.lblLibraryPreview.Size = new System.Drawing.Size(883, 142);
             this.lblLibraryPreview.TabIndex = 24;
-            this.lblLibraryPreview.Text = "";
             this.lblLibraryPreview.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblLibraryPreview.Visible = false;
             // 

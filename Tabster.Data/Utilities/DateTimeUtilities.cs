@@ -17,7 +17,7 @@ namespace Tabster.Data.Utilities
 
         public static int GetUnixTimestamp(DateTime dateTime)
         {
-            return (int)(dateTime.Subtract(EPOCH)).TotalSeconds;
+            return (int) (dateTime.Subtract(EPOCH)).TotalSeconds;
         }
 
         public static DateTime UnixTimestampToDateTime(int timestamp)
