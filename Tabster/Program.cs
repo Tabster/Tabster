@@ -24,6 +24,7 @@ namespace Tabster
         public static SingleInstanceController instanceController;
         public static PluginController pluginController;
         public static string ApplicationDataDirectory;
+        public static string UserDirectory;
         public static UpdateQuery updateQuery = new UpdateQuery();
         public static CustomProxyController CustomProxyController;
 
@@ -64,26 +65,23 @@ namespace Tabster
 
         private static void InitializeWorkingDirectories()
         {
-            const bool portableMode = false;
-
 #if PORTABLE
-            portableMode = true;
+            ApplicationDataDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "AppData");
+            UserDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "User");
+#else
+            ApplicationDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
+            UserDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
 #endif
-
-            var currentDirectory = Path.GetDirectoryName(Application.ExecutablePath);
-            var userDirectory = portableMode ? Path.Combine(currentDirectory, "Test") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
-
-            ApplicationDataDirectory = portableMode ? Path.Combine(currentDirectory, "AppData") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
 
             if (!Directory.Exists(ApplicationDataDirectory))
                 Directory.CreateDirectory(ApplicationDataDirectory);
 
-            if (!Directory.Exists(userDirectory))
-                Directory.CreateDirectory(userDirectory);
+            if (!Directory.Exists(UserDirectory))
+                Directory.CreateDirectory(UserDirectory);
 
             TablatureFileLibrary = new TablatureFileLibrary(Path.Combine(ApplicationDataDirectory, "library.dat"),
-                                                            Path.Combine(userDirectory, "Library"),
-                                                            Path.Combine(userDirectory, "Playlists"));
+                                                            Path.Combine(UserDirectory, "Library"),
+                                                            Path.Combine(UserDirectory, "Playlists"));
         }
 
         private static void LoadProxySettings()
