@@ -67,7 +67,7 @@ namespace Tabster
         {
 #if PORTABLE
             ApplicationDataDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "AppData");
-            UserDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "User");
+            UserDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "UserData");
 #else
             ApplicationDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
             UserDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
