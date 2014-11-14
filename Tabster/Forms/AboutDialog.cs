@@ -24,7 +24,7 @@ namespace Tabster.Forms
 
         private void LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(((LinkLabel) sender).Text);
+            Process.Start("http://www.fatcow.com");
         }
     }
 }
