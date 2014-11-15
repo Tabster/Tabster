@@ -26,5 +26,10 @@ namespace Tabster.Forms
         {
             Process.Start("http://www.fatcow.com");
         }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("http://www.iconshock.com/");
+        }
     }
 }

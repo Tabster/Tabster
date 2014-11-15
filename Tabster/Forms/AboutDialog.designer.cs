@@ -36,6 +36,7 @@
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
             this.txtLicense = new System.Windows.Forms.TextBox();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,14 +103,14 @@
             this.linkLabel3.ActiveLinkColor = System.Drawing.Color.Blue;
             this.linkLabel3.AutoSize = true;
             this.linkLabel3.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel3.LinkArea = new System.Windows.Forms.LinkArea(17, 24);
+            this.linkLabel3.LinkArea = new System.Windows.Forms.LinkArea(28, 24);
             this.linkLabel3.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.linkLabel3.Location = new System.Drawing.Point(12, 227);
+            this.linkLabel3.Location = new System.Drawing.Point(12, 236);
             this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(135, 17);
+            this.linkLabel3.Size = new System.Drawing.Size(185, 17);
             this.linkLabel3.TabIndex = 59;
             this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "Icons provided by FatCow";
+            this.linkLabel3.Text = "Addtional icons provided by FatCow";
             this.linkLabel3.UseCompatibleTextRendering = true;
             this.linkLabel3.VisitedLinkColor = System.Drawing.Color.Blue;
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkClicked);
@@ -135,6 +136,23 @@
             this.txtLicense.Size = new System.Drawing.Size(407, 93);
             this.txtLicense.TabIndex = 62;
             // 
+            // linkLabel2
+            // 
+            this.linkLabel2.ActiveLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.linkLabel2.LinkArea = new System.Windows.Forms.LinkArea(29, 24);
+            this.linkLabel2.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.linkLabel2.Location = new System.Drawing.Point(12, 216);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(201, 17);
+            this.linkLabel2.TabIndex = 63;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "Application icon provided by IconShock";
+            this.linkLabel2.UseCompatibleTextRendering = true;
+            this.linkLabel2.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            // 
             // AboutDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -143,6 +161,7 @@
             this.CancelButton = this.closebtn;
             this.ClientSize = new System.Drawing.Size(431, 259);
             this.ControlBox = false;
+            this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.linkLabel3);
             this.Controls.Add(this.txtLicense);
             this.Controls.Add(this.label5);
@@ -176,5 +195,6 @@
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtLicense;
+        private System.Windows.Forms.LinkLabel linkLabel2;
     }
 }
