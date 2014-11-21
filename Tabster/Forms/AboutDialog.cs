@@ -2,6 +2,7 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using Tabster.Properties;
@@ -17,9 +18,30 @@ namespace Tabster.Forms
         public AboutDialog()
         {
             InitializeComponent();
-            lblName.Text = string.Format("{0} {1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
+            lblVersion.Text = string.Format("Version {0}", new Version(Application.ProductVersion).ToShortString());
             lblCopyright.Text = AssemblyUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
             txtLicense.Text = Resources.ApplicationLicense;
+
+            LoadPlugins();
+        }
+
+        private void LoadPlugins()
+        {
+            foreach (var plugin in Program.pluginController)
+            {
+                if (plugin.GUID != Guid.Empty && Program.pluginController.IsEnabled(plugin.GUID))
+                {
+                    var lvi = new ListViewItem(plugin.Interface.DisplayName);
+
+                    lvi.SubItems.Add(plugin.Interface.Version.ToString());
+                    lvi.SubItems.Add(Path.GetFileName(plugin.Assembly.Location));
+                    lvi.SubItems.Add(plugin.Interface.Description);
+
+                    listPlugins.Items.Add(lvi);
+                }
+            }
+
+            listPlugins.AutoResizeColumn(listPlugins.Columns.Count - 1, ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         private void LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -30,6 +52,11 @@ namespace Tabster.Forms
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("http://www.iconshock.com/");
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("http://nateshoffner.com");
         }
     }
 }
