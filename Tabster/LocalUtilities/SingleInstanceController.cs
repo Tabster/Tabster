@@ -120,6 +120,9 @@ namespace Tabster.LocalUtilities
 
         private void SetSplashStatus(string status)
         {
+            if (SplashScreen == null)
+                return;
+
             var splash = ((SplashScreen) SplashScreen);
 
             try
