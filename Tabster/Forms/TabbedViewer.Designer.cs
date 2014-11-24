@@ -1,4 +1,6 @@
-﻿namespace Tabster.Forms
+﻿using Tabster.Controls;
+
+namespace Tabster.Forms
 {
     partial class TabbedViewer
     {
@@ -30,7 +32,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TabbedViewer));
-            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabControlMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeTabContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlsToolStrip = new System.Windows.Forms.ToolStrip();
@@ -41,21 +42,10 @@
             this.onToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.savebtn = new System.Windows.Forms.ToolStripButton();
             this.fullscreenbtn = new System.Windows.Forms.ToolStripButton();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabControlMenu.SuspendLayout();
             this.controlsToolStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 25);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.ShowToolTips = true;
-            this.tabControl1.Size = new System.Drawing.Size(738, 488);
-            this.tabControl1.TabIndex = 0;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
-            this.tabControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseUp);
             // 
             // TabControlMenu
             // 
@@ -123,14 +113,14 @@
             this.offToolStripMenuItem.Name = "offToolStripMenuItem";
             this.offToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
             this.offToolStripMenuItem.Text = "Off";
-            this.offToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
+            this.offToolStripMenuItem.Click += new System.EventHandler(this.AutoScrollChange);
             // 
             // onToolStripMenuItem
             // 
             this.onToolStripMenuItem.Name = "onToolStripMenuItem";
             this.onToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
             this.onToolStripMenuItem.Text = "On";
-            this.onToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
+            this.onToolStripMenuItem.Click += new System.EventHandler(this.AutoScrollChange);
             // 
             // savebtn
             // 
@@ -154,6 +144,20 @@
             this.fullscreenbtn.Size = new System.Drawing.Size(84, 22);
             this.fullscreenbtn.Text = "Full Screen";
             this.fullscreenbtn.Click += new System.EventHandler(this.ToggleFullscreen);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.ItemSize = new System.Drawing.Size(220, 23);
+            this.tabControl1.Location = new System.Drawing.Point(0, 25);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.ShowToolTips = true;
+            this.tabControl1.Size = new System.Drawing.Size(738, 488);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControl1.TabIndex = 0;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.tabControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseUp);
             // 
             // TabbedViewer
             // 

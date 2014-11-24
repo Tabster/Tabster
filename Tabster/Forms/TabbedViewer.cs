@@ -103,7 +103,6 @@ namespace Tabster.Forms
         private void SelectTabInstance(TabInstance instance)
         {
             tabControl1.SelectedTab = instance.Page;
-            //tabControl1_SelectedIndexChanged(null, null);
         }
 
         private TabInstance GetTabInstance(ITabsterDocument doc)
@@ -117,7 +116,7 @@ namespace Tabster.Forms
             return _tabInstances.Find(x => x.Page == selectedTab);
         }
 
-        private void autoScrollChange(object sender, EventArgs e)
+        private void AutoScrollChange(object sender, EventArgs e)
         {
             var instance = GetSelectedInstance();
 
@@ -308,15 +307,15 @@ namespace Tabster.Forms
         public TabInstance(TablatureDocument file, BasicTablatureTextEditor editor = null)
         {
             File = file;
-            Page = new TabPage {Text = file.ToFriendlyString(), ToolTipText = file.FileInfo.FullName};
+
+            Page = new EllipsizedTabPage { Text = file.ToFriendlyString(), ToolTipText = file.FileInfo.FullName };
+
             Editor = editor ?? new BasicTablatureTextEditor {Dock = DockStyle.Fill};
 
             Page.Controls.Add(Editor);
 
             Editor.LoadTablature(file);
             Editor.ContentsModified += editor_TabModified;
-
-            RefreshHeader();
         }
 
         public TabPage Page { get; private set; }

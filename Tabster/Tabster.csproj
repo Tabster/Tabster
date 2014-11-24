@@ -62,7 +62,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -96,7 +96,7 @@
     <Compile Include="Controls\DataGridViewExtended.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\TabControlExtended.cs">
+    <Compile Include="Controls\EllipsizedTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolStripRenderer.cs" />
