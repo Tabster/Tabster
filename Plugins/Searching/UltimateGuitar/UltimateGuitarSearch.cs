@@ -73,7 +73,7 @@ namespace UltimateGuitar
             }
 
             var urlBuilder = new StringBuilder();
-            urlBuilder.AppendFormat("http://www.ultimate-guitar.com/search.php?w=songs&s={0}", urlEncodedQuery);
+            urlBuilder.AppendFormat("http://www.ultimate-guitar.com/search.php?search_type=title&value={0}", urlEncodedQuery);
 
             if (!string.IsNullOrEmpty(typeStr))
                 urlBuilder.AppendFormat("&type={0}", typeStr);
