@@ -3,6 +3,7 @@
 using System;
 using System.Drawing;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Tabster.Controls.Extensions;
 using Tabster.Utilities.Extensions;
@@ -18,6 +19,8 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
+            Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 15, 15));
+
             lblProgress.Text = string.Empty;
 
             lblVersion.Text = string.Format("v{0}", new Version(Application.ProductVersion).ToShortString());
@@ -26,24 +29,20 @@ namespace Tabster.Forms
             BringToFront();
         }
 
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+            (
+            int nLeftRect, // x-coordinate of upper-left corner
+            int nTopRect, // y-coordinate of upper-left corner
+            int nRightRect, // x-coordinate of lower-right corner
+            int nBottomRect, // y-coordinate of lower-right corner
+            int nWidthEllipse, // height of ellipse
+            int nHeightEllipse // width of ellipse
+            );
+
         public void SetStatus(string status)
         {
             lblProgress.InvokeIfRequired(() => { lblProgress.Text = status; });
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-
-            var borderColor = Color.Black;
-            const int borderWidth = 1;
-            const ButtonBorderStyle borderStyle = ButtonBorderStyle.Solid;
-
-            ControlPaint.DrawBorder(e.Graphics, ClientRectangle,
-                                    borderColor, borderWidth, borderStyle,
-                                    borderColor, borderWidth, borderStyle,
-                                    borderColor, borderWidth, borderStyle,
-                                    borderColor, borderWidth, borderStyle);
         }
     }
 }
