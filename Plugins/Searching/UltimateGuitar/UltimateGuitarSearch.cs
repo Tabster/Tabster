@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using HtmlAgilityPack;
 using Tabster.Core.Searching;
@@ -44,7 +45,9 @@ namespace UltimateGuitar
         {
             var results = new List<SearchResult>();
 
-            var urlEncodedQuery = HttpUtility.UrlEncode(string.Format("{0} {1}", query.Artist, query.Title));
+            var regex = new Regex("[']", RegexOptions.Compiled);
+
+            var urlEncodedQuery = HttpUtility.UrlEncode(string.Format("{0} {1}", regex.Replace(query.Artist, ""), regex.Replace(query.Title, "")));
 
             string typeStr = null;
 
