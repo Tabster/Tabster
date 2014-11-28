@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabster", "Tabster\Tabster.csproj", "{7FA799CC-7E0A-4AD7-AB74-A84F5F3177DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabster.Core", "Tabster.Core\Tabster.Core.csproj", "{B94FA030-4553-4F14-A867-F05849A14DC4}"
@@ -59,6 +61,7 @@ Global
 		{7FA799CC-7E0A-4AD7-AB74-A84F5F3177DB}.Portable|x86.ActiveCfg = Portable|x86
 		{7FA799CC-7E0A-4AD7-AB74-A84F5F3177DB}.Portable|x86.Build.0 = Portable|x86
 		{7FA799CC-7E0A-4AD7-AB74-A84F5F3177DB}.Release|Any CPU.ActiveCfg = Release|x86
+		{7FA799CC-7E0A-4AD7-AB74-A84F5F3177DB}.Release|Any CPU.Build.0 = Release|x86
 		{7FA799CC-7E0A-4AD7-AB74-A84F5F3177DB}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{7FA799CC-7E0A-4AD7-AB74-A84F5F3177DB}.Release|Mixed Platforms.Build.0 = Release|x86
 		{7FA799CC-7E0A-4AD7-AB74-A84F5F3177DB}.Release|x86.ActiveCfg = Release|x86
@@ -149,6 +152,7 @@ Global
 		{8C57A53E-17E1-4566-A2ED-FDADE6B3A874}.Portable|x86.ActiveCfg = Portable|x86
 		{8C57A53E-17E1-4566-A2ED-FDADE6B3A874}.Portable|x86.Build.0 = Portable|x86
 		{8C57A53E-17E1-4566-A2ED-FDADE6B3A874}.Release|Any CPU.ActiveCfg = Release|x86
+		{8C57A53E-17E1-4566-A2ED-FDADE6B3A874}.Release|Any CPU.Build.0 = Release|x86
 		{8C57A53E-17E1-4566-A2ED-FDADE6B3A874}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{8C57A53E-17E1-4566-A2ED-FDADE6B3A874}.Release|Mixed Platforms.Build.0 = Release|x86
 		{8C57A53E-17E1-4566-A2ED-FDADE6B3A874}.Release|x86.ActiveCfg = Release|x86
