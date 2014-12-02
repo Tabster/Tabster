@@ -36,6 +36,7 @@ namespace Tabster.Forms
             this.lblCopyright = new System.Windows.Forms.Label();
             this.lblProgress = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
+            this.lblPortable = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -111,6 +112,20 @@ namespace Tabster.Forms
             this.lblName.TabIndex = 4;
             this.lblName.Text = "Tabster";
             // 
+            // lblPortable
+            // 
+            this.lblPortable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblPortable.AutoSize = true;
+            this.lblPortable.BackColor = System.Drawing.Color.Transparent;
+            this.lblPortable.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPortable.ForeColor = System.Drawing.Color.Gray;
+            this.lblPortable.Location = new System.Drawing.Point(541, 12);
+            this.lblPortable.Name = "lblPortable";
+            this.lblPortable.Size = new System.Drawing.Size(97, 16);
+            this.lblPortable.TabIndex = 52;
+            this.lblPortable.Text = "Portable Mode";
+            this.lblPortable.Visible = false;
+            // 
             // SplashScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -118,6 +133,7 @@ namespace Tabster.Forms
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(650, 181);
+            this.Controls.Add(this.lblPortable);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.lblCopyright);
             this.Controls.Add(this.lblName);
@@ -147,6 +163,7 @@ namespace Tabster.Forms
         private System.Windows.Forms.Label lblCopyright;
         public System.Windows.Forms.Label lblProgress;
         private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label lblPortable;
 
     }
 }

@@ -19,6 +19,10 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
+#if PORTABLE
+            lblPortable.Visible = true;
+#endif
+
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 15, 15));
 
             lblProgress.Text = string.Empty;
