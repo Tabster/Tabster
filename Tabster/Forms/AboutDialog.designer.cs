@@ -32,7 +32,6 @@
             this.lblCopyright = new System.Windows.Forms.Label();
             this.closebtn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.txtLicense = new System.Windows.Forms.TextBox();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
@@ -45,6 +44,7 @@
             this.colpluginVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginFilename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnHomepage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -95,22 +95,6 @@
             this.pictureBox1.TabIndex = 53;
             this.pictureBox1.TabStop = false;
             // 
-            // linkLabel1
-            // 
-            this.linkLabel1.ActiveLinkColor = System.Drawing.Color.Blue;
-            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.linkLabel1.Location = new System.Drawing.Point(475, 21);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(59, 13);
-            this.linkLabel1.TabIndex = 54;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Homepage";
-            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Blue;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
             // linkLabel3
             // 
             this.linkLabel3.ActiveLinkColor = System.Drawing.Color.Blue;
@@ -137,7 +121,7 @@
             this.txtLicense.Name = "txtLicense";
             this.txtLicense.ReadOnly = true;
             this.txtLicense.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLicense.Size = new System.Drawing.Size(511, 138);
+            this.txtLicense.Size = new System.Drawing.Size(511, 128);
             this.txtLicense.TabIndex = 62;
             // 
             // linkLabel2
@@ -188,7 +172,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(517, 144);
+            this.tabPage1.Size = new System.Drawing.Size(517, 134);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "License";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -241,6 +225,17 @@
             this.colpluginDescription.Text = "Description";
             this.colpluginDescription.Width = 215;
             // 
+            // btnHomepage
+            // 
+            this.btnHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHomepage.Location = new System.Drawing.Point(459, 12);
+            this.btnHomepage.Name = "btnHomepage";
+            this.btnHomepage.Size = new System.Drawing.Size(75, 23);
+            this.btnHomepage.TabIndex = 67;
+            this.btnHomepage.Text = "Homepage";
+            this.btnHomepage.UseVisualStyleBackColor = true;
+            this.btnHomepage.Click += new System.EventHandler(this.btnHomepage_Click);
+            // 
             // AboutDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -249,11 +244,11 @@
             this.CancelButton = this.closebtn;
             this.ClientSize = new System.Drawing.Size(546, 305);
             this.ControlBox = false;
+            this.Controls.Add(this.btnHomepage);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.linkLabel3);
-            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.closebtn);
             this.Controls.Add(this.lblCopyright);
@@ -283,7 +278,6 @@
         private System.Windows.Forms.Label lblCopyright;
         private System.Windows.Forms.Button closebtn;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.TextBox txtLicense;
         private System.Windows.Forms.LinkLabel linkLabel2;
@@ -296,5 +290,6 @@
         private System.Windows.Forms.ColumnHeader colpluginVersion;
         private System.Windows.Forms.ColumnHeader colpluginFilename;
         private System.Windows.Forms.ColumnHeader colpluginDescription;
+        private System.Windows.Forms.Button btnHomepage;
     }
 }

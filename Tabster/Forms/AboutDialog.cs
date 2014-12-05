@@ -54,7 +54,7 @@ namespace Tabster.Forms
             Process.Start("http://www.iconshock.com/");
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void btnHomepage_Click(object sender, EventArgs e)
         {
             Process.Start("http://nateshoffner.com");
         }
