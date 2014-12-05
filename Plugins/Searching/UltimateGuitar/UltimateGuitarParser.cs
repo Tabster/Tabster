@@ -25,35 +25,42 @@ namespace UltimateGuitar
             var doc = new HtmlDocument();
             doc.LoadHtml(text);
 
-            string song = null, artist = null;
+            var titleNode = doc.DocumentNode.SelectSingleNode("//div[starts-with(@class, 't_title')]");
+            var titleNodeValue = titleNode.SelectSingleNode(".//h1").InnerText; //contains title and type
 
-            //get values from meta keywords
-            var metaNodes = doc.DocumentNode.SelectNodes("/html/head/meta");
-            foreach (var mn in metaNodes)
+            var title = "";
+
+            if (titleNodeValue.EndsWith("Bass Tab"))
             {
-                if (mn.HasAttributes && mn.Attributes.Contains("name") && mn.Attributes["name"].Value == "keywords")
-                {
-                    var split = mn.Attributes["content"].Value.Split(',');
-                    song = split[0].Trim();
-
-                    var typeStr = split[1].Trim();
-
-                    if (type == null)
-                    {
-                        if (typeStr.IndexOf("bass", StringComparison.OrdinalIgnoreCase) > -1)
-                            type = TablatureType.Bass;
-                        else if (typeStr.IndexOf("chord", StringComparison.OrdinalIgnoreCase) > -1)
-                            type = TablatureType.Chords;
-                        else if (typeStr.IndexOf("drum", StringComparison.OrdinalIgnoreCase) > -1)
-                            type = TablatureType.Drum;
-                        else if (typeStr.IndexOf("ukulele", StringComparison.OrdinalIgnoreCase) > -1)
-                            type = TablatureType.Ukulele;
-                    }
-
-                    artist = split[2].Trim();
-                    break;
-                }
+                type = TablatureType.Bass;
+                title = titleNodeValue.Substring(0, titleNodeValue.Length - "Bass Tab".Length);
             }
+
+            else if (titleNodeValue.EndsWith("Drum Tab"))
+            {
+                type = TablatureType.Drum;
+                title = titleNodeValue.Substring(0, titleNodeValue.Length - "Drum Tab".Length);
+            }
+
+            else if (titleNodeValue.EndsWith("Ukulele Chords"))
+            {
+                type = TablatureType.Ukulele;
+                title = titleNodeValue.Substring(0, titleNodeValue.Length - "Ukulele Chords".Length);
+            }
+
+            else if (titleNodeValue.EndsWith("Chords"))
+            {
+                type = TablatureType.Chords;
+                title = titleNodeValue.Substring(0, titleNodeValue.Length - "Chords".Length);
+            }
+
+            else
+            {
+                type = TablatureType.Guitar;
+                title = titleNodeValue.Substring(0, titleNodeValue.Length - "Tab".Length);
+            }
+
+            var artist = titleNode.SelectSingleNode(".//div[@class='t_autor']/a").InnerText;
 
             var contentsNode = doc.DocumentNode.SelectSingleNode("//div[@id='cont']/pre[2]");
 
@@ -61,7 +68,7 @@ namespace UltimateGuitar
             {
                 var contents = StripHTML(contentsNode.InnerHtml);
                 contents = ConvertNewlines(contents);
-                return new TablatureDocument(artist, song, type, contents);
+                return new TablatureDocument(artist, title, type, contents);
             }
 
             return null;
@@ -69,8 +76,9 @@ namespace UltimateGuitar
 
         public bool MatchesUrlPattern(Uri url)
         {
-            return url.IsWellFormedOriginalString() && ((url.DnsSafeHost == "ultimate-guitar.com" || url.DnsSafeHost == "www.ultimate-guitar.com" ||
-                                                         url.DnsSafeHost == "tabs.ultimate-guitar.com") && url.AbsolutePath.Split('/').Length >= 4);
+            return url.IsWellFormedOriginalString() &&
+                   ((url.DnsSafeHost == "ultimate-guitar.com" || url.DnsSafeHost == "www.ultimate-guitar.com" ||
+                     url.DnsSafeHost == "tabs.ultimate-guitar.com") && url.AbsolutePath.Split('/').Length >= 4);
         }
 
         #endregion
