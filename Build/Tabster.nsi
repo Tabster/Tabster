@@ -61,19 +61,19 @@ Section "MainSection" SEC01
   
   ; native filetype plugins
   SetOutPath "${PLUGIN_FILETYPES_DIRECTORY}"  
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\TextFile.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\HtmlFile.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\PdfFile.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\itextsharp.dll" ;PdfFile dependency
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\RtfFile.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\WordDoc.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\DocX.dll" ;WordDoc dependency
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\PngFile.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\TextFile.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\HtmlFile.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\PdfFile.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\itextsharp.dll" ;PdfFile dependency
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\RtfFile.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\WordDoc.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\DocX.dll" ;WordDoc dependency
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\PngFile.dll"
   
   ; native search plugins
   SetOutPath "${PLUGIN_SEARCHING_DIRECTORY}"  
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\UltimateGuitar.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\GuitartabsDotCC.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\UltimateGuitar.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\GuitartabsDotCC.dll"
   
   ; file association
   ${registerExtension} "$INSTDIR\Tabster.exe" ".tabster" "Tabster File"
