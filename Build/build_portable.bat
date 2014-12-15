@@ -19,8 +19,11 @@ ECHO.
 ECHO Building Solution...
 C:\windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe "%SOLUTION_DIRECTORY%\Tabster.sln" /p:Configuration=Portable
 
-::compress
+::compression
 ECHO.
 ECHO Compressing...
-7z a -r %ZIP_ARCHIVE% "%VS_BUILD_DIRECTORY%\*.exe"
+
+::core files
+7z a %ZIP_ARCHIVE% "%VS_BUILD_DIRECTORY%\Tabster.exe"
+7z a %ZIP_ARCHIVE% "%VS_BUILD_DIRECTORY%\Updater.exe"
 7z a -r %ZIP_ARCHIVE% "%VS_BUILD_DIRECTORY%\*.dll"
