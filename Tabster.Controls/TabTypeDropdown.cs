@@ -54,6 +54,9 @@ namespace Tabster.Controls
 
         private string GetDisplayString(TablatureType type)
         {
+            if (type == null)
+                return string.Empty;
+
             var str = type.ToFriendlyString();
 
             if (UsePluralizedNames && !str.EndsWith("s"))
@@ -76,7 +79,7 @@ namespace Tabster.Controls
                 }
             }
 
-            return -1;
+            return 0;
         }
 
         private TablatureType GetSelectedType()
