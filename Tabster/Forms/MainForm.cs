@@ -529,5 +529,21 @@ namespace Tabster.Forms
         }
 
         #endregion
+
+        private void batchDownloaderMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new DownloadDialog(_webImporters))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    foreach (var tab in dialog.DownloadedTabs)
+                    {
+                        var libraryItem = Program.TablatureFileLibrary.Add(tab);
+                        Program.TablatureFileLibrary.Save();
+                        UpdateLibraryItem(libraryItem);
+                    }
+                }
+            }
+        }
     }
 }

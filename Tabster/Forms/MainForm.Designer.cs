@@ -111,20 +111,6 @@ namespace Tabster.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.txtSearchTitle = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.addtolibrarybtn = new System.Windows.Forms.Button();
-            this.downloadUrlsbtn = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.lblprogress = new System.Windows.Forms.Label();
-            this.txtDownloadURLs = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.colDownloadURL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colDownloadParser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colDownloadStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colDownloadArtist = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colDownloadTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colDownloadType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabimagelist = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblcount = new System.Windows.Forms.ToolStripStatusLabel();
@@ -153,7 +139,6 @@ namespace Tabster.Forms
             this.playlistInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SearchPreviewBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SearchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.DownloadBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.PreviewDisplayDelay = new System.Windows.Forms.Timer(this.components);
             this.PreviewDisplayTimer = new System.Windows.Forms.Timer(this.components);
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
@@ -181,6 +166,7 @@ namespace Tabster.Forms
             this.exportToolStripMenuItem = new System.Windows.Forms.MenuItem();
             this.openTabLocationToolStripMenuItem = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
+            this.batchDownloaderMenuItem = new System.Windows.Forms.MenuItem();
             this.preferencesMenuItem = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
             this.checkForUpdatesMenuItem = new System.Windows.Forms.MenuItem();
@@ -202,7 +188,6 @@ namespace Tabster.Forms
             this.searchSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.searchDisplay)).BeginInit();
             this.panel1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SearchMenu.SuspendLayout();
             this.LibraryMenu.SuspendLayout();
@@ -225,7 +210,6 @@ namespace Tabster.Forms
             // 
             this.tabControl1.Controls.Add(this.display_library);
             this.tabControl1.Controls.Add(this.display_search);
-            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.ImageList = this.tabimagelist;
             this.tabControl1.ItemSize = new System.Drawing.Size(80, 20);
@@ -235,7 +219,7 @@ namespace Tabster.Forms
             this.tabControl1.Padding = new System.Drawing.Point(15, 4);
             this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1034, 439);
+            this.tabControl1.Size = new System.Drawing.Size(1034, 438);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -247,7 +231,7 @@ namespace Tabster.Forms
             this.display_library.ImageIndex = 0;
             this.display_library.Location = new System.Drawing.Point(4, 24);
             this.display_library.Name = "display_library";
-            this.display_library.Size = new System.Drawing.Size(1026, 411);
+            this.display_library.Size = new System.Drawing.Size(1026, 410);
             this.display_library.TabIndex = 1;
             this.display_library.Text = "Library";
             // 
@@ -273,7 +257,7 @@ namespace Tabster.Forms
             this.splitContainer1.Panel2.Controls.Add(this.librarySplitContainer);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer1.Panel2MinSize = 0;
-            this.splitContainer1.Size = new System.Drawing.Size(1026, 411);
+            this.splitContainer1.Size = new System.Drawing.Size(1026, 410);
             this.splitContainer1.SplitterDistance = 140;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 9;
@@ -318,7 +302,7 @@ namespace Tabster.Forms
             this.sidemenu.ShowLines = false;
             this.sidemenu.ShowPlusMinus = false;
             this.sidemenu.ShowRootLines = false;
-            this.sidemenu.Size = new System.Drawing.Size(140, 355);
+            this.sidemenu.Size = new System.Drawing.Size(140, 354);
             this.sidemenu.TabIndex = 0;
             this.sidemenu.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.sidemenu_BeforeSelect);
             this.sidemenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.sidemenu_AfterSelect);
@@ -326,10 +310,11 @@ namespace Tabster.Forms
             // 
             // button1
             // 
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(0, 355);
+            this.button1.Location = new System.Drawing.Point(0, 354);
             this.button1.Name = "button1";
             this.button1.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.button1.Size = new System.Drawing.Size(140, 28);
@@ -343,7 +328,7 @@ namespace Tabster.Forms
             this.button2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(0, 383);
+            this.button2.Location = new System.Drawing.Point(0, 382);
             this.button2.Name = "button2";
             this.button2.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.button2.Size = new System.Drawing.Size(140, 28);
@@ -373,8 +358,8 @@ namespace Tabster.Forms
             this.librarySplitContainer.Panel2.Controls.Add(this.lblLibraryPreview);
             this.librarySplitContainer.Panel2.Controls.Add(this.previewToolStrip);
             this.librarySplitContainer.Panel2MinSize = 140;
-            this.librarySplitContainer.Size = new System.Drawing.Size(885, 411);
-            this.librarySplitContainer.SplitterDistance = 238;
+            this.librarySplitContainer.Size = new System.Drawing.Size(885, 410);
+            this.librarySplitContainer.SplitterDistance = 237;
             this.librarySplitContainer.TabIndex = 25;
             // 
             // tablibrary
@@ -436,7 +421,7 @@ namespace Tabster.Forms
             this.tablibrary.ShowCellToolTips = false;
             this.tablibrary.ShowEditingIcon = false;
             this.tablibrary.ShowRowErrors = false;
-            this.tablibrary.Size = new System.Drawing.Size(883, 207);
+            this.tablibrary.Size = new System.Drawing.Size(883, 206);
             this.tablibrary.TabIndex = 19;
             this.tablibrary.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablibrary_CellDoubleClick);
             this.tablibrary.SelectionChanged += new System.EventHandler(this.tablibrary_SelectionChanged);
@@ -654,7 +639,7 @@ namespace Tabster.Forms
             this.display_search.ImageIndex = 1;
             this.display_search.Location = new System.Drawing.Point(4, 24);
             this.display_search.Name = "display_search";
-            this.display_search.Size = new System.Drawing.Size(1026, 411);
+            this.display_search.Size = new System.Drawing.Size(1026, 410);
             this.display_search.TabIndex = 5;
             this.display_search.Text = "Search";
             // 
@@ -676,7 +661,7 @@ namespace Tabster.Forms
             this.searchSplitContainer.Panel2.Controls.Add(this.searchPreviewEditor);
             this.searchSplitContainer.Panel2Collapsed = true;
             this.searchSplitContainer.Panel2MinSize = 100;
-            this.searchSplitContainer.Size = new System.Drawing.Size(827, 411);
+            this.searchSplitContainer.Size = new System.Drawing.Size(827, 410);
             this.searchSplitContainer.SplitterDistance = 200;
             this.searchSplitContainer.TabIndex = 29;
             // 
@@ -737,7 +722,7 @@ namespace Tabster.Forms
             this.searchDisplay.ShowCellToolTips = false;
             this.searchDisplay.ShowEditingIcon = false;
             this.searchDisplay.ShowRowErrors = false;
-            this.searchDisplay.Size = new System.Drawing.Size(825, 409);
+            this.searchDisplay.Size = new System.Drawing.Size(825, 408);
             this.searchDisplay.TabIndex = 20;
             this.searchDisplay.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SaveSelectedTab);
             this.searchDisplay.SelectionChanged += new System.EventHandler(this.dataGridViewExtended1_SelectionChanged);
@@ -809,7 +794,7 @@ namespace Tabster.Forms
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(199, 411);
+            this.panel1.Size = new System.Drawing.Size(199, 410);
             this.panel1.TabIndex = 28;
             // 
             // searchTypeList
@@ -897,6 +882,7 @@ namespace Tabster.Forms
             // 
             // onlinesearchbtn
             // 
+            this.onlinesearchbtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.onlinesearchbtn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.onlinesearchbtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.onlinesearchbtn.Location = new System.Drawing.Point(108, 259);
@@ -953,145 +939,12 @@ namespace Tabster.Forms
             this.label1.TabIndex = 24;
             this.label1.Text = "Title:";
             // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.addtolibrarybtn);
-            this.tabPage1.Controls.Add(this.downloadUrlsbtn);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.progressBar1);
-            this.tabPage1.Controls.Add(this.lblprogress);
-            this.tabPage1.Controls.Add(this.txtDownloadURLs);
-            this.tabPage1.Controls.Add(this.listView1);
-            this.tabPage1.ImageIndex = 2;
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1026, 411);
-            this.tabPage1.TabIndex = 6;
-            this.tabPage1.Text = "Download";
-            // 
-            // addtolibrarybtn
-            // 
-            this.addtolibrarybtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.addtolibrarybtn.Enabled = false;
-            this.addtolibrarybtn.Location = new System.Drawing.Point(891, 442);
-            this.addtolibrarybtn.Name = "addtolibrarybtn";
-            this.addtolibrarybtn.Size = new System.Drawing.Size(127, 23);
-            this.addtolibrarybtn.TabIndex = 19;
-            this.addtolibrarybtn.Text = "Add to Library";
-            this.addtolibrarybtn.UseVisualStyleBackColor = true;
-            this.addtolibrarybtn.Click += new System.EventHandler(this.addtolibrarybtn_Click);
-            // 
-            // downloadUrlsbtn
-            // 
-            this.downloadUrlsbtn.Enabled = false;
-            this.downloadUrlsbtn.Location = new System.Drawing.Point(602, 173);
-            this.downloadUrlsbtn.Name = "downloadUrlsbtn";
-            this.downloadUrlsbtn.Size = new System.Drawing.Size(127, 23);
-            this.downloadUrlsbtn.TabIndex = 12;
-            this.downloadUrlsbtn.Text = "Begin Download";
-            this.downloadUrlsbtn.UseVisualStyleBackColor = true;
-            this.downloadUrlsbtn.Click += new System.EventHandler(this.downloadUrlsbtn_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 14);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(226, 13);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "Enter URLs (one per line) to scrape and parse.";
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.progressBar1.Location = new System.Drawing.Point(8, 367);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(588, 14);
-            this.progressBar1.TabIndex = 14;
-            this.progressBar1.Visible = false;
-            // 
-            // lblprogress
-            // 
-            this.lblprogress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblprogress.AutoSize = true;
-            this.lblprogress.Location = new System.Drawing.Point(8, 351);
-            this.lblprogress.Name = "lblprogress";
-            this.lblprogress.Size = new System.Drawing.Size(35, 13);
-            this.lblprogress.TabIndex = 13;
-            this.lblprogress.Text = "label1";
-            this.lblprogress.Visible = false;
-            // 
-            // txtDownloadURLs
-            // 
-            this.txtDownloadURLs.Location = new System.Drawing.Point(8, 30);
-            this.txtDownloadURLs.Multiline = true;
-            this.txtDownloadURLs.Name = "txtDownloadURLs";
-            this.txtDownloadURLs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDownloadURLs.Size = new System.Drawing.Size(588, 166);
-            this.txtDownloadURLs.TabIndex = 11;
-            this.txtDownloadURLs.TextChanged += new System.EventHandler(this.txtDownloadURLs_TextChanged);
-            // 
-            // listView1
-            // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colDownloadURL,
-            this.colDownloadParser,
-            this.colDownloadStatus,
-            this.colDownloadArtist,
-            this.colDownloadTitle,
-            this.colDownloadType});
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(8, 202);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1010, 146);
-            this.listView1.TabIndex = 17;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // colDownloadURL
-            // 
-            this.colDownloadURL.Text = "URL";
-            this.colDownloadURL.Width = 271;
-            // 
-            // colDownloadParser
-            // 
-            this.colDownloadParser.Text = "Parser";
-            this.colDownloadParser.Width = 133;
-            // 
-            // colDownloadStatus
-            // 
-            this.colDownloadStatus.Text = "Status";
-            this.colDownloadStatus.Width = 132;
-            // 
-            // colDownloadArtist
-            // 
-            this.colDownloadArtist.Text = "Artist";
-            this.colDownloadArtist.Width = 162;
-            // 
-            // colDownloadTitle
-            // 
-            this.colDownloadTitle.Text = "Title";
-            this.colDownloadTitle.Width = 180;
-            // 
-            // colDownloadType
-            // 
-            this.colDownloadType.Text = "Type";
-            this.colDownloadType.Width = 101;
-            // 
             // tabimagelist
             // 
             this.tabimagelist.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabimagelist.ImageStream")));
             this.tabimagelist.TransparentColor = System.Drawing.Color.Transparent;
             this.tabimagelist.Images.SetKeyName(0, "application_view_detail.png");
             this.tabimagelist.Images.SetKeyName(1, "search_plus.png");
-            this.tabimagelist.Images.SetKeyName(2, "page_save.png");
             // 
             // statusStrip1
             // 
@@ -1101,7 +954,7 @@ namespace Tabster.Forms
             this.toolStripSeparator2,
             this.lblplaylists,
             this.lblStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 439);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 438);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1034, 23);
             this.statusStrip1.SizingGrip = false;
@@ -1304,14 +1157,6 @@ namespace Tabster.Forms
             this.SearchBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.SearchBackgroundWorker_ProgressChanged);
             this.SearchBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchBackgroundWorker_RunWorkerCompleted);
             // 
-            // DownloadBackgroundWorker
-            // 
-            this.DownloadBackgroundWorker.WorkerReportsProgress = true;
-            this.DownloadBackgroundWorker.WorkerSupportsCancellation = true;
-            this.DownloadBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DownloadBackgroundWorker_DoWork);
-            this.DownloadBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.DownloadBackgroundWorker_ProgressChanged);
-            this.DownloadBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.DownloadBackgroundWorker_RunWorkerCompleted);
-            // 
             // PreviewDisplayDelay
             // 
             this.PreviewDisplayDelay.Tick += new System.EventHandler(this.PreviewDisplayDelay_Tick);
@@ -1508,12 +1353,19 @@ namespace Tabster.Forms
             // 
             this.menuItem4.Index = 3;
             this.menuItem4.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.batchDownloaderMenuItem,
             this.preferencesMenuItem});
             this.menuItem4.Text = "&Tools";
             // 
+            // batchDownloaderMenuItem
+            // 
+            this.batchDownloaderMenuItem.Index = 0;
+            this.batchDownloaderMenuItem.Text = "Batch Downloader";
+            this.batchDownloaderMenuItem.Click += new System.EventHandler(this.batchDownloaderMenuItem_Click);
+            // 
             // preferencesMenuItem
             // 
-            this.preferencesMenuItem.Index = 0;
+            this.preferencesMenuItem.Index = 1;
             this.preferencesMenuItem.Text = "Preferences";
             this.preferencesMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             // 
@@ -1543,7 +1395,8 @@ namespace Tabster.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1034, 462);
+            this.CancelButton = this.onlinesearchbtn;
+            this.ClientSize = new System.Drawing.Size(1034, 461);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -1579,8 +1432,6 @@ namespace Tabster.Forms
             ((System.ComponentModel.ISupportInitialize)(this.searchDisplay)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.SearchMenu.ResumeLayout(false);
@@ -1648,21 +1499,6 @@ namespace Tabster.Forms
         private Label lblLibraryPreview;
         private ToolStripMenuItem onToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker SearchBackgroundWorker;
-        private TabPage tabPage1;
-        private Button addtolibrarybtn;
-        private Button downloadUrlsbtn;
-        private Label label4;
-        private ProgressBar progressBar1;
-        private Label lblprogress;
-        private TextBox txtDownloadURLs;
-        private ListView listView1;
-        private ColumnHeader colDownloadArtist;
-        private ColumnHeader colDownloadStatus;
-        private ColumnHeader colDownloadURL;
-        private System.ComponentModel.BackgroundWorker DownloadBackgroundWorker;
-        private ColumnHeader colDownloadTitle;
-        private ColumnHeader colDownloadType;
-        private ColumnHeader colDownloadParser;
         private Label label5;
         private ListBox listSearchServices;
         private DataGridViewTextBoxColumn searchcol_artist;
@@ -1720,6 +1556,7 @@ namespace Tabster.Forms
         private TabTypeDropdown searchTypeList;
         private ToolStripMenuItem sortByToolStripMenuItem;
         private MenuItem openPlaylistMenuItem;
+        private MenuItem batchDownloaderMenuItem;
     }
 }
 
