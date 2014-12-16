@@ -37,6 +37,13 @@ namespace Tabster.Forms
 
             Text = string.Format("{0} v{1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
 
+#if PORTABLE
+
+            Text += " (Portable)";
+            checkForUpdatesMenuItem.Visible = false;
+
+#endif
+
             PopulateTabTypeControls();
 
             UpdateSortColumnMenu(true);
