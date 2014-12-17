@@ -199,7 +199,7 @@ namespace Tabster.Forms
 
         private void chkProxyAuthentication_CheckedChanged(object sender, EventArgs e)
         {
-            txtProxyUsername.Enabled = txtProxyPassword.Enabled = chkProxyAuthentication.Checked;
+            txtProxyUsername.Enabled = txtProxyPassword.Enabled = chkShowProxyPassword.Enabled = chkProxyAuthentication.Checked;
         }
 
         private void chkShowProxyPassword_CheckedChanged(object sender, EventArgs e)

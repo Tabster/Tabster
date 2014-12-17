@@ -264,6 +264,7 @@
             // chkShowProxyPassword
             // 
             this.chkShowProxyPassword.AutoSize = true;
+            this.chkShowProxyPassword.Enabled = false;
             this.chkShowProxyPassword.Location = new System.Drawing.Point(218, 82);
             this.chkShowProxyPassword.Name = "chkShowProxyPassword";
             this.chkShowProxyPassword.Size = new System.Drawing.Size(101, 17);
