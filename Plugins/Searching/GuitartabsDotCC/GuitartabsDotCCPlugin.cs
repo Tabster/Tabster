@@ -7,9 +7,9 @@ using Tabster.Core.Plugins;
 
 namespace GuitartabsDotCC
 {
-    public class GuitartabsDotCCPlugin : ITabsterPlugin
+    public class GuitartabsDotCCPlugin : TabsterPluginBase
     {
-        #region Implementation of ITabsterPlugin
+        #region Implementation of ITabsterPluginAttributes
 
         public string Author
         {

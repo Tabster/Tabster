@@ -10,7 +10,7 @@ using Tabster.Data.Processing;
 
 namespace GuitartabsDotCC
 {
-    internal class GuitartabsDotCCParser : ITablatureWebpageImporter
+    public class GuitartabsDotCCParser : ITablatureWebpageImporter
     {
         #region Implementation of ITablatureWebpageImporter
 

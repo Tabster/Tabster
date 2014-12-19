@@ -7,9 +7,9 @@ using Tabster.Core.Plugins;
 
 namespace HtmlFile
 {
-    public class HtmlFilePlugin : ITabsterPlugin
+    public class HtmlFilePlugin: TabsterPluginBase, ITabsterPluginAttributes
     {
-        #region Implementation of ITabsterPlugin
+        #region Implementation of ITabsterPluginAttributesAttributes
 
         public string Author
         {

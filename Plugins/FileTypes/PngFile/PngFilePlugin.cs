@@ -7,9 +7,9 @@ using Tabster.Core.Plugins;
 
 namespace PngFile
 {
-    public class PngFilePlugin : ITabsterPlugin
+    public class PngFilePlugin: TabsterPluginBase, ITabsterPluginAttributes
     {
-        #region Implementation of ITabsterPlugin
+        #region Implementation of ITabsterPluginAttributes
 
         public string Author
         {

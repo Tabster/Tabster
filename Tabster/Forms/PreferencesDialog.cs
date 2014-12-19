@@ -69,10 +69,10 @@ namespace Tabster.Forms
                                       Checked = Program.pluginController.IsEnabled(plugin.GUID)
                                   };
 
-                    lvi.SubItems.Add(plugin.Interface.DisplayName);
-                    lvi.SubItems.Add(plugin.Interface.Version.ToString());
+                    lvi.SubItems.Add(plugin.PluginAttributes.DisplayName);
+                    lvi.SubItems.Add(plugin.PluginAttributes.Version.ToString());
                     lvi.SubItems.Add(Path.GetFileName(plugin.Assembly.Location));
-                    lvi.SubItems.Add(plugin.Interface.Description);
+                    lvi.SubItems.Add(plugin.PluginAttributes.Description);
 
                     listPlugins.Items.Add(lvi);
                 }

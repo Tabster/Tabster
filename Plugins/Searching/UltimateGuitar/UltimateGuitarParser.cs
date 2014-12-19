@@ -11,7 +11,7 @@ using Tabster.Data.Processing;
 
 namespace UltimateGuitar
 {
-    internal class UltimateGuitarParser : ITablatureWebpageImporter
+    public class UltimateGuitarParser : ITablatureWebpageImporter
     {
         #region Implementation of ITabParser
 

@@ -7,9 +7,9 @@ using Tabster.Core.Plugins;
 
 namespace WordDoc
 {
-    public class WordDocPlugin : ITabsterPlugin
+    public class WordDocPlugin: TabsterPluginBase, ITabsterPluginAttributes
     {
-        #region Implementation of ITabsterPlugin
+        #region Implementation of ITabsterPluginAttributes
 
         public string Author
         {
@@ -44,6 +44,20 @@ namespace WordDoc
         public Type[] Types
         {
             get { return new[] {typeof (WordDocExporter), typeof (WordDocImporter)}; }
+        }
+
+        #endregion
+
+        #region Implementation of ITabsterPluginAttributes
+
+        public void Activate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Deactivate()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Tabster.Core.Plugins;
@@ -12,10 +13,10 @@ using Tabster.Core.Plugins;
 
 namespace Tabster.Utilities.Plugins
 {
-    public class PluginController : IEnumerable<TabsterPlugin>
+    public class PluginController : IEnumerable<TabsterPluginHost>
     {
         private readonly List<Guid> _disabledPlugins = new List<Guid>();
-        private readonly List<TabsterPlugin> _plugins = new List<TabsterPlugin>();
+        private readonly List<TabsterPluginHost> _plugins = new List<TabsterPluginHost>();
 
         public PluginController(string pluginsDirectory)
         {
@@ -48,6 +49,11 @@ namespace Tabster.Utilities.Plugins
                     LoadPluginFromDisk(pluginPath);
                 }
             }
+
+            foreach (var plugin in this.Where(plugin => IsEnabled(plugin.GUID)))
+            {
+                plugin.Plugin.Activate();
+            }
         }
 
         public IEnumerable<T> GetClassInstances<T>()
@@ -69,7 +75,6 @@ namespace Tabster.Utilities.Plugins
             {
                 var assembly = Assembly.LoadFrom(path);
 
-
                 if (assembly != null)
                 {
                     Guid assemblyGuid;
@@ -77,23 +82,18 @@ namespace Tabster.Utilities.Plugins
                     if (!AssemblyHasGuid(assembly, out assemblyGuid))
                         return;
 
-                    Type pluginType = null;
-
-                    foreach (var objType in assembly.GetTypes())
-                    {
-                        if (typeof (ITabsterPlugin).IsAssignableFrom(objType))
-                        {
-                            pluginType = objType;
-                            break;
-                        }
-                    }
+                    var pluginType = assembly.GetTypes().FirstOrDefault(objType =>
+                        typeof (ITabsterPluginAttributes).IsAssignableFrom(objType) &&
+                        typeof (TabsterPluginBase).IsAssignableFrom(objType));
 
                     if (pluginType != null)
                     {
-                        var pluginInterface = (ITabsterPlugin) Activator.CreateInstance(pluginType);
+                        var instance = Activator.CreateInstance(pluginType);
+                        var attributes = (ITabsterPluginAttributes) instance;
+                        var plugin = (TabsterPluginBase) instance;
 
-                        var plugin = new TabsterPlugin(assembly, pluginInterface, assemblyGuid);
-                        _plugins.Add(plugin);
+                        var host = new TabsterPluginHost(assembly, attributes, plugin, assemblyGuid);
+                        _plugins.Add(host);
                     }
                 }
             }
@@ -102,11 +102,6 @@ namespace Tabster.Utilities.Plugins
             {
                 //unhandled
             }
-        }
-
-        public TabsterPlugin[] GetPlugins()
-        {
-            return _plugins.ToArray();
         }
 
         public void SetStatus(Guid guid, bool enabled)
@@ -138,7 +133,7 @@ namespace Tabster.Utilities.Plugins
 
         #region Implementation of IEnumerable
 
-        public IEnumerator<TabsterPlugin> GetEnumerator()
+        public IEnumerator<TabsterPluginHost> GetEnumerator()
         {
             foreach (var plugin in _plugins)
             {

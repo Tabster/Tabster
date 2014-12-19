@@ -9,17 +9,20 @@ using Tabster.Core.Plugins;
 
 namespace Tabster.Utilities.Plugins
 {
-    public class TabsterPlugin
+    public class TabsterPluginHost
     {
-        public TabsterPlugin(Assembly assembly, ITabsterPlugin pluginInterface, Guid guid)
+        public TabsterPluginHost(Assembly assembly, ITabsterPluginAttributes attributes, TabsterPluginBase plugin,
+            Guid guid)
         {
-            Interface = pluginInterface;
             Assembly = assembly;
+            PluginAttributes = attributes;
+            Plugin = plugin;
             GUID = guid;
         }
 
         public Assembly Assembly { get; private set; }
-        public ITabsterPlugin Interface { get; private set; }
+        public ITabsterPluginAttributes PluginAttributes { get; private set; }
+        public TabsterPluginBase Plugin { get; private set; }
         public Guid GUID { get; private set; }
 
         public IEnumerable<T> GetClassInstances<T>()
@@ -28,7 +31,7 @@ namespace Tabster.Utilities.Plugins
 
             var cType = typeof (T);
 
-            foreach (var type in Interface.Types)
+            foreach (var type in PluginAttributes.Types)
             {
                 if (cType.IsAssignableFrom(type))
                 {

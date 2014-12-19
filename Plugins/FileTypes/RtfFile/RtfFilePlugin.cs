@@ -7,9 +7,9 @@ using Tabster.Core.Plugins;
 
 namespace RtfFile
 {
-    public class RtfFilePlugin : ITabsterPlugin
+    public class RtfFilePlugin: TabsterPluginBase, ITabsterPluginAttributes
     {
-        #region Implementation of ITabsterPlugin
+        #region Implementation of ITabsterPluginAttributes
 
         public string Author
         {
