@@ -69,27 +69,13 @@ namespace Tabster.Data
             FileInfo.Refresh();
         }
 
-        public ITabsterDocument SaveAs(string fileName)
-        {
-            Save(fileName);
-            var doc = new TablaturePlaylistDocument();
-            doc.Load(fileName);
-
-            if (FileInfo == null)
-            {
-                FileInfo = new FileInfo(fileName);
-            }
-
-            return doc;
-        }
-
         public void Update()
         {
             if (FileVersion != FILE_VERSION)
                 Save();
         }
 
-        private void Save(string fileName)
+        public void Save(string fileName)
         {
             _doc.Version = FILE_VERSION;
             _doc.WriteNode("name", Name);
@@ -101,6 +87,9 @@ namespace Tabster.Data
             }
 
             _doc.Save(fileName);
+
+            if (FileInfo == null)
+                FileInfo = new FileInfo(fileName);
         }
 
         #endregion

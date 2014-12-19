@@ -132,7 +132,7 @@ namespace Tabster.Data.Library
             if (playlist.FileInfo == null)
             {
                 var uniqueName = GenerateUniqueFilename(PlaylistDirectory, playlist.Name + TablaturePlaylistDocument.FILE_EXTENSION);
-                playlist.SaveAs(uniqueName);
+                playlist.Save(uniqueName);
             }
 
             _playlists.Add(playlist);
@@ -182,10 +182,11 @@ namespace Tabster.Data.Library
             {
                 var filename = string.Format("{0} - {1} ({2})", doc.Artist, doc.Title, doc.Type.ToFriendlyString());
                 var uniqueName = GenerateUniqueFilename(LibraryDirectory, filename + TablatureDocument.FILE_EXTENSION);
-                doc.SaveAs(uniqueName);
+
+                doc.Save(uniqueName);
             }
 
-            var item = new TablatureLibraryItem(doc) {Added = DateTime.UtcNow};
+            var item = new TablatureLibraryItem(doc) { Added = DateTime.UtcNow };
             Add(item);
 
             return item;

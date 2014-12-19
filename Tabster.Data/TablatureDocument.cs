@@ -126,20 +126,6 @@ namespace Tabster.Data
             FileInfo.Refresh();
         }
 
-        public ITabsterDocument SaveAs(string fileName)
-        {
-            Save(fileName);
-            var doc = new TablatureDocument();
-            doc.Load(fileName);
-
-            if (FileInfo == null)
-            {
-                FileInfo = new FileInfo(fileName);
-            }
-
-            return doc;
-        }
-
         public void Update()
         {
             //fix carriage returns without newlines and strip html
@@ -155,7 +141,7 @@ namespace Tabster.Data
                 Save();
         }
 
-        private void Save(string fileName)
+        public void Save(string fileName)
         {
             _doc.Version = FILE_VERSION;
 
@@ -185,6 +171,9 @@ namespace Tabster.Data
             _doc.WriteNode("comment", Comment);
 
             _doc.Save(fileName);
+
+            if (FileInfo == null)
+                FileInfo = new FileInfo(fileName);
         }
 
         #endregion
