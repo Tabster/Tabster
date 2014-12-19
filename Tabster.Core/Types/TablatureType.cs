@@ -1,5 +1,6 @@
 #region
 
+using System;
 using System.Collections.Generic;
 
 #endregion
@@ -106,12 +107,37 @@ namespace Tabster.Core.Types
 
         public static void RegisterType(TablatureType type)
         {
-            _knownTypes.Add(type);
+            if (!IsRegistered(type))
+                _knownTypes.Add(type);
         }
 
         public static void UnregisterType(TablatureType type)
         {
             _knownTypes.Remove(type);
+        }
+
+        public static bool IsRegistered(TablatureType type)
+        {
+            return _knownTypes.Contains(type);
+        }
+
+        public static TablatureType GetTypeByName(string name, bool createIfMissing = false)
+        {
+            var match = _knownTypes.Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+            if (match != null)
+            {
+                return match;
+            }
+
+            if (createIfMissing)
+            {
+                var type = new TablatureType(name);
+                RegisterType(type);
+                return type;
+            }
+
+            return null;
         }
 
         #endregion
