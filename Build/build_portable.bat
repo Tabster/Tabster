@@ -25,5 +25,4 @@ ECHO Compressing...
 
 ::core files
 7z a %ZIP_ARCHIVE% "%VS_BUILD_DIRECTORY%\Tabster.exe"
-7z a %ZIP_ARCHIVE% "%VS_BUILD_DIRECTORY%\Updater.exe"
 7z a -r %ZIP_ARCHIVE% "%VS_BUILD_DIRECTORY%\*.dll"
