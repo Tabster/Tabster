@@ -46,7 +46,6 @@ namespace Tabster.Forms
 
         //used to prevent double-triggering of OnSelectedIndexChanged for tablibrary when using navigation menu
         private bool _switchingNavigationOption;
-        private BasicTablatureTextEditor _tabPreviewEditor;
 
         //time (in ms) where tab is displayed in preview editor after being selected
 
@@ -157,18 +156,15 @@ namespace Tabster.Forms
 
         private void printbtn_Click(object sender, EventArgs e)
         {
-            if (_tabPreviewEditor != null)
+            var settings = new TablaturePrintDocumentSettings
             {
-                var settings = new TablaturePrintDocumentSettings
-                                   {
-                                       Title = SelectedLibraryItem.Document.ToFriendlyString(),
-                                       DisplayTitle = true,
-                                       DisplayPrintTime = true,
-                                       DisplayPageNumbers = true,
-                                   };
+                Title = SelectedLibraryItem.Document.ToFriendlyString(),
+                DisplayTitle = true,
+                DisplayPrintTime = true,
+                DisplayPageNumbers = true,
+            };
 
-                _tabPreviewEditor.Print(settings);
-            }
+            PreviewEditor.Print(settings);
         }
 
         private void tablibrary_SelectionChanged(object sender, EventArgs e)
@@ -199,14 +195,14 @@ namespace Tabster.Forms
                     var TablatureLibraryItem = Program.TablatureFileLibrary.Add(n.Tab);
                     Program.TablatureFileLibrary.Save();
                     UpdateLibraryItem(TablatureLibraryItem);
-                    PopoutTab(n.Tab);
+                    PopoutTab(n.Tab, isReadOnly: false);
                 }
             }
         }
 
-        private void PopoutTab(TablatureDocument tab, bool updateRecentFiles = true)
+        private void PopoutTab(TablatureDocument tab, bool isReadOnly = true, bool updateRecentFiles = true)
         {
-            Program.TabbedViewer.LoadTablature(tab);
+            Program.TabbedViewer.LoadTablature(tab, isReadOnly);
 
             if (updateRecentFiles)
                 recentlyViewedMenuItem.Add(tab.FileInfo, tab.ToFriendlyString());
@@ -318,18 +314,15 @@ namespace Tabster.Forms
 
         private void autoScrollChange(object sender, EventArgs e)
         {
-            if (_tabPreviewEditor != null)
+            var item = ((ToolStripMenuItem) sender);
+            var text = item.Text;
+
+            foreach (ToolStripMenuItem menuItem in toolStripButton3.DropDownItems)
             {
-                var item = ((ToolStripMenuItem) sender);
-                var text = item.Text;
-
-                foreach (ToolStripMenuItem menuItem in toolStripButton3.DropDownItems)
-                {
-                    menuItem.Checked = menuItem.Text == item.Text;
-                }
-
-                _tabPreviewEditor.AutoScroll = text == "On";
+                menuItem.Checked = menuItem.Text == item.Text;
             }
+
+            PreviewEditor.AutoScroll = text == "On";
         }
 
         private void sidemenu_BeforeSelect(object sender, TreeViewCancelEventArgs e)
@@ -658,15 +651,13 @@ namespace Tabster.Forms
         {
             PreviewDisplayTimer.Stop();
 
-            //destroy previous editor
-            if (_tabPreviewEditor != null && !_tabPreviewEditor.IsDisposed)
-                _tabPreviewEditor.Dispose();
-
             if (SelectedLibraryItem != null)
             {
                 lblpreviewtitle.Text = SelectedLibraryItem.Document.ToFriendlyString();
 
                 var openedExternally = Program.TabbedViewer.IsFileOpen(SelectedLibraryItem.Document);
+
+                PreviewEditor.Visible = !openedExternally;
 
                 if (openedExternally)
                 {
@@ -678,16 +669,12 @@ namespace Tabster.Forms
                 {
                     lblLibraryPreview.Visible = false;
 
-                    var editor = new BasicTablatureTextEditor {Dock = DockStyle.Fill, ReadOnly = true};
-                    editor.LoadTablature(SelectedLibraryItem.Document);
-                    librarySplitContainer.Panel2.Controls.Add(editor);
+                    PreviewEditor.LoadTablature(SelectedLibraryItem.Document);
 
                     if (startViewCountTimer)
                     {
                         PreviewDisplayTimer.Start();
                     }
-
-                    _tabPreviewEditor = editor;
                 }
 
                 librarySplitContainer.Panel2.Enabled = !openedExternally;
