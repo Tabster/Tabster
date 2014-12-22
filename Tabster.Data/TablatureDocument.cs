@@ -9,7 +9,8 @@ using Tabster.Core.Types;
 
 namespace Tabster.Data
 {
-    public class TablatureDocument : AttributedTablature, ITabsterDocument, ITablatureSourceAttribute, ITablatureFileAttributes
+    public class TablatureDocument : AttributedTablature, ITabsterDocument, ITablatureSourceAttribute,
+        ITablatureFileAttributes
     {
         #region Constants
 
@@ -34,7 +35,8 @@ namespace Tabster.Data
             Type = type;
         }
 
-        public TablatureDocument(string artist, string title, TablatureType type, string contents) : this(artist, title, type)
+        public TablatureDocument(string artist, string title, TablatureType type, string contents)
+            : this(artist, title, type)
         {
             Contents = contents;
         }
@@ -43,12 +45,12 @@ namespace Tabster.Data
 
         #region Implementation of ITabsterDocument
 
+        public FileInfo FileInfo { get; private set; }
+
         public Version FileVersion
         {
             get { return _doc.Version; }
         }
-
-        public FileInfo FileInfo { get; private set; }
 
         public void Load(string fileName)
         {
@@ -60,33 +62,12 @@ namespace Tabster.Data
             Title = _doc.TryReadNodeValues(new[] {"song", "title"}, string.Empty);
 
             var tabTypeValue = _doc.TryReadNodeValue("type");
-            TablatureType type = null;
 
-            if (tabTypeValue != null)
-            {
-                var knownTypes = TablatureType.GetKnownTypes();
-
-                var match = knownTypes.Find(x => x.Name == tabTypeValue);
-
-                if (match != null)
-                {
-                    type = match;
-                }
-
-                else
-                {
-                    //legacy
-                    var fromString = FromFriendlyString(tabTypeValue);
-
-                    if (fromString != null)
-                        type = fromString;
-                }
-
-                Type = type;
-            }
-
-            if (Type == null)
+            if (string.IsNullOrEmpty(tabTypeValue))
                 throw new TablatureFileException("Invalid or missing tab type");
+
+            //peform legacy lookup
+            Type = FromFriendlyString(tabTypeValue) ?? new TablatureType(tabTypeValue);
 
             Contents = _doc.TryReadNodeValue("tab", string.Empty);
 
@@ -95,8 +76,8 @@ namespace Tabster.Data
             DateTime createDatetime;
 
             Created = !string.IsNullOrEmpty(createdValue) && DateTime.TryParse(createdValue, out createDatetime)
-                          ? createDatetime
-                          : FileInfo.CreationTime;
+                ? createDatetime
+                : FileInfo.CreationTime;
 
             Comment = _doc.TryReadNodeValue("comment", string.Empty);
 
@@ -197,7 +178,7 @@ namespace Tabster.Data
         #region Static Methods
 
         /// <summary>
-        ///   Deprecated format.
+        ///     Deprecated format.
         /// </summary>
         private static TablatureType FromFriendlyString(string str)
         {
