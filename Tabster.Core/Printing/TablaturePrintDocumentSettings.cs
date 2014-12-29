@@ -10,7 +10,7 @@ namespace Tabster.Core.Printing
     {
         public TablaturePrintDocumentSettings()
         {
-            PrintColor = Brushes.Black;
+            PrintColor = Color.Black;
         }
 
         public string Title { get; set; }
@@ -19,6 +19,6 @@ namespace Tabster.Core.Printing
         public bool DisplayPageNumbers { get; set; }
         public bool DisplayPrintTime { get; set; }
 
-        public Brush PrintColor { get; set; }
+        public Color PrintColor { get; set; }
     }
 }
