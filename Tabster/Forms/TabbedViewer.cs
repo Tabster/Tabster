@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Core.Types;
@@ -17,7 +18,7 @@ namespace Tabster.Forms
     {
         #region Delegates
 
-        public delegate void TabHandler(object sender, TablatureDocument TablatureDocument);
+        public delegate void TabHandler(object sender, TablatureDocument tablatureDocument);
 
         #endregion
 
@@ -48,24 +49,17 @@ namespace Tabster.Forms
 
         public void LoadTablature(TablatureDocument doc)
         {
-            if (IsFileOpen(doc))
-            {
-                var instance = GetTabInstance(doc);
-                SelectTabInstance(instance);
-            }
+            var instance = IsFileOpen(doc) ? GetTabInstance(doc) : CreateTabInstance(doc);
 
-            else
-            {
-                var instance = CreateTabInstance(doc);
-                SelectTabInstance(instance);
-            }
+            SelectTabInstance(instance);
 
             if (!Visible)
             {
                 if (_owner != null)
                 {
                     StartPosition = FormStartPosition.Manual;
-                    Location = new Point(_owner.Location.X + (_owner.Width - Width)/2, _owner.Location.Y + (_owner.Height - Height)/2);
+                    Location = new Point(_owner.Location.X + (_owner.Width - Width)/2,
+                        _owner.Location.Y + (_owner.Height - Height)/2);
 
                     Show(_owner);
                 }
@@ -85,14 +79,14 @@ namespace Tabster.Forms
         private TabInstance CreateTabInstance(TablatureDocument doc)
         {
             var editor = new BasicTablatureTextEditor {Dock = DockStyle.Fill, ReadOnly = false};
-            editor.LoadTablature(doc);
-            editor.ContentsModified += editor_TabModified;
-
             var instance = new TabInstance(doc, editor);
 
             _tabInstances.Add(instance);
-
             tabControl1.TabPages.Add(instance.Page);
+
+            editor.ContentsModified += editor_ContentsModified;
+            editor.TablatureLoaded += editor_TablatureLoaded;
+            editor.LoadTablature(doc);
 
             if (TabOpened != null)
                 TabOpened(this, doc);
@@ -100,12 +94,23 @@ namespace Tabster.Forms
             return instance;
         }
 
+        private void editor_ContentsModified(object sender, EventArgs e)
+        {
+            UpdateInstanceControls(GetInstance((BasicTablatureTextEditor)sender));
+        }
+
+        private void editor_TablatureLoaded(object sender, EventArgs e)
+        {
+            UpdateInstanceControls(GetInstance((BasicTablatureTextEditor)sender));
+        }
+
         private void SelectTabInstance(TabInstance instance)
         {
             tabControl1.SelectedTab = instance.Page;
+            ActiveControl = instance.Editor;
         }
 
-        private TabInstance GetTabInstance(ITabsterDocument doc)
+        private TabInstance GetTabInstance(TablatureDocument doc)
         {
             return _tabInstances.Find(x => x.File.FileInfo.FullName.Equals(doc.FileInfo.FullName));
         }
@@ -134,9 +139,10 @@ namespace Tabster.Forms
             }
         }
 
-        private void editor_TabModified(object sender, EventArgs e)
+        private void UpdateInstanceControls(TabInstance instance)
         {
-            savebtn.Enabled = ((BasicTablatureTextEditor) sender).Modified;
+            savebtn.Enabled = instance.Editor.Modified;
+            instance.Page.ImageIndex = instance.Editor.Modified ? 1 : 0;
         }
 
         private bool CloseInstance(TabInstance instance, bool closeIfLast)
@@ -296,9 +302,14 @@ namespace Tabster.Forms
             {
                 instance.File.Contents = instance.Editor.Text;
                 instance.File.Save();
+                instance.Modified = false;
                 savebtn.Enabled = false;
-                instance.RefreshHeader();
             }
+        }
+
+        private TabInstance GetInstance(BasicTablatureTextEditor editor)
+        {
+            return _tabInstances.FirstOrDefault(instance => instance.Editor == editor);
         }
     }
 
@@ -315,7 +326,6 @@ namespace Tabster.Forms
             Page.Controls.Add(Editor);
 
             Editor.LoadTablature(file);
-            Editor.ContentsModified += editor_TabModified;
         }
 
         public TabPage Page { get; private set; }
@@ -325,21 +335,7 @@ namespace Tabster.Forms
         public bool Modified
         {
             get { return Editor.Modified; }
-        }
-
-        private void editor_TabModified(object sender, EventArgs e)
-        {
-            RefreshHeader();
-        }
-
-        public void RefreshHeader()
-        {
-            Page.Text = File.ToFriendlyString();
-
-            if (Editor.Modified)
-            {
-                Page.Text += " *";
-            }
+            set { Editor.Modified = value; }
         }
     }
 }

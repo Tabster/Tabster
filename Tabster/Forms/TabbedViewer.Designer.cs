@@ -35,7 +35,6 @@ namespace Tabster.Forms
             this.TabControlMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeTabContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlsToolStrip = new System.Windows.Forms.ToolStrip();
-            this.printbtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripDropDownButton();
             this.offToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +42,8 @@ namespace Tabster.Forms
             this.savebtn = new System.Windows.Forms.ToolStripButton();
             this.fullscreenbtn = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.documentStateImageLIst = new System.Windows.Forms.ImageList(this.components);
+            this.printbtn = new System.Windows.Forms.ToolStripSplitButton();
             this.TabControlMenu.SuspendLayout();
             this.controlsToolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -76,17 +77,6 @@ namespace Tabster.Forms
             this.controlsToolStrip.Size = new System.Drawing.Size(738, 25);
             this.controlsToolStrip.TabIndex = 24;
             // 
-            // printbtn
-            // 
-            this.printbtn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.printbtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.printbtn.Image = global::Tabster.Properties.Resources.printer;
-            this.printbtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.printbtn.Name = "printbtn";
-            this.printbtn.Size = new System.Drawing.Size(52, 22);
-            this.printbtn.Text = "Print";
-            this.printbtn.Click += new System.EventHandler(this.PrintTab);
-            // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -111,14 +101,14 @@ namespace Tabster.Forms
             this.offToolStripMenuItem.Checked = true;
             this.offToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.offToolStripMenuItem.Name = "offToolStripMenuItem";
-            this.offToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.offToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.offToolStripMenuItem.Text = "Off";
             this.offToolStripMenuItem.Click += new System.EventHandler(this.AutoScrollChange);
             // 
             // onToolStripMenuItem
             // 
             this.onToolStripMenuItem.Name = "onToolStripMenuItem";
-            this.onToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+            this.onToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.onToolStripMenuItem.Text = "On";
             this.onToolStripMenuItem.Click += new System.EventHandler(this.AutoScrollChange);
             // 
@@ -148,16 +138,34 @@ namespace Tabster.Forms
             // tabControl1
             // 
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.ImageList = this.documentStateImageLIst;
             this.tabControl1.ItemSize = new System.Drawing.Size(220, 23);
             this.tabControl1.Location = new System.Drawing.Point(0, 25);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.ShowToolTips = true;
             this.tabControl1.Size = new System.Drawing.Size(738, 488);
-            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             this.tabControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseUp);
+            // 
+            // documentStateImageLIst
+            // 
+            this.documentStateImageLIst.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("documentStateImageLIst.ImageStream")));
+            this.documentStateImageLIst.TransparentColor = System.Drawing.Color.Transparent;
+            this.documentStateImageLIst.Images.SetKeyName(0, "bullet_green.png");
+            this.documentStateImageLIst.Images.SetKeyName(1, "bullet_red.png");
+            // 
+            // printbtn
+            // 
+            this.printbtn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.printbtn.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.printbtn.Image = global::Tabster.Properties.Resources.printer;
+            this.printbtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.printbtn.Name = "printbtn";
+            this.printbtn.Size = new System.Drawing.Size(64, 22);
+            this.printbtn.Text = "Print";
+            this.printbtn.Click += new System.EventHandler(this.PrintTab);
             // 
             // TabbedViewer
             // 
@@ -188,13 +196,14 @@ namespace Tabster.Forms
         private System.Windows.Forms.ContextMenuStrip TabControlMenu;
         private System.Windows.Forms.ToolStripMenuItem closeTabContextMenuItem;
         private System.Windows.Forms.ToolStrip controlsToolStrip;
-        private System.Windows.Forms.ToolStripButton printbtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton3;
         private System.Windows.Forms.ToolStripMenuItem offToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem onToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton savebtn;
         private System.Windows.Forms.ToolStripButton fullscreenbtn;
+        private System.Windows.Forms.ImageList documentStateImageLIst;
+        private System.Windows.Forms.ToolStripSplitButton printbtn;
 
     }
 }
