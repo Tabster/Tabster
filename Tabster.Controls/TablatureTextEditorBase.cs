@@ -63,7 +63,12 @@ namespace Tabster.Controls
 
         public virtual void LoadTablature(ITablature tablature)
         {
-            Text = tablature.Contents;
+            TextBoxBase.Text = tablature.Contents;
+
+            if (TablatureLoaded != null)
+            {
+                TablatureLoaded(this, EventArgs.Empty);
+            }
         }
 
         public void Clear()
@@ -102,6 +107,16 @@ namespace Tabster.Controls
         }
 
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool HasScrollableContents
+        {
+            get
+            {
+                var size = TextRenderer.MeasureText(TextBoxBase.Text, TextBoxBase.Font);
+                return size.Width >= TextBoxBase.Width || size.Height >= TextBoxBase.Height;
+            }
+        }
+
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Modified
         {
             get { return TextBoxBase.Modified; }
@@ -113,32 +128,51 @@ namespace Tabster.Controls
         #region Events
 
         public event EventHandler ContentsModified;
+        public event EventHandler TablatureLoaded;
 
         #endregion
 
         #region Printing
 
-        public void Print(TablaturePrintDocumentSettings settings = null, bool showDialog = true)
+        public void PrintPreview(TablaturePrintDocumentSettings settings = null)
         {
-            var documentName = string.Format("Tablature Document {0}", DateTime.Now.ToString());
+            var documentName = string.Format("Tablature Document {0}", DateTime.Now);
 
-            using (var printDocument = new TablaturePrintDocument(new AttributedTablature {Contents = Text}, TextBoxBase.Font) {DocumentName = documentName, Settings = settings ?? new TablaturePrintDocumentSettings()})
-            {
-                if (showDialog)
+            using (
+                var printDocument = new TablaturePrintDocument(new AttributedTablature {Contents = Text},
+                    TextBoxBase.Font)
                 {
-                    using (var dialog = new PrintPreviewDialog {Document = printDocument})
+                    DocumentName = documentName,
+                    Settings = settings ?? new TablaturePrintDocumentSettings()
+                })
+            {
+
+                using (var dialog = new PrintPreviewDialog {Document = printDocument})
+                {
+                    if (dialog.ShowDialog() == DialogResult.OK)
                     {
-                        if (dialog.ShowDialog() == DialogResult.OK)
-                        {
-                            printDocument.Print();
-                        }
+                        printDocument.Print();
                     }
                 }
 
-                else
+            }
+        }
+
+        public void Print(TablaturePrintDocumentSettings settings = null)
+        {
+            var documentName = string.Format("Tablature Document {0}", DateTime.Now);
+
+            using (
+                var printDocument = new TablaturePrintDocument(new AttributedTablature {Contents = Text},
+                    TextBoxBase.Font)
                 {
-                    printDocument.Print();
-                }
+                    DocumentName = documentName,
+                    Settings = settings ?? new TablaturePrintDocumentSettings()
+                })
+            {
+
+                printDocument.Print();
+
             }
         }
 
