@@ -3,6 +3,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using Tabster.Properties;
@@ -14,18 +15,27 @@ namespace Tabster.Forms
 {
     internal partial class PreferencesDialog : Form
     {
-        public PreferencesDialog()
+        public PreferencesDialog(string tab = null)
         {
             InitializeComponent();
 
             LoadPreferences();
-        }
+
+            var t = tabControl1.TabPages.Cast<TabPage>().FirstOrDefault(tp => tp.Text.Equals(tab, StringComparison.OrdinalIgnoreCase));
+            if (t != null)
+                tabControl1.SelectedTab = t;
+        }  
 
         public bool PluginsModified { get; private set; }
 
         private void LoadPreferences()
         {
             chkupdatestartup.Checked = Settings.Default.StartupUpdate;
+
+            //printing
+            printColorPreview.BackColor = Settings.Default.PrintColor;
+            chkPrintPageNumbers.Checked = Settings.Default.PrintPageNumbers;
+            chkPrintTimestamp.Checked = Settings.Default.PrintTimestamp;
 
             //proxy settings
 
@@ -100,6 +110,12 @@ namespace Tabster.Forms
                 }
             }
 
+            //printing
+            Settings.Default.PrintColor = printColorPreview.BackColor;
+            Settings.Default.PrintPageNumbers = chkPrintPageNumbers.Checked;
+            Settings.Default.PrintTimestamp = chkPrintTimestamp.Checked;
+
+            //network
             var proxyConfig = ProxyConfiguration.None;
 
             if (radioNoProxy.Checked)
@@ -221,6 +237,14 @@ namespace Tabster.Forms
         private void pluginsDirectorybtn_Click(object sender, EventArgs e)
         {
             Process.Start(Program.pluginController.WorkingDirectory);
+        }
+
+        private void printColorPreview_Click(object sender, EventArgs e)
+        {
+            if (printColorDialog.ShowDialog() == DialogResult.OK)
+            {
+                printColorPreview.BackColor = printColorDialog.Color;
+            }
         }
     }
 }

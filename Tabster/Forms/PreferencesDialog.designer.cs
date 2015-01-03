@@ -33,6 +33,11 @@
             this.okbtn = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.printColorPreview = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.chkPrintTimestamp = new System.Windows.Forms.CheckBox();
+            this.chkPrintPageNumbers = new System.Windows.Forms.CheckBox();
             this.tabPlugins = new System.Windows.Forms.TabPage();
             this.listPlugins = new System.Windows.Forms.ListView();
             this.colpluginEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -57,8 +62,10 @@
             this.numProxyPort = new System.Windows.Forms.NumericUpDown();
             this.txtProxyAddress = new System.Windows.Forms.TextBox();
             this.pluginsDirectorybtn = new System.Windows.Forms.Button();
+            this.printColorDialog = new System.Windows.Forms.ColorDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.tabPlugins.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.customProxyPanel.SuspendLayout();
@@ -105,6 +112,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPlugins);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(13, 13);
@@ -124,6 +132,60 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.printColorPreview);
+            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.chkPrintTimestamp);
+            this.tabPage2.Controls.Add(this.chkPrintPageNumbers);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(526, 206);
+            this.tabPage2.TabIndex = 3;
+            this.tabPage2.Text = "Printing";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // printColorPreview
+            // 
+            this.printColorPreview.BackColor = System.Drawing.Color.Black;
+            this.printColorPreview.Location = new System.Drawing.Point(70, 55);
+            this.printColorPreview.Name = "printColorPreview";
+            this.printColorPreview.Size = new System.Drawing.Size(24, 16);
+            this.printColorPreview.TabIndex = 24;
+            this.printColorPreview.Click += new System.EventHandler(this.printColorPreview_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 58);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(58, 13);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "Print Color:";
+            // 
+            // chkPrintTimestamp
+            // 
+            this.chkPrintTimestamp.AutoSize = true;
+            this.chkPrintTimestamp.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chkPrintTimestamp.Location = new System.Drawing.Point(6, 29);
+            this.chkPrintTimestamp.Name = "chkPrintTimestamp";
+            this.chkPrintTimestamp.Size = new System.Drawing.Size(105, 17);
+            this.chkPrintTimestamp.TabIndex = 20;
+            this.chkPrintTimestamp.Text = "Display print time";
+            this.chkPrintTimestamp.UseVisualStyleBackColor = true;
+            // 
+            // chkPrintPageNumbers
+            // 
+            this.chkPrintPageNumbers.AutoSize = true;
+            this.chkPrintPageNumbers.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chkPrintPageNumbers.Location = new System.Drawing.Point(6, 6);
+            this.chkPrintPageNumbers.Name = "chkPrintPageNumbers";
+            this.chkPrintPageNumbers.Size = new System.Drawing.Size(130, 17);
+            this.chkPrintPageNumbers.TabIndex = 19;
+            this.chkPrintPageNumbers.Text = "Display page numbers";
+            this.chkPrintPageNumbers.UseVisualStyleBackColor = true;
             // 
             // tabPlugins
             // 
@@ -368,6 +430,10 @@
             this.pluginsDirectorybtn.Visible = false;
             this.pluginsDirectorybtn.Click += new System.EventHandler(this.pluginsDirectorybtn_Click);
             // 
+            // printColorDialog
+            // 
+            this.printColorDialog.SolidColorOnly = true;
+            // 
             // PreferencesDialog
             // 
             this.AcceptButton = this.okbtn;
@@ -392,6 +458,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.tabPlugins.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -433,5 +501,11 @@
         private System.Windows.Forms.Button btnEditSystemProxy;
         private System.Windows.Forms.ColumnHeader colpluginEnabled;
         private System.Windows.Forms.Button pluginsDirectorybtn;
+        private System.Windows.Forms.CheckBox chkPrintPageNumbers;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.CheckBox chkPrintTimestamp;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ColorDialog printColorDialog;
+        private System.Windows.Forms.Panel printColorPreview;
     }
 }
