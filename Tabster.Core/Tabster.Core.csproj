@@ -59,6 +59,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Printing\TablaturePrintDocumentSettings.cs" />
+    <Compile Include="Printing\TablaturePrintDocumentSettingsBase.cs" />
     <Compile Include="Printing\TablaturePrintPageEventArgs.cs" />
     <Compile Include="Searching\SearchQuery.cs" />
     <Compile Include="Searching\SearchResult.cs" />
