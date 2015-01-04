@@ -60,10 +60,9 @@ namespace Tabster.Utilities.Plugins
         {
             var instances = new List<T>();
 
-            foreach (var plugin in _plugins)
+            foreach (var plugin in _plugins.Where(plugin => IsEnabled(plugin.GUID)))
             {
-                if (IsEnabled(plugin.GUID))
-                    instances.AddRange(plugin.GetClassInstances<T>());
+                instances.AddRange(plugin.GetClassInstances<T>());
             }
 
             return instances;
