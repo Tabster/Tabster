@@ -10,7 +10,7 @@ namespace Tabster.Core.Searching
     ///   Search service flags.
     /// </summary>
     [Flags]
-    public enum SearchServiceFlags
+    public enum TablatureSearchEngineFlags
     {
         None = 1,
         RequiresArtistParameter = 2,

@@ -15,7 +15,7 @@ using Tabster.Data.Processing;
 
 namespace UltimateGuitar
 {
-    public class UltimateGuitarSearch : ISearchService
+    public class UltimateGuitarSearch : ITablatureSearchEngine
     {
         #region Implementation of ISearchService
 
@@ -29,9 +29,9 @@ namespace UltimateGuitar
             get { return "Ultimate Guitar"; }
         }
 
-        public SearchServiceFlags Flags
+        public TablatureSearchEngineFlags Flags
         {
-            get { return SearchServiceFlags.None; }
+            get { return TablatureSearchEngineFlags.None; }
         }
 
         public WebProxy Proxy { get; set; }
@@ -41,9 +41,9 @@ namespace UltimateGuitar
             get { return true; }
         }
 
-        public SearchResult[] Search(SearchQuery query)
+        public TablatureSearchResult[] Search(TablatureSearchQuery query)
         {
-            var results = new List<SearchResult>();
+            var results = new List<TablatureSearchResult>();
 
             var regex = new Regex("[']", RegexOptions.Compiled);
 
@@ -161,7 +161,7 @@ namespace UltimateGuitar
                                 if (query.Type == null || rowType == query.Type)
                                 {
                                     var tab = new AttributedTablature(loopArtist, rowSong, rowType);
-                                    results.Add(new SearchResult(query, tab, new Uri(rowURL), rating));
+                                    results.Add(new TablatureSearchResult(query, tab, new Uri(rowURL), rating));
                                 }
                             }
                         }

@@ -9,11 +9,11 @@ namespace Tabster.Core.Searching
     /// <summary>
     ///   Tab search query.
     /// </summary>
-    public class SearchQuery
+    public class TablatureSearchQuery
     {
-        public SearchQuery(ISearchService service, string artist, string title, TablatureType type)
+        public TablatureSearchQuery(ITablatureSearchEngine engine, string artist, string title, TablatureType type)
         {
-            Service = service;
+            Engine = engine;
             Artist = artist;
             Title = title;
             Type = type;
@@ -22,7 +22,7 @@ namespace Tabster.Core.Searching
         /// <summary>
         ///   The associated search service.
         /// </summary>
-        public ISearchService Service { get; private set; }
+        public ITablatureSearchEngine Engine { get; private set; }
 
         /// <summary>
         ///   Artist search parameter.

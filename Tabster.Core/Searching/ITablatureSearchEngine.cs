@@ -10,7 +10,7 @@ namespace Tabster.Core.Searching
     /// <summary>
     ///   Tab service which enables searching.
     /// </summary>
-    public interface ISearchService
+    public interface ITablatureSearchEngine
     {
         /// <summary>
         ///   Service name.
@@ -20,7 +20,7 @@ namespace Tabster.Core.Searching
         /// <summary>
         ///   Service flags.
         /// </summary>
-        SearchServiceFlags Flags { get; }
+        TablatureSearchEngineFlags Flags { get; }
 
         /// <summary>
         ///   Proxy settings.
@@ -36,7 +36,7 @@ namespace Tabster.Core.Searching
         ///   Queries service and returns results based on search parameters.
         /// </summary>
         /// <param name="query"> Search query. </param>
-        SearchResult[] Search(SearchQuery query);
+        TablatureSearchResult[] Search(TablatureSearchQuery query);
 
         ///<summary>
         ///  Determines whether a specific TabType is supported by the service.

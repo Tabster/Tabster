@@ -16,16 +16,16 @@ namespace Tabster.Forms
 {
     internal partial class MainForm
     {
-        private readonly List<SearchResult> _searchResults = new List<SearchResult>();
+        private readonly List<TablatureSearchResult> _searchResults = new List<TablatureSearchResult>();
         private readonly Dictionary<Uri, TablatureDocument> _searchResultsCache = new Dictionary<Uri, TablatureDocument>();
         private TablatureRating? _activeSearchRating;
         private TablatureType _activeSearchType;
-        private List<ISearchService> _searchServices = new List<ISearchService>();
+        private List<ITablatureSearchEngine> _searchServices = new List<ITablatureSearchEngine>();
         private List<ITablatureWebpageImporter> _webImporters = new List<ITablatureWebpageImporter>();
 
         //used for filtering after search is complete
 
-        private SearchResult SelectedSearchResult()
+        private TablatureSearchResult SelectedSearchResult()
         {
             var selectedURL = searchDisplay.SelectedRows.Count > 0 ? new Uri(searchDisplay.SelectedRows[0].Tag.ToString()) : null;
             return selectedURL != null ? _searchResults.Find(x => x.Source.Equals(selectedURL)) : null;
@@ -53,9 +53,9 @@ namespace Tabster.Forms
                 if (cbSearchRating.SelectedIndex > 0)
                     _activeSearchRating = (TablatureRating) (cbSearchRating.SelectedIndex);
 
-                var searchQueries = new List<SearchQuery>();
+                var searchQueries = new List<TablatureSearchQuery>();
 
-                var selectedServices = new List<ISearchService>();
+                var selectedServices = new List<ITablatureSearchEngine>();
 
                 for (var i = 0; i < listSearchServices.Items.Count; i++)
                 {
@@ -68,9 +68,9 @@ namespace Tabster.Forms
                 foreach (var service in selectedServices)
                 {
                     //check service flags
-                    if (((service.Flags & SearchServiceFlags.RequiresArtistParameter) == SearchServiceFlags.RequiresArtistParameter && string.IsNullOrEmpty(searchArtist)) ||
-                        (((service.Flags & SearchServiceFlags.RequiresTitleParameter) == SearchServiceFlags.RequiresTitleParameter && string.IsNullOrEmpty(searchTitle))) ||
-                        (((service.Flags & SearchServiceFlags.RequiresTypeParamter) == SearchServiceFlags.RequiresTypeParamter && _activeSearchType == null)))
+                    if (((service.Flags & TablatureSearchEngineFlags.RequiresArtistParameter) == TablatureSearchEngineFlags.RequiresArtistParameter && string.IsNullOrEmpty(searchArtist)) ||
+                        (((service.Flags & TablatureSearchEngineFlags.RequiresTitleParameter) == TablatureSearchEngineFlags.RequiresTitleParameter && string.IsNullOrEmpty(searchTitle))) ||
+                        (((service.Flags & TablatureSearchEngineFlags.RequiresTypeParamter) == TablatureSearchEngineFlags.RequiresTypeParamter && _activeSearchType == null)))
                     {
                         continue;
                     }
@@ -82,7 +82,7 @@ namespace Tabster.Forms
                     //set active proxy
                     service.Proxy = Program.CustomProxyController.GetProxy();
 
-                    searchQueries.Add(new SearchQuery(service, searchArtist, searchTitle, _activeSearchType));
+                    searchQueries.Add(new TablatureSearchQuery(service, searchArtist, searchTitle, _activeSearchType));
                 }
 
                 if (searchQueries.Count > 0)
@@ -94,19 +94,19 @@ namespace Tabster.Forms
 
         private void SearchBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var totalResults = new List<SearchResult>();
+            var totalResults = new List<TablatureSearchResult>();
 
             var count = 0;
 
-            var queries = (List<SearchQuery>) e.Argument;
+            var queries = (List<TablatureSearchQuery>)e.Argument;
 
             foreach (var query in queries)
             {
                 try
                 {
-                    if (query.Type == null || query.Service.SupportsTabType(query.Type))
+                    if (query.Type == null || query.Engine.SupportsTabType(query.Type))
                     {
-                        var results = query.Service.Search(query);
+                        var results = query.Engine.Search(query);
 
                         if (results != null)
                         {
@@ -138,7 +138,7 @@ namespace Tabster.Forms
 
             if (e.Result != null)
             {
-                var results = (List<SearchResult>) e.Result;
+                var results = (List<TablatureSearchResult>) e.Result;
 
                 _searchResults.AddRange(results);
 
@@ -160,7 +160,7 @@ namespace Tabster.Forms
                 lblStatus.Text = string.Format("Searching: {0}", serviceName);
         }
 
-        private void DisplaySearchResult(SearchResult result)
+        private void DisplaySearchResult(TablatureSearchResult result)
         {
             //missing source url
             if (result.Source == null)
@@ -178,7 +178,7 @@ namespace Tabster.Forms
 
             var ratingString = result.Rating == TablatureRating.None ? "" : new string('\u2605', (int) result.Rating - 1).PadRight(5, '\u2606');
 
-            newRow.CreateCells(searchDisplay, result.Tab.Artist, result.Tab.Title, result.Tab.Type.ToFriendlyString(), ratingString, result.Query.Service.Name);
+            newRow.CreateCells(searchDisplay, result.Tab.Artist, result.Tab.Title, result.Tab.Type.ToFriendlyString(), ratingString, result.Query.Engine.Name);
             searchDisplay.Rows.Add(newRow);
         }
 

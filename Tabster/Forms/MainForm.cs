@@ -250,7 +250,7 @@ namespace Tabster.Forms
             _fileImporters = new List<ITablatureFileImporter>(Program.pluginController.GetClassInstances<ITablatureFileImporter>());
 
             _webImporters = new List<ITablatureWebpageImporter>(Program.pluginController.GetClassInstances<ITablatureWebpageImporter>());
-            _searchServices = new List<ISearchService>(Program.pluginController.GetClassInstances<ISearchService>());
+            _searchServices = new List<ITablatureSearchEngine>(Program.pluginController.GetClassInstances<ITablatureSearchEngine>());
 
             _searchServices.Sort((s1, s2) => s1.Name.CompareTo(s2.Name));
 
@@ -265,7 +265,7 @@ namespace Tabster.Forms
 
             if (tab != null)
             {
-                PopoutTab(tab, false);
+                PopoutTab(tab, updateRecentFiles: false);
             }
         }
 
@@ -521,9 +521,9 @@ namespace Tabster.Forms
             Program.updateQuery.Check(true);
         }
 
-        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenPreferences(string tab = null)
         {
-            using (var p = new PreferencesDialog())
+            using (var p = new PreferencesDialog(tab))
             {
                 if (p.ShowDialog() == DialogResult.OK)
                 {
@@ -533,6 +533,11 @@ namespace Tabster.Forms
                         CachePluginResources();
                 }
             }
+        }
+
+        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenPreferences();
         }
 
         #endregion
@@ -551,6 +556,11 @@ namespace Tabster.Forms
                     }
                 }
             }
+        }
+
+        private void PreviewEditor_ContentsModified(object sender, EventArgs e)
+        {
+            toolStripButton3.Enabled = PreviewEditor.HasScrollableContents;
         }
     }
 }

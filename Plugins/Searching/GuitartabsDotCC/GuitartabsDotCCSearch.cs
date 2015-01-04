@@ -15,7 +15,7 @@ using Tabster.Data.Processing;
 
 namespace GuitartabsDotCC
 {
-    public class GuitartabsDotCCSearch : ISearchService
+    public class GuitartabsDotCCSearch : ITablatureSearchEngine
     {
         #region Implementation of ISearchService
 
@@ -29,9 +29,9 @@ namespace GuitartabsDotCC
             get { return "Guitartabs.cc"; }
         }
 
-        public SearchServiceFlags Flags
+        public TablatureSearchEngineFlags Flags
         {
-            get { return SearchServiceFlags.RequiresTitleParameter; }
+            get { return TablatureSearchEngineFlags.RequiresTitleParameter; }
         }
 
         public WebProxy Proxy { get; set; }
@@ -41,9 +41,9 @@ namespace GuitartabsDotCC
             get { return true; }
         }
 
-        public SearchResult[] Search(SearchQuery query)
+        public TablatureSearchResult[] Search(TablatureSearchQuery query)
         {
-            var results = new List<SearchResult>();
+            var results = new List<TablatureSearchResult>();
 
             //sanitize parameters prior to encoding
             var urlEncodedArtist = HttpUtility.UrlEncode(SanitizeParameter(query.Artist));
@@ -118,7 +118,7 @@ namespace GuitartabsDotCC
                             rowTitle = RemoveTypeFromTitle(rowTitle, tabType);
 
                             var tab = new AttributedTablature(rowArtist, rowTitle, tabType);
-                            results.Add(new SearchResult(query, tab, new Uri(string.Format("http://guitartabs.cc{0}", rowUrl)), rowRating));
+                            results.Add(new TablatureSearchResult(query, tab, new Uri(string.Format("http://guitartabs.cc{0}", rowUrl)), rowRating));
                         }
                     }
                 }

@@ -61,10 +61,10 @@
     <Compile Include="Printing\TablaturePrintDocumentSettings.cs" />
     <Compile Include="Printing\TablaturePrintDocumentSettingsBase.cs" />
     <Compile Include="Printing\TablaturePrintPageEventArgs.cs" />
-    <Compile Include="Searching\SearchQuery.cs" />
-    <Compile Include="Searching\SearchResult.cs" />
-    <Compile Include="Searching\SearchServiceException.cs" />
-    <Compile Include="Searching\SearchServiceFlags.cs" />
+    <Compile Include="Searching\TablatureSearchQuery.cs" />
+    <Compile Include="Searching\TablatureSearchResult.cs" />
+    <Compile Include="Searching\TablatureSearchEngineException.cs" />
+    <Compile Include="Searching\TablatureSearchEngineFlags.cs" />
     <Compile Include="Types\AttributedTablature.cs" />
     <Compile Include="Types\ITablatureAttributes.cs" />
     <Compile Include="Types\ITablatureRatedAttribute.cs" />
@@ -72,7 +72,7 @@
     <Compile Include="Types\TablatureRating.cs" />
     <Compile Include="Types\TablatureType.cs" />
     <Compile Include="Types\ITablature.cs" />
-    <Compile Include="Searching\ISearchService.cs" />
+    <Compile Include="Searching\ITablatureSearchEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Plugins\TabsterPluginException.cs" />
     <Compile Include="Types\ITablatureFileAttributes.cs" />
