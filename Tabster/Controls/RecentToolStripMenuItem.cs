@@ -115,6 +115,9 @@ namespace Tabster.Controls
 
         public void Add(FileInfo file, string displayName = null, bool repopulateDisplayItems = true)
         {
+            if (!file.Exists)
+                return;
+
             Remove(file);
             _items.Insert(0, new RecentToolStripMenuElement(file, displayName));
 
