@@ -131,19 +131,6 @@ namespace Tabster.Properties {
         [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ProxyAddress {
-            get {
-                return ((string)(this["ProxyAddress"]));
-            }
-            set {
-                this["ProxyAddress"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ProxyUsername {
             get {
                 return ((string)(this["ProxyUsername"]));
@@ -182,9 +169,8 @@ namespace Tabster.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\r\n        <?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n        <ArrayOfString xmlns:x" +
-            "si=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001" +
-            "/XMLSchema\" />\r\n      ")]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
         public global::System.Collections.Specialized.StringCollection DisabledPlugins {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["DisabledPlugins"]));
@@ -230,6 +216,32 @@ namespace Tabster.Properties {
             }
             set {
                 this["PrintTimestamp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ProxyHost {
+            get {
+                return ((string)(this["ProxyHost"]));
+            }
+            set {
+                this["ProxyHost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public ushort ProxyPort {
+            get {
+                return ((ushort)(this["ProxyPort"]));
+            }
+            set {
+                this["ProxyPort"] = value;
             }
         }
     }

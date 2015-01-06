@@ -10,9 +10,10 @@ using Tabster.Properties;
 using Tabster.Utilities.Net;
 
 #endregion
-
 namespace Tabster.Forms
 {
+    
+
     internal partial class PreferencesDialog : Form
     {
         public PreferencesDialog(string tab = null)
@@ -21,10 +22,16 @@ namespace Tabster.Forms
 
             LoadPreferences();
 
-            var t = tabControl1.TabPages.Cast<TabPage>().FirstOrDefault(tp => tp.Text.Equals(tab, StringComparison.OrdinalIgnoreCase));
-            if (t != null)
-                tabControl1.SelectedTab = t;
-        }  
+            LoadPlugins();
+
+            if (!string.IsNullOrEmpty(tab))
+            {
+                var tp = tabControl1.TabPages.Cast<TabPage>()
+                    .FirstOrDefault(t => t.Text.Equals(tab, StringComparison.OrdinalIgnoreCase));
+                if (tp != null)
+                    tabControl1.SelectedTab = tp;
+            }
+        }
 
         public bool PluginsModified { get; private set; }
 
@@ -50,21 +57,11 @@ namespace Tabster.Forms
 
             if (manualProxy != null)
             {
-                Uri proxyAddress;
-
-                if (Uri.TryCreate(Settings.Default.ProxyAddress, UriKind.Absolute, out proxyAddress))
-                {
-                    var address = new Uri(Settings.Default.ProxyAddress);
-
-                    txtProxyAddress.Text = address.Host;
-                    numProxyPort.Value = address.Port;
-                    txtProxyUsername.Text = Settings.Default.ProxyUsername;
-                    txtProxyPassword.Text = Settings.Default.ProxyPassword;
-                }
+                txtProxyAddress.Text = Settings.Default.ProxyHost;
+                numProxyPort.Value = Settings.Default.ProxyPort;
+                txtProxyUsername.Text = Settings.Default.ProxyUsername;
+                txtProxyPassword.Text = Settings.Default.ProxyPassword;
             }
-
-            //plugins
-            LoadPlugins();
         }
 
         private void LoadPlugins()
@@ -74,10 +71,10 @@ namespace Tabster.Forms
                 if (plugin.GUID != Guid.Empty)
                 {
                     var lvi = new ListViewItem
-                                  {
-                                      Tag = plugin.GUID.ToString(),
-                                      Checked = Program.pluginController.IsEnabled(plugin.GUID)
-                                  };
+                    {
+                        Tag = plugin.GUID.ToString(),
+                        Checked = Program.pluginController.IsEnabled(plugin.GUID)
+                    };
 
                     lvi.SubItems.Add(plugin.PluginAttributes.DisplayName);
                     lvi.SubItems.Add(plugin.PluginAttributes.Version.ToString());
@@ -131,17 +128,23 @@ namespace Tabster.Forms
 
             if (customProxy != null)
             {
-                Settings.Default.ProxyAddress = customProxy.Address.ToString();
+                Settings.Default.ProxyHost = customProxy.Address.Host;
+                Settings.Default.ProxyPort = (ushort)customProxy.Address.Port;
 
                 if (customProxy.Credentials != null)
                 {
                     var credentials = (NetworkCredential) customProxy.Credentials;
 
-                    Settings.Default.ProxyUsername = credentials.UserName != null ? ((NetworkCredential) customProxy.Credentials).UserName : null;
-                    Settings.Default.ProxyPassword = credentials.Password != null ? ((NetworkCredential) customProxy.Credentials).Password : null;
+                    Settings.Default.ProxyUsername = credentials.UserName != null
+                        ? ((NetworkCredential) customProxy.Credentials).UserName
+                        : null;
+                    Settings.Default.ProxyPassword = credentials.Password != null
+                        ? ((NetworkCredential) customProxy.Credentials).Password
+                        : null;
                 }
 
-                Program.CustomProxyController.ManualProxyParameters = new ManualProxyParameters(customProxy.Address, customProxy.Credentials);
+                Program.CustomProxyController.ManualProxyParameters = new ManualProxyParameters(customProxy.Address.Host, (ushort)customProxy.Address.Port,
+                    customProxy.Credentials);
             }
 
             //apply settings to active proxy config
@@ -158,38 +161,29 @@ namespace Tabster.Forms
         }
 
         /// <summary>
-        ///   Attemps to create a proxy object based off user iput.
+        ///     Attempts to create a proxy object based off user iput.
         /// </summary>
         private WebProxy GetProxyFromInput()
         {
             if (string.IsNullOrEmpty(txtProxyAddress.Text))
                 return null;
-
-            Uri proxyAddress;
-
             var proxyAddressInput = txtProxyAddress.Text;
-
-            //add http scheme if it's an ip
-            IPAddress proxyIP;
-            if (IPAddress.TryParse(proxyAddressInput, out proxyIP))
-                proxyAddressInput = string.Format("http://{0}", proxyIP);
 
             proxyAddressInput += string.Format(":{0}", numProxyPort.Value);
 
-            if (Uri.TryCreate(proxyAddressInput, UriKind.Absolute, out proxyAddress))
+            var proxy = new WebProxy(proxyAddressInput);
+
+            if (!string.IsNullOrEmpty(txtProxyUsername.Text) && !string.IsNullOrEmpty(txtProxyPassword.Text))
             {
-                var proxy = new WebProxy(proxyAddress);
-
-                if (!string.IsNullOrEmpty(txtProxyUsername.Text) && !string.IsNullOrEmpty(txtProxyPassword.Text))
+                var creds = new NetworkCredential
                 {
-                    var creds = new NetworkCredential {UserName = txtProxyUsername.Text, Password = txtProxyPassword.Text};
-                    proxy.Credentials = creds;
-                }
-
-                return proxy;
+                    UserName = txtProxyUsername.Text,
+                    Password = txtProxyPassword.Text
+                };
+                proxy.Credentials = creds;
             }
 
-            return null;
+            return proxy;
         }
 
         private void okbtn_Click(object sender, EventArgs e)
@@ -215,7 +209,8 @@ namespace Tabster.Forms
 
         private void chkProxyAuthentication_CheckedChanged(object sender, EventArgs e)
         {
-            txtProxyUsername.Enabled = txtProxyPassword.Enabled = chkShowProxyPassword.Enabled = chkProxyAuthentication.Checked;
+            txtProxyUsername.Enabled =
+                txtProxyPassword.Enabled = chkShowProxyPassword.Enabled = chkProxyAuthentication.Checked;
         }
 
         private void chkShowProxyPassword_CheckedChanged(object sender, EventArgs e)

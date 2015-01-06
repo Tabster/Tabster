@@ -90,9 +90,9 @@ namespace Tabster
 
             ManualProxyParameters manualProxyParams = null;
 
-            if (!string.IsNullOrEmpty((Settings.Default.ProxyAddress)))
+            if (!string.IsNullOrEmpty((Settings.Default.ProxyHost)))
             {
-                manualProxyParams = new ManualProxyParameters(new Uri(Settings.Default.ProxyAddress));
+                manualProxyParams = new ManualProxyParameters(Settings.Default.ProxyHost, Settings.Default.ProxyPort);
 
                 if (!string.IsNullOrEmpty(Settings.Default.ProxyUsername) && !string.IsNullOrEmpty(Settings.Default.ProxyPassword))
                     manualProxyParams.Credentials = new NetworkCredential(Settings.Default.ProxyUsername, Settings.Default.ProxyPassword);

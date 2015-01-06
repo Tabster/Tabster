@@ -26,9 +26,6 @@
     <Setting Name="SearchPreviewPanelDistance" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">365</Value>
     </Setting>
-    <Setting Name="ProxyAddress" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="ProxyUsername" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -39,10 +36,8 @@
       <Value Profile="(Default)">None</Value>
     </Setting>
     <Setting Name="DisabledPlugins" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)">
-        &lt;?xml version="1.0" encoding="utf-16"?&gt;
-        &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;
-      </Value>
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;</Value>
     </Setting>
     <Setting Name="PrintColor" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Black</Value>
@@ -52,6 +47,12 @@
     </Setting>
     <Setting Name="PrintTimestamp" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ProxyHost" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ProxyPort" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.UInt16" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>
