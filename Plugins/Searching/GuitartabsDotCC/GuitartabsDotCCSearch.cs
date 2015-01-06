@@ -19,11 +19,6 @@ namespace GuitartabsDotCC
     {
         #region Implementation of ISearchService
 
-        public ITablatureWebpageImporter Parser
-        {
-            get { return new GuitartabsDotCCParser(); }
-        }
-
         public string Name
         {
             get { return "Guitartabs.cc"; }
@@ -34,14 +29,12 @@ namespace GuitartabsDotCC
             get { return TablatureSearchEngineFlags.RequiresTitleParameter; }
         }
 
-        public WebProxy Proxy { get; set; }
-
         public bool SupportsRatings
         {
             get { return true; }
         }
 
-        public TablatureSearchResult[] Search(TablatureSearchQuery query)
+        public TablatureSearchResult[] Search(TablatureSearchQuery query, WebProxy proxy = null)
         {
             var results = new List<TablatureSearchResult>();
 
@@ -80,7 +73,7 @@ namespace GuitartabsDotCC
 
             string data;
 
-            var client = new WebClient {Proxy = Proxy};
+            var client = new WebClient {Proxy = proxy};
             {
                 data = client.DownloadString(url);
             }

@@ -79,9 +79,6 @@ namespace Tabster.Forms
                     if (_activeSearchRating.HasValue && !service.SupportsRatings)
                         continue;
 
-                    //set active proxy
-                    service.Proxy = Program.CustomProxyController.GetProxy();
-
                     searchQueries.Add(new TablatureSearchQuery(service, searchArtist, searchTitle, _activeSearchType));
                 }
 
@@ -106,7 +103,7 @@ namespace Tabster.Forms
                 {
                     if (query.Type == null || query.Engine.SupportsTabType(query.Type))
                     {
-                        var results = query.Engine.Search(query);
+                        var results = query.Engine.Search(query, Program.CustomProxyController.GetProxy());
 
                         if (results != null)
                         {

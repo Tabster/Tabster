@@ -23,11 +23,6 @@ namespace Tabster.Core.Searching
         TablatureSearchEngineFlags Flags { get; }
 
         /// <summary>
-        ///   Proxy settings.
-        /// </summary>
-        WebProxy Proxy { get; set; }
-
-        /// <summary>
         ///   Determines whether the service supports ratings.
         /// </summary>
         bool SupportsRatings { get; }
@@ -36,7 +31,8 @@ namespace Tabster.Core.Searching
         ///   Queries service and returns results based on search parameters.
         /// </summary>
         /// <param name="query"> Search query. </param>
-        TablatureSearchResult[] Search(TablatureSearchQuery query);
+        /// <param name="proxy"> Optional proxy settings.</para>
+        TablatureSearchResult[] Search(TablatureSearchQuery query, WebProxy proxy = null);
 
         ///<summary>
         ///  Determines whether a specific TabType is supported by the service.
