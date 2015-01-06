@@ -9,17 +9,21 @@ namespace Tabster.Utilities.Net
 {
     public class ManualProxyParameters
     {
-        public ManualProxyParameters(Uri address)
+        public ManualProxyParameters(string host, ushort port)
         {
-            Address = address;
+            Host = host;
+            Port = port;
         }
 
-        public ManualProxyParameters(Uri address, ICredentials credentials) : this(address)
+        public ManualProxyParameters(string host, ushort port, ICredentials credentials)
+            : this(host, port)
         {
             Credentials = credentials;
         }
 
-        public Uri Address { get; set; }
+        public string Host { get; set; }
+        public ushort Port { get; set; }
+
         public ICredentials Credentials { get; set; }
     }
 
@@ -95,7 +99,10 @@ namespace Tabster.Utilities.Net
                 if (ManualProxyParameters == null)
                     throw new ProxyConfigurationException("Manual proxy parameters are not set.");
 
-                _proxy = new WebProxy(ManualProxyParameters.Address);
+                _proxy = new WebProxy(ManualProxyParameters.Host, ManualProxyParameters.Port)
+                {
+                    UseDefaultCredentials = false
+                };
 
                 if (ManualProxyParameters.Credentials != null)
                     _proxy.Credentials = ManualProxyParameters.Credentials;
