@@ -17,19 +17,6 @@ namespace Tabster.Data
             var elems = doc.GetElementsByTagName(name);
             return elems.Count > 0 ? elems[0] : null;
         }
-
-        public static string ToXmlString(this XmlDocument doc)
-        {
-            using (var stringWriter = new StringWriter())
-            {
-                using (var xmlTextWriter = XmlWriter.Create(stringWriter))
-                {
-                    doc.WriteTo(xmlTextWriter);
-                    xmlTextWriter.Flush();
-                    return stringWriter.GetStringBuilder().ToString();
-                }
-            }
-        }
     }
 
     internal class TabsterXmlDocument
