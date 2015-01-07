@@ -6,13 +6,13 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using Tabster.Controls;
 using Tabster.Controls.Extensions;
 using Tabster.Core.Printing;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
+using Tabster.Properties;
 
 #endregion
 
@@ -109,7 +109,7 @@ namespace Tabster.Forms
 
                     if (sfd.ShowDialog() != DialogResult.Cancel)
                     {
-                        //native TablatureDocument format
+                        //native file format
                         if (sfd.FilterIndex == 1)
                         {
                             File.Copy(SelectedLibraryItem.FileInfo.FullName, sfd.FileName);
@@ -154,17 +154,31 @@ namespace Tabster.Forms
             }
         }
 
-        private void printbtn_Click(object sender, EventArgs e)
+        private TablaturePrintDocumentSettings GetPrintSettings()
         {
-            var settings = new TablaturePrintDocumentSettings
+            return new TablaturePrintDocumentSettings
             {
                 Title = SelectedLibraryItem.Document.ToFriendlyString(),
+                PrintColor = Settings.Default.PrintColor,
                 DisplayTitle = true,
-                DisplayPrintTime = true,
-                DisplayPageNumbers = true,
+                DisplayPrintTime = Settings.Default.PrintTimestamp,
+                DisplayPageNumbers = Settings.Default.PrintPageNumbers
             };
+        }
 
-            PreviewEditor.Print(settings);
+        private void printbtn_Click(object sender, EventArgs e)
+        {
+            PreviewEditor.Print(GetPrintSettings());
+        }
+
+        private void printPreviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PreviewEditor.PrintPreview(GetPrintSettings());
+        }
+
+        private void printSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenPreferences("Printing"); 
         }
 
         private void tablibrary_SelectionChanged(object sender, EventArgs e)
@@ -195,14 +209,14 @@ namespace Tabster.Forms
                     var TablatureLibraryItem = Program.TablatureFileLibrary.Add(n.Tab);
                     Program.TablatureFileLibrary.Save();
                     UpdateLibraryItem(TablatureLibraryItem);
-                    PopoutTab(n.Tab, isReadOnly: false);
+                    PopoutTab(n.Tab);
                 }
             }
         }
 
-        private void PopoutTab(TablatureDocument tab, bool isReadOnly = true, bool updateRecentFiles = true)
+        private void PopoutTab(TablatureDocument tab, bool updateRecentFiles = true)
         {
-            Program.TabbedViewer.LoadTablature(tab, isReadOnly);
+            Program.TabbedViewer.LoadTablature(tab);
 
             if (updateRecentFiles)
                 recentlyViewedMenuItem.Add(tab.FileInfo, tab.ToFriendlyString());
@@ -661,7 +675,6 @@ namespace Tabster.Forms
 
                 if (openedExternally)
                 {
-                    lblLibraryPreview.Text = "Tab is open in external viewer.";
                     lblLibraryPreview.Visible = true;
                 }
 
@@ -685,7 +698,6 @@ namespace Tabster.Forms
             {
                 previewToolStrip.Enabled = false;
                 lblpreviewtitle.Text = "";
-                lblLibraryPreview.Text = "";
             }
         }
 
