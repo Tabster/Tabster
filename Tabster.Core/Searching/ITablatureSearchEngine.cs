@@ -8,37 +8,37 @@ using Tabster.Core.Types;
 namespace Tabster.Core.Searching
 {
     /// <summary>
-    ///   Tab service which enables searching.
+    ///   Tablature search engine service.
     /// </summary>
     public interface ITablatureSearchEngine
     {
         /// <summary>
-        ///   Service name.
+        ///   Search engine name.
         /// </summary>
         string Name { get; }
 
         /// <summary>
-        ///   Service flags.
+        ///   Search engine options.
         /// </summary>
-        TablatureSearchEngineFlags Flags { get; }
+        TablatureSearchEngineOptions Options { get; }
 
         /// <summary>
-        ///   Determines whether the service supports ratings.
+        ///   Determines whether the search engine supports ratings.
         /// </summary>
         bool SupportsRatings { get; }
 
         /// <summary>
-        ///   Queries service and returns results based on search parameters.
+        ///   Queries Search engine and returns results based on search parameters.
         /// </summary>
         /// <param name="query"> Search query. </param>
-        /// <param name="proxy"> Optional proxy settings.</para>
+        /// <param name="proxy"> Optional proxy settings.</param>
         TablatureSearchResult[] Search(TablatureSearchQuery query, WebProxy proxy = null);
 
         ///<summary>
-        ///  Determines whether a specific TabType is supported by the service.
+        ///  Determines whether a specific TablatureType is supported by the search engine.
         ///</summary>
         ///<param name="type"> The type to check. </param>
-        ///<returns> True if the type is supported by the service; otherwise, False. </returns>
+        ///<returns> True if the type is supported by the search engine; otherwise, False. </returns>
         bool SupportsTabType(TablatureType type);
     }
 }

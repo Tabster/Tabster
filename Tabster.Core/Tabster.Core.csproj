@@ -61,10 +61,10 @@
     <Compile Include="Printing\TablaturePrintDocumentSettings.cs" />
     <Compile Include="Printing\TablaturePrintDocumentSettingsBase.cs" />
     <Compile Include="Printing\TablaturePrintPageEventArgs.cs" />
+    <Compile Include="Searching\TablatureSearchEngineOptions.cs" />
     <Compile Include="Searching\TablatureSearchQuery.cs" />
     <Compile Include="Searching\TablatureSearchResult.cs" />
     <Compile Include="Searching\TablatureSearchEngineException.cs" />
-    <Compile Include="Searching\TablatureSearchEngineFlags.cs" />
     <Compile Include="Types\AttributedTablature.cs" />
     <Compile Include="Types\ITablatureAttributes.cs" />
     <Compile Include="Types\ITablatureRatedAttribute.cs" />
