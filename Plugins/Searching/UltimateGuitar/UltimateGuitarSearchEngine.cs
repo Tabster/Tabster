@@ -9,13 +9,12 @@ using System.Web;
 using HtmlAgilityPack;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
-using Tabster.Data.Processing;
 
 #endregion
 
 namespace UltimateGuitar
 {
-    public class UltimateGuitarSearch : ITablatureSearchEngine
+    public class UltimateGuitarSearchEngine : ITablatureSearchEngine
     {
         #region Implementation of ISearchService
 
@@ -24,9 +23,19 @@ namespace UltimateGuitar
             get { return "Ultimate Guitar"; }
         }
 
-        public TablatureSearchEngineFlags Flags
+        public bool RequiresArtistParameter
         {
-            get { return TablatureSearchEngineFlags.None; }
+            get { return false; }
+        }
+
+        public bool RequiresTitleParameter
+        {
+            get { return false; }
+        }
+
+        public bool RequiresTypeParamter
+        {
+            get { return false; }
         }
 
         public bool SupportsRatings
@@ -34,13 +43,17 @@ namespace UltimateGuitar
             get { return true; }
         }
 
+        public bool SupportsPrefilteredTypes { get; private set; }
+
         public TablatureSearchResult[] Search(TablatureSearchQuery query, WebProxy proxy = null)
         {
             var results = new List<TablatureSearchResult>();
 
             var regex = new Regex("[']", RegexOptions.Compiled);
 
-            var urlEncodedQuery = HttpUtility.UrlEncode(string.Format("{0} {1}", regex.Replace(query.Artist, ""), regex.Replace(query.Title, "")));
+            var urlEncodedQuery =
+                HttpUtility.UrlEncode(string.Format("{0} {1}", regex.Replace(query.Artist, ""),
+                    regex.Replace(query.Title, "")));
 
             string typeStr = null;
 
@@ -69,7 +82,8 @@ namespace UltimateGuitar
             }
 
             var urlBuilder = new StringBuilder();
-            urlBuilder.AppendFormat("http://www.ultimate-guitar.com/search.php?search_type=title&value={0}", urlEncodedQuery);
+            urlBuilder.AppendFormat("http://www.ultimate-guitar.com/search.php?search_type=title&value={0}",
+                urlEncodedQuery);
 
             if (!string.IsNullOrEmpty(typeStr))
                 urlBuilder.AppendFormat("&type={0}", typeStr);
@@ -109,7 +123,8 @@ namespace UltimateGuitar
                             var colIndexRating = 2;
                             var colIndexType = 3;
 
-                            var attemptedBreaking = row.InnerHtml.Contains("THIS APP DOESN'T HAVE RIGHTS TO DISPLAY TABS");
+                            var attemptedBreaking =
+                                row.InnerHtml.Contains("THIS APP DOESN'T HAVE RIGHTS TO DISPLAY TABS");
 
                             if (attemptedBreaking)
                             {
@@ -144,7 +159,8 @@ namespace UltimateGuitar
                                     if (ratingSpan != null)
                                     {
                                         int rowRating;
-                                        if (Int32.TryParse(ratingSpan.Attributes["class"].Value.Replace("r_", ""), out rowRating))
+                                        if (Int32.TryParse(ratingSpan.Attributes["class"].Value.Replace("r_", ""),
+                                            out rowRating))
                                         {
                                             rating = GetRating(rowRating);
                                         }
@@ -169,7 +185,8 @@ namespace UltimateGuitar
 
         public bool SupportsTabType(TablatureType type)
         {
-            return type == TablatureType.Guitar || type == TablatureType.Chords || type == TablatureType.Bass || type == TablatureType.Drum || type == TablatureType.Ukulele;
+            return type == TablatureType.Guitar || type == TablatureType.Chords || type == TablatureType.Bass ||
+                   type == TablatureType.Drum || type == TablatureType.Ukulele;
         }
 
         #endregion

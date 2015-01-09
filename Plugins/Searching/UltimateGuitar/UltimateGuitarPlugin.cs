@@ -7,7 +7,7 @@ using Tabster.Core.Plugins;
 
 namespace UltimateGuitar
 {
-    public class UltimateGuitarPlugin: TabsterPluginBase, ITabsterPluginAttributes
+    public class UltimateGuitarPlugin : TabsterPluginBase, ITabsterPluginAttributes
     {
         #region Implementation of ITabsterPluginAttributes
 
@@ -43,7 +43,7 @@ namespace UltimateGuitar
 
         public Type[] Types
         {
-            get { return new[] {typeof (UltimateGuitarSearch), typeof (UltimateGuitarParser)}; }
+            get { return new[] {typeof (UltimateGuitarSearchEngine), typeof (UltimateGuitarParser)}; }
         }
 
         #endregion

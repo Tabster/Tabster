@@ -58,7 +58,7 @@
   <ItemGroup>
     <Compile Include="GuitartabsDotCCPlugin.cs" />
     <Compile Include="GuitartabsDotCCParser.cs" />
-    <Compile Include="GuitartabsDotCCSearch.cs" />
+    <Compile Include="GuitartabsDotCCSearchEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

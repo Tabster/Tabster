@@ -20,17 +20,17 @@ namespace Tabster.Core.Searching
         /// <summary>
         ///     Determines whether the search engine requires an artist parameter be set.
         /// </summary>
-        bool RequiresArtistParameter { get; set; }
+        bool RequiresArtistParameter { get; }
 
         /// <summary>
         ///     Determines whether the search engine requires a title parameter be set;
         /// </summary>
-        bool RequiresTitleParameter { get; set; }
+        bool RequiresTitleParameter { get; }
 
         /// <summary>
         ///     Determines whether the search engine requires a type parameter be set.
         /// </summary>
-        bool RequiresTypeParamter { get; set; }
+        bool RequiresTypeParamter { get; }
 
         /// <summary>
         ///     Determines whether the search engine supports ratings.

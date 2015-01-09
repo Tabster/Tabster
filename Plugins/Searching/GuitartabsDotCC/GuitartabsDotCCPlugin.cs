@@ -43,7 +43,7 @@ namespace GuitartabsDotCC
 
         public Type[] Types
         {
-            get { return new[] {typeof (GuitartabsDotCCSearch), typeof (GuitartabsDotCCParser)}; }
+            get { return new[] {typeof (GuitartabsDotCCSearchEngine), typeof (GuitartabsDotCCParser)}; }
         }
 
         #endregion

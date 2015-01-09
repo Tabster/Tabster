@@ -9,13 +9,12 @@ using System.Web;
 using HtmlAgilityPack;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
-using Tabster.Data.Processing;
 
 #endregion
 
 namespace GuitartabsDotCC
 {
-    public class GuitartabsDotCCSearch : ITablatureSearchEngine
+    public class GuitartabsDotCCSearchEngine : ITablatureSearchEngine
     {
         #region Implementation of ISearchService
 
@@ -24,15 +23,27 @@ namespace GuitartabsDotCC
             get { return "Guitartabs.cc"; }
         }
 
-        public TablatureSearchEngineFlags Flags
+        public bool RequiresArtistParameter
         {
-            get { return TablatureSearchEngineFlags.RequiresTitleParameter; }
+            get { return false; }
+        }
+
+        public bool RequiresTitleParameter
+        {
+            get { return true; }
+        }
+
+        public bool RequiresTypeParamter
+        {
+            get { return false; }
         }
 
         public bool SupportsRatings
         {
             get { return true; }
         }
+
+        public bool SupportsPrefilteredTypes { get; private set; }
 
         public TablatureSearchResult[] Search(TablatureSearchQuery query, WebProxy proxy = null)
         {
@@ -111,7 +122,8 @@ namespace GuitartabsDotCC
                             rowTitle = RemoveTypeFromTitle(rowTitle, tabType);
 
                             var tab = new AttributedTablature(rowArtist, rowTitle, tabType);
-                            results.Add(new TablatureSearchResult(query, tab, new Uri(string.Format("http://guitartabs.cc{0}", rowUrl)), rowRating));
+                            results.Add(new TablatureSearchResult(query, tab,
+                                new Uri(string.Format("http://guitartabs.cc{0}", rowUrl)), rowRating));
                         }
                     }
                 }
@@ -122,7 +134,8 @@ namespace GuitartabsDotCC
 
         public bool SupportsTabType(TablatureType type)
         {
-            return type == TablatureType.Guitar || type == TablatureType.Chords || type == TablatureType.Bass || type == TablatureType.Drum;
+            return type == TablatureType.Guitar || type == TablatureType.Chords || type == TablatureType.Bass ||
+                   type == TablatureType.Drum;
         }
 
         #endregion
@@ -132,9 +145,9 @@ namespace GuitartabsDotCC
         private static Regex _mappingRegex;
 
         private static readonly Dictionary<string, string> _customCharacterMappings = new Dictionary<string, string>
-                                                                                          {
-                                                                                              {"//", "_"}
-                                                                                          };
+        {
+            {"//", "_"}
+        };
 
         private static string SanitizeParameter(string str, string defaultReplacement = "_")
         {
@@ -149,8 +162,8 @@ namespace GuitartabsDotCC
             }
 
             return _mappingRegex.Replace(str, match => _customCharacterMappings.ContainsKey(match.Value)
-                                                           ? _customCharacterMappings[match.Value]
-                                                           : defaultReplacement);
+                ? _customCharacterMappings[match.Value]
+                : defaultReplacement);
         }
 
         private static TablatureRating GetRating(string style)

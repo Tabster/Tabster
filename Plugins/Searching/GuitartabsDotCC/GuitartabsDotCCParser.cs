@@ -97,7 +97,8 @@ namespace GuitartabsDotCC
 
         public bool MatchesUrlPattern(Uri url)
         {
-            return url.IsWellFormedOriginalString() && (url.DnsSafeHost == "guitartabs.cc" || url.DnsSafeHost == "www.guitartabs.cc");
+            return url.IsWellFormedOriginalString() &&
+                   (url.DnsSafeHost == "guitartabs.cc" || url.DnsSafeHost == "www.guitartabs.cc");
         }
 
         #endregion
