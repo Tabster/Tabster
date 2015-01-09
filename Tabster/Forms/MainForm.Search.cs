@@ -67,16 +67,11 @@ namespace Tabster.Forms
 
                 foreach (var service in selectedServices)
                 {
-                    //check service flags
-                    if (((service.Flags & TablatureSearchEngineFlags.RequiresArtistParameter) == TablatureSearchEngineFlags.RequiresArtistParameter && string.IsNullOrEmpty(searchArtist)) ||
-                        (((service.Flags & TablatureSearchEngineFlags.RequiresTitleParameter) == TablatureSearchEngineFlags.RequiresTitleParameter && string.IsNullOrEmpty(searchTitle))) ||
-                        (((service.Flags & TablatureSearchEngineFlags.RequiresTypeParamter) == TablatureSearchEngineFlags.RequiresTypeParamter && _activeSearchType == null)))
-                    {
-                        continue;
-                    }
-
-                    //skip services that don't support ratings
-                    if (_activeSearchRating.HasValue && !service.SupportsRatings)
+                    //check engine requirements
+                    if ((service.RequiresArtistParameter && string.IsNullOrEmpty(searchArtist)) ||
+                        (service.RequiresTitleParameter && string.IsNullOrEmpty(searchTitle)) ||
+                        (service.RequiresTypeParamter && _activeSearchType == null ||
+                         (_activeSearchRating.HasValue && !service.SupportsRatings)))
                         continue;
 
                     searchQueries.Add(new TablatureSearchQuery(service, searchArtist, searchTitle, _activeSearchType));

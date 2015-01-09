@@ -8,37 +8,52 @@ using Tabster.Core.Types;
 namespace Tabster.Core.Searching
 {
     /// <summary>
-    ///   Tablature search engine service.
+    ///     Tablature search engine service.
     /// </summary>
     public interface ITablatureSearchEngine
     {
         /// <summary>
-        ///   Search engine name.
+        ///     Search engine name.
         /// </summary>
         string Name { get; }
 
         /// <summary>
-        ///   Search engine options.
+        ///     Determines whether the search engine requires an artist parameter be set.
         /// </summary>
-        TablatureSearchEngineOptions Options { get; }
+        bool RequiresArtistParameter { get; set; }
 
         /// <summary>
-        ///   Determines whether the search engine supports ratings.
+        ///     Determines whether the search engine requires a title parameter be set;
+        /// </summary>
+        bool RequiresTitleParameter { get; set; }
+
+        /// <summary>
+        ///     Determines whether the search engine requires a type parameter be set.
+        /// </summary>
+        bool RequiresTypeParamter { get; set; }
+
+        /// <summary>
+        ///     Determines whether the search engine supports ratings.
         /// </summary>
         bool SupportsRatings { get; }
 
         /// <summary>
-        ///   Queries Search engine and returns results based on search parameters.
+        ///     Determines whether the search engine supports pre-filtering of specific tablature types.
+        /// </summary>
+        bool SupportsPrefilteredTypes { get; }
+
+        /// <summary>
+        ///     Queries Search engine and returns results based on search parameters.
         /// </summary>
         /// <param name="query"> Search query. </param>
         /// <param name="proxy"> Optional proxy settings.</param>
-        TablatureSearchResult[] Search(TablatureSearchQuery query, WebProxy proxy = null);
+        TablatureSearchResult[] Search(TablatureSearchQuery query, WebProxy proxy);
 
-        ///<summary>
-        ///  Determines whether a specific TablatureType is supported by the search engine.
-        ///</summary>
-        ///<param name="type"> The type to check. </param>
-        ///<returns> True if the type is supported by the search engine; otherwise, False. </returns>
+        /// <summary>
+        ///     Determines whether a specific TablatureType is supported by the search engine.
+        /// </summary>
+        /// <param name="type"> The type to check. </param>
+        /// <returns> True if the type is supported by the search engine; otherwise, False. </returns>
         bool SupportsTabType(TablatureType type);
     }
 }
