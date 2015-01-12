@@ -78,7 +78,12 @@ namespace Tabster.Utilities.Plugins
                 {
                     Guid assemblyGuid;
 
+                    //require assembly guid
                     if (!AssemblyHasGuid(assembly, out assemblyGuid))
+                        return;
+
+                    //prevent guid collisions
+                    if (_plugins.Find(x => x.GUID == assemblyGuid) != null)
                         return;
 
                     var pluginType = assembly.GetTypes().FirstOrDefault(objType =>
