@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,17 +9,22 @@ using System.Net;
 using System.Windows.Forms;
 using Tabster.Properties;
 using Tabster.Utilities.Net;
+using Tabster.Utilities.Plugins;
 
 #endregion
+
 namespace Tabster.Forms
 {
-    
-
     internal partial class PreferencesDialog : Form
     {
+        private readonly List<TabsterPluginHost> _plugins = new List<TabsterPluginHost>();
+
         public PreferencesDialog(string tab = null)
         {
             InitializeComponent();
+
+            _plugins.AddRange(Program.pluginController);
+
 
             LoadPreferences();
 
@@ -66,26 +72,27 @@ namespace Tabster.Forms
 
         private void LoadPlugins()
         {
-            foreach (var plugin in Program.pluginController)
+            foreach (var plugin in _plugins)
             {
                 if (plugin.GUID != Guid.Empty)
                 {
                     var lvi = new ListViewItem
                     {
                         Tag = plugin.GUID.ToString(),
+                        Text = plugin.PluginAttributes.DisplayName,
                         Checked = Program.pluginController.IsEnabled(plugin.GUID)
                     };
 
-                    lvi.SubItems.Add(plugin.PluginAttributes.DisplayName);
-                    lvi.SubItems.Add(plugin.PluginAttributes.Version.ToString());
-                    lvi.SubItems.Add(Path.GetFileName(plugin.Assembly.Location));
-                    lvi.SubItems.Add(plugin.PluginAttributes.Description);
+                    lvi.SubItems.Add(Program.pluginController.IsEnabled(plugin.GUID) ? "Yes" : "No");
 
                     listPlugins.Items.Add(lvi);
                 }
             }
 
-            listPlugins.AutoResizeColumn(listPlugins.Columns.Count - 1, ColumnHeaderAutoResizeStyle.ColumnContent);
+            if (listPlugins.Items.Count == 0)
+                listPlugins.Dock = DockStyle.Fill;
+            else
+                listPlugins.Items[0].Selected = true;
         }
 
         private void SavePreferences()
@@ -129,7 +136,7 @@ namespace Tabster.Forms
             if (customProxy != null)
             {
                 Settings.Default.ProxyHost = customProxy.Address.Host;
-                Settings.Default.ProxyPort = (ushort)customProxy.Address.Port;
+                Settings.Default.ProxyPort = (ushort) customProxy.Address.Port;
 
                 if (customProxy.Credentials != null)
                 {
@@ -143,7 +150,8 @@ namespace Tabster.Forms
                         : null;
                 }
 
-                Program.CustomProxyController.ManualProxyParameters = new ManualProxyParameters(customProxy.Address.Host, (ushort)customProxy.Address.Port,
+                Program.CustomProxyController.ManualProxyParameters = new ManualProxyParameters(
+                    customProxy.Address.Host, (ushort) customProxy.Address.Port,
                     customProxy.Credentials);
             }
 
@@ -240,6 +248,40 @@ namespace Tabster.Forms
             {
                 printColorPreview.BackColor = printColorDialog.Color;
             }
+        }
+
+        private void listPlugins_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listPlugins.SelectedItems.Count > 0)
+            {
+                listPlugins.Dock = DockStyle.Left;
+
+                var plugin = _plugins[listPlugins.SelectedItems[0].Index];
+
+                lblPluginFilename.Text = Path.GetFileName(plugin.Assembly.Location);
+                lblPluginAuthor.Text = plugin.PluginAttributes.Author ?? "N/A";
+                lblPluginVersion.Text = plugin.PluginAttributes.Version != null
+                    ? plugin.PluginAttributes.Version.ToString()
+                    : "N/A";
+                lblPluginDescription.Text = plugin.PluginAttributes.Description ?? "N/A";
+
+                if (plugin.PluginAttributes.Website != null)
+                {
+                    lblPluginHomepage.Text = plugin.PluginAttributes.Website.ToString();
+                    lblPluginHomepage.LinkArea = new LinkArea(0, plugin.PluginAttributes.Website.ToString().Length);
+                }
+
+                else
+                {
+                    lblPluginHomepage.Text = "N/A";
+                    lblPluginHomepage.LinkArea = new LinkArea(0, 0);
+                }
+            }
+        }
+
+        private void lblPluginHomepage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(lblPluginHomepage.Text);
         }
     }
 }
