@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Net;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Tabster.Core.Types;
@@ -11,8 +12,15 @@ using Tabster.Data.Processing;
 
 namespace UltimateGuitar
 {
-    public class UltimateGuitarParser : ITablatureWebpageImporter
+    public class UltimateGuitarParser : ITablatureWebImporter
     {
+        private static readonly Regex NewlineRegex = new Regex("(?<!\r)\n", RegexOptions.Compiled);
+
+        public UltimateGuitarParser()
+        {
+            Homepage = new Uri("http://ultimate-guitar.com");
+        }
+
         #region Implementation of ITabParser
 
         public string SiteName
@@ -20,15 +28,31 @@ namespace UltimateGuitar
             get { return "Ultimate Guitar"; }
         }
 
-        public TablatureDocument Parse(string text, TablatureType type)
+        public Uri Homepage { get; private set; }
+
+        public bool IsUrlParsable(Uri url)
         {
+            return url.DnsSafeHost == "ultimate-guitar.com" || url.DnsSafeHost == "www.ultimate-guitar.com" ||
+                   url.DnsSafeHost == "tabs.ultimate-guitar.com";
+        }
+
+        public TablatureDocument Parse(Uri url, WebProxy proxy)
+        {
+            string html;
+
+            using (var client = new WebClient() {Proxy = proxy})
+            {
+                html = client.DownloadString(url);
+            }
+
             var doc = new HtmlDocument();
-            doc.LoadHtml(text);
+            doc.LoadHtml(html);
 
             var titleNode = doc.DocumentNode.SelectSingleNode("//div[starts-with(@class, 't_title')]");
             var titleNodeValue = titleNode.SelectSingleNode(".//h1").InnerText; //contains title and type
 
-            var title = "";
+            string title;
+            TablatureType type = null;
 
             if (titleNodeValue.EndsWith("Bass Tab"))
             {
@@ -66,31 +90,24 @@ namespace UltimateGuitar
 
             if (contentsNode != null)
             {
-                var contents = StripHTML(contentsNode.InnerHtml);
-                contents = ConvertNewlines(contents);
+                var contents = ConvertNewlines(StripHtml(contentsNode.InnerHtml));
                 return new TablatureDocument(artist, title, type, contents);
             }
 
             return null;
         }
 
-        public bool MatchesUrlPattern(Uri url)
-        {
-            return url.IsWellFormedOriginalString() &&
-                   ((url.DnsSafeHost == "ultimate-guitar.com" || url.DnsSafeHost == "www.ultimate-guitar.com" ||
-                     url.DnsSafeHost == "tabs.ultimate-guitar.com") && url.AbsolutePath.Split('/').Length >= 4);
-        }
-
         #endregion
-
-        private static readonly Regex NewlineRegex = new Regex("(?<!\r)\n", RegexOptions.Compiled);
 
         private static string ConvertNewlines(string source)
         {
             return NewlineRegex.Replace(source, Environment.NewLine);
         }
 
-        private static string StripHTML(string source)
+        /// <summary>
+        /// Used to strip HTML tags from chord-based tabs.
+        /// </summary>
+        private static string StripHtml(string source)
         {
             var array = new char[source.Length];
             var arrayIndex = 0;
