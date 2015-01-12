@@ -1,8 +1,9 @@
 syntax: glob
 
-## Build installers
+## Build files
 
 Build/*.exe
+Build/*.zip
 
 ## User-specific files
 
