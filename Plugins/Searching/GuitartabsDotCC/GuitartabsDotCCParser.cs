@@ -2,6 +2,7 @@
 
 using System;
 using System.Net;
+using System.Text;
 using HtmlAgilityPack;
 using Tabster.Core.Types;
 using Tabster.Data;
@@ -36,7 +37,7 @@ namespace GuitartabsDotCC
         {
             string html;
 
-            using (var client = new WebClient() {Proxy = proxy})
+            using (var client = new WebClient() { Proxy = proxy, Encoding = Encoding.UTF8 })
             {
                 html = client.DownloadString(url);
             }

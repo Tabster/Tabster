@@ -92,7 +92,7 @@ namespace UltimateGuitar
 
             string data;
 
-            var client = new WebClient {Proxy = proxy};
+            using (var client = new WebClient() { Proxy = proxy, Encoding = Encoding.UTF8 })
             {
                 data = client.DownloadString(url);
             }

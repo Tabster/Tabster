@@ -2,6 +2,7 @@
 
 using System;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Tabster.Core.Types;
@@ -40,7 +41,7 @@ namespace UltimateGuitar
         {
             string html;
 
-            using (var client = new WebClient() {Proxy = proxy})
+            using (var client = new WebClient() {Proxy = proxy, Encoding = Encoding.UTF8})
             {
                 html = client.DownloadString(url);
             }
