@@ -249,7 +249,7 @@ namespace Tabster.Forms
             _fileExporters = new List<ITablatureFileExporter>(Program.pluginController.GetClassInstances<ITablatureFileExporter>());
             _fileImporters = new List<ITablatureFileImporter>(Program.pluginController.GetClassInstances<ITablatureFileImporter>());
 
-            _webImporters = new List<ITablatureWebpageImporter>(Program.pluginController.GetClassInstances<ITablatureWebpageImporter>());
+            _webImporters = new List<ITablatureWebImporter>(Program.pluginController.GetClassInstances<ITablatureWebImporter>());
             _searchServices = new List<ITablatureSearchEngine>(Program.pluginController.GetClassInstances<ITablatureSearchEngine>());
 
             _searchServices.Sort((s1, s2) => s1.Name.CompareTo(s2.Name));

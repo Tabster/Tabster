@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Utilities.Net;
 
 #endregion
 
@@ -35,7 +35,7 @@ namespace Tabster.Forms
             }
 
             public Uri Url { get; private set; }
-            public ITablatureWebpageImporter Parser { get; set; }
+            public ITablatureWebImporter Parser { get; set; }
             public TablatureDocument Tab { get; set; }
             public DownloadState State { get; set; }
         }
@@ -43,11 +43,11 @@ namespace Tabster.Forms
         #endregion
 
         private readonly List<TablatureDocument> _downloadedTabs = new List<TablatureDocument>();
-        private readonly List<ITablatureWebpageImporter> _importers = new List<ITablatureWebpageImporter>();
+        private readonly List<ITablatureWebImporter> _importers = new List<ITablatureWebImporter>();
         private bool mClosePending;
         private bool mCompleted = true;
 
-        public DownloadDialog(List<ITablatureWebpageImporter> importers)
+        public DownloadDialog(List<ITablatureWebImporter> importers)
         {
             InitializeComponent();
             _importers = importers;
@@ -84,31 +84,26 @@ namespace Tabster.Forms
             btnDownload.Enabled = GetUrls().Length > 0;
         }
 
-        private void PerformQueuedDownload(DownloadProcedure download)
+        private static void PerformQueuedDownload(DownloadProcedure download, WebProxy proxy)
         {
-            using (var client = new TabsterWebClient(Program.CustomProxyController.GetProxy()))
+            try
             {
-                try
+                var tab = download.Parser.Parse(download.Url, proxy);
+
+                if (tab != null)
                 {
-                    var src = client.DownloadString(download.Url);
-
-                    var tab = download.Parser.Parse(src, null);
-
-                    if (tab != null)
-                    {
-                        tab.Source = download.Url;
-                        tab.SourceType = TablatureSourceType.Download;
-                    }
-
-                    download.Tab = tab;
-
-                    download.State = DownloadState.Completed;
+                    tab.Source = download.Url;
+                    tab.SourceType = TablatureSourceType.Download;
                 }
 
-                catch
-                {
-                    download.State = DownloadState.Failed;
-                }
+                download.Tab = tab;
+
+                download.State = DownloadState.Completed;
+            }
+
+            catch
+            {
+                download.State = DownloadState.Failed;
             }
         }
 
@@ -117,6 +112,8 @@ namespace Tabster.Forms
             var queuedDownloads = (List<DownloadProcedure>) e.Argument;
 
             var count = 0;
+
+            var proxy = Program.CustomProxyController.GetProxy();
 
             foreach (var queuedDownload in queuedDownloads)
             {
@@ -132,7 +129,7 @@ namespace Tabster.Forms
 
                 else
                 {
-                    PerformQueuedDownload(queuedDownload);
+                    PerformQueuedDownload(queuedDownload, proxy);
                 }
 
                 count++;
@@ -204,10 +201,7 @@ namespace Tabster.Forms
 
             txtUrls.Clear();
 
-            var queuedDownloads =
-                urls.Select(
-                    url => new DownloadProcedure(url) {Parser = _importers.Find(x => x.MatchesUrlPattern(url))})
-                    .ToList();
+            var queuedDownloads = urls.Select(url => new DownloadProcedure(url) {Parser = _importers.Find(x => x.IsUrlParsable(url))}).ToList();
 
             foreach (
                 var lvi in

@@ -21,7 +21,7 @@ namespace Tabster.Forms
         private TablatureRating? _activeSearchRating;
         private TablatureType _activeSearchType;
         private List<ITablatureSearchEngine> _searchServices = new List<ITablatureSearchEngine>();
-        private List<ITablatureWebpageImporter> _webImporters = new List<ITablatureWebpageImporter>();
+        private List<ITablatureWebImporter> _webImporters = new List<ITablatureWebImporter>();
 
         //used for filtering after search is complete
 
@@ -92,13 +92,15 @@ namespace Tabster.Forms
 
             var queries = (List<TablatureSearchQuery>)e.Argument;
 
+            var proxy = Program.CustomProxyController.GetProxy();
+
             foreach (var query in queries)
             {
                 try
                 {
                     if (query.Type == null || query.Engine.SupportsTabType(query.Type))
                     {
-                        var results = query.Engine.Search(query, Program.CustomProxyController.GetProxy());
+                        var results = query.Engine.Search(query, proxy);
 
                         if (results != null)
                         {
@@ -257,25 +259,20 @@ namespace Tabster.Forms
 
             if (!_searchResultsCache.ContainsKey(url))
             {
-                var parser = _webImporters.Find(x => x.MatchesUrlPattern(result.Source));
+                var parser = _webImporters.Find(x => x.IsUrlParsable(result.Source));
 
                 if (parser == null)
                 {
                     throw new TablatureProcessorException(string.Format("No parser found for URL: {0}", url));
                 }
 
-                string urlSource;
-
-                using (var client = new TabsterWebClient(Program.CustomProxyController.GetProxy()))
-                {
-                    urlSource = client.DownloadString(result.Source);
-                }
+                var proxy = Program.CustomProxyController.GetProxy();
 
                 TablatureDocument tab;
 
                 try
                 {
-                    tab = parser.Parse(urlSource, null);
+                    tab = parser.Parse(result.Source, proxy);
                 }
 
                 catch (Exception ex)
