@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Net;
 using HtmlAgilityPack;
 using Tabster.Core.Types;
 using Tabster.Data;
@@ -10,8 +11,13 @@ using Tabster.Data.Processing;
 
 namespace GuitartabsDotCC
 {
-    public class GuitartabsDotCCParser : ITablatureWebpageImporter
+    public class GuitartabsDotCCParser : ITablatureWebImporter
     {
+        public GuitartabsDotCCParser()
+        {
+            Homepage = new Uri("http://guitartabs.cc");
+        }
+
         #region Implementation of ITablatureWebpageImporter
 
         public string SiteName
@@ -19,10 +25,24 @@ namespace GuitartabsDotCC
             get { return "Guitartabs.cc"; }
         }
 
-        public TablatureDocument Parse(string text, TablatureType type)
+        public Uri Homepage { get; private set; }
+
+        public bool IsUrlParsable(Uri url)
         {
+            return url.DnsSafeHost == "guitartabs.cc" || url.DnsSafeHost == "www.guitartabs.cc";
+        }
+
+        public TablatureDocument Parse(Uri url, WebProxy proxy)
+        {
+            string html;
+
+            using (var client = new WebClient() {Proxy = proxy})
+            {
+                html = client.DownloadString(url);
+            }
+
             var doc = new HtmlDocument();
-            doc.LoadHtml(text);
+            doc.LoadHtml(html);
 
             string contents = null;
 
@@ -37,6 +57,8 @@ namespace GuitartabsDotCC
             var artist = titleSplit[0];
             var title = titleSplit[1];
 
+            TablatureType type = null;
+
             var container = doc.DocumentNode.SelectSingleNode("//div[contains(@class, 'commonbox')]");
 
             if (container != null)
@@ -48,27 +70,24 @@ namespace GuitartabsDotCC
                     var infoCells = infoTable.SelectNodes("tr//th");
 
                     //get tab type
-                    if (type == null)
+                    if (infoCells != null && infoCells.Count > 2)
                     {
-                        if (infoCells != null && infoCells.Count > 2)
-                        {
-                            var typeCell = infoCells[2].SelectSingleNode("strong");
+                        var typeCell = infoCells[2].SelectSingleNode("strong");
 
-                            switch (typeCell.InnerText)
-                            {
-                                case "Tab":
-                                    type = TablatureType.Guitar;
-                                    break;
-                                case "Chords":
-                                    type = TablatureType.Chords;
-                                    break;
-                                case "Bass Tab":
-                                    type = TablatureType.Bass;
-                                    break;
-                                case "Drum Tab":
-                                    type = TablatureType.Drum;
-                                    break;
-                            }
+                        switch (typeCell.InnerText)
+                        {
+                            case "Tab":
+                                type = TablatureType.Guitar;
+                                break;
+                            case "Chords":
+                                type = TablatureType.Chords;
+                                break;
+                            case "Bass Tab":
+                                type = TablatureType.Bass;
+                                break;
+                            case "Drum Tab":
+                                type = TablatureType.Drum;
+                                break;
                         }
                     }
                 }
@@ -93,12 +112,6 @@ namespace GuitartabsDotCC
                 return null;
 
             return new TablatureDocument(artist, title, type, contents);
-        }
-
-        public bool MatchesUrlPattern(Uri url)
-        {
-            return url.IsWellFormedOriginalString() &&
-                   (url.DnsSafeHost == "guitartabs.cc" || url.DnsSafeHost == "www.guitartabs.cc");
         }
 
         #endregion
