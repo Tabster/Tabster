@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,6 +18,8 @@ namespace Tabster.Forms
 {
     internal partial class PreferencesDialog : Form
     {
+        private readonly Color DISABLED_COLOR = Color.Red;
+        private readonly Color ENABLED_COLOR = Color.Green;
         private readonly List<TabsterPluginHost> _plugins = new List<TabsterPluginHost>();
 
         public PreferencesDialog(string tab = null)
@@ -24,7 +27,6 @@ namespace Tabster.Forms
             InitializeComponent();
 
             _plugins.AddRange(Program.pluginController);
-
 
             LoadPreferences();
 
@@ -76,11 +78,14 @@ namespace Tabster.Forms
             {
                 if (plugin.GUID != Guid.Empty)
                 {
+                    var enabled = Program.pluginController.IsEnabled(plugin.GUID);
+
                     var lvi = new ListViewItem
                     {
                         Tag = plugin.GUID.ToString(),
                         Text = plugin.PluginAttributes.DisplayName,
-                        Checked = Program.pluginController.IsEnabled(plugin.GUID)
+                        Checked = enabled,
+                        ForeColor = enabled ? ENABLED_COLOR : DISABLED_COLOR
                     };
 
                     lvi.SubItems.Add(Program.pluginController.IsEnabled(plugin.GUID) ? "Yes" : "No");
@@ -205,11 +210,6 @@ namespace Tabster.Forms
             SavePreferences();
         }
 
-        private void listPlugins_ItemChecked(object sender, ItemCheckedEventArgs e)
-        {
-            PluginsModified = true;
-        }
-
         private void radioCustomProxy_CheckedChanged(object sender, EventArgs e)
         {
             customProxyPanel.Enabled = radioManualProxy.Checked;
@@ -282,6 +282,20 @@ namespace Tabster.Forms
         private void lblPluginHomepage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(lblPluginHomepage.Text);
+        }
+
+        private void listPlugins_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var item = listPlugins.HitTest(e.X, e.Y).Item;
+
+            if (item != null)
+            {
+                item.Checked = !item.Checked;
+                item.ForeColor = item.Checked ? ENABLED_COLOR : DISABLED_COLOR;
+                item.SubItems[colpluginEnabled.Index].Text = item.Checked ? "Yes" : "No";
+
+                PluginsModified = true;
+            }
         }
     }
 }

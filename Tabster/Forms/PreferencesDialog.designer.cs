@@ -336,8 +336,8 @@
             this.listPlugins.TabIndex = 0;
             this.listPlugins.UseCompatibleStateImageBehavior = false;
             this.listPlugins.View = System.Windows.Forms.View.Details;
-            this.listPlugins.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listPlugins_ItemChecked);
             this.listPlugins.SelectedIndexChanged += new System.EventHandler(this.listPlugins_SelectedIndexChanged);
+            this.listPlugins.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listPlugins_MouseDoubleClick);
             // 
             // colpluginName
             // 
