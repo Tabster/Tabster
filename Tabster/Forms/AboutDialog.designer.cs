@@ -43,7 +43,7 @@
             this.colpluginName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginFilename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colpluginDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colpluginAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnHomepage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -193,8 +193,8 @@
             this.listPlugins.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colpluginName,
             this.colpluginVersion,
-            this.colpluginFilename,
-            this.colpluginDescription});
+            this.colpluginAuthor,
+            this.colpluginFilename});
             this.listPlugins.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listPlugins.FullRowSelect = true;
             this.listPlugins.GridLines = true;
@@ -214,16 +214,17 @@
             // colpluginVersion
             // 
             this.colpluginVersion.Text = "Version";
+            this.colpluginVersion.Width = 65;
             // 
             // colpluginFilename
             // 
             this.colpluginFilename.Text = "Filename";
-            this.colpluginFilename.Width = 105;
+            this.colpluginFilename.Width = 160;
             // 
-            // colpluginDescription
+            // colpluginAuthor
             // 
-            this.colpluginDescription.Text = "Description";
-            this.colpluginDescription.Width = 215;
+            this.colpluginAuthor.Text = "Author";
+            this.colpluginAuthor.Width = 150;
             // 
             // btnHomepage
             // 
@@ -289,7 +290,7 @@
         private System.Windows.Forms.ColumnHeader colpluginName;
         private System.Windows.Forms.ColumnHeader colpluginVersion;
         private System.Windows.Forms.ColumnHeader colpluginFilename;
-        private System.Windows.Forms.ColumnHeader colpluginDescription;
+        private System.Windows.Forms.ColumnHeader colpluginAuthor;
         private System.Windows.Forms.Button btnHomepage;
     }
 }
