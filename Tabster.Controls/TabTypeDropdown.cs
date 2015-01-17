@@ -10,7 +10,7 @@ using Tabster.Core.Types;
 namespace Tabster.Controls
 {
     /// <summary>
-    ///   Represents a dropdown list of TabType strings.
+    ///     Represents a dropdown list of TabType strings.
     /// </summary>
     [DefaultEvent("TypeChanged")]
     public partial class TabTypeDropdown : UserControl
@@ -18,7 +18,7 @@ namespace Tabster.Controls
         private bool _controlLoaded;
 
         /// <summary>
-        ///   Initializes a new TabTypeDropdown instance.
+        ///     Initializes a new TabTypeDropdown instance.
         /// </summary>
         public TabTypeDropdown()
         {
@@ -27,7 +27,7 @@ namespace Tabster.Controls
         }
 
         /// <summary>
-        ///   Selects the default text option.
+        ///     Selects the default text option.
         /// </summary>
         public void SelectDefault()
         {
@@ -44,7 +44,9 @@ namespace Tabster.Controls
                 comboBox1.Items.Add(DefaultText);
             }
 
-            foreach (var type in TablatureType.GetKnownTypes())
+            var types = _nativeTypesOnly ? TablatureType.GetNativeTypes() : TablatureType.GetKnownTypes();
+
+            foreach (var type in types)
             {
                 comboBox1.Items.Add(GetDisplayString(type));
             }
@@ -121,7 +123,7 @@ namespace Tabster.Controls
         #region Events
 
         /// <summary>
-        ///   Raised when the type is changed.
+        ///     Raised when the type is changed.
         /// </summary>
         [Description("Raised when the type is changed.")]
         public event EventHandler TypeChanged;
@@ -132,10 +134,11 @@ namespace Tabster.Controls
 
         private string _defaultText;
         private bool _displayDefault;
+        private bool _nativeTypesOnly;
         private bool _usePluralizedNames;
 
         /// <summary>
-        ///   Determines whether to display the default text.
+        ///     Determines whether to display the default text.
         /// </summary>
         [Browsable(true)]
         [Category("Appearance")]
@@ -152,7 +155,7 @@ namespace Tabster.Controls
         }
 
         /// <summary>
-        ///   Default text.
+        ///     Default text.
         /// </summary>
         [Browsable(true)]
         [Category("Data")]
@@ -169,7 +172,7 @@ namespace Tabster.Controls
         }
 
         /// <summary>
-        ///   Pluralizes tab type.
+        ///     Pluralizes tab type.
         /// </summary>
         [Browsable(true)]
         [Category("Appearance")]
@@ -186,7 +189,7 @@ namespace Tabster.Controls
         }
 
         /// <summary>
-        ///   Determines whether a tab t ype has been selected.
+        ///     Determines whether a tab t ype has been selected.
         /// </summary>
         [Browsable(false)]
         [Category("Data")]
@@ -197,7 +200,7 @@ namespace Tabster.Controls
         }
 
         /// <summary>
-        ///   The currently selected tab type.
+        ///     The currently selected tab type.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when the default text is selected.</exception>
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
@@ -208,6 +211,24 @@ namespace Tabster.Controls
         {
             get { return GetSelectedType(); }
             set { comboBox1.SelectedIndex = GetTypeIndex(value); }
+        }
+
+        /// <summary>
+        ///     Only show natively-supported types.
+        /// </summary>
+        [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
+        [Category("Data")]
+        [Description("Only show natively-supported types.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool NativeTypesOnly
+        {
+            get { return _nativeTypesOnly; }
+            set
+            {
+                _nativeTypesOnly = value;
+
+                PopulateList();
+            }
         }
 
         #endregion
