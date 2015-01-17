@@ -93,37 +93,44 @@ namespace Tabster.Core.Types
 
         #region Static Methods
 
-        private static readonly List<TablatureType> _knownTypes = new List<TablatureType>();
+        private static readonly List<TablatureType> NativeTypes = new List<TablatureType>();
+        private static readonly List<TablatureType> KnownTypes = new List<TablatureType>();
 
         static TablatureType()
         {
-            _knownTypes = new List<TablatureType> {Guitar, Chords, Bass, Drum, Ukulele};
+            NativeTypes = new List<TablatureType> {Guitar, Chords, Bass, Drum, Ukulele};
+            KnownTypes.AddRange(NativeTypes);
         }
 
-        public static List<TablatureType> GetKnownTypes()
+        public static TablatureType[] GetKnownTypes()
         {
-            return _knownTypes;
+            return KnownTypes.ToArray();
+        }
+
+        public static TablatureType[] GetNativeTypes()
+        {
+            return NativeTypes.ToArray();
         }
 
         public static void RegisterType(TablatureType type)
         {
             if (!IsRegistered(type))
-                _knownTypes.Add(type);
+                KnownTypes.Add(type);
         }
 
         public static void UnregisterType(TablatureType type)
         {
-            _knownTypes.Remove(type);
+            KnownTypes.Remove(type);
         }
 
         public static bool IsRegistered(TablatureType type)
         {
-            return _knownTypes.Contains(type);
+            return KnownTypes.Contains(type);
         }
 
         public static TablatureType GetTypeByName(string name, bool createIfMissing = false)
         {
-            var match = _knownTypes.Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            var match = KnownTypes.Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
 
             if (match != null)
             {
