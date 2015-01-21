@@ -30,17 +30,18 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBoxLibrary = new System.Windows.Forms.GroupBox();
             this.lblLastViewed = new System.Windows.Forms.Label();
             this.lblPlaylistCount = new System.Windows.Forms.Label();
             this.lblViewCount = new System.Windows.Forms.Label();
             this.lblfavorited = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxFile = new System.Windows.Forms.GroupBox();
             this.lblModified = new System.Windows.Forms.Label();
             this.lblCreated = new System.Windows.Forms.Label();
             this.lblLength = new System.Windows.Forms.Label();
             this.lblFormat = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxTablature = new System.Windows.Forms.GroupBox();
+            this.typeList = new Tabster.Controls.TabTypeDropdown();
             this.label16 = new System.Windows.Forms.Label();
             this.txtcomment = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -51,12 +52,11 @@
             this.okbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
             this.txtlocation = new System.Windows.Forms.TextBox();
-            this.typeList = new Tabster.Controls.TabTypeDropdown();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxLibrary.SuspendLayout();
+            this.groupBoxFile.SuspendLayout();
+            this.groupBoxTablature.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -72,9 +72,9 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.groupBox3);
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.groupBoxLibrary);
+            this.tabPage1.Controls.Add(this.groupBoxFile);
+            this.tabPage1.Controls.Add(this.groupBoxTablature);
             this.tabPage1.ForeColor = System.Drawing.Color.Black;
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -84,21 +84,21 @@
             this.tabPage1.Text = "Summary";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // groupBox3
+            // groupBoxLibrary
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBoxLibrary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.lblLastViewed);
-            this.groupBox3.Controls.Add(this.lblPlaylistCount);
-            this.groupBox3.Controls.Add(this.lblViewCount);
-            this.groupBox3.Controls.Add(this.lblfavorited);
-            this.groupBox3.Location = new System.Drawing.Point(309, 101);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(215, 92);
-            this.groupBox3.TabIndex = 40;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Library Information:";
+            this.groupBoxLibrary.Controls.Add(this.lblLastViewed);
+            this.groupBoxLibrary.Controls.Add(this.lblPlaylistCount);
+            this.groupBoxLibrary.Controls.Add(this.lblViewCount);
+            this.groupBoxLibrary.Controls.Add(this.lblfavorited);
+            this.groupBoxLibrary.Location = new System.Drawing.Point(309, 101);
+            this.groupBoxLibrary.Name = "groupBoxLibrary";
+            this.groupBoxLibrary.Size = new System.Drawing.Size(215, 92);
+            this.groupBoxLibrary.TabIndex = 40;
+            this.groupBoxLibrary.TabStop = false;
+            this.groupBoxLibrary.Text = "Library Information:";
             // 
             // lblLastViewed
             // 
@@ -136,21 +136,21 @@
             this.lblfavorited.TabIndex = 2;
             this.lblfavorited.Text = "Favorited: No";
             // 
-            // groupBox2
+            // groupBoxFile
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBoxFile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.lblModified);
-            this.groupBox2.Controls.Add(this.lblCreated);
-            this.groupBox2.Controls.Add(this.lblLength);
-            this.groupBox2.Controls.Add(this.lblFormat);
-            this.groupBox2.Location = new System.Drawing.Point(309, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(215, 96);
-            this.groupBox2.TabIndex = 39;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "File Information:";
+            this.groupBoxFile.Controls.Add(this.lblModified);
+            this.groupBoxFile.Controls.Add(this.lblCreated);
+            this.groupBoxFile.Controls.Add(this.lblLength);
+            this.groupBoxFile.Controls.Add(this.lblFormat);
+            this.groupBoxFile.Location = new System.Drawing.Point(309, 6);
+            this.groupBoxFile.Name = "groupBoxFile";
+            this.groupBoxFile.Size = new System.Drawing.Size(215, 89);
+            this.groupBoxFile.TabIndex = 39;
+            this.groupBoxFile.TabStop = false;
+            this.groupBoxFile.Text = "File Information:";
             // 
             // lblModified
             // 
@@ -188,25 +188,35 @@
             this.lblFormat.TabIndex = 0;
             this.lblFormat.Text = "File Format:";
             // 
-            // groupBox1
+            // groupBoxTablature
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBoxTablature.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.typeList);
-            this.groupBox1.Controls.Add(this.label16);
-            this.groupBox1.Controls.Add(this.txtcomment);
-            this.groupBox1.Controls.Add(this.label17);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.txtartist);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txtsong);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(347, 187);
-            this.groupBox1.TabIndex = 38;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Tablature Information:";
+            this.groupBoxTablature.Controls.Add(this.typeList);
+            this.groupBoxTablature.Controls.Add(this.label16);
+            this.groupBoxTablature.Controls.Add(this.txtcomment);
+            this.groupBoxTablature.Controls.Add(this.label17);
+            this.groupBoxTablature.Controls.Add(this.label5);
+            this.groupBoxTablature.Controls.Add(this.txtartist);
+            this.groupBoxTablature.Controls.Add(this.label3);
+            this.groupBoxTablature.Controls.Add(this.txtsong);
+            this.groupBoxTablature.Location = new System.Drawing.Point(6, 6);
+            this.groupBoxTablature.Name = "groupBoxTablature";
+            this.groupBoxTablature.Size = new System.Drawing.Size(297, 187);
+            this.groupBoxTablature.TabIndex = 38;
+            this.groupBoxTablature.TabStop = false;
+            this.groupBoxTablature.Text = "Tablature Information:";
+            // 
+            // typeList
+            // 
+            this.typeList.DefaultText = "";
+            this.typeList.DisplayDefault = false;
+            this.typeList.Location = new System.Drawing.Point(66, 68);
+            this.typeList.Name = "typeList";
+            this.typeList.Size = new System.Drawing.Size(119, 21);
+            this.typeList.TabIndex = 38;
+            this.typeList.UsePluralizedNames = false;
             // 
             // label16
             // 
@@ -312,7 +322,6 @@
             this.cancelbtn.TabIndex = 24;
             this.cancelbtn.Text = "Cancel";
             this.cancelbtn.UseVisualStyleBackColor = true;
-            this.cancelbtn.Click += new System.EventHandler(this.cancelbtn_Click);
             // 
             // txtlocation
             // 
@@ -325,16 +334,6 @@
             this.txtlocation.ReadOnly = true;
             this.txtlocation.Size = new System.Drawing.Size(538, 20);
             this.txtlocation.TabIndex = 41;
-            // 
-            // typeList
-            // 
-            this.typeList.DefaultText = "";
-            this.typeList.DisplayDefault = false;
-            this.typeList.Location = new System.Drawing.Point(66, 68);
-            this.typeList.Name = "typeList";
-            this.typeList.Size = new System.Drawing.Size(119, 21);
-            this.typeList.TabIndex = 38;
-            this.typeList.UsePluralizedNames = false;
             // 
             // TabDetailsDialog
             // 
@@ -358,12 +357,12 @@
             this.Text = "Tab Details";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxLibrary.ResumeLayout(false);
+            this.groupBoxLibrary.PerformLayout();
+            this.groupBoxFile.ResumeLayout(false);
+            this.groupBoxFile.PerformLayout();
+            this.groupBoxTablature.ResumeLayout(false);
+            this.groupBoxTablature.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -383,13 +382,13 @@
         private System.Windows.Forms.Button okbtn;
         private System.Windows.Forms.Button cancelbtn;
         public System.Windows.Forms.TextBox txtlocation;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxTablature;
+        private System.Windows.Forms.GroupBox groupBoxFile;
         private System.Windows.Forms.Label lblFormat;
         private System.Windows.Forms.Label lblLength;
         private System.Windows.Forms.Label lblModified;
         private System.Windows.Forms.Label lblCreated;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBoxLibrary;
         private System.Windows.Forms.Label lblfavorited;
         private System.Windows.Forms.Label lblPlaylistCount;
         private System.Windows.Forms.Label lblViewCount;
