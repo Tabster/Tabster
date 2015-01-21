@@ -8,7 +8,6 @@ using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Utilities.Net;
 
 #endregion
 
@@ -18,17 +17,14 @@ namespace Tabster.Forms
     {
         private readonly List<TablatureSearchResult> _searchResults = new List<TablatureSearchResult>();
 
-        private readonly Dictionary<Uri, TablatureDocument> _searchResultsCache =
-            new Dictionary<Uri, TablatureDocument>();
+        private readonly Dictionary<Uri, TablatureDocument> _searchResultsCache = new Dictionary<Uri, TablatureDocument>();
 
         private TablatureRating? _activeSearchRating;
         private TablatureType _activeSearchType;
         private List<ITablatureSearchEngine> _searchServices = new List<ITablatureSearchEngine>();
         private List<ITablatureWebImporter> _webImporters = new List<ITablatureWebImporter>();
 
-        //used for filtering after search is complete
-
-        private TablatureSearchResult SelectedSearchResult()
+        private TablatureSearchResult GetSelectedSearchResult()
         {
             var selectedURL = searchDisplay.SelectedRows.Count > 0
                 ? new Uri(searchDisplay.SelectedRows[0].Tag.ToString())
@@ -38,41 +34,42 @@ namespace Tabster.Forms
 
         private void onlinesearchbtn_Click(object sender, EventArgs e)
         {
-            if (listSearchServices.SelectedItems.Count > 0 &&
-                (txtSearchArtist.Text.Trim().Length > 0 || txtSearchTitle.Text.Trim().Length > 0))
+            if (listSearchServices.SelectedItems.Count > 0 && (txtSearchArtist.Text.Trim().Length > 0 || txtSearchTitle.Text.Trim().Length > 0))
             {
                 onlinesearchbtn.Enabled = false;
 
                 searchPreviewEditor.Clear();
 
-                var searchArtist = txtSearchArtist.Text.Trim();
-                var searchTitle = txtSearchTitle.Text.Trim();
-
-                _activeSearchType = null;
-
                 //ignore "all tabs"
-                if (searchTypeList.HasTypeSelected)
-                    _activeSearchType = searchTypeList.SelectedType;
+                _activeSearchType = searchTypeList.HasTypeSelected ? searchTypeList.SelectedType : null;
 
                 _activeSearchRating = null;
 
                 if (cbSearchRating.SelectedIndex > 0)
                     _activeSearchRating = (TablatureRating) (cbSearchRating.SelectedIndex);
 
-                var searchQueries = new List<TablatureSearchQuery>();
+                var queries = BuildSearchQueries();
 
-                var selectedServices = new List<ITablatureSearchEngine>();
-
-                for (var i = 0; i < listSearchServices.Items.Count; i++)
+                if (queries.Count > 0)
                 {
-                    if (listSearchServices.GetSelected(i))
-                    {
-                        selectedServices.Add(_searchServices[i]);
-                    }
+                    SearchBackgroundWorker.RunWorkerAsync(queries);
                 }
+            }
+        }
 
-                foreach (var service in selectedServices)
+        private List<TablatureSearchQuery> BuildSearchQueries()
+        {
+            var searchArtist = txtSearchArtist.Text.Trim();
+            var searchTitle = txtSearchTitle.Text.Trim();
+
+            var searchQueries = new List<TablatureSearchQuery>();
+
+            for (var i = 0; i < listSearchServices.Items.Count; i++)
+            {
+                if (listSearchServices.GetSelected(i))
                 {
+                    var service = _searchServices[i];
+
                     //check engine requirements
                     if ((service.RequiresArtistParameter && string.IsNullOrEmpty(searchArtist)) ||
                         (service.RequiresTitleParameter && string.IsNullOrEmpty(searchTitle)) ||
@@ -82,12 +79,9 @@ namespace Tabster.Forms
 
                     searchQueries.Add(new TablatureSearchQuery(service, searchArtist, searchTitle, _activeSearchType));
                 }
-
-                if (searchQueries.Count > 0)
-                {
-                    SearchBackgroundWorker.RunWorkerAsync(searchQueries);
-                }
             }
+
+            return searchQueries;
         }
 
         private void SearchBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -180,8 +174,7 @@ namespace Tabster.Forms
                 ? ""
                 : new string('\u2605', (int) result.Rating - 1).PadRight(5, '\u2606');
 
-            newRow.CreateCells(searchDisplay, result.Tab.Artist, result.Tab.Title, result.Tab.Type.ToFriendlyString(),
-                ratingString, result.Query.Engine.Name);
+            newRow.CreateCells(searchDisplay, result.Tab.Artist, result.Tab.Title, result.Tab.Type.ToFriendlyString(), ratingString, result.Query.Engine.Name);
             searchDisplay.Rows.Add(newRow);
         }
 
@@ -189,8 +182,7 @@ namespace Tabster.Forms
         {
             var currentMouseOverRow = searchDisplay.HitTest(e.X, e.Y).RowIndex;
 
-            if (e.Button == MouseButtons.Right &&
-                (currentMouseOverRow >= 0 && currentMouseOverRow < searchDisplay.Rows.Count))
+            if (e.Button == MouseButtons.Right && (currentMouseOverRow >= 0 && currentMouseOverRow < searchDisplay.Rows.Count))
             {
                 searchDisplay.Rows[currentMouseOverRow].Selected = true;
                 SearchMenu.Show(searchDisplay.PointToScreen(e.Location));
@@ -199,22 +191,19 @@ namespace Tabster.Forms
 
         private void dataGridViewExtended1_SelectionChanged(object sender, EventArgs e)
         {
-            LoadSelectedPreview();
+            LoadGetSelectedSearchResultPreview();
 
-            var selectedResult = SelectedSearchResult();
-            saveTabToolStripMenuItem1.Enabled = selectedResult != null &&
-                                                _searchResultsCache.ContainsKey(selectedResult.Source);
+            var selectedResult = GetSelectedSearchResult();
+            saveTabToolStripMenuItem1.Enabled = selectedResult != null && _searchResultsCache.ContainsKey(selectedResult.Source);
         }
 
-        private void SaveSelectedTab(object sender = null, EventArgs e = null)
+        private void SaveGetSelectedSearchResult()
         {
-            var selectedResult = SelectedSearchResult();
+            var selectedResult = GetSelectedSearchResult();
 
             if (selectedResult != null)
             {
-                using (
-                    var nt = new NewTabDialog(selectedResult.Tab.Artist, selectedResult.Tab.Title,
-                        selectedResult.Tab.Type))
+                using (var nt = new NewTabDialog(selectedResult.Tab.Artist, selectedResult.Tab.Title, selectedResult.Tab.Type))
                 {
                     if (nt.ShowDialog() == DialogResult.OK)
                     {
@@ -228,9 +217,9 @@ namespace Tabster.Forms
             }
         }
 
-        private void copyURLToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CopyGetSelectedSearchResultUrl()
         {
-            var result = SelectedSearchResult();
+            var result = GetSelectedSearchResult();
 
             if (result != null)
             {
@@ -238,9 +227,9 @@ namespace Tabster.Forms
             }
         }
 
-        private void LoadSelectedPreview()
+        private void LoadGetSelectedSearchResultPreview()
         {
-            var selectedResult = SelectedSearchResult();
+            var selectedResult = GetSelectedSearchResult();
 
             if (selectedResult != null)
             {
@@ -252,14 +241,6 @@ namespace Tabster.Forms
                 if (!SearchPreviewBackgroundWorker.IsBusy)
                     SearchPreviewBackgroundWorker.RunWorkerAsync(selectedResult.Source);
             }
-        }
-
-        private void previewToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (searchSplitContainer.Panel2Collapsed)
-                TogglePreviewPane(sender, e);
-
-            LoadSelectedPreview();
         }
 
         private void SearchPreviewBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -306,8 +287,7 @@ namespace Tabster.Forms
         {
             if (e.Error != null)
             {
-                searchPreviewEditor.Text = string.Format("Tab preview failed:{0}{0}{1}", Environment.NewLine,
-                    e.Error.Message);
+                searchPreviewEditor.Text = string.Format("Tab preview failed:{0}{0}{1}", Environment.NewLine, e.Error.Message);
             }
 
             if (!e.Cancelled && e.Error == null)
@@ -327,7 +307,7 @@ namespace Tabster.Forms
                     }
 
                     //enable save tab option
-                    var selectedResult = SelectedSearchResult();
+                    var selectedResult = GetSelectedSearchResult();
 
                     if (selectedResult != null && selectedResult.Source == url)
                     {
@@ -337,6 +317,9 @@ namespace Tabster.Forms
             }
         }
 
+        /// <summary>
+        ///     Removes version convention from tablature titles.
+        /// </summary>
         private static string RemoveVersionConventionFromTitle(string title)
         {
             var versionConventionIndex = title.IndexOf(" (ver ", StringComparison.OrdinalIgnoreCase);
@@ -404,7 +387,20 @@ namespace Tabster.Forms
         private void searchDisplay_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
-                SaveSelectedTab();
+                SaveGetSelectedSearchResult();
+        }
+
+        private void copyURLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CopyGetSelectedSearchResultUrl();
+        }
+
+        private void previewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (searchSplitContainer.Panel2Collapsed)
+                TogglePreviewPane(sender, e);
+
+            LoadGetSelectedSearchResultPreview();
         }
     }
 }
