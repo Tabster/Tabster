@@ -1,5 +1,6 @@
 ﻿#region
 
+using System.Linq;
 using System.Windows.Forms;
 
 #endregion
@@ -27,13 +28,7 @@ namespace Tabster.Controls
 
         public DataGridViewColumn GetColumnByHeaderText(string text)
         {
-            foreach (DataGridViewColumn column in Columns)
-            {
-                if (column.HeaderText == text)
-                    return column;
-            }
-
-            return null;
+            return Columns.Cast<DataGridViewColumn>().FirstOrDefault(column => column.HeaderText == text);
         }
     }
 }
