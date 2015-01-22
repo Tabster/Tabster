@@ -16,12 +16,19 @@ namespace UltimateGuitar
 {
     public class UltimateGuitarSearchEngine : ITablatureSearchEngine
     {
+        public UltimateGuitarSearchEngine()
+        {
+            Homepage = new Uri("http://ultimate-guitar.com");
+        }
+
         #region Implementation of ISearchService
 
         public string Name
         {
             get { return "Ultimate Guitar"; }
         }
+
+        public Uri Homepage { get; private set; }
 
         public bool RequiresArtistParameter
         {
@@ -92,7 +99,7 @@ namespace UltimateGuitar
 
             string data;
 
-            using (var client = new WebClient() { Proxy = proxy, Encoding = Encoding.UTF8 })
+            using (var client = new WebClient() {Proxy = proxy, Encoding = Encoding.UTF8})
             {
                 data = client.DownloadString(url);
             }
