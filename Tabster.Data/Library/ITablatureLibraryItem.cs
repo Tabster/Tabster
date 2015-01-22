@@ -8,12 +8,13 @@ using Tabster.Core.Types;
 
 namespace Tabster.Data.Library
 {
-    public interface ITablatureLibraryItem : ITablatureAttributes
+    public interface ITablatureLibraryItem
     {
         FileInfo FileInfo { get; }
         bool Favorited { get; set; }
         int Views { get; set; }
         DateTime? LastViewed { get; set; }
         DateTime Added { get; }
+        TablatureDocument Document { get; }
     }
 }

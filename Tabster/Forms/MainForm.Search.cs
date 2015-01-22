@@ -337,10 +337,10 @@ namespace Tabster.Forms
 
             foreach (var item in Program.TablatureFileLibrary)
             {
-                if (artistStrings.Find(x => x.Equals(item.Artist, StringComparison.OrdinalIgnoreCase)) == null)
-                    artistStrings.Add(item.Artist);
+                if (artistStrings.Find(x => x.Equals(item.Document.Artist, StringComparison.OrdinalIgnoreCase)) == null)
+                    artistStrings.Add(item.Document.Artist);
 
-                var title = RemoveVersionConventionFromTitle(item.Title);
+                var title = RemoveVersionConventionFromTitle(item.Document.Title);
                 if (titleStrings.Find(x => x.Equals(title, StringComparison.OrdinalIgnoreCase)) == null)
                     titleStrings.Add(title);
             }
