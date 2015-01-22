@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using BrightIdeasSoftware;
 using Tabster.Controls;
 using DataGridViewExtended = Tabster.Controls.DataGridViewExtended;
 
@@ -47,17 +48,10 @@ namespace Tabster.Forms
             System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Playlists");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.deletePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renamePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -67,14 +61,14 @@ namespace Tabster.Forms
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.librarySplitContainer = new System.Windows.Forms.SplitContainer();
-            this.tablibrary = new Tabster.Controls.DataGridViewExtended();
-            this.libraryCol_title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_created = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_modified = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_views = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.libraryCol_location = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.listViewLibrary = new BrightIdeasSoftware.ObjectListView();
+            this.olvColTitle = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColArtist = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColType = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColCreated = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColModified = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColViews = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColLocation = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtLibraryFilter = new Tabster.Controls.TextBoxExtended();
             this.PreviewEditor = new Tabster.Controls.BasicTablatureTextEditor();
@@ -135,8 +129,11 @@ namespace Tabster.Forms
             this.searchByTitleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchByArtistAndTitleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.librarycontextaddtoplaylist = new System.Windows.Forms.ToolStripMenuItem();
+            this.newPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.librarycontextfavorites = new System.Windows.Forms.ToolStripMenuItem();
             this.sortByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ascendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.descendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PlaylistMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteplaylistcontextmenuitem = new System.Windows.Forms.ToolStripMenuItem();
             this.playlistInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -182,7 +179,7 @@ namespace Tabster.Forms
             this.librarySplitContainer.Panel1.SuspendLayout();
             this.librarySplitContainer.Panel2.SuspendLayout();
             this.librarySplitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tablibrary)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.listViewLibrary)).BeginInit();
             this.panel2.SuspendLayout();
             this.previewToolStrip.SuspendLayout();
             this.display_search.SuspendLayout();
@@ -352,7 +349,7 @@ namespace Tabster.Forms
             // 
             // librarySplitContainer.Panel1
             // 
-            this.librarySplitContainer.Panel1.Controls.Add(this.tablibrary);
+            this.librarySplitContainer.Panel1.Controls.Add(this.listViewLibrary);
             this.librarySplitContainer.Panel1.Controls.Add(this.panel2);
             this.librarySplitContainer.Panel1MinSize = 140;
             // 
@@ -366,140 +363,93 @@ namespace Tabster.Forms
             this.librarySplitContainer.SplitterDistance = 237;
             this.librarySplitContainer.TabIndex = 25;
             // 
-            // tablibrary
+            // listViewLibrary
             // 
-            this.tablibrary.AllowDrop = true;
-            this.tablibrary.AllowUserToAddRows = false;
-            this.tablibrary.AllowUserToDeleteRows = false;
-            this.tablibrary.AllowUserToResizeColumns = false;
-            this.tablibrary.AllowUserToResizeRows = false;
-            this.tablibrary.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.tablibrary.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tablibrary.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.tablibrary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.tablibrary.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.libraryCol_title,
-            this.libraryCol_artist,
-            this.libraryCol_type,
-            this.libraryCol_created,
-            this.libraryCol_modified,
-            this.libraryCol_views,
-            this.libraryCol_location});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tablibrary.DefaultCellStyle = dataGridViewCellStyle5;
-            this.tablibrary.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tablibrary.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.tablibrary.Location = new System.Drawing.Point(0, 29);
-            this.tablibrary.MultiSelect = false;
-            this.tablibrary.Name = "tablibrary";
-            this.tablibrary.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tablibrary.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.tablibrary.RowHeadersVisible = false;
-            this.tablibrary.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            this.tablibrary.RowsDefaultCellStyle = dataGridViewCellStyle7;
-            this.tablibrary.RowTemplate.Height = 18;
-            this.tablibrary.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tablibrary.ShowCellErrors = false;
-            this.tablibrary.ShowCellToolTips = false;
-            this.tablibrary.ShowEditingIcon = false;
-            this.tablibrary.ShowRowErrors = false;
-            this.tablibrary.Size = new System.Drawing.Size(883, 206);
-            this.tablibrary.TabIndex = 19;
-            this.tablibrary.VirtualMode = true;
-            this.tablibrary.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tablibrary_CellDoubleClick);
-            this.tablibrary.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.tablibrary_CellValueNeeded);
-            this.tablibrary.SelectionChanged += new System.EventHandler(this.tablibrary_SelectionChanged);
-            this.tablibrary.Sorted += new System.EventHandler(this.tablibrary_Sorted);
-            this.tablibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.tablibrary_DragDrop);
-            this.tablibrary.DragEnter += new System.Windows.Forms.DragEventHandler(this.tablibrary_DragEnter);
-            this.tablibrary.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tablibrary_MouseClick);
+            this.listViewLibrary.AllColumns.Add(this.olvColTitle);
+            this.listViewLibrary.AllColumns.Add(this.olvColArtist);
+            this.listViewLibrary.AllColumns.Add(this.olvColType);
+            this.listViewLibrary.AllColumns.Add(this.olvColCreated);
+            this.listViewLibrary.AllColumns.Add(this.olvColModified);
+            this.listViewLibrary.AllColumns.Add(this.olvColViews);
+            this.listViewLibrary.AllColumns.Add(this.olvColLocation);
+            this.listViewLibrary.AllowDrop = true;
+            this.listViewLibrary.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.olvColTitle,
+            this.olvColArtist,
+            this.olvColType,
+            this.olvColCreated,
+            this.olvColModified,
+            this.olvColViews,
+            this.olvColLocation});
+            this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewLibrary.EmptyListMsg = "No tablature found";
+            this.listViewLibrary.FullRowSelect = true;
+            this.listViewLibrary.GridLines = true;
+            this.listViewLibrary.HasCollapsibleGroups = false;
+            this.listViewLibrary.HeaderUsesThemes = true;
+            this.listViewLibrary.HideSelection = false;
+            this.listViewLibrary.Location = new System.Drawing.Point(0, 29);
+            this.listViewLibrary.MenuLabelGroupBy = "Group by \'{1}\'";
+            this.listViewLibrary.MultiSelect = false;
+            this.listViewLibrary.Name = "listViewLibrary";
+            this.listViewLibrary.RowHeight = 18;
+            this.listViewLibrary.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.ModelDialog;
+            this.listViewLibrary.ShowGroups = false;
+            this.listViewLibrary.ShowHeaderInAllViews = false;
+            this.listViewLibrary.Size = new System.Drawing.Size(883, 206);
+            this.listViewLibrary.TabIndex = 21;
+            this.listViewLibrary.TintSortColumn = true;
+            this.listViewLibrary.UseCompatibleStateImageBehavior = false;
+            this.listViewLibrary.UseExplorerTheme = true;
+            this.listViewLibrary.View = System.Windows.Forms.View.Details;
+            this.listViewLibrary.AfterSorting += new System.EventHandler<BrightIdeasSoftware.AfterSortingEventArgs>(this.listViewLibrary_AfterSorting);
+            this.listViewLibrary.CellRightClick += new System.EventHandler<BrightIdeasSoftware.CellRightClickEventArgs>(this.listViewLibrary_CellRightClick);
+            this.listViewLibrary.SelectedIndexChanged += new System.EventHandler(this.listViewLibrary_SelectedIndexChanged);
+            this.listViewLibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.listViewLibrary_DragDrop);
+            this.listViewLibrary.DragEnter += new System.Windows.Forms.DragEventHandler(this.listViewLibrary_DragEnter);
+            this.listViewLibrary.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewLibrary_MouseDoubleClick);
             // 
-            // libraryCol_title
+            // olvColTitle
             // 
-            this.libraryCol_title.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.libraryCol_title.HeaderText = "Title";
-            this.libraryCol_title.MinimumWidth = 250;
-            this.libraryCol_title.Name = "libraryCol_title";
-            this.libraryCol_title.ReadOnly = true;
-            this.libraryCol_title.Width = 250;
+            this.olvColTitle.AspectName = "Title";
+            this.olvColTitle.Text = "Title";
+            this.olvColTitle.Width = 242;
             // 
-            // libraryCol_artist
+            // olvColArtist
             // 
-            this.libraryCol_artist.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.libraryCol_artist.HeaderText = "Artist";
-            this.libraryCol_artist.MinimumWidth = 150;
-            this.libraryCol_artist.Name = "libraryCol_artist";
-            this.libraryCol_artist.ReadOnly = true;
-            this.libraryCol_artist.Width = 150;
+            this.olvColArtist.AspectName = "Artist";
+            this.olvColArtist.Text = "Artist";
+            this.olvColArtist.Width = 156;
             // 
-            // libraryCol_type
+            // olvColType
             // 
-            this.libraryCol_type.HeaderText = "Type";
-            this.libraryCol_type.MinimumWidth = 65;
-            this.libraryCol_type.Name = "libraryCol_type";
-            this.libraryCol_type.ReadOnly = true;
+            this.olvColType.AspectName = "Type";
+            this.olvColType.Text = "Type";
+            this.olvColType.Width = 99;
             // 
-            // libraryCol_created
+            // olvColCreated
             // 
-            dataGridViewCellStyle2.Format = "g";
-            dataGridViewCellStyle2.NullValue = null;
-            this.libraryCol_created.DefaultCellStyle = dataGridViewCellStyle2;
-            this.libraryCol_created.HeaderText = "Created";
-            this.libraryCol_created.MinimumWidth = 120;
-            this.libraryCol_created.Name = "libraryCol_created";
-            this.libraryCol_created.ReadOnly = true;
-            this.libraryCol_created.Width = 120;
+            this.olvColCreated.AspectName = "Created";
+            this.olvColCreated.Text = "Created";
+            this.olvColCreated.Width = 125;
             // 
-            // libraryCol_modified
+            // olvColModified
             // 
-            dataGridViewCellStyle3.Format = "g";
-            dataGridViewCellStyle3.NullValue = null;
-            this.libraryCol_modified.DefaultCellStyle = dataGridViewCellStyle3;
-            this.libraryCol_modified.HeaderText = "Last Modified";
-            this.libraryCol_modified.MinimumWidth = 120;
-            this.libraryCol_modified.Name = "libraryCol_modified";
-            this.libraryCol_modified.ReadOnly = true;
-            this.libraryCol_modified.Width = 120;
+            this.olvColModified.AspectName = "LastModified";
+            this.olvColModified.Text = "Last Modified";
+            this.olvColModified.Width = 125;
             // 
-            // libraryCol_views
+            // olvColViews
             // 
-            dataGridViewCellStyle4.NullValue = "Never";
-            this.libraryCol_views.DefaultCellStyle = dataGridViewCellStyle4;
-            this.libraryCol_views.FillWeight = 60F;
-            this.libraryCol_views.HeaderText = "Views";
-            this.libraryCol_views.Name = "libraryCol_views";
-            this.libraryCol_views.ReadOnly = true;
-            this.libraryCol_views.Width = 60;
+            this.olvColViews.AspectName = "Views";
+            this.olvColViews.Text = "Views";
             // 
-            // libraryCol_location
+            // olvColLocation
             // 
-            this.libraryCol_location.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.libraryCol_location.HeaderText = "Location";
-            this.libraryCol_location.MinimumWidth = 65;
-            this.libraryCol_location.Name = "libraryCol_location";
-            this.libraryCol_location.ReadOnly = true;
+            this.olvColLocation.AspectName = "Location";
+            this.olvColLocation.FillsFreeSpace = true;
+            this.olvColLocation.Text = "Location";
+            this.olvColLocation.Width = 128;
             // 
             // panel2
             // 
@@ -656,14 +606,14 @@ namespace Tabster.Forms
             this.offToolStripMenuItem.Name = "offToolStripMenuItem";
             this.offToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
             this.offToolStripMenuItem.Text = "Off";
-            this.offToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
+            this.offToolStripMenuItem.Click += new System.EventHandler(this.AutoScrollChange);
             // 
             // onToolStripMenuItem
             // 
             this.onToolStripMenuItem.Name = "onToolStripMenuItem";
             this.onToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
             this.onToolStripMenuItem.Text = "On";
-            this.onToolStripMenuItem.Click += new System.EventHandler(this.autoScrollChange);
+            this.onToolStripMenuItem.Click += new System.EventHandler(this.AutoScrollChange);
             // 
             // display_search
             // 
@@ -708,14 +658,14 @@ namespace Tabster.Forms
             this.searchDisplay.AllowUserToResizeRows = false;
             this.searchDisplay.BackgroundColor = System.Drawing.Color.White;
             this.searchDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.searchDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.searchDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.searchDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.searchDisplay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.searchcol_artist,
@@ -723,33 +673,33 @@ namespace Tabster.Forms
             this.searchcol_type,
             this.col_rating,
             this.searchcol_service});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.searchDisplay.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.searchDisplay.DefaultCellStyle = dataGridViewCellStyle3;
             this.searchDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchDisplay.GridColor = System.Drawing.SystemColors.ControlLight;
             this.searchDisplay.Location = new System.Drawing.Point(0, 0);
             this.searchDisplay.MultiSelect = false;
             this.searchDisplay.Name = "searchDisplay";
             this.searchDisplay.ReadOnly = true;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.searchDisplay.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.searchDisplay.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.searchDisplay.RowHeadersVisible = false;
             this.searchDisplay.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black;
-            this.searchDisplay.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            this.searchDisplay.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.searchDisplay.RowTemplate.Height = 18;
             this.searchDisplay.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.searchDisplay.ShowCellErrors = false;
@@ -793,8 +743,8 @@ namespace Tabster.Forms
             // searchcol_service
             // 
             this.searchcol_service.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle9.Format = "N0";
-            this.searchcol_service.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle2.Format = "N0";
+            this.searchcol_service.DefaultCellStyle = dataGridViewCellStyle2;
             this.searchcol_service.HeaderText = "Service";
             this.searchcol_service.Name = "searchcol_service";
             this.searchcol_service.ReadOnly = true;
@@ -1037,7 +987,6 @@ namespace Tabster.Forms
             this.saveTabToolStripMenuItem1.Name = "saveTabToolStripMenuItem1";
             this.saveTabToolStripMenuItem1.Size = new System.Drawing.Size(101, 22);
             this.saveTabToolStripMenuItem1.Text = "Save Tab";
-            this.saveTabToolStripMenuItem1.Click += new System.EventHandler(this.SaveSelectedTab);
             // 
             // previewToolStripMenuItem
             // 
@@ -1135,9 +1084,18 @@ namespace Tabster.Forms
             // 
             // librarycontextaddtoplaylist
             // 
+            this.librarycontextaddtoplaylist.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newPlaylistToolStripMenuItem});
             this.librarycontextaddtoplaylist.Name = "librarycontextaddtoplaylist";
             this.librarycontextaddtoplaylist.Size = new System.Drawing.Size(151, 22);
             this.librarycontextaddtoplaylist.Text = "Add to Playlist...";
+            // 
+            // newPlaylistToolStripMenuItem
+            // 
+            this.newPlaylistToolStripMenuItem.Name = "newPlaylistToolStripMenuItem";
+            this.newPlaylistToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.newPlaylistToolStripMenuItem.Text = "New Playlist...";
+            this.newPlaylistToolStripMenuItem.Click += new System.EventHandler(this.NewPlaylist);
             // 
             // librarycontextfavorites
             // 
@@ -1148,9 +1106,26 @@ namespace Tabster.Forms
             // 
             // sortByToolStripMenuItem
             // 
+            this.sortByToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ascendingToolStripMenuItem,
+            this.descendingToolStripMenuItem});
             this.sortByToolStripMenuItem.Name = "sortByToolStripMenuItem";
             this.sortByToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.sortByToolStripMenuItem.Text = "Sort By";
+            // 
+            // ascendingToolStripMenuItem
+            // 
+            this.ascendingToolStripMenuItem.Name = "ascendingToolStripMenuItem";
+            this.ascendingToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.ascendingToolStripMenuItem.Text = "Ascending";
+            this.ascendingToolStripMenuItem.Click += new System.EventHandler(this.SortByDirectionMenuItem_Click);
+            // 
+            // descendingToolStripMenuItem
+            // 
+            this.descendingToolStripMenuItem.Name = "descendingToolStripMenuItem";
+            this.descendingToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.descendingToolStripMenuItem.Text = "Descending";
+            this.descendingToolStripMenuItem.Click += new System.EventHandler(this.SortByDirectionMenuItem_Click);
             // 
             // PlaylistMenu
             // 
@@ -1197,7 +1172,7 @@ namespace Tabster.Forms
             // 
             // PreviewDisplayTimer
             // 
-            this.PreviewDisplayTimer.Interval = 1000;
+            this.PreviewDisplayTimer.Interval = 5000;
             this.PreviewDisplayTimer.Tick += new System.EventHandler(this.PreviewDisplayTimer_Tick);
             // 
             // mainMenu1
@@ -1454,7 +1429,7 @@ namespace Tabster.Forms
             this.librarySplitContainer.Panel2.ResumeLayout(false);
             this.librarySplitContainer.Panel2.PerformLayout();
             this.librarySplitContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.tablibrary)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.listViewLibrary)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.previewToolStrip.ResumeLayout(false);
@@ -1513,7 +1488,6 @@ namespace Tabster.Forms
         private Button button1;
         private StaticTreeView sidemenu;
         private SplitContainer librarySplitContainer;
-        private DataGridViewExtended tablibrary;
         private ToolStrip previewToolStrip;
         private ToolStripLabel lblpreviewtitle;
         private ToolStripButton toolStripButton1;
@@ -1549,13 +1523,6 @@ namespace Tabster.Forms
         private ToolStripMenuItem searchByArtistAndTitleToolStripMenuItem;
         private Timer PreviewDisplayDelay;
         private Timer PreviewDisplayTimer;
-        private DataGridViewTextBoxColumn libraryCol_title;
-        private DataGridViewTextBoxColumn libraryCol_artist;
-        private DataGridViewTextBoxColumn libraryCol_type;
-        private DataGridViewTextBoxColumn libraryCol_created;
-        private DataGridViewTextBoxColumn libraryCol_modified;
-        private DataGridViewTextBoxColumn libraryCol_views;
-        private DataGridViewTextBoxColumn libraryCol_location;
         private MainMenu mainMenu1;
         private MenuItem menuItem1;
         private MenuItem menuItem2;
@@ -1594,6 +1561,17 @@ namespace Tabster.Forms
         private ToolStripSplitButton printbtn;
         private ToolStripMenuItem printPreviewToolStripMenuItem;
         private ToolStripMenuItem printSettingsToolStripMenuItem;
+        private ObjectListView listViewLibrary;
+        private OLVColumn olvColTitle;
+        private OLVColumn olvColArtist;
+        private OLVColumn olvColType;
+        private OLVColumn olvColCreated;
+        private OLVColumn olvColModified;
+        private OLVColumn olvColViews;
+        private OLVColumn olvColLocation;
+        private ToolStripMenuItem newPlaylistToolStripMenuItem;
+        private ToolStripMenuItem ascendingToolStripMenuItem;
+        private ToolStripMenuItem descendingToolStripMenuItem;
     }
 }
 

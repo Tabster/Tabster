@@ -2,10 +2,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using BrightIdeasSoftware;
 using Tabster.Controls.Extensions;
 using Tabster.Core.Printing;
 using Tabster.Core.Types;
@@ -30,80 +31,45 @@ namespace Tabster.Forms
 {
     internal partial class MainForm
     {
-        private const int PREVIEW_DISPLAY_DELAY_DURATION = 100;
-
-        //time (in ms) where a tab is considered having been "viewed" while in preview editor
-        private const int PREVIEW_DISPLAY_VIEWED_DURATION = 5000;
-
-        private readonly ToolStripMenuItem newplaylistmenuitem = new ToolStripMenuItem
-                                                                     {
-                                                                         Text = "New Playlist",
-                                                                     };
-
-        private TablatureLibraryItem SelectedLibraryItem;
+        private readonly List<TablatureLibraryItem> _libraryCache = new List<TablatureLibraryItem>();
+        private bool _changingLibraryView;
         private List<ITablatureFileExporter> _fileExporters = new List<ITablatureFileExporter>();
         private List<ITablatureFileImporter> _fileImporters = new List<ITablatureFileImporter>();
 
         //used to prevent double-triggering of OnSelectedIndexChanged for tablibrary when using navigation menu
-        private bool _switchingNavigationOption;
 
-        //time (in ms) where tab is displayed in preview editor after being selected
-
+        /// <summary>
+        ///     Returns whether the library tab is currently focused.
+        /// </summary>
         private bool IsViewingLibrary()
         {
             return tabControl1.SelectedTab == display_library;
         }
 
+        private TablatureLibraryItem GetSelectedLibraryItem()
+        {
+            return listViewLibrary.SelectedObject != null ? (TablatureLibraryItem) listViewLibrary.SelectedObject : null;
+        }
+
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            if (SelectedLibraryItem != null)
+            if (GetSelectedLibraryItem() != null)
             {
-                PopoutTab(SelectedLibraryItem.Document);
+                PopoutTab(GetSelectedLibraryItem().Document);
             }
-        }
-
-        private void tablibrary_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex > -1)
-            {
-                if (SelectedLibraryItem != null)
-                {
-                    PopoutTab(SelectedLibraryItem.Document);
-                }
-            }
-        }
-
-        private void tablibrary_DragDrop(object sender, DragEventArgs e)
-        {
-            var data = (string[]) e.Data.GetData(DataFormats.FileDrop, false);
-
-            var playlist = GetSelectedPlaylist();
-
-            if (data != null)
-            {
-                foreach (var str in data)
-                {
-                    ImportTab(str, playlist);
-                }
-            }
-        }
-
-        private void tablibrary_DragEnter(object sender, DragEventArgs e)
-        {
-            e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Move : DragDropEffects.None;
         }
 
         private void ExportTab(object sender, EventArgs e)
         {
-            if (SelectedLibraryItem != null)
+            if (GetSelectedLibraryItem() != null)
             {
                 using (var sfd = new SaveFileDialog
-                                     {
-                                         Title = "Export Tab - Tabster",
-                                         AddExtension = true,
-                                         Filter = string.Format("Tabster File (*{0})|*{0}", TablatureDocument.FILE_EXTENSION),
-                                         FileName = SelectedLibraryItem.Document.ToFriendlyString()
-                                     })
+                {
+                    Title = "Export Tab - Tabster",
+                    AddExtension = true,
+                    Filter = string.Format("Tabster File (*{0})|*{0}", TablatureDocument.FILE_EXTENSION),
+                    FileName = GetSelectedLibraryItem().Document.ToFriendlyString()
+                })
                 {
                     sfd.SetTabsterFilter(_fileExporters);
 
@@ -112,13 +78,13 @@ namespace Tabster.Forms
                         //native file format
                         if (sfd.FilterIndex == 1)
                         {
-                            File.Copy(SelectedLibraryItem.FileInfo.FullName, sfd.FileName);
+                            File.Copy(GetSelectedLibraryItem().FileInfo.FullName, sfd.FileName);
                         }
 
                         else
                         {
                             var exporter = _fileExporters[sfd.FilterIndex - 2]; //FilterIndex is not 0-based and native Tabster format uses first index
-                            exporter.Export(SelectedLibraryItem.Document, sfd.FileName);
+                            exporter.Export(GetSelectedLibraryItem().Document, sfd.FileName);
                         }
                     }
                 }
@@ -127,25 +93,29 @@ namespace Tabster.Forms
 
         private void UpdateTabControls(bool beginPreviewLoadTimer)
         {
-            if (tablibrary.SelectedRows.Count > 0)
+            if (listViewLibrary.SelectedItems.Count > 0)
             {
-                var selectedTabLocation = tablibrary.SelectedRows[0].Cells[tablibrary.Columns.Count - 1].Value.ToString();
-                SelectedLibraryItem = Program.TablatureFileLibrary.Find(selectedTabLocation);
+                var pathCol = listViewLibrary.SelectedItem.SubItems[olvColLocation.Index];
 
-                var openedExternally = Program.TabbedViewer.IsFileOpen(SelectedLibraryItem.Document);
+                if (pathCol != null)
+                {
+                    if (pathCol.Text != null)
+                    {
+                        var openedExternally = Program.TabbedViewer.IsFileOpen(GetSelectedLibraryItem().Document);
 
-                deleteTabToolStripMenuItem.Enabled = librarycontextdelete.Enabled = !openedExternally;
-                detailsToolStripMenuItem.Enabled = librarycontextdetails.Enabled = !openedExternally;
+                        deleteTabToolStripMenuItem.Enabled = librarycontextdelete.Enabled = !openedExternally;
+                        detailsToolStripMenuItem.Enabled = librarycontextdetails.Enabled = !openedExternally;
+                    }
+                }
             }
 
             else
             {
-                SelectedLibraryItem = null;
                 deleteTabToolStripMenuItem.Enabled = false;
                 detailsToolStripMenuItem.Enabled = false;
             }
 
-            menuItem3.Enabled = SelectedLibraryItem != null;
+            menuItem3.Enabled = GetSelectedLibraryItem() != null;
 
             if (beginPreviewLoadTimer)
             {
@@ -158,7 +128,7 @@ namespace Tabster.Forms
         {
             return new TablaturePrintDocumentSettings
             {
-                Title = SelectedLibraryItem.Document.ToFriendlyString(),
+                Title = GetSelectedLibraryItem().Document.ToFriendlyString(),
                 PrintColor = Settings.Default.PrintColor,
                 DisplayTitle = true,
                 DisplayPrintTime = Settings.Default.PrintTimestamp,
@@ -178,26 +148,7 @@ namespace Tabster.Forms
 
         private void printSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenPreferences("Printing"); 
-        }
-
-        private void tablibrary_SelectionChanged(object sender, EventArgs e)
-        {
-            //ignore events triggered by prior sublibrary
-            if (_switchingNavigationOption)
-            {
-                UpdateTabControls(false);
-                LoadTabPreview(false);
-
-                _switchingNavigationOption = false;
-            }
-
-                //normal event
-            else
-            {
-                //load tab preview with delay
-                UpdateTabControls(true);
-            }
+            OpenPreferences("Printing");
         }
 
         private void NewTab(object sender, EventArgs e)
@@ -223,26 +174,28 @@ namespace Tabster.Forms
 
             var libraryItem = Program.TablatureFileLibrary.GetLibraryItem(tab);
 
-            libraryItem.IncrementViewcount();
-            libraryItem.LastViewed = DateTime.UtcNow;
+            if (libraryItem != null)
+            {
+                libraryItem.Views += 1;
+                libraryItem.LastViewed = DateTime.UtcNow;
 
-            Program.TablatureFileLibrary.Save();
+                Program.TablatureFileLibrary.Save();
 
-            UpdateTabControls(false);
-            LoadTabPreview();
+                LoadTabPreview();
+            }
         }
 
         private void SearchSimilarTabs(object sender, EventArgs e)
         {
-            if (SelectedLibraryItem != null)
+            if (GetSelectedLibraryItem() != null)
             {
                 txtSearchArtist.Text = sender == searchByArtistToolStripMenuItem || sender == searchByArtistAndTitleToolStripMenuItem
-                                           ? SelectedLibraryItem.Artist
-                                           : "";
+                    ? GetSelectedLibraryItem().Document.Artist
+                    : "";
 
                 txtSearchTitle.Text = sender == searchByTitleToolStripMenuItem || sender == searchByArtistAndTitleToolStripMenuItem
-                                          ? RemoveVersionConventionFromTitle(SelectedLibraryItem.Title)
-                                          : "";
+                    ? RemoveVersionConventionFromTitle(GetSelectedLibraryItem().Document.Title)
+                    : "";
 
                 searchTypeList.SelectDefault();
                 tabControl1.SelectedTab = display_search;
@@ -255,7 +208,7 @@ namespace Tabster.Forms
             if (!IsViewingLibrary())
                 return;
 
-            if (SelectedLibraryItem != null)
+            if (GetSelectedLibraryItem() != null)
             {
                 var removed = false;
 
@@ -265,9 +218,11 @@ namespace Tabster.Forms
 
                     if (selectedPlaylist != null)
                     {
-                        if (MessageBox.Show(string.Format("Are you sure you want to remove this tab from the playlist?{0}{0}{1}", Environment.NewLine, SelectedLibraryItem.Document.ToFriendlyString()), "Remove Tab", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        if (MessageBox.Show(string.Format("Are you sure you want to remove this tab from the playlist?{0}{0}{1}",
+                            Environment.NewLine, GetSelectedLibraryItem().Document.ToFriendlyString()), "Remove Tab",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
-                            selectedPlaylist.Remove(SelectedLibraryItem.Document);
+                            selectedPlaylist.Remove(GetSelectedLibraryItem().Document);
                             removed = true;
                             selectedPlaylist.Save();
                         }
@@ -276,9 +231,11 @@ namespace Tabster.Forms
 
                 else
                 {
-                    if (MessageBox.Show(string.Format("Are you sure you want to delete this tab?{0}{0}{1}", Environment.NewLine, SelectedLibraryItem.Document.ToFriendlyString()), "Delete Tab", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show(string.Format("Are you sure you want to delete this tab?{0}{0}{1}",
+                        Environment.NewLine, GetSelectedLibraryItem().Document.ToFriendlyString()), "Delete Tab",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        Program.TablatureFileLibrary.Remove(SelectedLibraryItem, true);
+                        Program.TablatureFileLibrary.Remove(GetSelectedLibraryItem(), true);
                         removed = true;
                     }
                 }
@@ -295,9 +252,9 @@ namespace Tabster.Forms
             if (!IsViewingLibrary())
                 return;
 
-            if (SelectedLibraryItem != null)
+            if (GetSelectedLibraryItem() != null)
             {
-                Process.Start("explorer.exe ", @"/select, " + SelectedLibraryItem.FileInfo.FullName);
+                Process.Start("explorer.exe ", @"/select, " + GetSelectedLibraryItem().FileInfo.FullName);
             }
         }
 
@@ -307,12 +264,12 @@ namespace Tabster.Forms
                 return;
 
             using (var ofd = new OpenFileDialog
-                                 {
-                                     Title = "Open File - Tabster",
-                                     AddExtension = true,
-                                     Multiselect = false,
-                                     Filter = string.Format("Tabster Files (*{0})|*{0}", TablatureDocument.FILE_EXTENSION)
-                                 })
+            {
+                Title = "Open File - Tabster",
+                AddExtension = true,
+                Multiselect = false,
+                Filter = string.Format("Tabster Files (*{0})|*{0}", TablatureDocument.FILE_EXTENSION)
+            })
             {
                 if (ofd.ShowDialog() != DialogResult.Cancel)
                 {
@@ -326,7 +283,7 @@ namespace Tabster.Forms
             }
         }
 
-        private void autoScrollChange(object sender, EventArgs e)
+        private void AutoScrollChange(object sender, EventArgs e)
         {
             var item = ((ToolStripMenuItem) sender);
             var text = item.Text;
@@ -341,11 +298,25 @@ namespace Tabster.Forms
 
         private void sidemenu_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
-            _switchingNavigationOption = true;
+            _changingLibraryView = true;
         }
 
         private void sidemenu_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            _changingLibraryView = false;
+
+            var viewsColumnVisible = olvColViews.IsVisible;
+
+            var shouldViewsColumnBeVisible = SelectedLibrary() != LibraryType.Playlist;
+
+            if (viewsColumnVisible != shouldViewsColumnBeVisible)
+            {
+                //hide visibility toggle from user
+                olvColViews.Hideable = shouldViewsColumnBeVisible;
+                olvColViews.IsVisible = shouldViewsColumnBeVisible;
+                listViewLibrary.RebuildColumns();
+            }
+
             if (!string.IsNullOrEmpty(txtLibraryFilter.Text))
             {
                 txtLibraryFilter.Clear();
@@ -353,20 +324,20 @@ namespace Tabster.Forms
 
             else
             {
-                LoadLibrary();
+                BuildLibraryCache(false);
             }
         }
 
         private void ToggleFavorite(object sender, EventArgs e)
         {
-            if (SelectedLibraryItem != null)
+            if (GetSelectedLibraryItem() != null)
             {
-                SelectedLibraryItem.Favorited = !SelectedLibraryItem.Favorited;
+                GetSelectedLibraryItem().Favorited = !GetSelectedLibraryItem().Favorited;
 
                 Program.TablatureFileLibrary.Save();
 
                 //remove item from favorites display
-                if (!SelectedLibraryItem.Favorited && SelectedLibrary() == LibraryType.MyFavorites)
+                if (!GetSelectedLibraryItem().Favorited && SelectedLibrary() == LibraryType.MyFavorites)
                 {
                     RemoveSelectedTablatureLibraryItem();
                 }
@@ -388,32 +359,26 @@ namespace Tabster.Forms
             }
         }
 
-        private void tablibrary_MouseClick(object sender, MouseEventArgs e)
+        private void listViewLibrary_CellRightClick(object sender, CellRightClickEventArgs e)
         {
-            var currentMouseOverRow = tablibrary.HitTest(e.X, e.Y).RowIndex;
-
-            if (e.Button == MouseButtons.Right && (currentMouseOverRow >= 0 && currentMouseOverRow < tablibrary.Rows.Count) && SelectedLibraryItem != null)
+            //check if playlists already contain 
+            foreach (var item in librarycontextaddtoplaylist.DropDownItems)
             {
-                tablibrary.Rows[currentMouseOverRow].Selected = true;
+                var toolItem = item as ToolStripMenuItem;
 
-                LibraryMenu.Show(tablibrary.PointToScreen(e.Location));
-
-                //check if playlists already contain 
-                foreach (var item in librarycontextaddtoplaylist.DropDownItems)
+                if (toolItem != null && toolItem.Tag != null)
                 {
-                    var toolItem = item as ToolStripMenuItem;
+                    var playlistPath = toolItem.Tag.ToString();
+                    var associatedPlaylist = Program.TablatureFileLibrary.FindPlaylistByPath(playlistPath);
+                    var alreadyExistsInPlaylist = associatedPlaylist.Contains(GetSelectedLibraryItem().Document);
 
-                    if (toolItem != null && toolItem.Tag != null)
-                    {
-                        var playlistPath = toolItem.Tag.ToString();
-                        var associatedPlaylist = Program.TablatureFileLibrary.FindPlaylistByPath(playlistPath);
-                        var alreadyExistsInPlaylist = associatedPlaylist.Contains(SelectedLibraryItem.Document);
-
-                        toolItem.Enabled = !alreadyExistsInPlaylist;
-                    }
+                    toolItem.Enabled = !alreadyExistsInPlaylist;
                 }
-                librarycontextfavorites.Text = SelectedLibraryItem.Favorited ? "Remove from favorites" : "Add to favorites";
             }
+
+            librarycontextfavorites.Text = GetSelectedLibraryItem().Favorited ? "Remove from favorites" : "Add to favorites";
+
+            e.MenuStrip = LibraryMenu;
         }
 
         private LibraryType SelectedLibrary()
@@ -443,25 +408,23 @@ namespace Tabster.Forms
             return LibraryType.TabType;
         }
 
-        private IEnumerable<TablatureDocument> GetLibraryCollection(LibraryType libraryType)
+        private IEnumerable<TablatureLibraryItem> GetLibraryCollection(LibraryType libraryType)
         {
-            var tabCollection = new List<TablatureDocument>();
+            var items = new List<TablatureLibraryItem>();
 
             if (libraryType == LibraryType.Playlist)
             {
                 var selectedPlaylist = GetSelectedPlaylist();
-                tabCollection = new List<TablatureDocument>(selectedPlaylist);
+
+                items.AddRange(selectedPlaylist.Select(tab => new TablatureLibraryItem(tab)));
             }
 
             else
             {
-                foreach (var doc in Program.TablatureFileLibrary)
-                {
-                    tabCollection.Add(doc.Document);
-                }
+                items.AddRange(Program.TablatureFileLibrary);
             }
 
-            return tabCollection.ToArray();
+            return items.ToArray();
         }
 
         private bool TablatureLibraryItemVisible(LibraryType selectedLibrary, TablatureDocument tab, string searchValue)
@@ -480,59 +443,46 @@ namespace Tabster.Forms
                 return searchValue == null || (tab.Artist.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
                                                tab.Title.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
                                                tab.FileInfo.FullName.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                               tab.Contents.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                               tab.Comment.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0);
+                                               tab.Comment.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                               tab.Contents.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
             return false;
         }
 
-        public void LoadLibrary(string searchValue = null)
+        private void BuildLibraryCache(bool persistSelectedItem = true)
         {
             var selectedLibrary = SelectedLibrary();
 
-            var tabCollection = GetLibraryCollection(selectedLibrary);
+            var items = GetLibraryCollection(selectedLibrary);
 
-            tablibrary.SuspendLayout();
+            var filterValue = txtLibraryFilter.Text;
 
-            tablibrary.Rows.Clear();
+            var currentItem = GetSelectedLibraryItem();
 
-            foreach (var tab in tabCollection)
+            _libraryCache.Clear();
+
+            foreach (var item in items)
             {
-                var visible = TablatureLibraryItemVisible(selectedLibrary, tab, searchValue);
+                var visible = TablatureLibraryItemVisible(selectedLibrary, item.Document, filterValue);
 
                 if (visible)
-                    UpdateLibraryItem(tab);
+                    _libraryCache.Add(item);
             }
 
-            tablibrary.ResumeLayout();
+            listViewLibrary.SetObjects(_libraryCache);
 
-            _initialLibraryLoaded = true;
-        }
-
-        private void ImportTab(string path, TablaturePlaylistDocument playlist = null)
-        {
-            var doc = _tablatureProcessor.Load(path);
-
-            if (doc != null)
+            if (listViewLibrary.Items.Count > 0)
             {
-                var alreadyExists = playlist != null ? playlist.Contains(path) : Program.TablatureFileLibrary.Find(path) != null;
-
-                if (!alreadyExists)
+                //persistant library selection
+                if (persistSelectedItem && currentItem != null && _libraryCache.Contains(currentItem))
                 {
-                    if (playlist != null)
-                    {
-                        playlist.Add(doc);
-                        UpdateLibraryItem(doc);
-                        playlist.Save();
-                    }
+                    listViewLibrary.SelectObject(currentItem);
+                }
 
-                    else
-                    {
-                        var TablatureLibraryItem = Program.TablatureFileLibrary.Add(doc);
-                        Program.TablatureFileLibrary.Save();
-                        UpdateLibraryItem(TablatureLibraryItem);
-                    }
+                else
+                {
+                    listViewLibrary.Items[0].Selected = true;
                 }
             }
         }
@@ -552,9 +502,9 @@ namespace Tabster.Forms
 
         private void viewTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (SelectedLibraryItem != null)
+            if (GetSelectedLibraryItem() != null)
             {
-                PopoutTab(SelectedLibraryItem.Document);
+                PopoutTab(GetSelectedLibraryItem().Document);
             }
         }
 
@@ -564,14 +514,9 @@ namespace Tabster.Forms
             lblplaylists.Text = string.Format("Playlists: {0}", Program.TablatureFileLibrary.Playlists.Count);
         }
 
-        public void UpdateLibraryItem(TablatureDocument doc, bool append = true)
-        {
-            var item = new TablatureLibraryItem(doc);
-            UpdateLibraryItem(item, append);
-        }
-
         private void UpdateLibraryItem(TablatureLibraryItem item, bool append = true)
         {
+            /*
             var objValues = new object[]
                                 {
                                     item.Title,
@@ -595,24 +540,22 @@ namespace Tabster.Forms
             {
                 var selectedIndex = tablibrary.SelectedRows[0].Index;
                 tablibrary.Rows[selectedIndex].SetValues(objValues);
-            }
+            }*/
         }
 
         private void RemoveSelectedTablatureLibraryItem()
         {
-            SelectedLibraryItem = null;
-            RemoveTablatureLibraryItem(tablibrary.SelectedRows[0].Index);
+            RemoveTablatureLibraryItem(listViewLibrary.SelectedIndex);
         }
 
         private void RemoveTablatureLibraryItem(int index)
         {
-            tablibrary.Rows.RemoveAt(index);
+            var item = _libraryCache[index];
+            listViewLibrary.RemoveObject(item);
 
-            if (tablibrary.Rows.Count > 0)
-            {
-                var newIndex = index > 0 ? index - 1 : 0;
-                tablibrary.Rows[newIndex].Selected = true;
-            }
+            _libraryCache.Remove(item);
+
+            listViewLibrary.SelectedIndex = index > 0 ? index - 1 : 0;
 
             UpdateDetails();
         }
@@ -622,14 +565,13 @@ namespace Tabster.Forms
             if (!IsViewingLibrary())
                 return;
 
-            if (SelectedLibraryItem != null)
+            if (GetSelectedLibraryItem() != null)
             {
-                using (var details = new TabDetailsDialog(SelectedLibraryItem.Document) {Icon = Icon})
+                using (var details = new TabDetailsDialog(GetSelectedLibraryItem().Document, Program.TablatureFileLibrary) {Icon = Icon})
                 {
                     if (details.ShowDialog() == DialogResult.OK)
                     {
-                        UpdateLibraryItem(SelectedLibraryItem, false);
-                        LoadTabPreview();
+                        listViewLibrary.UpdateObject(listViewLibrary.SelectedObject);
                     }
                 }
             }
@@ -661,15 +603,22 @@ namespace Tabster.Forms
             LoadTabPreview();
         }
 
+        private void ClearTabPreview()
+        {
+            previewToolStrip.Enabled = false;
+            lblpreviewtitle.Text = "";
+            PreviewEditor.Clear();
+        }
+
         private void LoadTabPreview(bool startViewCountTimer = true)
         {
             PreviewDisplayTimer.Stop();
 
-            if (SelectedLibraryItem != null)
+            if (GetSelectedLibraryItem() != null)
             {
-                lblpreviewtitle.Text = SelectedLibraryItem.Document.ToFriendlyString();
+                lblpreviewtitle.Text = GetSelectedLibraryItem().Document.ToFriendlyString();
 
-                var openedExternally = Program.TabbedViewer.IsFileOpen(SelectedLibraryItem.Document);
+                var openedExternally = Program.TabbedViewer.IsFileOpen(GetSelectedLibraryItem().Document);
 
                 PreviewEditor.Visible = !openedExternally;
 
@@ -682,7 +631,7 @@ namespace Tabster.Forms
                 {
                     lblLibraryPreview.Visible = false;
 
-                    PreviewEditor.LoadTablature(SelectedLibraryItem.Document);
+                    PreviewEditor.LoadTablature(GetSelectedLibraryItem().Document);
 
                     if (startViewCountTimer)
                     {
@@ -696,8 +645,7 @@ namespace Tabster.Forms
 
             else
             {
-                previewToolStrip.Enabled = false;
-                lblpreviewtitle.Text = "";
+                ClearTabPreview();
             }
         }
 
@@ -705,7 +653,7 @@ namespace Tabster.Forms
 
         private void TabHandler_OnTabClosed(object sender, TablatureDocument tabDocument)
         {
-            if (SelectedLibraryItem != null)
+            if (GetSelectedLibraryItem() != null)
             {
                 LoadTabPreview();
                 UpdateTabControls(false);
@@ -718,7 +666,7 @@ namespace Tabster.Forms
 
         private void txtLibraryFilter_TextChanged(object sender, EventArgs e)
         {
-            LoadLibrary(txtLibraryFilter.Text);
+            BuildLibraryCache();
         }
 
         #endregion
@@ -756,9 +704,9 @@ namespace Tabster.Forms
                         AddPlaylistNode(playlist);
 
                         //add tab to new playlist
-                        if (sender == newplaylistmenuitem && SelectedLibraryItem != null)
+                        if (sender == newPlaylistToolStripMenuItem && GetSelectedLibraryItem() != null)
                         {
-                            playlist.Add(SelectedLibraryItem.Document);
+                            playlist.Add(GetSelectedLibraryItem().Document);
                             playlist.Save();
                         }
                     }
@@ -826,17 +774,17 @@ namespace Tabster.Forms
                 var menuItem = new ToolStripMenuItem(playlist.Name) {Tag = playlist.FileInfo.FullName};
 
                 menuItem.Click += (s, e) =>
-                                      {
-                                          var path = ((ToolStripMenuItem) s).Tag.ToString();
+                {
+                    var path = ((ToolStripMenuItem) s).Tag.ToString();
 
-                                          var pf = Program.TablatureFileLibrary.FindPlaylistByPath(path);
+                    var pf = Program.TablatureFileLibrary.FindPlaylistByPath(path);
 
-                                          if (pf != null)
-                                          {
-                                              pf.Add(SelectedLibraryItem.Document);
-                                              pf.Save();
-                                          }
-                                      };
+                    if (pf != null)
+                    {
+                        pf.Add(GetSelectedLibraryItem().Document);
+                        pf.Save();
+                    }
+                };
 
                 librarycontextaddtoplaylist.DropDownItems.Add(menuItem);
             }
@@ -848,9 +796,7 @@ namespace Tabster.Forms
                 librarycontextaddtoplaylist.DropDownItems.Add(new ToolStripSeparator());
             }
 
-            newplaylistmenuitem.Click -= NewPlaylist;
-            newplaylistmenuitem.Click += NewPlaylist;
-            librarycontextaddtoplaylist.DropDownItems.Add(newplaylistmenuitem);
+            librarycontextaddtoplaylist.DropDownItems.Add(newPlaylistToolStripMenuItem);
 
             UpdateDetails();
         }
@@ -861,12 +807,10 @@ namespace Tabster.Forms
 
         private void PreviewDisplayTimer_Tick(object sender, EventArgs e)
         {
-            if (SelectedLibraryItem != null)
+            if (GetSelectedLibraryItem() != null)
             {
-                SelectedLibraryItem.IncrementViewcount();
-                SelectedLibraryItem.LastViewed = DateTime.UtcNow;
-
-                UpdateLibraryItem(SelectedLibraryItem, false);
+                GetSelectedLibraryItem().Views += 1;
+                GetSelectedLibraryItem().LastViewed = DateTime.UtcNow;
             }
 
             PreviewDisplayTimer.Stop();

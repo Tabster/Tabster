@@ -2,13 +2,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
+using BrightIdeasSoftware;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Data;
+using Tabster.Data.Library;
 using Tabster.Data.Processing;
 using Tabster.Properties;
 using Tabster.Updater;
@@ -27,10 +29,6 @@ namespace Tabster.Forms
         private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDataDirectory, "recent.dat");
         private readonly TabsterDocumentProcessor<TablatureDocument> _tablatureProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
 
-        private readonly ToolStripMenuItem ascendingMenuItem = new ToolStripMenuItem {Text = "Ascending"};
-        private readonly ToolStripMenuItem descendingMenuItem = new ToolStripMenuItem {Text = "Descending"};
-        private bool _initialLibraryLoaded;
-
         public MainForm()
         {
             InitializeComponent();
@@ -43,13 +41,11 @@ namespace Tabster.Forms
             checkForUpdatesMenuItem.Visible = false;
 
 #endif
+            InitAspectGetters();
 
             PopulateTabTypeControls();
 
             UpdateSortColumnMenu(true);
-
-            ascendingMenuItem.Click += SortByDirectionMenuItem_Click;
-            descendingMenuItem.Click += SortByDirectionMenuItem_Click;
 
             //tabviewermanager events
             Program.TabbedViewer.TabClosed += TabHandler_OnTabClosed;
@@ -63,14 +59,13 @@ namespace Tabster.Forms
             else
                 Size = Settings.Default.ClientSize;
 
-            PreviewDisplayDelay.Interval = PREVIEW_DISPLAY_DELAY_DURATION;
-            PreviewDisplayTimer.Interval = PREVIEW_DISPLAY_VIEWED_DURATION;
-
             CachePluginResources();
 
             InitializeSearchControls(true);
 
             BuildSearchSuggestions();
+
+            ToggleEmptyLibraryOverlay(true);
         }
 
         public MainForm(TablatureDocument tabDocument)
@@ -83,6 +78,27 @@ namespace Tabster.Forms
             : this()
         {
             _queuedTablaturePlaylist = playlistDocument;
+        }
+
+        /// <summary>
+        ///     Initializes aspect-getters for library columns.
+        /// </summary>
+        private void InitAspectGetters()
+        {
+            olvColArtist.AspectGetter = x => ((TablatureLibraryItem) x).Document.Artist;
+            olvColTitle.AspectGetter = x => ((TablatureLibraryItem) x).Document.Title;
+            olvColType.AspectGetter = x => ((TablatureLibraryItem) x).Document.Type.Name;
+            olvColCreated.AspectGetter = x => ((TablatureLibraryItem) x).FileInfo.CreationTime;
+            olvColModified.AspectGetter = x => ((TablatureLibraryItem) x).FileInfo.LastWriteTime;
+            olvColLocation.AspectGetter = x => ((TablatureLibraryItem) x).FileInfo.FullName;
+        }
+
+        private void ToggleEmptyLibraryOverlay(bool enabled)
+        {
+            var textOverlay = listViewLibrary.EmptyListMsgOverlay as TextOverlay;
+            textOverlay.TextColor = enabled ? SystemColors.InactiveCaptionText : Color.Transparent;
+            textOverlay.BackColor = Color.Transparent;
+            textOverlay.BorderWidth = 0;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -178,51 +194,50 @@ namespace Tabster.Forms
             {
                 sortByToolStripMenuItem.DropDownItems.Clear();
 
-                foreach (DataGridViewColumn column in tablibrary.Columns)
+                foreach (OLVColumn column in listViewLibrary.Columns)
                 {
-                    var item = new ToolStripMenuItem(column.HeaderText);
+                    var item = new ToolStripMenuItem(column.Text);
                     item.Click += SortByColumnMenuItem_Click;
                     sortByToolStripMenuItem.DropDownItems.Add(item);
                 }
 
                 sortByToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
 
-                sortByToolStripMenuItem.DropDownItems.Add(ascendingMenuItem);
-                sortByToolStripMenuItem.DropDownItems.Add(descendingMenuItem);
+                sortByToolStripMenuItem.DropDownItems.Add(ascendingToolStripMenuItem);
+                sortByToolStripMenuItem.DropDownItems.Add(descendingToolStripMenuItem);
             }
 
-            var sortedColumn = tablibrary.SortedColumn ?? tablibrary.Columns[0];
+            var sortedColumn = listViewLibrary.PrimarySortColumn ?? listViewLibrary.Columns[0];
 
-            foreach (var item in sortByToolStripMenuItem.DropDownItems)
+            for (var i = 0; i < listViewLibrary.Columns.Count; i++)
             {
-                if (item is ToolStripSeparator)
-                    break;
+                var col = listViewLibrary.GetColumn(i);
 
-                var menuItem = (ToolStripMenuItem) item;
+                var menuItem = sortByToolStripMenuItem.DropDownItems[i];
 
-                var col = tablibrary.GetColumnByHeaderText(menuItem.Text);
-
-                if (col != null)
-                    menuItem.Checked = sortedColumn == col;
+                menuItem.Visible = col.IsVisible;
+                ((ToolStripMenuItem) menuItem).Checked = sortedColumn == col;
             }
 
-            ascendingMenuItem.Checked = tablibrary.SortOrder == SortOrder.Ascending || tablibrary.SortOrder == SortOrder.None;
-            descendingMenuItem.Checked = !ascendingMenuItem.Checked;
+            ascendingToolStripMenuItem.Checked = listViewLibrary.PrimarySortOrder == SortOrder.Ascending;
+            descendingToolStripMenuItem.Checked = !ascendingToolStripMenuItem.Checked;
         }
 
         private void SortByColumnMenuItem_Click(object sender, EventArgs e)
         {
-            var direction = descendingMenuItem.Checked ? ListSortDirection.Descending : ListSortDirection.Ascending;
-
             var item = (ToolStripMenuItem) sender;
 
-            var col = tablibrary.GetColumnByHeaderText(item.Text);
+            var index = (item.OwnerItem as ToolStripMenuItem).DropDownItems.IndexOf(item);
 
-            tablibrary.Sort(col, direction);
+            listViewLibrary.Sort(index);
         }
 
         private void SortByDirectionMenuItem_Click(object sender, EventArgs e)
         {
+/*
+                        var direction = descendingMenuItem.Checked ? ListSortDirection.Descending : ListSortDirection.Ascending;
+
+
             var col = tablibrary.SortedColumn ?? tablibrary.Columns[0];
 
             var direction = ListSortDirection.Ascending;
@@ -230,7 +245,7 @@ namespace Tabster.Forms
             if (sender == descendingMenuItem)
                 direction = ListSortDirection.Descending;
 
-            tablibrary.Sort(col, direction);
+            tablibrary.Sort(col, direction);*/
         }
 
         private void PopulateTabTypeControls()
@@ -309,8 +324,8 @@ namespace Tabster.Forms
             libraryverticalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Vertical;
 
             Settings.Default.LibraryPreviewOrientation = librarySplitContainer.Panel2Collapsed
-                                                             ? PreviewPanelOrientation.Hidden
-                                                             : (librarySplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
+                ? PreviewPanelOrientation.Hidden
+                : (librarySplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
         }
 
         private void SetSearchPreviewPanelOrientation(PreviewPanelOrientation orientation)
@@ -323,8 +338,8 @@ namespace Tabster.Forms
             searchverticalpreviewToolStripMenuItem.Checked = orientation == PreviewPanelOrientation.Vertical;
 
             Settings.Default.SearchPreviewOrientation = searchSplitContainer.Panel2Collapsed
-                                                            ? PreviewPanelOrientation.Hidden
-                                                            : (searchSplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
+                ? PreviewPanelOrientation.Hidden
+                : (searchSplitContainer.Orientation == Orientation.Horizontal ? PreviewPanelOrientation.Horizontal : PreviewPanelOrientation.Vertical);
         }
 
         private void TogglePreviewPane(object sender, EventArgs e)
@@ -363,7 +378,7 @@ namespace Tabster.Forms
                 if (searchSplitContainer.Panel2Collapsed)
                     orientation = PreviewPanelOrientation.Horizontal;
 
-                if (orientation != PreviewPanelOrientation.Hidden && SelectedSearchResult() == null)
+                if (orientation != PreviewPanelOrientation.Hidden && GetSelectedSearchResult() == null)
                     searchSplitContainer.Panel2Collapsed = true;
 
                 SetSearchPreviewPanelOrientation(orientation);
@@ -430,8 +445,7 @@ namespace Tabster.Forms
 
         private void TablatureLibraryTabRemoved(object sender, EventArgs e)
         {
-            if (_initialLibraryLoaded)
-                BuildSearchSuggestions();
+            BuildSearchSuggestions();
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -445,20 +459,15 @@ namespace Tabster.Forms
             }
         }
 
-        private void tablibrary_Sorted(object sender, EventArgs e)
-        {
-            UpdateSortColumnMenu();
-        }
-
         private void openPlaylistMenuItem_Click(object sender, EventArgs e)
         {
             using (var ofd = new OpenFileDialog
-                                 {
-                                     Title = "Open Plylist",
-                                     AddExtension = true,
-                                     Multiselect = false,
-                                     Filter = string.Format("Tabster Playlist Files (*{0})|*{0}", TablaturePlaylistDocument.FILE_EXTENSION)
-                                 })
+            {
+                Title = "Open Plylist",
+                AddExtension = true,
+                Multiselect = false,
+                Filter = string.Format("Tabster Playlist Files (*{0})|*{0}", TablaturePlaylistDocument.FILE_EXTENSION)
+            })
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
@@ -471,6 +480,96 @@ namespace Tabster.Forms
                     }
                 }
             }
+        }
+
+        private void batchDownloaderMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new DownloadDialog(_webImporters))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    foreach (var tab in dialog.DownloadedTabs)
+                    {
+                        var libraryItem = Program.TablatureFileLibrary.Add(tab);
+                        Program.TablatureFileLibrary.Save();
+                        UpdateLibraryItem(libraryItem);
+                    }
+                }
+            }
+        }
+
+        private void PreviewEditor_ContentsModified(object sender, EventArgs e)
+        {
+            toolStripButton3.Enabled = PreviewEditor.HasScrollableContents;
+        }
+
+        private void listViewLibrary_AfterSorting(object sender, AfterSortingEventArgs e)
+        {
+            UpdateSortColumnMenu();
+        }
+
+        private void listViewLibrary_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_changingLibraryView)
+                return;
+
+            UpdateTabControls(true);
+        }
+
+        private void listViewLibrary_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (GetSelectedLibraryItem() != null)
+            {
+                PopoutTab(GetSelectedLibraryItem().Document);
+            }
+        }
+
+        private void listViewLibrary_DragDrop(object sender, DragEventArgs e)
+        {
+            var data = (string[]) e.Data.GetData(DataFormats.FileDrop, false);
+            var selectedPlaylist = GetSelectedPlaylist();
+
+            var needsSaved = false;
+
+            foreach (var str in data)
+            {
+                var file = _tablatureProcessor.Load(str);
+
+                //copy to playlist
+                if (selectedPlaylist != null)
+                {
+                    if (!selectedPlaylist.Contains(str))
+                    {
+                        selectedPlaylist.Add(file);
+                        needsSaved = true;
+                    }
+                }
+
+                    //copy to library
+                else
+                {
+                    if (Program.TablatureFileLibrary.Find(str) == null)
+                    {
+                        Program.TablatureFileLibrary.Add(file);
+
+                        needsSaved = true;
+                    }
+                }
+            }
+
+            if (needsSaved)
+            {
+                if (selectedPlaylist != null)
+                    selectedPlaylist.Save();
+                else
+                    Program.TablatureFileLibrary.Save();
+            }
+        }
+
+        private void listViewLibrary_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+            //e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Move : DragDropEffects.None;
         }
 
         #region Updater
@@ -541,26 +640,5 @@ namespace Tabster.Forms
         }
 
         #endregion
-
-        private void batchDownloaderMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var dialog = new DownloadDialog(_webImporters))
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    foreach (var tab in dialog.DownloadedTabs)
-                    {
-                        var libraryItem = Program.TablatureFileLibrary.Add(tab);
-                        Program.TablatureFileLibrary.Save();
-                        UpdateLibraryItem(libraryItem);
-                    }
-                }
-            }
-        }
-
-        private void PreviewEditor_ContentsModified(object sender, EventArgs e)
-        {
-            toolStripButton3.Enabled = PreviewEditor.HasScrollableContents;
-        }
     }
 }
