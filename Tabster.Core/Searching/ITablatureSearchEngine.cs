@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Net;
 using Tabster.Core.Types;
 
@@ -16,6 +17,11 @@ namespace Tabster.Core.Searching
         ///     Search engine name.
         /// </summary>
         string Name { get; }
+
+        /// <summary>
+        ///     Search engine homepage.
+        /// </summary>
+        Uri Homepage { get; }
 
         /// <summary>
         ///     Determines whether the search engine requires an artist parameter be set.
