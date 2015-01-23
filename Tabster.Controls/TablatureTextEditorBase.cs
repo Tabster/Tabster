@@ -76,6 +76,11 @@ namespace Tabster.Controls
             TextBoxBase.Clear();
         }
 
+        public new void Focus()
+        {
+            TextBoxBase.Focus();
+        }
+
         #region Properties
 
         public new Color ForeColor
