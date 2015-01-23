@@ -361,6 +361,9 @@ namespace Tabster.Forms
 
         private void listViewLibrary_CellRightClick(object sender, CellRightClickEventArgs e)
         {
+            if (GetSelectedLibraryItem() == null)
+                return;
+
             //check if playlists already contain 
             foreach (var item in librarycontextaddtoplaylist.DropDownItems)
             {
@@ -694,22 +697,23 @@ namespace Tabster.Forms
             {
                 if (p.ShowDialog() == DialogResult.OK)
                 {
-                    var name = p.PlaylistName;
-
-                    if (!string.IsNullOrEmpty(name))
+                    if (string.IsNullOrEmpty(p.PlaylistName))
                     {
-                        var playlist = new TablaturePlaylistDocument(name);
-                        Program.TablatureFileLibrary.Add(playlist);
-
-                        AddPlaylistNode(playlist);
-
-                        //add tab to new playlist
-                        if (sender == newPlaylistToolStripMenuItem && GetSelectedLibraryItem() != null)
-                        {
-                            playlist.Add(GetSelectedLibraryItem().Document);
-                            playlist.Save();
-                        }
+                        MessageBox.Show("Please enter a valid playlist name.", "Invalid Name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
+
+                    var playlist = new TablaturePlaylistDocument(p.PlaylistName);
+
+                    //add tab to new playlist
+                    if (sender == newPlaylistToolStripMenuItem && GetSelectedLibraryItem() != null)
+                    {
+                        playlist.Add(GetSelectedLibraryItem().Document);
+                        playlist.Save();
+                    }
+
+                    Program.TablatureFileLibrary.Add(playlist);
+                    AddPlaylistNode(playlist);
                 }
             }
         }
@@ -722,21 +726,18 @@ namespace Tabster.Forms
 
         private void AddPlaylistNode(TablaturePlaylistDocument playlist, bool select = false)
         {
-            TreeNode node = null;
+            var playlistRootNode = sidemenu.Nodes["node_playlists"];
 
-            foreach (TreeNode n in sidemenu.Nodes["node_playlists"].Nodes)
-            {
-                if (n.Tag.ToString().Equals(playlist.FileInfo.FullName, StringComparison.OrdinalIgnoreCase))
-                {
-                    node = n;
-                    break;
-                }
-            }
+            //check if playlist node already exists
+            var node = playlistRootNode.Nodes.Cast<TreeNode>().FirstOrDefault(n => n.Tag.ToString().Equals(playlist.FileInfo.FullName, StringComparison.OrdinalIgnoreCase));
 
             if (node == null)
             {
                 node = new TreeNode(playlist.Name) {NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = playlist.FileInfo.FullName};
-                sidemenu.Nodes["node_playlists"].Nodes.Add(node);
+                playlistRootNode.Nodes.Add(node);
+
+                if (!playlistRootNode.IsExpanded)
+                    playlistRootNode.ExpandAll();
             }
 
             if (select)
