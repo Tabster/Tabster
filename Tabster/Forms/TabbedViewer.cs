@@ -51,8 +51,6 @@ namespace Tabster.Forms
         {
             var instance = IsFileOpen(doc) ? GetTabInstance(doc) : CreateTabInstance(doc);
 
-            SelectTabInstance(instance);
-
             if (!Visible)
             {
                 if (_owner != null)
@@ -69,6 +67,8 @@ namespace Tabster.Forms
                     Show();
                 }
             }
+
+            SelectTabInstance(instance);
         }
 
         #endregion
@@ -107,7 +107,7 @@ namespace Tabster.Forms
         private void SelectTabInstance(TabInstance instance)
         {
             tabControl1.SelectedTab = instance.Page;
-            ActiveControl = instance.Editor;
+            instance.Editor.Focus();
         }
 
         private TabInstance GetTabInstance(TablatureDocument doc)
