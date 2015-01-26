@@ -12,9 +12,10 @@ namespace Tabster.Core.Searching
     /// </summary>
     public class TablatureSearchResult
     {
-        public TablatureSearchResult(TablatureSearchQuery query, AttributedTablature tab, Uri source, TablatureRating rating = TablatureRating.None)
+        public TablatureSearchResult(TablatureSearchQuery query, ITablatureSearchEngine engine, AttributedTablature tab, Uri source, TablatureRating rating = TablatureRating.None)
         {
             Query = query;
+            Engine = engine;
             Tab = tab;
             Source = source;
             Rating = rating;
@@ -39,5 +40,10 @@ namespace Tabster.Core.Searching
         ///   Search result rating.
         /// </summary>
         public TablatureRating Rating { get; private set; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public ITablatureSearchEngine Engine { get; private set; }
     }
 }

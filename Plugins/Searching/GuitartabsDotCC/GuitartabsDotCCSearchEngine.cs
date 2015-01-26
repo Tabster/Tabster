@@ -129,7 +129,7 @@ namespace GuitartabsDotCC
                             rowTitle = RemoveTypeFromTitle(rowTitle, tabType);
 
                             var tab = new AttributedTablature(rowArtist, rowTitle, tabType);
-                            results.Add(new TablatureSearchResult(query, tab,
+                            results.Add(new TablatureSearchResult(query, this, tab,
                                 new Uri(string.Format("http://guitartabs.cc{0}", rowUrl)), rowRating));
                         }
                     }

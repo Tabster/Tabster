@@ -177,7 +177,7 @@ namespace UltimateGuitar
                                 if (query.Type == null || rowType == query.Type)
                                 {
                                     var tab = new AttributedTablature(loopArtist, rowSong, rowType);
-                                    results.Add(new TablatureSearchResult(query, tab, new Uri(rowURL), rating));
+                                    results.Add(new TablatureSearchResult(query, this, tab, new Uri(rowURL), rating));
                                 }
                             }
                         }
