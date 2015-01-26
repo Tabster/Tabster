@@ -47,6 +47,10 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster.Updater\bin\Release\Updater.exe"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Utils.dll"
   
+  ; third-party references
+  
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\ObjectListView.dll"
+  
   CreateShortCut "$DESKTOP\Tabster.lnk" "$INSTDIR\Tabster.exe"
   CreateDirectory "$SMPROGRAMS\Tabster"
   CreateShortCut "$SMPROGRAMS\Tabster\Tabster.lnk" "$INSTDIR\Tabster.exe"
