@@ -7,22 +7,17 @@ using Tabster.Core.Types;
 namespace Tabster.Core.Searching
 {
     /// <summary>
-    ///   Tab search query.
+    ///   Tablature search query.
     /// </summary>
     public class TablatureSearchQuery
     {
-        public TablatureSearchQuery(ITablatureSearchEngine engine, string artist, string title, TablatureType type)
+        public TablatureSearchQuery(string artist, string title, TablatureType type, TablatureRating rating)
         {
-            Engine = engine;
             Artist = artist;
             Title = title;
             Type = type;
+            Rating = rating;
         }
-
-        /// <summary>
-        ///   The associated search service.
-        /// </summary>
-        public ITablatureSearchEngine Engine { get; private set; }
 
         /// <summary>
         ///   Artist search parameter.
@@ -38,5 +33,10 @@ namespace Tabster.Core.Searching
         ///   Type search parameter.
         /// </summary>
         public TablatureType Type { get; private set; }
+
+        /// <summary>
+        /// Rating search parameter.
+        /// </summary>
+        public TablatureRating Rating { get; private set; }
     }
 }
