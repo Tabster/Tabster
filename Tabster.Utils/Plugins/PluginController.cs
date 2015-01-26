@@ -68,6 +68,11 @@ namespace Tabster.Utilities.Plugins
             return instances;
         }
 
+        public TabsterPluginHost GetHostByType(Type type)
+        {
+            return _plugins.Find(x => x.Contains(type));
+        }
+
         public void LoadPluginFromDisk(string path)
         {
             try

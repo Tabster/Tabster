@@ -42,5 +42,10 @@ namespace Tabster.Utilities.Plugins
 
             return instances;
         }
+
+        public bool Contains(Type type)
+        {
+            return Array.IndexOf(PluginAttributes.Types, type) >= 0;
+        }
     }
 }
