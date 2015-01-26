@@ -97,9 +97,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\DataGridViewExtended.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\EllipsizedTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -110,6 +107,7 @@
     <Compile Include="Forms\DownloadDialog.Designer.cs">
       <DependentUpon>DownloadDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="LocalUtilities\UserSettingsUtilities.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Controls\TextBoxExtended.cs">
       <SubType>Component</SubType>

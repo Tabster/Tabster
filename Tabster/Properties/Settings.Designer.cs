@@ -244,5 +244,19 @@ namespace Tabster.Properties {
                 this["ProxyPort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.LocalUtilities.PortableSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
+        public global::System.Collections.Specialized.StringCollection DisabledSearchEngines {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["DisabledSearchEngines"]));
+            }
+            set {
+                this["DisabledSearchEngines"] = value;
+            }
+        }
     }
 }

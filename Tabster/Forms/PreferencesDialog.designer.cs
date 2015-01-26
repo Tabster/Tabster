@@ -69,6 +69,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.numProxyPort = new System.Windows.Forms.NumericUpDown();
             this.txtProxyAddress = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lblSearchEngineSupportsRatings = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lblSearchEngineHomepage = new System.Windows.Forms.LinkLabel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.listSearchEngines = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pluginsDirectorybtn = new System.Windows.Forms.Button();
             this.printColorDialog = new System.Windows.Forms.ColorDialog();
             this.tabControl1.SuspendLayout();
@@ -79,6 +90,8 @@
             this.tabPage3.SuspendLayout();
             this.customProxyPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numProxyPort)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkupdatestartup
@@ -124,6 +137,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPlugins);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -274,7 +288,7 @@
             this.lblPluginHomepage.TabIndex = 11;
             this.lblPluginHomepage.TabStop = true;
             this.lblPluginHomepage.Text = "linkLabel1";
-            this.lblPluginHomepage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblPluginHomepage_LinkClicked);
+            this.lblPluginHomepage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel_LinkClicked);
             // 
             // label7
             // 
@@ -523,6 +537,117 @@
             this.txtProxyAddress.Size = new System.Drawing.Size(145, 20);
             this.txtProxyAddress.TabIndex = 0;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.groupBox2);
+            this.tabPage4.Controls.Add(this.listSearchEngines);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(526, 206);
+            this.tabPage4.TabIndex = 4;
+            this.tabPage4.Text = "Searching";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.listBox1);
+            this.groupBox2.Controls.Add(this.lblSearchEngineSupportsRatings);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.lblSearchEngineHomepage);
+            this.groupBox2.Controls.Add(this.label15);
+            this.groupBox2.Location = new System.Drawing.Point(271, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(249, 194);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Search Engine Details";
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(9, 89);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(157, 56);
+            this.listBox1.TabIndex = 15;
+            // 
+            // lblSearchEngineSupportsRatings
+            // 
+            this.lblSearchEngineSupportsRatings.AutoSize = true;
+            this.lblSearchEngineSupportsRatings.Location = new System.Drawing.Point(102, 48);
+            this.lblSearchEngineSupportsRatings.Name = "lblSearchEngineSupportsRatings";
+            this.lblSearchEngineSupportsRatings.Size = new System.Drawing.Size(162, 13);
+            this.lblSearchEngineSupportsRatings.TabIndex = 14;
+            this.lblSearchEngineSupportsRatings.Text = "lblSearchEngineSupportsRatings";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 73);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(139, 13);
+            this.label12.TabIndex = 13;
+            this.label12.Text = "Supported Tablature Types:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 48);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(91, 13);
+            this.label11.TabIndex = 12;
+            this.label11.Text = "Supports Ratings:";
+            // 
+            // lblSearchEngineHomepage
+            // 
+            this.lblSearchEngineHomepage.ActiveLinkColor = System.Drawing.Color.Blue;
+            this.lblSearchEngineHomepage.AutoSize = true;
+            this.lblSearchEngineHomepage.Location = new System.Drawing.Point(74, 19);
+            this.lblSearchEngineHomepage.Name = "lblSearchEngineHomepage";
+            this.lblSearchEngineHomepage.Size = new System.Drawing.Size(136, 13);
+            this.lblSearchEngineHomepage.TabIndex = 11;
+            this.lblSearchEngineHomepage.TabStop = true;
+            this.lblSearchEngineHomepage.Text = "lblSearchEngineHomepage";
+            this.lblSearchEngineHomepage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel_LinkClicked);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 19);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(62, 13);
+            this.label15.TabIndex = 9;
+            this.label15.Text = "Homepage:";
+            // 
+            // listSearchEngines
+            // 
+            this.listSearchEngines.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listSearchEngines.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listSearchEngines.FullRowSelect = true;
+            this.listSearchEngines.GridLines = true;
+            this.listSearchEngines.Location = new System.Drawing.Point(3, 3);
+            this.listSearchEngines.Name = "listSearchEngines";
+            this.listSearchEngines.ShowItemToolTips = true;
+            this.listSearchEngines.Size = new System.Drawing.Size(262, 200);
+            this.listSearchEngines.TabIndex = 1;
+            this.listSearchEngines.UseCompatibleStateImageBehavior = false;
+            this.listSearchEngines.View = System.Windows.Forms.View.Details;
+            this.listSearchEngines.SelectedIndexChanged += new System.EventHandler(this.listSearchEngines_SelectedIndexChanged);
+            this.listSearchEngines.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listSearchEngines_MouseDoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Name";
+            this.columnHeader1.Width = 175;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Enabled";
+            this.columnHeader2.Width = 80;
+            // 
             // pluginsDirectorybtn
             // 
             this.pluginsDirectorybtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -573,6 +698,9 @@
             this.customProxyPanel.ResumeLayout(false);
             this.customProxyPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numProxyPort)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -622,5 +750,16 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lblPluginFilename;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.ListView listSearchEngines;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.LinkLabel lblSearchEngineHomepage;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblSearchEngineSupportsRatings;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
