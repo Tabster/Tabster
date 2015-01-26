@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -65,7 +66,8 @@ namespace Tabster.Forms
 
             BuildSearchSuggestions();
 
-            ToggleEmptyLibraryOverlay(true);
+            ToggleEmptyLibraryOverlay(listViewLibrary, true);
+            ToggleEmptyLibraryOverlay(listViewSearch, true);
         }
 
         public MainForm(TablatureDocument tabDocument)
@@ -91,11 +93,25 @@ namespace Tabster.Forms
             olvColCreated.AspectGetter = x => ((TablatureLibraryItem) x).FileInfo.CreationTime;
             olvColModified.AspectGetter = x => ((TablatureLibraryItem) x).FileInfo.LastWriteTime;
             olvColLocation.AspectGetter = x => ((TablatureLibraryItem) x).FileInfo.FullName;
+
+            //search
+            olvColumn1.AspectGetter = x => ((TablatureSearchResult)x).Tab.Artist;
+            olvColumn2.AspectGetter = x => ((TablatureSearchResult)x).Tab.Title;
+            olvColumn3.AspectGetter = x => ((TablatureSearchResult)x).Tab.Type.Name;
+
+            olvColumn4.AspectGetter = x =>
+            {
+                var rating = ((TablatureSearchResult) x).Rating;
+                return rating == TablatureRating.None ? "" : new string('\u2605', (int) rating - 1).PadRight(5, '\u2606');
+            };
+
+            olvColumn5.AspectGetter = x => ((TablatureSearchResult) x).Engine.Name;
+            olvColumn6.AspectGetter = x => ((TablatureSearchResult) x).Source.ToString();
         }
 
-        private void ToggleEmptyLibraryOverlay(bool enabled)
+        private void ToggleEmptyLibraryOverlay(ObjectListView olv, bool enabled)
         {
-            var textOverlay = listViewLibrary.EmptyListMsgOverlay as TextOverlay;
+            var textOverlay = olv.EmptyListMsgOverlay as TextOverlay;
             textOverlay.TextColor = enabled ? SystemColors.InactiveCaptionText : Color.Transparent;
             textOverlay.BackColor = Color.Transparent;
             textOverlay.BorderWidth = 0;
@@ -261,15 +277,9 @@ namespace Tabster.Forms
 
         private void CachePluginResources()
         {
-            _fileExporters = new List<ITablatureFileExporter>(Program.pluginController.GetClassInstances<ITablatureFileExporter>());
             _fileImporters = new List<ITablatureFileImporter>(Program.pluginController.GetClassInstances<ITablatureFileImporter>());
-
             _webImporters = new List<ITablatureWebImporter>(Program.pluginController.GetClassInstances<ITablatureWebImporter>());
             _searchServices = new List<ITablatureSearchEngine>(Program.pluginController.GetClassInstances<ITablatureSearchEngine>());
-
-            _searchServices.Sort((s1, s2) => s1.Name.CompareTo(s2.Name));
-
-            InitializeSearchControls();
         }
 
         private void OpenRecentFile(MenuItem item)
@@ -280,7 +290,7 @@ namespace Tabster.Forms
 
             if (tab != null)
             {
-                PopoutTab(tab, updateRecentFiles: false);
+                PopoutTab(tab, false);
             }
         }
 
@@ -305,11 +315,6 @@ namespace Tabster.Forms
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab == display_search)
-            {
-                txtSearchArtist.Focus();
-            }
-
             txtLibraryFilter.Visible = tabControl1.SelectedTab == display_library;
             menuItem3.Enabled = tabControl1.SelectedTab == display_library;
         }
@@ -640,5 +645,15 @@ namespace Tabster.Forms
         }
 
         #endregion
+
+        private void listViewSearch_CellRightClick(object sender, CellRightClickEventArgs e)
+        {
+            e.MenuStrip = SearchMenu;
+        }
+
+        private void btnSearchOptions_Click(object sender, EventArgs e)
+        {
+            OpenPreferences("Searching");
+        }
     }
 }

@@ -2,109 +2,105 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Processing;
+using Tabster.LocalUtilities;
 
 #endregion
 
 namespace Tabster.Forms
 {
+    internal class TablatureSearchRequest : TablatureSearchQuery
+    {
+        private readonly List<ITablatureSearchEngine> _searchEngines;
+        public List<TablatureSearchResult> Results = new List<TablatureSearchResult>();
+
+        public TablatureSearchRequest(string artist, string title, TablatureType type, TablatureRating rating, List<ITablatureSearchEngine> searchEngines)
+            : base(artist, title, type, rating)
+        {
+            _searchEngines = searchEngines;
+        }
+
+        public ReadOnlyCollection<ITablatureSearchEngine> SearchEngines
+        {
+            get { return _searchEngines.AsReadOnly(); }
+        }
+    }
+
     internal partial class MainForm
     {
         private readonly List<TablatureSearchResult> _searchResults = new List<TablatureSearchResult>();
 
         private readonly Dictionary<Uri, TablatureDocument> _searchResultsCache = new Dictionary<Uri, TablatureDocument>();
 
-        private TablatureRating? _activeSearchRating;
-        private TablatureType _activeSearchType;
         private List<ITablatureSearchEngine> _searchServices = new List<ITablatureSearchEngine>();
         private List<ITablatureWebImporter> _webImporters = new List<ITablatureWebImporter>();
 
         private TablatureSearchResult GetSelectedSearchResult()
         {
-            var selectedURL = searchDisplay.SelectedRows.Count > 0
-                ? new Uri(searchDisplay.SelectedRows[0].Tag.ToString())
-                : null;
-            return selectedURL != null ? _searchResults.Find(x => x.Source.Equals(selectedURL)) : null;
+            return listViewSearch.SelectedObject != null ? (TablatureSearchResult) listViewSearch.SelectedObject : null;
         }
 
-        private void onlinesearchbtn_Click(object sender, EventArgs e)
+        private TablatureSearchRequest CreateSearchRequest()
         {
-            if (listSearchServices.SelectedItems.Count > 0 && (txtSearchArtist.Text.Trim().Length > 0 || txtSearchTitle.Text.Trim().Length > 0))
+            var artist = txtSearchArtist.Text.Trim();
+            var title = txtSearchTitle.Text.Trim();
+            var type = searchTypeList.HasTypeSelected ? searchTypeList.SelectedType : null;
+            var rating = cbSearchRating.SelectedIndex > 0 ? (TablatureRating) (cbSearchRating.SelectedIndex) : TablatureRating.None;
+
+            var searchEngines = new List<ITablatureSearchEngine>();
+
+            foreach (var engine in UserSettingsUtilities.GetEnabledSearchEngines())
             {
-                onlinesearchbtn.Enabled = false;
-
-                searchPreviewEditor.Clear();
-
-                //ignore "all tabs"
-                _activeSearchType = searchTypeList.HasTypeSelected ? searchTypeList.SelectedType : null;
-
-                _activeSearchRating = null;
-
-                if (cbSearchRating.SelectedIndex > 0)
-                    _activeSearchRating = (TablatureRating) (cbSearchRating.SelectedIndex);
-
-                var queries = BuildSearchQueries();
-
-                if (queries.Count > 0)
+                try
                 {
-                    SearchBackgroundWorker.RunWorkerAsync(queries);
-                }
-            }
-        }
-
-        private List<TablatureSearchQuery> BuildSearchQueries()
-        {
-            var searchArtist = txtSearchArtist.Text.Trim();
-            var searchTitle = txtSearchTitle.Text.Trim();
-
-            var searchQueries = new List<TablatureSearchQuery>();
-
-            for (var i = 0; i < listSearchServices.Items.Count; i++)
-            {
-                if (listSearchServices.GetSelected(i))
-                {
-                    var service = _searchServices[i];
-
                     //check engine requirements
-                    if ((service.RequiresArtistParameter && string.IsNullOrEmpty(searchArtist)) ||
-                        (service.RequiresTitleParameter && string.IsNullOrEmpty(searchTitle)) ||
-                        (service.RequiresTypeParamter && _activeSearchType == null ||
-                         (_activeSearchRating.HasValue && !service.SupportsRatings)))
+                    if ((engine.RequiresArtistParameter && string.IsNullOrEmpty(artist)) ||
+                        (engine.RequiresTitleParameter && string.IsNullOrEmpty(title)) ||
+                        (engine.RequiresTypeParamter && type == null) ||
+                        (!engine.SupportsRatings && rating != TablatureRating.None))
                         continue;
 
-                    searchQueries.Add(new TablatureSearchQuery(service, searchArtist, searchTitle, _activeSearchType));
+                    //tablature type checking
+                    if (type != null && !engine.SupportsTabType(type))
+                        continue;
+
+                    searchEngines.Add(engine);
+                }
+
+                catch
+                {
+                    //unhandled
                 }
             }
 
-            return searchQueries;
+            return new TablatureSearchRequest(artist, title, type, rating, searchEngines);
         }
 
         private void SearchBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var totalResults = new List<TablatureSearchResult>();
-
-            var count = 0;
-
-            var queries = (List<TablatureSearchQuery>) e.Argument;
+            var request = (TablatureSearchRequest) e.Argument;
 
             var proxy = Program.CustomProxyController.GetProxy();
 
-            foreach (var query in queries)
+            foreach (var engine in request.SearchEngines)
             {
                 try
                 {
-                    if (query.Type == null || query.Engine.SupportsTabType(query.Type))
-                    {
-                        var results = query.Engine.Search(query, proxy);
+                    var results = engine.Search(request, proxy);
 
-                        if (results != null)
+                    if (results != null)
+                    {
+                        request.Results.AddRange(results);
+
+                        for (var i = 0; i < results.Length; i++)
                         {
-                            totalResults.AddRange(results);
+                            SearchBackgroundWorker.ReportProgress(i, results[i]);
                         }
                     }
                 }
@@ -113,19 +109,30 @@ namespace Tabster.Forms
                 {
                     //unhandled
                 }
-
-                count++;
-
-                SearchBackgroundWorker.ReportProgress(count);
             }
+        }
 
-            e.Result = totalResults;
+        private void SearchBackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            var result = (TablatureSearchResult) e.UserState;
+
+            //missing source url
+            if (result.Source == null)
+                return;
+
+            //subpar rating
+            if (result.Query.Rating != TablatureRating.None && (result.Rating <= result.Query.Rating))
+                return;
+
+            //tab type mismatch
+            if (result.Query.Type != null && result.Tab.Type != result.Query.Type)
+                return;
+
+            listViewSearch.AddObject(e.UserState);
         }
 
         private void SearchBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            searchDisplay.SuspendLayout();
-            searchDisplay.Rows.Clear();
             _searchResults.Clear();
 
             onlinesearchbtn.Enabled = true;
@@ -135,58 +142,9 @@ namespace Tabster.Forms
                 var results = (List<TablatureSearchResult>) e.Result;
 
                 _searchResults.AddRange(results);
-
-                foreach (var result in results)
-                {
-                    DisplaySearchResult(result);
-                }
             }
 
-            searchDisplay.ResumeLayout();
-
-            lblStatus.Text = string.Format("Search Results: {0}", searchDisplay.Rows.Count);
-        }
-
-        private void SearchBackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            var serviceName = _searchServices[e.ProgressPercentage - 1].Name;
-            if (serviceName != null)
-                lblStatus.Text = string.Format("Searching: {0}", serviceName);
-        }
-
-        private void DisplaySearchResult(TablatureSearchResult result)
-        {
-            //missing source url
-            if (result.Source == null)
-                return;
-
-            //subpar rating
-            if (_activeSearchRating.HasValue && (result.Rating <= _activeSearchRating.Value))
-                return;
-
-            //tab type mismatch
-            if (_activeSearchType != null && result.Tab.Type != _activeSearchType)
-                return;
-
-            var newRow = new DataGridViewRow {Tag = result.Source.ToString()};
-
-            var ratingString = result.Rating == TablatureRating.None
-                ? ""
-                : new string('\u2605', (int) result.Rating - 1).PadRight(5, '\u2606');
-
-            newRow.CreateCells(searchDisplay, result.Tab.Artist, result.Tab.Title, result.Tab.Type.ToFriendlyString(), ratingString, result.Query.Engine.Name);
-            searchDisplay.Rows.Add(newRow);
-        }
-
-        private void dataGridViewExtended1_MouseClick(object sender, MouseEventArgs e)
-        {
-            var currentMouseOverRow = searchDisplay.HitTest(e.X, e.Y).RowIndex;
-
-            if (e.Button == MouseButtons.Right && (currentMouseOverRow >= 0 && currentMouseOverRow < searchDisplay.Rows.Count))
-            {
-                searchDisplay.Rows[currentMouseOverRow].Selected = true;
-                SearchMenu.Show(searchDisplay.PointToScreen(e.Location));
-            }
+            lblStatus.Text = string.Format("Search Results: {0}", listViewSearch.Items.Count);
         }
 
         private void dataGridViewExtended1_SelectionChanged(object sender, EventArgs e)
@@ -197,7 +155,7 @@ namespace Tabster.Forms
             saveTabToolStripMenuItem1.Enabled = selectedResult != null && _searchResultsCache.ContainsKey(selectedResult.Source);
         }
 
-        private void SaveGetSelectedSearchResult()
+        private void SaveSelectedSearchResult()
         {
             var selectedResult = GetSelectedSearchResult();
 
@@ -368,26 +326,6 @@ namespace Tabster.Forms
                 searchTypeList.SelectDefault();
                 cbSearchRating.SelectedIndex = 0;
             }
-
-            listSearchServices.Items.Clear();
-
-            for (var i = 0; i < _searchServices.Count; i++)
-            {
-                var service = _searchServices[i];
-                listSearchServices.Items.Add(service.Name);
-                listSearchServices.SetSelected(i, true);
-            }
-        }
-
-        private void resetSearchbtn_Click(object sender, EventArgs e)
-        {
-            InitializeSearchControls(true);
-        }
-
-        private void searchDisplay_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex > -1)
-                SaveGetSelectedSearchResult();
         }
 
         private void copyURLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -401,6 +339,23 @@ namespace Tabster.Forms
                 TogglePreviewPane(sender, e);
 
             LoadGetSelectedSearchResultPreview();
+        }
+
+        private void onlinesearchbtn_Click(object sender, EventArgs e)
+        {
+            if (txtSearchArtist.Text.Trim().Length > 0 || txtSearchTitle.Text.Trim().Length > 0)
+            {
+                onlinesearchbtn.Enabled = false;
+
+                listViewSearch.ClearObjects();
+
+                searchPreviewEditor.Clear();
+
+                var request = CreateSearchRequest();
+
+                if (request != null)
+                    SearchBackgroundWorker.RunWorkerAsync(request);
+            }
         }
     }
 }
