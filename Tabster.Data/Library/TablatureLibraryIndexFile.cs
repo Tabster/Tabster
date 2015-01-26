@@ -18,6 +18,7 @@ namespace Tabster.Data.Library
 
         private const bool COMPRESSED = false;
         private static readonly Version FORMAT_VERSION = new Version("1.0");
+        private static readonly Encoding FILE_ENCODING = new UTF8Encoding();
 
         private readonly TablatureFileLibrary _library;
 
@@ -41,13 +42,16 @@ namespace Tabster.Data.Library
 
         public void Load(string fileName)
         {
-            using (var fs = new FileStream(fileName, FileMode.Open))
+            if (File.Exists(fileName))
             {
-                using (var reader = new BinaryReader(fs))
+                using (var fs = new FileStream(fileName, FileMode.Open))
                 {
-                    ReadHeader(reader);
-                    ReadTablatureEntries(reader);
-                    ReadPlaylistEntries(reader);
+                    using (var reader = new BinaryReader(fs))
+                    {
+                        ReadHeader(reader);
+                        ReadTablatureEntries(reader);
+                        ReadPlaylistEntries(reader);
+                    }
                 }
             }
         }
@@ -60,13 +64,13 @@ namespace Tabster.Data.Library
 
             var filenameToEncode = usesDefinedExtension ? Path.GetFileNameWithoutExtension(fileInfo.Name) : fileInfo.Name;
 
-            writer.Write(filenameToEncode, Encoding.Unicode);
+            writer.Write(filenameToEncode, FILE_ENCODING);
         }
 
         private static string ReadFilePath(BinaryReader reader, IList<string> directoryTable, int directoryIndex, string extension)
         {
             var directory = directoryTable[directoryIndex];
-            var filename = reader.ReadString(Encoding.Unicode);
+            var filename = reader.ReadString(FILE_ENCODING);
 
             var ext = Path.GetExtension(filename);
 
@@ -107,7 +111,7 @@ namespace Tabster.Data.Library
 
             while (directoryTable.Count < directoryCount)
             {
-                var directory = reader.ReadString(Encoding.Unicode);
+                var directory = reader.ReadString(FILE_ENCODING);
                 directoryTable.Add(directory);
             }
 
@@ -209,7 +213,7 @@ namespace Tabster.Data.Library
 
             foreach (var directory in knownDirectories)
             {
-                writer.Write(directory, Encoding.Unicode);
+                writer.Write(directory, FILE_ENCODING);
             }
 
             writer.Write(existingEntries.Count);
