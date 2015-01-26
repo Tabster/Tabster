@@ -8,6 +8,7 @@ Dependencies
 
 * [.NET 3.5](http://www.microsoft.com/net)
 * [NuGet](https://www.nuget.org/)
+* [ObjectListView](http://objectlistview.sourceforge.net/)
 
 Building
 ---------------
