@@ -25,6 +25,7 @@ namespace Tabster.LocalUtilities
         private static TablaturePlaylistDocument _queuedPlaylistFile;
         private static bool _isLibraryOpen;
         private static bool _noSplash;
+        private static bool _safeMode;
 
         public SingleInstanceController()
         {
@@ -47,9 +48,9 @@ namespace Tabster.LocalUtilities
             if (commandLine.Count > 0)
             {
                 if (commandLine.Contains("-nosplash"))
-                {
                     _noSplash = true;
-                }
+                if (commandLine.Contains("-safe-mode"))
+                    _safeMode = true;
 
                 var firstArg = commandLine[0];
 
@@ -146,13 +147,15 @@ namespace Tabster.LocalUtilities
 
             SetSplashStatus(splashStatuses[0]);
 
+            if (!_safeMode)
+            {
 #if DEBUG
             Thread.Sleep(sleepDuration);
 #endif
 
-            Program.pluginController.LoadPlugins();
-
-            SetSplashStatus(splashStatuses[1]);
+                Program.pluginController.LoadPlugins();
+                SetSplashStatus(splashStatuses[1]);
+            }
 
             Program.TablatureFileLibrary.Load();
 
