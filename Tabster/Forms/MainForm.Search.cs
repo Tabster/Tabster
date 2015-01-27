@@ -226,7 +226,7 @@ namespace Tabster.Forms
 
             if (!e.Cancelled && e.Error == null)
             {
-                var result = (TablatureSearchResult)e.Result;
+                var result = (TablatureSearchResult) e.Result;
 
                 if (_searchResultsCache.ContainsKey(result.Source))
                 {

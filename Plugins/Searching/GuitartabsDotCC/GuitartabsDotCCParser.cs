@@ -37,7 +37,7 @@ namespace GuitartabsDotCC
         {
             string html;
 
-            using (var client = new WebClient() { Proxy = proxy, Encoding = Encoding.UTF8 })
+            using (var client = new WebClient() {Proxy = proxy, Encoding = Encoding.UTF8})
             {
                 html = client.DownloadString(url);
             }

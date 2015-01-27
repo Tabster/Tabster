@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -95,9 +94,9 @@ namespace Tabster.Forms
             olvColLocation.AspectGetter = x => ((TablatureLibraryItem) x).FileInfo.FullName;
 
             //search
-            olvColumn1.AspectGetter = x => ((TablatureSearchResult)x).Tab.Artist;
-            olvColumn2.AspectGetter = x => ((TablatureSearchResult)x).Tab.Title;
-            olvColumn3.AspectGetter = x => ((TablatureSearchResult)x).Tab.Type.Name;
+            olvColumn1.AspectGetter = x => ((TablatureSearchResult) x).Tab.Artist;
+            olvColumn2.AspectGetter = x => ((TablatureSearchResult) x).Tab.Title;
+            olvColumn3.AspectGetter = x => ((TablatureSearchResult) x).Tab.Type.Name;
 
             olvColumn4.AspectGetter = x =>
             {
@@ -576,6 +575,40 @@ namespace Tabster.Forms
             //e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Move : DragDropEffects.None;
         }
 
+        private void listViewSearch_CellRightClick(object sender, CellRightClickEventArgs e)
+        {
+            if (GetSelectedSearchResult() == null)
+                return;
+
+            e.MenuStrip = SearchMenu;
+        }
+
+        private void listViewSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadSelectedSearchResultPreview();
+
+            var selectedResult = GetSelectedSearchResult();
+            saveTabToolStripMenuItem1.Enabled = selectedResult != null && _searchResultsCache.ContainsKey(selectedResult.Source);
+        }
+
+        private void btnSearchOptions_Click(object sender, EventArgs e)
+        {
+            OpenPreferences("Searching");
+        }
+
+        private void listViewSearch_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (GetSelectedSearchResult() != null)
+            {
+                SaveSelectedSearchResult();
+            }
+        }
+
+        private void saveTabToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SaveSelectedSearchResult();
+        }
+
         #region Updater
 
         private static void updateQuery_Completed(object sender, UpdateQueryCompletedEventArgs e)
@@ -644,39 +677,5 @@ namespace Tabster.Forms
         }
 
         #endregion
-
-        private void listViewSearch_CellRightClick(object sender, CellRightClickEventArgs e)
-        {
-            if (GetSelectedSearchResult() == null)
-                return;
-
-            e.MenuStrip = SearchMenu;
-        }
-
-        private void listViewSearch_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadSelectedSearchResultPreview();
-
-            var selectedResult = GetSelectedSearchResult();
-            saveTabToolStripMenuItem1.Enabled = selectedResult != null && _searchResultsCache.ContainsKey(selectedResult.Source);
-        }
-
-        private void btnSearchOptions_Click(object sender, EventArgs e)
-        {
-            OpenPreferences("Searching");
-        }
-
-        private void listViewSearch_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (GetSelectedSearchResult() != null)
-            {
-                SaveSelectedSearchResult();
-            }
-        }
-
-        private void saveTabToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            SaveSelectedSearchResult();
-        }
     }
 }

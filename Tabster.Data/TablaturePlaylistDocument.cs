@@ -41,12 +41,12 @@ namespace Tabster.Data
 
         #region Implementation of ITabsterDocument
 
+        public FileInfo FileInfo { get; private set; }
+
         public Version FileVersion
         {
             get { return _doc.Version; }
         }
-
-        public FileInfo FileInfo { get; private set; }
 
         public void Load(string filename)
         {

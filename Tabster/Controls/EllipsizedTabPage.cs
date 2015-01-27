@@ -1,12 +1,11 @@
 ﻿#region
 
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 #endregion
 
-namespace Tabster.Controls 
+namespace Tabster.Controls
 {
     public class EllipsizedTabPage : TabPage
     {

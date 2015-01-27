@@ -39,9 +39,9 @@ namespace Tabster.Forms
         private void okbtn_Click(object sender, EventArgs e)
         {
             Tab = new TablatureDocument(txtArtist.Text.Trim(), txtTitle.Text.Trim(), typeList.SelectedType, "")
-                      {
-                          SourceType = TablatureSourceType.UserCreated,
-                      };
+            {
+                SourceType = TablatureSourceType.UserCreated,
+            };
         }
     }
 }

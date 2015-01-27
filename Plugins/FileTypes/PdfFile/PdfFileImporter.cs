@@ -3,11 +3,11 @@
 using System;
 using System.IO;
 using System.Text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Processing;
-using iTextSharp.text.pdf;
-using iTextSharp.text.pdf.parser;
 
 #endregion
 

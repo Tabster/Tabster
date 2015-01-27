@@ -7,7 +7,7 @@ using Tabster.Core.Plugins;
 
 namespace WordDoc
 {
-    public class WordDocPlugin: TabsterPluginBase, ITabsterPluginAttributes
+    public class WordDocPlugin : TabsterPluginBase, ITabsterPluginAttributes
     {
         #region Implementation of ITabsterPluginAttributes
 

@@ -42,10 +42,10 @@ namespace Tabster.Forms
         private void okbtn_Click(object sender, EventArgs e)
         {
             Tab = new TablatureDocument(txtartist.Text.Trim(), txttitle.Text.Trim(), typeList.SelectedType, File.ReadAllText(txtimportfile.Text))
-                      {
-                          Source = new Uri(txtimportfile.Text),
-                          SourceType = chkusertab.Checked ? TablatureSourceType.UserCreated : TablatureSourceType.FileImport
-                      };
+            {
+                Source = new Uri(txtimportfile.Text),
+                SourceType = chkusertab.Checked ? TablatureSourceType.UserCreated : TablatureSourceType.FileImport
+            };
         }
 
         private void browsebtn_Click(object sender, EventArgs e)

@@ -186,7 +186,7 @@ namespace Tabster.Data.Library
                 doc.Save(uniqueName);
             }
 
-            var item = new TablatureLibraryItem(doc) { Added = DateTime.UtcNow };
+            var item = new TablatureLibraryItem(doc) {Added = DateTime.UtcNow};
             Add(item);
 
             return item;

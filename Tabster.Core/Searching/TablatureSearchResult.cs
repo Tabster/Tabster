@@ -8,7 +8,7 @@ using Tabster.Core.Types;
 namespace Tabster.Core.Searching
 {
     /// <summary>
-    ///   Tablature search result.
+    ///     Tablature search result.
     /// </summary>
     public class TablatureSearchResult
     {
@@ -22,27 +22,26 @@ namespace Tabster.Core.Searching
         }
 
         /// <summary>
-        ///   The initial search query.
+        ///     The initial search query.
         /// </summary>
         public TablatureSearchQuery Query { get; private set; }
 
         /// <summary>
-        ///   Tablature result.
+        ///     Tablature result.
         /// </summary>
         public AttributedTablature Tab { get; private set; }
 
         /// <summary>
-        ///   Tablature Url source.
+        ///     Tablature Url source.
         /// </summary>
         public Uri Source { get; private set; }
 
         /// <summary>
-        ///   Search result rating.
+        ///     Search result rating.
         /// </summary>
         public TablatureRating Rating { get; private set; }
 
         /// <summary>
-        ///
         /// </summary>
         public ITablatureSearchEngine Engine { get; private set; }
     }

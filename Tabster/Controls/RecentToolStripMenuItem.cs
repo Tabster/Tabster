@@ -49,10 +49,10 @@ namespace Tabster.Controls
             _openAllMenuItem.Text = OpenAllOptionText;
 
             _openAllMenuItem.Click += delegate
-                                          {
-                                              if (OnAllItemsOpened != null)
-                                                  OnAllItemsOpened(this, EventArgs.Empty);
-                                          };
+            {
+                if (OnAllItemsOpened != null)
+                    OnAllItemsOpened(this, EventArgs.Empty);
+            };
 
             _clearMenuItem.Text = ClearOptionText;
             _clearMenuItem.Click += delegate { Clear(); };
@@ -186,10 +186,10 @@ namespace Tabster.Controls
                 var menuItem = new MenuItem(displayName) {Tag = item.File.FullName};
 
                 menuItem.Click += (s, e) =>
-                                      {
-                                          if (OnItemClicked != null)
-                                              OnItemClicked(s, e);
-                                      };
+                {
+                    if (OnItemClicked != null)
+                        OnItemClicked(s, e);
+                };
 
                 item.MenuItem = menuItem;
 

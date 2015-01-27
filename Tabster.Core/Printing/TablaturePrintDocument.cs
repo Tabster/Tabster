@@ -138,10 +138,10 @@ namespace Tabster.Core.Printing
         private void OnDrawTitle(PrintPageEventArgs e)
         {
             e.Graphics.DrawString(Settings.Title, _font, new SolidBrush(_settings.PrintColor), _realPageBounds, new StringFormat
-                                                                                                    {
-                                                                                                        Alignment = StringAlignment.Near,
-                                                                                                        LineAlignment = StringAlignment.Near
-                                                                                                    });
+            {
+                Alignment = StringAlignment.Near,
+                LineAlignment = StringAlignment.Near
+            });
         }
 
         private void DrawTabContents(PrintPageEventArgs e)
@@ -162,19 +162,19 @@ namespace Tabster.Core.Printing
         protected virtual void OnDrawPageNumbers(TablaturePrintPageEventArgs e)
         {
             e.Graphics.DrawString(string.Format("Page {0} of {1}", e.CurrentPage, TotalPages), _font, new SolidBrush(_settings.PrintColor), _realPageBounds, new StringFormat
-                                                                                                                                                 {
-                                                                                                                                                     Alignment = StringAlignment.Far,
-                                                                                                                                                     LineAlignment = StringAlignment.Near
-                                                                                                                                                 });
+            {
+                Alignment = StringAlignment.Far,
+                LineAlignment = StringAlignment.Near
+            });
         }
 
         protected virtual void OnDrawPrintTime(PrintPageEventArgs e)
         {
             e.Graphics.DrawString(DateTime.Now.ToString(), _font, new SolidBrush(_settings.PrintColor), _realPageBounds, new StringFormat
-                                                                                                             {
-                                                                                                                 Alignment = StringAlignment.Far,
-                                                                                                                 LineAlignment = StringAlignment.Far
-                                                                                                             });
+            {
+                Alignment = StringAlignment.Far,
+                LineAlignment = StringAlignment.Far
+            });
         }
 
         #endregion
@@ -190,9 +190,10 @@ namespace Tabster.Core.Printing
             // Translate to units of 1/100 inch
             var vpb = e.Graphics.VisibleClipBounds;
 
-            PointF[] bottomRight = {
-                                       new PointF(vpb.Size.Width, vpb.Size.Height)
-                                   };
+            PointF[] bottomRight =
+            {
+                new PointF(vpb.Size.Width, vpb.Size.Height)
+            };
 
             e.Graphics.TransformPoints(CoordinateSpace.Device, CoordinateSpace.Page, bottomRight);
             var dpiX = e.Graphics.DpiX;

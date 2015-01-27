@@ -31,9 +31,9 @@ namespace Tabster.Forms
 {
     internal partial class MainForm
     {
+        private readonly List<ITablatureFileExporter> _fileExporters = new List<ITablatureFileExporter>();
         private readonly List<TablatureLibraryItem> _libraryCache = new List<TablatureLibraryItem>();
         private bool _changingLibraryView;
-        private List<ITablatureFileExporter> _fileExporters = new List<ITablatureFileExporter>();
         private List<ITablatureFileImporter> _fileImporters = new List<ITablatureFileImporter>();
 
         //used to prevent double-triggering of OnSelectedIndexChanged for tablibrary when using navigation menu

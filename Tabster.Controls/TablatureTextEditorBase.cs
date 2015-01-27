@@ -151,7 +151,6 @@ namespace Tabster.Controls
                     Settings = settings ?? new TablaturePrintDocumentSettings()
                 })
             {
-
                 using (var dialog = new PrintPreviewDialog {Document = printDocument})
                 {
                     if (dialog.ShowDialog() == DialogResult.OK)
@@ -159,7 +158,6 @@ namespace Tabster.Controls
                         printDocument.Print();
                     }
                 }
-
             }
         }
 
@@ -175,9 +173,7 @@ namespace Tabster.Controls
                     Settings = settings ?? new TablaturePrintDocumentSettings()
                 })
             {
-
                 printDocument.Print();
-
             }
         }
 

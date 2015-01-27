@@ -7,23 +7,23 @@ using Tabster.Core.Types;
 namespace Tabster.Data.Processing
 {
     /// <summary>
-    ///   Allows importing of a tablature document from various file formats.
+    ///     Allows importing of a tablature document from various file formats.
     /// </summary>
     public interface ITablatureFileImporter
     {
         /// <summary>
-        ///   The file type to import from.
+        ///     The file type to import from.
         /// </summary>
         FileType FileType { get; }
 
         /// <summary>
-        ///   Imports a file from a designated path.
+        ///     Imports a file from a designated path.
         /// </summary>
         /// <param name="fileName"> The path of the file to import. </param>
         TablatureDocument Import(string fileName);
 
         /// <summary>
-        ///   Imports a file from a designated path.
+        ///     Imports a file from a designated path.
         /// </summary>
         /// <param name="fileName"> The path of the file to import. </param>
         /// <param name="artist"> Explicitly-defined artist. </param>

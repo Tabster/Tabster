@@ -51,11 +51,11 @@ namespace Tabster.Updater
                 var installPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
                 var psi = new ProcessStartInfo
-                              {
-                                  WorkingDirectory = Path.GetDirectoryName(_downloadLocation),
-                                  FileName = Path.GetFileName(_downloadLocation),
-                                  Arguments = silent ? string.Format("/S /D={0}", installPath) : "",
-                              };
+                {
+                    WorkingDirectory = Path.GetDirectoryName(_downloadLocation),
+                    FileName = Path.GetFileName(_downloadLocation),
+                    Arguments = silent ? string.Format("/S /D={0}", installPath) : "",
+                };
 
                 var process = Process.Start(psi);
 

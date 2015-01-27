@@ -24,12 +24,12 @@ namespace HtmlFile
         public void Export(TablatureDocument doc, string fileName)
         {
             var templates = new Dictionary<string, string>
-                                {
-                                    {"{TAB_ARTIST}", doc.Artist},
-                                    {"{TAB_TITLE}", doc.Title},
-                                    {"{TAB_TYPE}", doc.Type.ToFriendlyString()},
-                                    {"{TAB_CONTENTS}", doc.Contents}
-                                };
+            {
+                {"{TAB_ARTIST}", doc.Artist},
+                {"{TAB_TITLE}", doc.Title},
+                {"{TAB_TYPE}", doc.Type.ToFriendlyString()},
+                {"{TAB_CONTENTS}", doc.Contents}
+            };
 
             var html = Resources.Html_Template;
 

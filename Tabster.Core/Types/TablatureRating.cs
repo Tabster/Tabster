@@ -7,7 +7,7 @@ using System;
 namespace Tabster.Core.Types
 {
     /// <summary>
-    ///   Tablature rating.
+    ///     Tablature rating.
     /// </summary>
     public enum TablatureRating
     {

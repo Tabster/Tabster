@@ -7,12 +7,12 @@ using Tabster.Core.Types;
 namespace Tabster.Data.Processing
 {
     /// <summary>
-    ///   Text-based tab source.
+    ///     Text-based tab source.
     /// </summary>
     public interface ITablatureTextImporter
     {
         /// <summary>
-        ///   Parses tab from text source.
+        ///     Parses tab from text source.
         /// </summary>
         /// <param name="text"> Source text to parse. </param>
         /// <param name="type"> Explicitly defined type. </param>

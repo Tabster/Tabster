@@ -31,7 +31,7 @@ namespace Tabster.Data.Utilities
         #region String Compression
 
         /// <summary>
-        ///   Writes a length-prefixed Gzipped string.
+        ///     Writes a length-prefixed Gzipped string.
         /// </summary>
         public static void Write(this BinaryWriter writer, string str, bool compressed)
         {
@@ -49,7 +49,7 @@ namespace Tabster.Data.Utilities
         }
 
         /// <summary>
-        ///   Reads a length-prefixed Gzipped string.
+        ///     Reads a length-prefixed Gzipped string.
         /// </summary>
         public static string ReadString(this BinaryReader reader, bool compreseed)
         {

@@ -7,7 +7,7 @@ using Tabster.Core.Plugins;
 
 namespace PdfFile
 {
-    public class PdfFilePlugin: TabsterPluginBase, ITabsterPluginAttributes
+    public class PdfFilePlugin : TabsterPluginBase, ITabsterPluginAttributes
     {
         #region Implementation of ITabsterPluginAttributes
 

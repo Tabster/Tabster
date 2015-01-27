@@ -106,7 +106,7 @@ namespace UltimateGuitar
         }
 
         /// <summary>
-        /// Used to strip HTML tags from chord-based tabs.
+        ///     Used to strip HTML tags from chord-based tabs.
         /// </summary>
         private static string StripHtml(string source)
         {

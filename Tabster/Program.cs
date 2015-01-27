@@ -80,8 +80,8 @@ namespace Tabster
                 Directory.CreateDirectory(UserDirectory);
 
             TablatureFileLibrary = new TablatureFileLibrary(Path.Combine(ApplicationDataDirectory, "library.dat"),
-                                                            Path.Combine(UserDirectory, "Library"),
-                                                            Path.Combine(UserDirectory, "Playlists"));
+                Path.Combine(UserDirectory, "Library"),
+                Path.Combine(UserDirectory, "Playlists"));
         }
 
         private static void LoadProxySettings()

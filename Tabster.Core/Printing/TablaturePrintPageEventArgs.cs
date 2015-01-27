@@ -15,12 +15,12 @@ namespace Tabster.Core.Printing
         }
 
         /// <summary>
-        ///   The current page number being printed.
+        ///     The current page number being printed.
         /// </summary>
         public int CurrentPage { get; set; }
 
         /// <summary>
-        ///   Real page bounds based on printable area of the page.
+        ///     Real page bounds based on printable area of the page.
         /// </summary>
         public Rectangle RealPageBounds { get; set; }
     }

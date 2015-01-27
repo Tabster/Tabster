@@ -96,12 +96,12 @@ namespace Tabster.Forms
 
         private void editor_ContentsModified(object sender, EventArgs e)
         {
-            UpdateInstanceControls(GetInstance((BasicTablatureTextEditor)sender));
+            UpdateInstanceControls(GetInstance((BasicTablatureTextEditor) sender));
         }
 
         private void editor_TablatureLoaded(object sender, EventArgs e)
         {
-            UpdateInstanceControls(GetInstance((BasicTablatureTextEditor)sender));
+            UpdateInstanceControls(GetInstance((BasicTablatureTextEditor) sender));
         }
 
         private void SelectTabInstance(TabInstance instance)
@@ -319,7 +319,7 @@ namespace Tabster.Forms
         {
             File = file;
 
-            Page = new EllipsizedTabPage { Text = file.ToFriendlyString(), ToolTipText = file.FileInfo.FullName };
+            Page = new EllipsizedTabPage {Text = file.ToFriendlyString(), ToolTipText = file.FileInfo.FullName};
 
             Editor = editor ?? new BasicTablatureTextEditor {Dock = DockStyle.Fill};
 

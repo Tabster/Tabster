@@ -32,13 +32,13 @@ namespace Tabster.Controls
         private static TextBox GenerateTextbox()
         {
             return new TextBox
-                       {
-                           BorderStyle = BorderStyle.None,
-                           Dock = DockStyle.Fill,
-                           Multiline = true,
-                           ScrollBars = ScrollBars.Both,
-                           Font = TablatureDisplayFont.GetFont()
-                       };
+            {
+                BorderStyle = BorderStyle.None,
+                Dock = DockStyle.Fill,
+                Multiline = true,
+                ScrollBars = ScrollBars.Both,
+                Font = TablatureDisplayFont.GetFont()
+            };
         }
     }
 }
