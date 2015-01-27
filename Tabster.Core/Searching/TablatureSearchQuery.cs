@@ -11,7 +11,7 @@ namespace Tabster.Core.Searching
     /// </summary>
     public class TablatureSearchQuery
     {
-        public TablatureSearchQuery(string artist, string title, TablatureType type, TablatureRating rating)
+        public TablatureSearchQuery(string artist, string title, TablatureType type, TablatureRating rating = TablatureRating.None)
         {
             Artist = artist;
             Title = title;
