@@ -78,6 +78,7 @@ Section "MainSection" SEC01
   SetOutPath "${PLUGIN_SEARCHING_DIRECTORY}"  
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\UltimateGuitar.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\GuitartabsDotCC.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\Songsterr.dll"
   
   ; file association
   ${registerExtension} "$INSTDIR\Tabster.exe" ".tabster" "Tabster File"
