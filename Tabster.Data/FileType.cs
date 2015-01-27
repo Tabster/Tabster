@@ -9,12 +9,12 @@ namespace Tabster.Data
 {
     public sealed class FileType
     {
-        public readonly Collection<string> Extensions;
+        private readonly List<string> _extensions = new List<string>();
 
-        public FileType(string name, IList<string> extensions)
+        public FileType(string name, IEnumerable<string> extensions)
         {
             Name = name;
-            Extensions = new Collection<string>(extensions);
+            _extensions.AddRange(extensions);
         }
 
         public FileType(string name, string extension)
@@ -23,6 +23,11 @@ namespace Tabster.Data
         }
 
         public string Name { get; set; }
+
+        public ReadOnlyCollection<string> Extensions
+        {
+            get { return _extensions.AsReadOnly(); }
+        }
 
         public string Extension
         {
