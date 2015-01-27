@@ -21,7 +21,7 @@ namespace Tabster.LocalUtilities
                 {
                     var id = GetSearchEngineIdentifier(plugin, engine);
 
-                    if (!Settings.Default.DisabledPlugins.Contains(id))
+                    if (id != null && !Settings.Default.DisabledSearchEngines.Contains(id))
                     {
                         engines.Add(engine);
                     }
@@ -33,6 +33,9 @@ namespace Tabster.LocalUtilities
 
         public static string GetSearchEngineIdentifier(TabsterPluginHost plugin, ITablatureSearchEngine engine)
         {
+            if (string.IsNullOrEmpty(engine.Name))
+                return null;
+
             return string.Format("{0}:{1}", plugin.GUID, engine.Name);
         }
     }
