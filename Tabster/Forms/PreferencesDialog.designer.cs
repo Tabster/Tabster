@@ -212,8 +212,8 @@
             // 
             // tabPlugins
             // 
-            this.tabPlugins.Controls.Add(this.groupBox1);
             this.tabPlugins.Controls.Add(this.listPlugins);
+            this.tabPlugins.Controls.Add(this.groupBox1);
             this.tabPlugins.Location = new System.Drawing.Point(4, 22);
             this.tabPlugins.Name = "tabPlugins";
             this.tabPlugins.Padding = new System.Windows.Forms.Padding(3);
@@ -539,8 +539,8 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.groupBox2);
             this.tabPage4.Controls.Add(this.listSearchEngines);
+            this.tabPage4.Controls.Add(this.groupBox2);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);

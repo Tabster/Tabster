@@ -41,7 +41,8 @@ namespace Tabster.Forms
                 }
             }
 
-            listPlugins.AutoResizeColumn(listPlugins.Columns.Count - 1, ColumnHeaderAutoResizeStyle.ColumnContent);
+            if (listPlugins.Columns.Count > 0)
+                listPlugins.AutoResizeColumn(listPlugins.Columns.Count - 1, ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         private void LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
