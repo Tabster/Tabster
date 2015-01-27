@@ -107,6 +107,9 @@ namespace Tabster.Forms
                     var plugin = Program.pluginController.GetHostByType(engine.GetType());
                     var id = UserSettingsUtilities.GetSearchEngineIdentifier(plugin, engine);
 
+                    if (id == null)
+                        continue;
+
                     var engineEnabled = lvi.Checked;
 
                     Settings.Default.DisabledSearchEngines.Remove(id);
