@@ -34,11 +34,8 @@ namespace Tabster.Forms
 
     internal partial class MainForm
     {
-        private readonly List<TablatureSearchResult> _searchResults = new List<TablatureSearchResult>();
-
         private readonly Dictionary<Uri, TablatureDocument> _searchResultsCache = new Dictionary<Uri, TablatureDocument>();
 
-        private List<ITablatureSearchEngine> _searchServices = new List<ITablatureSearchEngine>();
         private List<ITablatureWebImporter> _webImporters = new List<ITablatureWebImporter>();
 
         private TablatureSearchResult GetSelectedSearchResult()
@@ -133,26 +130,8 @@ namespace Tabster.Forms
 
         private void SearchBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            _searchResults.Clear();
-
             onlinesearchbtn.Enabled = true;
-
-            if (e.Result != null)
-            {
-                var results = (List<TablatureSearchResult>) e.Result;
-
-                _searchResults.AddRange(results);
-            }
-
             lblStatus.Text = string.Format("Search Results: {0}", listViewSearch.Items.Count);
-        }
-
-        private void dataGridViewExtended1_SelectionChanged(object sender, EventArgs e)
-        {
-            LoadGetSelectedSearchResultPreview();
-
-            var selectedResult = GetSelectedSearchResult();
-            saveTabToolStripMenuItem1.Enabled = selectedResult != null && _searchResultsCache.ContainsKey(selectedResult.Source);
         }
 
         private void SaveSelectedSearchResult()
@@ -185,7 +164,7 @@ namespace Tabster.Forms
             }
         }
 
-        private void LoadGetSelectedSearchResultPreview()
+        private void LoadSelectedSearchResultPreview()
         {
             var selectedResult = GetSelectedSearchResult();
 
@@ -197,25 +176,22 @@ namespace Tabster.Forms
                 searchPreviewEditor.Text = "Loading Preview...";
 
                 if (!SearchPreviewBackgroundWorker.IsBusy)
-                    SearchPreviewBackgroundWorker.RunWorkerAsync(selectedResult.Source);
+                    SearchPreviewBackgroundWorker.RunWorkerAsync(selectedResult);
             }
         }
 
         private void SearchPreviewBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var url = (Uri) e.Argument;
+            var result = (TablatureSearchResult) e.Argument;
+            e.Result = result;
 
-            e.Result = url;
-
-            var result = _searchResults.Find(x => x.Source == url);
-
-            if (!_searchResultsCache.ContainsKey(url))
+            if (!_searchResultsCache.ContainsKey(result.Source))
             {
                 var parser = _webImporters.Find(x => x.IsUrlParsable(result.Source));
 
                 if (parser == null)
                 {
-                    throw new TablatureProcessorException(string.Format("No parser found for URL: {0}", url));
+                    throw new TablatureProcessorException(string.Format("No parser found for URL: {0}", result.Source));
                 }
 
                 var proxy = Program.CustomProxyController.GetProxy();
@@ -250,11 +226,11 @@ namespace Tabster.Forms
 
             if (!e.Cancelled && e.Error == null)
             {
-                var url = (Uri) e.Result;
+                var result = (TablatureSearchResult)e.Result;
 
-                if (_searchResultsCache.ContainsKey(url))
+                if (_searchResultsCache.ContainsKey(result.Source))
                 {
-                    var tab = _searchResultsCache[url];
+                    var tab = _searchResultsCache[result.Source];
                     searchPreviewEditor.LoadTablature(tab);
 
                     if (!searchhiddenpreviewToolStripMenuItem.Checked && searchSplitContainer.Panel2Collapsed)
@@ -267,7 +243,7 @@ namespace Tabster.Forms
                     //enable save tab option
                     var selectedResult = GetSelectedSearchResult();
 
-                    if (selectedResult != null && selectedResult.Source == url)
+                    if (selectedResult != null && selectedResult.Source == result.Source)
                     {
                         saveTabToolStripMenuItem1.Enabled = true;
                     }
@@ -338,7 +314,7 @@ namespace Tabster.Forms
             if (searchSplitContainer.Panel2Collapsed)
                 TogglePreviewPane(sender, e);
 
-            LoadGetSelectedSearchResultPreview();
+            LoadSelectedSearchResultPreview();
         }
 
         private void onlinesearchbtn_Click(object sender, EventArgs e)

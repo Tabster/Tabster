@@ -279,7 +279,6 @@ namespace Tabster.Forms
         {
             _fileImporters = new List<ITablatureFileImporter>(Program.pluginController.GetClassInstances<ITablatureFileImporter>());
             _webImporters = new List<ITablatureWebImporter>(Program.pluginController.GetClassInstances<ITablatureWebImporter>());
-            _searchServices = new List<ITablatureSearchEngine>(Program.pluginController.GetClassInstances<ITablatureSearchEngine>());
         }
 
         private void OpenRecentFile(MenuItem item)
@@ -648,12 +647,36 @@ namespace Tabster.Forms
 
         private void listViewSearch_CellRightClick(object sender, CellRightClickEventArgs e)
         {
+            if (GetSelectedSearchResult() == null)
+                return;
+
             e.MenuStrip = SearchMenu;
+        }
+
+        private void listViewSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadSelectedSearchResultPreview();
+
+            var selectedResult = GetSelectedSearchResult();
+            saveTabToolStripMenuItem1.Enabled = selectedResult != null && _searchResultsCache.ContainsKey(selectedResult.Source);
         }
 
         private void btnSearchOptions_Click(object sender, EventArgs e)
         {
             OpenPreferences("Searching");
+        }
+
+        private void listViewSearch_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (GetSelectedSearchResult() != null)
+            {
+                SaveSelectedSearchResult();
+            }
+        }
+
+        private void saveTabToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SaveSelectedSearchResult();
         }
     }
 }
