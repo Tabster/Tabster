@@ -57,7 +57,7 @@ namespace Tabster.Data
             Name = _doc.TryReadNodeValue("name", string.Empty);
             var files = _doc.ReadChildNodeValues("files");
 
-            foreach (var doc in files.Select(file => _processor.Load(file)).Where(doc => doc != null))
+            foreach (var doc in files.Where(File.Exists).Select(file => _processor.Load(file)).Where(doc => doc != null))
             {
                 Add(doc);
             }
