@@ -67,18 +67,18 @@ Section "MainSection" SEC01
   SetOutPath "${PLUGIN_FILETYPES_DIRECTORY}"  
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\TextFile.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\HtmlFile.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\PdfFile.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\itextsharp.dll" ;PdfFile dependency
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\HtmlAgilityPack.dll" ;HtmlFile dependency
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\RtfFile.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\WordDoc.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\DocX.dll" ;WordDoc dependency
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\PngFile.dll"
   
   ; native search plugins
-  SetOutPath "${PLUGIN_SEARCHING_DIRECTORY}"  
+  SetOutPath "${PLUGIN_SEARCHING_DIRECTORY}"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\UltimateGuitar.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\GuitartabsDotCC.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\Songsterr.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\HtmlAgilityPack.dll" ;common dependency
   
   ; file association
   ${registerExtension} "$INSTDIR\Tabster.exe" ".tabster" "Tabster File"
