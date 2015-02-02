@@ -111,6 +111,18 @@ namespace Tabster.Controls
             }
         }
 
+        public float FontSize
+        {
+            get { return TextBoxBase.Font.Size; }
+            set
+            {
+                if (value <= 0)
+                    return;
+
+                TextBoxBase.Font = new Font(TextBoxBase.Font.FontFamily, value);
+            }
+        }
+
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool HasScrollableContents
         {
