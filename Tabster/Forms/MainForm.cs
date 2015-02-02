@@ -222,7 +222,7 @@ namespace Tabster.Forms
                 sortByToolStripMenuItem.DropDownItems.Add(descendingToolStripMenuItem);
             }
 
-            var sortedColumn = listViewLibrary.PrimarySortColumn ?? listViewLibrary.Columns[0];
+            var sortedColumn = listViewLibrary.PrimarySortColumn ?? listViewLibrary.GetColumn(0);
 
             for (var i = 0; i < listViewLibrary.Columns.Count; i++)
             {
@@ -249,18 +249,9 @@ namespace Tabster.Forms
 
         private void SortByDirectionMenuItem_Click(object sender, EventArgs e)
         {
-/*
-                        var direction = descendingMenuItem.Checked ? ListSortDirection.Descending : ListSortDirection.Ascending;
-
-
-            var col = tablibrary.SortedColumn ?? tablibrary.Columns[0];
-
-            var direction = ListSortDirection.Ascending;
-
-            if (sender == descendingMenuItem)
-                direction = ListSortDirection.Descending;
-
-            tablibrary.Sort(col, direction);*/
+            var direction = sender == descendingToolStripMenuItem ? SortOrder.Descending : SortOrder.Ascending;
+            var col = listViewLibrary.PrimarySortColumn ?? listViewLibrary.GetColumn(0);
+            listViewLibrary.Sort(col, direction);
         }
 
         private void PopulateTabTypeControls()
