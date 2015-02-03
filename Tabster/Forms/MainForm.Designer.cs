@@ -465,6 +465,7 @@ namespace Tabster.Forms
             // PreviewEditor
             // 
             this.PreviewEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PreviewEditor.FontSize = 9F;
             this.PreviewEditor.Location = new System.Drawing.Point(0, 25);
             this.PreviewEditor.Name = "PreviewEditor";
             this.PreviewEditor.ReadOnly = true;
@@ -719,6 +720,7 @@ namespace Tabster.Forms
             // searchPreviewEditor
             // 
             this.searchPreviewEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchPreviewEditor.FontSize = 9F;
             this.searchPreviewEditor.Location = new System.Drawing.Point(0, 0);
             this.searchPreviewEditor.Margin = new System.Windows.Forms.Padding(0);
             this.searchPreviewEditor.Name = "searchPreviewEditor";
@@ -755,6 +757,7 @@ namespace Tabster.Forms
             // txtSearchTitle
             // 
             this.txtSearchTitle.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtSearchTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtSearchTitle.Location = new System.Drawing.Point(151, 5);
             this.txtSearchTitle.Name = "txtSearchTitle";
             this.txtSearchTitle.PlaceholderForecolor = System.Drawing.Color.DarkGray;
@@ -810,6 +813,7 @@ namespace Tabster.Forms
             // txtSearchArtist
             // 
             this.txtSearchArtist.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtSearchArtist.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtSearchArtist.Location = new System.Drawing.Point(8, 5);
             this.txtSearchArtist.Name = "txtSearchArtist";
             this.txtSearchArtist.PlaceholderForecolor = System.Drawing.Color.DarkGray;
