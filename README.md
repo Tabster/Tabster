@@ -10,8 +10,14 @@ Dependencies
 * [NuGet](https://www.nuget.org/)
 * [ObjectListView](http://objectlistview.sourceforge.net/)
 
-Building
+Building (Installer)
 ---------------
 
 * Install [NSIS](http://nsis.sourceforge.net/) and setup PATH variable for makensis.exe.
-* Navigate to the "Build" directory. If testing internally, run build.bat to build solution and create NSIS installer.
+* Navigate to the "Build" directory. Execute "build.bat".
+
+Building (Portable)
+---------------
+
+* Install [7zip](http://www.7-zip.org/) and setup PATH variable if necessary
+* Navigate to the "Build" directory. Execute "build_portable.bat".
