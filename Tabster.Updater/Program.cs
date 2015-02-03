@@ -17,7 +17,13 @@ namespace Tabster.Updater
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            //todo implement updating for portable mode
+#if PORTABLE
+            MessageBox.Show("The updater does not work for portable installations.", "Portable Mode", MessageBoxButtons.OK, MessageBoxIcon.Error);
+#else
             Application.Run(new UpdateCheckDialog());
+#endif
         }
     }
 }
