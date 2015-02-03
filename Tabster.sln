@@ -269,11 +269,11 @@ Global
 		{B477665C-265A-4978-B6D2-973A77960D14}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{B477665C-265A-4978-B6D2-973A77960D14}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{B477665C-265A-4978-B6D2-973A77960D14}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B477665C-265A-4978-B6D2-973A77960D14}.Portable|Any CPU.ActiveCfg = Release|Any CPU
-		{B477665C-265A-4978-B6D2-973A77960D14}.Portable|Any CPU.Build.0 = Release|Any CPU
-		{B477665C-265A-4978-B6D2-973A77960D14}.Portable|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{B477665C-265A-4978-B6D2-973A77960D14}.Portable|Mixed Platforms.Build.0 = Release|Any CPU
-		{B477665C-265A-4978-B6D2-973A77960D14}.Portable|x86.ActiveCfg = Release|Any CPU
+		{B477665C-265A-4978-B6D2-973A77960D14}.Portable|Any CPU.ActiveCfg = Portable|Any CPU
+		{B477665C-265A-4978-B6D2-973A77960D14}.Portable|Any CPU.Build.0 = Portable|Any CPU
+		{B477665C-265A-4978-B6D2-973A77960D14}.Portable|Mixed Platforms.ActiveCfg = Portable|Any CPU
+		{B477665C-265A-4978-B6D2-973A77960D14}.Portable|Mixed Platforms.Build.0 = Portable|Any CPU
+		{B477665C-265A-4978-B6D2-973A77960D14}.Portable|x86.ActiveCfg = Portable|Any CPU
 		{B477665C-265A-4978-B6D2-973A77960D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B477665C-265A-4978-B6D2-973A77960D14}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B477665C-265A-4978-B6D2-973A77960D14}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
