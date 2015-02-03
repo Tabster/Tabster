@@ -53,6 +53,7 @@ Section "MainSection" SEC01
   CreateShortCut "$DESKTOP\Tabster.lnk" "$INSTDIR\Tabster.exe"
   CreateDirectory "$SMPROGRAMS\Tabster"
   CreateShortCut "$SMPROGRAMS\Tabster\Tabster.lnk" "$INSTDIR\Tabster.exe"
+  CreateShortCut "$SMPROGRAMS\Tabster\Tabster (Safe Mode).lnk" "$INSTDIR\Tabster.exe" "-safe-mode"
   
   !define PLUGIN_DIRECTORY "$INSTDIR\Plugins"
   !define PLUGIN_FILETYPES_DIRECTORY "${PLUGIN_DIRECTORY}\FileTypes"
