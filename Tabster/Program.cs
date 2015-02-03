@@ -28,16 +28,16 @@ namespace Tabster
         public static UpdateQuery updateQuery = new UpdateQuery();
         public static CustomProxyController CustomProxyController;
 
-        private static TabbedViewer _tabbedViewer;
+        private static ExternalViewerForm _tabbedViewer;
 
-        public static TabbedViewer TabbedViewer
+        public static ExternalViewerForm TabbedViewer
         {
             get
             {
                 if (_tabbedViewer == null || _tabbedViewer.IsDisposed)
                 {
                     var mainForm = instanceController.MainForm;
-                    _tabbedViewer = new TabbedViewer(mainForm);
+                    _tabbedViewer = new ExternalViewerForm(mainForm);
                 }
 
                 return _tabbedViewer;

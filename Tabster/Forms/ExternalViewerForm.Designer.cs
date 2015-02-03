@@ -2,7 +2,7 @@
 
 namespace Tabster.Forms
 {
-    partial class TabbedViewer
+    partial class ExternalViewerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@ namespace Tabster.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TabbedViewer));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExternalViewerForm));
             this.TabControlMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeTabContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlsToolStrip = new System.Windows.Forms.ToolStrip();

@@ -14,7 +14,7 @@ using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 namespace Tabster.Forms
 {
-    internal partial class TabbedViewer : Form
+    internal partial class ExternalViewerForm : Form
     {
         #region Delegates
 
@@ -28,14 +28,14 @@ namespace Tabster.Forms
         private FormBorderStyle _previousBorderStyle;
         private FormWindowState _previousWindowState;
 
-        public TabbedViewer()
+        public ExternalViewerForm()
         {
             InitializeComponent();
 
             controlsToolStrip.Renderer = new ToolStripRenderer();
         }
 
-        public TabbedViewer(Form owner) : this()
+        public ExternalViewerForm(Form owner) : this()
         {
             _owner = owner;
         }
