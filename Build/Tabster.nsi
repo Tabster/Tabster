@@ -41,14 +41,13 @@ Section "MainSection" SEC01
   SetOverwrite ifnewer
 
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.exe"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Updater.exe"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Controls.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Core.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Data.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster.Updater\bin\Release\Updater.exe"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Utils.dll"
-  
-  ; third-party references
-  
+
+  ; third-party references  
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\ObjectListView.dll"
   
   CreateShortCut "$DESKTOP\Tabster.lnk" "$INSTDIR\Tabster.exe"
