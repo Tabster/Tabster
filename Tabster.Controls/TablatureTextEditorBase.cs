@@ -11,9 +11,9 @@ using Tabster.Core.Types;
 
 namespace Tabster.Controls
 {
-    public class TablatureTextEditorBase<TTextBoxBase> : Control where TTextBoxBase : TextBoxBase
+    public abstract class TablatureTextEditorBase : Control
     {
-        public TablatureTextEditorBase(TTextBoxBase textBoxBase)
+        protected TablatureTextEditorBase(TextBoxBase textBoxBase)
         {
             TextBoxBase = textBoxBase;
             TextBoxBase.Font = TablatureDisplayFont.GetFont();
@@ -23,7 +23,7 @@ namespace Tabster.Controls
             Controls.Add(textBoxBase);
         }
 
-        protected TTextBoxBase TextBoxBase { get; private set; }
+        protected TextBoxBase TextBoxBase { get; private set; }
 
         private void TextBoxBase_ModifiedChanged(object sender, EventArgs e)
         {
@@ -186,26 +186,6 @@ namespace Tabster.Controls
                 })
             {
                 printDocument.Print();
-            }
-        }
-
-        #endregion
-
-        #region AutoScroll
-
-        private bool _autoScroll;
-
-        //todo rename
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public bool AutoScroll
-        {
-            get { return _autoScroll; }
-            set
-            {
-                _autoScroll = value;
-
-                if (!value)
-                    ScrollToPosition(0);
             }
         }
 

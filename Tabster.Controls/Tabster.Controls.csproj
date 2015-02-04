@@ -60,7 +60,6 @@
     <Compile Include="TablatureDisplayFont.cs" />
     <Compile Include="Extensions\TabsterOpenFileDialogExtensions.cs" />
     <Compile Include="Extensions\TabsterSaveFileDialogExtensions.cs" />
-    <Compile Include="ITablatureTextEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TablatureTextEditorBase.cs">
       <SubType>Component</SubType>

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Tabster.Controls
 {
-    public class BasicTablatureTextEditor : TablatureTextEditorBase<TextBox>, ITablatureTextEditor
+    public class BasicTablatureTextEditor : TablatureTextEditorBase
     {
         public BasicTablatureTextEditor(TextBox host) : base(host)
         {
