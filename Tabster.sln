@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PngFile", "Plugins\FileType
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Songsterr", "Plugins\Searching\Songsterr\Songsterr.csproj", "{B477665C-265A-4978-B6D2-973A77960D14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabster.Printing", "Tabster.Printing\Tabster.Printing.csproj", "{32901CD2-65D8-4D7D-9F48-F26358A3E47E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -279,6 +281,21 @@ Global
 		{B477665C-265A-4978-B6D2-973A77960D14}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B477665C-265A-4978-B6D2-973A77960D14}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B477665C-265A-4978-B6D2-973A77960D14}.Release|x86.ActiveCfg = Release|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Portable|Any CPU.ActiveCfg = Release|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Portable|Any CPU.Build.0 = Release|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Portable|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Portable|Mixed Platforms.Build.0 = Release|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Portable|x86.ActiveCfg = Release|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{32901CD2-65D8-4D7D-9F48-F26358A3E47E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
