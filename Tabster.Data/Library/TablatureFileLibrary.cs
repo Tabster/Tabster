@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Microsoft.VisualBasic.FileIO;
 using Tabster.Data.Processing;
 using SearchOption = System.IO.SearchOption;
 
@@ -100,7 +99,7 @@ namespace Tabster.Data.Library
                 {
                     if (File.Exists(item.FileInfo.FullName) && diskDelete)
                     {
-                        FileSystem.DeleteFile(item.FileInfo.FullName, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                        File.Delete(item.FileInfo.FullName);
                     }
 
                     if (saveIndex)
