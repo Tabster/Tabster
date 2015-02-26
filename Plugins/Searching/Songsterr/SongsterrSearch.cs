@@ -8,6 +8,7 @@ using HtmlAgilityPack;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Data;
+using Tabster.Data.Xml;
 
 #endregion
 

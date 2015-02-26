@@ -3,6 +3,7 @@
 using System.IO;
 using Tabster.Data;
 using Tabster.Data.Processing;
+using Tabster.Data.Xml;
 
 #endregion
 

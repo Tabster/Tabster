@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using Tabster.Data.Utilities;
+using Tabster.Data.Xml;
 
 #endregion
 

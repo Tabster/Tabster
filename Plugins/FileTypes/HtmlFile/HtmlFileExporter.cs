@@ -5,6 +5,7 @@ using System.IO;
 using HtmlFile.Properties;
 using Tabster.Data;
 using Tabster.Data.Processing;
+using Tabster.Data.Xml;
 
 #endregion
 

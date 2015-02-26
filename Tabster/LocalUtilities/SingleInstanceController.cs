@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
 using Tabster.Data;
 using Tabster.Data.Processing;
+using Tabster.Data.Xml;
 using Tabster.Forms;
 using Tabster.Properties;
 

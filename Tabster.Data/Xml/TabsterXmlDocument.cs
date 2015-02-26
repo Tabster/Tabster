@@ -7,7 +7,7 @@ using System.Xml;
 
 #endregion
 
-namespace Tabster.Data
+namespace Tabster.Data.Xml
 {
     internal static class XmlDocumentExtensions
     {

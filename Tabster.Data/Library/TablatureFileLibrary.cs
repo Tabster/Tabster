@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Tabster.Data.Processing;
+using Tabster.Data.Xml;
 using SearchOption = System.IO.SearchOption;
 
 #endregion

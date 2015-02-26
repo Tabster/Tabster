@@ -8,6 +8,7 @@ using iTextSharp.text.pdf.parser;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Processing;
+using Tabster.Data.Xml;
 
 #endregion
 

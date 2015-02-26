@@ -13,6 +13,7 @@ using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
+using Tabster.Data.Xml;
 using Tabster.Properties;
 
 #endregion

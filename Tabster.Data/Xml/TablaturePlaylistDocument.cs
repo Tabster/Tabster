@@ -9,7 +9,7 @@ using Tabster.Data.Processing;
 
 #endregion
 
-namespace Tabster.Data
+namespace Tabster.Data.Xml
 {
     [Obsolete]
     public class TablaturePlaylistDocument : ICollection<TablatureDocument>, ITabsterDocument

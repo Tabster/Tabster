@@ -6,6 +6,7 @@ using System.Drawing.Text;
 using System.Windows.Forms;
 using Tabster.Data;
 using Tabster.Data.Processing;
+using Tabster.Data.Xml;
 
 #endregion
 

@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Processing;
+using Tabster.Data.Xml;
 
 #endregion
 

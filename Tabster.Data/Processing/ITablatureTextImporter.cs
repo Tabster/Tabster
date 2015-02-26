@@ -1,6 +1,7 @@
 #region
 
 using Tabster.Core.Types;
+using Tabster.Data.Xml;
 
 #endregion
 

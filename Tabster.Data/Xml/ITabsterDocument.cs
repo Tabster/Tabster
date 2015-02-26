@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace Tabster.Data
+namespace Tabster.Data.Xml
 {
     [Obsolete]
     public interface ITabsterDocument
