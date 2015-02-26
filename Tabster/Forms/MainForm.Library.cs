@@ -283,19 +283,6 @@ namespace Tabster.Forms
             }
         }
 
-        private void AutoScrollChange(object sender, EventArgs e)
-        {
-            var item = ((ToolStripMenuItem) sender);
-            var text = item.Text;
-
-            foreach (ToolStripMenuItem menuItem in toolStripButton3.DropDownItems)
-            {
-                menuItem.Checked = menuItem.Text == item.Text;
-            }
-
-            PreviewEditor.AutoScroll = text == "On";
-        }
-
         private void sidemenu_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
             _changingLibraryView = true;

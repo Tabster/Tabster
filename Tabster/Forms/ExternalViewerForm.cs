@@ -121,24 +121,6 @@ namespace Tabster.Forms
             return _tabInstances.Find(x => x.Page == selectedTab);
         }
 
-        private void AutoScrollChange(object sender, EventArgs e)
-        {
-            var instance = GetSelectedInstance();
-
-            if (instance != null)
-            {
-                var item = ((ToolStripMenuItem) sender);
-                var text = item.Text;
-
-                foreach (ToolStripMenuItem menuItem in toolStripButton3.DropDownItems)
-                {
-                    menuItem.Checked = menuItem.Text == item.Text;
-                }
-
-                instance.Editor.AutoScroll = text == "On";
-            }
-        }
-
         private void UpdateInstanceControls(TabInstance instance)
         {
             savebtn.Enabled = instance.Editor.Modified;

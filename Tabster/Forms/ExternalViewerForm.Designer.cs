@@ -103,14 +103,12 @@ namespace Tabster.Forms
             this.offToolStripMenuItem.Name = "offToolStripMenuItem";
             this.offToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.offToolStripMenuItem.Text = "Off";
-            this.offToolStripMenuItem.Click += new System.EventHandler(this.AutoScrollChange);
             // 
             // onToolStripMenuItem
             // 
             this.onToolStripMenuItem.Name = "onToolStripMenuItem";
             this.onToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.onToolStripMenuItem.Text = "On";
-            this.onToolStripMenuItem.Click += new System.EventHandler(this.AutoScrollChange);
             // 
             // savebtn
             // 
