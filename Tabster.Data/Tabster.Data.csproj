@@ -52,6 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileType.cs" />
+    <Compile Include="ITabsterFile.cs" />
+    <Compile Include="TabsterFileBase.cs" />
+    <Compile Include="TabsterFileHeader.cs" />
     <Compile Include="Xml\ITabsterDocument.cs" />
     <Compile Include="Library\ITablatureLibraryItem.cs" />
     <Compile Include="Library\ITablatureFileLibrary.cs" />

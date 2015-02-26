@@ -11,10 +11,9 @@ using Tabster.Data.Utilities;
 
 namespace Tabster.Data.Library
 {
-    public class TablatureLibraryIndexFile
+    public class TablatureLibraryIndexFile : TabsterFileBase, ITabsterFile
     {
-        public const string FILE_HEADER = "TABLIB";
-        protected const int HEADER_SIZE = 16;
+        public const string FILE_HEADER = "TABSTER-LIB";
 
         private const bool COMPRESSED = false;
         private static readonly Version FORMAT_VERSION = new Version("1.0");
@@ -26,6 +25,7 @@ namespace Tabster.Data.Library
         private readonly List<TablaturePlaylistDocument> _playlistFiles = new List<TablaturePlaylistDocument>();
 
         public TablatureLibraryIndexFile(TablatureFileLibrary library)
+            : base(FILE_HEADER)
         {
             _library = library;
         }
@@ -100,8 +100,6 @@ namespace Tabster.Data.Library
         protected virtual void ReadTablatureEntries(BinaryReader reader)
         {
             _libraryItems.Clear();
-
-            reader.BaseStream.Position = HEADER_SIZE;
 
             if (reader.PeekChar() == -1)
                 return;
@@ -178,18 +176,8 @@ namespace Tabster.Data.Library
             }
         }
 
-        protected virtual void WriteHeader(BinaryWriter writer, Version formatVersion)
-        {
-            writer.BaseStream.Position = 0;
-            writer.Write(FILE_HEADER.ToCharArray());
-            writer.Write(formatVersion.ToString());
-            writer.Write(COMPRESSED);
-        }
-
         protected virtual void WriteTablatureEntries(BinaryWriter writer)
         {
-            writer.BaseStream.Position = HEADER_SIZE;
-
             var knownDirectories = new List<string>();
             var directoryLookupTable = new Dictionary<TablatureLibraryItem, int>();
 
@@ -270,7 +258,8 @@ namespace Tabster.Data.Library
             {
                 using (var writer = new BinaryWriter(fs))
                 {
-                    WriteHeader(writer, FORMAT_VERSION);
+                    var header = new TabsterFileHeader(FILE_HEADER, FORMAT_VERSION, COMPRESSED);
+                    WriteHeader(writer, header);
                     WriteTablatureEntries(writer);
                     WritePlaylistEntries(writer);
                 }
