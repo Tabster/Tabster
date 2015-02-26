@@ -6,13 +6,13 @@ using System;
 
 namespace Tabster.Data
 {
-    public class TablatureFileException : Exception
+    public class TabsterFileException : Exception
     {
-        public TablatureFileException()
+        public TabsterFileException()
         {
         }
 
-        public TablatureFileException(string message)
+        public TabsterFileException(string message)
             : base(message)
         {
         }

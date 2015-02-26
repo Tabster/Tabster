@@ -64,7 +64,7 @@ namespace Tabster.Data
             var tabTypeValue = _doc.TryReadNodeValue("type");
 
             if (string.IsNullOrEmpty(tabTypeValue))
-                throw new TablatureFileException("Invalid or missing tab type");
+                throw new TabsterFileException("Invalid or missing tab type");
 
             //peform legacy lookup
             Type = FromFriendlyString(tabTypeValue) ?? new TablatureType(tabTypeValue);
