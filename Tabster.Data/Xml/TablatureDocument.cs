@@ -9,6 +9,7 @@ using Tabster.Core.Types;
 
 namespace Tabster.Data
 {
+    [Obsolete]
     public class TablatureDocument : AttributedTablature, ITabsterDocument, ITablatureSourceAttribute,
         ITablatureFileAttributes
     {

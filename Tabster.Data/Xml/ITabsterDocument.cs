@@ -6,6 +6,7 @@ using System;
 
 namespace Tabster.Data
 {
+    [Obsolete]
     public interface ITabsterDocument
     {
         Version FileVersion { get; }

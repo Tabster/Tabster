@@ -11,6 +11,7 @@ using Tabster.Data.Processing;
 
 namespace Tabster.Data
 {
+    [Obsolete]
     public class TablaturePlaylistDocument : ICollection<TablatureDocument>, ITabsterDocument
     {
         #region Constants

@@ -18,6 +18,7 @@ namespace Tabster.Data
         }
     }
 
+    [Obsolete]
     internal class TabsterXmlDocument
     {
         private readonly string _rootNode;
