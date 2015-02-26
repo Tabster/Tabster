@@ -52,9 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileType.cs" />
-    <Compile Include="ITablatureFile.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Xml\ITabsterDocument.cs" />
     <Compile Include="Library\ITablatureLibraryItem.cs" />
     <Compile Include="Library\ITablatureFileLibrary.cs" />
