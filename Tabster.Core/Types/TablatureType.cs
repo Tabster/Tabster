@@ -64,30 +64,15 @@ namespace Tabster.Core.Types
 
         #region Natively Supported Types
 
-        public static TablatureType Guitar
-        {
-            get { return new TablatureType("Guitar"); }
-        }
+        public static TablatureType Guitar { get; private set; }
 
-        public static TablatureType Chords
-        {
-            get { return new TablatureType("Chords"); }
-        }
+        public static TablatureType Chords { get; private set; }
 
-        public static TablatureType Bass
-        {
-            get { return new TablatureType("Bass"); }
-        }
+        public static TablatureType Bass { get; private set; }
 
-        public static TablatureType Drum
-        {
-            get { return new TablatureType("Drum"); }
-        }
+        public static TablatureType Drum { get; private set; }
 
-        public static TablatureType Ukulele
-        {
-            get { return new TablatureType("Ukulele"); }
-        }
+        public static TablatureType Ukulele { get; private set; }
 
         #endregion
 
@@ -98,6 +83,12 @@ namespace Tabster.Core.Types
 
         static TablatureType()
         {
+            Guitar = new TablatureType("Guitar");
+            Chords = new TablatureType("Chords");
+            Bass = new TablatureType("Bass");
+            Drum = new TablatureType("Drum");
+            Ukulele = new TablatureType("Ukulele");
+
             NativeTypes = new List<TablatureType> {Guitar, Chords, Bass, Drum, Ukulele};
             KnownTypes.AddRange(NativeTypes);
         }
