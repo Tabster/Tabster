@@ -7,21 +7,23 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Tabster.Core.Types;
-using Tabster.Data.Binary;
 using Tabster.Data.Processing;
 
 #endregion
 
 namespace Tabster.Data.Library
 {
-    public class TablatureFileLibrary : IEnumerable<TablatureLibraryItem>
+    public class TablatureFileLibrary<TTablatureFile, TTablaturePlaylistFile> : IEnumerable<TablatureLibraryItem>
+        where TTablatureFile : class, ITablatureFile, new()
+        where TTablaturePlaylistFile : class, ITablaturePlaylistFile, new()
     {
-        public readonly TabsterFileProcessor<TablatureFile> TablatureFileProcessor;
-        public readonly TabsterFileProcessor<TablaturePlaylistFile> TablaturePlaylistFileProcessor;
+        public readonly TabsterFileProcessor<TTablatureFile> TablatureFileProcessor;
+        public readonly TabsterFileProcessor<TTablaturePlaylistFile> TablaturePlaylistFileProcessor;
         private readonly List<ITablaturePlaylistFile> _playlists = new List<ITablaturePlaylistFile>();
         private readonly List<TablatureLibraryItem> _tablatureLibraryItems = new List<TablatureLibraryItem>();
 
-        public TablatureFileLibrary(string libraryDirectory, string playlistDirectory, TabsterFileProcessor<TablatureFile> tablatureFileProcessor, TabsterFileProcessor<TablaturePlaylistFile> tablaturePlaylistFileProcessor)
+        public TablatureFileLibrary(string libraryDirectory, string playlistDirectory,
+            TabsterFileProcessor<TTablatureFile> tablatureFileProcessor, TabsterFileProcessor<TTablaturePlaylistFile> tablaturePlaylistFileProcessor)
         {
             LibraryDirectory = libraryDirectory;
             PlaylistDirectory = playlistDirectory;
