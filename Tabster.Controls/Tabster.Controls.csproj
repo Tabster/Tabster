@@ -83,7 +83,7 @@
       <Name>Tabster.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tabster.Data\Tabster.Data.csproj">
-      <Project>{6A9EB767-6651-492C-864E-79D71DB2A11F}</Project>
+      <Project>{6a9eb767-6651-492c-864e-79d71db2a11f}</Project>
       <Name>Tabster.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tabster.Printing\Tabster.Printing.csproj">
