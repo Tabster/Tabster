@@ -1,7 +1,6 @@
 ﻿#region
 
 using Tabster.Core.Types;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -21,7 +20,7 @@ namespace Tabster.Data.Processing
         ///     Imports a file from a designated path.
         /// </summary>
         /// <param name="fileName"> The path of the file to import. </param>
-        TablatureDocument Import(string fileName);
+        AttributedTablature Import(string fileName);
 
         /// <summary>
         ///     Imports a file from a designated path.
@@ -30,6 +29,6 @@ namespace Tabster.Data.Processing
         /// <param name="artist"> Explicitly-defined artist. </param>
         /// <param name="title"> Explicitly-defined title. </param>
         /// <param name="type"> Explicitly-defined type. </param>
-        TablatureDocument Import(string fileName, string artist, string title, TablatureType type);
+        AttributedTablature Import(string fileName, string artist, string title, TablatureType type);
     }
 }

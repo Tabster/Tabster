@@ -6,48 +6,41 @@ using System;
 
 namespace Tabster.Data.Processing
 {
-    public class TabsterDocumentProcessor<T> where T : class, ITabsterDocument, new()
+    public class TabsterFileProcessor<T> where T : class, ITabsterFile, new()
     {
         private readonly Version _latestVersion;
-        private readonly bool _updateFormat;
 
-        public TabsterDocumentProcessor(Version latestVersion, bool updateFormat)
+        public TabsterFileProcessor(Version latestVersion)
         {
             _latestVersion = latestVersion;
-            _updateFormat = updateFormat;
         }
 
-        public Exception Error { get; private set; }
-
-        public T Load(string fileName)
+        public T Load(string fileName, bool update = false)
         {
             Exception error;
-            return Load(fileName, out error);
+            return Load(fileName, out error, update);
         }
 
-        public T Load(string fileName, out Exception error)
+        private T Load(string fileName, out Exception error, bool update = false)
         {
-            Error = null;
-
-            var doc = new T();
+            var file = new T();
 
             try
             {
-                doc.Load(fileName);
+                var header = file.Load(fileName);
 
-                if (_latestVersion > doc.FileVersion && _updateFormat)
+                if (update && header.Version < _latestVersion)
                 {
-                    doc.Update();
+                    //todo implement file updating
                 }
 
                 error = null;
-                return doc;
+                return file;
             }
 
             catch (Exception ex)
             {
                 error = ex;
-                Error = ex;
                 return null;
             }
         }

@@ -153,7 +153,7 @@ namespace Tabster.Controls
 
         public void PrintPreview(TablaturePrintDocumentSettings settings = null)
         {
-            var documentName = string.Format("Tablature Document {0}", DateTime.Now);
+            var documentName = string.Format("Tablature File {0}", DateTime.Now);
 
             using (
                 var printDocument = new TablaturePrintDocument(new AttributedTablature {Contents = Text},
@@ -175,7 +175,7 @@ namespace Tabster.Controls
 
         public void Print(TablaturePrintDocumentSettings settings = null)
         {
-            var documentName = string.Format("Tablature Document {0}", DateTime.Now);
+            var documentName = string.Format("Tablature File {0}", DateTime.Now);
 
             using (
                 var printDocument = new TablaturePrintDocument(new AttributedTablature {Contents = Text},

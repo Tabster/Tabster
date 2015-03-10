@@ -3,8 +3,6 @@
 using System;
 using System.Windows.Forms;
 using Tabster.Core.Types;
-using Tabster.Data;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -30,7 +28,7 @@ namespace Tabster.Forms
             ValidateInput();
         }
 
-        public TablatureDocument Tab { get; private set; }
+        public AttributedTablature Tab { get; private set; }
 
         private void ValidateInput(object sender = null, EventArgs e = null)
         {
@@ -39,7 +37,7 @@ namespace Tabster.Forms
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            Tab = new TablatureDocument(txtArtist.Text.Trim(), txtTitle.Text.Trim(), typeList.SelectedType, "")
+            Tab = new AttributedTablature(txtArtist.Text.Trim(), txtTitle.Text.Trim(), typeList.SelectedType)
             {
                 SourceType = TablatureSourceType.UserCreated,
             };

@@ -2,7 +2,6 @@
 
 using System;
 using System.IO;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -10,16 +9,16 @@ namespace Tabster.Data.Library
 {
     public class TablatureLibraryItem : ITablatureLibraryItem
     {
-        public TablatureLibraryItem(TablatureDocument doc)
+        public TablatureLibraryItem(ITablatureFile file)
         {
-            Document = doc;
+            File = file;
         }
 
         #region Implementation of LibraryEntryAttributes
 
         public FileInfo FileInfo
         {
-            get { return Document.FileInfo; }
+            get { return File.FileInfo; }
         }
 
         public bool Favorited { get; set; }
@@ -30,7 +29,7 @@ namespace Tabster.Data.Library
 
         public DateTime Added { get; set; }
 
-        public TablatureDocument Document { get; private set; }
+        public ITablatureFile File { get; private set; }
 
         #endregion
     }

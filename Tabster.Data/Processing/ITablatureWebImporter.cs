@@ -2,7 +2,7 @@
 
 using System;
 using System.Net;
-using Tabster.Data.Xml;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -33,6 +33,6 @@ namespace Tabster.Data.Processing
         /// <param name="url"> Source text to parse. </param>
         /// <param name="proxy"> Proxy settings.</param>
         /// <returns> Parsed tab. </returns>
-        TablatureDocument Parse(Uri url, WebProxy proxy);
+        AttributedTablature Parse(Uri url, WebProxy proxy);
     }
 }

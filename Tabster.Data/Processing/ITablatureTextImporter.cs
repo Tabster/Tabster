@@ -1,7 +1,6 @@
 #region
 
 using Tabster.Core.Types;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -18,6 +17,6 @@ namespace Tabster.Data.Processing
         /// <param name="text"> Source text to parse. </param>
         /// <param name="type"> Explicitly defined type. </param>
         /// <returns> Parsed tab. </returns>
-        TablatureDocument Parse(string text, TablatureType type);
+        AttributedTablature Parse(string text, TablatureType type);
     }
 }

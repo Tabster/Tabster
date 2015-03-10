@@ -2,7 +2,6 @@
 
 using System;
 using System.IO;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -15,6 +14,6 @@ namespace Tabster.Data.Library
         int Views { get; set; }
         DateTime? LastViewed { get; set; }
         DateTime Added { get; }
-        TablatureDocument Document { get; }
+        ITablatureFile File { get; }
     }
 }

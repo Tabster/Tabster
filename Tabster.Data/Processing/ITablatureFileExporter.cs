@@ -1,6 +1,4 @@
-﻿using Tabster.Data.Xml;
-
-namespace Tabster.Data.Processing
+﻿namespace Tabster.Data.Processing
 {
     /// <summary>
     ///     Allows exporting of a tablature document.
@@ -15,8 +13,8 @@ namespace Tabster.Data.Processing
         /// <summary>
         ///     Export a tablature document to the specified location.
         /// </summary>
-        /// <param name="doc"> The tablature document to export. </param>
+        /// <param name="file"> The tablature document to export. </param>
         /// <param name="fileName"> The path to export the document. </param>
-        void Export(TablatureDocument doc, string fileName);
+        void Export(ITablatureFile file, string fileName);
     }
 }

@@ -5,18 +5,18 @@ using System.IO;
 
 #endregion
 
-namespace Tabster.Data
+namespace Tabster.Data.Binary
 {
-    public abstract class TabsterFileBase
+    public abstract class TabsterBinaryFileBase
     {
         private readonly string _headerString;
 
-        protected TabsterFileBase(string headerString)
+        protected TabsterBinaryFileBase(string headerString)
         {
             _headerString = headerString;
         }
 
-        protected TabsterFileHeader ReadHeader(BinaryReader reader)
+        protected TabsterBinaryFileHeader ReadHeader(BinaryReader reader)
         {
             if (reader == null)
                 throw new ArgumentNullException("reader");
@@ -30,18 +30,18 @@ namespace Tabster.Data
 
             var compressedFlag = reader.ReadBoolean();
 
-            return new TabsterFileHeader(headerStr, version, compressedFlag);
+            return new TabsterBinaryFileHeader(version, compressedFlag);
         }
 
-        protected void WriteHeader(BinaryWriter writer, TabsterFileHeader header)
+        protected void WriteHeader(BinaryWriter writer, string headerStr, TabsterBinaryFileHeader header)
         {
             if (writer == null)
                 throw new ArgumentNullException("writer");
             if (header == null)
                 throw new ArgumentNullException("header");
 
-            writer.Write(header.HeaderString.ToCharArray());
-            writer.Write(header.FormatVersion.ToString());
+            writer.Write(headerStr.ToCharArray());
+            writer.Write(header.Version.ToString());
             writer.Write(header.Compressed);
         }
     }

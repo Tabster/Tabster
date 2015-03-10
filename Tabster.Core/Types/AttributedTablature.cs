@@ -1,6 +1,12 @@
-﻿namespace Tabster.Core.Types
+﻿#region
+
+using System;
+
+#endregion
+
+namespace Tabster.Core.Types
 {
-    public class AttributedTablature : ITablature, ITablatureAttributes
+    public class AttributedTablature : ITablature, ITablatureSourceAttributes
     {
         public AttributedTablature()
         {
@@ -32,6 +38,13 @@
         #region Implementation of ITablature
 
         public string Contents { get; set; }
+
+        #endregion
+
+        #region Implementation of ITablatureSourceAttribute
+
+        public TablatureSourceType SourceType { get; set; }
+        public Uri Source { get; set; }
 
         #endregion
     }

@@ -6,7 +6,7 @@ using System;
 
 namespace Tabster.Core.Types
 {
-    public interface ITablatureSourceAttribute : ITablatureAttributes
+    public interface ITablatureSourceAttributes
     {
         TablatureSourceType SourceType { get; set; }
         Uri Source { get; set; }

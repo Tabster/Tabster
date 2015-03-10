@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Core.Types;
 using Tabster.Data;
-using Tabster.Data.Xml;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion
@@ -19,7 +18,7 @@ namespace Tabster.Forms
     {
         #region Delegates
 
-        public delegate void TabHandler(object sender, TablatureDocument tablatureDocument);
+        public delegate void TabHandler(object sender, ITablatureFile file);
 
         #endregion
 
@@ -43,14 +42,14 @@ namespace Tabster.Forms
 
         #region Public Methods
 
-        public bool IsFileOpen(TablatureDocument doc)
+        public bool IsFileOpen(ITablatureFile file)
         {
-            return GetTabInstance(doc) != null;
+            return GetTabInstance(file) != null;
         }
 
-        public void LoadTablature(TablatureDocument doc)
+        public void LoadTablature(ITablatureFile file)
         {
-            var instance = IsFileOpen(doc) ? GetTabInstance(doc) : CreateTabInstance(doc);
+            var instance = IsFileOpen(file) ? GetTabInstance(file) : CreateTabInstance(file);
 
             if (!Visible)
             {
@@ -77,20 +76,20 @@ namespace Tabster.Forms
         public event TabHandler TabClosed;
         public event TabHandler TabOpened;
 
-        private TabInstance CreateTabInstance(TablatureDocument doc)
+        private TabInstance CreateTabInstance(ITablatureFile file)
         {
             var editor = new BasicTablatureTextEditor {Dock = DockStyle.Fill, ReadOnly = false};
-            var instance = new TabInstance(doc, editor);
+            var instance = new TabInstance(file, editor);
 
             _tabInstances.Add(instance);
             tabControl1.TabPages.Add(instance.Page);
 
             editor.ContentsModified += editor_ContentsModified;
             editor.TablatureLoaded += editor_TablatureLoaded;
-            editor.LoadTablature(doc);
+            editor.LoadTablature(file);
 
             if (TabOpened != null)
-                TabOpened(this, doc);
+                TabOpened(this, file);
 
             return instance;
         }
@@ -111,9 +110,9 @@ namespace Tabster.Forms
             instance.Editor.Focus();
         }
 
-        private TabInstance GetTabInstance(TablatureDocument doc)
+        private TabInstance GetTabInstance(ITablatureFile file)
         {
-            return _tabInstances.Find(x => x.File.FileInfo.FullName.Equals(doc.FileInfo.FullName));
+            return _tabInstances.Find(x => x.File.FileInfo.FullName.Equals(file.FileInfo.FullName));
         }
 
         private TabInstance GetSelectedInstance()
@@ -144,7 +143,7 @@ namespace Tabster.Forms
 
             if (saveBeforeClosing)
             {
-                instance.File.Save();
+                instance.File.Save(instance.File.FileInfo.FullName);
             }
 
             tabControl1.TabPages.Remove(instance.Page);
@@ -284,7 +283,7 @@ namespace Tabster.Forms
             if (instance != null)
             {
                 instance.File.Contents = instance.Editor.Text;
-                instance.File.Save();
+                instance.File.Save(instance.File.FileInfo.FullName);
                 instance.Modified = false;
                 savebtn.Enabled = false;
             }
@@ -298,7 +297,7 @@ namespace Tabster.Forms
 
     internal class TabInstance
     {
-        public TabInstance(TablatureDocument file, BasicTablatureTextEditor editor = null)
+        public TabInstance(ITablatureFile file, BasicTablatureTextEditor editor = null)
         {
             File = file;
 
@@ -313,7 +312,7 @@ namespace Tabster.Forms
 
         public TabPage Page { get; private set; }
         public BasicTablatureTextEditor Editor { get; private set; }
-        public TablatureDocument File { get; private set; }
+        public ITablatureFile File { get; private set; }
 
         public bool Modified
         {

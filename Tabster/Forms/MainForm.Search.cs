@@ -7,9 +7,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
-using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 using Tabster.LocalUtilities;
 
 #endregion
@@ -35,7 +33,7 @@ namespace Tabster.Forms
 
     internal partial class MainForm
     {
-        private readonly Dictionary<Uri, TablatureDocument> _searchResultsCache = new Dictionary<Uri, TablatureDocument>();
+        private readonly Dictionary<Uri, AttributedTablature> _searchResultsCache = new Dictionary<Uri, AttributedTablature>();
 
         private List<ITablatureWebImporter> _webImporters = new List<ITablatureWebImporter>();
 
@@ -197,7 +195,7 @@ namespace Tabster.Forms
 
                 var proxy = Program.CustomProxyController.GetProxy();
 
-                TablatureDocument tab;
+                AttributedTablature tab;
 
                 try
                 {
@@ -272,10 +270,10 @@ namespace Tabster.Forms
 
             foreach (var item in Program.TablatureFileLibrary)
             {
-                if (artistStrings.Find(x => x.Equals(item.Document.Artist, StringComparison.OrdinalIgnoreCase)) == null)
-                    artistStrings.Add(item.Document.Artist);
+                if (artistStrings.Find(x => x.Equals(item.File.Artist, StringComparison.OrdinalIgnoreCase)) == null)
+                    artistStrings.Add(item.File.Artist);
 
-                var title = RemoveVersionConventionFromTitle(item.Document.Title);
+                var title = RemoveVersionConventionFromTitle(item.File.Title);
                 if (titleStrings.Find(x => x.Equals(title, StringComparison.OrdinalIgnoreCase)) == null)
                     titleStrings.Add(title);
             }

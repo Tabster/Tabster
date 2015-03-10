@@ -6,7 +6,10 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using Tabster.Data;
+using Tabster.Data.Binary;
 using Tabster.Data.Library;
+using Tabster.Data.Processing;
 using Tabster.Forms;
 using Tabster.LocalUtilities;
 using Tabster.Properties;
@@ -79,9 +82,11 @@ namespace Tabster
             if (!Directory.Exists(UserDirectory))
                 Directory.CreateDirectory(UserDirectory);
 
-            TablatureFileLibrary = new TablatureFileLibrary(Path.Combine(ApplicationDataDirectory, "library.dat"),
+            TablatureFileLibrary = new TablatureFileLibrary(
                 Path.Combine(UserDirectory, "Library"),
-                Path.Combine(UserDirectory, "Playlists"));
+                Path.Combine(UserDirectory, "Playlists"),
+                new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion),
+                new TabsterFileProcessor<TablaturePlaylistFile>(Constants.TablaturePlaylistFileVersion));
         }
 
         private static void LoadProxySettings()

@@ -8,7 +8,6 @@ using Tabster.Controls.Extensions;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -16,7 +15,6 @@ namespace Tabster.Forms
 {
     internal partial class ImportDialog : Form
     {
-        private readonly TabsterDocumentProcessor<TablatureDocument> _documentProcessor = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true);
         private readonly List<ITablatureFileImporter> _importers = new List<ITablatureFileImporter>();
 
         public ImportDialog()
@@ -30,11 +28,11 @@ namespace Tabster.Forms
             _importers = importers;
         }
 
-        public TablatureDocument Tab { get; private set; }
+        public AttributedTablature Tab { get; private set; }
 
         private void ImportDialog_Load(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = string.Format("Tabster Files (*{0})|*{0}", TablatureDocument.FILE_EXTENSION);
+            openFileDialog1.Filter = string.Format("Tabster Files (*{0})|*{0}", Constants.TablatureFileExtension);
             openFileDialog1.SetTabsterFilter(_importers);
 
             txtartist.Select(txtartist.Text.Length, 0);
@@ -42,8 +40,9 @@ namespace Tabster.Forms
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            Tab = new TablatureDocument(txtartist.Text.Trim(), txttitle.Text.Trim(), typeList.SelectedType, File.ReadAllText(txtimportfile.Text))
+            Tab = new AttributedTablature(txtartist.Text.Trim(), txttitle.Text.Trim(), typeList.SelectedType)
             {
+                Contents = File.ReadAllText(txtimportfile.Text),
                 Source = new Uri(txtimportfile.Text),
                 SourceType = chkusertab.Checked ? TablatureSourceType.UserCreated : TablatureSourceType.FileImport
             };
@@ -61,6 +60,7 @@ namespace Tabster.Forms
                 //tabster file
                 if (openFileDialog1.FilterIndex == 1)
                 {
+/* todo importing of tabster file
                     var doc = _documentProcessor.Load(openFileDialog1.FileName);
 
                     if (doc != null)
@@ -72,8 +72,8 @@ namespace Tabster.Forms
 
                     else
                     {
-                        MessageBox.Show("Error occured processing the document.", "Document Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                        MessageBox.Show("Error occured processing the document.", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }*/
                 }
 
                 else //custom importer

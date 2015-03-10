@@ -1,8 +1,16 @@
-﻿namespace Tabster.Data
+﻿#region
+
+using System.IO;
+
+#endregion
+
+namespace Tabster.Data
 {
     public interface ITabsterFile
     {
-        void Load(string fileName);
+        FileInfo FileInfo { get; }
+        ITabsterFileHeader Load(string fileName);
         void Save(string fileName);
+        ITabsterFileHeader GetHeader();
     }
 }

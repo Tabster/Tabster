@@ -10,8 +10,7 @@ using Tabster.Core.Types;
 namespace Tabster.Data.Xml
 {
     [Obsolete]
-    public class TablatureDocument : AttributedTablature, ITabsterDocument, ITablatureSourceAttribute,
-        ITablatureFileAttributes
+    public class TablatureDocument : ITablatureFile
     {
         #region Constants
 
@@ -20,7 +19,7 @@ namespace Tabster.Data.Xml
 
         #endregion
 
-        private readonly TabsterXmlDocument _doc = new TabsterXmlDocument("tabster");
+        private const string ROOT_NODE = "tabster";
 
         #region Constructors
 
@@ -36,33 +35,23 @@ namespace Tabster.Data.Xml
             Type = type;
         }
 
-        public TablatureDocument(string artist, string title, TablatureType type, string contents)
-            : this(artist, title, type)
-        {
-            Contents = contents;
-        }
-
         #endregion
 
         #region Implementation of ITabsterDocument
 
         public FileInfo FileInfo { get; private set; }
 
-        public Version FileVersion
-        {
-            get { return _doc.Version; }
-        }
-
-        public void Load(string fileName)
+        public ITabsterFileHeader Load(string fileName)
         {
             FileInfo = new FileInfo(fileName);
 
-            _doc.Load(fileName);
+            var doc = new TabsterXmlDocument(ROOT_NODE);
+            doc.Load(fileName);
 
-            Artist = _doc.TryReadNodeValue("artist", string.Empty);
-            Title = _doc.TryReadNodeValues(new[] {"song", "title"}, string.Empty);
+            Artist = doc.TryReadNodeValue("artist", string.Empty);
+            Title = doc.TryReadNodeValues(new[] {"song", "title"}, string.Empty);
 
-            var tabTypeValue = _doc.TryReadNodeValue("type");
+            var tabTypeValue = doc.TryReadNodeValue("type");
 
             if (string.IsNullOrEmpty(tabTypeValue))
                 throw new TabsterFileException("Invalid or missing tab type");
@@ -70,9 +59,9 @@ namespace Tabster.Data.Xml
             //peform legacy lookup
             Type = FromFriendlyString(tabTypeValue) ?? new TablatureType(tabTypeValue);
 
-            Contents = _doc.TryReadNodeValue("tab", string.Empty);
+            Contents = doc.TryReadNodeValue("tab", string.Empty);
 
-            var createdValue = _doc.TryReadNodeValues(new[] {"date", "created"});
+            var createdValue = doc.TryReadNodeValues(new[] {"date", "created"});
 
             DateTime createDatetime;
 
@@ -80,11 +69,11 @@ namespace Tabster.Data.Xml
                 ? createDatetime
                 : FileInfo.CreationTime;
 
-            Comment = _doc.TryReadNodeValue("comment", string.Empty);
+            Comment = doc.TryReadNodeValue("comment", string.Empty);
 
             SourceType = TablatureSourceType.UserCreated;
 
-            var sourceValue = _doc.TryReadNodeValue("source", string.Empty);
+            var sourceValue = doc.TryReadNodeValue("source", string.Empty);
 
             if (!string.IsNullOrEmpty(sourceValue))
             {
@@ -100,37 +89,18 @@ namespace Tabster.Data.Xml
                     SourceType = Source.IsFile ? TablatureSourceType.FileImport : TablatureSourceType.Download;
                 }
             }
-        }
 
-        public void Save()
-        {
-            Save(FileInfo.FullName);
-            FileInfo.Refresh();
-        }
-
-        public void Update()
-        {
-            //fix carriage returns without newlines and strip html
-            if (FileVersion < new Version("1.4"))
-            {
-                var newlineRegex = new Regex("(?<!\r)\n", RegexOptions.Compiled);
-
-                Contents = newlineRegex.Replace(Contents, Environment.NewLine);
-                Contents = StripHTML(Contents);
-            }
-
-            if (FileVersion != FILE_VERSION)
-                Save();
+            return new TabsterXmlFileHeader(doc.Version);
         }
 
         public void Save(string fileName)
         {
-            _doc.Version = FILE_VERSION;
+            var doc = new TabsterXmlDocument(ROOT_NODE) {Version = FILE_VERSION};
 
-            _doc.WriteNode("title", Title);
-            _doc.WriteNode("artist", Artist);
-            _doc.WriteNode("type", Type.ToString());
-            _doc.WriteNode("tab", Contents);
+            doc.WriteNode("title", Title);
+            doc.WriteNode("artist", Artist);
+            doc.WriteNode("type", Type.ToString());
+            doc.WriteNode("tab", Contents);
 
             var sourceValue = "UserCreated";
 
@@ -148,31 +118,45 @@ namespace Tabster.Data.Xml
                     sourceValue = "UserCreated";
             }
 
-            _doc.WriteNode("source", sourceValue);
-            _doc.WriteNode("created", Created == DateTime.MinValue ? DateTime.Now.ToString() : Created.ToString());
-            _doc.WriteNode("comment", Comment);
+            doc.WriteNode("source", sourceValue);
+            doc.WriteNode("created", Created == DateTime.MinValue ? DateTime.Now.ToString() : Created.ToString());
+            doc.WriteNode("comment", Comment);
 
-            _doc.Save(fileName);
+            doc.Save(fileName);
 
             if (FileInfo == null)
                 FileInfo = new FileInfo(fileName);
         }
 
-        #endregion
+        public ITabsterFileHeader GetHeader()
+        {
+            var doc = new TabsterXmlDocument(ROOT_NODE);
+            doc.Load(FileInfo.FullName);
+            return new TabsterXmlFileHeader(doc.Version);
+        }
 
-        #region Implementation of ITablatureSourced
+        public void Save()
+        {
+            Save(FileInfo.FullName);
+            FileInfo.Refresh();
+        }
 
-        public TablatureSourceType SourceType { get; set; }
+        public void Update()
+        {
+            var version = GetHeader().Version;
 
-        public Uri Source { get; set; }
+            //fix carriage returns without newlines and strip html
+            if (version < new Version("1.4"))
+            {
+                var newlineRegex = new Regex("(?<!\r)\n", RegexOptions.Compiled);
 
-        #endregion
+                Contents = newlineRegex.Replace(Contents, Environment.NewLine);
+                Contents = StripHTML(Contents);
+            }
 
-        #region Implementation of ITablatureUserDefined
-
-        public string Comment { get; set; }
-
-        public DateTime Created { get; set; }
+            if (version != FILE_VERSION)
+                Save();
+        }
 
         #endregion
 
@@ -231,6 +215,35 @@ namespace Tabster.Data.Xml
 
             return new string(array, 0, arrayIndex);
         }
+
+        #endregion
+
+        #region Implementation of ITablatureFile
+
+        public DateTime Created { get; set; }
+        private TablatureSourceType SourceType { get; set; }
+        public string Comment { get; set; }
+
+        #endregion
+
+        #region Implementation of ITablatureAttributes
+
+        public string Artist { get; set; }
+        public string Title { get; set; }
+        public TablatureType Type { get; set; }
+
+        #endregion
+
+        #region Implementation of ITablatureSourceAttribute
+
+        TablatureSourceType ITablatureSourceAttributes.SourceType { get; set; }
+        public Uri Source { get; set; }
+
+        #endregion
+
+        #region Implementation of ITablature
+
+        public string Contents { get; set; }
 
         #endregion
     }

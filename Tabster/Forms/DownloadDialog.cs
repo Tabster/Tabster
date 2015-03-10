@@ -8,9 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using Tabster.Core.Types;
-using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -37,13 +35,13 @@ namespace Tabster.Forms
 
             public Uri Url { get; private set; }
             public ITablatureWebImporter Parser { get; set; }
-            public TablatureDocument Tab { get; set; }
+            public AttributedTablature Tab { get; set; }
             public DownloadState State { get; set; }
         }
 
         #endregion
 
-        private readonly List<TablatureDocument> _downloadedTabs = new List<TablatureDocument>();
+        private readonly List<AttributedTablature> _downloadedTabs = new List<AttributedTablature>();
         private readonly List<ITablatureWebImporter> _importers = new List<ITablatureWebImporter>();
         private bool mClosePending;
         private bool mCompleted = true;
@@ -56,7 +54,7 @@ namespace Tabster.Forms
             splitContainer1.Panel2Collapsed = true;
         }
 
-        public ReadOnlyCollection<TablatureDocument> DownloadedTabs
+        public ReadOnlyCollection<AttributedTablature> DownloadedTabs
         {
             get { return _downloadedTabs.AsReadOnly(); }
         }
@@ -264,7 +262,7 @@ namespace Tabster.Forms
 
         private void listDownloads_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TablatureDocument tab = null;
+            AttributedTablature tab = null;
 
             if (listDownloads.SelectedItems.Count > 0)
                 tab = _downloadedTabs[listDownloads.SelectedItems[0].Index];
@@ -272,7 +270,7 @@ namespace Tabster.Forms
             PopulateTablatureFields(tab);
         }
 
-        private void PopulateTablatureFields(TablatureDocument tab)
+        private void PopulateTablatureFields(AttributedTablature tab)
         {
             txtArtist.Text = tab != null ? tab.Artist : string.Empty;
             txtTitle.Text = tab != null ? tab.Title : string.Empty;

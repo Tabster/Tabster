@@ -51,16 +51,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="FileType.cs" />
+    <Compile Include="ILibraryFile.cs" />
+    <Compile Include="ITablaturePlaylistFile.cs" />
+    <Compile Include="ITablatureFile.cs" />
+    <Compile Include="ITablaturePlaylist.cs" />
     <Compile Include="ITabsterFile.cs" />
-    <Compile Include="TabsterFileBase.cs" />
-    <Compile Include="TabsterFileHeader.cs" />
-    <Compile Include="Xml\ITabsterDocument.cs" />
-    <Compile Include="Library\ITablatureLibraryItem.cs" />
-    <Compile Include="Library\ITablatureFileLibrary.cs" />
-    <Compile Include="Library\TablatureLibraryIndexFile.cs" />
-    <Compile Include="Library\TablatureLibraryItem.cs" />
     <Compile Include="Library\TablatureFileLibrary.cs" />
+    <Compile Include="Binary\TablatureBinaryFile.cs" />
+    <Compile Include="Binary\TablaturePlaylistFile.cs" />
+    <Compile Include="Binary\TabsterBinaryFileBase.cs" />
+    <Compile Include="Binary\TabsterBinaryFileHeader.cs" />
+    <Compile Include="ITabsterFileHeader.cs" />
+    <Compile Include="Xml\TabsterXmlFileHeader.cs" />
+    <Compile Include="Library\ITablatureLibraryItem.cs" />
+    <Compile Include="Library\TablatureLibraryItem.cs" />
     <Compile Include="Processing\ITablatureFileExporter.cs" />
     <Compile Include="Processing\ITablatureFileImporter.cs" />
     <Compile Include="Processing\ITablatureImporter.cs" />

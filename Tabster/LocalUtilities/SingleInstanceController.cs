@@ -6,8 +6,6 @@ using System.IO;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
 using Tabster.Data;
-using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 using Tabster.Forms;
 using Tabster.Properties;
 
@@ -22,8 +20,8 @@ namespace Tabster.LocalUtilities
 #else
         private const int MIN_SPLASH_TIME = 3500;
 #endif
-        private static TablatureDocument _queuedTabfile;
-        private static TablaturePlaylistDocument _queuedPlaylistFile;
+        private static ITablatureFile _queuedTabfile;
+        private static ITablaturePlaylistFile _queuedTablaturePlaylistFile;
         private static bool _isLibraryOpen;
         private static bool _noSplash;
         private static bool _safeMode;
@@ -57,7 +55,7 @@ namespace Tabster.LocalUtilities
 
                 if (File.Exists(firstArg))
                 {
-                    var tablatureDocument = new TabsterDocumentProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION, true).Load(firstArg);
+                    var tablatureDocument = Program.TablatureFileLibrary.TablatureFileProcessor.Load(firstArg);
 
                     if (tablatureDocument != null)
                     {
@@ -69,11 +67,11 @@ namespace Tabster.LocalUtilities
 
                     else
                     {
-                        var playlistDocument = new TabsterDocumentProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION, true).Load(firstArg);
+                        var playlistDocument = Program.TablatureFileLibrary.TablaturePlaylistFileProcessor.Load(firstArg);
 
                         if (playlistDocument != null)
                         {
-                            _queuedPlaylistFile = playlistDocument;
+                            _queuedTablaturePlaylistFile = playlistDocument;
                         }
                     }
                 }
@@ -109,11 +107,11 @@ namespace Tabster.LocalUtilities
             PerformStartupEvents();
 
             if (_queuedTabfile != null)
-                base.MainForm = new MainForm(_queuedTabfile);
-            else if (_queuedPlaylistFile != null)
-                base.MainForm = new MainForm(_queuedPlaylistFile);
+                base.MainForm = new MainForm(Program.TablatureFileLibrary, _queuedTabfile);
+            else if (_queuedTablaturePlaylistFile != null)
+                base.MainForm = new MainForm(Program.TablatureFileLibrary, _queuedTablaturePlaylistFile);
             else
-                base.MainForm = new MainForm();
+                base.MainForm = new MainForm(Program.TablatureFileLibrary);
 
             _isLibraryOpen = true;
         }

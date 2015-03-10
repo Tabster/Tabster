@@ -1,6 +1,6 @@
 ﻿namespace Tabster.Core.Types
 {
-    public interface ITablatureRatedAttribute : ITablatureAttributes
+    public interface ITablatureRatedAttributes : ITablatureAttributes
     {
         TablatureRating Rating { get; set; }
     }
