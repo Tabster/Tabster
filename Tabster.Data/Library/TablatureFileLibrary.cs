@@ -41,7 +41,6 @@ namespace Tabster.Data.Library
         public string LibraryDirectory { get; private set; }
         public string PlaylistDirectory { get; private set; }
 
-
         public ReadOnlyCollection<ITablaturePlaylistFile> Playlists
         {
             get { return _playlists.AsReadOnly(); }
@@ -154,7 +153,7 @@ namespace Tabster.Data.Library
             }
         }
 
-        private IEnumerable<TTablaturePlaylistFile> LoadPlaylistFiles()
+        public IEnumerable<TTablaturePlaylistFile> LoadPlaylistFiles()
         {
             return Directory.GetFiles(PlaylistDirectory, string.Format("*{0}", Constants.TablaturePlaylistFileExtension), SearchOption.AllDirectories).Select(file => TablaturePlaylistFileProcessor.Load(file)).Where(doc => doc != null).ToList();
         }
