@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Tabster.Core.Types;
 using Tabster.Data.Processing;
 
@@ -70,7 +71,7 @@ namespace Tabster.Data.Library
 
         #endregion
 
-        public void Load()
+        public void LoadTablatureFiles()
         {
             foreach (var file in Directory.GetFiles(LibraryDirectory, string.Format("*{0}", Constants.TablatureFileExtension),
                 SearchOption.AllDirectories).Select(file => TablatureFileProcessor.Load(file)).Where(doc => doc != null).ToList())
@@ -93,8 +94,17 @@ namespace Tabster.Data.Library
 
         public virtual TablatureLibraryItem Add(AttributedTablature tablature)
         {
-            //todo create file
-            return null;
+            var file = new TTablatureFile();
+            file.Artist = tablature.Artist;
+            file.Title = tablature.Title;
+            file.Type = tablature.Type;
+            file.SourceType = tablature.SourceType;
+            file.Source = tablature.Source;
+
+            var fileName = GenerateUniqueFilename(LibraryDirectory, Path.Combine(file.ToFriendlyString(), Constants.TablatureFileExtension));
+            file.Save(fileName);
+
+            return Add(file);
         }
 
         public virtual bool Remove(TablatureLibraryItem item)
@@ -122,9 +132,31 @@ namespace Tabster.Data.Library
             return _tablatureLibraryItems.Find(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
         }
 
-        public void Save()
+        private static string GenerateUniqueFilename(string directory, string filename)
         {
-            //todo remove this
+            //remove invalid file path characters
+            var regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+            var sanitized = new Regex(String.Format("[{0}]", Regex.Escape(regexSearch))).Replace(filename, "");
+
+            var fileName = Path.GetFileNameWithoutExtension(sanitized);
+            var fileExt = Path.GetExtension(sanitized);
+
+            var firstTry = Path.Combine(directory, String.Format("{0}{1}", fileName, fileExt));
+            if (!File.Exists(firstTry))
+                return firstTry;
+
+            for (var i = 1;; ++i)
+            {
+                var appendedPath = Path.Combine(directory, String.Format("{0} ({1}){2}", fileName, i, fileExt));
+
+                if (!File.Exists(appendedPath))
+                    return appendedPath;
+            }
+        }
+
+        private IEnumerable<TTablaturePlaylistFile> LoadPlaylistFiles()
+        {
+            return Directory.GetFiles(PlaylistDirectory, string.Format("*{0}", Constants.TablaturePlaylistFileExtension), SearchOption.AllDirectories).Select(file => TablaturePlaylistFileProcessor.Load(file)).Where(doc => doc != null).ToList();
         }
 
         #region Implementation of IEnumerable
