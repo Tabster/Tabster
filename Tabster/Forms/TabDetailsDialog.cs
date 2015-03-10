@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Tabster.Data;
+using Tabster.Data.Binary;
 using Tabster.Data.Library;
 
 #endregion
@@ -13,9 +14,9 @@ namespace Tabster.Forms
     internal partial class TabDetailsDialog : Form
     {
         private readonly ITablatureFile _file;
-        private readonly TablatureFileLibrary _library;
+        private readonly TablatureFileLibrary<TablatureFile, TablaturePlaylistFile> _library;
 
-        public TabDetailsDialog(ITablatureFile file, TablatureFileLibrary library = null)
+        public TabDetailsDialog(ITablatureFile file, TablatureFileLibrary<TablatureFile, TablaturePlaylistFile> library = null)
         {
             InitializeComponent();
             _file = file;

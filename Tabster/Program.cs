@@ -23,7 +23,7 @@ namespace Tabster
 {
     internal static class Program
     {
-        public static TablatureFileLibrary TablatureFileLibrary;
+        public static TablatureFileLibrary<TablatureFile, TablaturePlaylistFile> TablatureFileLibrary;
         public static SingleInstanceController instanceController;
         public static PluginController pluginController;
         public static string ApplicationDataDirectory;
@@ -82,7 +82,7 @@ namespace Tabster
             if (!Directory.Exists(UserDirectory))
                 Directory.CreateDirectory(UserDirectory);
 
-            TablatureFileLibrary = new TablatureFileLibrary(
+            TablatureFileLibrary = new TablatureFileLibrary<TablatureFile, TablaturePlaylistFile>(
                 Path.Combine(UserDirectory, "Library"),
                 Path.Combine(UserDirectory, "Playlists"),
                 new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion),

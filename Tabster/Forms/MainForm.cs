@@ -10,6 +10,7 @@ using BrightIdeasSoftware;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Data;
+using Tabster.Data.Binary;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
 using Tabster.Properties;
@@ -26,9 +27,9 @@ namespace Tabster.Forms
         private readonly ITablatureFile _queuedTablatureDocument;
         private readonly ITablaturePlaylistFile _queuedTablatureTablaturePlaylist;
         private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDataDirectory, "recent.dat");
-        private readonly TablatureFileLibrary _tablatureLibrary;
+        private readonly TablatureFileLibrary<TablatureFile, TablaturePlaylistFile> _tablatureLibrary;
 
-        public MainForm(TablatureFileLibrary tablatureLibrary)
+        public MainForm(TablatureFileLibrary<TablatureFile, TablaturePlaylistFile> tablatureLibrary)
         {
             _tablatureLibrary = tablatureLibrary;
             InitializeComponent();
@@ -69,13 +70,13 @@ namespace Tabster.Forms
             ToggleEmptyLibraryOverlay(listViewSearch, true);
         }
 
-        public MainForm(TablatureFileLibrary tablatureLibrary, ITablatureFile tabDocument)
+        public MainForm(TablatureFileLibrary<TablatureFile, TablaturePlaylistFile> tablatureLibrary, ITablatureFile tabDocument)
             : this(tablatureLibrary)
         {
             _queuedTablatureDocument = tabDocument;
         }
 
-        public MainForm(TablatureFileLibrary tablatureLibrary, ITablaturePlaylistFile tablaturePlaylistDocument)
+        public MainForm(TablatureFileLibrary<TablatureFile, TablaturePlaylistFile> tablatureLibrary, ITablaturePlaylistFile tablaturePlaylistDocument)
             : this(tablatureLibrary)
         {
             _queuedTablatureTablaturePlaylist = tablaturePlaylistDocument;
