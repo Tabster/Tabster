@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.IO;
 
 #endregion
@@ -12,5 +13,6 @@ namespace Tabster.Data
         ITabsterFileHeader Load(string fileName);
         void Save(string fileName);
         ITabsterFileHeader GetHeader();
+        TabsterFileAttributes FileAttributes { get; }
     }
 }

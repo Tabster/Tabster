@@ -37,12 +37,30 @@ namespace Tabster.Data.Binary
         {
             if (writer == null)
                 throw new ArgumentNullException("writer");
+            if (headerStr == null)
+                throw new ArgumentNullException("headerStr");
             if (header == null)
                 throw new ArgumentNullException("header");
 
             writer.Write(headerStr.ToCharArray());
             writer.Write(header.Version.ToString());
             writer.Write(header.Compressed);
+        }
+
+        protected TabsterFileAttributes ReadFileAttributes(BinaryReader reader)
+        {
+            var created = new DateTime(reader.ReadInt64());
+            return new TabsterFileAttributes(created);
+        }
+
+        protected void WriteFileAttributes(BinaryWriter writer, TabsterFileAttributes attributes)
+        {
+            if (writer == null)
+                throw new ArgumentNullException("writer");
+            if (attributes == null)
+                throw new ArgumentNullException("attributes");
+
+            writer.Write(attributes.Created.Ticks);
         }
     }
 }

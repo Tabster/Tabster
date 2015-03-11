@@ -73,6 +73,8 @@ namespace Tabster.Data.Xml
             return new TabsterXmlFileHeader(doc.Version);
         }
 
+        public TabsterFileAttributes FileAttributes { get; private set; }
+
         public ITabsterFileHeader Load(string filename)
         {
             Clear();
@@ -81,6 +83,9 @@ namespace Tabster.Data.Xml
 
             var doc = new TabsterXmlDocument(ROOT_NODE);
             doc.Load(filename);
+
+            //playlist format never had created property, use filesystem
+            FileAttributes = new TabsterFileAttributes(FileInfo.CreationTime);
 
             Name = doc.TryReadNodeValue("name", string.Empty);
             var files = doc.ReadChildNodeValues("files");

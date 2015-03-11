@@ -65,9 +65,11 @@ namespace Tabster.Data.Xml
 
             DateTime createDatetime;
 
-            Created = !string.IsNullOrEmpty(createdValue) && DateTime.TryParse(createdValue, out createDatetime)
+            var created = !string.IsNullOrEmpty(createdValue) && DateTime.TryParse(createdValue, out createDatetime)
                 ? createDatetime
                 : FileInfo.CreationTime;
+
+            FileAttributes = new TabsterFileAttributes(created);
 
             Comment = doc.TryReadNodeValue("comment", string.Empty);
 
@@ -119,7 +121,7 @@ namespace Tabster.Data.Xml
             }
 
             doc.WriteNode("source", sourceValue);
-            doc.WriteNode("created", Created == DateTime.MinValue ? DateTime.Now.ToString() : Created.ToString());
+            doc.WriteNode("created", FileAttributes.Created == DateTime.MinValue ? DateTime.Now.ToString() : FileAttributes.Created.ToString());
             doc.WriteNode("comment", Comment);
 
             doc.Save(fileName);
@@ -134,6 +136,8 @@ namespace Tabster.Data.Xml
             doc.Load(FileInfo.FullName);
             return new TabsterXmlFileHeader(doc.Version);
         }
+
+        public TabsterFileAttributes FileAttributes { get; private set; }
 
         public void Save()
         {
@@ -220,7 +224,6 @@ namespace Tabster.Data.Xml
 
         #region Implementation of ITablatureFile
 
-        public DateTime Created { get; set; }
         public string Comment { get; set; }
 
         #endregion

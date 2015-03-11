@@ -30,8 +30,7 @@ namespace Tabster.Data.Binary
                 {
                     var header = new TabsterBinaryFileHeader(HeaderVersion, false);
                     WriteHeader(writer, HeaderString, header);
-
-                    writer.Write(Created.Ticks);
+                    WriteFileAttributes(writer, FileAttributes);
 
                     //core attributes
                     writer.Write(Artist);
@@ -60,6 +59,19 @@ namespace Tabster.Data.Binary
             }
         }
 
+        public TabsterFileAttributes FileAttributes { get; set; }
+
+        public TabsterFileAttributes GetFileAttributes()
+        {
+            using (var fs = new FileStream(FileInfo.FullName, FileMode.Open))
+            {
+                using (var reader = new BinaryReader(fs))
+                {
+                    return ReadFileAttributes(reader);
+                }
+            }
+        }
+
         public ITabsterFileHeader Load(string fileName)
         {
             using (var fs = new FileStream(fileName, FileMode.Open))
@@ -68,7 +80,9 @@ namespace Tabster.Data.Binary
                 {
                     var header = ReadHeader(reader);
 
-                    Created = new DateTime(reader.ReadInt64());
+                    var created = new DateTime(reader.ReadInt64());
+                    FileAttributes = new TabsterFileAttributes(created);
+
 
                     Artist = reader.ReadString();
                     Title = reader.ReadString();
@@ -101,7 +115,6 @@ namespace Tabster.Data.Binary
 
         #region Implementation of ITablatureFile
 
-        public DateTime Created { get; set; }
         public string Comment { get; set; }
         public TablatureSourceType SourceType { get; set; }
         public Uri Source { get; set; }

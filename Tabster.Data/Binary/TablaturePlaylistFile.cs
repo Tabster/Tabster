@@ -42,6 +42,10 @@ namespace Tabster.Data.Binary
                 using (var reader = new BinaryReader(fs))
                 {
                     var header = ReadHeader(reader);
+
+                    var created = new DateTime(reader.ReadInt64());
+                    FileAttributes = new TabsterFileAttributes(created);
+
                     var count = reader.ReadInt32();
 
                     var items = new List<string>();
@@ -65,6 +69,7 @@ namespace Tabster.Data.Binary
                 using (var writer = new BinaryWriter(fs))
                 {
                     WriteHeader(writer, HeaderString, header);
+                    WriteFileAttributes(writer, FileAttributes);
 
                     foreach (var file in _files)
                     {
@@ -84,6 +89,8 @@ namespace Tabster.Data.Binary
                 }
             }
         }
+
+        public TabsterFileAttributes FileAttributes { get; private set; }
 
         #endregion
 
