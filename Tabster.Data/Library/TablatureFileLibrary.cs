@@ -86,19 +86,21 @@ namespace Tabster.Data.Library
 
         public virtual TablatureLibraryItem Add(ITablatureFile file)
         {
-            var item = new TablatureLibraryItem(file) {Added = DateTime.UtcNow};
+            var item = new TablatureLibraryItem(file){ Added = DateTime.UtcNow };
             Add(item);
             return item;
         }
 
-        public virtual TablatureLibraryItem Add(AttributedTablature tablature)
+        public virtual TablatureLibraryItem Create(AttributedTablature tablature)
         {
-            var file = new TTablatureFile();
-            file.Artist = tablature.Artist;
-            file.Title = tablature.Title;
-            file.Type = tablature.Type;
-            file.SourceType = tablature.SourceType;
-            file.Source = tablature.Source;
+            var file = new TTablatureFile
+            {
+                Artist = tablature.Artist,
+                Title = tablature.Title,
+                Type = tablature.Type,
+                SourceType = tablature.SourceType,
+                Source = tablature.Source
+            };
 
             var fileName = GenerateUniqueFilename(LibraryDirectory, Path.Combine(file.ToFriendlyString(), Constants.TablatureFileExtension));
             file.Save(fileName);
@@ -162,7 +164,7 @@ namespace Tabster.Data.Library
 
         public IEnumerator<TablatureLibraryItem> GetEnumerator()
         {
-            return ((IEnumerable<TablatureLibraryItem>) _tablatureLibraryItems).GetEnumerator();
+            return ((IEnumerable<TablatureLibraryItem>)_tablatureLibraryItems).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

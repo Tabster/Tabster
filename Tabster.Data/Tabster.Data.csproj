@@ -67,7 +67,6 @@
     <Compile Include="ITabsterFileHeader.cs" />
     <Compile Include="TabsterXmlFileConverter.cs" />
     <Compile Include="Xml\TabsterXmlFileHeader.cs" />
-    <Compile Include="Library\ITablatureLibraryItem.cs" />
     <Compile Include="Library\TablatureLibraryItem.cs" />
     <Compile Include="Processing\ITablatureFileExporter.cs" />
     <Compile Include="Processing\ITablatureFileImporter.cs" />

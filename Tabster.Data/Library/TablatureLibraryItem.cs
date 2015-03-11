@@ -7,14 +7,12 @@ using System.IO;
 
 namespace Tabster.Data.Library
 {
-    public class TablatureLibraryItem : ITablatureLibraryItem
+    public class TablatureLibraryItem
     {
         public TablatureLibraryItem(ITablatureFile file)
         {
             File = file;
         }
-
-        #region Implementation of LibraryEntryAttributes
 
         public FileInfo FileInfo
         {
@@ -30,7 +28,5 @@ namespace Tabster.Data.Library
         public DateTime Added { get; set; }
 
         public ITablatureFile File { get; private set; }
-
-        #endregion
     }
 }
