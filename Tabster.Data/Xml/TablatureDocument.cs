@@ -221,7 +221,6 @@ namespace Tabster.Data.Xml
         #region Implementation of ITablatureFile
 
         public DateTime Created { get; set; }
-        private TablatureSourceType SourceType { get; set; }
         public string Comment { get; set; }
 
         #endregion
@@ -236,7 +235,7 @@ namespace Tabster.Data.Xml
 
         #region Implementation of ITablatureSourceAttribute
 
-        TablatureSourceType ITablatureSourceAttributes.SourceType { get; set; }
+        public TablatureSourceType SourceType { get; set; }
         public Uri Source { get; set; }
 
         #endregion
