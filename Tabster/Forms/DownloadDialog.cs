@@ -9,6 +9,7 @@ using System.Net;
 using System.Windows.Forms;
 using Tabster.Core.Types;
 using Tabster.Data.Processing;
+using Tabster.LocalUtilities;
 
 #endregion
 
@@ -112,7 +113,7 @@ namespace Tabster.Forms
 
             var count = 0;
 
-            var proxy = Program.CustomProxyController.GetProxy();
+            var proxy = UserSettingsUtilities.ProxySettings.Proxy;
 
             foreach (var queuedDownload in queuedDownloads)
             {

@@ -49,7 +49,7 @@ namespace Tabster.Forms
 
         private TablatureLibraryItem GetSelectedLibraryItem()
         {
-            return listViewLibrary.SelectedObject != null ? (TablatureLibraryItem) listViewLibrary.SelectedObject : null;
+            return listViewLibrary.SelectedObject != null ? (TablatureLibraryItem)listViewLibrary.SelectedObject : null;
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -158,8 +158,7 @@ namespace Tabster.Forms
             {
                 if (n.ShowDialog() == DialogResult.OK)
                 {
-                    var item = Program.TablatureFileLibrary.Add(n.Tab);
-                    Program.TablatureFileLibrary.Save();
+                    var item = Program.TablatureFileLibrary.Create(n.Tab);
                     UpdateLibraryItem(item);
                     PopoutTab(item.File);
                 }
@@ -179,9 +178,6 @@ namespace Tabster.Forms
             {
                 libraryItem.Views += 1;
                 libraryItem.LastViewed = DateTime.UtcNow;
-
-                Program.TablatureFileLibrary.Save();
-
                 LoadTabPreview();
             }
         }
@@ -322,8 +318,6 @@ namespace Tabster.Forms
             {
                 GetSelectedLibraryItem().Favorited = !GetSelectedLibraryItem().Favorited;
 
-                Program.TablatureFileLibrary.Save();
-
                 //remove item from favorites display
                 if (!GetSelectedLibraryItem().Favorited && SelectedLibrary() == LibraryType.MyFavorites)
                 {
@@ -407,7 +401,8 @@ namespace Tabster.Forms
             {
                 var selectedPlaylist = GetSelectedPlaylist();
 
-                items.AddRange(selectedPlaylist.Select(tab => new TablatureLibraryItem(tab)));
+                //todo improve this so we aren't creating arbitary items
+                items.AddRange(selectedPlaylist.Select(tab => new TablatureLibraryItem(tab)).Cast<TablatureLibraryItem>());
             }
 
             else
@@ -418,7 +413,7 @@ namespace Tabster.Forms
             return items.ToArray();
         }
 
-        private bool TablatureLibraryItemVisible(LibraryType selectedLibrary, ITablatureLibraryItem item, string searchValue)
+        private bool TablatureLibraryItemVisible(LibraryType selectedLibrary, TablatureLibraryItem item, string searchValue)
         {
             var libraryMatch =
                 selectedLibrary == LibraryType.Playlist ||
@@ -484,8 +479,7 @@ namespace Tabster.Forms
             {
                 if (i.ShowDialog() == DialogResult.OK)
                 {
-                    var item = Program.TablatureFileLibrary.Add(i.Tab);
-                    Program.TablatureFileLibrary.Save();
+                    var item = Program.TablatureFileLibrary.Create(i.Tab);
                     UpdateLibraryItem(item);
                 }
             }

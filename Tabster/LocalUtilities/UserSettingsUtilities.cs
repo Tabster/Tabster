@@ -1,8 +1,11 @@
 ﻿#region
 
+using System;
 using System.Collections.Generic;
+using System.Net;
 using Tabster.Core.Searching;
 using Tabster.Properties;
+using Tabster.Utilities.Net;
 using Tabster.Utilities.Plugins;
 
 #endregion
@@ -11,11 +14,40 @@ namespace Tabster.LocalUtilities
 {
     internal class UserSettingsUtilities
     {
+        private static CustomProxyController _proxySettings;
+
+        public static CustomProxyController ProxySettings
+        {
+            get
+            {
+                if (_proxySettings == null)
+                {
+                    var proxyConfig = (ProxyConfiguration) Enum.Parse(typeof (ProxyConfiguration), Settings.Default.ProxyConfig);
+
+                    ManualProxyParameters manualProxyParams = null;
+
+                    if (!string.IsNullOrEmpty((Settings.Default.ProxyHost)))
+                    {
+                        manualProxyParams = new ManualProxyParameters(Settings.Default.ProxyHost, Settings.Default.ProxyPort);
+
+                        if (!string.IsNullOrEmpty(Settings.Default.ProxyUsername) && !string.IsNullOrEmpty(Settings.Default.ProxyPassword))
+                            manualProxyParams.Credentials = new NetworkCredential(Settings.Default.ProxyUsername, Settings.Default.ProxyPassword);
+                    }
+
+                    _proxySettings = new CustomProxyController(proxyConfig, manualProxyParams);
+                }
+
+                return _proxySettings;
+            }
+
+            set { _proxySettings = value; }
+        }
+
         public static ITablatureSearchEngine[] GetEnabledSearchEngines()
         {
             var engines = new List<ITablatureSearchEngine>();
 
-            foreach (var plugin in Program.pluginController)
+            foreach (var plugin in Program.PluginController)
             {
                 foreach (var engine in plugin.GetClassInstances<ITablatureSearchEngine>())
                 {

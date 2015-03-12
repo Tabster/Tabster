@@ -2,7 +2,6 @@
 
 using System;
 using System.IO;
-using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
@@ -10,11 +9,11 @@ using Tabster.Data;
 using Tabster.Data.Binary;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
+using Tabster.Data.Xml;
 using Tabster.Forms;
 using Tabster.LocalUtilities;
 using Tabster.Properties;
 using Tabster.Updater;
-using Tabster.Utilities.Net;
 using Tabster.Utilities.Plugins;
 
 #endregion
@@ -24,12 +23,11 @@ namespace Tabster
     internal static class Program
     {
         public static TablatureFileLibrary<TablatureFile, TablaturePlaylistFile> TablatureFileLibrary;
-        public static SingleInstanceController instanceController;
-        public static PluginController pluginController;
+        public static SingleInstanceController InstanceController;
+        public static PluginController PluginController;
         public static string ApplicationDataDirectory;
         public static string UserDirectory;
-        public static UpdateQuery updateQuery = new UpdateQuery();
-        public static CustomProxyController CustomProxyController;
+        public static UpdateQuery UpdateQuery = new UpdateQuery();
 
         private static ExternalViewerForm _tabbedViewer;
 
@@ -39,7 +37,7 @@ namespace Tabster
             {
                 if (_tabbedViewer == null || _tabbedViewer.IsDisposed)
                 {
-                    var mainForm = instanceController.MainForm;
+                    var mainForm = InstanceController.MainForm;
                     _tabbedViewer = new ExternalViewerForm(mainForm);
                 }
 
@@ -55,15 +53,13 @@ namespace Tabster
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
-            LoadProxySettings();
-
             LoadPlugins();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            instanceController = new SingleInstanceController();
-            instanceController.Run(args);
+            InstanceController = new SingleInstanceController();
+            InstanceController.Run(args);
         }
 
         private static void InitializeWorkingDirectories()
@@ -89,38 +85,21 @@ namespace Tabster
                 new TabsterFileProcessor<TablaturePlaylistFile>(Constants.TablaturePlaylistFileVersion));
         }
 
-        private static void LoadProxySettings()
-        {
-            var proxyConfig = (ProxyConfiguration) Enum.Parse(typeof (ProxyConfiguration), Settings.Default.ProxyConfig);
-
-            ManualProxyParameters manualProxyParams = null;
-
-            if (!string.IsNullOrEmpty((Settings.Default.ProxyHost)))
-            {
-                manualProxyParams = new ManualProxyParameters(Settings.Default.ProxyHost, Settings.Default.ProxyPort);
-
-                if (!string.IsNullOrEmpty(Settings.Default.ProxyUsername) && !string.IsNullOrEmpty(Settings.Default.ProxyPassword))
-                    manualProxyParams.Credentials = new NetworkCredential(Settings.Default.ProxyUsername, Settings.Default.ProxyPassword);
-            }
-
-            CustomProxyController = new CustomProxyController(proxyConfig, manualProxyParams);
-        }
-
         private static void LoadPlugins()
         {
             var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
 
-            pluginController = new PluginController(pluginDirectory);
+            PluginController = new PluginController(pluginDirectory);
 
             foreach (var guid in Settings.Default.DisabledPlugins)
             {
-                pluginController.SetStatus(new Guid(guid), false);
+                PluginController.SetStatus(new Guid(guid), false);
             }
         }
 
         private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            TablatureFileLibrary.Save();
+            //todo save on exit
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -132,7 +111,7 @@ namespace Tabster
             var sb = new StringBuilder();
 
             sb.AppendLine("---- State Data ----");
-            sb.AppendLine(string.Format("Date/Time: {0}", DateTime.Now.ToString()));
+            sb.AppendLine(string.Format("Date/Time: {0}", DateTime.Now));
             sb.AppendLine(string.Format("Platform: {0}", Environment.OSVersion));
             sb.AppendLine(string.Format("CLR Version: {0}", Environment.Version));
             sb.AppendLine();

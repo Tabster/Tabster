@@ -21,16 +21,16 @@ namespace Tabster.Forms
 {
     internal partial class PreferencesDialog : Form
     {
-        private readonly Color DISABLED_COLOR = Color.Red;
-        private readonly Color ENABLED_COLOR = Color.Green;
+        private readonly Color _disabledColor = Color.Red;
+        private readonly Color _enabledColor = Color.Green;
         private readonly List<TabsterPluginHost> _plugins = new List<TabsterPluginHost>();
-        private readonly Dictionary<TabsterPluginHost, bool> pluginStatusMap = new Dictionary<TabsterPluginHost, bool>();
+        private readonly Dictionary<TabsterPluginHost, bool> _pluginStatusMap = new Dictionary<TabsterPluginHost, bool>();
 
         public PreferencesDialog(string tab = null)
         {
             InitializeComponent();
 
-            _plugins.AddRange(Program.pluginController);
+            _plugins.AddRange(Program.PluginController);
 
             LoadPreferences();
 
@@ -60,17 +60,16 @@ namespace Tabster.Forms
             chkPrintTimestamp.Checked = Settings.Default.PrintTimestamp;
 
             //proxy settings
+            var proxySettings = UserSettingsUtilities.ProxySettings;
 
-            var manualProxy = Program.CustomProxyController.GetProxy();
-
-            if (Program.CustomProxyController.Configuration == ProxyConfiguration.System)
+            if (proxySettings.Configuration == ProxyConfiguration.System)
                 radioSystemProxy.Checked = true;
-            else if (Program.CustomProxyController.Configuration == ProxyConfiguration.Manual && manualProxy != null)
+            else if (proxySettings.Configuration == ProxyConfiguration.Manual && proxySettings.Proxy != null)
                 radioManualProxy.Checked = true;
             else
                 radioNoProxy.Checked = true;
 
-            if (manualProxy != null)
+            if (proxySettings.Proxy != null)
             {
                 txtProxyAddress.Text = Settings.Default.ProxyHost;
                 numProxyPort.Value = Settings.Default.ProxyPort;
@@ -89,7 +88,7 @@ namespace Tabster.Forms
                     var guid = new Guid(lvi.Tag.ToString());
                     var pluginEnabled = lvi.Checked;
 
-                    Program.pluginController.SetStatus(guid, pluginEnabled);
+                    Program.PluginController.SetStatus(guid, pluginEnabled);
 
                     Settings.Default.DisabledPlugins.Remove(guid.ToString());
 
@@ -104,7 +103,7 @@ namespace Tabster.Forms
                 foreach (ListViewItem lvi in listSearchEngines.Items)
                 {
                     var engine = _searchEngines[lvi.Index];
-                    var plugin = Program.pluginController.GetHostByType(engine.GetType());
+                    var plugin = Program.PluginController.GetHostByType(engine.GetType());
                     var id = UserSettingsUtilities.GetSearchEngineIdentifier(plugin, engine);
 
                     if (id == null)
@@ -155,13 +154,13 @@ namespace Tabster.Forms
                         : null;
                 }
 
-                Program.CustomProxyController.ManualProxyParameters = new ManualProxyParameters(
+                UserSettingsUtilities.ProxySettings.ManualProxyParameters = new ManualProxyParameters(
                     customProxy.Address.Host, (ushort) customProxy.Address.Port,
                     customProxy.Credentials);
             }
 
             //apply settings to active proxy config
-            Program.CustomProxyController.Configuration = proxyConfig;
+            UserSettingsUtilities.ProxySettings.Configuration = proxyConfig;
 
             Settings.Default.StartupUpdate = chkupdatestartup.Checked;
 
@@ -263,7 +262,7 @@ namespace Tabster.Forms
 
         private void pluginsDirectorybtn_Click(object sender, EventArgs e)
         {
-            Process.Start(Program.pluginController.WorkingDirectory);
+            Process.Start(Program.PluginController.WorkingDirectory);
         }
 
         private void listPlugins_SelectedIndexChanged(object sender, EventArgs e)
@@ -300,11 +299,11 @@ namespace Tabster.Forms
             if (item != null)
             {
                 item.Checked = !item.Checked;
-                item.ForeColor = item.Checked ? ENABLED_COLOR : DISABLED_COLOR;
+                item.ForeColor = item.Checked ? _enabledColor : _disabledColor;
                 item.SubItems[colpluginEnabled.Index].Text = item.Checked ? "Yes" : "No";
 
                 var plugin = _plugins[item.Index];
-                pluginStatusMap[plugin] = item.Checked; //set temporary status
+                _pluginStatusMap[plugin] = item.Checked; //set temporary status
 
                 //if it contains search engines, we need to reload search engine list
                 var isSearchPlugin = plugin.GetClassInstances<ITablatureSearchEngine>().Any();
@@ -321,7 +320,7 @@ namespace Tabster.Forms
 
         private void LoadPlugins()
         {
-            pluginStatusMap.Clear();
+            _pluginStatusMap.Clear();
 
             listPlugins.Items.Clear();
 
@@ -329,17 +328,17 @@ namespace Tabster.Forms
             {
                 if (plugin.GUID != Guid.Empty)
                 {
-                    var enabled = Program.pluginController.IsEnabled(plugin.GUID);
+                    var enabled = Program.PluginController.IsEnabled(plugin.GUID);
 
                     var lvi = new ListViewItem
                     {
                         Tag = plugin.GUID.ToString(),
                         Text = plugin.PluginAttributes.DisplayName,
                         Checked = enabled,
-                        ForeColor = enabled ? ENABLED_COLOR : DISABLED_COLOR
+                        ForeColor = enabled ? _enabledColor : _disabledColor
                     };
 
-                    pluginStatusMap[plugin] = enabled;
+                    _pluginStatusMap[plugin] = enabled;
 
                     lvi.SubItems.Add(enabled ? "Yes" : "No");
 
@@ -379,14 +378,14 @@ namespace Tabster.Forms
             foreach (var searchPluginPair in searchPluginMap)
             {
                 var enabled = useUnsavedSettings ?
-                    pluginStatusMap[searchPluginPair.Value] :
+                    _pluginStatusMap[searchPluginPair.Value] :
                     !Settings.Default.DisabledSearchEngines.Contains(UserSettingsUtilities.GetSearchEngineIdentifier(searchPluginPair.Value, searchPluginPair.Key));
 
                 var lvi = new ListViewItem
                 {
                     Text = searchPluginPair.Key.Name,
                     Checked = enabled,
-                    ForeColor = enabled ? ENABLED_COLOR : DISABLED_COLOR
+                    ForeColor = enabled ? _enabledColor : _disabledColor
                 };
 
                 lvi.SubItems.Add(enabled ? "Yes" : "No");
@@ -408,12 +407,12 @@ namespace Tabster.Forms
             {
                 var engine = _searchEngines[item.Index];
 
-                var isPluginEnabled = pluginStatusMap[Program.pluginController.GetHostByType(engine.GetType())];
+                var isPluginEnabled = _pluginStatusMap[Program.PluginController.GetHostByType(engine.GetType())];
 
                 if (isPluginEnabled)
                 {
                     item.Checked = !item.Checked;
-                    item.ForeColor = item.Checked ? ENABLED_COLOR : DISABLED_COLOR;
+                    item.ForeColor = item.Checked ? _enabledColor : _disabledColor;
                     item.SubItems[colpluginEnabled.Index].Text = item.Checked ? "Yes" : "No";
 
                     SearchEnginesModified = true;

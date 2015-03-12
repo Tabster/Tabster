@@ -27,9 +27,9 @@ namespace Tabster.Forms
 
         private void LoadPlugins()
         {
-            foreach (var plugin in Program.pluginController)
+            foreach (var plugin in Program.PluginController)
             {
-                if (plugin.GUID != Guid.Empty && Program.pluginController.IsEnabled(plugin.GUID))
+                if (plugin.GUID != Guid.Empty && Program.PluginController.IsEnabled(plugin.GUID))
                 {
                     var lvi = new ListViewItem() {Text = plugin.PluginAttributes.DisplayName ?? "N/A"};
 

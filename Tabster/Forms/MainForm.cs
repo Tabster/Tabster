@@ -51,7 +51,7 @@ namespace Tabster.Forms
             //tabviewermanager events
             Program.TabbedViewer.TabClosed += TabHandler_OnTabClosed;
 
-            Program.updateQuery.Completed += updateQuery_Completed;
+            Program.UpdateQuery.Completed += updateQuery_Completed;
 
             previewToolStrip.Renderer = new ToolStripRenderer();
 
@@ -87,12 +87,12 @@ namespace Tabster.Forms
         /// </summary>
         private void InitAspectGetters()
         {
-            olvColArtist.AspectGetter = x => ((TablatureLibraryItem) x).File.Artist;
-            olvColTitle.AspectGetter = x => ((TablatureLibraryItem) x).File.Title;
-            olvColType.AspectGetter = x => ((TablatureLibraryItem) x).File.Type.Name;
-            olvColCreated.AspectGetter = x => ((TablatureLibraryItem) x).FileInfo.CreationTime;
-            olvColModified.AspectGetter = x => ((TablatureLibraryItem) x).FileInfo.LastWriteTime;
-            olvColLocation.AspectGetter = x => ((TablatureLibraryItem) x).FileInfo.FullName;
+            olvColArtist.AspectGetter = x => ((TablatureLibraryItem)x).File.Artist;
+            olvColTitle.AspectGetter = x => ((TablatureLibraryItem)x).File.Title;
+            olvColType.AspectGetter = x => ((TablatureLibraryItem)x).File.Type.Name;
+            olvColCreated.AspectGetter = x => ((TablatureLibraryItem)x).FileInfo.CreationTime;
+            olvColModified.AspectGetter = x => ((TablatureLibraryItem)x).FileInfo.LastWriteTime;
+            olvColLocation.AspectGetter = x => ((TablatureLibraryItem)x).FileInfo.FullName;
 
             //search
             olvColumn1.AspectGetter = x => ((TablatureSearchResult) x).Tab.Artist;
@@ -130,7 +130,7 @@ namespace Tabster.Forms
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            if (Program.updateQuery.UpdateAvailable)
+            if (Program.UpdateQuery.UpdateAvailable)
             {
                 ShowUpdateDialog();
             }
@@ -268,8 +268,8 @@ namespace Tabster.Forms
 
         private void CachePluginResources()
         {
-            _fileImporters = new List<ITablatureFileImporter>(Program.pluginController.GetClassInstances<ITablatureFileImporter>());
-            _webImporters = new List<ITablatureWebImporter>(Program.pluginController.GetClassInstances<ITablatureWebImporter>());
+            _fileImporters = new List<ITablatureFileImporter>(Program.PluginController.GetClassInstances<ITablatureFileImporter>());
+            _webImporters = new List<ITablatureWebImporter>(Program.PluginController.GetClassInstances<ITablatureWebImporter>());
         }
 
         private void OpenRecentFile(MenuItem item)
@@ -485,8 +485,7 @@ namespace Tabster.Forms
                 {
                     foreach (var tab in dialog.DownloadedTabs)
                     {
-                        var libraryItem = Program.TablatureFileLibrary.Add(tab);
-                        Program.TablatureFileLibrary.Save();
+                        var libraryItem = Program.TablatureFileLibrary.Create(tab);
                         UpdateLibraryItem(libraryItem);
                     }
                 }
@@ -556,8 +555,6 @@ namespace Tabster.Forms
             {
                 if (selectedPlaylist != null)
                     selectedPlaylist.Save(selectedPlaylist.FileInfo.FullName);
-                else
-                    Program.TablatureFileLibrary.Save();
             }
         }
 
@@ -607,7 +604,7 @@ namespace Tabster.Forms
         {
             var showUpdatedDialog = e.UserState != null && (bool) e.UserState;
 
-            if (Program.updateQuery.UpdateAvailable)
+            if (Program.UpdateQuery.UpdateAvailable)
             {
                 ShowUpdateDialog();
             }
@@ -623,7 +620,7 @@ namespace Tabster.Forms
 
         private static void ShowUpdateDialog()
         {
-            var updateDialog = new UpdateDialog(Program.updateQuery) {StartPosition = FormStartPosition.CenterParent};
+            var updateDialog = new UpdateDialog(Program.UpdateQuery) {StartPosition = FormStartPosition.CenterParent};
             updateDialog.ShowDialog();
         }
 
@@ -646,7 +643,7 @@ namespace Tabster.Forms
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Program.updateQuery.Check(true);
+            Program.UpdateQuery.Check(true);
         }
 
         private void OpenPreferences(string tab = null)

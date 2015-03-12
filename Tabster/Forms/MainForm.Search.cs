@@ -82,7 +82,7 @@ namespace Tabster.Forms
         {
             var request = (TablatureSearchRequest) e.Argument;
 
-            var proxy = Program.CustomProxyController.GetProxy();
+            var proxy = UserSettingsUtilities.ProxySettings.Proxy;
 
             foreach (var engine in request.SearchEngines)
             {
@@ -145,8 +145,7 @@ namespace Tabster.Forms
                     {
                         var cachedTab = _searchResultsCache[selectedResult.Source];
 
-                        var libraryItem = Program.TablatureFileLibrary.Add(cachedTab);
-                        Program.TablatureFileLibrary.Save();
+                        var libraryItem = Program.TablatureFileLibrary.Create(cachedTab);
                         UpdateLibraryItem(libraryItem);
                     }
                 }
@@ -193,7 +192,7 @@ namespace Tabster.Forms
                     throw new TablatureProcessorException(string.Format("No parser found for URL: {0}", result.Source));
                 }
 
-                var proxy = Program.CustomProxyController.GetProxy();
+                var proxy = UserSettingsUtilities.ProxySettings.Proxy;
 
                 AttributedTablature tab;
 

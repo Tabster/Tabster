@@ -49,7 +49,6 @@ namespace Tabster.Utilities.Net
     public class CustomProxyController
     {
         private ProxyConfiguration _configuration;
-        private WebProxy _proxy;
 
         public CustomProxyController(ProxyConfiguration configuration)
         {
@@ -61,6 +60,8 @@ namespace Tabster.Utilities.Net
             ManualProxyParameters = manualProxyParameters;
             Configuration = configuration;
         }
+
+        public WebProxy Proxy { get; private set; }
 
         public ManualProxyParameters ManualProxyParameters { get; set; }
 
@@ -74,24 +75,16 @@ namespace Tabster.Utilities.Net
             }
         }
 
-        public WebProxy GetProxy(bool refresh = false)
-        {
-            if (refresh)
-                Refresh();
-
-            return _proxy;
-        }
-
         public void Refresh()
         {
             if (Configuration == ProxyConfiguration.None)
-                _proxy = null;
+                Proxy = null;
 
             else if (Configuration == ProxyConfiguration.System)
             {
                 //quick hack since WebProxy.GetDefaultProxy is deprecated
                 var address = WebRequest.DefaultWebProxy.GetProxy(new Uri("http://www.google.com"));
-                _proxy = new WebProxy(address) {UseDefaultCredentials = true};
+                Proxy = new WebProxy(address) {UseDefaultCredentials = true};
             }
 
             else if (Configuration == ProxyConfiguration.Manual)
@@ -99,13 +92,13 @@ namespace Tabster.Utilities.Net
                 if (ManualProxyParameters == null)
                     throw new ProxyConfigurationException("Manual proxy parameters are not set.");
 
-                _proxy = new WebProxy(ManualProxyParameters.Host, ManualProxyParameters.Port)
+                Proxy = new WebProxy(ManualProxyParameters.Host, ManualProxyParameters.Port)
                 {
                     UseDefaultCredentials = false
                 };
 
                 if (ManualProxyParameters.Credentials != null)
-                    _proxy.Credentials = ManualProxyParameters.Credentials;
+                    Proxy.Credentials = ManualProxyParameters.Credentials;
             }
         }
     }

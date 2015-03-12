@@ -152,11 +152,12 @@ namespace Tabster.LocalUtilities
             Thread.Sleep(sleepDuration);
 #endif
 
-                Program.pluginController.LoadPlugins();
+                Program.PluginController.LoadPlugins();
                 SetSplashStatus(splashStatuses[1]);
             }
 
-            Program.TablatureFileLibrary.Load();
+            //todo load library
+            //Program.TablatureFileLibrary.Load();
 
 #if DEBUG
             Thread.Sleep(sleepDuration);
@@ -171,7 +172,7 @@ namespace Tabster.LocalUtilities
 #endif
 
 #if !PORTABLE
-                Program.updateQuery.Check(false);
+                Program.UpdateQuery.Check(false);
 #endif
             }
         }
