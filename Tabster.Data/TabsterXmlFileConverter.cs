@@ -39,7 +39,7 @@ namespace Tabster.Data
                     SourceType = doc.SourceType,
                     Source = doc.Source,
                     Comment = doc.Comment,
-                    FileAttributes = new TabsterFileAttributes(doc.FileAttributes.Created),
+                    FileAttributes = doc.FileAttributes,
                 };
 
 
@@ -58,6 +58,7 @@ namespace Tabster.Data
                 var file = new TablaturePlaylistFile
                 {
                     Name = doc.Name,
+                    FileAttributes = doc.FileAttributes,
                 };
 
                 foreach (var item in doc)

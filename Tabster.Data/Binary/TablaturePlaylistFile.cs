@@ -90,7 +90,7 @@ namespace Tabster.Data.Binary
             }
         }
 
-        public TabsterFileAttributes FileAttributes { get; private set; }
+        public TabsterFileAttributes FileAttributes { get; set; }
 
         #endregion
 
