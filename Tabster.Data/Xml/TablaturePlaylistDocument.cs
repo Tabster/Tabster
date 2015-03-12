@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Tabster.Core.Types;
 using Tabster.Data.Processing;
 
 #endregion
@@ -22,7 +23,7 @@ namespace Tabster.Data.Xml
         #endregion
 
         private const string ROOT_NODE = "tablist";
-        private readonly List<ITabsterFile> _documents = new List<ITabsterFile>();
+        private readonly List<ITablatureFile> _documents = new List<ITablatureFile>();
         private readonly TabsterFileProcessor<TablatureDocument> _processor = new TabsterFileProcessor<TablatureDocument>(FILE_VERSION);
 
         #region Constructors
@@ -163,7 +164,7 @@ namespace Tabster.Data.Xml
 
         #endregion
 
-        public ITabsterFile Find(Predicate<ITabsterFile> match)
+        public ITablatureFile Find(Predicate<ITablatureFile> match)
         {
             return _documents.Find(match);
         }
