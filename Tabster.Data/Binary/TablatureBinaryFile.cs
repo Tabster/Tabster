@@ -20,8 +20,6 @@ namespace Tabster.Data.Binary
 
         #region Implementation of ITabsterFile
 
-        public FileInfo FileInfo { get; private set; }
-
         public void Save(string fileName)
         {
             using (var fs = new FileStream(fileName, FileMode.Create))
@@ -69,17 +67,6 @@ namespace Tabster.Data.Binary
                     Source = new Uri(reader.ReadString());
                     Comment = reader.ReadString();
                     Contents = reader.ReadString();
-                }
-            }
-        }
-
-        public TabsterFileAttributes GetFileAttributes()
-        {
-            using (var fs = new FileStream(FileInfo.FullName, FileMode.Open))
-            {
-                using (var reader = new BinaryReader(fs))
-                {
-                    return ReadFileAttributes(reader);
                 }
             }
         }

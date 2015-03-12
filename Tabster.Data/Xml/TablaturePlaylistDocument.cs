@@ -16,54 +16,73 @@ namespace Tabster.Data.Xml
     {
         #region Constants
 
-        public const string FILE_EXTENSION = ".tablist";
-        public static readonly Version FILE_VERSION = new Version("1.0");
+        public const string FileExtension = ".tablist";
+        public static readonly Version FileVersion = new Version("1.0");
 
         #endregion
 
-        private const string ROOT_NODE = "tablist";
+        private const string RootNode = "tablist";
+        private readonly SortedDictionary<ITablatureFile, FileInfo> _documentMap = new SortedDictionary<ITablatureFile, FileInfo>();
         private readonly List<ITablatureFile> _documents = new List<ITablatureFile>();
-        private readonly TabsterFileProcessor<TablatureDocument> _processor = new TabsterFileProcessor<TablatureDocument>(FILE_VERSION);
-
-        #region Constructors
-
-        public TablaturePlaylistDocument()
-        {
-        }
-
-        public TablaturePlaylistDocument(string name)
-        {
-            Name = name;
-        }
-
-        #endregion
+        private readonly TabsterFileProcessor<TablatureDocument> _processor = new TabsterFileProcessor<TablatureDocument>(FileVersion);
 
         public string Name { get; set; }
 
-        public bool Contains(string path)
+        public bool Contains(ITablatureFile file)
         {
-            return Find(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase)) != null;
+            return _documents.Contains(file);
         }
 
-        #region Implementation of ITabsterDocument
+        public void Add(ITablatureFile file, FileInfo fileInfo)
+        {
+            if (!_documentMap.ContainsKey(file))
+                _documents.Add(file);
 
-        public FileInfo FileInfo { get; private set; }
+            _documentMap[file] = fileInfo;
+        }
+
+        public bool Remove(ITablatureFile file)
+        {
+            var dictResult = _documentMap.Remove(file);
+            var listResult = _documents.Remove(file);
+            return dictResult && listResult;
+        }
+
+        public void Clear()
+        {
+            _documentMap.Clear();
+            _documents.Clear();
+        }
+
+        public ITablatureFile Find(Predicate<ITablatureFile> match)
+        {
+            return _documents.Find(match);
+        }
+
+        public FileInfo GetFileInfo(ITablatureFile file)
+        {
+            return _documentMap.ContainsKey(file) ? _documentMap[file] : null;
+        }
+
+        public bool Contains(string filePath)
+        {
+            return _documentMap.Any(x => x.Value.FullName.Equals(filePath, StringComparison.OrdinalIgnoreCase));
+        }
+
+        #region Implementation of ITabsterFile
 
         public void Save(string fileName)
         {
-            var doc = new TabsterXmlDocument(ROOT_NODE) {Version = FILE_VERSION};
-            doc.WriteNode("name", Name);
-            doc.WriteNode("files");
+            var xmlDoc = new TabsterXmlDocument(RootNode) {Version = FileVersion};
+            xmlDoc.WriteNode("name", Name);
+            xmlDoc.WriteNode("files");
 
-            foreach (var tab in this.Where(tab => File.Exists(tab.FileInfo.FullName)))
+            foreach (var path in _documents.Select(doc => _documentMap[doc].FullName))
             {
-                doc.WriteNode("file", tab.FileInfo.FullName, "files");
+                xmlDoc.WriteNode("file", path, "files");
             }
 
-            doc.Save(fileName);
-
-            if (FileInfo == null)
-                FileInfo = new FileInfo(fileName);
+            xmlDoc.Save(fileName);
         }
 
         public TabsterFileAttributes FileAttributes { get; private set; }
@@ -73,32 +92,34 @@ namespace Tabster.Data.Xml
         {
             Clear();
 
-            FileInfo = new FileInfo(filename);
+            var fi = new FileInfo(filename);
 
-            var doc = new TabsterXmlDocument(ROOT_NODE);
-            doc.Load(filename);
+            var xmlDoc = new TabsterXmlDocument(RootNode);
+            xmlDoc.Load(filename);
 
-            FileHeader = new TabsterXmlFileHeader(doc.Version);
+            FileHeader = new TabsterXmlFileHeader(xmlDoc.Version);
 
-            Name = doc.TryReadNodeValue("name");
+            Name = xmlDoc.TryReadNodeValue("name");
             if (string.IsNullOrEmpty(Name))
                 throw new TabsterFileException("Missing playlist name");
 
             //playlist format never had created property, use filesystem
-            FileAttributes = new TabsterFileAttributes(FileInfo.CreationTime);
+            FileAttributes = new TabsterFileAttributes(fi.CreationTime);
 
-            var files = doc.ReadChildNodeValues("files");
+            var files = xmlDoc.ReadChildNodeValues("files");
 
-            foreach (var d in files.Where(File.Exists).Select(file => _processor.Load(file)).Where(d => d != null))
+            foreach (var file in files)
             {
-                Add(d);
-            }
-        }
+                if (File.Exists(file))
+                {
+                    var doc = _processor.Load(file);
 
-        public void Save()
-        {
-            Save(FileInfo.FullName);
-            FileInfo.Refresh();
+                    if (doc != null)
+                    {
+                        Add(doc, new FileInfo(file));
+                    }
+                }
+            }
         }
 
         #endregion
@@ -107,7 +128,7 @@ namespace Tabster.Data.Xml
 
         public IEnumerator<ITablatureFile> GetEnumerator()
         {
-            return _documents.Cast<ITablatureFile>().GetEnumerator();
+            return ((IEnumerable<ITablatureFile>) _documents).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -116,50 +137,5 @@ namespace Tabster.Data.Xml
         }
 
         #endregion
-
-        #region Implementation of ICollection<TablatureDocument>
-
-        public int Count
-        {
-            get { return _documents.Count; }
-        }
-
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
-
-        public void Add(ITablatureFile file)
-        {
-            Remove(file);
-            _documents.Add(file);
-        }
-
-        public void Clear()
-        {
-            _documents.Clear();
-        }
-
-        public bool Contains(ITablatureFile file)
-        {
-            return _documents.Contains(file);
-        }
-
-        public void CopyTo(ITablatureFile[] array, int arrayIndex)
-        {
-            _documents.CopyTo(array, arrayIndex);
-        }
-
-        public bool Remove(ITablatureFile file)
-        {
-            return _documents.Remove(file);
-        }
-
-        #endregion
-
-        public ITablatureFile Find(Predicate<ITablatureFile> match)
-        {
-            return _documents.Find(match);
-        }
     }
 }

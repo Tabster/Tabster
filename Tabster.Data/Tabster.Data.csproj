@@ -56,7 +56,6 @@
     <Compile Include="ILibraryFile.cs" />
     <Compile Include="ITablaturePlaylistFile.cs" />
     <Compile Include="ITablatureFile.cs" />
-    <Compile Include="ITablaturePlaylist.cs" />
     <Compile Include="ITabsterFile.cs" />
     <Compile Include="TabsterFileAttributes.cs" />
     <Compile Include="Library\TablatureFileLibrary.cs" />

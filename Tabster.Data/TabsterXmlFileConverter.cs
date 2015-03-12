@@ -19,8 +19,8 @@ namespace Tabster.Data
         static TabsterXmlFileConverter()
         {
 #pragma warning disable 612
-            TablatureDocumentProcessor = new TabsterFileProcessor<TablatureDocument>(TablatureDocument.FILE_VERSION);
-            TablaturePlaylistDocumentProcessor = new TabsterFileProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FILE_VERSION);
+            TablatureDocumentProcessor = new TabsterFileProcessor<TablatureDocument>(TablatureDocument.FileVersion);
+            TablaturePlaylistDocumentProcessor = new TabsterFileProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FileVersion);
 #pragma warning restore 612
         }
 
@@ -42,7 +42,6 @@ namespace Tabster.Data
                     FileAttributes = doc.FileAttributes,
                 };
 
-
                 return file;
             }
 
@@ -63,7 +62,8 @@ namespace Tabster.Data
 
                 foreach (var item in doc)
                 {
-                    file.Add(item);
+                    var fileInfo = doc.GetFileInfo(item);
+                    file.Add(item, fileInfo);
                 }
 
                 return file;

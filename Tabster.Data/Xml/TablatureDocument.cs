@@ -14,38 +14,20 @@ namespace Tabster.Data.Xml
     {
         #region Constants
 
-        public const string FILE_EXTENSION = ".tabster";
-        public static readonly Version FILE_VERSION = new Version("1.4");
+        public const string FileExtension = ".tabster";
+        public static readonly Version FileVersion = new Version("1.4");
 
         #endregion
 
-        private const string ROOT_NODE = "tabster";
-
-        #region Constructors
-
-        public TablatureDocument()
-        {
-        }
-
-        public TablatureDocument(string artist, string title, TablatureType type)
-            : this()
-        {
-            Artist = artist;
-            Title = title;
-            Type = type;
-        }
-
-        #endregion
+        private const string RootNode = "tabster";
 
         #region Implementation of ITabsterDocument
 
-        public FileInfo FileInfo { get; private set; }
-
         public void Load(string fileName)
         {
-            FileInfo = new FileInfo(fileName);
+            var fi = new FileInfo(fileName);
 
-            var doc = new TabsterXmlDocument(ROOT_NODE);
+            var doc = new TabsterXmlDocument(RootNode);
             doc.Load(fileName);
 
             FileHeader = new TabsterXmlFileHeader(doc.Version);
@@ -77,7 +59,7 @@ namespace Tabster.Data.Xml
 
             var created = !string.IsNullOrEmpty(createdValue) && DateTime.TryParse(createdValue, out createDatetime)
                 ? createDatetime
-                : FileInfo.CreationTime;
+                : fi.CreationTime;
 
             FileAttributes = new TabsterFileAttributes(created);
 
@@ -101,11 +83,22 @@ namespace Tabster.Data.Xml
                     SourceType = Source.IsFile ? TablatureSourceType.FileImport : TablatureSourceType.Download;
                 }
             }
+
+            //fix carriage returns without newlines and strip html
+            if (FileHeader.Version < new Version("1.4"))
+            {
+                var newlineRegex = new Regex("(?<!\r)\n", RegexOptions.Compiled);
+
+                Contents = newlineRegex.Replace(Contents, Environment.NewLine);
+                Contents = StripHtml(Contents);
+
+                Save(fileName);
+            }
         }
 
         public void Save(string fileName)
         {
-            var doc = new TabsterXmlDocument(ROOT_NODE) {Version = FILE_VERSION};
+            var doc = new TabsterXmlDocument(RootNode) {Version = FileVersion};
 
             doc.WriteNode("title", Title);
             doc.WriteNode("artist", Artist);
@@ -133,36 +126,10 @@ namespace Tabster.Data.Xml
             doc.WriteNode("comment", Comment);
 
             doc.Save(fileName);
-
-            if (FileInfo == null)
-                FileInfo = new FileInfo(fileName);
         }
 
         public TabsterFileAttributes FileAttributes { get; private set; }
         public ITabsterFileHeader FileHeader { get; private set; }
-
-        public void Save()
-        {
-            Save(FileInfo.FullName);
-            FileInfo.Refresh();
-        }
-
-        public void Update()
-        {
-            var version = FileHeader.Version;
-
-            //fix carriage returns without newlines and strip html
-            if (version < new Version("1.4"))
-            {
-                var newlineRegex = new Regex("(?<!\r)\n", RegexOptions.Compiled);
-
-                Contents = newlineRegex.Replace(Contents, Environment.NewLine);
-                Contents = StripHTML(Contents);
-            }
-
-            if (version != FILE_VERSION)
-                Save();
-        }
 
         #endregion
 
@@ -187,7 +154,7 @@ namespace Tabster.Data.Xml
             return null;
         }
 
-        private string ToFriendlyString(TablatureType type)
+        private static string ToFriendlyString(TablatureType type)
         {
             if (type == TablatureType.Guitar)
                 return "Guitar Tab";
@@ -203,23 +170,21 @@ namespace Tabster.Data.Xml
             return null;
         }
 
-        private static string StripHTML(string source)
+        private static string StripHtml(string source)
         {
             var array = new char[source.Length];
             var arrayIndex = 0;
             var inside = false;
 
-            for (var i = 0; i < source.Length; i++)
+            foreach (var c in source)
             {
-                var let = source[i];
-
-                if (let == '<')
+                if (c == '<')
                 {
                     inside = true;
                     continue;
                 }
 
-                if (let == '>')
+                if (c == '>')
                 {
                     inside = false;
                     continue;
@@ -227,7 +192,7 @@ namespace Tabster.Data.Xml
 
                 if (!inside)
                 {
-                    array[arrayIndex] = let;
+                    array[arrayIndex] = c;
                     arrayIndex++;
                 }
             }

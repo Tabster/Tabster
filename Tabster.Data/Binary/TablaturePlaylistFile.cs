@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Tabster.Data.Processing;
 
 #endregion
 
@@ -15,7 +16,9 @@ namespace Tabster.Data.Binary
         private const string HeaderString = "TABSTER";
         private static readonly Version HeaderVersion = new Version("1.0");
 
+        private readonly SortedDictionary<ITablatureFile, FileInfo> _fileMap = new SortedDictionary<ITablatureFile, FileInfo>();
         private readonly List<ITablatureFile> _files = new List<ITablatureFile>();
+        private readonly TabsterFileProcessor<TablatureFile> _processor = new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion);
 
         #region Constructors
 
@@ -23,17 +26,9 @@ namespace Tabster.Data.Binary
         {
         }
 
-        public TablaturePlaylistFile(string name)
-            : this()
-        {
-            Name = name;
-        }
-
         #endregion
 
         #region Implementation of ITabsterFile
-
-        public FileInfo FileInfo { get; private set; }
 
         public void Load(string fileName)
         {
@@ -48,11 +43,21 @@ namespace Tabster.Data.Binary
 
                     var count = reader.ReadInt32();
 
-                    var items = new List<string>();
+                    var files = new List<TablatureFile>();
 
                     for (var i = 0; i < count; i++)
                     {
-                        items.Add(reader.ReadString());
+                        var path = reader.ReadString();
+
+                        if (File.Exists(path))
+                        {
+                            var file = _processor.Load(path);
+
+                            if (file != null)
+                            {
+                                files.Add(file);
+                            }
+                        }
                     }
                 }
             }
@@ -69,9 +74,12 @@ namespace Tabster.Data.Binary
                     WriteHeader(writer, HeaderString, header);
                     WriteFileAttributes(writer, FileAttributes ?? new TabsterFileAttributes(DateTime.Now));
 
-                    foreach (var file in _files)
+                    writer.Write(Name);
+                    writer.Write(_files.Count);
+
+                    foreach (var path in _files.Select(doc => _fileMap[doc].FullName))
                     {
-                        writer.Write(file.FileInfo.FullName);
+                        writer.Write(path);
                     }
                 }
             }
@@ -86,7 +94,7 @@ namespace Tabster.Data.Binary
 
         public IEnumerator<ITablatureFile> GetEnumerator()
         {
-            return _files.Cast<ITablatureFile>().GetEnumerator();
+            return ((IEnumerable<ITablatureFile>) _files).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -96,16 +104,13 @@ namespace Tabster.Data.Binary
 
         #endregion
 
-        #region Implementation of ICollection<ITabsterFile>
+        #region Implementation of ITablaturePlaylistFile
 
-        public void Add(ITablatureFile file)
-        {
-            _files.Add(file);
-        }
+        public string Name { get; set; }
 
-        public void Clear()
+        public bool Contains(string filePath)
         {
-            _files.Clear();
+            return _fileMap.Any(x => x.Value.FullName.Equals(filePath, StringComparison.OrdinalIgnoreCase));
         }
 
         public bool Contains(ITablatureFile file)
@@ -113,35 +118,35 @@ namespace Tabster.Data.Binary
             return _files.Contains(file);
         }
 
-        public void CopyTo(ITablatureFile[] array, int arrayIndex)
+        public void Add(ITablatureFile file, FileInfo fileInfo)
         {
-            _files.CopyTo(array, arrayIndex);
+            if (!_fileMap.ContainsKey(file))
+                _files.Add(file);
+
+            _fileMap[file] = fileInfo;
         }
 
         public bool Remove(ITablatureFile file)
         {
-            return _files.Contains(file);
+            var dictResult = _fileMap.Remove(file);
+            var listResult = _files.Remove(file);
+            return dictResult && listResult;
         }
 
-        public int Count
+        public void Clear()
         {
-            get { return _files.Count; }
+            _fileMap.Clear();
+            _files.Clear();
         }
 
-        public bool IsReadOnly
+        public ITablatureFile Find(Predicate<ITablatureFile> match)
         {
-            get { return false; }
+            throw new NotImplementedException();
         }
 
-        #endregion
-
-        #region Implementation of ITablaturePlaylist
-
-        public string Name { get; set; }
-
-        public bool Contains(string fileName)
+        public FileInfo GetFileInfo(ITablatureFile file)
         {
-            return _files.Find(x => x.FileInfo.FullName.Equals(fileName, StringComparison.OrdinalIgnoreCase)) != null;
+            return _fileMap.ContainsKey(file) ? _fileMap[file] : null;
         }
 
         #endregion
