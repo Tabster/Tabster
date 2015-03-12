@@ -111,7 +111,7 @@ namespace Tabster.Data.Xml
 
         #region Implementation of IEnumerable
 
-        IEnumerator<ITablatureFile> IEnumerable<ITablatureFile>.GetEnumerator()
+        public IEnumerator<ITablatureFile> GetEnumerator()
         {
             return _documents.Cast<ITablatureFile>().GetEnumerator();
         }
@@ -119,11 +119,6 @@ namespace Tabster.Data.Xml
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
-
-        public IEnumerator<ITablatureFile> GetEnumerator()
-        {
-            return ((IEnumerable<ITablatureFile>) _documents).GetEnumerator();
         }
 
         #endregion
