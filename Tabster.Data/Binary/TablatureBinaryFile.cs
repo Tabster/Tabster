@@ -30,7 +30,7 @@ namespace Tabster.Data.Binary
                 {
                     var header = new TabsterBinaryFileHeader(HeaderVersion, false);
                     WriteHeader(writer, HeaderString, header);
-                    WriteFileAttributes(writer, FileAttributes);
+                    WriteFileAttributes(writer, FileAttributes ?? new TabsterFileAttributes(DateTime.Now));
 
                     //core attributes
                     writer.Write(Artist);
@@ -41,9 +41,9 @@ namespace Tabster.Data.Binary
                     writer.Write((int) SourceType);
                     writer.Write(Source != null ? Source.ToString() : string.Empty);
 
-                    writer.Write(Comment);
+                    writer.Write(Comment ?? string.Empty);
 
-                    writer.Write(Contents);
+                    writer.Write(Contents ?? string.Empty);
                 }
             }
         }

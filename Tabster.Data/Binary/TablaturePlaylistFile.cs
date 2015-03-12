@@ -67,7 +67,7 @@ namespace Tabster.Data.Binary
                 using (var writer = new BinaryWriter(fs))
                 {
                     WriteHeader(writer, HeaderString, header);
-                    WriteFileAttributes(writer, FileAttributes);
+                    WriteFileAttributes(writer, FileAttributes ?? new TabsterFileAttributes(DateTime.Now));
 
                     foreach (var file in _files)
                     {
