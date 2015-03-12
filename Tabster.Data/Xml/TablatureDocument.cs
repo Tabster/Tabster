@@ -48,18 +48,26 @@ namespace Tabster.Data.Xml
             var doc = new TabsterXmlDocument(ROOT_NODE);
             doc.Load(fileName);
 
-            Artist = doc.TryReadNodeValue("artist", string.Empty);
-            Title = doc.TryReadNodeValues(new[] {"song", "title"}, string.Empty);
+            //required properties
 
-            var tabTypeValue = doc.TryReadNodeValue("type");
+            Artist = doc.TryReadNodeValue("artist");
+            if (string.IsNullOrEmpty(Artist))
+                throw new TabsterFileException("Missing artist property");
 
-            if (string.IsNullOrEmpty(tabTypeValue))
-                throw new TabsterFileException("Invalid or missing tab type");
+            Title = doc.TryReadNodeValues(new[] {"song", "title"});
+            if (string.IsNullOrEmpty(Title))
+                throw new TabsterFileException("Missing title property");
 
-            //peform legacy lookup
-            Type = FromFriendlyString(tabTypeValue) ?? new TablatureType(tabTypeValue);
+            Type = FromFriendlyString(doc.TryReadNodeValue("type"));
+            if (Type == null)
+                throw new TabsterFileException("Invalid or missing tablature type");
 
-            Contents = doc.TryReadNodeValue("tab", string.Empty);
+            //allow contents to be empty, just not null
+            Contents = doc.TryReadNodeValue("tab");
+            if (Contents == null)
+                throw new TabsterFileException("Missing tablature contents");
+
+            //"optional" properties
 
             var createdValue = doc.TryReadNodeValues(new[] {"date", "created"});
 
@@ -101,7 +109,7 @@ namespace Tabster.Data.Xml
 
             doc.WriteNode("title", Title);
             doc.WriteNode("artist", Artist);
-            doc.WriteNode("type", Type.ToString());
+            doc.WriteNode("type", ToFriendlyString(Type));
             doc.WriteNode("tab", Contents);
 
             var sourceValue = "UserCreated";
@@ -166,9 +174,6 @@ namespace Tabster.Data.Xml
 
         #region Static Methods
 
-        /// <summary>
-        ///     Deprecated format.
-        /// </summary>
         private static TablatureType FromFriendlyString(string str)
         {
             switch (str)
@@ -184,6 +189,22 @@ namespace Tabster.Data.Xml
                 case "Ukulele Tab":
                     return TablatureType.Ukulele;
             }
+
+            return null;
+        }
+
+        private string ToFriendlyString(TablatureType type)
+        {
+            if (type == TablatureType.Guitar)
+                return "Guitar Tab";
+            if (type == TablatureType.Guitar)
+                return "Guitar Chords";
+            if (type == TablatureType.Chords)
+                return "Bass Tab";
+            if (type == TablatureType.Bass)
+                return "Drum Tab";
+            if (type == TablatureType.Drum)
+                return "Ukulele Tab";
 
             return null;
         }

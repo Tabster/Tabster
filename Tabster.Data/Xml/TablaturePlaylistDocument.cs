@@ -84,10 +84,13 @@ namespace Tabster.Data.Xml
             var doc = new TabsterXmlDocument(ROOT_NODE);
             doc.Load(filename);
 
+            Name = doc.TryReadNodeValue("name");
+            if (string.IsNullOrEmpty(Name))
+                throw new TabsterFileException("Missing playlist name");
+
             //playlist format never had created property, use filesystem
             FileAttributes = new TabsterFileAttributes(FileInfo.CreationTime);
 
-            Name = doc.TryReadNodeValue("name", string.Empty);
             var files = doc.ReadChildNodeValues("files");
 
             foreach (var d in files.Where(File.Exists).Select(file => _processor.Load(file)).Where(d => d != null))
