@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Collections.Specialized;
 using System.IO;
 using Tabster.Core.Types;
 
@@ -39,7 +40,7 @@ namespace Tabster.Data.Binary
 
                     //source attributes
                     writer.Write((int) SourceType);
-                    writer.Write(Source.ToString());
+                    writer.Write(Source != null ? Source.ToString() : string.Empty);
 
                     writer.Write(Comment);
 
