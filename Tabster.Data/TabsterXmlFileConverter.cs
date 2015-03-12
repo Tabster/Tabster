@@ -35,6 +35,7 @@ namespace Tabster.Data
                     Artist = doc.Artist,
                     Title = doc.Title,
                     Type = doc.Type,
+                    Contents = doc.Contents,
                     SourceType = doc.SourceType,
                     Source = doc.Source,
                     Comment = doc.Comment,
