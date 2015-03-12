@@ -27,7 +27,9 @@ namespace Tabster.Data.Processing
 
             try
             {
-                var header = file.Load(fileName);
+                file.Load(fileName);
+
+                var header = file.FileHeader;
 
                 if (update && header.Version < _latestVersion)
                 {

@@ -41,12 +41,14 @@ namespace Tabster.Data.Xml
 
         public FileInfo FileInfo { get; private set; }
 
-        public ITabsterFileHeader Load(string fileName)
+        public void Load(string fileName)
         {
             FileInfo = new FileInfo(fileName);
 
             var doc = new TabsterXmlDocument(ROOT_NODE);
             doc.Load(fileName);
+
+            FileHeader = new TabsterXmlFileHeader(doc.Version);
 
             //required properties
 
@@ -99,8 +101,6 @@ namespace Tabster.Data.Xml
                     SourceType = Source.IsFile ? TablatureSourceType.FileImport : TablatureSourceType.Download;
                 }
             }
-
-            return new TabsterXmlFileHeader(doc.Version);
         }
 
         public void Save(string fileName)
@@ -138,14 +138,8 @@ namespace Tabster.Data.Xml
                 FileInfo = new FileInfo(fileName);
         }
 
-        public ITabsterFileHeader GetHeader()
-        {
-            var doc = new TabsterXmlDocument(ROOT_NODE);
-            doc.Load(FileInfo.FullName);
-            return new TabsterXmlFileHeader(doc.Version);
-        }
-
         public TabsterFileAttributes FileAttributes { get; private set; }
+        public ITabsterFileHeader FileHeader { get; private set; }
 
         public void Save()
         {
@@ -155,7 +149,7 @@ namespace Tabster.Data.Xml
 
         public void Update()
         {
-            var version = GetHeader().Version;
+            var version = FileHeader.Version;
 
             //fix carriage returns without newlines and strip html
             if (version < new Version("1.4"))

@@ -35,13 +35,13 @@ namespace Tabster.Data.Binary
 
         public FileInfo FileInfo { get; private set; }
 
-        public ITabsterFileHeader Load(string fileName)
+        public void Load(string fileName)
         {
             using (var fs = new FileStream(fileName, FileMode.Open))
             {
                 using (var reader = new BinaryReader(fs))
                 {
-                    var header = ReadHeader(reader);
+                    FileHeader = ReadHeader(reader);
 
                     var created = new DateTime(reader.ReadInt64());
                     FileAttributes = new TabsterFileAttributes(created);
@@ -54,8 +54,6 @@ namespace Tabster.Data.Binary
                     {
                         items.Add(reader.ReadString());
                     }
-
-                    return header;
                 }
             }
         }
@@ -79,18 +77,8 @@ namespace Tabster.Data.Binary
             }
         }
 
-        public ITabsterFileHeader GetHeader()
-        {
-            using (var fs = new FileStream(FileInfo.FullName, FileMode.Open))
-            {
-                using (var reader = new BinaryReader(fs))
-                {
-                    return ReadHeader(reader);
-                }
-            }
-        }
-
         public TabsterFileAttributes FileAttributes { get; set; }
+        public ITabsterFileHeader FileHeader { get; set; }
 
         #endregion
 

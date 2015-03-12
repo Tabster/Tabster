@@ -35,8 +35,7 @@ namespace Tabster.Forms
             typeList.SelectedType = _file.Type;
             txtcomment.Text = _file.Comment;
 
-            var header = _file.GetHeader();
-            lblFormat.Text += header.Version.ToString();
+            lblFormat.Text += _file.FileHeader.Version.ToString();
             lblLength.Text += string.Format(" {0:n0} bytes", _file.FileInfo.Length);
             lblCreated.Text += string.Format(" {0}", _file.FileInfo.CreationTime);
             lblModified.Text += string.Format(" {0}", _file.FileInfo.LastWriteTime);

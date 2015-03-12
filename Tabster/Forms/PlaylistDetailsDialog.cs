@@ -29,8 +29,7 @@ namespace Tabster.Forms
             txtlocation.Text = _tablaturePlaylistFile.FileInfo.FullName;
             txtname.Text = _tablaturePlaylistFile.Name;
 
-            var header = _tablaturePlaylistFile.GetHeader();
-            lblFormat.Text += header.Version.ToString();
+            lblFormat.Text += _tablaturePlaylistFile.FileHeader.Version.ToString();
             lblLength.Text += string.Format(" {0:n0} bytes", _tablaturePlaylistFile.FileInfo.Length);
             lblCreated.Text += string.Format(" {0}", _tablaturePlaylistFile.FileInfo.CreationTime);
             lblModified.Text += string.Format(" {0}", _tablaturePlaylistFile.FileInfo.LastWriteTime);

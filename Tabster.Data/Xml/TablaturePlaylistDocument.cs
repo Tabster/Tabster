@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Tabster.Core.Types;
 using Tabster.Data.Processing;
 
 #endregion
@@ -67,16 +66,10 @@ namespace Tabster.Data.Xml
                 FileInfo = new FileInfo(fileName);
         }
 
-        public ITabsterFileHeader GetHeader()
-        {
-            var doc = new TabsterXmlDocument(ROOT_NODE);
-            doc.Load(FileInfo.FullName);
-            return new TabsterXmlFileHeader(doc.Version);
-        }
-
         public TabsterFileAttributes FileAttributes { get; private set; }
+        public ITabsterFileHeader FileHeader { get; private set; }
 
-        public ITabsterFileHeader Load(string filename)
+        public void Load(string filename)
         {
             Clear();
 
@@ -84,6 +77,8 @@ namespace Tabster.Data.Xml
 
             var doc = new TabsterXmlDocument(ROOT_NODE);
             doc.Load(filename);
+
+            FileHeader = new TabsterXmlFileHeader(doc.Version);
 
             Name = doc.TryReadNodeValue("name");
             if (string.IsNullOrEmpty(Name))
@@ -98,8 +93,6 @@ namespace Tabster.Data.Xml
             {
                 Add(d);
             }
-
-            return new TabsterXmlFileHeader(doc.Version);
         }
 
         public void Save()

@@ -1,7 +1,6 @@
 ﻿#region
 
 using System;
-using System.Collections.Specialized;
 using System.IO;
 using Tabster.Core.Types;
 
@@ -49,41 +48,19 @@ namespace Tabster.Data.Binary
             }
         }
 
-        public ITabsterFileHeader GetHeader()
-        {
-            using (var fs = new FileStream(FileInfo.FullName, FileMode.Open))
-            {
-                using (var reader = new BinaryReader(fs))
-                {
-                    return ReadHeader(reader);
-                }
-            }
-        }
-
         public TabsterFileAttributes FileAttributes { get; set; }
+        public ITabsterFileHeader FileHeader { get; private set; }
 
-        public TabsterFileAttributes GetFileAttributes()
-        {
-            using (var fs = new FileStream(FileInfo.FullName, FileMode.Open))
-            {
-                using (var reader = new BinaryReader(fs))
-                {
-                    return ReadFileAttributes(reader);
-                }
-            }
-        }
-
-        public ITabsterFileHeader Load(string fileName)
+        public void Load(string fileName)
         {
             using (var fs = new FileStream(fileName, FileMode.Open))
             {
                 using (var reader = new BinaryReader(fs))
                 {
-                    var header = ReadHeader(reader);
+                    FileHeader = ReadHeader(reader);
 
                     var created = new DateTime(reader.ReadInt64());
                     FileAttributes = new TabsterFileAttributes(created);
-
 
                     Artist = reader.ReadString();
                     Title = reader.ReadString();
@@ -92,8 +69,17 @@ namespace Tabster.Data.Binary
                     Source = new Uri(reader.ReadString());
                     Comment = reader.ReadString();
                     Contents = reader.ReadString();
+                }
+            }
+        }
 
-                    return header;
+        public TabsterFileAttributes GetFileAttributes()
+        {
+            using (var fs = new FileStream(FileInfo.FullName, FileMode.Open))
+            {
+                using (var reader = new BinaryReader(fs))
+                {
+                    return ReadFileAttributes(reader);
                 }
             }
         }
