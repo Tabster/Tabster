@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Controls\ControlInvoker.cs" />
     <Compile Include="Extensions\VersionExtensions.cs" />
+    <Compile Include="IO\FileUtilities.cs" />
     <Compile Include="Net\CustomProxyController.cs" />
     <Compile Include="Net\TabsterWebClient.cs">
       <SubType>Component</SubType>
@@ -64,9 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\AssemblyUtilities.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IO\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Tabster.Core\Tabster.Core.csproj">
       <Project>{B94FA030-4553-4F14-A867-F05849A14DC4}</Project>
