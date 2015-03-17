@@ -42,6 +42,11 @@ namespace Tabster.Data.Xml
             return _items.Remove(item);
         }
 
+        public bool Remove(ITablatureFile file)
+        {
+            return _items.RemoveAll(x => x.File.Equals(file)) > 0;
+        }
+
         public void Clear()
         {
             _items.Clear();

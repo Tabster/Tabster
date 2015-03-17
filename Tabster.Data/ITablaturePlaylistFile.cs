@@ -14,6 +14,7 @@ namespace Tabster.Data
         bool Contains(TablaturePlaylistItem file);
         void Add(TablaturePlaylistItem item);
         bool Remove(TablaturePlaylistItem item);
+        bool Remove(ITablatureFile file);
         void Clear();
         TablaturePlaylistItem Find(Predicate<TablaturePlaylistItem> match);
     }
