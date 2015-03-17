@@ -62,8 +62,7 @@ namespace Tabster.Data
 
                 foreach (var item in doc)
                 {
-                    var fileInfo = doc.GetFileInfo(item);
-                    file.Add(item, fileInfo);
+                    file.Add(item);
                 }
 
                 return file;

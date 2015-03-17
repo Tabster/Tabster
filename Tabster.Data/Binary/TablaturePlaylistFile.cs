@@ -16,8 +16,7 @@ namespace Tabster.Data.Binary
         private const string HeaderString = "TABSTER";
         private static readonly Version HeaderVersion = new Version("1.0");
 
-        private readonly SortedDictionary<ITablatureFile, FileInfo> _fileMap = new SortedDictionary<ITablatureFile, FileInfo>();
-        private readonly List<ITablatureFile> _files = new List<ITablatureFile>();
+        private readonly List<TablaturePlaylistItem> _items = new List<TablaturePlaylistItem>();
         private readonly TabsterFileProcessor<TablatureFile> _processor = new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion);
 
         #region Constructors
@@ -43,8 +42,6 @@ namespace Tabster.Data.Binary
 
                     var count = reader.ReadInt32();
 
-                    var files = new List<TablatureFile>();
-
                     for (var i = 0; i < count; i++)
                     {
                         var path = reader.ReadString();
@@ -55,7 +52,7 @@ namespace Tabster.Data.Binary
 
                             if (file != null)
                             {
-                                files.Add(file);
+                                _items.Add(new TablaturePlaylistItem(file, new FileInfo(path)));
                             }
                         }
                     }
@@ -75,11 +72,11 @@ namespace Tabster.Data.Binary
                     WriteFileAttributes(writer, FileAttributes ?? new TabsterFileAttributes(DateTime.Now));
 
                     writer.Write(Name);
-                    writer.Write(_files.Count);
+                    writer.Write(_items.Count);
 
-                    foreach (var path in _files.Select(doc => _fileMap[doc].FullName))
+                    foreach (var item in _items)
                     {
-                        writer.Write(path);
+                        writer.Write(item.FileInfo.FullName);
                     }
                 }
             }
@@ -92,9 +89,9 @@ namespace Tabster.Data.Binary
 
         #region Implementation of IEnumerable
 
-        public IEnumerator<ITablatureFile> GetEnumerator()
+        public IEnumerator<TablaturePlaylistItem> GetEnumerator()
         {
-            return ((IEnumerable<ITablatureFile>) _files).GetEnumerator();
+            return ((IEnumerable<TablaturePlaylistItem>)_items).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -110,43 +107,32 @@ namespace Tabster.Data.Binary
 
         public bool Contains(string filePath)
         {
-            return _fileMap.Any(x => x.Value.FullName.Equals(filePath, StringComparison.OrdinalIgnoreCase));
+            return _items.Any(x => x.FileInfo.FullName.Equals(filePath, StringComparison.OrdinalIgnoreCase));
         }
 
-        public bool Contains(ITablatureFile file)
+        public bool Contains(TablaturePlaylistItem item)
         {
-            return _files.Contains(file);
+            return _items.Contains(item);
         }
 
-        public void Add(ITablatureFile file, FileInfo fileInfo)
+        public void Add(TablaturePlaylistItem item)
         {
-            if (!_fileMap.ContainsKey(file))
-                _files.Add(file);
-
-            _fileMap[file] = fileInfo;
+            _items.Add(item);
         }
 
-        public bool Remove(ITablatureFile file)
+        public bool Remove(TablaturePlaylistItem item)
         {
-            var dictResult = _fileMap.Remove(file);
-            var listResult = _files.Remove(file);
-            return dictResult && listResult;
+            return _items.Remove(item);
         }
 
         public void Clear()
         {
-            _fileMap.Clear();
-            _files.Clear();
+            _items.Clear();
         }
 
-        public ITablatureFile Find(Predicate<ITablatureFile> match)
+        public TablaturePlaylistItem Find(Predicate<TablaturePlaylistItem> match)
         {
-            throw new NotImplementedException();
-        }
-
-        public FileInfo GetFileInfo(ITablatureFile file)
-        {
-            return _fileMap.ContainsKey(file) ? _fileMap[file] : null;
+            return _items.Find(match);
         }
 
         #endregion
