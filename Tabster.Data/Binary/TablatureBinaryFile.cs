@@ -64,7 +64,8 @@ namespace Tabster.Data.Binary
                     Title = reader.ReadString();
                     Type = new TablatureType(reader.ReadString());
                     SourceType = (TablatureSourceType) reader.ReadInt32();
-                    Source = new Uri(reader.ReadString());
+                    var sourceString = reader.ReadString();
+                    Source = string.IsNullOrEmpty(sourceString) ? null : new Uri(sourceString);
                     Comment = reader.ReadString();
                     Contents = reader.ReadString();
                 }
