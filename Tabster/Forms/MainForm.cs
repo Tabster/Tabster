@@ -24,10 +24,11 @@ namespace Tabster.Forms
 {
     internal partial class MainForm : Form
     {
-        private readonly TablatureFile _queuedTablatureDocument;
+        private readonly TablatureFile _queuedTablatureFile;
         private readonly TablaturePlaylistFile _queuedTablatureTablaturePlaylist;
         private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDataDirectory, "recent.dat");
         private readonly TabsterFileSystemLibraryBase<TablatureFile, TablaturePlaylistFile> _tablatureLibrary;
+        private readonly FileInfo _queuedFileInfo;
 
         public MainForm(TabsterFileSystemLibraryBase<TablatureFile, TablaturePlaylistFile> tablatureLibrary)
         {
@@ -70,16 +71,24 @@ namespace Tabster.Forms
             ToggleEmptyLibraryOverlay(listViewSearch, true);
         }
 
-        public MainForm(TabsterFileSystemLibraryBase<TablatureFile, TablaturePlaylistFile> tablatureLibrary, TablatureFile tablatureFile)
+        public MainForm(TabsterFileSystemLibraryBase<TablatureFile, 
+            TablaturePlaylistFile> tablatureLibrary, 
+            TablatureFile tablatureFile,
+            FileInfo fileInfo)
             : this(tablatureLibrary)
         {
-            _queuedTablatureDocument = tablatureFile;
+            _queuedTablatureFile = tablatureFile;
+            _queuedFileInfo = fileInfo;
         }
 
-        public MainForm(TabsterFileSystemLibraryBase<TablatureFile, TablaturePlaylistFile> tablatureLibrary, TablaturePlaylistFile playlistFile)
+        public MainForm(TabsterFileSystemLibraryBase<TablatureFile, 
+            TablaturePlaylistFile> tablatureLibrary, 
+            TablaturePlaylistFile playlistFile,
+            FileInfo fileInfo)
             : this(tablatureLibrary)
         {
             _queuedTablatureTablaturePlaylist = playlistFile;
+            _queuedFileInfo = fileInfo;
         }
 
         /// <summary>
@@ -134,18 +143,18 @@ namespace Tabster.Forms
             {
                 ShowUpdateDialog();
             }
-            /* todo reimplement queued
+
             //loads queued tab after splash
-            if (_queuedTablatureDocument != null)
+            if (_queuedTablatureFile != null)
             {
-                PopoutTab(_queuedTablatureDocument);
+                PopoutTab(_queuedTablatureFile, _queuedFileInfo);
             }
 
             //loads queued tablaturePlaylist after splash
             if (_queuedTablatureTablaturePlaylist != null)
             {
-                AddPlaylistNode(_queuedTablatureTablaturePlaylist);
-            }*/
+                AddPlaylistNode(_queuedTablatureTablaturePlaylist, _queuedFileInfo);
+            }
         }
 
         private void LoadRecentFilesList()
@@ -464,7 +473,7 @@ namespace Tabster.Forms
                     if (playlist != null)
                     {
                         var item = _tablatureLibrary.Add(playlist);
-                        AddPlaylistNode(item, true);
+                        AddPlaylistNode(item.File, item.FileInfo, true);
                     }
                 }
             }
@@ -508,7 +517,7 @@ namespace Tabster.Forms
 
             if (item != null)
             {
-                PopoutTab(item);
+                PopoutTab(item.File, item.FileInfo);
             }
         }
 

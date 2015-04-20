@@ -58,7 +58,7 @@ namespace Tabster.Forms
 
             if (item != null)
             {
-                PopoutTab(item);
+                PopoutTab(item.File, item.FileInfo);
             }
         }
 
@@ -161,22 +161,26 @@ namespace Tabster.Forms
                 if (n.ShowDialog() == DialogResult.OK)
                 {
                     var item = _tablatureLibrary.Add(n.Tab);
-                    PopoutTab(item);
+                    PopoutTab(item.File, item.FileInfo);
                 }
             }
         }
 
-        private void PopoutTab(TablatureLibraryItem<TablatureFile> item, bool updateRecentFiles = true)
+        private void PopoutTab(TablatureFile file, FileInfo fileInfo, bool updateRecentFiles = true)
         {
-            Program.TabbedViewer.LoadTablature(item.File, item.FileInfo);
+            Program.TabbedViewer.LoadTablature(file, fileInfo);
 
             if (updateRecentFiles)
-                recentlyViewedMenuItem.Add(item.FileInfo, item.File.ToFriendlyString());
+                recentlyViewedMenuItem.Add(fileInfo, file.ToFriendlyString());
+           
+            var libraryItem = _tablatureLibrary.FindTablatureItemByFile(file);
+            if (libraryItem != null)
+            {
+                libraryItem.Views += 1;
+                libraryItem.LastViewed = DateTime.UtcNow;
+            }
 
-            item.Views += 1;
-            item.LastViewed = DateTime.UtcNow;
             LoadTabPreview();
-
         }
 
         private void SearchSimilarTabs(object sender, EventArgs e)
@@ -274,7 +278,7 @@ namespace Tabster.Forms
                     if (tab != null)
                     {
                         var item = _tablatureLibrary.Add(tab);
-                        PopoutTab(item);
+                        PopoutTab(item.File, item.FileInfo);
                     }
                 }
             }
@@ -491,7 +495,7 @@ namespace Tabster.Forms
 
             if (item != null)
             {
-                PopoutTab(item);
+                PopoutTab(item.File, item.FileInfo);
             }
         }
 
@@ -670,7 +674,10 @@ namespace Tabster.Forms
                     }  
 
                     _tablatureLibrary.Add(playlist);
-                    AddPlaylistNode(_tablatureLibrary.Add(playlist));
+
+                    var playlistItem = _tablatureLibrary.Add(playlist);
+
+                    AddPlaylistNode(playlistItem.File, playlistItem.FileInfo);
                 }
             }
         }
@@ -681,16 +688,16 @@ namespace Tabster.Forms
             return _tablatureLibrary.FindPlaylistItemByPath(playlistPath);
         }
 
-        private void AddPlaylistNode(PlaylistLibraryItem<TablaturePlaylistFile> playlistItem, bool select = false)
+        private void AddPlaylistNode(TablaturePlaylistFile playlistFile, FileInfo fileInfo, bool select = false)
         {
             var playlistRootNode = sidemenu.Nodes["node_playlists"];
 
             //check if tablaturePlaylist node already exists
-            var node = playlistRootNode.Nodes.Cast<TreeNode>().FirstOrDefault(n => n.Tag.ToString().Equals(playlistItem.FileInfo.FullName, StringComparison.OrdinalIgnoreCase));
+            var node = playlistRootNode.Nodes.Cast<TreeNode>().FirstOrDefault(n => n.Tag.ToString().Equals(fileInfo.FullName, StringComparison.OrdinalIgnoreCase));
 
             if (node == null)
             {
-                node = new TreeNode(playlistItem.File.Name) { NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = playlistItem.FileInfo.FullName };
+                node = new TreeNode(playlistFile.Name) { NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = fileInfo.FullName };
                 playlistRootNode.Nodes.Add(node);
 
                 if (!playlistRootNode.IsExpanded)
@@ -727,7 +734,7 @@ namespace Tabster.Forms
 
             foreach (var playlist in _tablatureLibrary.GetPlaylistItems())
             {
-                AddPlaylistNode(playlist);
+                AddPlaylistNode(playlist.File, playlist.FileInfo);
 
                 var menuItem = new ToolStripMenuItem(playlist.File.Name) {Tag = playlist.FileInfo.FullName};
 

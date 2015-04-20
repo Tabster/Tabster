@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
-using Tabster.Data;
+using Tabster.Data.Binary;
 using Tabster.Forms;
 using Tabster.Properties;
 
@@ -20,8 +20,9 @@ namespace Tabster.LocalUtilities
 #else
         private const int MIN_SPLASH_TIME = 3500;
 #endif
-        private static ITablatureFile _queuedTabfile;
-        private static ITablaturePlaylistFile _queuedTablaturePlaylistFile;
+        private static TablatureFile _queuedTabfile;
+        private static TablaturePlaylistFile _queuedTablaturePlaylistFile;
+        private static FileInfo _queuedFileInfo;
         private static bool _isLibraryOpen;
         private static bool _noSplash;
         private static bool _safeMode;
@@ -42,7 +43,7 @@ namespace Tabster.LocalUtilities
             get { return base.SplashScreen; }
         }
 
-        private static void ProcessCommandLine(ReadOnlyCollection<string> commandLine)
+        private void ProcessCommandLine(ReadOnlyCollection<string> commandLine)
         {
             if (commandLine.Count > 0)
             {
@@ -55,6 +56,7 @@ namespace Tabster.LocalUtilities
 
                 if (File.Exists(firstArg))
                 {
+                    _queuedFileInfo = new FileInfo(firstArg);
                     var tablatureDocument = Program.TablatureFileLibrary.TablatureFileProcessor.Load(firstArg);
 
                     if (tablatureDocument != null)
@@ -62,7 +64,7 @@ namespace Tabster.LocalUtilities
                         _queuedTabfile = tablatureDocument;
 
                         if (_isLibraryOpen)
-                            Program.TabbedViewer.LoadTablature(tablatureDocument);
+                            Program.TabbedViewer.LoadTablature(tablatureDocument, _queuedFileInfo);
                     }
 
                     else
@@ -78,7 +80,7 @@ namespace Tabster.LocalUtilities
             }
         }
 
-        private static void this_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
+        private void this_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
         {
             ProcessCommandLine(e.CommandLine);
         }
@@ -107,9 +109,9 @@ namespace Tabster.LocalUtilities
             PerformStartupEvents();
 
             if (_queuedTabfile != null)
-                base.MainForm = new MainForm(Program.TablatureFileLibrary, _queuedTabfile);
+                base.MainForm = new MainForm(Program.TablatureFileLibrary, _queuedTabfile, _queuedFileInfo);
             else if (_queuedTablaturePlaylistFile != null)
-                base.MainForm = new MainForm(Program.TablatureFileLibrary, _queuedTablaturePlaylistFile);
+                base.MainForm = new MainForm(Program.TablatureFileLibrary, _queuedTablaturePlaylistFile, _queuedFileInfo);
             else
                 base.MainForm = new MainForm(Program.TablatureFileLibrary);
 
