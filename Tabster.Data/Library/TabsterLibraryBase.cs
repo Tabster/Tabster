@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Tabster.Data.Library
 {
     public class TabsterLibraryBase<TTablatureFile, TTablaturePlaylistFile> 
-        where TTablatureFile : class, ITablatureFile where TTablaturePlaylistFile : ITablaturePlaylistFile
+        where TTablatureFile : class, ITablatureFile where TTablaturePlaylistFile : class, ITablaturePlaylistFile
     {
         private readonly List<PlaylistLibraryItem<TTablaturePlaylistFile>> _playlistLibraryItems = new List<PlaylistLibraryItem<TTablaturePlaylistFile>>();
         private readonly List<TablatureLibraryItem<TTablatureFile>> _tablatureLibraryItems = new List<TablatureLibraryItem<TTablatureFile>>();
