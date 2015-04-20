@@ -1,6 +1,5 @@
 #region
 
-using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using Tabster.Core.Types;
@@ -52,7 +51,7 @@ namespace Tabster.Data.Library
 
         public virtual TablatureLibraryItem<TTablatureFile> Add(AttributedTablature tablature)
         {
-            var file = new TTablatureFile()
+            var file = new TTablatureFile
             {
                 Artist = tablature.Artist,
                 Title = tablature.Title,
@@ -61,10 +60,7 @@ namespace Tabster.Data.Library
                 Source = tablature.Source,
             };
 
-            var fileInfo = new FileInfo(GenerateUniqueFilename(TablatureDirectory, file.ToFriendlyString()));
-
-            var item = new TablatureLibraryItem<TTablatureFile>(file, fileInfo);
-            return item;
+            return Add(file);
         }
 
         public virtual TablatureLibraryItem<TTablatureFile> Add(TTablatureFile file, FileInfo fileInfo = null)
@@ -77,7 +73,7 @@ namespace Tabster.Data.Library
             }
 
             var item = new TablatureLibraryItem<TTablatureFile>(file, fileInfo);
-            //todo add
+            base.AddTablatureItem(item);
             return item;
         }
 
@@ -93,8 +89,7 @@ namespace Tabster.Data.Library
 
                 if (playlistFile != null)
                 {
-                    var item = Add(playlistFile, new FileInfo(file));
-                   //todo add item
+                    Add(playlistFile, new FileInfo(file));
                 }
             }
         }
@@ -115,7 +110,7 @@ namespace Tabster.Data.Library
 
         public virtual void RemovePlaylist(TTablaturePlaylistFile file)
         {
-            var item = this.FindPlaylistItemsByFile(file);
+            var item = FindPlaylistItemsByFile(file);
 
             if (item != null)
             {
@@ -138,7 +133,7 @@ namespace Tabster.Data.Library
             if (!File.Exists(firstTry))
                 return firstTry;
 
-            for (var i = 1; ; ++i)
+            for (var i = 1;; ++i)
             {
                 var appendedPath = Path.Combine(directory, string.Format("{0} ({1}){2}", fileName, i, fileExt));
 
