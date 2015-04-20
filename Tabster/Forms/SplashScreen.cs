@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Tabster.Controls.Extensions;
 using Tabster.Utilities.Extensions;
 using Tabster.Utilities.Reflection;
 
@@ -46,7 +45,18 @@ namespace Tabster.Forms
 
         public void SetStatus(string status)
         {
-            lblProgress.InvokeIfRequired(() => { lblProgress.Text = status; });
+            if (lblProgress.InvokeRequired)
+            {
+                var d = new SetStatusCallback(SetStatus);
+                Invoke(d, new object[] {status});
+            }
+
+            else
+            {
+                lblProgress.Text = status;
+            }
         }
+
+        private delegate void SetStatusCallback(string text);
     }
 }
