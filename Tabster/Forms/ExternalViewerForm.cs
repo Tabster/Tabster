@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Tabster.Controls;
@@ -42,14 +43,14 @@ namespace Tabster.Forms
 
         #region Public Methods
 
-        public bool IsFileOpen(ITablatureFile file)
+        public bool IsFileOpen(FileInfo fileInfo)
         {
-            return GetTabInstance(file) != null;
+            return GetTabInstance(fileInfo) != null;
         }
 
-        public void LoadTablature(ITablatureFile file)
+        public void LoadTablature(ITablatureFile file, FileInfo fileInfo)
         {
-            var instance = IsFileOpen(file) ? GetTabInstance(file) : CreateTabInstance(file);
+            var instance = IsFileOpen(fileInfo) ? GetTabInstance(fileInfo) : CreateTabInstance(file, fileInfo);
 
             if (!Visible)
             {
@@ -76,10 +77,10 @@ namespace Tabster.Forms
         public event TabHandler TabClosed;
         public event TabHandler TabOpened;
 
-        private TabInstance CreateTabInstance(ITablatureFile file)
+        private TabInstance CreateTabInstance(ITablatureFile file, FileInfo fileInfo)
         {
             var editor = new BasicTablatureTextEditor {Dock = DockStyle.Fill, ReadOnly = false};
-            var instance = new TabInstance(file, editor);
+            var instance = new TabInstance(file, fileInfo, editor);
 
             _tabInstances.Add(instance);
             tabControl1.TabPages.Add(instance.Page);
@@ -110,9 +111,9 @@ namespace Tabster.Forms
             instance.Editor.Focus();
         }
 
-        private TabInstance GetTabInstance(ITablatureFile file)
+        private TabInstance GetTabInstance(FileInfo fileInfo)
         {
-            return _tabInstances.Find(x => x.File.FileInfo.FullName.Equals(file.FileInfo.FullName));
+            return _tabInstances.Find(x => x.FileInfo.FullName.Equals(fileInfo.FullName));
         }
 
         private TabInstance GetSelectedInstance()
@@ -143,7 +144,7 @@ namespace Tabster.Forms
 
             if (saveBeforeClosing)
             {
-                instance.File.Save(instance.File.FileInfo.FullName);
+                instance.File.Save(instance.FileInfo.FullName);
             }
 
             tabControl1.TabPages.Remove(instance.Page);
@@ -283,7 +284,7 @@ namespace Tabster.Forms
             if (instance != null)
             {
                 instance.File.Contents = instance.Editor.Text;
-                instance.File.Save(instance.File.FileInfo.FullName);
+                instance.File.Save(instance.FileInfo.FullName);
                 instance.Modified = false;
                 savebtn.Enabled = false;
             }
@@ -297,11 +298,13 @@ namespace Tabster.Forms
 
     internal class TabInstance
     {
-        public TabInstance(ITablatureFile file, BasicTablatureTextEditor editor = null)
+        public TabInstance(ITablatureFile file, FileInfo fileInfo, BasicTablatureTextEditor editor = null)
         {
             File = file;
 
-            Page = new EllipsizedTabPage {Text = file.ToFriendlyString(), ToolTipText = file.FileInfo.FullName};
+            FileInfo = fileInfo;
+
+            Page = new EllipsizedTabPage {Text = file.ToFriendlyString(), ToolTipText = FileInfo.FullName};
 
             Editor = editor ?? new BasicTablatureTextEditor {Dock = DockStyle.Fill};
 
@@ -313,6 +316,7 @@ namespace Tabster.Forms
         public TabPage Page { get; private set; }
         public BasicTablatureTextEditor Editor { get; private set; }
         public ITablatureFile File { get; private set; }
+        public FileInfo FileInfo { get; private set; }
 
         public bool Modified
         {
