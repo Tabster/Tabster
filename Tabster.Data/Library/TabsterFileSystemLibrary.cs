@@ -1,5 +1,6 @@
 #region
 
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using Tabster.Core.Types;
@@ -62,7 +63,7 @@ namespace Tabster.Data.Library
 
             var fileInfo = new FileInfo(GenerateUniqueFilename(TablatureDirectory, file.ToFriendlyString()));
 
-            var item = LibraryItem<TTablatureFile>.FromFile<TablatureLibraryItem<TTablatureFile>, TTablatureFile>(file, fileInfo);
+            var item = new TablatureLibraryItem<TTablatureFile>(file, fileInfo);
             return item;
         }
 
@@ -75,7 +76,7 @@ namespace Tabster.Data.Library
                 fileInfo = new FileInfo(path);
             }
 
-            var item = LibraryItem<TTablatureFile>.FromFile<TablatureLibraryItem<TTablatureFile>, TTablatureFile>(file, fileInfo);
+            var item = new TablatureLibraryItem<TTablatureFile>(file, fileInfo);
             //todo add
             return item;
         }
@@ -107,7 +108,7 @@ namespace Tabster.Data.Library
                 fileInfo = new FileInfo(path);
             }
 
-            var item = LibraryItem<TTablaturePlaylistFile>.FromFile<PlaylistLibraryItem<TTablaturePlaylistFile>, TTablaturePlaylistFile>(file, fileInfo);
+            var item = new PlaylistLibraryItem<TTablaturePlaylistFile>(file, fileInfo);
             base.AddPlaylistItem(item);
             return item;
         }
