@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -19,13 +18,13 @@ namespace RtfFile
 
         public FileType FileType { get; private set; }
 
-        public void Export(TablatureDocument doc, string fileName)
+        public void Export(ITablatureFile file, string fileName)
         {
             if (_font == null)
                 _font = new Font("Courier New", 9F);
 
             if (_rtb == null)
-                _rtb = new RichTextBox {Font = new Font("Courier New", 9F), Text = doc.Contents};
+                _rtb = new RichTextBox {Font = new Font("Courier New", 9F), Text = file.Contents};
 
             _rtb.SaveFile(fileName);
             _rtb.SaveFile(fileName); //have to call method twice otherwise empty file is created

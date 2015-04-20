@@ -6,7 +6,6 @@ using System.Drawing.Text;
 using System.Windows.Forms;
 using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -23,7 +22,7 @@ namespace PngFile
 
         public FileType FileType { get; private set; }
 
-        public void Export(TablatureDocument doc, string fileName)
+        public void Export(ITablatureFile file, string fileName)
         {
             using (var fontDialog = new FontSizeDialog {})
             {
@@ -38,7 +37,7 @@ namespace PngFile
                     {
                         using (var g = Graphics.FromImage(bmp))
                         {
-                            size = g.MeasureString(doc.Contents, font);
+                            size = g.MeasureString(file.Contents, font);
                         }
                     }
 
@@ -55,7 +54,7 @@ namespace PngFile
                             g.Clear(Color.White);
                             g.SmoothingMode = SmoothingMode.AntiAlias;
                             g.TextRenderingHint = TextRenderingHint.AntiAlias;
-                            g.DrawString(doc.Contents, font, Brushes.Black, verticalPadding, horizontalPadding);
+                            g.DrawString(file.Contents, font, Brushes.Black, verticalPadding, horizontalPadding);
                         }
 
                         bmp.Save(fileName);

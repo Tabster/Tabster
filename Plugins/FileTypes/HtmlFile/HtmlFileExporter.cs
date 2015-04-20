@@ -5,7 +5,6 @@ using System.IO;
 using HtmlFile.Properties;
 using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -22,14 +21,14 @@ namespace HtmlFile
 
         public FileType FileType { get; private set; }
 
-        public void Export(TablatureDocument doc, string fileName)
+        public void Export(ITablatureFile file, string fileName)
         {
             var templates = new Dictionary<string, string>
             {
-                {"{TAB_ARTIST}", doc.Artist},
-                {"{TAB_TITLE}", doc.Title},
-                {"{TAB_TYPE}", doc.Type.ToFriendlyString()},
-                {"{TAB_CONTENTS}", doc.Contents}
+                {"{TAB_ARTIST}", file.Artist},
+                {"{TAB_TITLE}", file.Title},
+                {"{TAB_TYPE}", file.Type.ToFriendlyString()},
+                {"{TAB_CONTENTS}", file.Contents}
             };
 
             var html = Resources.Html_Template;

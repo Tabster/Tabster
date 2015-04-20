@@ -6,9 +6,7 @@ using System.Text;
 using System.Web;
 using HtmlAgilityPack;
 using Tabster.Core.Types;
-using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -30,7 +28,7 @@ namespace Songsterr
             return url.IsWellFormedOriginalString() && ((url.DnsSafeHost.EndsWith("songsterr.com", StringComparison.InvariantCultureIgnoreCase) && url.ToString().Contains("/a/wsa/")));
         }
 
-        public TablatureDocument Parse(Uri url, WebProxy proxy)
+        public AttributedTablature Parse(Uri url, WebProxy proxy)
         {
             string html;
 
@@ -130,7 +128,7 @@ namespace Songsterr
 
             var contents = tabBuilder.ToString().Replace("\n", Environment.NewLine);
 
-            return new TablatureDocument(tabArtist, tabTitle, tabType, contents);
+            return new AttributedTablature(tabArtist, tabTitle, tabType) {Contents = contents};
         }
 
         #endregion

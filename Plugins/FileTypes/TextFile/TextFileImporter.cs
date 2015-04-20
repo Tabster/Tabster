@@ -4,7 +4,6 @@ using System.IO;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -21,14 +20,14 @@ namespace TextFile
 
         public FileType FileType { get; private set; }
 
-        public TablatureDocument Import(string fileName)
+        public AttributedTablature Import(string fileName)
         {
             var contents = File.ReadAllText(fileName);
-            var doc = new TablatureDocument {Contents = contents};
+            var doc = new AttributedTablature {Contents = contents};
             return doc;
         }
 
-        public TablatureDocument Import(string fileName, string artist, string title, TablatureType type)
+        public AttributedTablature Import(string fileName, string artist, string title, TablatureType type)
         {
             var doc = Import(fileName);
             doc.Artist = artist;

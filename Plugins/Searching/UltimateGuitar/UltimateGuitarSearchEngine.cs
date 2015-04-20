@@ -58,9 +58,8 @@ namespace UltimateGuitar
 
             var regex = new Regex("[']", RegexOptions.Compiled);
 
-            var urlEncodedQuery =
-                HttpUtility.UrlEncode(string.Format("{0} {1}", regex.Replace(query.Artist, ""),
-                    regex.Replace(query.Title, "")));
+            var urlEncodedQuery = Uri.EscapeDataString(string.Format("{0} {1}", regex.Replace(query.Artist, ""),
+                regex.Replace(query.Title, "")));
 
             string typeStr = null;
 

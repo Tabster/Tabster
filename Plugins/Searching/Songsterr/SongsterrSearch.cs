@@ -7,8 +7,6 @@ using System.Web;
 using HtmlAgilityPack;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
-using Tabster.Data;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -115,7 +113,7 @@ namespace Songsterr
                                 var tabArtist = tabLink.SelectSingleNode("strong").InnerText.Trim();
                                 var tabTitle = tabLink.InnerHtml.Substring(tabLink.InnerHtml.IndexOf(" - ") + 6).Trim();
 
-                                var tab = new TablatureDocument(tabArtist, tabTitle, tabType) {Source = tabURL};
+                                var tab = new AttributedTablature(tabArtist, tabTitle, tabType) {Source = tabURL};
                                 results.Add(new TablatureSearchResult(query, this, tab, tabURL));
                             }
                         }

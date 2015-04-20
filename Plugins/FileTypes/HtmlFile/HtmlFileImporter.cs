@@ -4,7 +4,6 @@ using HtmlAgilityPack;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -21,7 +20,7 @@ namespace HtmlFile
 
         public FileType FileType { get; private set; }
 
-        public TablatureDocument Import(string fileName)
+        public AttributedTablature Import(string fileName)
         {
             var htmlDoc = new HtmlDocument();
             htmlDoc.Load(fileName);
@@ -41,11 +40,11 @@ namespace HtmlFile
                 tabContents = body != null ? body.InnerText : htmlDoc.DocumentNode.InnerText;
             }
 
-            var doc = new TablatureDocument {Contents = tabContents};
+            var doc = new AttributedTablature {Contents = tabContents};
             return doc;
         }
 
-        public TablatureDocument Import(string fileName, string artist, string title, TablatureType type)
+        public AttributedTablature Import(string fileName, string artist, string title, TablatureType type)
         {
             var doc = Import(fileName);
             doc.Artist = artist;

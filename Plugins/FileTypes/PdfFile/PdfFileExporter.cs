@@ -7,7 +7,6 @@ using iTextSharp.text.pdf;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -32,7 +31,7 @@ namespace PdfFile
 
         public FileType FileType { get; private set; }
 
-        public void Export(TablatureDocument doc, string fileName)
+        public void Export(ITablatureFile file, string fileName)
         {
             var plugin = new PdfFilePlugin();
 
@@ -43,11 +42,11 @@ namespace PdfFile
                 using (var writer = PdfWriter.GetInstance(pdfdoc, fs))
                 {
                     pdfdoc.AddCreator(string.Format("{0} {1}", plugin.DisplayName, plugin.Version));
-                    pdfdoc.AddTitle(doc.ToFriendlyString());
+                    pdfdoc.AddTitle(file.ToFriendlyString());
 
                     pdfdoc.Open();
 
-                    pdfdoc.Add(new Paragraph(doc.Contents, _font));
+                    pdfdoc.Add(new Paragraph(file.Contents, _font));
                     pdfdoc.Close();
                 }
             }

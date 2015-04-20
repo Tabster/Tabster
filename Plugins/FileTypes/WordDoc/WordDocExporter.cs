@@ -4,7 +4,6 @@ using System.Drawing;
 using Novacode;
 using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -14,19 +13,19 @@ namespace WordDoc
     {
         public WordDocExporter()
         {
-            FileType = new FileType("Microsoft Office Open XML Format Document", ".docx");
+            FileType = new FileType("Microsoft Office Open XML Format File", ".docx");
         }
 
         #region Implementation of ITablatureFileExporter
 
         public FileType FileType { get; private set; }
 
-        public void Export(TablatureDocument doc, string fileName)
+        public void Export(ITablatureFile file, string fileName)
         {
             using (var document = DocX.Create(fileName))
             {
                 var p = document.InsertParagraph();
-                p.Append(doc.Contents).Font(new FontFamily("Courier New")).FontSize(9);
+                p.Append(file.Contents).Font(new FontFamily("Courier New")).FontSize(9);
                 document.Save();
             }
         }

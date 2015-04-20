@@ -5,9 +5,7 @@ using System.Net;
 using System.Text;
 using HtmlAgilityPack;
 using Tabster.Core.Types;
-using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -34,7 +32,7 @@ namespace GuitartabsDotCC
             return url.DnsSafeHost == "guitartabs.cc" || url.DnsSafeHost == "www.guitartabs.cc";
         }
 
-        public TablatureDocument Parse(Uri url, WebProxy proxy)
+        public AttributedTablature Parse(Uri url, WebProxy proxy)
         {
             string html;
 
@@ -113,7 +111,7 @@ namespace GuitartabsDotCC
             if (type == null || artist == null || title == null || contents == null)
                 return null;
 
-            return new TablatureDocument(artist, title, type, contents);
+            return new AttributedTablature(artist, title, type) {Contents = contents};
         }
 
         #endregion

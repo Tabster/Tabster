@@ -3,7 +3,6 @@
 using System.IO;
 using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -20,9 +19,9 @@ namespace TextFile
 
         public FileType FileType { get; private set; }
 
-        public void Export(TablatureDocument doc, string fileName)
+        public void Export(ITablatureFile file, string fileName)
         {
-            File.WriteAllText(fileName, doc.Contents);
+            File.WriteAllText(fileName, file.Contents);
         }
 
         #endregion

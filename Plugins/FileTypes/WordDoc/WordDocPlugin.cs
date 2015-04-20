@@ -28,7 +28,7 @@ namespace WordDoc
 
         public string DisplayName
         {
-            get { return "Word Document support"; }
+            get { return "Word File support"; }
         }
 
         public Version Version
@@ -44,20 +44,6 @@ namespace WordDoc
         public Type[] Types
         {
             get { return new[] {typeof (WordDocExporter), typeof (WordDocImporter)}; }
-        }
-
-        #endregion
-
-        #region Implementation of ITabsterPluginAttributes
-
-        public void Activate()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Deactivate()
-        {
-            throw new NotImplementedException();
         }
 
         #endregion

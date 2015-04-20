@@ -8,7 +8,6 @@ using iTextSharp.text.pdf.parser;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -25,7 +24,7 @@ namespace PdfFile
 
         public FileType FileType { get; private set; }
 
-        public TablatureDocument Import(string fileName)
+        public AttributedTablature Import(string fileName)
         {
             var contentsBuilder = new StringBuilder();
 
@@ -45,11 +44,11 @@ namespace PdfFile
                 pdfReader.Close();
             }
 
-            var doc = new TablatureDocument {Contents = contentsBuilder.ToString()};
+            var doc = new AttributedTablature {Contents = contentsBuilder.ToString()};
             return doc;
         }
 
-        public TablatureDocument Import(string fileName, string artist, string title, TablatureType type)
+        public AttributedTablature Import(string fileName, string artist, string title, TablatureType type)
         {
             var doc = Import(fileName);
             doc.Artist = artist;

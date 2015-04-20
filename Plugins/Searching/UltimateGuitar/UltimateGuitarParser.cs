@@ -6,9 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Tabster.Core.Types;
-using Tabster.Data;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 
 #endregion
 
@@ -23,7 +21,7 @@ namespace UltimateGuitar
             Homepage = new Uri("http://ultimate-guitar.com");
         }
 
-        #region Implementation of ITabParser
+        #region Implementation of ITablatureWebImporter
 
         public string SiteName
         {
@@ -38,7 +36,7 @@ namespace UltimateGuitar
                    url.DnsSafeHost == "tabs.ultimate-guitar.com";
         }
 
-        public TablatureDocument Parse(Uri url, WebProxy proxy)
+        public AttributedTablature Parse(Uri url, WebProxy proxy)
         {
             string html;
 
@@ -93,7 +91,7 @@ namespace UltimateGuitar
             if (contentsNode != null)
             {
                 var contents = ConvertNewlines(StripHtml(contentsNode.InnerHtml));
-                return new TablatureDocument(artist, title, type, contents);
+                return new AttributedTablature(artist, title, type) {Contents = contents};
             }
 
             return null;
