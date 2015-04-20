@@ -3,7 +3,6 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Tabster.Data;
 using Tabster.Data.Binary;
 using Tabster.Data.Library;
 
@@ -13,10 +12,10 @@ namespace Tabster.Forms
 {
     internal partial class TabDetailsDialog : Form
     {
-        private readonly ITablatureFile _file;
-        private readonly TablatureFileLibrary<TablatureFile, TablaturePlaylistFile> _library;
+        private readonly TablatureFile _file;
+        private readonly TabsterFileSystemLibraryBase<TablatureFile, TablaturePlaylistFile> _library;
 
-        public TabDetailsDialog(ITablatureFile file, TablatureFileLibrary<TablatureFile, TablaturePlaylistFile> library = null)
+        public TabDetailsDialog(TablatureFile file, TabsterFileSystemLibraryBase<TablatureFile, TablaturePlaylistFile> library = null)
         {
             InitializeComponent();
             _file = file;
@@ -28,7 +27,9 @@ namespace Tabster.Forms
 
         private void LoadTablatureData()
         {
-            txtlocation.Text = _file.FileInfo.FullName;
+            var item = _library.FindTablatureItemByFile(_file);
+
+            txtlocation.Text = item.FileInfo.FullName;
 
             txtartist.Text = _file.Artist;
             txtsong.Text = _file.Title;
@@ -36,18 +37,20 @@ namespace Tabster.Forms
             txtcomment.Text = _file.Comment;
 
             lblFormat.Text += _file.FileHeader.Version.ToString();
-            lblLength.Text += string.Format(" {0:n0} bytes", _file.FileInfo.Length);
-            lblCreated.Text += string.Format(" {0}", _file.FileInfo.CreationTime);
-            lblModified.Text += string.Format(" {0}", _file.FileInfo.LastWriteTime);
+            lblLength.Text += string.Format(" {0:n0} bytes", item.FileInfo.Length);
+            lblCreated.Text += string.Format(" {0}", item.FileInfo.CreationTime);
+            lblModified.Text += string.Format(" {0}", item.FileInfo.LastWriteTime);
         }
 
         private void SaveTablatureData()
         {
+            var item = _library.FindTablatureItemByFile(_file);
+
             _file.Artist = txtartist.Text;
             _file.Title = txtsong.Text;
             _file.Type = typeList.SelectedType;
             _file.Comment = txtcomment.Text;
-            _file.Save(_file.FileInfo.FullName);
+            _file.Save(item.FileInfo.FullName);
         }
 
         private void LoadLibraryInformation()
@@ -57,7 +60,7 @@ namespace Tabster.Forms
             if (_library == null)
                 return;
 
-            var libraryItem = _library.GetLibraryItem(_file);
+            var libraryItem = _library.FindTablatureItemByFile(_file);
 
             if (libraryItem != null)
             {
@@ -65,7 +68,7 @@ namespace Tabster.Forms
                 lblViewCount.Text = string.Format("Views: {0}", libraryItem.Views);
                 lblLastViewed.Text = string.Format("Last Viewed: {0}", libraryItem.LastViewed.HasValue ? libraryItem.LastViewed.Value.ToString() : "Never");
 
-                var playlistCount = _library.Playlists.Count(playlist => playlist.Contains(_file.FileInfo.FullName));
+                var playlistCount = _library.GetPlaylistItems().SelectMany(item => item.File).Count(playlistItem => playlistItem.File.Equals(_file));
 
                 lblPlaylistCount.Text = string.Format("Founds in {0} playlist{1}.", playlistCount, playlistCount == 1 ? "" : "s");
             }

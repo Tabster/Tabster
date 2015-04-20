@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 using Tabster.Data;
 
@@ -10,13 +11,17 @@ namespace Tabster.Forms
 {
     internal partial class PlaylistDetailsDialog : Form
     {
-        private readonly ITablaturePlaylistFile _tablaturePlaylistFile;
+        private readonly ITablaturePlaylistFile _file;
+        private readonly FileInfo _fileInfo;
         private string _originalName;
 
-        public PlaylistDetailsDialog(ITablaturePlaylistFile tablaturePlaylist)
+        public PlaylistDetailsDialog(ITablaturePlaylistFile file, FileInfo fileInfo)
         {
             InitializeComponent();
-            _tablaturePlaylistFile = tablaturePlaylist;
+
+            _file = file;
+            _fileInfo = fileInfo;
+
             LoadData();
         }
 
@@ -24,19 +29,19 @@ namespace Tabster.Forms
 
         private void LoadData()
         {
-            _originalName = _tablaturePlaylistFile.Name;
+            _originalName = _file.Name;
 
-            txtlocation.Text = _tablaturePlaylistFile.FileInfo.FullName;
-            txtname.Text = _tablaturePlaylistFile.Name;
+            txtlocation.Text = _fileInfo.FullName;
+            txtname.Text = _file.Name;
 
-            lblFormat.Text += _tablaturePlaylistFile.FileHeader.Version.ToString();
-            lblLength.Text += string.Format(" {0:n0} bytes", _tablaturePlaylistFile.FileInfo.Length);
-            lblCreated.Text += string.Format(" {0}", _tablaturePlaylistFile.FileInfo.CreationTime);
-            lblModified.Text += string.Format(" {0}", _tablaturePlaylistFile.FileInfo.LastWriteTime);
+            lblFormat.Text += _file.FileHeader.Version.ToString();
+            lblLength.Text += string.Format(" {0:n0} bytes", _fileInfo.Length);
+            lblCreated.Text += string.Format(" {0}", _fileInfo.CreationTime);
+            lblModified.Text += string.Format(" {0}", _fileInfo.LastWriteTime);
 
-            foreach (ITablatureFile tab in _tablaturePlaylistFile)
+            foreach (var tab in _file)
             {
-                listView1.Items.Add(string.Format("{0} - {1}", tab.Artist, tab.Title));
+                listView1.Items.Add(string.Format("{0} - {1}", tab.File.Artist, tab.File.Title));
             }
 
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -49,10 +54,10 @@ namespace Tabster.Forms
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            _tablaturePlaylistFile.Name = txtname.Text.Trim();
-            _tablaturePlaylistFile.Save(_tablaturePlaylistFile.FileInfo.FullName);
+            _file.Name = txtname.Text.Trim();
+            _file.Save(_fileInfo.FullName);
 
-            PlaylistRenamed = _tablaturePlaylistFile.Name != _originalName;
+            PlaylistRenamed = _file.Name != _originalName;
         }
 
         private void txtname_TextChanged(object sender, EventArgs e)

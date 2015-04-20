@@ -145,8 +145,7 @@ namespace Tabster.Forms
                     {
                         var cachedTab = _searchResultsCache[selectedResult.Source];
 
-                        var libraryItem = Program.TablatureFileLibrary.Create(cachedTab);
-                        UpdateLibraryItem(libraryItem);
+                        var libraryItem = _tablatureLibrary.Add(cachedTab);
                     }
                 }
             }
@@ -267,7 +266,7 @@ namespace Tabster.Forms
             var artistStrings = new List<string>();
             var titleStrings = new List<string>();
 
-            foreach (var item in Program.TablatureFileLibrary)
+            foreach (var item in _tablatureLibrary.GetTablatureItems())
             {
                 if (artistStrings.Find(x => x.Equals(item.File.Artist, StringComparison.OrdinalIgnoreCase)) == null)
                     artistStrings.Add(item.File.Artist);
