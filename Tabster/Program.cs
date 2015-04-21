@@ -81,15 +81,15 @@ namespace Tabster
 
             var libraryDatabase = Path.Combine(ApplicationDataDirectory, "library.dat");
 
-            if (!File.Exists(libraryDatabase))
-                ConvertXmlFiles(tablatureDirectory, playlistsDirectory);
-
             var library = new SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile>(
                 libraryDatabase,
                 tablatureDirectory,
                 playlistsDirectory,
                 new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion),
                 new TabsterFileProcessor<TablaturePlaylistFile>(Constants.TablaturePlaylistFileVersion));
+
+            if (!File.Exists(libraryDatabase))
+                ConvertXmlFiles(tablatureDirectory, playlistsDirectory);
 
             return library;
         }
