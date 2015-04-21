@@ -57,8 +57,7 @@ namespace Tabster.Data.Binary
                 {
                     FileHeader = ReadHeader(reader);
 
-                    var created = new DateTime(reader.ReadInt64());
-                    FileAttributes = new TabsterFileAttributes(created);
+                    FileAttributes = ReadFileAttributes(reader);
 
                     Artist = reader.ReadString();
                     Title = reader.ReadString();
