@@ -67,7 +67,7 @@ namespace Tabster.Data.Library
         {
             if (fileInfo == null)
             {
-                var path = GenerateUniqueFilename(TablatureDirectory, file.ToFriendlyString());
+                var path = GenerateUniqueFilename(TablatureDirectory, string.Format("{0}{1}", file.ToFriendlyString(), Constants.TablatureFileExtension));
                 file.Save(path);
                 fileInfo = new FileInfo(path);
             }
@@ -98,7 +98,7 @@ namespace Tabster.Data.Library
         {
             if (fileInfo == null)
             {
-                var path = GenerateUniqueFilename(TablatureDirectory, file.Name);
+                var path = GenerateUniqueFilename(PlaylistDirectory, string.Format("{0}{1}", file.Name, Constants.TablaturePlaylistFileExtension));
                 file.Save(path);
                 fileInfo = new FileInfo(path);
             }
