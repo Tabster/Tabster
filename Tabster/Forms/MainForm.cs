@@ -13,6 +13,7 @@ using Tabster.Data;
 using Tabster.Data.Binary;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
+using Tabster.LocalUtilities;
 using Tabster.Properties;
 using Tabster.Updater;
 using Tabster.Utilities.Extensions;
@@ -27,10 +28,10 @@ namespace Tabster.Forms
         private readonly TablatureFile _queuedTablatureFile;
         private readonly TablaturePlaylistFile _queuedTablatureTablaturePlaylist;
         private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDataDirectory, "recent.dat");
-        private readonly TabsterFileSystemLibraryBase<TablatureFile, TablaturePlaylistFile> _tablatureLibrary;
+        private readonly SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile> _tablatureLibrary;
         private readonly FileInfo _queuedFileInfo;
 
-        public MainForm(TabsterFileSystemLibraryBase<TablatureFile, TablaturePlaylistFile> tablatureLibrary)
+        public MainForm(SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile> tablatureLibrary)
         {
             _tablatureLibrary = tablatureLibrary;
             InitializeComponent();
@@ -71,7 +72,7 @@ namespace Tabster.Forms
             ToggleEmptyLibraryOverlay(listViewSearch, true);
         }
 
-        public MainForm(TabsterFileSystemLibraryBase<TablatureFile, 
+        public MainForm(SqliteTabsterLibrary<TablatureFile, 
             TablaturePlaylistFile> tablatureLibrary, 
             TablatureFile tablatureFile,
             FileInfo fileInfo)
@@ -81,7 +82,7 @@ namespace Tabster.Forms
             _queuedFileInfo = fileInfo;
         }
 
-        public MainForm(TabsterFileSystemLibraryBase<TablatureFile, 
+        public MainForm(SqliteTabsterLibrary<TablatureFile, 
             TablaturePlaylistFile> tablatureLibrary, 
             TablaturePlaylistFile playlistFile,
             FileInfo fileInfo)
@@ -301,6 +302,8 @@ namespace Tabster.Forms
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _tablatureLibrary.Save();
+
             SaveRecentFilesList();
             SaveSettings();
         }

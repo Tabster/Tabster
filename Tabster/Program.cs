@@ -7,9 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Tabster.Data;
 using Tabster.Data.Binary;
-using Tabster.Data.Library;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 using Tabster.Forms;
 using Tabster.LocalUtilities;
 using Tabster.Properties;
@@ -22,11 +20,9 @@ namespace Tabster
 {
     internal static class Program
     {
-        public static TablatureFileLibrary<TablatureFile, TablaturePlaylistFile> TablatureFileLibrary;
         public static SingleInstanceController InstanceController;
         public static PluginController PluginController;
         public static string ApplicationDataDirectory;
-        public static string UserDirectory;
         public static UpdateQuery UpdateQuery = new UpdateQuery();
 
         private static ExternalViewerForm _tabbedViewer;
@@ -48,41 +44,50 @@ namespace Tabster
         [STAThread]
         public static void Main(string[] args)
         {
-            InitializeWorkingDirectories();
+            var library = InitializeWorkingDirectories();
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
             LoadPlugins();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            InstanceController = new SingleInstanceController();
+            InstanceController = new SingleInstanceController(library);
             InstanceController.Run(args);
         }
 
-        private static void InitializeWorkingDirectories()
+        private static SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile> InitializeWorkingDirectories()
         {
+            string userDirectory;
+
 #if PORTABLE
             ApplicationDataDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "AppData");
-            UserDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "UserData");
+            userDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "UserData");
 #else
             ApplicationDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
-            UserDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
+            userDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
 #endif
 
             if (!Directory.Exists(ApplicationDataDirectory))
                 Directory.CreateDirectory(ApplicationDataDirectory);
 
-            if (!Directory.Exists(UserDirectory))
-                Directory.CreateDirectory(UserDirectory);
+            if (!Directory.Exists(userDirectory))
+                Directory.CreateDirectory(userDirectory);
 
-            TablatureFileLibrary = new TablatureFileLibrary<TablatureFile, TablaturePlaylistFile>(
-                Path.Combine(UserDirectory, "Library"),
-                Path.Combine(UserDirectory, "Playlists"),
+            var tablatureDirectory = Path.Combine(userDirectory, "Library");
+            var playlistsDirectory = Path.Combine(userDirectory, "Playlists");
+
+            var libraryDatabase = Path.Combine(ApplicationDataDirectory, "library.dat");
+
+            var library = new SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile>(
+                libraryDatabase,
+                tablatureDirectory,
+                playlistsDirectory,
                 new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion),
                 new TabsterFileProcessor<TablaturePlaylistFile>(Constants.TablaturePlaylistFileVersion));
+
+            return library;
         }
 
         private static void LoadPlugins()
@@ -95,11 +100,6 @@ namespace Tabster
             {
                 PluginController.SetStatus(new Guid(guid), false);
             }
-        }
-
-        private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
-        {
-            //todo save on exit
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

@@ -15,6 +15,7 @@ namespace Tabster.LocalUtilities
 {
     internal class SingleInstanceController : WindowsFormsApplicationBase
     {
+        private static SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile> _library;
 #if DEBUG
         private const int MIN_SPLASH_TIME = 1000;
 #else
@@ -27,8 +28,9 @@ namespace Tabster.LocalUtilities
         private static bool _noSplash;
         private static bool _safeMode;
 
-        public SingleInstanceController()
+        public SingleInstanceController(SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile> library)
         {
+            _library = library;
             IsSingleInstance = true;
             StartupNextInstance += this_StartupNextInstance;
         }
@@ -57,7 +59,7 @@ namespace Tabster.LocalUtilities
                 if (File.Exists(firstArg))
                 {
                     _queuedFileInfo = new FileInfo(firstArg);
-                    var tablatureDocument = Program.TablatureFileLibrary.TablatureFileProcessor.Load(firstArg);
+                    var tablatureDocument = _library.TablatureFileProcessor.Load(firstArg);
 
                     if (tablatureDocument != null)
                     {
@@ -69,7 +71,7 @@ namespace Tabster.LocalUtilities
 
                     else
                     {
-                        var playlistDocument = Program.TablatureFileLibrary.TablaturePlaylistFileProcessor.Load(firstArg);
+                        var playlistDocument = _library.TablaturePlaylistFileProcessor.Load(firstArg);
 
                         if (playlistDocument != null)
                         {
@@ -109,11 +111,11 @@ namespace Tabster.LocalUtilities
             PerformStartupEvents();
 
             if (_queuedTabfile != null)
-                base.MainForm = new MainForm(Program.TablatureFileLibrary, _queuedTabfile, _queuedFileInfo);
+                base.MainForm = new MainForm(_library, _queuedTabfile, _queuedFileInfo);
             else if (_queuedTablaturePlaylistFile != null)
-                base.MainForm = new MainForm(Program.TablatureFileLibrary, _queuedTablaturePlaylistFile, _queuedFileInfo);
+                base.MainForm = new MainForm(_library, _queuedTablaturePlaylistFile, _queuedFileInfo);
             else
-                base.MainForm = new MainForm(Program.TablatureFileLibrary);
+                base.MainForm = new MainForm(_library);
 
             _isLibraryOpen = true;
         }
@@ -158,8 +160,7 @@ namespace Tabster.LocalUtilities
                 SetSplashStatus(splashStatuses[1]);
             }
 
-            //todo load library
-            //Program.TablatureFileLibrary.Load();
+            _library.Load();
 
 #if DEBUG
             Thread.Sleep(sleepDuration);
