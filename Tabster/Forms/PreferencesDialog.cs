@@ -23,8 +23,8 @@ namespace Tabster.Forms
     {
         private readonly Color _disabledColor = Color.Red;
         private readonly Color _enabledColor = Color.Green;
-        private readonly List<TabsterPluginHost> _plugins = new List<TabsterPluginHost>();
         private readonly Dictionary<TabsterPluginHost, bool> _pluginStatusMap = new Dictionary<TabsterPluginHost, bool>();
+        private readonly List<TabsterPluginHost> _plugins = new List<TabsterPluginHost>();
 
         public PreferencesDialog(string tab = null)
         {

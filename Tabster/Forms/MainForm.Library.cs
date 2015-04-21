@@ -49,7 +49,7 @@ namespace Tabster.Forms
 
         private TablatureLibraryItem<TablatureFile> GetSelectedLibraryItem()
         {
-            return listViewLibrary.SelectedObject != null ? (TablatureLibraryItem<TablatureFile>)listViewLibrary.SelectedObject : null;
+            return listViewLibrary.SelectedObject != null ? (TablatureLibraryItem<TablatureFile>) listViewLibrary.SelectedObject : null;
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -75,7 +75,7 @@ namespace Tabster.Forms
                 })
                 {
                     sfd.SetTabsterFilter(_fileExporters);
-                    //todo fix this when sober you fucking twat
+
                     if (sfd.ShowDialog() != DialogResult.Cancel)
                     {
                         //native file format
@@ -172,7 +172,7 @@ namespace Tabster.Forms
 
             if (updateRecentFiles)
                 recentlyViewedMenuItem.Add(fileInfo, file.ToFriendlyString());
-           
+
             var libraryItem = _tablatureLibrary.FindTablatureItemByFile(file);
             if (libraryItem != null)
             {
@@ -662,7 +662,7 @@ namespace Tabster.Forms
                         return;
                     }
 
-                    var playlist = new TablaturePlaylistFile { Name = p.PlaylistName };
+                    var playlist = new TablaturePlaylistFile {Name = p.PlaylistName};
 
                     var item = GetSelectedLibraryItem();
 
@@ -671,7 +671,7 @@ namespace Tabster.Forms
                     {
                         playlist.Add(new TablaturePlaylistItem(item.File, item.FileInfo));
                         playlist.Save(item.FileInfo.FullName);
-                    }  
+                    }
 
                     _tablatureLibrary.Add(playlist);
 
@@ -697,7 +697,7 @@ namespace Tabster.Forms
 
             if (node == null)
             {
-                node = new TreeNode(playlistFile.Name) { NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = fileInfo.FullName };
+                node = new TreeNode(playlistFile.Name) {NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = fileInfo.FullName};
                 playlistRootNode.Nodes.Add(node);
 
                 if (!playlistRootNode.IsExpanded)

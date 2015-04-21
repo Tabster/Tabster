@@ -25,11 +25,11 @@ namespace Tabster.Forms
 {
     internal partial class MainForm : Form
     {
+        private readonly FileInfo _queuedFileInfo;
         private readonly TablatureFile _queuedTablatureFile;
         private readonly TablaturePlaylistFile _queuedTablatureTablaturePlaylist;
         private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDataDirectory, "recent.dat");
         private readonly SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile> _tablatureLibrary;
-        private readonly FileInfo _queuedFileInfo;
 
         public MainForm(SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile> tablatureLibrary)
         {
@@ -72,8 +72,8 @@ namespace Tabster.Forms
             ToggleEmptyLibraryOverlay(listViewSearch, true);
         }
 
-        public MainForm(SqliteTabsterLibrary<TablatureFile, 
-            TablaturePlaylistFile> tablatureLibrary, 
+        public MainForm(SqliteTabsterLibrary<TablatureFile,
+            TablaturePlaylistFile> tablatureLibrary,
             TablatureFile tablatureFile,
             FileInfo fileInfo)
             : this(tablatureLibrary)
@@ -82,8 +82,8 @@ namespace Tabster.Forms
             _queuedFileInfo = fileInfo;
         }
 
-        public MainForm(SqliteTabsterLibrary<TablatureFile, 
-            TablaturePlaylistFile> tablatureLibrary, 
+        public MainForm(SqliteTabsterLibrary<TablatureFile,
+            TablaturePlaylistFile> tablatureLibrary,
             TablaturePlaylistFile playlistFile,
             FileInfo fileInfo)
             : this(tablatureLibrary)
@@ -97,12 +97,12 @@ namespace Tabster.Forms
         /// </summary>
         private void InitAspectGetters()
         {
-            olvColArtist.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>)x).File.Artist;
-            olvColTitle.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>)x).File.Title;
-            olvColType.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>)x).File.Type.Name;
-            olvColCreated.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>)x).FileInfo.CreationTime;
-            olvColModified.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>)x).FileInfo.LastWriteTime;
-            olvColLocation.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>)x).FileInfo.FullName;
+            olvColArtist.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>) x).File.Artist;
+            olvColTitle.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>) x).File.Title;
+            olvColType.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>) x).File.Type.Name;
+            olvColCreated.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>) x).FileInfo.CreationTime;
+            olvColModified.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>) x).FileInfo.LastWriteTime;
+            olvColLocation.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>) x).FileInfo.FullName;
 
             //search
             olvColumn1.AspectGetter = x => ((TablatureSearchResult) x).Tab.Artist;
