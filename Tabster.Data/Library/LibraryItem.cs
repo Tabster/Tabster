@@ -19,7 +19,7 @@ namespace Tabster.Data.Library
             FileInfo = fileInfo;
         }
 
-        public int ID { get; set; }
+        public long? ID { get; set; }
         public FileInfo FileInfo { get; private set; }
         public virtual ITabsterFile File { get; private set; }
     }
