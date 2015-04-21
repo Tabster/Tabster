@@ -153,7 +153,7 @@ namespace Tabster.LocalUtilities
                 cmd.ExecuteNonQuery();
             }
 
-            using (var cmd = new SQLiteCommand(string.Format("CREATE TABLE IF NOT EXISTS {0} (id INTEGER, views TEXT)", TablePlaylists), _db))
+            using (var cmd = new SQLiteCommand(string.Format("CREATE TABLE IF NOT EXISTS {0} (id INTEGER PRIMARY KEY, filename TEXT)", TablePlaylists), _db))
             {
                 cmd.ExecuteNonQuery();
             }
