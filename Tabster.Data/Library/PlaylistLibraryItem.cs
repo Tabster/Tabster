@@ -11,6 +11,7 @@ namespace Tabster.Data.Library
         public PlaylistLibraryItem(TTablaturePlaylistFile file, FileInfo fileInfo)
             : base(file, fileInfo)
         {
+            File = file;
         }
 
         public new TTablaturePlaylistFile File { get; private set; }

@@ -12,6 +12,7 @@ namespace Tabster.Data.Library
         public TablatureLibraryItem(TTablatureFile file, FileInfo fileInfo)
             : base(file, fileInfo)
         {
+            File = file;
         }
 
         public new TTablatureFile File { get; private set; }
