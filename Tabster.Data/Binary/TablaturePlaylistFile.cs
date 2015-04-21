@@ -36,9 +36,9 @@ namespace Tabster.Data.Binary
                 using (var reader = new BinaryReader(fs))
                 {
                     FileHeader = ReadHeader(reader);
+                    FileAttributes = ReadFileAttributes(reader);
 
-                    var created = new DateTime(reader.ReadInt64());
-                    FileAttributes = new TabsterFileAttributes(created);
+                    Name = reader.ReadString();
 
                     var count = reader.ReadInt32();
 
