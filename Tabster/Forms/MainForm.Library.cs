@@ -673,8 +673,6 @@ namespace Tabster.Forms
                         playlist.Save(item.FileInfo.FullName);
                     }
 
-                    _tablatureLibrary.Add(playlist);
-
                     var playlistItem = _tablatureLibrary.Add(playlist);
 
                     AddPlaylistNode(playlistItem.File, playlistItem.FileInfo);
