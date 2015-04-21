@@ -49,6 +49,8 @@ Section "MainSection" SEC01
 
   ; third-party references  
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\ObjectListView.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\System.Data.SQLite.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\x86\SQLite.Interop.dll"
   
   CreateShortCut "$DESKTOP\Tabster.lnk" "$INSTDIR\Tabster.exe"
   CreateDirectory "$SMPROGRAMS\Tabster"
@@ -112,6 +114,12 @@ Section Uninstall
   Delete "$INSTDIR\Tabster.Core.dll"
   Delete "$INSTDIR\Tabster.Data.dll"
   Delete "$INSTDIR\Tabster.Utils.dll"
+  
+  ; third-party references  
+  Delete "${INSTDIR}\Tabster\ObjectListView.dll"
+  Delete "${INSTDIR}\Tabster\System.Data.SQLite.dll"
+  Delete "${INSTDIR}\Tabster\SQLite.Interop.dll"
+  
   Delete "$INSTDIR\Updater.exe"
   Delete "$INSTDIR\Uninstall.exe"
   Delete "$DESKTOP\Tabster.lnk"
