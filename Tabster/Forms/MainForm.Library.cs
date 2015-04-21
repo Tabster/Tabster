@@ -676,6 +676,7 @@ namespace Tabster.Forms
                     var playlistItem = _tablatureLibrary.Add(playlist);
 
                     AddPlaylistNode(playlistItem.File, playlistItem.FileInfo);
+                    PopulatePlaylistMenu();
                 }
             }
         }
@@ -718,13 +719,11 @@ namespace Tabster.Forms
             }
         }
 
-        private void PopulatePlaylists()
+        /// <summary>
+        ///     Populates 'add to' playlist menu.
+        /// </summary>
+        private void PopulatePlaylistMenu()
         {
-            var playlistNode = sidemenu.Nodes["node_playlists"];
-
-            if (playlistNode.Nodes.Count > 0)
-                playlistNode.Nodes.Clear();
-
             if (librarycontextaddtoplaylist.DropDownItems.Count > 0)
                 librarycontextaddtoplaylist.DropDownItems.Clear();
 
@@ -732,8 +731,6 @@ namespace Tabster.Forms
 
             foreach (var playlist in _tablatureLibrary.GetPlaylistItems())
             {
-                AddPlaylistNode(playlist.File, playlist.FileInfo);
-
                 var menuItem = new ToolStripMenuItem(playlist.File.Name) {Tag = playlist.FileInfo.FullName};
 
                 menuItem.Click += (s, e) =>
@@ -755,16 +752,10 @@ namespace Tabster.Forms
                 librarycontextaddtoplaylist.DropDownItems.Add(menuItem);
             }
 
-            sidemenu.ExpandAll();
-
             if (librarycontextaddtoplaylist.DropDownItems.Count > 0)
-            {
                 librarycontextaddtoplaylist.DropDownItems.Add(new ToolStripSeparator());
-            }
 
             librarycontextaddtoplaylist.DropDownItems.Add(newPlaylistToolStripMenuItem);
-
-            UpdateDetails();
         }
 
         #endregion

@@ -133,7 +133,12 @@ namespace Tabster.Forms
 
             sidemenu.SelectedNode = sidemenu.Nodes[0].FirstNode;
 
-            PopulatePlaylists();
+            foreach (var playlist in _tablatureLibrary.GetPlaylistItems())
+            {
+                AddPlaylistNode(playlist.File, playlist.FileInfo);
+            }
+
+            PopulatePlaylistMenu();
 
             LoadSettings(true);
         }
