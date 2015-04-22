@@ -16,6 +16,18 @@ namespace Tabster.Data.Xml
             var elems = doc.GetElementsByTagName(name);
             return elems.Count > 0 ? elems[0] : null;
         }
+
+        public static string GetElementAttributeValue(this XmlNode node, string name, string defaultValue = null)
+        {
+            if (node.Attributes != null)
+            {
+                var attr = node.Attributes[name];
+                if (attr != null)
+                    return attr.Value;
+            }
+
+            return defaultValue;
+        }
     }
 
     [Obsolete]

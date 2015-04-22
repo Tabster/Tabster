@@ -68,6 +68,7 @@
     <Compile Include="Binary\TabsterBinaryFileHeader.cs" />
     <Compile Include="ITabsterFileHeader.cs" />
     <Compile Include="TabsterXmlFileConverter.cs" />
+    <Compile Include="Xml\TabsterLibraryDocument.cs" />
     <Compile Include="Xml\TabsterXmlFileHeader.cs" />
     <Compile Include="Library\TablatureLibraryItem.cs" />
     <Compile Include="Processing\ITablatureFileExporter.cs" />
