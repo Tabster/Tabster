@@ -658,7 +658,7 @@ namespace Tabster.Forms
                 {
                     if (string.IsNullOrEmpty(p.PlaylistName))
                     {
-                        MessageBox.Show("Please enter a valid tablaturePlaylist name.", "Invalid Name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Please enter a valid playlist name.", "Invalid Name", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
@@ -666,11 +666,14 @@ namespace Tabster.Forms
 
                     var item = GetSelectedLibraryItem();
 
-                    //add tab to new tablaturePlaylist
-                    if (sender == newPlaylistToolStripMenuItem && item != null)
+                    // new playlist
+                    if (sender == newPlaylistToolStripMenuItem)
                     {
-                        playlist.Add(new TablaturePlaylistItem(item.File, item.FileInfo));
-                        playlist.Save(item.FileInfo.FullName);
+                        // 'add to' new playlist
+                        if (item != null)
+                        {
+                            playlist.Add(new TablaturePlaylistItem(item.File, item.FileInfo));
+                        }
                     }
 
                     var playlistItem = _tablatureLibrary.Add(playlist);
