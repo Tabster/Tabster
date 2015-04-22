@@ -126,6 +126,9 @@ namespace Tabster.Data.Xml
             doc.WriteNode("comment", Comment);
 
             doc.Save(fileName);
+
+            FileHeader = new TabsterXmlFileHeader(FileVersion);
+            FileAttributes = new TabsterFileAttributes(DateTime.UtcNow);
         }
 
         public TabsterFileAttributes FileAttributes { get; private set; }

@@ -76,6 +76,9 @@ namespace Tabster.Data.Xml
             }
 
             xmlDoc.Save(fileName);
+
+            FileHeader = new TabsterXmlFileHeader(FileVersion);
+            FileAttributes = new TabsterFileAttributes(DateTime.UtcNow);
         }
 
         public TabsterFileAttributes FileAttributes { get; private set; }
