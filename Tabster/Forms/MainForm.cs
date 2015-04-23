@@ -276,6 +276,7 @@ namespace Tabster.Forms
 
         private void CachePluginResources()
         {
+            _fileExporters = new List<ITablatureFileExporter>(Program.PluginController.GetClassInstances<ITablatureFileExporter>());
             _fileImporters = new List<ITablatureFileImporter>(Program.PluginController.GetClassInstances<ITablatureFileImporter>());
             _webImporters = new List<ITablatureWebImporter>(Program.PluginController.GetClassInstances<ITablatureWebImporter>());
         }
