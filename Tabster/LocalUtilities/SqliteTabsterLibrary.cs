@@ -38,6 +38,32 @@ namespace Tabster.LocalUtilities
             CreateTables();
         }
 
+        public override bool RemoveTablatureItem(TablatureLibraryItem<TTablatureFile> item)
+        {
+            using (var cmd = new SQLiteCommand(_db))
+            {
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = string.Format(@"DELETE FROM {0} WHERE id=@id", TableTablature);
+                cmd.Parameters.Add(new SQLiteParameter("@id", item.ID));
+                cmd.ExecuteNonQuery();
+            }
+
+            return base.RemoveTablatureItem(item);
+        }
+
+        public override bool RemovePlaylistItem(PlaylistLibraryItem<TTablaturePlaylistFile> item)
+        {
+            using (var cmd = new SQLiteCommand(_db))
+            {
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = string.Format(@"DELETE FROM {0} WHERE id=@id", TablePlaylists);
+                cmd.Parameters.Add(new SQLiteParameter("@id", item.ID));
+                cmd.ExecuteNonQuery();
+            }
+
+            return base.RemovePlaylistItem(item);
+        }
+
         public void Load()
         {
             if (_scanNeeded)

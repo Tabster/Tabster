@@ -77,6 +77,14 @@ namespace Tabster.Data.Library
             return item;
         }
 
+        public override bool RemoveTablatureItem(TablatureLibraryItem<TTablatureFile> item)
+        {
+            if (File.Exists(item.FileInfo.FullName))
+                File.Delete(item.FileInfo.FullName);
+
+            return base.RemoveTablatureItem(item);
+        }
+
         #endregion
 
         #region Playlist Methods
@@ -108,14 +116,12 @@ namespace Tabster.Data.Library
             return item;
         }
 
-        public virtual void RemovePlaylist(TTablaturePlaylistFile file)
+        public override bool RemovePlaylistItem(PlaylistLibraryItem<TTablaturePlaylistFile> item)
         {
-            var item = FindPlaylistItemsByFile(file);
+            if (File.Exists(item.FileInfo.FullName))
+                File.Delete(item.FileInfo.FullName);
 
-            if (item != null)
-            {
-                RemovePlaylistItem(item);
-            }
+            return base.RemovePlaylistItem(item);
         }
 
         #endregion

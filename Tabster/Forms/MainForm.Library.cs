@@ -32,7 +32,7 @@ namespace Tabster.Forms
 {
     internal partial class MainForm
     {
-        private readonly List<ITablatureFileExporter> _fileExporters = new List<ITablatureFileExporter>();
+        private List<ITablatureFileExporter> _fileExporters = new List<ITablatureFileExporter>();
         private readonly List<TablatureLibraryItem<TablatureFile>> _libraryCache = new List<TablatureLibraryItem<TablatureFile>>();
         private bool _changingLibraryView;
         private List<ITablatureFileImporter> _fileImporters = new List<ITablatureFileImporter>();
@@ -639,12 +639,12 @@ namespace Tabster.Forms
         {
             if (SelectedLibrary() == LibraryType.Playlist)
             {
-                var playlist = GetSelectedPlaylist();
+                var playlistItem = GetSelectedPlaylist();
 
-                if (playlist != null && MessageBox.Show("Are you sure you want to delete this tablaturePlaylist?", "Delete Playlist", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (playlistItem != null && MessageBox.Show("Are you sure you want to delete this playlist?", "Delete Playlist", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    _tablatureLibrary.RemovePlaylist(playlist.File);
-                    RemovePlaylistNode(playlist);
+                    _tablatureLibrary.RemovePlaylistItem(playlistItem);
+                    RemovePlaylistNode(playlistItem);
                     UpdateDetails();
                 }
             }
