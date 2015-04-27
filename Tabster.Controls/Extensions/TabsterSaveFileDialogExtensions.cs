@@ -32,7 +32,7 @@ namespace Tabster.Controls.Extensions
             {
                 var fileType = fileTypes[i];
 
-                filterStringBuilder.AppendFormat(string.Format("{0} (*{1})|*{1}", fileType.Name, fileType.Extensions[0]));
+                filterStringBuilder.AppendFormat("{0} (*{1})|*{1}", fileType.Name, fileType.Extensions[0]);
 
                 if (i + 1 < fileTypes.Count)
                     filterStringBuilder.Append("|");
