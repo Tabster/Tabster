@@ -154,12 +154,6 @@
     <Compile Include="Forms\RenameDialog.designer.cs">
       <DependentUpon>RenameDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ImportDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ImportDialog.designer.cs">
-      <DependentUpon>ImportDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,9 +213,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RenameDialog.resx">
       <DependentUpon>RenameDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ImportDialog.resx">
-      <DependentUpon>ImportDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

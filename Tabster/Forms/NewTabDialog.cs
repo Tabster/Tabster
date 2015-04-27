@@ -18,11 +18,11 @@ namespace Tabster.Forms
             txtArtist.Select(txtArtist.Text.Length, 0);
         }
 
-        public NewTabDialog(string artist, string song, TablatureType type)
+        public NewTabDialog(string artist, string title, TablatureType type)
             : this()
         {
             txtArtist.Text = artist;
-            txtTitle.Text = song;
+            txtTitle.Text = title;
             typeList.SelectedType = type;
 
             ValidateInput();

@@ -32,9 +32,9 @@ namespace Tabster.Forms
 {
     internal partial class MainForm
     {
-        private List<ITablatureFileExporter> _fileExporters = new List<ITablatureFileExporter>();
         private readonly List<TablatureLibraryItem<TablatureFile>> _libraryCache = new List<TablatureLibraryItem<TablatureFile>>();
         private bool _changingLibraryView;
+        private List<ITablatureFileExporter> _fileExporters = new List<ITablatureFileExporter>();
         private List<ITablatureFileImporter> _fileImporters = new List<ITablatureFileImporter>();
 
         //used to prevent double-triggering of OnSelectedIndexChanged for tablibrary when using navigation menu
@@ -480,11 +480,59 @@ namespace Tabster.Forms
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var i = new ImportDialog(_fileImporters))
+            using (var ofd = new OpenFileDialog
             {
-                if (i.ShowDialog() == DialogResult.OK)
+                Title = "Import Tab - Tabster",
+                Filter = string.Format("Tabster File (*{0})|*{0}", Constants.TablatureFileExtension),
+                Multiselect = false
+            })
+            {
+                ofd.SetTabsterFilter(_fileImporters, allSupportedTypesOption: false); //todo implement "all supported types" handling
+
+                if (ofd.ShowDialog() != DialogResult.Cancel)
                 {
-                    var item = _tablatureLibrary.Add(i.Tab);
+                    //native file format
+                    if (ofd.FilterIndex == 1)
+                    {
+                        var file = _tablatureLibrary.TablatureFileProcessor.Load(ofd.FileName);
+
+                        if (file != null)
+                        {
+                            _tablatureLibrary.Add(file);
+                        }
+                    }
+
+                    else // third-party format
+                    {
+                        var importer = _fileImporters[ofd.FilterIndex - 2]; //FilterIndex is not 0-based and native Tabster format uses first index
+
+                        AttributedTablature importedTab = null;
+
+                        try
+                        {
+                            importedTab = importer.Import(ofd.FileName);
+                        }
+
+                        catch
+                        {
+                            MessageBox.Show("Error occured while importing.", "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        if (importedTab != null)
+                        {
+                            using (var nd = new NewTabDialog(importedTab.Artist, importedTab.Title, importedTab.Type))
+                            {
+                                if (nd.ShowDialog() == DialogResult.OK)
+                                {
+                                    var tab = nd.Tab;
+                                    tab.Contents = importedTab.Contents;
+                                    tab.Source = new Uri(ofd.FileName);
+                                    tab.SourceType = TablatureSourceType.FileImport;
+                                    _tablatureLibrary.Add(tab);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
