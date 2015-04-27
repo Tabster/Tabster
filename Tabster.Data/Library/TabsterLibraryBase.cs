@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Tabster.Data.Library
 {
-    public class TabsterLibraryBase<TTablatureFile, TTablaturePlaylistFile> 
+    public abstract class TabsterLibraryBase<TTablatureFile, TTablaturePlaylistFile>
         where TTablatureFile : class, ITablatureFile where TTablaturePlaylistFile : class, ITablaturePlaylistFile
     {
         private readonly List<PlaylistLibraryItem<TTablaturePlaylistFile>> _playlistLibraryItems = new List<PlaylistLibraryItem<TTablaturePlaylistFile>>();
@@ -56,31 +56,49 @@ namespace Tabster.Data.Library
 
         public virtual void AddTablatureItem(TablatureLibraryItem<TTablatureFile> item)
         {
+            if (item == null)
+                throw new ArgumentNullException("item");
+
             _tablatureLibraryItems.Add(item);
         }
 
         public virtual bool RemoveTablatureItem(TablatureLibraryItem<TTablatureFile> item)
         {
+            if (item == null)
+                throw new ArgumentNullException("item");
+
             return _tablatureLibraryItems.Remove(item);
         }
 
         public virtual TablatureLibraryItem<TTablatureFile> FindTablatureItem(Predicate<TablatureLibraryItem<TTablatureFile>> match)
         {
+            if (match == null)
+                throw new ArgumentNullException("match");
+
             return _tablatureLibraryItems.Find(match);
         }
 
         public List<TablatureLibraryItem<TTablatureFile>> FindAllTablatureItems(Predicate<TablatureLibraryItem<TTablatureFile>> match)
         {
+            if (match == null)
+                throw new ArgumentNullException("match");
+
             return _tablatureLibraryItems.FindAll(match);
         }
 
         public virtual TablatureLibraryItem<TTablatureFile> FindTablatureItemByFile(TTablatureFile file)
         {
+            if (file == null)
+                throw new ArgumentNullException("file");
+
             return _tablatureLibraryItems.Find(x => x.File.Equals(file));
         }
 
         public virtual TablatureLibraryItem<TTablatureFile> FindTablatureItemByPath(string path)
         {
+            if (path == null)
+                throw new ArgumentNullException("path");
+
             return _tablatureLibraryItems.Find(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
         }
 
