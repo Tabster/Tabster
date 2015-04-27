@@ -82,9 +82,9 @@
     <Compile Include="Xml\TablatureDocument.cs" />
     <Compile Include="TabsterFileException.cs" />
     <Compile Include="Xml\TablaturePlaylistDocument.cs" />
-    <Compile Include="Xml\TabsterXmlDocument.cs" />
     <Compile Include="Utilities\BinaryStreamExtensions.cs" />
     <Compile Include="Utilities\DateTimeUtilities.cs" />
+    <Compile Include="Xml\XmlDocumentExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tabster.Core\Tabster.Core.csproj">

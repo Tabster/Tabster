@@ -3,6 +3,7 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Xml;
 using Tabster.Core.Types;
 
 #endregion
@@ -27,33 +28,35 @@ namespace Tabster.Data.Xml
         {
             var fi = new FileInfo(fileName);
 
-            var doc = new TabsterXmlDocument(RootNode);
-            doc.Load(fileName);
+            var xmlDoc = new XmlDocument();
+            xmlDoc.Load(fileName);
 
-            FileHeader = new TabsterXmlFileHeader(doc.Version);
+            var rootNode = xmlDoc.GetElementByTagName(RootNode);
+
+            FileHeader = new TabsterXmlFileHeader(new Version(rootNode.GetAttributeValue("version")));
 
             //required properties
 
-            Artist = doc.TryReadNodeValue("artist");
+            Artist = xmlDoc.GetNodeValue("artist");
             if (string.IsNullOrEmpty(Artist))
                 throw new TabsterFileException("Missing artist property");
 
-            Title = doc.TryReadNodeValues(new[] {"song", "title"});
+            Title = xmlDoc.GetNodeValues(new[] {"song", "title"});
             if (string.IsNullOrEmpty(Title))
                 throw new TabsterFileException("Missing title property");
 
-            Type = FromFriendlyString(doc.TryReadNodeValue("type"));
+            Type = FromFriendlyString(xmlDoc.GetNodeValue("type"));
             if (Type == null)
                 throw new TabsterFileException("Invalid or missing tablature type");
 
             //allow contents to be empty, just not null
-            Contents = doc.TryReadNodeValue("tab");
+            Contents = xmlDoc.GetNodeValue("tab");
             if (Contents == null)
                 throw new TabsterFileException("Missing tablature contents");
 
             //"optional" properties
 
-            var createdValue = doc.TryReadNodeValues(new[] {"date", "created"});
+            var createdValue = xmlDoc.GetNodeValues(new[] {"date", "created"});
 
             DateTime createDatetime;
 
@@ -63,11 +66,11 @@ namespace Tabster.Data.Xml
 
             FileAttributes = new TabsterFileAttributes(created);
 
-            Comment = doc.TryReadNodeValue("comment", string.Empty);
+            Comment = xmlDoc.GetNodeValue("comment", string.Empty);
 
             SourceType = TablatureSourceType.UserCreated;
 
-            var sourceValue = doc.TryReadNodeValue("source", string.Empty);
+            var sourceValue = xmlDoc.GetNodeValue("source", string.Empty);
 
             if (!string.IsNullOrEmpty(sourceValue))
             {
@@ -98,12 +101,17 @@ namespace Tabster.Data.Xml
 
         public void Save(string fileName)
         {
-            var doc = new TabsterXmlDocument(RootNode) {Version = FileVersion};
+            var xmlDoc = new XmlDocument();
+            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "ISO-8859-1", null));
+            var rootNode = xmlDoc.CreateElement(RootNode);
+            xmlDoc.AppendChild(rootNode);
 
-            doc.WriteNode("title", Title);
-            doc.WriteNode("artist", Artist);
-            doc.WriteNode("type", ToFriendlyString(Type));
-            doc.WriteNode("tab", Contents);
+            xmlDoc.SetAttributeValue(rootNode, "version", FileVersion.ToString());
+
+            xmlDoc.WriteNode("title", Title);
+            xmlDoc.WriteNode("artist", Artist);
+            xmlDoc.WriteNode("type", ToFriendlyString(Type));
+            xmlDoc.WriteNode("tab", Contents);
 
             var sourceValue = "UserCreated";
 
@@ -121,11 +129,11 @@ namespace Tabster.Data.Xml
                     sourceValue = "UserCreated";
             }
 
-            doc.WriteNode("source", sourceValue);
-            doc.WriteNode("created", FileAttributes.Created == DateTime.MinValue ? DateTime.Now.ToString() : FileAttributes.Created.ToString());
-            doc.WriteNode("comment", Comment);
+            xmlDoc.WriteNode("source", sourceValue);
+            xmlDoc.WriteNode("created", FileAttributes.Created == DateTime.MinValue ? DateTime.Now.ToString() : FileAttributes.Created.ToString());
+            xmlDoc.WriteNode("comment", Comment);
 
-            doc.Save(fileName);
+            xmlDoc.Save(fileName);
 
             FileHeader = new TabsterXmlFileHeader(FileVersion);
             FileAttributes = new TabsterFileAttributes(DateTime.UtcNow);

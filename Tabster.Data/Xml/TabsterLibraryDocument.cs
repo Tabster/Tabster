@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Xml;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
 
@@ -29,7 +30,7 @@ namespace Tabster.Data.Xml
         public ReadOnlyCollection<TablatureLibraryItem<TablatureDocument>> TablatureItems
         {
             get { return _tablatureItems.AsReadOnly(); }
-        } 
+        }
 
         #region Implementation of ITabsterFile
 
@@ -37,13 +38,15 @@ namespace Tabster.Data.Xml
         {
             var fi = new FileInfo(fileName);
 
-            var xmlDoc = new TabsterXmlDocument(RootNode);
+            var xmlDoc = new XmlDocument();
             xmlDoc.Load(fileName);
 
-            FileHeader = new TabsterXmlFileHeader(xmlDoc.Version);
+            var rootNode = xmlDoc.GetElementByTagName(RootNode);
+
+            FileHeader = new TabsterXmlFileHeader(new Version(rootNode.GetAttributeValue("version")));
             FileAttributes = new TabsterFileAttributes(fi.CreationTime);
 
-            var tabNodes = xmlDoc.ReadChildNodes("tabs");
+            var tabNodes = xmlDoc.GetChildNodes(xmlDoc.GetElementByTagName("tabs"));
 
             foreach (var tabNode in tabNodes)
             {
@@ -57,15 +60,15 @@ namespace Tabster.Data.Xml
                     {
                         var item = new TablatureLibraryItem<TablatureDocument>(doc, new FileInfo(path))
                         {
-                            Favorited = bool.Parse(tabNode.GetElementAttributeValue("favorite", "false")),
-                            Views = int.Parse(tabNode.GetElementAttributeValue("views", "0"))
+                            Favorited = bool.Parse(tabNode.GetAttributeValue("favorite", "false")),
+                            Views = int.Parse(tabNode.GetAttributeValue("views", "0"))
                         };
                         _tablatureItems.Add(item);
                     }
                 }
             }
 
-            var playlistNodes = xmlDoc.ReadChildNodes("tabs");
+            var playlistNodes = xmlDoc.GetChildNodes(xmlDoc.GetElementByTagName("tabs"));
 
             foreach (var playlistNode in playlistNodes)
             {
@@ -85,7 +88,12 @@ namespace Tabster.Data.Xml
 
         public void Save(string fileName)
         {
-            var xmlDoc = new TabsterXmlDocument(RootNode) {Version = FileVersion};
+            var xmlDoc = new XmlDocument();
+            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "ISO-8859-1", null));
+            var rootNode = xmlDoc.CreateElement(RootNode);
+            xmlDoc.AppendChild(rootNode);          
+
+            xmlDoc.SetAttributeValue(rootNode, "version", FileVersion.ToString());
 
             xmlDoc.WriteNode("tabs");
             foreach (var item in _tablatureItems)

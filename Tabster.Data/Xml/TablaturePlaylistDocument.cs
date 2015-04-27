@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using Tabster.Data.Processing;
 
 #endregion
@@ -66,7 +67,13 @@ namespace Tabster.Data.Xml
 
         public void Save(string fileName)
         {
-            var xmlDoc = new TabsterXmlDocument(RootNode) {Version = FileVersion};
+            var xmlDoc = new XmlDocument();
+            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "ISO-8859-1", null));
+            var rootNode = xmlDoc.CreateElement(RootNode);
+            xmlDoc.AppendChild(rootNode);
+
+            xmlDoc.SetAttributeValue(rootNode, "version", FileVersion.ToString());
+
             xmlDoc.WriteNode("name", Name);
             xmlDoc.WriteNode("files");
 
@@ -84,35 +91,39 @@ namespace Tabster.Data.Xml
         public TabsterFileAttributes FileAttributes { get; private set; }
         public ITabsterFileHeader FileHeader { get; private set; }
 
-        public void Load(string filename)
+        public void Load(string fileName)
         {
             Clear();
 
-            var fi = new FileInfo(filename);
+            var fi = new FileInfo(fileName);
 
-            var xmlDoc = new TabsterXmlDocument(RootNode);
-            xmlDoc.Load(filename);
+            var xmlDoc = new XmlDocument();
+            xmlDoc.Load(fileName);
 
-            FileHeader = new TabsterXmlFileHeader(xmlDoc.Version);
+            var rootNode = xmlDoc.GetElementByTagName(RootNode);
 
-            Name = xmlDoc.TryReadNodeValue("name");
+            FileHeader = new TabsterXmlFileHeader(new Version(rootNode.GetAttributeValue("version")));
+
+            Name = xmlDoc.GetNodeValue("name");
             if (string.IsNullOrEmpty(Name))
                 throw new TabsterFileException("Missing playlist name");
 
             //playlist format never had created property, use filesystem
             FileAttributes = new TabsterFileAttributes(fi.CreationTime);
 
-            var files = xmlDoc.ReadChildNodeValues("files");
+            var fileNodes = xmlDoc.GetChildNodes(xmlDoc.GetElementByTagName("files"));
 
-            foreach (var file in files)
+            foreach (var fileNode in fileNodes)
             {
-                if (File.Exists(file))
+                var path = fileNode.InnerText;
+
+                if (File.Exists(path))
                 {
-                    var doc = _processor.Load(file);
+                    var doc = _processor.Load(path);
 
                     if (doc != null)
                     {
-                       _items.Add(new TablaturePlaylistItem(doc, new FileInfo(file)));
+                        _items.Add(new TablaturePlaylistItem(doc, new FileInfo(path)));
                     }
                 }
             }
