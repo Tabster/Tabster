@@ -40,17 +40,17 @@ namespace HtmlFile
                 tabContents = body != null ? body.InnerText : htmlDoc.DocumentNode.InnerText;
             }
 
-            var doc = new AttributedTablature {Contents = tabContents};
-            return doc;
+            var tab = new AttributedTablature { Contents = tabContents };
+            return tab;
         }
 
         public AttributedTablature Import(string fileName, string artist, string title, TablatureType type)
         {
-            var doc = Import(fileName);
-            doc.Artist = artist;
-            doc.Title = title;
-            doc.Type = type;
-            return doc;
+            var tab = Import(fileName);
+            tab.Artist = artist;
+            tab.Title = title;
+            tab.Type = type;
+            return tab;
         }
 
         #endregion

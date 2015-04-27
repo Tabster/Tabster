@@ -44,17 +44,17 @@ namespace PdfFile
                 pdfReader.Close();
             }
 
-            var doc = new AttributedTablature {Contents = contentsBuilder.ToString()};
-            return doc;
+            var tab = new AttributedTablature { Contents = contentsBuilder.ToString() };
+            return tab;
         }
 
         public AttributedTablature Import(string fileName, string artist, string title, TablatureType type)
         {
-            var doc = Import(fileName);
-            doc.Artist = artist;
-            doc.Title = title;
-            doc.Type = type;
-            return doc;
+            var tab = Import(fileName);
+            tab.Artist = artist;
+            tab.Title = title;
+            tab.Type = type;
+            return tab;
         }
 
         #endregion

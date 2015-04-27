@@ -23,17 +23,17 @@ namespace TextFile
         public AttributedTablature Import(string fileName)
         {
             var contents = File.ReadAllText(fileName);
-            var doc = new AttributedTablature {Contents = contents};
-            return doc;
+            var tab = new AttributedTablature { Contents = contents };
+            return tab;
         }
 
         public AttributedTablature Import(string fileName, string artist, string title, TablatureType type)
         {
-            var doc = Import(fileName);
-            doc.Artist = artist;
-            doc.Title = title;
-            doc.Type = type;
-            return doc;
+            var tab = Import(fileName);
+            tab.Artist = artist;
+            tab.Title = title;
+            tab.Type = type;
+            return tab;
         }
 
         #endregion

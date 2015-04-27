@@ -177,16 +177,16 @@ namespace Tabster.Forms
             foreach (XmlNode pathNode in pathNodes)
             {
                 var path = pathNode.InnerText;
-                var doc = _tablatureLibrary.TablatureFileProcessor.Load(path);
+                var file = _tablatureLibrary.TablatureFileProcessor.Load(path);
 
-                if (doc != null)
+                if (file != null)
                 {
                     var fileInfo = new FileInfo(path);
 
                     //only update display on last document
                     var updateDisplay = count == pathNodes.Count - 1;
 
-                    recentlyViewedMenuItem.Add(fileInfo, doc.ToFriendlyString(), updateDisplay);
+                    recentlyViewedMenuItem.Add(fileInfo, file.ToFriendlyString(), updateDisplay);
 
                     count++;
                 }
