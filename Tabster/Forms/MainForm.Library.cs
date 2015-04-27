@@ -399,7 +399,7 @@ namespace Tabster.Forms
             return LibraryType.TabType;
         }
 
-        private bool TablatureLibraryItemVisible(LibraryType selectedLibrary, TablatureLibraryItem<TablatureFile> item, string searchValue)
+        private bool TablatureLibraryItemVisible(LibraryType selectedLibrary, TablatureLibraryItem<TablatureFile> item)
         {
             var libraryMatch =
                 selectedLibrary == LibraryType.Playlist ||
@@ -410,12 +410,14 @@ namespace Tabster.Forms
                 (selectedLibrary == LibraryType.MyFavorites && item.Favorited) ||
                 (selectedLibrary == LibraryType.TabType && sidemenu.SelectedNode.Tag.ToString() == item.File.Type.ToString());
 
+            var searchValue = txtLibraryFilter.Text;
+
             if (libraryMatch)
             {
                 return searchValue == null || (item.File.Artist.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
                                                item.File.Title.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
                                                item.FileInfo.FullName.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                               item.File.Comment.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                               (item.File.Comment != null && item.File.Comment.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0) ||
                                                item.File.Contents.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
@@ -447,15 +449,13 @@ namespace Tabster.Forms
                 items.AddRange(_tablatureLibrary.GetTablatureItems());
             }
 
-            var filterValue = txtLibraryFilter.Text;
-
             var currentItem = GetSelectedLibraryItem();
 
             _libraryCache.Clear();
 
             foreach (var item in items)
             {
-                var visible = TablatureLibraryItemVisible(selectedLibrary, item, filterValue);
+                var visible = TablatureLibraryItemVisible(selectedLibrary, item);
 
                 if (visible)
                     _libraryCache.Add(item);

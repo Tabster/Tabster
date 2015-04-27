@@ -146,6 +146,12 @@ namespace Tabster.Forms
                         var cachedTab = _searchResultsCache[selectedResult.Source];
 
                         var libraryItem = _tablatureLibrary.Add(cachedTab);
+
+                        //todo use objectliveview filtering instead of manual
+                        if (TablatureLibraryItemVisible(SelectedLibrary(), libraryItem))
+                        {
+                            listViewLibrary.AddObject(libraryItem);
+                        }
                     }
                 }
             }
