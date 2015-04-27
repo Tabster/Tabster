@@ -15,7 +15,7 @@ namespace Tabster.Controls.Extensions
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class TabsterOpenFileDialogExtensions
     {
-        public static void SetTabsterFilter(this OpenFileDialog openFileDialog, IEnumerable<ITablatureFileImporter> importers, bool overwriteFilter = false)
+        public static void SetTabsterFilter(this OpenFileDialog openFileDialog, IEnumerable<ITablatureFileImporter> importers, bool overwriteFilter = false, bool allSupportedTypesOption = true)
         {
             var filterStringBuilder = new StringBuilder();
 
@@ -29,33 +29,48 @@ namespace Tabster.Controls.Extensions
                 }
             }
 
-            for (var i = 0; i < fileTypes.Count; i++)
+            var last = fileTypes.Last();
+
+            foreach (var fileType in fileTypes)
             {
-                var fileType = fileTypes[i];
+                var filters = fileType.Extensions.Select(ext => "*" + ext).ToList();
 
-                var extensionString = string.Join(";", fileType.Extensions.ToArray());
+                filterStringBuilder.AppendFormat("{0} ", fileType.Name);
+                filterStringBuilder.AppendFormat("({0})", string.Join(",", filters.ToArray()));
+                filterStringBuilder.Append("|");
+                filterStringBuilder.AppendFormat(string.Join(";", filters.ToArray()));
 
-                filterStringBuilder.AppendFormat(string.Format("{0} (*{1})|*{1}", fileType.Name, extensionString));
-
-                if (i + 1 < fileTypes.Count)
+                if (fileType != last)
                     filterStringBuilder.Append("|");
             }
 
-            if (filterStringBuilder.Length > 0)
+            //insert pre-existing filter(s)
+            if (!overwriteFilter)
             {
-                if (overwriteFilter)
-                {
-                    openFileDialog.Filter = filterStringBuilder.ToString();
-                }
-
-                else
-                {
-                    if (openFileDialog.Filter.Length > 0)
-                        filterStringBuilder.Insert(0, "|");
-
-                    openFileDialog.Filter += filterStringBuilder.ToString();
-                }
+                filterStringBuilder.Insert(0, string.Format("{0}|", openFileDialog.Filter));
             }
+
+            //add 'all supported files' option
+            if (allSupportedTypesOption)
+            {
+                var filters = new List<string>();
+
+                foreach (var fileType in fileTypes)
+                {
+                    filters.AddRange(fileType.Extensions.Select(ext => "*" + ext));
+                }
+
+                var allSupportedStringBuilder = new StringBuilder("All Supported Files ");
+
+                allSupportedStringBuilder.AppendFormat("({0})", string.Join(",", filters.ToArray()));
+                allSupportedStringBuilder.Append("|");
+                allSupportedStringBuilder.AppendFormat(string.Join(";", filters.ToArray()));
+
+
+                filterStringBuilder.Insert(0, allSupportedStringBuilder.ToString() + "|");
+            }
+
+            openFileDialog.Filter = filterStringBuilder.ToString();
         }
     }
 }
