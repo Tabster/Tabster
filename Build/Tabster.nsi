@@ -80,7 +80,7 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\UltimateGuitar.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\GuitartabsDotCC.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\Songsterr.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\HtmlAgilityPack.dll" ;common dependency
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\HtmlAgilityPack.dll" ;common dependency
   
   ; file association
   ${registerExtension} "$INSTDIR\Tabster.exe" ".tabster" "Tabster File"
@@ -115,10 +115,25 @@ Section Uninstall
   Delete "$INSTDIR\Tabster.Data.dll"
   Delete "$INSTDIR\Tabster.Utils.dll"
   
+  ; native filetype plugins
+  Delete "$INSTDIR\Plugins\FileTypes\TextFile.dll"
+  Delete "$INSTDIR\Plugins\FileTypes\HtmlFile.dll"
+  Delete "$INSTDIR\Plugins\FileTypes\HtmlAgilityPack.dll" ;HtmlFile dependency
+  Delete "$INSTDIR\Plugins\FileTypes\RtfFile.dll"
+  Delete "$INSTDIR\Plugins\FileTypes\WordDoc.dll"
+  Delete "$INSTDIR\Plugins\FileTypes\DocX.dll" ;WordDoc dependency
+  Delete "$INSTDIR\Plugins\FileTypes\PngFile.dll"
+  
+  ; native search plugins
+  Delete "$INSTDIR\Plugins\Searching\UltimateGuitar.dll"
+  Delete "$INSTDIR\Plugins\Searching\GuitartabsDotCC.dll"
+  Delete "$INSTDIR\Plugins\Searching\Songsterr.dll"
+  Delete "$INSTDIR\Plugins\Searching\HtmlAgilityPack.dll" ;common dependency
+  
   ; third-party references  
-  Delete "${INSTDIR}\Tabster\ObjectListView.dll"
-  Delete "${INSTDIR}\Tabster\System.Data.SQLite.dll"
-  Delete "${INSTDIR}\Tabster\SQLite.Interop.dll"
+  Delete "$INSTDIR\ObjectListView.dll"
+  Delete "$INSTDIR\System.Data.SQLite.dll"
+  Delete "$INSTDIR\SQLite.Interop.dll"
   
   Delete "$INSTDIR\Updater.exe"
   Delete "$INSTDIR\Uninstall.exe"
