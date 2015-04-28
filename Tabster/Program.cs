@@ -81,15 +81,15 @@ namespace Tabster
 
             var libraryDatabase = Path.Combine(ApplicationDataDirectory, "library.dat");
 
+            if (!File.Exists(libraryDatabase))
+                ConvertXmlFiles(tablatureDirectory, playlistsDirectory);
+
             var library = new SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile>(
                 libraryDatabase,
                 tablatureDirectory,
                 playlistsDirectory,
                 new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion),
                 new TabsterFileProcessor<TablaturePlaylistFile>(Constants.TablaturePlaylistFileVersion));
-
-            if (!File.Exists(libraryDatabase))
-                ConvertXmlFiles(tablatureDirectory, playlistsDirectory);
 
             return library;
         }
@@ -99,24 +99,26 @@ namespace Tabster
         /// </summary>
         private static void ConvertXmlFiles(string tablatureDirectory, string playlistsDirectory)
         {
-#pragma warning disable 612
-            foreach (var file in Directory.GetFiles(tablatureDirectory, string.Format("*{0}", TablatureDocument.FileExtension), SearchOption.AllDirectories))
-#pragma warning restore 612
+            if (Directory.Exists(tablatureDirectory))
             {
-                var tablatureFile = TabsterXmlFileConverter.ConvertTablatureDocument(file);
+                foreach (var file in Directory.GetFiles(tablatureDirectory, string.Format("*{0}", Constants.TablatureFileExtension), SearchOption.AllDirectories))
+                {
+                    var tablatureFile = TabsterXmlFileConverter.ConvertTablatureDocument(file);
 
-                if (tablatureFile != null)
-                    tablatureFile.Save(file);
+                    if (tablatureFile != null)
+                        tablatureFile.Save(file);
+                }
             }
 
-#pragma warning disable 612
-            foreach (var file in Directory.GetFiles(playlistsDirectory, string.Format("*{0}", TablaturePlaylistDocument.FileExtension), SearchOption.AllDirectories))
-#pragma warning restore 612
+            if (Directory.Exists(playlistsDirectory))
             {
-                var playlistFile = TabsterXmlFileConverter.ConvertTablaturePlaylist(file);
+                foreach (var file in Directory.GetFiles(playlistsDirectory, string.Format("*{0}", Constants.TablaturePlaylistFileExtension), SearchOption.AllDirectories))
+                {
+                    var playlistFile = TabsterXmlFileConverter.ConvertTablaturePlaylist(file);
 
-                if (playlistFile != null)
-                    playlistFile.Save(file);
+                    if (playlistFile != null)
+                        playlistFile.Save(file);
+                }
             }
         }
 
