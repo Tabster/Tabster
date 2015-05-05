@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using Tabster.Data;
 using Tabster.Data.Binary;
 using Tabster.Data.Processing;
-using Tabster.Data.Xml;
 using Tabster.Forms;
 using Tabster.LocalUtilities;
 using Tabster.Properties;
@@ -79,7 +78,7 @@ namespace Tabster
             var tablatureDirectory = Path.Combine(userDirectory, "Library");
             var playlistsDirectory = Path.Combine(userDirectory, "Playlists");
 
-            var libraryDatabase = Path.Combine(ApplicationDataDirectory, "library.dat");
+            var libraryDatabase = Path.Combine(ApplicationDataDirectory, "library.db");
 
             if (!File.Exists(libraryDatabase))
                 ConvertXmlFiles(tablatureDirectory, playlistsDirectory);
