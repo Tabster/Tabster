@@ -51,6 +51,7 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\ObjectListView.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\System.Data.SQLite.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\x86\SQLite.Interop.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\log4net.dll"
   
   CreateShortCut "$DESKTOP\Tabster.lnk" "$INSTDIR\Tabster.exe"
   CreateDirectory "$SMPROGRAMS\Tabster"
@@ -134,6 +135,7 @@ Section Uninstall
   Delete "$INSTDIR\ObjectListView.dll"
   Delete "$INSTDIR\System.Data.SQLite.dll"
   Delete "$INSTDIR\SQLite.Interop.dll"
+  Delete "$INSTDIR\log4net.dll"
   
   Delete "$INSTDIR\Updater.exe"
   Delete "$INSTDIR\Uninstall.exe"
