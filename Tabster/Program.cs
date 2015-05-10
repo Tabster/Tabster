@@ -3,8 +3,8 @@
 using System;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
+using log4net.Config;
 using Tabster.Data;
 using Tabster.Data.Binary;
 using Tabster.Data.Processing;
@@ -20,9 +20,12 @@ namespace Tabster
 {
     internal static class Program
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         public static SingleInstanceController InstanceController;
         public static PluginController PluginController;
         public static string ApplicationDataDirectory;
+        public static string UserDataDirectory;
         public static UpdateQuery UpdateQuery = new UpdateQuery();
 
         private static ExternalViewerForm _tabbedViewer;
@@ -44,10 +47,28 @@ namespace Tabster
         [STAThread]
         public static void Main(string[] args)
         {
-            var library = InitializeWorkingDirectories();
+            InitializeWorkingDirectories();
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            //prepare logging
+            var logDirectory = Path.Combine(ApplicationDataDirectory, "Logs");
+            if (!Directory.Exists(logDirectory))
+                Directory.CreateDirectory(logDirectory);
 
+            log4net.GlobalContext.Properties["HeaderInfo"] = string.Format("Tabster {0}", Application.ProductVersion);
+            log4net.GlobalContext.Properties["LogDirectory"] = logDirectory;
+
+            XmlConfigurator.Configure();
+
+            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+            {
+                var ex = (Exception) e.ExceptionObject;
+                log.Error(ex);
+            };
+
+            log.Info("Initializing library...");
+            var library = InitializeLibrary();
+
+            log.Info("Loading plugins...");
             LoadPlugins();
 
             Application.EnableVisualStyles();
@@ -57,26 +78,10 @@ namespace Tabster
             InstanceController.Run(args);
         }
 
-        private static SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile> InitializeWorkingDirectories()
+        private static SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile> InitializeLibrary()
         {
-            string userDirectory;
-
-#if PORTABLE
-            ApplicationDataDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "AppData");
-            userDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "UserData");
-#else
-            ApplicationDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
-            userDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
-#endif
-
-            if (!Directory.Exists(ApplicationDataDirectory))
-                Directory.CreateDirectory(ApplicationDataDirectory);
-
-            if (!Directory.Exists(userDirectory))
-                Directory.CreateDirectory(userDirectory);
-
-            var tablatureDirectory = Path.Combine(userDirectory, "Library");
-            var playlistsDirectory = Path.Combine(userDirectory, "Playlists");
+            var tablatureDirectory = Path.Combine(UserDataDirectory, "Library");
+            var playlistsDirectory = Path.Combine(UserDataDirectory, "Playlists");
 
             var libraryDatabase = Path.Combine(ApplicationDataDirectory, "library.db");
 
@@ -91,6 +96,23 @@ namespace Tabster
                 new TabsterFileProcessor<TablaturePlaylistFile>(Constants.TablaturePlaylistFileVersion));
 
             return library;
+        }
+
+        private static void InitializeWorkingDirectories()
+        {
+#if PORTABLE
+            ApplicationDataDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "AppData");
+            UserDataDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "UserData");
+#else
+            ApplicationDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
+            UserDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
+#endif
+
+            if (!Directory.Exists(ApplicationDataDirectory))
+                Directory.CreateDirectory(ApplicationDataDirectory);
+
+            if (!Directory.Exists(UserDataDirectory))
+                Directory.CreateDirectory(UserDataDirectory);
         }
 
         /// <summary>
@@ -131,41 +153,6 @@ namespace Tabster
             {
                 PluginController.SetStatus(new Guid(guid), false);
             }
-        }
-
-        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            var exception = ((Exception) e.ExceptionObject).GetBaseException();
-
-            var assembly = Assembly.GetExecutingAssembly();
-
-            var sb = new StringBuilder();
-
-            sb.AppendLine("---- State Data ----");
-            sb.AppendLine(string.Format("Date/Time: {0}", DateTime.Now));
-            sb.AppendLine(string.Format("Platform: {0}", Environment.OSVersion));
-            sb.AppendLine(string.Format("CLR Version: {0}", Environment.Version));
-            sb.AppendLine();
-
-            sb.AppendLine("---- Assembly Data ----");
-            sb.AppendLine(string.Format("Assembly Version: {0}", assembly.GetName().Version));
-            sb.AppendLine(string.Format("Assembly Full Name: {0}", assembly.FullName));
-            sb.AppendLine(string.Format("Assembly Path: {0}", assembly.Location));
-            sb.AppendLine();
-
-            sb.AppendLine("---- Exception Data ----");
-            sb.AppendLine(string.Format("Exception Message: {0}", exception.Message));
-            sb.AppendLine(string.Format("Exception Type: {0}", exception.GetType()));
-            sb.AppendLine(string.Format("Exception Source: {0}", exception.Source));
-            sb.AppendLine();
-
-            sb.AppendLine("---- Stack Trace ----");
-            sb.AppendLine(exception.StackTrace);
-
-            sb.AppendLine();
-            sb.AppendLine();
-
-            File.AppendAllText(Path.Combine(ApplicationDataDirectory, "error.log"), sb.ToString());
         }
     }
 }
