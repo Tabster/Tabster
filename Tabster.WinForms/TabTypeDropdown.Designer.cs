@@ -1,4 +1,4 @@
-﻿namespace Tabster.Controls
+﻿namespace Tabster.WinForms
 {
     partial class TabTypeDropdown
     {

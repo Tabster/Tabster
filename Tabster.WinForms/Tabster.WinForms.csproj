@@ -8,8 +8,8 @@
     <ProjectGuid>{E000FEB4-0CBC-4187-B54B-93C701DD5D49}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tabster.Controls</RootNamespace>
-    <AssemblyName>Tabster.Controls</AssemblyName>
+    <RootNamespace>Tabster.WinForms</RootNamespace>
+    <AssemblyName>Tabster.WinForms</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

@@ -1,4 +1,6 @@
-﻿namespace Tabster.Forms
+﻿using Tabster.WinForms;
+
+namespace Tabster.Forms
 {
     partial class NewTabDialog
     {
@@ -35,7 +37,7 @@
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.okbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
-            this.typeList = new Tabster.Controls.TabTypeDropdown();
+            this.typeList = new TabTypeDropdown();
             this.SuspendLayout();
             // 
             // label3
@@ -165,6 +167,6 @@
         public System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Button okbtn;
         private System.Windows.Forms.Button cancelbtn;
-        private Controls.TabTypeDropdown typeList;
+        private TabTypeDropdown typeList;
     }
 }

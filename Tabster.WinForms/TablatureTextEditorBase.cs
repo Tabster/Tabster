@@ -9,7 +9,7 @@ using Tabster.Core.Types;
 
 #endregion
 
-namespace Tabster.Controls
+namespace Tabster.WinForms
 {
     public abstract class TablatureTextEditorBase : Control
     {

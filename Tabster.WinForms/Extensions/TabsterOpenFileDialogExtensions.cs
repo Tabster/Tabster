@@ -10,7 +10,7 @@ using Tabster.Data.Processing;
 
 #endregion
 
-namespace Tabster.Controls.Extensions
+namespace Tabster.WinForms.Extensions
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class TabsterOpenFileDialogExtensions

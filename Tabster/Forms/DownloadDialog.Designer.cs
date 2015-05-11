@@ -1,4 +1,6 @@
-﻿namespace Tabster.Forms
+﻿using Tabster.WinForms;
+
+namespace Tabster.Forms
 {
     partial class DownloadDialog
     {
@@ -40,7 +42,7 @@
             this.btnLibrary = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.typeList = new Tabster.Controls.TabTypeDropdown();
+            this.typeList = new TabTypeDropdown();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
@@ -313,7 +315,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnLibrary;
         private System.Windows.Forms.GroupBox groupBox1;
-        private Controls.TabTypeDropdown typeList;
+        private TabTypeDropdown typeList;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox txtTitle;

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Core.Types;
 using Tabster.Data;
+using Tabster.WinForms;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion

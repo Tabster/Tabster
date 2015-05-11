@@ -284,9 +284,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tabster.Controls\Tabster.Controls.csproj">
+    <ProjectReference Include="..\Tabster.WinForms\Tabster.WinForms.csproj">
       <Project>{E000FEB4-0CBC-4187-B54B-93C701DD5D49}</Project>
-      <Name>Tabster.Controls</Name>
+      <Name>Tabster.WinForms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tabster.Core\Tabster.Core.csproj">
       <Project>{B94FA030-4553-4F14-A867-F05849A14DC4}</Project>

@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
-using Tabster.Controls.Extensions;
 using Tabster.Core.Printing;
 using Tabster.Core.Types;
 using Tabster.Data;
@@ -15,6 +14,7 @@ using Tabster.Data.Binary;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
 using Tabster.Properties;
+using Tabster.WinForms.Extensions;
 
 #endregion
 

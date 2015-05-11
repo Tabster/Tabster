@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 #endregion
 
-namespace Tabster.Controls
+namespace Tabster.WinForms
 {
     public class BasicTablatureTextEditor : TablatureTextEditorBase
     {

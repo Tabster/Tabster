@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using BrightIdeasSoftware;
 using Tabster.Controls;
+using Tabster.WinForms;
 
 namespace Tabster.Forms
 {
@@ -65,7 +66,7 @@ namespace Tabster.Forms
             this.olvColLocation = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtLibraryFilter = new Tabster.Controls.TextBoxExtended();
-            this.PreviewEditor = new Tabster.Controls.BasicTablatureTextEditor();
+            this.PreviewEditor = new Tabster.WinForms.BasicTablatureTextEditor();
             this.lblLibraryPreview = new System.Windows.Forms.Label();
             this.previewToolStrip = new System.Windows.Forms.ToolStrip();
             this.lblpreviewtitle = new System.Windows.Forms.ToolStripLabel();
@@ -89,13 +90,13 @@ namespace Tabster.Forms
             this.olvColumn4 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn5 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn6 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.searchPreviewEditor = new Tabster.Controls.BasicTablatureTextEditor();
+            this.searchPreviewEditor = new Tabster.WinForms.BasicTablatureTextEditor();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.cbSearchRating = new Tabster.Controls.TablatureRatingDropdown();
+            this.cbSearchRating = new Tabster.WinForms.TablatureRatingDropdown();
             this.btnSearchOptions = new System.Windows.Forms.Button();
             this.txtSearchTitle = new Tabster.Controls.TextBoxExtended();
             this.onlinesearchbtn = new System.Windows.Forms.Button();
-            this.searchTypeList = new Tabster.Controls.TabTypeDropdown();
+            this.searchTypeList = new Tabster.WinForms.TabTypeDropdown();
             this.txtSearchArtist = new Tabster.Controls.TextBoxExtended();
             this.tabimagelist = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();

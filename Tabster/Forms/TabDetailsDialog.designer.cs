@@ -1,4 +1,6 @@
-﻿namespace Tabster.Forms
+﻿using Tabster.WinForms;
+
+namespace Tabster.Forms
 {
     partial class TabDetailsDialog
     {
@@ -41,7 +43,7 @@
             this.lblLength = new System.Windows.Forms.Label();
             this.lblFormat = new System.Windows.Forms.Label();
             this.groupBoxTablature = new System.Windows.Forms.GroupBox();
-            this.typeList = new Tabster.Controls.TabTypeDropdown();
+            this.typeList = new TabTypeDropdown();
             this.label16 = new System.Windows.Forms.Label();
             this.txtcomment = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -52,7 +54,7 @@
             this.okbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
             this.txtlocation = new System.Windows.Forms.TextBox();
-            this.tablatureRatingDropdown1 = new Tabster.Controls.TablatureRatingDropdown();
+            this.tablatureRatingDropdown1 = new TablatureRatingDropdown();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -420,8 +422,8 @@
         private System.Windows.Forms.Label lblPlaylistCount;
         private System.Windows.Forms.Label lblViewCount;
         private System.Windows.Forms.Label lblLastViewed;
-        private Controls.TabTypeDropdown typeList;
-        private Controls.TablatureRatingDropdown tablatureRatingDropdown1;
+        private TabTypeDropdown typeList;
+        private TablatureRatingDropdown tablatureRatingDropdown1;
         private System.Windows.Forms.Label label1;
     }
 }

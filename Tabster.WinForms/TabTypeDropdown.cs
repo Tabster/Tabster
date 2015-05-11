@@ -7,7 +7,7 @@ using Tabster.Core.Types;
 
 #endregion
 
-namespace Tabster.Controls
+namespace Tabster.WinForms
 {
     /// <summary>
     ///     Represents a dropdown list of TabType strings.

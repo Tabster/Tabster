@@ -4,7 +4,7 @@ using System.Drawing;
 
 #endregion
 
-namespace Tabster.Controls
+namespace Tabster.WinForms
 {
     public static class TablatureDisplayFont
     {
