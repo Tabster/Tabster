@@ -56,6 +56,27 @@ namespace Tabster.Core.Types
                     return TablatureRating.None;
             }
         }
+
+        public static int ToInt(TablatureRating rating)
+        {
+            switch (rating)
+            {
+                case TablatureRating.None:
+                    return 0;
+                case TablatureRating.Stars1:
+                    return 1;
+                case TablatureRating.Stars2:
+                    return 2;
+                case TablatureRating.Stars3:
+                    return 3;
+                case TablatureRating.Stars4:
+                    return 4;
+                case TablatureRating.Stars5:
+                    return 5;
+                default:
+                    return 0;
+            }
+        }
     }
 
     public static class TabRatingExtensions

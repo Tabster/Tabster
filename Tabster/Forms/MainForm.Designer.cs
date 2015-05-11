@@ -91,10 +91,10 @@ namespace Tabster.Forms
             this.olvColumn6 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.searchPreviewEditor = new Tabster.Controls.BasicTablatureTextEditor();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.cbSearchRating = new Tabster.Controls.TablatureRatingDropdown();
             this.btnSearchOptions = new System.Windows.Forms.Button();
             this.txtSearchTitle = new Tabster.Controls.TextBoxExtended();
             this.onlinesearchbtn = new System.Windows.Forms.Button();
-            this.cbSearchRating = new System.Windows.Forms.ComboBox();
             this.searchTypeList = new Tabster.Controls.TabTypeDropdown();
             this.txtSearchArtist = new Tabster.Controls.TextBoxExtended();
             this.tabimagelist = new System.Windows.Forms.ImageList(this.components);
@@ -728,10 +728,10 @@ namespace Tabster.Forms
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.cbSearchRating);
             this.panel3.Controls.Add(this.btnSearchOptions);
             this.panel3.Controls.Add(this.txtSearchTitle);
             this.panel3.Controls.Add(this.onlinesearchbtn);
-            this.panel3.Controls.Add(this.cbSearchRating);
             this.panel3.Controls.Add(this.searchTypeList);
             this.panel3.Controls.Add(this.txtSearchArtist);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
@@ -739,6 +739,15 @@ namespace Tabster.Forms
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1026, 29);
             this.panel3.TabIndex = 38;
+            // 
+            // cbSearchRating
+            // 
+            this.cbSearchRating.DefaultText = "All Ratings";
+            this.cbSearchRating.DisplayDefault = true;
+            this.cbSearchRating.Location = new System.Drawing.Point(437, 4);
+            this.cbSearchRating.Name = "cbSearchRating";
+            this.cbSearchRating.Size = new System.Drawing.Size(137, 21);
+            this.cbSearchRating.TabIndex = 40;
             // 
             // btnSearchOptions
             // 
@@ -778,25 +787,6 @@ namespace Tabster.Forms
             this.onlinesearchbtn.Text = "Search";
             this.onlinesearchbtn.UseVisualStyleBackColor = true;
             this.onlinesearchbtn.Click += new System.EventHandler(this.onlinesearchbtn_Click);
-            // 
-            // cbSearchRating
-            // 
-            this.cbSearchRating.BackColor = System.Drawing.SystemColors.Window;
-            this.cbSearchRating.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbSearchRating.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cbSearchRating.FormattingEnabled = true;
-            this.cbSearchRating.ItemHeight = 13;
-            this.cbSearchRating.Items.AddRange(new object[] {
-            "All Ratings",
-            "★",
-            "★★",
-            "★★★",
-            "★★★★",
-            "★★★★★"});
-            this.cbSearchRating.Location = new System.Drawing.Point(437, 4);
-            this.cbSearchRating.Name = "cbSearchRating";
-            this.cbSearchRating.Size = new System.Drawing.Size(137, 21);
-            this.cbSearchRating.TabIndex = 34;
             // 
             // searchTypeList
             // 
@@ -1397,7 +1387,6 @@ namespace Tabster.Forms
         private Label lblLibraryPreview;
         private ToolStripMenuItem onToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker SearchBackgroundWorker;
-        public ComboBox cbSearchRating;
         private ToolStripStatusLabel lblStatus;
         private ToolStripMenuItem searchSimilarTabsToolStripMenuItem;
         private ToolStripMenuItem searchByArtistToolStripMenuItem;
@@ -1467,6 +1456,7 @@ namespace Tabster.Forms
         private Button btnSearchOptions;
         private OLVColumn olvColumn5;
         private OLVColumn olvColumn6;
+        private TablatureRatingDropdown cbSearchRating;
     }
 }
 

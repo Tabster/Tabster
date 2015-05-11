@@ -47,7 +47,7 @@ namespace Tabster.Forms
             var artist = txtSearchArtist.Text.Trim();
             var title = txtSearchTitle.Text.Trim();
             var type = searchTypeList.HasTypeSelected ? searchTypeList.SelectedType : null;
-            var rating = cbSearchRating.SelectedIndex > 0 ? (TablatureRating) (cbSearchRating.SelectedIndex) : TablatureRating.None;
+            var rating = cbSearchRating.SelectedRating;
 
             var searchEngines = new List<ITablatureSearchEngine>();
 
@@ -303,7 +303,7 @@ namespace Tabster.Forms
                 txtSearchTitle.Text = "";
 
                 searchTypeList.SelectDefault();
-                cbSearchRating.SelectedIndex = 0;
+                cbSearchRating.SelectedRating = TablatureRating.None;
             }
         }
 
