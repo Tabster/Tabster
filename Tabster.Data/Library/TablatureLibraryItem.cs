@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -20,5 +21,6 @@ namespace Tabster.Data.Library
         public int Views { get; set; }
         public DateTime? LastViewed { get; set; }
         public DateTime Added { get; set; }
+        public TablatureRating Rating { get; set; }
     }
 }

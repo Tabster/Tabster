@@ -36,6 +36,8 @@ namespace Tabster.Forms
             typeList.SelectedType = _file.Type;
             txtcomment.Text = _file.Comment;
 
+            tablatureRatingDropdown1.SelectedRating = item.Rating;
+
             lblFormat.Text += _file.FileHeader.Version.ToString();
             lblLength.Text += string.Format(" {0:n0} bytes", item.FileInfo.Length);
             lblCreated.Text += string.Format(" {0}", item.FileInfo.CreationTime);
@@ -45,6 +47,8 @@ namespace Tabster.Forms
         private void SaveTablatureData()
         {
             var item = _library.FindTablatureItemByFile(_file);
+
+            item.Rating = tablatureRatingDropdown1.SelectedRating;
 
             _file.Artist = txtartist.Text;
             _file.Title = txtsong.Text;

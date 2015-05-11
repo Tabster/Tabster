@@ -3,6 +3,7 @@
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
+using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
@@ -85,6 +86,7 @@ namespace Tabster.LocalUtilities
                             var filename = reader["filename"].ToString();
                             var favorite = bool.Parse(reader["favorite"].ToString());
                             var views = int.Parse(reader["views"].ToString());
+                            var rating = TablatureRatingUtilities.FromString(reader["rating"].ToString());
 
                             var file = TablatureFileProcessor.Load(filename);
 
@@ -95,7 +97,8 @@ namespace Tabster.LocalUtilities
                                 {
                                     ID = id,
                                     Favorited = favorite,
-                                    Views = views
+                                    Views = views,
+                                    Rating = rating
                                 };
 
                                 AddTablatureItem(item);
@@ -142,11 +145,12 @@ namespace Tabster.LocalUtilities
                     using (var cmd = new SQLiteCommand(_db))
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = string.Format(@"INSERT OR REPLACE INTO {0} (id, filename, favorite, views) VALUES (@id, @filename, @favorite, @views)", TableTablature);
+                        cmd.CommandText = string.Format(@"INSERT OR REPLACE INTO {0} (id, filename, favorite, views, rating) VALUES (@id, @filename, @favorite, @views, @rating)", TableTablature);
                         cmd.Parameters.Add(new SQLiteParameter("@id", item.ID));
                         cmd.Parameters.Add(new SQLiteParameter("@filename", item.FileInfo.FullName));
                         cmd.Parameters.Add(new SQLiteParameter("@favorite", item.Favorited));
                         cmd.Parameters.Add(new SQLiteParameter("@views", item.Views));
+                        cmd.Parameters.Add(new SQLiteParameter("@rating", TablatureRatingUtilities.ToInt(item.Rating)));
                         cmd.ExecuteNonQuery();
 
                         item.ID = _db.LastInsertRowId;
@@ -174,7 +178,7 @@ namespace Tabster.LocalUtilities
 
         private void CreateTables()
         {
-            using (var cmd = new SQLiteCommand(string.Format("CREATE TABLE IF NOT EXISTS {0} (id INTEGER PRIMARY KEY, filename TEXT, favorite BOOLEAN, views INTEGER)", TableTablature), _db))
+            using (var cmd = new SQLiteCommand(string.Format("CREATE TABLE IF NOT EXISTS {0} (id INTEGER PRIMARY KEY, filename TEXT, favorite BOOLEAN, views INTEGER, rating INTEGER)", TableTablature), _db))
             {
                 cmd.ExecuteNonQuery();
             }

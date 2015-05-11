@@ -52,6 +52,8 @@
             this.okbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
             this.txtlocation = new System.Windows.Forms.TextBox();
+            this.tablatureRatingDropdown1 = new Tabster.Controls.TablatureRatingDropdown();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBoxLibrary.SuspendLayout();
@@ -193,6 +195,8 @@
             this.groupBoxTablature.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxTablature.Controls.Add(this.label1);
+            this.groupBoxTablature.Controls.Add(this.tablatureRatingDropdown1);
             this.groupBoxTablature.Controls.Add(this.typeList);
             this.groupBoxTablature.Controls.Add(this.label16);
             this.groupBoxTablature.Controls.Add(this.txtcomment);
@@ -236,10 +240,10 @@
             // 
             this.txtcomment.BackColor = System.Drawing.SystemColors.Window;
             this.txtcomment.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txtcomment.Location = new System.Drawing.Point(66, 95);
+            this.txtcomment.Location = new System.Drawing.Point(66, 122);
             this.txtcomment.Multiline = true;
             this.txtcomment.Name = "txtcomment";
-            this.txtcomment.Size = new System.Drawing.Size(225, 80);
+            this.txtcomment.Size = new System.Drawing.Size(225, 59);
             this.txtcomment.TabIndex = 4;
             // 
             // label17
@@ -262,7 +266,7 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label5.Location = new System.Drawing.Point(6, 95);
+            this.label5.Location = new System.Drawing.Point(6, 122);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(54, 13);
             this.label5.TabIndex = 17;
@@ -335,6 +339,29 @@
             this.txtlocation.Size = new System.Drawing.Size(538, 20);
             this.txtlocation.TabIndex = 41;
             // 
+            // tablatureRatingDropdown1
+            // 
+            this.tablatureRatingDropdown1.DefaultText = "No Rating";
+            this.tablatureRatingDropdown1.DisplayDefault = true;
+            this.tablatureRatingDropdown1.Location = new System.Drawing.Point(66, 95);
+            this.tablatureRatingDropdown1.Name = "tablatureRatingDropdown1";
+            this.tablatureRatingDropdown1.Size = new System.Drawing.Size(119, 21);
+            this.tablatureRatingDropdown1.TabIndex = 42;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label1.Location = new System.Drawing.Point(6, 98);
+            this.label1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label1.Name = "label1";
+            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 43;
+            this.label1.Text = "Rating:";
+            // 
             // TabDetailsDialog
             // 
             this.AcceptButton = this.okbtn;
@@ -394,5 +421,7 @@
         private System.Windows.Forms.Label lblViewCount;
         private System.Windows.Forms.Label lblLastViewed;
         private Controls.TabTypeDropdown typeList;
+        private Controls.TablatureRatingDropdown tablatureRatingDropdown1;
+        private System.Windows.Forms.Label label1;
     }
 }
