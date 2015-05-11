@@ -78,7 +78,16 @@ namespace Tabster.Controls
 
         public new void Focus()
         {
+            Focus(true);
+        }
+
+        public void Focus(bool selectAll)
+        {
             TextBoxBase.Focus();
+
+            if (!selectAll)
+                TextBoxBase.Select(0, 0);
+
         }
 
         #region Properties

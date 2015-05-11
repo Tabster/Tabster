@@ -108,7 +108,7 @@ namespace Tabster.Forms
         private void SelectTabInstance(TabInstance instance)
         {
             tabControl1.SelectedTab = instance.Page;
-            instance.Editor.Focus();
+            instance.Editor.Focus(false);
         }
 
         private TabInstance GetTabInstance(FileInfo fileInfo)
