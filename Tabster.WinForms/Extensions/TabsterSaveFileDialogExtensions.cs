@@ -14,7 +14,7 @@ namespace Tabster.WinForms.Extensions
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class TabsterSaveFileDialogExtensions
     {
-        public static void SetTabsterFilter(this SaveFileDialog saveFileDialog, IEnumerable<ITablatureFileExporter> exporters, bool overwriteFilter = false)
+        public static void SetTabsterFilter(this SaveFileDialog saveFileDialog, IEnumerable<ITablatureFileExporter> exporters, bool overwriteFilter = false, bool alphabeticalOrder = false)
         {
             var filterStringBuilder = new StringBuilder();
 
@@ -27,6 +27,9 @@ namespace Tabster.WinForms.Extensions
                     fileTypes.Add(exporter.FileType);
                 }
             }
+
+            if (alphabeticalOrder)
+                fileTypes.Sort((f1, f2) => f1.Name.CompareTo(f2.Name));
 
             for (var i = 0; i < fileTypes.Count; i++)
             {

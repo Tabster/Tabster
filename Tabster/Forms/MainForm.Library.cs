@@ -74,7 +74,7 @@ namespace Tabster.Forms
                     FileName = GetSelectedLibraryItem().File.ToFriendlyString()
                 })
                 {
-                    sfd.SetTabsterFilter(_fileExporters);
+                    sfd.SetTabsterFilter(_fileExporters, alphabeticalOrder: true);
 
                     if (sfd.ShowDialog() != DialogResult.Cancel)
                     {
@@ -487,7 +487,7 @@ namespace Tabster.Forms
                 Multiselect = false
             })
             {
-                ofd.SetTabsterFilter(_fileImporters, allSupportedTypesOption: false); //todo implement "all supported types" handling
+                ofd.SetTabsterFilter(_fileImporters, allSupportedTypesOption: false, alphabeticalOrder: true); //todo implement "all supported types" handling
 
                 if (ofd.ShowDialog() != DialogResult.Cancel)
                 {

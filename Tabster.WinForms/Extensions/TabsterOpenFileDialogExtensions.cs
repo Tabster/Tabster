@@ -15,7 +15,7 @@ namespace Tabster.WinForms.Extensions
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class TabsterOpenFileDialogExtensions
     {
-        public static void SetTabsterFilter(this OpenFileDialog openFileDialog, IEnumerable<ITablatureFileImporter> importers, bool overwriteFilter = false, bool allSupportedTypesOption = true)
+        public static void SetTabsterFilter(this OpenFileDialog openFileDialog, IEnumerable<ITablatureFileImporter> importers, bool overwriteFilter = false, bool allSupportedTypesOption = true, bool alphabeticalOrder = false)
         {
             var filterStringBuilder = new StringBuilder();
 
@@ -28,6 +28,9 @@ namespace Tabster.WinForms.Extensions
                     fileTypes.Add(importer.FileType);
                 }
             }
+
+            if (alphabeticalOrder)
+                fileTypes.Sort((f1, f2) => f1.Name.CompareTo(f2.Name));
 
             var last = fileTypes.Last();
 
