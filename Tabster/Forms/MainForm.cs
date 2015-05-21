@@ -141,6 +141,8 @@ namespace Tabster.Forms
             PopulatePlaylistMenu();
 
             LoadSettings(true);
+
+            UpdateDetails();
         }
 
         private void Form1_Shown(object sender, EventArgs e)

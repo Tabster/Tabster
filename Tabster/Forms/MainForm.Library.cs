@@ -529,6 +529,7 @@ namespace Tabster.Forms
                                     tab.Source = new Uri(ofd.FileName);
                                     tab.SourceType = TablatureSourceType.FileImport;
                                     _tablatureLibrary.Add(tab);
+                                    UpdateDetails();
                                 }
                             }
                         }
@@ -728,6 +729,7 @@ namespace Tabster.Forms
 
                     AddPlaylistNode(playlistItem.File, playlistItem.FileInfo);
                     PopulatePlaylistMenu();
+                    UpdateDetails();
                 }
             }
         }
