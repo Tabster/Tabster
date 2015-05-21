@@ -31,7 +31,7 @@ ECHO Copying Files...
 ::core files
 copy "%VS_BUILD_DIRECTORY%\Tabster.exe" "%TEMP_DIRECTORY%\Tabster.exe"
 copy "%VS_BUILD_DIRECTORY%\Updater.exe" "%TEMP_DIRECTORY%\Updater.exe"
-copy "%VS_BUILD_DIRECTORY%\Tabster.Controls.dll" "%TEMP_DIRECTORY%\Tabster.Controls.dll"
+copy "%VS_BUILD_DIRECTORY%\Tabster.WinForms.dll" "%TEMP_DIRECTORY%\Tabster.WinForms.dll"
 copy "%VS_BUILD_DIRECTORY%\Tabster.Core.dll" "%TEMP_DIRECTORY%\Tabster.Core.dll"
 copy "%VS_BUILD_DIRECTORY%\Tabster.Data.dll" "%TEMP_DIRECTORY%\Tabster.Data.dll"
 copy "%VS_BUILD_DIRECTORY%\Tabster.Utils.dll" "%TEMP_DIRECTORY%\Tabster.Utils.dll"

@@ -42,10 +42,10 @@ Section "MainSection" SEC01
 
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.exe"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Updater.exe"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Controls.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Core.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Data.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Utils.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.WinForms.dll"
 
   ; third-party references  
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\ObjectListView.dll"
@@ -111,10 +111,10 @@ FunctionEnd
 
 Section Uninstall
   Delete "$INSTDIR\Tabster.exe"
-  Delete "$INSTDIR\Tabster.Controls.dll"
   Delete "$INSTDIR\Tabster.Core.dll"
   Delete "$INSTDIR\Tabster.Data.dll"
   Delete "$INSTDIR\Tabster.Utils.dll"
+  Delete "$INSTDIR\Tabster.WinForms.dll"
   
   ; native filetype plugins
   Delete "$INSTDIR\Plugins\FileTypes\TextFile.dll"
