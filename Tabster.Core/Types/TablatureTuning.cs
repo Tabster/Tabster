@@ -105,7 +105,7 @@ namespace Tabster.Core.Types
             OpenE = new TablatureTuning("Open E");
             OpenG = new TablatureTuning("Open G");
 
-            NativeTunings = new List<TablatureTuning> {Standard};
+            NativeTunings = new List<TablatureTuning> {Standard, HalfStepDown, Btuning, Ctuning, Dtuning, DropA, DropASharp, DropB, DropC, DropCSharp, DropD, OpenC, OpenD, OpenE, OpenG};
             KnownTunings.AddRange(NativeTunings);
         }
 
