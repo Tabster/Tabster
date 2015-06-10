@@ -61,6 +61,7 @@
     <Compile Include="Types\ITablatureRatedAttributes.cs" />
     <Compile Include="Types\ITablatureSourceAttributes.cs" />
     <Compile Include="Types\TablatureRating.cs" />
+    <Compile Include="Types\TablatureTuning.cs" />
     <Compile Include="Types\TablatureType.cs" />
     <Compile Include="Types\ITablature.cs" />
     <Compile Include="Searching\ITablatureSearchEngine.cs" />
