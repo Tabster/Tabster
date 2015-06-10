@@ -17,7 +17,7 @@ namespace Tabster.Data.Binary
             _headerString = headerString;
         }
 
-        protected TabsterBinaryFileHeader ReadHeader(BinaryReader reader)
+        protected TabsterFileHeader ReadHeader(BinaryReader reader)
         {
             if (reader == null)
                 throw new ArgumentNullException("reader");
@@ -29,12 +29,12 @@ namespace Tabster.Data.Binary
             var versionStr = reader.ReadString();
             var version = new Version(versionStr);
 
-            var compressedFlag = reader.ReadBoolean();
+            var compression = (CompressionMode)reader.ReadByte();
 
-            return new TabsterBinaryFileHeader(version, compressedFlag);
+            return new TabsterFileHeader(version, compression);
         }
 
-        protected void WriteHeader(BinaryWriter writer, string headerStr, TabsterBinaryFileHeader header)
+        protected void WriteHeader(BinaryWriter writer, string headerStr, TabsterFileHeader header)
         {
             if (writer == null)
                 throw new ArgumentNullException("writer");
@@ -45,7 +45,7 @@ namespace Tabster.Data.Binary
 
             writer.Write(headerStr.ToCharArray());
             writer.Write(header.Version.ToString());
-            writer.Write(header.Compressed);
+            writer.Write((byte)header.Compression);
         }
 
         protected TabsterFileAttributes ReadFileAttributes(BinaryReader reader)

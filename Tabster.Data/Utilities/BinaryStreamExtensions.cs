@@ -33,34 +33,21 @@ namespace Tabster.Data.Utilities
         /// <summary>
         ///     Writes a length-prefixed Gzipped string.
         /// </summary>
-        public static void Write(this BinaryWriter writer, string str, bool compressed)
+        public static void WriteCompressedString(this BinaryWriter writer, string str, Encoding encoding)
         {
-            if (compressed)
-            {
-                var zipped = ZipText(str, Encoding.Unicode);
-                writer.Write(zipped.Length);
-                writer.Write(zipped);
-            }
-
-            else
-            {
-                writer.Write(str);
-            }
+            var zipped = ZipText(str, encoding);
+            writer.Write(zipped.Length);
+            writer.Write(zipped);
         }
 
         /// <summary>
         ///     Reads a length-prefixed Gzipped string.
         /// </summary>
-        public static string ReadString(this BinaryReader reader, bool compreseed)
+        public static string ReadCompressedString(this BinaryReader reader, Encoding encoding)
         {
-            if (compreseed)
-            {
-                var length = reader.ReadInt32();
-                var zipped = reader.ReadBytes(length);
-                return Unzip(zipped, Encoding.Unicode);
-            }
-
-            return reader.ReadString();
+            var length = reader.ReadInt32();
+            var zipped = reader.ReadBytes(length);
+            return Unzip(zipped, encoding);
         }
 
         private static void CopyTo(Stream src, Stream dest)
@@ -83,7 +70,7 @@ namespace Tabster.Data.Utilities
             {
                 using (var mso = new MemoryStream())
                 {
-                    using (var gs = new GZipStream(mso, CompressionMode.Compress))
+                    using (var gs = new GZipStream(mso, System.IO.Compression.CompressionMode.Compress))
                     {
                         CopyTo(msi, gs);
                     }
@@ -99,7 +86,7 @@ namespace Tabster.Data.Utilities
             {
                 using (var mso = new MemoryStream())
                 {
-                    using (var gs = new GZipStream(msi, CompressionMode.Decompress))
+                    using (var gs = new GZipStream(msi, System.IO.Compression.CompressionMode.Decompress))
                     {
                         CopyTo(gs, mso);
                     }

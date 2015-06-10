@@ -65,16 +65,20 @@ namespace Tabster.Data.Binary
 
         public void Save(string fileName)
         {
-            var header = new TabsterBinaryFileHeader(HeaderVersion, false);
-
             using (var fs = new FileStream(fileName, FileMode.Create))
             {
                 var encoding = FileAttributes != null ? FileAttributes.Encoding : DefaultEncoding;
 
                 using (var writer = new BinaryWriter(fs, encoding))
                 {
-                    WriteHeader(writer, HeaderString, header);
-                    WriteFileAttributes(writer, FileAttributes ?? new TabsterFileAttributes(DateTime.UtcNow, FileAttributes != null ? FileAttributes.Encoding : Encoding.UTF8));
+                    if (FileHeader == null)
+                        FileHeader = new TabsterFileHeader(HeaderVersion, CompressionMode.None);
+
+                    if (FileAttributes == null)
+                        FileAttributes = new TabsterFileAttributes(DateTime.UtcNow, FileAttributes != null ? FileAttributes.Encoding : DefaultEncoding);
+
+                    WriteHeader(writer, HeaderString, FileHeader);
+                    WriteFileAttributes(writer, FileAttributes);
 
                     writer.Write(Name, encoding);
                     writer.Write(_items.Count);
@@ -88,7 +92,7 @@ namespace Tabster.Data.Binary
         }
 
         public TabsterFileAttributes FileAttributes { get; set; }
-        public ITabsterFileHeader FileHeader { get; set; }
+        public TabsterFileHeader FileHeader { get; set; }
 
         #endregion
 

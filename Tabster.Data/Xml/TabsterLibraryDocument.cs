@@ -44,7 +44,7 @@ namespace Tabster.Data.Xml
 
             var rootNode = xmlDoc.GetElementByTagName(RootNode);
 
-            FileHeader = new TabsterXmlFileHeader(new Version(rootNode.GetAttributeValue("version")));
+            FileHeader = new TabsterFileHeader(new Version(rootNode.GetAttributeValue("version")), CompressionMode.None);
             FileAttributes = new TabsterFileAttributes(fi.CreationTime, Encoding.GetEncoding(xmlDoc.GetXmlDeclaration().Encoding));
 
             var tabNodes = xmlDoc.GetChildNodes(xmlDoc.GetElementByTagName("tabs"));
@@ -114,12 +114,12 @@ namespace Tabster.Data.Xml
 
             xmlDoc.Save(fileName);
 
-            FileHeader = new TabsterXmlFileHeader(FileVersion);
+            FileHeader = new TabsterFileHeader(FileVersion, CompressionMode.None);
             FileAttributes = new TabsterFileAttributes(DateTime.UtcNow, FileAttributes != null ? FileAttributes.Encoding : DefaultEncoding);
         }
 
         public TabsterFileAttributes FileAttributes { get; private set; }
-        public ITabsterFileHeader FileHeader { get; private set; }
+        public TabsterFileHeader FileHeader { get; private set; }
 
         #endregion
     }

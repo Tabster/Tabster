@@ -31,9 +31,14 @@ namespace Tabster.Data.Binary
 
                 using (var writer = new BinaryWriter(fs))
                 {
-                    var header = new TabsterBinaryFileHeader(HeaderVersion, false);
-                    WriteHeader(writer, HeaderString, header);
-                    WriteFileAttributes(writer, FileAttributes ?? new TabsterFileAttributes(DateTime.UtcNow, fileEncoding));
+                    if (FileHeader == null)
+                        FileHeader = new TabsterFileHeader(HeaderVersion, CompressionMode.Gzip);
+
+                    if (FileAttributes == null)
+                        FileAttributes = new TabsterFileAttributes(DateTime.UtcNow, fileEncoding);
+
+                    WriteHeader(writer, HeaderString, FileHeader);
+                    WriteFileAttributes(writer, FileAttributes);
 
                     //core attributes
                     writer.Write(Artist, fileEncoding);
@@ -46,13 +51,16 @@ namespace Tabster.Data.Binary
 
                     writer.Write(Comment ?? string.Empty, fileEncoding);
 
-                    writer.Write(Contents ?? string.Empty, fileEncoding);
+                    if (FileHeader.Compression == CompressionMode.None)
+                        writer.Write(Contents ?? string.Empty, fileEncoding);
+                    else if (FileHeader.Compression == CompressionMode.Gzip)
+                        writer.WriteCompressedString(Contents ?? string.Empty, fileEncoding);  
                 }
             }
         }
 
         public TabsterFileAttributes FileAttributes { get; set; }
-        public ITabsterFileHeader FileHeader { get; private set; }
+        public TabsterFileHeader FileHeader { get; private set; }
 
         public void Load(string fileName)
         {
@@ -74,7 +82,10 @@ namespace Tabster.Data.Binary
                     Source = string.IsNullOrEmpty(sourceString) ? null : new Uri(sourceString);
                     Comment = reader.ReadString(fileEncoding);
 
-                    Contents = reader.ReadString(fileEncoding);
+                    if (FileHeader.Compression == CompressionMode.None)
+                        Contents = reader.ReadString(fileEncoding);
+                    else if (FileHeader.Compression == CompressionMode.Gzip)
+                        Contents = reader.ReadCompressedString(fileEncoding);
                 }
             }
         }
