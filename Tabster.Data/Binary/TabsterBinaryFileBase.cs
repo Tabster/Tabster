@@ -29,7 +29,7 @@ namespace Tabster.Data.Binary
             var versionStr = reader.ReadString();
             var version = new Version(versionStr);
 
-            var compression = (CompressionMode)reader.ReadByte();
+            var compression = (CompressionMode) reader.ReadByte();
 
             return new TabsterFileHeader(version, compression);
         }
@@ -45,13 +45,13 @@ namespace Tabster.Data.Binary
 
             writer.Write(headerStr.ToCharArray());
             writer.Write(header.Version.ToString());
-            writer.Write((byte)header.Compression);
+            writer.Write((byte) header.Compression);
         }
 
         protected TabsterFileAttributes ReadFileAttributes(BinaryReader reader)
         {
             var encoding = Encoding.GetEncoding(reader.ReadInt32());
-            var created = new DateTime(reader.ReadInt64());
+            var created = FromUnixTime(reader.ReadInt64());
             return new TabsterFileAttributes(created, encoding);
         }
 
@@ -63,7 +63,19 @@ namespace Tabster.Data.Binary
                 throw new ArgumentNullException("attributes");
 
             writer.Write(attributes.Encoding.CodePage);
-            writer.Write(attributes.Created.Ticks);
+            writer.Write(ToUnixTime(attributes.Created));
+        }
+
+        private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+        private static long ToUnixTime(DateTime date)
+        {
+            return (long)(date - UnixEpoch).TotalSeconds;
+        }
+
+        private static DateTime FromUnixTime(long seconds)
+        {
+            return UnixEpoch.AddSeconds(seconds);
         }
     }
 }
