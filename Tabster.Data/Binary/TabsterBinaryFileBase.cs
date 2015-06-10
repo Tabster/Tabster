@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 
 #endregion
 
@@ -49,8 +50,9 @@ namespace Tabster.Data.Binary
 
         protected TabsterFileAttributes ReadFileAttributes(BinaryReader reader)
         {
+            var encoding = Encoding.GetEncoding(reader.ReadInt32());
             var created = new DateTime(reader.ReadInt64());
-            return new TabsterFileAttributes(created);
+            return new TabsterFileAttributes(created, encoding);
         }
 
         protected void WriteFileAttributes(BinaryWriter writer, TabsterFileAttributes attributes)
@@ -60,6 +62,7 @@ namespace Tabster.Data.Binary
             if (attributes == null)
                 throw new ArgumentNullException("attributes");
 
+            writer.Write(attributes.Encoding.CodePage);
             writer.Write(attributes.Created.Ticks);
         }
     }

@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using Tabster.Core.Types;
@@ -17,6 +18,7 @@ namespace Tabster.Data.Xml
 
         public const string FileExtension = ".tabster";
         public static readonly Version FileVersion = new Version("1.4");
+        private static readonly Encoding DefaultEncoding = Encoding.GetEncoding("ISO-8859-1");
 
         #endregion
 
@@ -64,7 +66,7 @@ namespace Tabster.Data.Xml
                 ? createDatetime
                 : fi.CreationTime;
 
-            FileAttributes = new TabsterFileAttributes(created);
+            FileAttributes = new TabsterFileAttributes(created, Encoding.GetEncoding(xmlDoc.GetXmlDeclaration().Encoding));
 
             Comment = xmlDoc.GetNodeValue("comment", string.Empty);
 
@@ -102,7 +104,7 @@ namespace Tabster.Data.Xml
         public void Save(string fileName)
         {
             var xmlDoc = new XmlDocument();
-            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "ISO-8859-1", null));
+            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", DefaultEncoding.EncodingName, null));
             var rootNode = xmlDoc.CreateElement(RootNode);
             xmlDoc.AppendChild(rootNode);
 
@@ -136,7 +138,7 @@ namespace Tabster.Data.Xml
             xmlDoc.Save(fileName);
 
             FileHeader = new TabsterXmlFileHeader(FileVersion);
-            FileAttributes = new TabsterFileAttributes(DateTime.UtcNow);
+            FileAttributes = new TabsterFileAttributes(DateTime.UtcNow, FileAttributes != null ? FileAttributes.Encoding : DefaultEncoding);
         }
 
         public TabsterFileAttributes FileAttributes { get; private set; }

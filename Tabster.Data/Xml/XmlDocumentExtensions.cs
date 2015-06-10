@@ -67,6 +67,12 @@ namespace Tabster.Data.Xml
             return defaultValue;
         }
 
+        public static XmlDeclaration GetXmlDeclaration(this XmlDocument doc)
+        {
+            var dec = doc.FirstChild as XmlDeclaration;
+            return dec;
+        }
+
         public static void WriteNode(this XmlDocument doc, string name, string value = null, string parentNode = null, SortedDictionary<string, string> attributes = null, bool preventNodeDuplication = true)
         {
             XmlNode parent = doc.DocumentElement;

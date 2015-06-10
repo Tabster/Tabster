@@ -2,7 +2,9 @@
 
 using System;
 using System.IO;
+using System.Text;
 using Tabster.Core.Types;
+using Tabster.Data.Utilities;
 
 #endregion
 
@@ -12,6 +14,7 @@ namespace Tabster.Data.Binary
     {
         private const string HeaderString = "TABSTER";
         private static readonly Version HeaderVersion = new Version("1.0");
+        public static readonly Encoding DefaultEncoding = Encoding.UTF8;
 
         public TablatureFile()
             : base(HeaderString)
@@ -24,24 +27,26 @@ namespace Tabster.Data.Binary
         {
             using (var fs = new FileStream(fileName, FileMode.Create))
             {
+                var fileEncoding = FileAttributes != null ? FileAttributes.Encoding : DefaultEncoding;
+
                 using (var writer = new BinaryWriter(fs))
                 {
                     var header = new TabsterBinaryFileHeader(HeaderVersion, false);
                     WriteHeader(writer, HeaderString, header);
-                    WriteFileAttributes(writer, FileAttributes ?? new TabsterFileAttributes(DateTime.Now));
+                    WriteFileAttributes(writer, FileAttributes ?? new TabsterFileAttributes(DateTime.UtcNow, fileEncoding));
 
                     //core attributes
-                    writer.Write(Artist);
-                    writer.Write(Title);
-                    writer.Write(Type.Name);
+                    writer.Write(Artist, fileEncoding);
+                    writer.Write(Title, fileEncoding);
+                    writer.Write(Type.Name, fileEncoding);
 
                     //source attributes
                     writer.Write((int) SourceType);
                     writer.Write(Source != null ? Source.ToString() : string.Empty);
 
-                    writer.Write(Comment ?? string.Empty);
+                    writer.Write(Comment ?? string.Empty, fileEncoding);
 
-                    writer.Write(Contents ?? string.Empty);
+                    writer.Write(Contents ?? string.Empty, fileEncoding);
                 }
             }
         }
@@ -53,20 +58,23 @@ namespace Tabster.Data.Binary
         {
             using (var fs = new FileStream(fileName, FileMode.Open))
             {
-                using (var reader = new BinaryReader(fs))
+                using (var reader = new BinaryReader(fs, DefaultEncoding))
                 {
                     FileHeader = ReadHeader(reader);
 
                     FileAttributes = ReadFileAttributes(reader);
 
-                    Artist = reader.ReadString();
-                    Title = reader.ReadString();
-                    Type = new TablatureType(reader.ReadString());
+                    var fileEncoding = FileAttributes != null ? FileAttributes.Encoding : DefaultEncoding;
+
+                    Artist = reader.ReadString(fileEncoding);
+                    Title = reader.ReadString(fileEncoding);
+                    Type = new TablatureType(reader.ReadString(fileEncoding));
                     SourceType = (TablatureSourceType) reader.ReadInt32();
                     var sourceString = reader.ReadString();
                     Source = string.IsNullOrEmpty(sourceString) ? null : new Uri(sourceString);
-                    Comment = reader.ReadString();
-                    Contents = reader.ReadString();
+                    Comment = reader.ReadString(fileEncoding);
+
+                    Contents = reader.ReadString(fileEncoding);
                 }
             }
         }

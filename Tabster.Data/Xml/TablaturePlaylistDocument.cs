@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml;
 using Tabster.Data.Processing;
 
@@ -23,6 +24,7 @@ namespace Tabster.Data.Xml
         #endregion
 
         private const string RootNode = "tablist";
+        private static readonly Encoding DefaultEncoding = Encoding.GetEncoding("ISO-8859-1");
         private readonly List<TablaturePlaylistItem> _items = new List<TablaturePlaylistItem>();
         private readonly TabsterFileProcessor<TablatureDocument> _processor = new TabsterFileProcessor<TablatureDocument>(FileVersion);
 
@@ -68,7 +70,7 @@ namespace Tabster.Data.Xml
         public void Save(string fileName)
         {
             var xmlDoc = new XmlDocument();
-            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "ISO-8859-1", null));
+            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", DefaultEncoding.EncodingName, null));
             var rootNode = xmlDoc.CreateElement(RootNode);
             xmlDoc.AppendChild(rootNode);
 
@@ -85,7 +87,7 @@ namespace Tabster.Data.Xml
             xmlDoc.Save(fileName);
 
             FileHeader = new TabsterXmlFileHeader(FileVersion);
-            FileAttributes = new TabsterFileAttributes(DateTime.UtcNow);
+            FileAttributes = new TabsterFileAttributes(DateTime.UtcNow, FileAttributes != null ? FileAttributes.Encoding : DefaultEncoding);
         }
 
         public TabsterFileAttributes FileAttributes { get; private set; }
@@ -109,7 +111,7 @@ namespace Tabster.Data.Xml
                 throw new TabsterFileException("Missing playlist name");
 
             //playlist format never had created property, use filesystem
-            FileAttributes = new TabsterFileAttributes(fi.CreationTime);
+            FileAttributes = new TabsterFileAttributes(fi.CreationTime, Encoding.GetEncoding(xmlDoc.GetXmlDeclaration().Encoding));
 
             var fileNodes = xmlDoc.GetChildNodes(xmlDoc.GetElementByTagName("files"));
 

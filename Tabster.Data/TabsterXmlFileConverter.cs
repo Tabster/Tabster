@@ -42,6 +42,9 @@ namespace Tabster.Data
                     FileAttributes = doc.FileAttributes,
                 };
 
+                //xml format uses ISO-8859-1, binary uses UTF-8 by default
+                file.FileAttributes.Encoding = TablatureFile.DefaultEncoding;
+
                 return file;
             }
 

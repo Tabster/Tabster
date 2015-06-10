@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text;
 using System.Xml;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
@@ -16,7 +17,7 @@ namespace Tabster.Data.Xml
     {
         private const string RootNode = "library";
         public static readonly Version FileVersion = new Version("1.0");
-
+        private static readonly Encoding DefaultEncoding = Encoding.GetEncoding("ISO-8859-1");
         private readonly List<PlaylistLibraryItem<TablaturePlaylistDocument>> _playlistItems = new List<PlaylistLibraryItem<TablaturePlaylistDocument>>();
         private readonly List<TablatureLibraryItem<TablatureDocument>> _tablatureItems = new List<TablatureLibraryItem<TablatureDocument>>();
 
@@ -44,7 +45,7 @@ namespace Tabster.Data.Xml
             var rootNode = xmlDoc.GetElementByTagName(RootNode);
 
             FileHeader = new TabsterXmlFileHeader(new Version(rootNode.GetAttributeValue("version")));
-            FileAttributes = new TabsterFileAttributes(fi.CreationTime);
+            FileAttributes = new TabsterFileAttributes(fi.CreationTime, Encoding.GetEncoding(xmlDoc.GetXmlDeclaration().Encoding));
 
             var tabNodes = xmlDoc.GetChildNodes(xmlDoc.GetElementByTagName("tabs"));
 
@@ -114,7 +115,7 @@ namespace Tabster.Data.Xml
             xmlDoc.Save(fileName);
 
             FileHeader = new TabsterXmlFileHeader(FileVersion);
-            FileAttributes = new TabsterFileAttributes(DateTime.UtcNow);
+            FileAttributes = new TabsterFileAttributes(DateTime.UtcNow, FileAttributes != null ? FileAttributes.Encoding : DefaultEncoding);
         }
 
         public TabsterFileAttributes FileAttributes { get; private set; }

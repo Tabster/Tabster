@@ -5,7 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Tabster.Data.Processing;
+using Tabster.Data.Utilities;
 
 #endregion
 
@@ -15,6 +17,7 @@ namespace Tabster.Data.Binary
     {
         private const string HeaderString = "TABSTER";
         private static readonly Version HeaderVersion = new Version("1.0");
+        private static readonly Encoding DefaultEncoding = Encoding.UTF8;
 
         private readonly List<TablaturePlaylistItem> _items = new List<TablaturePlaylistItem>();
         private readonly TabsterFileProcessor<TablatureFile> _processor = new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion);
@@ -38,7 +41,7 @@ namespace Tabster.Data.Binary
                     FileHeader = ReadHeader(reader);
                     FileAttributes = ReadFileAttributes(reader);
 
-                    Name = reader.ReadString();
+                    Name = reader.ReadString(FileAttributes.Encoding);
 
                     var count = reader.ReadInt32();
 
@@ -66,12 +69,14 @@ namespace Tabster.Data.Binary
 
             using (var fs = new FileStream(fileName, FileMode.Create))
             {
-                using (var writer = new BinaryWriter(fs))
+                var encoding = FileAttributes != null ? FileAttributes.Encoding : DefaultEncoding;
+
+                using (var writer = new BinaryWriter(fs, encoding))
                 {
                     WriteHeader(writer, HeaderString, header);
-                    WriteFileAttributes(writer, FileAttributes ?? new TabsterFileAttributes(DateTime.Now));
+                    WriteFileAttributes(writer, FileAttributes ?? new TabsterFileAttributes(DateTime.UtcNow, FileAttributes != null ? FileAttributes.Encoding : Encoding.UTF8));
 
-                    writer.Write(Name);
+                    writer.Write(Name, encoding);
                     writer.Write(_items.Count);
 
                     foreach (var item in _items)
