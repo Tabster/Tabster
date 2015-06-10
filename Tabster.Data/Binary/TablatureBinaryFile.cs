@@ -27,34 +27,32 @@ namespace Tabster.Data.Binary
         {
             using (var fs = new FileStream(fileName, FileMode.Create))
             {
-                var fileEncoding = FileAttributes != null ? FileAttributes.Encoding : DefaultEncoding;
-
                 using (var writer = new BinaryWriter(fs))
                 {
                     if (FileHeader == null)
                         FileHeader = new TabsterFileHeader(HeaderVersion, CompressionMode.Gzip);
 
                     if (FileAttributes == null)
-                        FileAttributes = new TabsterFileAttributes(DateTime.UtcNow, fileEncoding);
+                        FileAttributes = new TabsterFileAttributes(DateTime.UtcNow, DefaultEncoding);
 
                     WriteHeader(writer, HeaderString, FileHeader);
                     WriteFileAttributes(writer, FileAttributes);
 
                     //core attributes
-                    writer.Write(Artist, fileEncoding);
-                    writer.Write(Title, fileEncoding);
-                    writer.Write(Type.Name, fileEncoding);
+                    writer.Write(Artist, FileAttributes.Encoding);
+                    writer.Write(Title, FileAttributes.Encoding);
+                    writer.Write(Type.Name, FileAttributes.Encoding);
 
                     //source attributes
                     writer.Write((int) SourceType);
                     writer.Write(Source != null ? Source.ToString() : string.Empty);
 
-                    writer.Write(Comment ?? string.Empty, fileEncoding);
+                    writer.Write(Comment ?? string.Empty, FileAttributes.Encoding);
 
                     if (FileHeader.Compression == CompressionMode.None)
-                        writer.Write(Contents ?? string.Empty, fileEncoding);
+                        writer.Write(Contents ?? string.Empty, FileAttributes.Encoding);
                     else if (FileHeader.Compression == CompressionMode.Gzip)
-                        writer.WriteCompressedString(Contents ?? string.Empty, fileEncoding);  
+                        writer.WriteCompressedString(Contents ?? string.Empty, FileAttributes.Encoding);  
                 }
             }
         }
