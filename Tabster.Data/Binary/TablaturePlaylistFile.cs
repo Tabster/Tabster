@@ -41,7 +41,7 @@ namespace Tabster.Data.Binary
                     FileHeader = ReadHeader(reader);
                     FileAttributes = ReadFileAttributes(reader);
 
-                    Name = reader.ReadString(FileAttributes.Encoding);
+                    Name = reader.ReadString();
 
                     var count = reader.ReadInt32();
 
@@ -67,9 +67,7 @@ namespace Tabster.Data.Binary
         {
             using (var fs = new FileStream(fileName, FileMode.Create))
             {
-                var encoding = FileAttributes != null ? FileAttributes.Encoding : DefaultEncoding;
-
-                using (var writer = new BinaryWriter(fs, encoding))
+                using (var writer = new BinaryWriter(fs))
                 {
                     if (FileHeader == null)
                         FileHeader = new TabsterFileHeader(HeaderVersion, CompressionMode.None);
@@ -80,7 +78,7 @@ namespace Tabster.Data.Binary
                     WriteHeader(writer, HeaderString, FileHeader);
                     WriteFileAttributes(writer, FileAttributes);
 
-                    writer.Write(Name, encoding);
+                    writer.Write(Name);
                     writer.Write(_items.Count);
 
                     foreach (var item in _items)
