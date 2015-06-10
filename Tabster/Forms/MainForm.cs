@@ -100,7 +100,7 @@ namespace Tabster.Forms
             olvColArtist.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>) x).File.Artist;
             olvColTitle.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>) x).File.Title;
             olvColType.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>) x).File.Type.Name;
-            olvColCreated.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>) x).FileInfo.CreationTime;
+            olvColCreated.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>) x).File.FileAttributes.Created;
             olvColModified.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>) x).FileInfo.LastWriteTime;
             olvColLocation.AspectGetter = x => ((TablatureLibraryItem<TablatureFile>) x).FileInfo.FullName;
 
