@@ -70,6 +70,18 @@
     <Compile Include="TablatureRatingDropdown.Designer.cs">
       <DependentUpon>TablatureRatingDropdown.cs</DependentUpon>
     </Compile>
+    <Compile Include="TablatureDifficultyDropdown.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TablatureDifficultyDropdown.Designer.cs">
+      <DependentUpon>TablatureDifficultyDropdown.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TablatureTuningDropdown.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TablatureTuningDropdown.Designer.cs">
+      <DependentUpon>TablatureTuningDropdown.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabTypeDropdown.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -81,6 +93,12 @@
   <ItemGroup>
     <EmbeddedResource Include="TablatureRatingDropdown.resx">
       <DependentUpon>TablatureRatingDropdown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TablatureDifficultyDropdown.resx">
+      <DependentUpon>TablatureDifficultyDropdown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TablatureTuningDropdown.resx">
+      <DependentUpon>TablatureTuningDropdown.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabTypeDropdown.resx">
       <DependentUpon>TabTypeDropdown.cs</DependentUpon>
