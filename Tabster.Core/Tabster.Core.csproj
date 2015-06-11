@@ -58,6 +58,7 @@
     <Compile Include="Searching\TablatureSearchEngineException.cs" />
     <Compile Include="Types\AttributedTablature.cs" />
     <Compile Include="Types\ITablatureAttributes.cs" />
+    <Compile Include="Types\ITablatureExtendedAttributes.cs" />
     <Compile Include="Types\ITablatureRatedAttributes.cs" />
     <Compile Include="Types\ITablatureSourceAttributes.cs" />
     <Compile Include="Types\TablatureDifficulty.cs" />
