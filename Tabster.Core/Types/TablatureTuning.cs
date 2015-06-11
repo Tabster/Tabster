@@ -80,6 +80,8 @@ namespace Tabster.Core.Types
         public static TablatureTuning OpenE { get; private set; }
         public static TablatureTuning OpenG { get; private set; }
 
+        public static TablatureTuning Undefined { get; private set; }
+
         #endregion
 
         #region Static Methods
@@ -104,6 +106,8 @@ namespace Tabster.Core.Types
             OpenD = new TablatureTuning("Open D");
             OpenE = new TablatureTuning("Open E");
             OpenG = new TablatureTuning("Open G");
+
+            Undefined = new TablatureTuning(string.Empty);
 
             NativeTunings = new List<TablatureTuning> {Standard, HalfStepDown, Btuning, Ctuning, Dtuning, DropA, DropASharp, DropB, DropC, DropCSharp, DropD, OpenC, OpenD, OpenE, OpenG};
             KnownTunings.AddRange(NativeTunings);

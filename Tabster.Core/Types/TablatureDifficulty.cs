@@ -68,6 +68,8 @@ namespace Tabster.Core.Types
         public static TablatureDifficulty Intermediate { get; private set; }
         public static TablatureDifficulty Advance { get; private set; }
 
+        public static TablatureDifficulty Undefined { get; private set; }
+
         #endregion
 
         #region Static Methods
@@ -80,6 +82,8 @@ namespace Tabster.Core.Types
             Novice = new TablatureDifficulty("Novice");
             Intermediate = new TablatureDifficulty("Intermediate");
             Advance = new TablatureDifficulty("Advance");
+
+            Undefined = new TablatureDifficulty(string.Empty);
 
             NativeDifficulties = new List<TablatureDifficulty> {Novice, Intermediate, Advance};
             KnownDifficulties.AddRange(NativeDifficulties);
