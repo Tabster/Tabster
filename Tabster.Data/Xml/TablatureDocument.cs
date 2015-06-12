@@ -69,6 +69,8 @@ namespace Tabster.Data.Xml
 
             Comment = xmlDoc.GetNodeValue("comment", string.Empty);
 
+            Lyrics = xmlDoc.GetNodeValue("lyrics", string.Empty);
+
             SourceType = TablatureSourceType.UserCreated;
 
             var sourceValue = xmlDoc.GetNodeValue("source", string.Empty);
@@ -133,6 +135,7 @@ namespace Tabster.Data.Xml
             xmlDoc.WriteNode("source", sourceValue);
             xmlDoc.WriteNode("created", FileAttributes.Created == DateTime.MinValue ? DateTime.Now.ToString() : FileAttributes.Created.ToString());
             xmlDoc.WriteNode("comment", Comment);
+            xmlDoc.WriteNode("lyrics", Lyrics);
 
             xmlDoc.Save(fileName);
 
@@ -216,7 +219,15 @@ namespace Tabster.Data.Xml
 
         #region Implementation of ITablatureFile
 
+        public string Subtitle { get; set; } //unused in XML format
+        public string Album { get; set; } //unused in XML format
+        public string Genre { get; set; } //unused in XML format
+        public string Author { get; set; } //unused in XML format
+        public string Copyright { get; set; } //unused in XML format
+        public string Lyrics { get; set; }
         public string Comment { get; set; }
+        public TablatureDifficulty Difficulty { get; set; } //unused in XML format
+        public TablatureTuning Tuning { get; set; } //unused in XML format
 
         #endregion
 

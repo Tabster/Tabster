@@ -39,6 +39,7 @@ namespace Tabster.Data
                     SourceType = doc.SourceType,
                     Source = doc.Source,
                     Comment = doc.Comment,
+                    Lyrics = doc.Lyrics,
                     FileAttributes = doc.FileAttributes,
                 };
 
