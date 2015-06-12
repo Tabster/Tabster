@@ -55,7 +55,9 @@ namespace Tabster.Controls
             set
             {
                 _textChangedDelay = value;
-                _delayTimer.Interval = _textChangedDelay;
+
+                if (value > 0)
+                    _delayTimer.Interval = _textChangedDelay;
             }
         }
 
