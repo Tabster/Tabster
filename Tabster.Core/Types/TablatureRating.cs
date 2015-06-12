@@ -9,7 +9,7 @@ namespace Tabster.Core.Types
     /// <summary>
     ///     Tablature rating.
     /// </summary>
-    public enum TablatureRating
+    public enum TablatureRating : byte
     {
         None = 0,
         Stars1 = 1,
