@@ -45,6 +45,7 @@ namespace Tabster.Core.Types
 
         public TablatureSourceType SourceType { get; set; }
         public Uri Source { get; set; }
+        public string SourceTag { get; set; }
 
         #endregion
     }

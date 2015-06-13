@@ -75,6 +75,9 @@ namespace Tabster.Data.Xml
 
             var sourceValue = xmlDoc.GetNodeValue("source", string.Empty);
 
+            //used in older versions and re-adopted in binary format
+            SourceTag = xmlDoc.GetNodeValue("method", string.Empty);
+
             if (!string.IsNullOrEmpty(sourceValue))
             {
                 //legacy
@@ -243,6 +246,7 @@ namespace Tabster.Data.Xml
 
         public TablatureSourceType SourceType { get; set; }
         public Uri Source { get; set; }
+        public string SourceTag { get; set; }
 
         #endregion
 

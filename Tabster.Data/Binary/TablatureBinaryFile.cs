@@ -46,6 +46,7 @@ namespace Tabster.Data.Binary
                     //source attributes
                     writer.Write((byte) SourceType);
                     writer.Write(Source != null ? Source.ToString() : string.Empty);
+                    writer.Write(SourceTag ?? string.Empty, FileAttributes.Encoding);
 
                     //extended attributes
                     writer.Write(Difficulty != null ? Difficulty.Name : TablatureDifficulty.Undefined.Name, FileAttributes.Encoding);
@@ -96,6 +97,7 @@ namespace Tabster.Data.Binary
                     SourceType = (TablatureSourceType) reader.ReadByte();
                     var sourceString = reader.ReadString();
                     Source = string.IsNullOrEmpty(sourceString) ? null : new Uri(sourceString);
+                    SourceTag = reader.ReadString(fileEncoding);
 
                     //extended attributes
                     Difficulty = new TablatureDifficulty(reader.ReadString(fileEncoding));
@@ -151,6 +153,7 @@ namespace Tabster.Data.Binary
         public TablatureTuning Tuning { get; set; }
         public TablatureSourceType SourceType { get; set; }
         public Uri Source { get; set; }
+        public string SourceTag { get; set; }
 
         #endregion
     }
