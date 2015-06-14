@@ -24,6 +24,11 @@ namespace PdfFile
 
         public FileType FileType { get; private set; }
 
+        public Version Version
+        {
+            get { return new Version("1.0"); }
+        }
+
         public AttributedTablature Import(string fileName)
         {
             var contentsBuilder = new StringBuilder();
@@ -44,7 +49,7 @@ namespace PdfFile
                 pdfReader.Close();
             }
 
-            var tab = new AttributedTablature { Contents = contentsBuilder.ToString() };
+            var tab = new AttributedTablature {Contents = contentsBuilder.ToString()};
             return tab;
         }
 

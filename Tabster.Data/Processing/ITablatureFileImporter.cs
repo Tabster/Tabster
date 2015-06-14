@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using Tabster.Core.Types;
 
 #endregion
@@ -15,6 +16,11 @@ namespace Tabster.Data.Processing
         ///     The file type to import from.
         /// </summary>
         FileType FileType { get; }
+
+        /// <summary>
+        ///     The exporter version.
+        /// </summary>
+        Version Version { get; }
 
         /// <summary>
         ///     Imports a file from a designated path.

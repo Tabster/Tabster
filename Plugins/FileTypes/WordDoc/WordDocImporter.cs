@@ -1,5 +1,6 @@
 #region
 
+using System;
 using System.Text;
 using Novacode;
 using Tabster.Core.Types;
@@ -20,6 +21,11 @@ namespace WordDoc
         #region Implementation of ITablatureDocumentImporter
 
         public FileType FileType { get; private set; }
+
+        public Version Version
+        {
+            get { return new Version("1.0"); }
+        }
 
         public AttributedTablature Import(string fileName)
         {

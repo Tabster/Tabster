@@ -72,7 +72,6 @@
     <Compile Include="Library\TablatureLibraryItem.cs" />
     <Compile Include="Processing\ITablatureFileExporter.cs" />
     <Compile Include="Processing\ITablatureFileImporter.cs" />
-    <Compile Include="Processing\ITablatureImporter.cs" />
     <Compile Include="Processing\ITablatureTextImporter.cs" />
     <Compile Include="Processing\ITablatureWebImporter.cs" />
     <Compile Include="Processing\TablatureProcessorException.cs" />

@@ -1,4 +1,10 @@
-﻿namespace Tabster.Data.Processing
+﻿#region
+
+using System;
+
+#endregion
+
+namespace Tabster.Data.Processing
 {
     /// <summary>
     ///     Allows exporting of a tablature document.
@@ -9,6 +15,11 @@
         ///     The file type to export to.
         /// </summary>
         FileType FileType { get; }
+
+        /// <summary>
+        ///     The exporter version.
+        /// </summary>
+        Version Version { get; }
 
         /// <summary>
         ///     Export a tablature document to the specified location.

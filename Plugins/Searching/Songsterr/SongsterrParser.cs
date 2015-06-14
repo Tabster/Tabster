@@ -23,6 +23,11 @@ namespace Songsterr
 
         public Uri Homepage { get; private set; }
 
+        public Version Version
+        {
+            get { return new Version("1.0"); }
+        }
+
         public bool IsUrlParsable(Uri url)
         {
             return url.IsWellFormedOriginalString() && ((url.DnsSafeHost.EndsWith("songsterr.com", StringComparison.InvariantCultureIgnoreCase) && url.ToString().Contains("/a/wsa/")));

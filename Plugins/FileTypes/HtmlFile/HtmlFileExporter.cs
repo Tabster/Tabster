@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using HtmlFile.Properties;
@@ -20,6 +21,11 @@ namespace HtmlFile
         #region Implementation of ITablatureFileExporter
 
         public FileType FileType { get; private set; }
+
+        public Version Version
+        {
+            get { return new Version("1.0"); }
+        }
 
         public void Export(ITablatureFile file, string fileName)
         {

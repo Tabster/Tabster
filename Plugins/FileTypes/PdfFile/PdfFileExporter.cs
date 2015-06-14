@@ -7,6 +7,7 @@ using iTextSharp.text.pdf;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Processing;
+using Version = System.Version;
 
 #endregion
 
@@ -30,6 +31,11 @@ namespace PdfFile
         #region Implementation of ITablatureFileExporter
 
         public FileType FileType { get; private set; }
+
+        public Version Version
+        {
+            get { return new Version("1.0"); }
+        }
 
         public void Export(ITablatureFile file, string fileName)
         {

@@ -21,6 +21,11 @@ namespace Tabster.Data.Processing
         Uri Homepage { get; }
 
         /// <summary>
+        ///     The exporter version.
+        /// </summary>
+        Version Version { get; }
+
+        /// <summary>
         ///     Determines whether a specified URL is parsable by the importer.
         /// </summary>
         /// <param name="url"> The URL to check. </param>

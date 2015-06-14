@@ -1,5 +1,6 @@
 #region
 
+using System;
 using System.IO;
 using Tabster.Core.Types;
 using Tabster.Data;
@@ -19,6 +20,11 @@ namespace TextFile
         #region Implementation of ITablatureDocumentImporter
 
         public FileType FileType { get; private set; }
+
+        public Version Version
+        {
+            get { return new Version("1.0"); }
+        }
 
         public AttributedTablature Import(string fileName)
         {

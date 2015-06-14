@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Tabster.Data;
@@ -17,6 +18,11 @@ namespace RtfFile
         #region Implementation of ITablatureFileExporter
 
         public FileType FileType { get; private set; }
+
+        public Version Version
+        {
+            get { return new Version("1.0"); }
+        }
 
         public void Export(ITablatureFile file, string fileName)
         {
