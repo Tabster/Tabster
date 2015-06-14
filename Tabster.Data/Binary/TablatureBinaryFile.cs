@@ -45,7 +45,7 @@ namespace Tabster.Data.Binary
 
                     //source attributes
                     writer.Write((byte) SourceType);
-                    writer.Write(Source != null ? Source.ToString() : string.Empty);
+                    writer.Write(Source != null && !Source.IsFile ? Source.ToString() : string.Empty); //don't save local file paths
                     writer.Write(SourceTag ?? string.Empty, FileAttributes.Encoding);
 
                     //extended attributes
