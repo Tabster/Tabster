@@ -120,17 +120,7 @@ namespace Tabster
         /// </summary>
         private static void ConvertXmlFiles(string tablatureDirectory, string playlistsDirectory)
         {
-            if (Directory.Exists(tablatureDirectory))
-            {
-                foreach (var file in Directory.GetFiles(tablatureDirectory, string.Format("*{0}", Constants.TablatureFileExtension), SearchOption.AllDirectories))
-                {
-                    var tablatureFile = TabsterXmlFileConverter.ConvertTablatureDocument(file);
-
-                    if (tablatureFile != null)
-                        tablatureFile.Save(file);
-                }
-            }
-
+            //convert playlist files first since they use Xml format tablature files
             if (Directory.Exists(playlistsDirectory))
             {
                 foreach (var file in Directory.GetFiles(playlistsDirectory, string.Format("*{0}", Constants.TablaturePlaylistFileExtension), SearchOption.AllDirectories))
@@ -139,6 +129,17 @@ namespace Tabster
 
                     if (playlistFile != null)
                         playlistFile.Save(file);
+                }
+            }
+
+            if (Directory.Exists(tablatureDirectory))
+            {
+                foreach (var file in Directory.GetFiles(tablatureDirectory, string.Format("*{0}", Constants.TablatureFileExtension), SearchOption.AllDirectories))
+                {
+                    var tablatureFile = TabsterXmlFileConverter.ConvertTablatureDocument(file);
+
+                    if (tablatureFile != null)
+                        tablatureFile.Save(file);
                 }
             }
         }
