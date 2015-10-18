@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
@@ -14,7 +15,11 @@ namespace Tabster.Data.Utilities
 
         public static string ReadString(this BinaryReader reader, Encoding encoding)
         {
-            var length = reader.ReadInt32();
+            var length = Read7BitEncodedInt(reader);
+
+            if (length == 0)
+                return String.Empty;
+
             var bytes = reader.ReadBytes(length);
             return encoding.GetString(bytes);
         }
@@ -22,8 +27,34 @@ namespace Tabster.Data.Utilities
         public static void Write(this BinaryWriter writer, string str, Encoding encoding)
         {
             var bytes = encoding.GetBytes(str);
-            writer.Write(bytes.Length);
+            var length = encoding.GetByteCount(str);
+            Write7BitEncodedInt(writer, length);
             writer.Write(bytes);
+        }
+
+        private static int Read7BitEncodedInt(BinaryReader reader)
+        {
+            var count = 0;
+            var shift = 0;
+            byte b;
+            do
+            {
+                b = reader.ReadByte();
+                count |= (b & 0x7F) << shift;
+                shift += 7;
+            } while ((b & 0x80) != 0);
+            return count;
+        }
+
+        private static void Write7BitEncodedInt(BinaryWriter writer, int value)
+        {
+            var v = (uint) value;
+            while (v >= 0x80)
+            {
+                writer.Write((byte) (v | 0x80));
+                v >>= 7;
+            }
+            writer.Write((byte) v);
         }
 
         #endregion
