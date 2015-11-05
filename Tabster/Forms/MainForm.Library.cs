@@ -151,7 +151,7 @@ namespace Tabster.Forms
 
         private void printSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenPreferences("Printing");
+            OpenPreferences(PreferencesDialog.PreferencesSection.Printing);
         }
 
         private void NewTab(object sender, EventArgs e)

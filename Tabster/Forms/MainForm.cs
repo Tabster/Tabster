@@ -596,7 +596,7 @@ namespace Tabster.Forms
 
         private void btnSearchOptions_Click(object sender, EventArgs e)
         {
-            OpenPreferences("Searching");
+            OpenPreferences(PreferencesDialog.PreferencesSection.Searching);
         }
 
         private void listViewSearch_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -660,9 +660,9 @@ namespace Tabster.Forms
             Program.UpdateQuery.Check(true);
         }
 
-        private void OpenPreferences(string tab = null)
+        private void OpenPreferences(PreferencesDialog.PreferencesSection section)
         {
-            using (var p = new PreferencesDialog(tab))
+            using (var p = new PreferencesDialog(section))
             {
                 if (p.ShowDialog() == DialogResult.OK)
                 {
@@ -676,7 +676,7 @@ namespace Tabster.Forms
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenPreferences();
+            OpenPreferences(PreferencesDialog.PreferencesSection.General);
         }
 
         #endregion

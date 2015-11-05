@@ -26,7 +26,17 @@ namespace Tabster.Forms
         private readonly Dictionary<TabsterPluginHost, bool> _pluginStatusMap = new Dictionary<TabsterPluginHost, bool>();
         private readonly List<TabsterPluginHost> _plugins = new List<TabsterPluginHost>();
 
-        public PreferencesDialog(string tab = null)
+
+        public enum PreferencesSection
+        {
+            General,
+            Printing,
+            Plugins,
+            Network,
+            Searching
+        }
+
+        public PreferencesDialog()
         {
             InitializeComponent();
 
@@ -37,14 +47,11 @@ namespace Tabster.Forms
             LoadPlugins();
 
             LoadSearchEngines(false);
+        }
 
-            if (!string.IsNullOrEmpty(tab))
-            {
-                var tp = tabControl1.TabPages.Cast<TabPage>()
-                    .FirstOrDefault(t => t.Text.Equals(tab, StringComparison.OrdinalIgnoreCase));
-                if (tp != null)
-                    tabControl1.SelectedTab = tp;
-            }
+        public PreferencesDialog(PreferencesSection section) : this()
+        {
+            tabControl1.SelectedIndex = (int)section;
         }
 
         public bool PluginsModified { get; private set; }
