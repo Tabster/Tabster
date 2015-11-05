@@ -67,7 +67,7 @@ namespace Tabster.Data.Utilities
         public static void WriteCompressedString(this BinaryWriter writer, string str, Encoding encoding)
         {
             var zipped = ZipText(str, encoding);
-            writer.Write(zipped.Length);
+            Write7BitEncodedInt(writer, zipped.Length);
             writer.Write(zipped);
         }
 
@@ -76,7 +76,7 @@ namespace Tabster.Data.Utilities
         /// </summary>
         public static string ReadCompressedString(this BinaryReader reader, Encoding encoding)
         {
-            var length = reader.ReadInt32();
+            var length = Read7BitEncodedInt(reader);
             var zipped = reader.ReadBytes(length);
             return Unzip(zipped, encoding);
         }
