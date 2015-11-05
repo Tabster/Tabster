@@ -70,7 +70,7 @@ namespace Tabster.Data.Binary
 
         private static long ToUnixTime(DateTime date)
         {
-            return (long)(date - UnixEpoch).TotalSeconds;
+            return (long)(date.ToUniversalTime() - UnixEpoch).TotalSeconds;
         }
 
         private static DateTime FromUnixTime(long seconds)
