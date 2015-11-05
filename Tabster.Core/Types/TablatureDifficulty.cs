@@ -66,7 +66,7 @@ namespace Tabster.Core.Types
 
         public static TablatureDifficulty Novice { get; private set; }
         public static TablatureDifficulty Intermediate { get; private set; }
-        public static TablatureDifficulty Advance { get; private set; }
+        public static TablatureDifficulty Advanced { get; private set; }
 
         public static TablatureDifficulty Undefined { get; private set; }
 
@@ -81,11 +81,11 @@ namespace Tabster.Core.Types
         {
             Novice = new TablatureDifficulty("Novice");
             Intermediate = new TablatureDifficulty("Intermediate");
-            Advance = new TablatureDifficulty("Advance");
+            Advanced = new TablatureDifficulty("Advanced");
 
             Undefined = new TablatureDifficulty(string.Empty);
 
-            NativeDifficulties = new List<TablatureDifficulty> {Novice, Intermediate, Advance};
+            NativeDifficulties = new List<TablatureDifficulty> {Novice, Intermediate, Advanced};
             KnownDifficulties.AddRange(NativeDifficulties);
         }
 
