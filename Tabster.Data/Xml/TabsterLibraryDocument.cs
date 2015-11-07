@@ -21,7 +21,8 @@ namespace Tabster.Data.Xml
         private readonly List<PlaylistLibraryItem<TablaturePlaylistDocument>> _playlistItems = new List<PlaylistLibraryItem<TablaturePlaylistDocument>>();
         private readonly List<TablatureLibraryItem<TablatureDocument>> _tablatureItems = new List<TablatureLibraryItem<TablatureDocument>>();
 
-        private readonly TabsterFileProcessor<TablatureDocument> _tablatureProcessor = new TabsterFileProcessor<TablatureDocument>(FileVersion);
+        private readonly TabsterFileProcessor<TablaturePlaylistDocument> _tablaturePlaylistProcessor = new TabsterFileProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FileVersion);
+        private readonly TabsterFileProcessor<TablatureDocument> _tablatureProcessor = new TabsterFileProcessor<TablatureDocument>(TablatureDocument.FileVersion);
 
         public ReadOnlyCollection<PlaylistLibraryItem<TablaturePlaylistDocument>> PlaylistItems
         {
@@ -69,7 +70,7 @@ namespace Tabster.Data.Xml
                 }
             }
 
-            var playlistNodes = xmlDoc.GetChildNodes(xmlDoc.GetElementByTagName("tabs"));
+            var playlistNodes = xmlDoc.GetChildNodes(xmlDoc.GetElementByTagName("playlists"));
 
             foreach (var playlistNode in playlistNodes)
             {
@@ -77,11 +78,11 @@ namespace Tabster.Data.Xml
 
                 if (File.Exists(path))
                 {
-                    var doc = _tablatureProcessor.Load(path);
+                    var doc = _tablaturePlaylistProcessor.Load(path);
 
                     if (doc != null)
                     {
-                        _tablatureItems.Add(new TablatureLibraryItem<TablatureDocument>(doc, new FileInfo(path)));
+                        _playlistItems.Add(new PlaylistLibraryItem<TablaturePlaylistDocument>(doc, new FileInfo(path)));
                     }
                 }
             }
@@ -92,7 +93,7 @@ namespace Tabster.Data.Xml
             var xmlDoc = new XmlDocument();
             xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "ISO-8859-1", null));
             var rootNode = xmlDoc.CreateElement(RootNode);
-            xmlDoc.AppendChild(rootNode);          
+            xmlDoc.AppendChild(rootNode);
 
             xmlDoc.SetAttributeValue(rootNode, "version", FileVersion.ToString());
 
