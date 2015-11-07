@@ -145,7 +145,7 @@ namespace Tabster.Forms
                     {
                         var cachedTab = _searchResultsCache[selectedResult.Source];
 
-                        var libraryItem = _tablatureLibrary.Add(cachedTab);
+                        var libraryItem = _libraryManager.Add(cachedTab);
 
                         //todo use objectliveview filtering instead of manual
                         if (TablatureLibraryItemVisible(SelectedLibrary(), libraryItem))
@@ -272,7 +272,7 @@ namespace Tabster.Forms
             var artistStrings = new List<string>();
             var titleStrings = new List<string>();
 
-            foreach (var item in _tablatureLibrary.GetTablatureItems())
+            foreach (var item in _libraryManager.GetTablatureItems())
             {
                 if (artistStrings.Find(x => x.Equals(item.File.Artist, StringComparison.OrdinalIgnoreCase)) == null)
                     artistStrings.Add(item.File.Artist);

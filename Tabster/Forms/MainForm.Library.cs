@@ -160,7 +160,7 @@ namespace Tabster.Forms
             {
                 if (n.ShowDialog() == DialogResult.OK)
                 {
-                    var item = _tablatureLibrary.Add(n.Tab);
+                    var item = _libraryManager.Add(n.Tab);
                     PopoutTab(item.File, item.FileInfo);
                 }
             }
@@ -173,7 +173,7 @@ namespace Tabster.Forms
             if (updateRecentFiles)
                 recentlyViewedMenuItem.Add(fileInfo, file.ToFriendlyString());
 
-            var libraryItem = _tablatureLibrary.FindTablatureItemByFile(file);
+            var libraryItem = _libraryManager.FindTablatureItemByFile(file);
             if (libraryItem != null)
             {
                 libraryItem.Views += 1;
@@ -222,9 +222,9 @@ namespace Tabster.Forms
                             Environment.NewLine, selectedItem.File.ToFriendlyString()), "Remove Tab",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
-                            selectedPlaylist.File.Remove(selectedItem.File);
+                            selectedPlaylist.Remove(selectedItem.FileInfo.FullName);
                             removed = true;
-                            selectedPlaylist.File.Save(selectedPlaylist.FileInfo.FullName);
+                            _playlistManager.Update(selectedPlaylist);
                         }
                     }
                 }
@@ -235,7 +235,7 @@ namespace Tabster.Forms
                         Environment.NewLine, selectedItem.File.ToFriendlyString()), "Delete Tab",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        _tablatureLibrary.RemoveTablatureItem(selectedItem);
+                        _libraryManager.Remove(selectedItem);
                         removed = true;
                     }
                 }
@@ -273,11 +273,11 @@ namespace Tabster.Forms
             {
                 if (ofd.ShowDialog() != DialogResult.Cancel)
                 {
-                    var tab = _tablatureLibrary.TablatureFileProcessor.Load(ofd.FileName);
+                    var tab = _libraryManager.GetTablatureFileProcessor().Load(ofd.FileName);
 
                     if (tab != null)
                     {
-                        var item = _tablatureLibrary.Add(tab);
+                        var item = _libraryManager.Add(tab);
                         PopoutTab(item.File, item.FileInfo);
                     }
                 }
@@ -352,17 +352,15 @@ namespace Tabster.Forms
             if (selectedItem == null)
                 return;
 
-            //check if playlists already contain 
+            //check if playlists already contains tablature
             foreach (var item in librarycontextaddtoplaylist.DropDownItems)
             {
                 var toolItem = item as ToolStripMenuItem;
 
                 if (toolItem != null && toolItem.Tag != null)
                 {
-                    var playlistPath = toolItem.Tag.ToString();
-                    var associatedPlaylist = _tablatureLibrary.FindPlaylistItemByPath(playlistPath);
-                    var alreadyExistsInPlaylist = associatedPlaylist.File.Contains(selectedItem.FileInfo.FullName);
-
+                    var associatedPlaylist = toolItem.Tag as TablaturePlaylist;
+                    var alreadyExistsInPlaylist = associatedPlaylist.Find(x => x.File.Equals(selectedItem)) != null;
                     toolItem.Enabled = !alreadyExistsInPlaylist;
                 }
             }
@@ -435,7 +433,7 @@ namespace Tabster.Forms
                 var selectedPlaylist = GetSelectedPlaylist();
 
                 //todo improve this so we aren't creating arbitary items
-                foreach (var tab in selectedPlaylist.File)
+                foreach (var tab in selectedPlaylist)
                 {
                     var file = (TablatureFile) tab.File;
 
@@ -446,7 +444,7 @@ namespace Tabster.Forms
 
             else
             {
-                items.AddRange(_tablatureLibrary.GetTablatureItems());
+                items.AddRange(_libraryManager.GetTablatureItems());
             }
 
             var currentItem = GetSelectedLibraryItem();
@@ -494,11 +492,11 @@ namespace Tabster.Forms
                     //native file format
                     if (ofd.FilterIndex == 1)
                     {
-                        var file = _tablatureLibrary.TablatureFileProcessor.Load(ofd.FileName);
+                        var file = _libraryManager.GetTablatureFileProcessor().Load(ofd.FileName);
 
                         if (file != null)
                         {
-                            _tablatureLibrary.Add(file);
+                            _libraryManager.Add(file);
                         }
                     }
 
@@ -528,7 +526,7 @@ namespace Tabster.Forms
                                     tab.Contents = importedTab.Contents;
                                     tab.Source = new Uri(ofd.FileName);
                                     tab.SourceType = TablatureSourceType.FileImport;
-                                    _tablatureLibrary.Add(tab);
+                                    _libraryManager.Add(tab);
                                     UpdateDetails();
                                 }
                             }
@@ -550,8 +548,8 @@ namespace Tabster.Forms
 
         private void UpdateDetails()
         {
-            lblcount.Text = string.Format("Total Tabs: {0}", _tablatureLibrary.GetTablatureItems().Count);
-            lblplaylists.Text = string.Format("Playlists: {0}", _tablatureLibrary.GetPlaylistItems().Count);
+            lblcount.Text = string.Format("Total Tabs: {0}", _libraryManager.Count);
+            lblplaylists.Text = string.Format("Playlists: {0}", _playlistManager.Count);
         }
 
         private void RemoveSelectedTablatureLibraryItem()
@@ -578,7 +576,7 @@ namespace Tabster.Forms
 
             if (GetSelectedLibraryItem() != null)
             {
-                using (var details = new TabDetailsDialog(GetSelectedLibraryItem().File, _tablatureLibrary) {Icon = Icon})
+                using (var details = new TabDetailsDialog(GetSelectedLibraryItem(), _playlistManager) {Icon = Icon})
                 {
                     if (details.ShowDialog() == DialogResult.OK)
                     {
@@ -595,13 +593,14 @@ namespace Tabster.Forms
                 var playlist = GetSelectedPlaylist();
                 var selectedNode = sidemenu.SelectedNode;
 
-                using (var pdd = new PlaylistDetailsDialog(playlist.File, playlist.FileInfo))
+                using (var pdd = new PlaylistDetailsDialog(playlist))
                 {
                     if (pdd.ShowDialog() == DialogResult.OK)
                     {
                         if (pdd.PlaylistRenamed)
                         {
-                            selectedNode.Text = playlist.File.Name;
+                            selectedNode.Text = playlist.Name;
+                            _playlistManager.Update(playlist);
                         }
                     }
                 }
@@ -692,7 +691,7 @@ namespace Tabster.Forms
 
                 if (playlistItem != null && MessageBox.Show("Are you sure you want to delete this playlist?", "Delete Playlist", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    _tablatureLibrary.RemovePlaylistItem(playlistItem);
+                    _playlistManager.Remove(playlistItem);
                     RemovePlaylistNode(playlistItem);
                     UpdateDetails();
                 }
@@ -711,7 +710,7 @@ namespace Tabster.Forms
                         return;
                     }
 
-                    var playlist = new TablaturePlaylistFile {Name = p.PlaylistName};
+                    var playlist = new TablaturePlaylist(p.PlaylistName) {Created = DateTime.UtcNow};
 
                     var item = GetSelectedLibraryItem();
 
@@ -725,31 +724,28 @@ namespace Tabster.Forms
                         }
                     }
 
-                    var playlistItem = _tablatureLibrary.Add(playlist);
-
-                    AddPlaylistNode(playlistItem.File, playlistItem.FileInfo);
+                    AddPlaylistNode(playlist);
                     PopulatePlaylistMenu();
                     UpdateDetails();
                 }
             }
         }
 
-        private PlaylistLibraryItem<TablaturePlaylistFile> GetSelectedPlaylist()
+        private TablaturePlaylist GetSelectedPlaylist()
         {
-            var playlistPath = sidemenu.SelectedNode.Tag.ToString();
-            return _tablatureLibrary.FindPlaylistItemByPath(playlistPath);
+            return sidemenu.SelectedNode.Tag as TablaturePlaylist;
         }
 
-        private void AddPlaylistNode(TablaturePlaylistFile playlistFile, FileInfo fileInfo, bool select = false)
+        private void AddPlaylistNode(TablaturePlaylist playlist, bool select = false)
         {
             var playlistRootNode = sidemenu.Nodes["node_playlists"];
 
             //check if tablaturePlaylist node already exists
-            var node = playlistRootNode.Nodes.Cast<TreeNode>().FirstOrDefault(n => n.Tag.ToString().Equals(fileInfo.FullName, StringComparison.OrdinalIgnoreCase));
+            var node = playlistRootNode.Nodes.Cast<TreeNode>().FirstOrDefault(n => n.Tag.Equals(playlist));
 
             if (node == null)
             {
-                node = new TreeNode(playlistFile.Name) {NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = fileInfo.FullName};
+                node = new TreeNode(playlist.Name) { NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = playlist };
                 playlistRootNode.Nodes.Add(node);
 
                 if (!playlistRootNode.IsExpanded)
@@ -760,11 +756,11 @@ namespace Tabster.Forms
                 sidemenu.SelectedNode = node;
         }
 
-        private void RemovePlaylistNode(PlaylistLibraryItem<TablaturePlaylistFile> playlistItem)
+        private void RemovePlaylistNode(TablaturePlaylist playlist)
         {
             foreach (TreeNode node in sidemenu.Nodes["node_playlists"].Nodes)
             {
-                if (node.Tag.ToString().Equals(playlistItem.FileInfo.FullName))
+                if (node.Tag.Equals(playlist))
                 {
                     sidemenu.Nodes.Remove(node);
                     break;
@@ -782,23 +778,23 @@ namespace Tabster.Forms
 
             librarycontextaddtoplaylist.DropDownItems.Clear();
 
-            foreach (var playlist in _tablatureLibrary.GetPlaylistItems())
+            foreach (var playlist in _playlistManager.GetPlaylists())
             {
-                var menuItem = new ToolStripMenuItem(playlist.File.Name) {Tag = playlist.FileInfo.FullName};
+                var menuItem = new ToolStripMenuItem(playlist.Name) {Tag = playlist};
 
                 menuItem.Click += (s, e) =>
                 {
                     var path = ((ToolStripMenuItem) s).Tag.ToString();
 
-                    var playlistItem = _tablatureLibrary.FindPlaylistItemByPath(path);
-                    var playlistFile = playlistItem.File;
+                    var playlistItem = ((ToolStripMenuItem)s).Tag as TablaturePlaylist;
 
-                    if (playlistFile != null)
+
+                    if (playlistItem != null)
                     {
                         var libraryItem = GetSelectedLibraryItem();
 
-                        playlistFile.Add(new TablaturePlaylistItem(libraryItem.File, libraryItem.FileInfo));
-                        playlistFile.Save(playlistItem.FileInfo.FullName);
+                        playlistItem.Add(new TablaturePlaylistItem(libraryItem.File, libraryItem.FileInfo));
+                        _playlistManager.Update(playlistItem);
                     }
                 };
 

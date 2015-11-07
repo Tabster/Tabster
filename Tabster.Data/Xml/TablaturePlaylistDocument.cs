@@ -111,7 +111,7 @@ namespace Tabster.Data.Xml
                 throw new TabsterFileException("Missing playlist name");
 
             //playlist format never had created property, use filesystem
-            FileAttributes = new TabsterFileAttributes(fi.CreationTime, Encoding.GetEncoding(xmlDoc.GetXmlDeclaration().Encoding));
+            FileAttributes = new TabsterFileAttributes(fi.CreationTime.ToUniversalTime(), Encoding.GetEncoding(xmlDoc.GetXmlDeclaration().Encoding));
 
             var fileNodes = xmlDoc.GetChildNodes(xmlDoc.GetElementByTagName("files"));
 

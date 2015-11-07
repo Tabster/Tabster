@@ -59,12 +59,10 @@
     <Compile Include="ITabsterFile.cs" />
     <Compile Include="Library\LibraryItem.cs" />
     <Compile Include="Library\PlaylistLibraryItem.cs" />
-    <Compile Include="Library\TabsterFileSystemLibrary.cs" />
-    <Compile Include="PlaylistItem.cs" />
+    <Compile Include="Library\TablatureFileLibrary.cs" />
+    <Compile Include="TablaturePlaylist.cs" />
     <Compile Include="TabsterFileAttributes.cs" />
-    <Compile Include="Library\TabsterLibraryBase.cs" />
     <Compile Include="Binary\TablatureBinaryFile.cs" />
-    <Compile Include="Binary\TablaturePlaylistFile.cs" />
     <Compile Include="Binary\TabsterBinaryFileBase.cs" />
     <Compile Include="TabsterFileHeader.cs" />
     <Compile Include="TabsterXmlFileConverter.cs" />

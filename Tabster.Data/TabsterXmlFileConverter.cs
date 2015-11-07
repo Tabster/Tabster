@@ -13,14 +13,12 @@ namespace Tabster.Data
 
 #pragma warning disable 612
         private static readonly TabsterFileProcessor<TablatureDocument> TablatureDocumentProcessor;
-        private static readonly TabsterFileProcessor<TablaturePlaylistDocument> TablaturePlaylistDocumentProcessor;
 #pragma warning restore 612
 
         static TabsterXmlFileConverter()
         {
 #pragma warning disable 612
             TablatureDocumentProcessor = new TabsterFileProcessor<TablatureDocument>(TablatureDocument.FileVersion);
-            TablaturePlaylistDocumentProcessor = new TabsterFileProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FileVersion);
 #pragma warning restore 612
         }
 
@@ -45,29 +43,6 @@ namespace Tabster.Data
 
                 //xml format uses ISO-8859-1, binary uses UTF-8 by default
                 file.FileAttributes.Encoding = TablatureFile.DefaultEncoding;
-
-                return file;
-            }
-
-            return null;
-        }
-
-        public static TablaturePlaylistFile ConvertTablaturePlaylist(string fileName)
-        {
-            var doc = TablaturePlaylistDocumentProcessor.Load(fileName);
-
-            if (doc != null)
-            {
-                var file = new TablaturePlaylistFile
-                {
-                    Name = doc.Name,
-                    FileAttributes = doc.FileAttributes,
-                };
-
-                foreach (var item in doc)
-                {
-                    file.Add(item);
-                }
 
                 return file;
             }

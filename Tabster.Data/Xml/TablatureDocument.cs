@@ -60,7 +60,7 @@ namespace Tabster.Data.Xml
 
             var createdValue = xmlDoc.GetNodeValues(new[] {"date", "created"});
 
-            var created = fi.CreationTime; //default to filesystem time
+            var created = fi.CreationTime.ToUniversalTime(); //default to filesystem time
 
             if (!string.IsNullOrEmpty(createdValue))
                 DateTime.TryParse(createdValue, out created);

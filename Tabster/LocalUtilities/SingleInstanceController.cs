@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
 using Tabster.Data.Binary;
+using Tabster.Database;
 using Tabster.Forms;
 using Tabster.Properties;
 
@@ -15,22 +16,25 @@ namespace Tabster.LocalUtilities
 {
     internal class SingleInstanceController : WindowsFormsApplicationBase
     {
-        private static SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile> _library;
+        private readonly LibraryManager _libraryManager;
+        private readonly PlaylistManager _playlistManager;
+        private readonly bool _filesNeedScanned;
 #if DEBUG
         private const int MIN_SPLASH_TIME = 1000;
 #else
         private const int MIN_SPLASH_TIME = 3500;
 #endif
         private static TablatureFile _queuedTabfile;
-        private static TablaturePlaylistFile _queuedTablaturePlaylistFile;
         private static FileInfo _queuedFileInfo;
         private static bool _isLibraryOpen;
         private static bool _noSplash;
         private static bool _safeMode;
 
-        public SingleInstanceController(SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile> library)
+        public SingleInstanceController(LibraryManager libraryManager, PlaylistManager playlistManager, bool filesNeedScanned)
         {
-            _library = library;
+            _libraryManager = libraryManager;
+            _playlistManager = playlistManager;
+            _filesNeedScanned = filesNeedScanned;
             IsSingleInstance = true;
             StartupNextInstance += this_StartupNextInstance;
         }
@@ -58,25 +62,15 @@ namespace Tabster.LocalUtilities
 
                 if (File.Exists(firstArg))
                 {
-                    _queuedFileInfo = new FileInfo(firstArg);
-                    var tablatureDocument = _library.TablatureFileProcessor.Load(firstArg);
+                    var tablatureDocument = _libraryManager.GetTablatureFileProcessor().Load(firstArg);
 
                     if (tablatureDocument != null)
                     {
                         _queuedTabfile = tablatureDocument;
+                        _queuedFileInfo = new FileInfo(firstArg);
 
                         if (_isLibraryOpen)
                             Program.TabbedViewer.LoadTablature(tablatureDocument, _queuedFileInfo);
-                    }
-
-                    else
-                    {
-                        var playlistDocument = _library.TablaturePlaylistFileProcessor.Load(firstArg);
-
-                        if (playlistDocument != null)
-                        {
-                            _queuedTablaturePlaylistFile = playlistDocument;
-                        }
                     }
                 }
             }
@@ -110,12 +104,9 @@ namespace Tabster.LocalUtilities
 
             PerformStartupEvents();
 
-            if (_queuedTabfile != null)
-                base.MainForm = new MainForm(_library, _queuedTabfile, _queuedFileInfo);
-            else if (_queuedTablaturePlaylistFile != null)
-                base.MainForm = new MainForm(_library, _queuedTablaturePlaylistFile, _queuedFileInfo);
-            else
-                base.MainForm = new MainForm(_library);
+            base.MainForm = _queuedTabfile != null ? 
+                new MainForm(_libraryManager, _playlistManager, _queuedTabfile, _queuedFileInfo) : 
+                new MainForm(_libraryManager, _playlistManager);
 
             _isLibraryOpen = true;
         }
@@ -144,7 +135,7 @@ namespace Tabster.LocalUtilities
 
         private void PerformStartupEvents()
         {
-            var splashStatuses = new[] {"Initializing plugins...", "Loading library...", "Checking for updates..."};
+            var splashStatuses = new[] {"Initializing plugins...", "Loading library...", "Loading playlists...", "Checking for updates..."};
 
             var sleepDuration = MIN_SPLASH_TIME/splashStatuses.Length/2;
 
@@ -160,7 +151,15 @@ namespace Tabster.LocalUtilities
                 SetSplashStatus(splashStatuses[1]);
             }
 
-            _library.Load();
+            _libraryManager.Load(_filesNeedScanned);
+
+#if DEBUG
+            Thread.Sleep(sleepDuration);
+#endif
+
+            SetSplashStatus(splashStatuses[2]);
+
+            _playlistManager.Load();
 
 #if DEBUG
             Thread.Sleep(sleepDuration);
@@ -168,7 +167,7 @@ namespace Tabster.LocalUtilities
 
             if (Settings.Default.StartupUpdate)
             {
-                SetSplashStatus(splashStatuses[2]);
+                SetSplashStatus(splashStatuses[3]);
 
 #if DEBUG
                 Thread.Sleep(sleepDuration);

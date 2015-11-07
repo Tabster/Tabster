@@ -46,7 +46,7 @@ namespace Tabster.Data.Xml
             var rootNode = xmlDoc.GetElementByTagName(RootNode);
 
             FileHeader = new TabsterFileHeader(new Version(rootNode.GetAttributeValue("version")), CompressionMode.None);
-            FileAttributes = new TabsterFileAttributes(fi.CreationTime, Encoding.GetEncoding(xmlDoc.GetXmlDeclaration().Encoding));
+            FileAttributes = new TabsterFileAttributes(fi.CreationTime.ToUniversalTime(), Encoding.GetEncoding(xmlDoc.GetXmlDeclaration().Encoding));
 
             var tabNodes = xmlDoc.GetChildNodes(xmlDoc.GetElementByTagName("tabs"));
 

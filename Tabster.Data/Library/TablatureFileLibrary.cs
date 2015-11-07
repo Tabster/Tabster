@@ -1,5 +1,7 @@
 #region
 
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Tabster.Core.Types;
@@ -9,38 +11,34 @@ using Tabster.Data.Processing;
 
 namespace Tabster.Data.Library
 {
-    public class TabsterFileSystemLibraryBase<TTablatureFile, TTablaturePlaylistFile> : TabsterLibraryBase<TTablatureFile, TTablaturePlaylistFile>
-        where TTablatureFile : class, ITablatureFile, new()
-        where TTablaturePlaylistFile : class, ITablaturePlaylistFile, new()
+    public class TablatureFileLibrary<TTablatureFile> where TTablatureFile : class, ITablatureFile, new()
     {
-        public readonly TabsterFileProcessor<TTablatureFile> TablatureFileProcessor;
-        public readonly TabsterFileProcessor<TTablaturePlaylistFile> TablaturePlaylistFileProcessor;
+        private readonly TabsterFileProcessor<TTablatureFile> _tablatureFileProcessor;
 
-        public TabsterFileSystemLibraryBase(string tablatureDirectory, string playlistDirectory,
-            TabsterFileProcessor<TTablatureFile> tablatureFileProcessor, TabsterFileProcessor<TTablaturePlaylistFile> tablaturePlaylistFileProcessor)
+        private readonly List<TablatureLibraryItem<TTablatureFile>> _items = new List<TablatureLibraryItem<TTablatureFile>>();
+
+        public TablatureFileLibrary(string tablatureDirectory,
+            TabsterFileProcessor<TTablatureFile> tablatureFileProcessor)
         {
             TablatureDirectory = tablatureDirectory;
-            PlaylistDirectory = playlistDirectory;
-            TablatureFileProcessor = tablatureFileProcessor;
-            TablaturePlaylistFileProcessor = tablaturePlaylistFileProcessor;
+            _tablatureFileProcessor = tablatureFileProcessor;
 
             if (!Directory.Exists(TablatureDirectory))
                 Directory.CreateDirectory(TablatureDirectory);
-
-            if (!Directory.Exists(PlaylistDirectory))
-                Directory.CreateDirectory(PlaylistDirectory);
         }
 
         public string TablatureDirectory { get; private set; }
-        public string PlaylistDirectory { get; private set; }
 
-        #region Tablature Methods
+        public TabsterFileProcessor<TTablatureFile> GetTablatureFileProcessor()
+        {
+            return _tablatureFileProcessor;
+        } 
 
         public virtual void LoadTablatureFiles()
         {
             foreach (var file in Directory.GetFiles(TablatureDirectory, string.Format("*{0}", Constants.TablatureFileExtension)))
             {
-                var tablatureFile = TablatureFileProcessor.Load(file);
+                var tablatureFile = _tablatureFileProcessor.Load(file);
 
                 if (tablatureFile != null)
                 {
@@ -51,6 +49,9 @@ namespace Tabster.Data.Library
 
         public virtual TablatureLibraryItem<TTablatureFile> Add(AttributedTablature tablature)
         {
+            if (tablature == null)
+                throw new ArgumentNullException("tablature");
+
             var file = new TTablatureFile
             {
                 Artist = tablature.Artist,
@@ -63,8 +64,19 @@ namespace Tabster.Data.Library
             return Add(file);
         }
 
+        public virtual void Add(TablatureLibraryItem<TTablatureFile> item)
+        {
+            if (item == null)
+                throw new ArgumentNullException("item");
+
+            _items.Add(item);
+        }
+
         public virtual TablatureLibraryItem<TTablatureFile> Add(TTablatureFile file, FileInfo fileInfo = null)
         {
+            if (file == null)
+                throw new ArgumentNullException("file");
+
             if (fileInfo == null)
             {
                 var path = GenerateUniqueFilename(TablatureDirectory, string.Format("{0}{1}", file.ToFriendlyString(), Constants.TablatureFileExtension));
@@ -73,58 +85,57 @@ namespace Tabster.Data.Library
             }
 
             var item = new TablatureLibraryItem<TTablatureFile>(file, fileInfo);
-            base.AddTablatureItem(item);
+            _items.Add(item);
             return item;
         }
 
-        public override bool RemoveTablatureItem(TablatureLibraryItem<TTablatureFile> item)
+        public virtual bool Remove(TablatureLibraryItem<TTablatureFile> item)
         {
+            if (item == null)
+                throw new ArgumentNullException("item");
+
             if (File.Exists(item.FileInfo.FullName))
                 File.Delete(item.FileInfo.FullName);
 
-            return base.RemoveTablatureItem(item);
+            return _items.Remove(item);
         }
 
-        #endregion
-
-        #region Playlist Methods
-
-        public virtual void LoadPlaylistFiles()
+        public virtual TablatureLibraryItem<TTablatureFile> FindTablatureItem(Predicate<TablatureLibraryItem<TTablatureFile>> match)
         {
-            foreach (var file in Directory.GetFiles(PlaylistDirectory, string.Format("*{0}", Constants.TablaturePlaylistFileExtension)))
-            {
-                var playlistFile = TablaturePlaylistFileProcessor.Load(file);
+            if (match == null)
+                throw new ArgumentNullException("match");
 
-                if (playlistFile != null)
-                {
-                    Add(playlistFile, new FileInfo(file));
-                }
-            }
+            return _items.Find(match);
         }
 
-        public virtual PlaylistLibraryItem<TTablaturePlaylistFile> Add(TTablaturePlaylistFile file, FileInfo fileInfo = null)
+        public List<TablatureLibraryItem<TTablatureFile>> FindAllTablatureItems(Predicate<TablatureLibraryItem<TTablatureFile>> match)
         {
-            if (fileInfo == null)
-            {
-                var path = GenerateUniqueFilename(PlaylistDirectory, string.Format("{0}{1}", file.Name, Constants.TablaturePlaylistFileExtension));
-                file.Save(path);
-                fileInfo = new FileInfo(path);
-            }
+            if (match == null)
+                throw new ArgumentNullException("match");
 
-            var item = new PlaylistLibraryItem<TTablaturePlaylistFile>(file, fileInfo);
-            base.AddPlaylistItem(item);
-            return item;
+            return _items.FindAll(match);
         }
 
-        public override bool RemovePlaylistItem(PlaylistLibraryItem<TTablaturePlaylistFile> item)
+        public virtual TablatureLibraryItem<TTablatureFile> FindTablatureItemByFile(TTablatureFile file)
         {
-            if (File.Exists(item.FileInfo.FullName))
-                File.Delete(item.FileInfo.FullName);
+            if (file == null)
+                throw new ArgumentNullException("file");
 
-            return base.RemovePlaylistItem(item);
+            return _items.Find(x => x.File.Equals(file));
         }
 
-        #endregion
+        public virtual TablatureLibraryItem<TTablatureFile> FindTablatureItemByPath(string path)
+        {
+            if (path == null)
+                throw new ArgumentNullException("path");
+
+            return _items.Find(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public virtual List<TablatureLibraryItem<TTablatureFile>> GetTablatureItems()
+        {
+            return new List<TablatureLibraryItem<TTablatureFile>>(_items);
+        }
 
         private static string GenerateUniqueFilename(string directory, string filename)
         {

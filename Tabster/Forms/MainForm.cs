@@ -13,6 +13,7 @@ using Tabster.Data;
 using Tabster.Data.Binary;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
+using Tabster.Database;
 using Tabster.LocalUtilities;
 using Tabster.Properties;
 using Tabster.Updater;
@@ -27,13 +28,16 @@ namespace Tabster.Forms
     {
         private readonly FileInfo _queuedFileInfo;
         private readonly TablatureFile _queuedTablatureFile;
-        private readonly TablaturePlaylistFile _queuedTablatureTablaturePlaylist;
         private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDataDirectory, "recent.dat");
-        private readonly SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile> _tablatureLibrary;
 
-        public MainForm(SqliteTabsterLibrary<TablatureFile, TablaturePlaylistFile> tablatureLibrary)
+        private readonly LibraryManager _libraryManager;
+        private readonly PlaylistManager _playlistManager;
+
+        public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager)
         {
-            _tablatureLibrary = tablatureLibrary;
+            _libraryManager = libraryManager;
+            _playlistManager = playlistManager;
+
             InitializeComponent();
 
             Text = string.Format("{0} v{1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
@@ -72,23 +76,10 @@ namespace Tabster.Forms
             ToggleEmptyLibraryOverlay(listViewSearch, true);
         }
 
-        public MainForm(SqliteTabsterLibrary<TablatureFile,
-            TablaturePlaylistFile> tablatureLibrary,
-            TablatureFile tablatureFile,
-            FileInfo fileInfo)
-            : this(tablatureLibrary)
+        public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager, 
+            TablatureFile tablatureFile, FileInfo fileInfo) : this(libraryManager, playlistManager)
         {
             _queuedTablatureFile = tablatureFile;
-            _queuedFileInfo = fileInfo;
-        }
-
-        public MainForm(SqliteTabsterLibrary<TablatureFile,
-            TablaturePlaylistFile> tablatureLibrary,
-            TablaturePlaylistFile playlistFile,
-            FileInfo fileInfo)
-            : this(tablatureLibrary)
-        {
-            _queuedTablatureTablaturePlaylist = playlistFile;
             _queuedFileInfo = fileInfo;
         }
 
@@ -133,9 +124,9 @@ namespace Tabster.Forms
 
             sidemenu.SelectedNode = sidemenu.Nodes[0].FirstNode;
 
-            foreach (var playlist in _tablatureLibrary.GetPlaylistItems())
+            foreach (var playlist in _playlistManager.GetPlaylists())
             {
-                AddPlaylistNode(playlist.File, playlist.FileInfo);
+                AddPlaylistNode(playlist);
             }
 
             PopulatePlaylistMenu();
@@ -157,12 +148,6 @@ namespace Tabster.Forms
             {
                 PopoutTab(_queuedTablatureFile, _queuedFileInfo);
             }
-
-            //loads queued tablaturePlaylist after splash
-            if (_queuedTablatureTablaturePlaylist != null)
-            {
-                AddPlaylistNode(_queuedTablatureTablaturePlaylist, _queuedFileInfo);
-            }
         }
 
         private void LoadRecentFilesList()
@@ -179,7 +164,7 @@ namespace Tabster.Forms
             foreach (XmlNode pathNode in pathNodes)
             {
                 var path = pathNode.InnerText;
-                var file = _tablatureLibrary.TablatureFileProcessor.Load(path);
+                var file = _libraryManager.GetTablatureFileProcessor().Load(path);
 
                 if (file != null)
                 {
@@ -287,7 +272,7 @@ namespace Tabster.Forms
         {
             var path = item.Tag.ToString();
 
-            var tab = _tablatureLibrary.TablatureFileProcessor.Load(path);
+            var tab = _libraryManager.GetTablatureFileProcessor().Load(path);
 
             if (tab != null)
             {
@@ -310,7 +295,7 @@ namespace Tabster.Forms
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _tablatureLibrary.Save();
+            _libraryManager.Save();
 
             SaveRecentFilesList();
             SaveSettings();
@@ -467,29 +452,6 @@ namespace Tabster.Forms
             }
         }
 
-        private void openPlaylistMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var ofd = new OpenFileDialog
-            {
-                Title = "Open Playlist",
-                AddExtension = true,
-                Multiselect = false,
-                Filter = string.Format("Tabster Playlist Files (*{0})|*{0}", Constants.TablaturePlaylistFileExtension)
-            })
-            {
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    var playlist = _tablatureLibrary.TablaturePlaylistFileProcessor.Load(ofd.FileName);
-
-                    if (playlist != null)
-                    {
-                        var item = _tablatureLibrary.Add(playlist);
-                        AddPlaylistNode(item.File, item.FileInfo, true);
-                    }
-                }
-            }
-        }
-
         private void batchDownloaderMenuItem_Click(object sender, EventArgs e)
         {
             using (var dialog = new DownloadDialog(_webImporters))
@@ -498,7 +460,7 @@ namespace Tabster.Forms
                 {
                     foreach (var tab in dialog.DownloadedTabs)
                     {
-                        var libraryItem = _tablatureLibrary.Add(tab);
+                        var libraryItem = _libraryManager.Add(tab);
                     }
                 }
             }
@@ -541,14 +503,14 @@ namespace Tabster.Forms
 
             foreach (var str in data)
             {
-                var file = _tablatureLibrary.TablatureFileProcessor.Load(str);
+                var file = _libraryManager.GetTablatureFileProcessor().Load(str);
 
-                //copy to tablaturePlaylist
+                //copy to playlist
                 if (selectedPlaylist != null)
                 {
-                    if (!selectedPlaylist.File.Contains(str))
+                    if (selectedPlaylist.Find(str) == null)
                     {
-                        selectedPlaylist.File.Add(new TablaturePlaylistItem(file, new FileInfo(str)));
+                        selectedPlaylist.Add(new TablaturePlaylistItem(file, new FileInfo(str)));
                         needsSaved = true;
                     }
                 }
@@ -556,9 +518,9 @@ namespace Tabster.Forms
                     //copy to library
                 else
                 {
-                    if (_tablatureLibrary.FindTablatureItemByPath(str) == null)
+                    if (_libraryManager.FindTablatureItemByPath(str) == null)
                     {
-                        _tablatureLibrary.Add(file);
+                        _libraryManager.Add(file);
 
                         needsSaved = true;
                     }
@@ -568,7 +530,7 @@ namespace Tabster.Forms
             if (needsSaved)
             {
                 if (selectedPlaylist != null)
-                    selectedPlaylist.File.Save(selectedPlaylist.FileInfo.FullName);
+                    _playlistManager.Update(selectedPlaylist);
             }
         }
 

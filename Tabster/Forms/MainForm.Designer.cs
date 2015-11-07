@@ -136,7 +136,6 @@ namespace Tabster.Forms
             this.newTabMenuItem = new System.Windows.Forms.MenuItem();
             this.newPlaylistMenuItem = new System.Windows.Forms.MenuItem();
             this.openTabMenuItem = new System.Windows.Forms.MenuItem();
-            this.openPlaylistMenuItem = new System.Windows.Forms.MenuItem();
             this.importMenuItem = new System.Windows.Forms.MenuItem();
             this.recentlyViewedMenuItem = new Tabster.Controls.RecentToolStripMenuItem();
             this.exitMenuItem = new System.Windows.Forms.MenuItem();
@@ -932,7 +931,7 @@ namespace Tabster.Forms
             // 
             this.librarycontextexport.Name = "librarycontextexport";
             this.librarycontextexport.Size = new System.Drawing.Size(151, 22);
-            this.librarycontextexport.Text = "Export";
+            this.librarycontextexport.Text = "Export...";
             this.librarycontextexport.Click += new System.EventHandler(this.ExportTab);
             // 
             // librarycontextbrowse
@@ -1082,7 +1081,6 @@ namespace Tabster.Forms
             this.newTabMenuItem,
             this.newPlaylistMenuItem,
             this.openTabMenuItem,
-            this.openPlaylistMenuItem,
             this.importMenuItem,
             this.recentlyViewedMenuItem,
             this.exitMenuItem});
@@ -1109,15 +1107,9 @@ namespace Tabster.Forms
             this.openTabMenuItem.Text = "Open...";
             this.openTabMenuItem.Click += new System.EventHandler(this.BrowseTab);
             // 
-            // openPlaylistMenuItem
-            // 
-            this.openPlaylistMenuItem.Index = 3;
-            this.openPlaylistMenuItem.Text = "Open Playlist...";
-            this.openPlaylistMenuItem.Click += new System.EventHandler(this.openPlaylistMenuItem_Click);
-            // 
             // importMenuItem
             // 
-            this.importMenuItem.Index = 4;
+            this.importMenuItem.Index = 3;
             this.importMenuItem.Shortcut = System.Windows.Forms.Shortcut.CtrlI;
             this.importMenuItem.Text = "Import...";
             this.importMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
@@ -1129,7 +1121,7 @@ namespace Tabster.Forms
             this.recentlyViewedMenuItem.DisplayMode = Tabster.Controls.RecentToolStripMenuItem.RecentFilesDisplayMode.Consecutive;
             this.recentlyViewedMenuItem.DisplayOpenAllOption = true;
             this.recentlyViewedMenuItem.Enabled = false;
-            this.recentlyViewedMenuItem.Index = 5;
+            this.recentlyViewedMenuItem.Index = 4;
             this.recentlyViewedMenuItem.MaxDisplayItems = 10;
             this.recentlyViewedMenuItem.OpenAllOptionText = "Open All Recent Items";
             this.recentlyViewedMenuItem.PrependItemNumbers = true;
@@ -1140,7 +1132,7 @@ namespace Tabster.Forms
             // 
             // exitMenuItem
             // 
-            this.exitMenuItem.Index = 6;
+            this.exitMenuItem.Index = 5;
             this.exitMenuItem.Text = "&Exit";
             this.exitMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -1427,7 +1419,6 @@ namespace Tabster.Forms
         private TextBoxExtended txtLibraryFilter;
         private TabTypeDropdown searchTypeList;
         private ToolStripMenuItem sortByToolStripMenuItem;
-        private MenuItem openPlaylistMenuItem;
         private MenuItem batchDownloaderMenuItem;
         private BasicTablatureTextEditor PreviewEditor;
         private ToolStripSplitButton printbtn;

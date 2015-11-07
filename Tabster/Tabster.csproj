@@ -114,7 +114,10 @@
     <Compile Include="Forms\DownloadDialog.Designer.cs">
       <DependentUpon>DownloadDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Database\LibraryManager.cs" />
     <Compile Include="LocalUtilities\SqliteTabsterLibrary.cs" />
+    <Compile Include="Database\TabsterDatabaseHelper.cs" />
+    <Compile Include="Database\PlaylistManager.cs" />
     <Compile Include="LocalUtilities\UserSettingsUtilities.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Controls\TextBoxExtended.cs">
@@ -232,6 +235,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExternalViewerForm.resx">
       <DependentUpon>ExternalViewerForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

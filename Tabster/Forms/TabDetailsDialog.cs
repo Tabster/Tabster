@@ -3,8 +3,10 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Tabster.Data;
 using Tabster.Data.Binary;
 using Tabster.Data.Library;
+using Tabster.Database;
 
 #endregion
 
@@ -12,14 +14,14 @@ namespace Tabster.Forms
 {
     internal partial class TabDetailsDialog : Form
     {
-        private readonly TablatureFile _file;
-        private readonly TabsterFileSystemLibraryBase<TablatureFile, TablaturePlaylistFile> _library;
+        private readonly TablatureLibraryItem<TablatureFile> _libraryItem;
+        private readonly PlaylistManager _playlistManager;
 
-        public TabDetailsDialog(TablatureFile file, TabsterFileSystemLibraryBase<TablatureFile, TablaturePlaylistFile> library = null)
+        public TabDetailsDialog(TablatureLibraryItem<TablatureFile> libraryItem, PlaylistManager playlistManager)
         {
             InitializeComponent();
-            _file = file;
-            _library = library;
+            _libraryItem = libraryItem;
+            _playlistManager = playlistManager;
 
             LoadTablatureData();
             LoadLibraryInformation();
@@ -27,55 +29,63 @@ namespace Tabster.Forms
 
         private void LoadTablatureData()
         {
-            var item = _library.FindTablatureItemByFile(_file);
+            txtlocation.Text = _libraryItem.FileInfo.FullName;
 
-            txtlocation.Text = item.FileInfo.FullName;
+            //tablature information
+            txtArtist.Text = _libraryItem.File.Artist;
+            txtTitle.Text = _libraryItem.File.Title;
+            typeList.SelectedType = _libraryItem.File.Type;
+            tablatureTuningDropdown1.SelectedTuning = _libraryItem.File.Tuning;
+            txtSubtitle.Text = _libraryItem.File.Subtitle;
+            tablatureDifficultyDropdown1.SelectedDifficulty = _libraryItem.File.Difficulty;
+            txtAuthor.Text = _libraryItem.File.Author;
+            txtCopyright.Text = _libraryItem.File.Copyright;
+            txtAlbum.Text = _libraryItem.File.Album;
+            txtGenre.Text = _libraryItem.File.Genre;
+            tablatureRatingDropdown1.SelectedRating = _libraryItem.Rating;
+            txtComment.Text = _libraryItem.File.Comment;
 
-            txtartist.Text = _file.Artist;
-            txtsong.Text = _file.Title;
-            typeList.SelectedType = _file.Type;
-            txtcomment.Text = _file.Comment;
+            txtLyrics.Text = _libraryItem.File.Lyrics;
 
-            tablatureRatingDropdown1.SelectedRating = item.Rating;
-
-            lblFormat.Text += _file.FileHeader.Version.ToString();
-            lblLength.Text += string.Format(" {0:n0} bytes", item.FileInfo.Length);
-            lblCreated.Text += string.Format(" {0}", item.FileInfo.CreationTime);
-            lblModified.Text += string.Format(" {0}", item.FileInfo.LastWriteTime);
+            //file information
+            lblFormat.Text += _libraryItem.File.FileHeader.Version.ToString();
+            lblLength.Text += string.Format(" {0:n0} bytes", _libraryItem.FileInfo.Length);
+            lblCreated.Text += string.Format(" {0}", _libraryItem.FileInfo.CreationTime);
+            lblModified.Text += string.Format(" {0}", _libraryItem.FileInfo.LastWriteTime);
+            lblCompressed.Text += string.Format(" {0}", _libraryItem.File.FileHeader.Compression == CompressionMode.None ? "No" : "Yes");
+            lblEncoding.Text += string.Format(" {0}", _libraryItem.File.FileAttributes.Encoding.EncodingName);
         }
 
         private void SaveTablatureData()
         {
-            var item = _library.FindTablatureItemByFile(_file);
+            //tablature information
+            _libraryItem.File.Artist = txtArtist.Text;
+            _libraryItem.File.Title = txtTitle.Text;
+            _libraryItem.File.Type = typeList.SelectedType;
+            _libraryItem.File.Tuning = tablatureTuningDropdown1.SelectedTuning;
+            _libraryItem.File.Subtitle = txtSubtitle.Text;
+            _libraryItem.File.Difficulty = tablatureDifficultyDropdown1.SelectedDifficulty;
+            _libraryItem.File.Author = txtAuthor.Text;
+            _libraryItem.File.Copyright = txtCopyright.Text;
+            _libraryItem.File.Album = txtAlbum.Text;
+            _libraryItem.File.Genre = txtGenre.Text;
+            _libraryItem.Rating = tablatureRatingDropdown1.SelectedRating;
+            _libraryItem.File.Comment = txtComment.Text;
 
-            item.Rating = tablatureRatingDropdown1.SelectedRating;
+            _libraryItem.File.Lyrics = txtLyrics.Text;
 
-            _file.Artist = txtartist.Text;
-            _file.Title = txtsong.Text;
-            _file.Type = typeList.SelectedType;
-            _file.Comment = txtcomment.Text;
-            _file.Save(item.FileInfo.FullName);
+            _libraryItem.File.Save(_libraryItem.FileInfo.FullName);
         }
 
         private void LoadLibraryInformation()
         {
-            groupBoxLibrary.Visible = _library != null;
+            lblfavorited.Text = string.Format("Favorited: {0}", (_libraryItem.Favorited ? "Yes" : "No"));
+            lblViewCount.Text = string.Format("Views: {0}", _libraryItem.Views);
+            lblLastViewed.Text = string.Format("Last Viewed: {0}", _libraryItem.LastViewed.HasValue ? _libraryItem.LastViewed.Value.ToString() : "Never");
 
-            if (_library == null)
-                return;
+            var playlistCount = _playlistManager.GetPlaylists().Count(playlist => playlist.Find(_libraryItem.FileInfo.FullName) != null);
 
-            var libraryItem = _library.FindTablatureItemByFile(_file);
-
-            if (libraryItem != null)
-            {
-                lblfavorited.Text = string.Format("Favorited: {0}", (libraryItem.Favorited ? "Yes" : "No"));
-                lblViewCount.Text = string.Format("Views: {0}", libraryItem.Views);
-                lblLastViewed.Text = string.Format("Last Viewed: {0}", libraryItem.LastViewed.HasValue ? libraryItem.LastViewed.Value.ToString() : "Never");
-
-                var playlistCount = _library.GetPlaylistItems().SelectMany(item => item.File).Count(playlistItem => playlistItem.File.Equals(_file));
-
-                lblPlaylistCount.Text = string.Format("Founds in {0} playlist{1}.", playlistCount, playlistCount == 1 ? "" : "s");
-            }
+            lblPlaylistCount.Text = string.Format("Founds in {0} playlist{1}.", playlistCount, playlistCount == 1 ? "" : "s");
         }
 
         private void okbtn_Click(object sender, EventArgs e)

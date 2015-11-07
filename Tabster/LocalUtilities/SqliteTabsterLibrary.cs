@@ -9,15 +9,15 @@ using Tabster.Data.Library;
 using Tabster.Data.Processing;
 
 #endregion
-
+/*
 namespace Tabster.LocalUtilities
 {
     internal class SqliteTabsterLibrary<TTablatureFile, TTablaturePlaylistFile> :
         TabsterFileSystemLibraryBase<TTablatureFile, TTablaturePlaylistFile> where TTablatureFile : class, ITablatureFile, new()
         where TTablaturePlaylistFile : class, ITablaturePlaylistFile, new()
     {
-        private const string TableTablature = "library_items";
-        private const string TablePlaylists = "playlists";
+        private const string TableTablature = "library_tablature";
+        private const string TablePlaylists = "library_playlists";
 
         private readonly SQLiteConnection _db;
 
@@ -189,4 +189,4 @@ namespace Tabster.LocalUtilities
             }
         }
     }
-}
+}*/
