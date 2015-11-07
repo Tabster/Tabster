@@ -16,8 +16,8 @@ namespace Tabster.LocalUtilities
         TabsterFileSystemLibraryBase<TTablatureFile, TTablaturePlaylistFile> where TTablatureFile : class, ITablatureFile, new()
         where TTablaturePlaylistFile : class, ITablaturePlaylistFile, new()
     {
-        private const string TableTablature = "library_tablature";
-        private const string TablePlaylists = "library_playlists";
+        private const string TableTablature = "library_items";
+        private const string TablePlaylists = "playlists";
 
         private readonly SQLiteConnection _db;
 
