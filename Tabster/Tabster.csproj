@@ -108,6 +108,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ToolStripRenderer.cs" />
+    <Compile Include="Database\RecentFilesManager.cs" />
     <Compile Include="Forms\DownloadDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,7 +116,6 @@
       <DependentUpon>DownloadDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Database\LibraryManager.cs" />
-    <Compile Include="LocalUtilities\SqliteTabsterLibrary.cs" />
     <Compile Include="Database\TabsterDatabaseHelper.cs" />
     <Compile Include="Database\PlaylistManager.cs" />
     <Compile Include="LocalUtilities\UserSettingsUtilities.cs" />

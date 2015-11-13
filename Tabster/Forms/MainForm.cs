@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml;
 using BrightIdeasSoftware;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
@@ -14,7 +13,6 @@ using Tabster.Data.Binary;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
 using Tabster.Database;
-using Tabster.LocalUtilities;
 using Tabster.Properties;
 using Tabster.Updater;
 using Tabster.Utilities.Extensions;
@@ -28,10 +26,10 @@ namespace Tabster.Forms
     {
         private readonly FileInfo _queuedFileInfo;
         private readonly TablatureFile _queuedTablatureFile;
-        private readonly string _recentFilesPath = Path.Combine(Program.ApplicationDataDirectory, "recent.dat");
 
         private readonly LibraryManager _libraryManager;
         private readonly PlaylistManager _playlistManager;
+        private readonly RecentFilesManager _recentFilesManager;
 
         public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager)
         {
@@ -50,6 +48,8 @@ namespace Tabster.Forms
 #endif
             InitAspectGetters();
 
+            _recentFilesManager = new RecentFilesManager(Program.GetDatabaseHelper(), libraryManager.GetTablatureFileProcessor());
+
             PopulateTabTypeControls();
 
             UpdateSortColumnMenu(true);
@@ -58,6 +58,8 @@ namespace Tabster.Forms
             Program.TabbedViewer.TabClosed += TabHandler_OnTabClosed;
 
             Program.UpdateQuery.Completed += updateQuery_Completed;
+
+            recentlyViewedMenuItem.OnItemsCleared += recentlyViewedMenuItem_OnItemsCleared;
 
             previewToolStrip.Renderer = new ToolStripRenderer();
 
@@ -74,6 +76,11 @@ namespace Tabster.Forms
 
             ToggleEmptyLibraryOverlay(listViewLibrary, true);
             ToggleEmptyLibraryOverlay(listViewSearch, true);
+        }
+
+        private void recentlyViewedMenuItem_OnItemsCleared(object sender, EventArgs e)
+        {
+            _recentFilesManager.Clear();
         }
 
         public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager, 
@@ -120,7 +127,17 @@ namespace Tabster.Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LoadRecentFilesList();
+            _recentFilesManager.Load();
+
+            var recentItems = _recentFilesManager.GetItems();
+            for (var i = 0; i < recentItems.Count; i++)
+            {
+                var item = recentItems[i];
+
+                // only update menu items if it's the last one
+                var updateDisplay = i == recentItems.Count - 1;
+                recentlyViewedMenuItem.Add(item.FileInfo, item.TablatureFile.ToFriendlyString(), updateDisplay);
+            }
 
             sidemenu.SelectedNode = sidemenu.Nodes[0].FirstNode;
 
@@ -148,55 +165,6 @@ namespace Tabster.Forms
             {
                 PopoutTab(_queuedTablatureFile, _queuedFileInfo);
             }
-        }
-
-        private void LoadRecentFilesList()
-        {
-            if (!File.Exists(_recentFilesPath))
-                return;
-
-            var xml = new XmlDocument();
-            xml.Load(_recentFilesPath);
-
-            var pathNodes = xml.GetElementsByTagName("recent")[0].ChildNodes;
-
-            var count = 0;
-            foreach (XmlNode pathNode in pathNodes)
-            {
-                var path = pathNode.InnerText;
-                var file = _libraryManager.GetTablatureFileProcessor().Load(path);
-
-                if (file != null)
-                {
-                    var fileInfo = new FileInfo(path);
-
-                    //only update display on last document
-                    var updateDisplay = count == pathNodes.Count - 1;
-
-                    recentlyViewedMenuItem.Add(fileInfo, file.ToFriendlyString(), updateDisplay);
-
-                    count++;
-                }
-            }
-        }
-
-        private void SaveRecentFilesList()
-        {
-            var doc = new XmlDocument();
-
-            doc.AppendChild(doc.CreateXmlDeclaration("1.0", "UTF-8", null));
-
-            var root = doc.CreateElement("recent");
-            doc.AppendChild(root);
-
-            foreach (var item in recentlyViewedMenuItem.Items)
-            {
-                var elem = doc.CreateElement("item");
-                elem.InnerText = item.File.FullName;
-                root.AppendChild(elem);
-            }
-
-            doc.Save(_recentFilesPath);
         }
 
         private void UpdateSortColumnMenu(bool populateItems = false)
@@ -296,8 +264,8 @@ namespace Tabster.Forms
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             _libraryManager.Save();
+            _recentFilesManager.Save();
 
-            SaveRecentFilesList();
             SaveSettings();
         }
 

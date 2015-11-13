@@ -12,6 +12,8 @@ namespace Tabster.Database
         public const string TableLibraryItems = "library_items";
         public const string TablePlaylists = "playlists";
         public const string TablePlaylistItems = "playlist_items";
+        public const string TableRecentFiles = "recent_files";
+
         private readonly SQLiteConnection _db;
 
         private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
@@ -37,6 +39,11 @@ namespace Tabster.Database
             }
 
             using (var cmd = new SQLiteCommand(string.Format("CREATE TABLE IF NOT EXISTS {0} (id INTEGER PRIMARY KEY, filename TEXT, playlist_id INTEGER)", TablePlaylistItems), _db))
+            {
+                cmd.ExecuteNonQuery();
+            }
+
+            using (var cmd = new SQLiteCommand(string.Format("CREATE TABLE IF NOT EXISTS {0} (id INTEGER PRIMARY KEY, filename TEXT, accessed INTEGER)", TableRecentFiles), _db))
             {
                 cmd.ExecuteNonQuery();
             }

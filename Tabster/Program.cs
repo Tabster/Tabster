@@ -31,6 +31,7 @@ namespace Tabster
         public static UpdateQuery UpdateQuery = new UpdateQuery();
 
         private static ExternalViewerForm _tabbedViewer;
+        private static TabsterDatabaseHelper _databaseHelper;
 
         public static ExternalViewerForm TabbedViewer
         {
@@ -44,6 +45,11 @@ namespace Tabster
 
                 return _tabbedViewer;
             }
+        }
+
+        public static TabsterDatabaseHelper GetDatabaseHelper()
+        {
+            return _databaseHelper;
         }
 
         [STAThread]
@@ -75,13 +81,13 @@ namespace Tabster
             var filesNeedScanned = !File.Exists(databasePath);
 
             Logger.Info(string.Format("Initializing database: {0}", databasePath));
-            var databaseHelper = new TabsterDatabaseHelper(databasePath);
+            _databaseHelper = new TabsterDatabaseHelper(databasePath);
 
             Logger.Info("Initializing library...");
-            var libraryManager = new LibraryManager(databaseHelper, new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion), tablatureDirectory);
+            var libraryManager = new LibraryManager(_databaseHelper, new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion), tablatureDirectory);
 
             Logger.Info("Initializing playlists...");
-            var playlistManager = new PlaylistManager(databaseHelper);
+            var playlistManager = new PlaylistManager(_databaseHelper);
 
             // database file deleted or possible pre-2.0 version, convert existing files
             if (filesNeedScanned)

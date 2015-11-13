@@ -13,6 +13,7 @@ using Tabster.Data;
 using Tabster.Data.Binary;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
+using Tabster.Database;
 using Tabster.Properties;
 using Tabster.WinForms.Extensions;
 
@@ -171,7 +172,10 @@ namespace Tabster.Forms
             Program.TabbedViewer.LoadTablature(file, fileInfo);
 
             if (updateRecentFiles)
+            {
+                _recentFilesManager.Add(new RecentFile(file, fileInfo, DateTime.UtcNow));
                 recentlyViewedMenuItem.Add(fileInfo, file.ToFriendlyString());
+            }
 
             var libraryItem = _libraryManager.FindTablatureItemByFile(file);
             if (libraryItem != null)
