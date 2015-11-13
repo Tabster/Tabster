@@ -2,9 +2,7 @@
 
 using System;
 using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
-using log4net.Config;
 using Tabster.Data;
 using Tabster.Data.Binary;
 using Tabster.Data.Processing;
@@ -22,8 +20,6 @@ namespace Tabster
 {
     internal static class Program
     {
-        private static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         public static SingleInstanceController InstanceController;
         public static PluginController PluginController;
         public static string ApplicationDataDirectory;
@@ -62,15 +58,12 @@ namespace Tabster
             if (!Directory.Exists(logDirectory))
                 Directory.CreateDirectory(logDirectory);
 
-            log4net.GlobalContext.Properties["HeaderInfo"] = string.Format("Tabster {0}", Application.ProductVersion);
-            log4net.GlobalContext.Properties["LogDirectory"] = logDirectory;
-
-            XmlConfigurator.Configure();
+            Logging.SetLogDirectory(logDirectory);
 
             AppDomain.CurrentDomain.UnhandledException += (s, e) =>
             {
                 var ex = (Exception) e.ExceptionObject;
-                Logger.Error(ex);
+                Logging.GetLogger().Error(ex);
             };
 
             var tablatureDirectory = Path.Combine(UserDataDirectory, "Library");
@@ -80,23 +73,23 @@ namespace Tabster
 
             var filesNeedScanned = !File.Exists(databasePath);
 
-            Logger.Info(string.Format("Initializing database: {0}", databasePath));
+            Logging.GetLogger().Info(string.Format("Initializing database: {0}", databasePath));
             _databaseHelper = new TabsterDatabaseHelper(databasePath);
 
-            Logger.Info("Initializing library...");
+            Logging.GetLogger().Info("Initializing library...");
             var libraryManager = new LibraryManager(_databaseHelper, new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion), tablatureDirectory);
 
-            Logger.Info("Initializing playlists...");
+            Logging.GetLogger().Info("Initializing playlists...");
             var playlistManager = new PlaylistManager(_databaseHelper);
 
             // database file deleted or possible pre-2.0 version, convert existing files
             if (filesNeedScanned)
             {
-                Logger.Info("Converting over XML files...");
+                Logging.GetLogger().Info("Converting over XML files...");
                 ConvertXmlFiles(libraryManager, playlistManager, tablatureDirectory, playlistsDirectory);
             }
 
-            Logger.Info("Loading plugins...");
+            Logging.GetLogger().Info("Loading plugins...");
             LoadPlugins();
 
             Application.EnableVisualStyles();
@@ -126,7 +119,7 @@ namespace Tabster
         /// <summary>
         ///     Convert Xml-based files to binary.
         /// </summary>
-        private static void ConvertXmlFiles(LibraryManager libraryManager, PlaylistManager playlistManager,  string tablatureDirectory, string playlistsDirectory)
+        private static void ConvertXmlFiles(LibraryManager libraryManager, PlaylistManager playlistManager, string tablatureDirectory, string playlistsDirectory)
         {
             // playlists are no longer stored as files, but are now stored in database
             if (Directory.Exists(playlistsDirectory))

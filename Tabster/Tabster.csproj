@@ -118,6 +118,7 @@
     <Compile Include="Database\LibraryManager.cs" />
     <Compile Include="Database\TabsterDatabaseHelper.cs" />
     <Compile Include="Database\PlaylistManager.cs" />
+    <Compile Include="LocalUtilities\Logging.cs" />
     <Compile Include="LocalUtilities\UserSettingsUtilities.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Controls\TextBoxExtended.cs">
