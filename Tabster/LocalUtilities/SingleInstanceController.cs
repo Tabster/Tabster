@@ -16,19 +16,16 @@ namespace Tabster.LocalUtilities
 {
     internal class SingleInstanceController : WindowsFormsApplicationBase
     {
-        private readonly LibraryManager _libraryManager;
-        private readonly PlaylistManager _playlistManager;
-        private readonly bool _filesNeedScanned;
-#if DEBUG
-        private const int MIN_SPLASH_TIME = 1000;
-#else
-        private const int MIN_SPLASH_TIME = 3500;
-#endif
+        private const int MinSplashTime = 3500;
+
         private static TablatureFile _queuedTabfile;
         private static FileInfo _queuedFileInfo;
         private static bool _isLibraryOpen;
         private static bool _noSplash;
         private static bool _safeMode;
+        private readonly bool _filesNeedScanned;
+        private readonly LibraryManager _libraryManager;
+        private readonly PlaylistManager _playlistManager;
 
         public SingleInstanceController(LibraryManager libraryManager, PlaylistManager playlistManager, bool filesNeedScanned)
         {
@@ -62,15 +59,15 @@ namespace Tabster.LocalUtilities
 
                 if (File.Exists(firstArg))
                 {
-                    var tablatureDocument = _libraryManager.GetTablatureFileProcessor().Load(firstArg);
+                    var file = _libraryManager.GetTablatureFileProcessor().Load(firstArg);
 
-                    if (tablatureDocument != null)
+                    if (file != null)
                     {
-                        _queuedTabfile = tablatureDocument;
+                        _queuedTabfile = file;
                         _queuedFileInfo = new FileInfo(firstArg);
 
                         if (_isLibraryOpen)
-                            Program.TabbedViewer.LoadTablature(tablatureDocument, _queuedFileInfo);
+                            Program.TabbedViewer.LoadTablature(file, _queuedFileInfo);
                     }
                 }
             }
@@ -93,8 +90,8 @@ namespace Tabster.LocalUtilities
 
             if (!_noSplash)
             {
-                MinimumSplashScreenDisplayTime = MIN_SPLASH_TIME;
-                base.SplashScreen = new SplashScreen {Cursor = Cursors.AppStarting};
+                MinimumSplashScreenDisplayTime = MinSplashTime;
+                base.SplashScreen = new SplashScreen(_safeMode) {Cursor = Cursors.AppStarting};
             }
         }
 
@@ -104,11 +101,35 @@ namespace Tabster.LocalUtilities
 
             PerformStartupEvents();
 
-            base.MainForm = _queuedTabfile != null ? 
-                new MainForm(_libraryManager, _playlistManager, _queuedTabfile, _queuedFileInfo) : 
+            base.MainForm = _queuedTabfile != null ?
+                new MainForm(_libraryManager, _playlistManager, _queuedTabfile, _queuedFileInfo) :
                 new MainForm(_libraryManager, _playlistManager);
 
             _isLibraryOpen = true;
+        }
+
+        private void PerformStartupEvents()
+        {
+            if (!_safeMode)
+            {
+                SetSplashStatus("Initializing plugins...");
+                Program.PluginController.LoadPlugins();
+            }
+
+            SetSplashStatus("Loading library...");
+            _libraryManager.Load(_filesNeedScanned);
+
+            SetSplashStatus("Loading playlists...");
+            _playlistManager.Load();
+
+            if (Settings.Default.StartupUpdate)
+            {
+                SetSplashStatus("Checking for updates...");
+
+#if !PORTABLE
+                Program.UpdateQuery.Check(false);
+#endif
+            }
         }
 
         #region Splash Screen
@@ -132,51 +153,5 @@ namespace Tabster.LocalUtilities
         }
 
         #endregion
-
-        private void PerformStartupEvents()
-        {
-            var splashStatuses = new[] {"Initializing plugins...", "Loading library...", "Loading playlists...", "Checking for updates..."};
-
-            var sleepDuration = MIN_SPLASH_TIME/splashStatuses.Length/2;
-
-            SetSplashStatus(splashStatuses[0]);
-
-            if (!_safeMode)
-            {
-#if DEBUG
-            Thread.Sleep(sleepDuration);
-#endif
-
-                Program.PluginController.LoadPlugins();
-                SetSplashStatus(splashStatuses[1]);
-            }
-
-            _libraryManager.Load(_filesNeedScanned);
-
-#if DEBUG
-            Thread.Sleep(sleepDuration);
-#endif
-
-            SetSplashStatus(splashStatuses[2]);
-
-            _playlistManager.Load();
-
-#if DEBUG
-            Thread.Sleep(sleepDuration);
-#endif
-
-            if (Settings.Default.StartupUpdate)
-            {
-                SetSplashStatus(splashStatuses[3]);
-
-#if DEBUG
-                Thread.Sleep(sleepDuration);
-#endif
-
-#if !PORTABLE
-                Program.UpdateQuery.Check(false);
-#endif
-            }
-        }
     }
 }

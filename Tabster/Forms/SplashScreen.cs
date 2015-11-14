@@ -2,8 +2,8 @@
 
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Tabster.Utilities.Extensions;
 using Tabster.Utilities.Reflection;
@@ -14,6 +14,8 @@ namespace Tabster.Forms
 {
     internal partial class SplashScreen : Form
     {
+        private readonly bool _safeMode;
+
         public SplashScreen()
         {
             InitializeComponent();
@@ -22,7 +24,10 @@ namespace Tabster.Forms
             lblPortable.Visible = true;
 #endif
 
-            Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 15, 15));
+            if (_safeMode)
+                lblSafeMode.Visible = true;
+
+            RoundBorderForm(this);
 
             lblProgress.Text = string.Empty;
 
@@ -32,16 +37,24 @@ namespace Tabster.Forms
             BringToFront();
         }
 
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
-            (
-            int nLeftRect, // x-coordinate of upper-left corner
-            int nTopRect, // y-coordinate of upper-left corner
-            int nRightRect, // x-coordinate of lower-right corner
-            int nBottomRect, // y-coordinate of lower-right corner
-            int nWidthEllipse, // height of ellipse
-            int nHeightEllipse // width of ellipse
-            );
+        public SplashScreen(bool safeMode) : this()
+        {
+            _safeMode = safeMode;
+        }
+
+        public static void RoundBorderForm(Form frm)
+        {
+            var bounds = new Rectangle(0, 0, frm.Width, frm.Height);
+            const int cornerRadius = 18;
+            var path = new GraphicsPath();
+            path.AddArc(bounds.X, bounds.Y, cornerRadius, cornerRadius, 180, 90);
+            path.AddArc(bounds.X + bounds.Width - cornerRadius, bounds.Y, cornerRadius, cornerRadius, 270, 90);
+            path.AddArc(bounds.X + bounds.Width - cornerRadius, bounds.Y + bounds.Height - cornerRadius, cornerRadius, cornerRadius, 0, 90);
+            path.AddArc(bounds.X, bounds.Y + bounds.Height - cornerRadius, cornerRadius, cornerRadius, 90, 90);
+            path.CloseAllFigures();
+
+            frm.Region = new Region(path);
+        }
 
         public void SetStatus(string status)
         {

@@ -30,37 +30,13 @@ namespace Tabster.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblTypes = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplashScreen));
             this.lblVersion = new System.Windows.Forms.Label();
             this.lblCopyright = new System.Windows.Forms.Label();
             this.lblProgress = new System.Windows.Forms.Label();
-            this.lblName = new System.Windows.Forms.Label();
             this.lblPortable = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.lblSafeMode = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // lblTypes
-            // 
-            this.lblTypes.AutoSize = true;
-            this.lblTypes.BackColor = System.Drawing.Color.Transparent;
-            this.lblTypes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTypes.ForeColor = System.Drawing.Color.Black;
-            this.lblTypes.Location = new System.Drawing.Point(179, 72);
-            this.lblTypes.Name = "lblTypes";
-            this.lblTypes.Size = new System.Drawing.Size(425, 16);
-            this.lblTypes.TabIndex = 51;
-            this.lblTypes.Text = "Guitar Tabs • Guitar Chords • Bass Tabs • Drum Tabs • Ukulele Tabs";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Tabster.Properties.Resources.Guitar256;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(161, 157);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 50;
-            this.pictureBox1.TabStop = false;
             // 
             // lblVersion
             // 
@@ -68,7 +44,7 @@ namespace Tabster.Forms
             this.lblVersion.BackColor = System.Drawing.Color.Transparent;
             this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.ForeColor = System.Drawing.Color.Gray;
-            this.lblVersion.Location = new System.Drawing.Point(586, 153);
+            this.lblVersion.Location = new System.Drawing.Point(468, 286);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(52, 16);
             this.lblVersion.TabIndex = 49;
@@ -82,7 +58,7 @@ namespace Tabster.Forms
             this.lblCopyright.BackColor = System.Drawing.Color.Transparent;
             this.lblCopyright.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCopyright.ForeColor = System.Drawing.Color.Gray;
-            this.lblCopyright.Location = new System.Drawing.Point(108, 153);
+            this.lblCopyright.Location = new System.Drawing.Point(144, 286);
             this.lblCopyright.Name = "lblCopyright";
             this.lblCopyright.Size = new System.Drawing.Size(65, 16);
             this.lblCopyright.TabIndex = 48;
@@ -94,23 +70,11 @@ namespace Tabster.Forms
             this.lblProgress.BackColor = System.Drawing.Color.Transparent;
             this.lblProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProgress.ForeColor = System.Drawing.Color.Black;
-            this.lblProgress.Location = new System.Drawing.Point(179, 115);
+            this.lblProgress.Location = new System.Drawing.Point(187, 200);
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.Size = new System.Drawing.Size(77, 16);
             this.lblProgress.TabIndex = 10;
             this.lblProgress.Text = "lblProgress";
-            // 
-            // lblName
-            // 
-            this.lblName.AutoSize = true;
-            this.lblName.BackColor = System.Drawing.Color.Transparent;
-            this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.ForeColor = System.Drawing.Color.Black;
-            this.lblName.Location = new System.Drawing.Point(179, 9);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(194, 55);
-            this.lblName.TabIndex = 4;
-            this.lblName.Text = "Tabster";
             // 
             // lblPortable
             // 
@@ -119,29 +83,42 @@ namespace Tabster.Forms
             this.lblPortable.BackColor = System.Drawing.Color.Transparent;
             this.lblPortable.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPortable.ForeColor = System.Drawing.Color.Gray;
-            this.lblPortable.Location = new System.Drawing.Point(541, 12);
+            this.lblPortable.Location = new System.Drawing.Point(423, 9);
             this.lblPortable.Name = "lblPortable";
             this.lblPortable.Size = new System.Drawing.Size(97, 16);
             this.lblPortable.TabIndex = 52;
             this.lblPortable.Text = "Portable Mode";
             this.lblPortable.Visible = false;
             // 
+            // lblSafeMode
+            // 
+            this.lblSafeMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblSafeMode.AutoSize = true;
+            this.lblSafeMode.BackColor = System.Drawing.Color.Transparent;
+            this.lblSafeMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSafeMode.ForeColor = System.Drawing.Color.Gray;
+            this.lblSafeMode.Location = new System.Drawing.Point(446, 29);
+            this.lblSafeMode.Name = "lblSafeMode";
+            this.lblSafeMode.Size = new System.Drawing.Size(74, 16);
+            this.lblSafeMode.TabIndex = 53;
+            this.lblSafeMode.Text = "Safe Mode";
+            this.lblSafeMode.Visible = false;
+            // 
             // SplashScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(650, 181);
+            this.ClientSize = new System.Drawing.Size(532, 314);
+            this.Controls.Add(this.lblSafeMode);
             this.Controls.Add(this.lblPortable);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.lblCopyright);
-            this.Controls.Add(this.lblName);
-            this.Controls.Add(this.lblTypes);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblProgress);
             this.DoubleBuffered = true;
-            this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SplashScreen";
             this.ShowIcon = false;
@@ -149,7 +126,6 @@ namespace Tabster.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Splash";
             this.TopMost = true;
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -157,13 +133,11 @@ namespace Tabster.Forms
 
         #endregion
 
-        private System.Windows.Forms.Label lblTypes;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label lblCopyright;
         public System.Windows.Forms.Label lblProgress;
-        private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblPortable;
+        private System.Windows.Forms.Label lblSafeMode;
 
     }
 }
