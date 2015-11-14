@@ -30,7 +30,6 @@ namespace Tabster.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplashScreen));
             this.lblVersion = new System.Windows.Forms.Label();
             this.lblCopyright = new System.Windows.Forms.Label();
             this.lblProgress = new System.Windows.Forms.Label();
@@ -109,7 +108,7 @@ namespace Tabster.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::Tabster.Properties.Resources.splash;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(532, 314);
             this.Controls.Add(this.lblSafeMode);
