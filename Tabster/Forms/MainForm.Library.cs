@@ -585,6 +585,7 @@ namespace Tabster.Forms
                     if (details.ShowDialog() == DialogResult.OK)
                     {
                         listViewLibrary.UpdateObject(listViewLibrary.SelectedObject);
+                        LoadTablatureData(GetSelectedLibraryItem());
                     }
                 }
             }
@@ -615,6 +616,7 @@ namespace Tabster.Forms
         {
             PreviewDisplayDelay.Stop();
             LoadTabPreview();
+            LoadTablatureData(GetSelectedLibraryItem());
         }
 
         private void ClearTabPreview()
@@ -624,6 +626,37 @@ namespace Tabster.Forms
             PreviewEditor.Clear();
         }
 
+        private static void UpdateInfoLabel(Label label, string str)
+        {
+            label.Text = string.IsNullOrEmpty(str) ? "N/A" : str;
+        }
+
+        private void LoadTablatureData(TablatureLibraryItem<TablatureFile> libraryItem)
+        {
+            //tablature information
+            UpdateInfoLabel(lblCurrentArtist, libraryItem.File.Artist);
+            UpdateInfoLabel(lblCurrentTitle, libraryItem.File.Title);
+            UpdateInfoLabel(lblCurrentType, libraryItem.File.Type.Name);
+            UpdateInfoLabel(lblCurrentTuning, libraryItem.File.Tuning.Name);
+            UpdateInfoLabel(lblCurrentSubtitle, libraryItem.File.Subtitle);
+            UpdateInfoLabel(lblCurrentDifficulty, libraryItem.File.Difficulty.Name);
+            UpdateInfoLabel(lblCurrentAuthor, libraryItem.File.Author);
+            UpdateInfoLabel(lblCurrentCopyright, libraryItem.File.Copyright);
+            UpdateInfoLabel(lblCurrentAlbum, libraryItem.File.Album);
+            UpdateInfoLabel(lblCurrentGenre, libraryItem.File.Genre);
+            UpdateInfoLabel(lblCurrentComment, libraryItem.File.Comment);
+
+            txtLyrics.Text = libraryItem.File.Lyrics;
+
+            //file information
+            UpdateInfoLabel(lblCurrentLocation, libraryItem.FileInfo.FullName);
+            UpdateInfoLabel(lblCurrentLength, string.Format("{0:n0} bytes", libraryItem.FileInfo.Length));
+            UpdateInfoLabel(lblCurrentFormat, libraryItem.File.FileHeader.Version.ToString());
+            UpdateInfoLabel(lblCurrentCreated, libraryItem.FileInfo.CreationTime.ToString());
+            UpdateInfoLabel(lblCurrentModified, libraryItem.FileInfo.LastWriteTime.ToString());
+            UpdateInfoLabel(lblCurrentCompressed, libraryItem.File.FileHeader.Compression == CompressionMode.None ? "No" : "Yes");
+            UpdateInfoLabel(lblCurrentEncoding, libraryItem.File.FileAttributes.Encoding.EncodingName);
+        }
         private void LoadTabPreview(bool startViewCountTimer = true)
         {
             PreviewDisplayTimer.Stop();

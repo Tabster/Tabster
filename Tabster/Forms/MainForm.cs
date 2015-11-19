@@ -610,5 +610,13 @@ namespace Tabster.Forms
         }
 
         #endregion
+
+        private void tabsCurrentTab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var viewingPreview = tabsCurrentTab.SelectedIndex == 0;
+
+            toolStripButton3.Enabled = viewingPreview;
+            printbtn.Enabled = viewingPreview;
+        }
     }
 }

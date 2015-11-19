@@ -66,8 +66,53 @@ namespace Tabster.Forms
             this.olvColLocation = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtLibraryFilter = new Tabster.Controls.TextBoxExtended();
+            this.tabsCurrentTab = new System.Windows.Forms.TabControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.PreviewEditor = new Tabster.WinForms.BasicTablatureTextEditor();
-            this.lblLibraryPreview = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblCurrentEncoding = new System.Windows.Forms.Label();
+            this.lblCurrentCompressed = new System.Windows.Forms.Label();
+            this.lblCurrentModified = new System.Windows.Forms.Label();
+            this.lblCurrentCreated = new System.Windows.Forms.Label();
+            this.lblCurrentLength = new System.Windows.Forms.Label();
+            this.lblCurrentFormat = new System.Windows.Forms.Label();
+            this.lblCurrentLocation = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.lblFormat = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblCurrentComment = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.lblCurrentRating = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblCurrentGenre = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.lblCurrentAlbum = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblCurrentCopyright = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblCurrentAuthor = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblCurrentDifficulty = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblCurrentSubtitle = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lblCurrentTuning = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblCurrentType = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lblCurrentTitle = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lblCurrentArtist = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.txtLyrics = new Tabster.Controls.TextBoxExtended();
+            this.TablaturePanelsImageList = new System.Windows.Forms.ImageList(this.components);
             this.previewToolStrip = new System.Windows.Forms.ToolStrip();
             this.lblpreviewtitle = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -81,6 +126,7 @@ namespace Tabster.Forms
             this.toolStripButton3 = new System.Windows.Forms.ToolStripDropDownButton();
             this.offToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblLibraryPreview = new System.Windows.Forms.Label();
             this.display_search = new System.Windows.Forms.TabPage();
             this.searchSplitContainer = new System.Windows.Forms.SplitContainer();
             this.listViewSearch = new BrightIdeasSoftware.ObjectListView();
@@ -170,6 +216,12 @@ namespace Tabster.Forms
             this.librarySplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listViewLibrary)).BeginInit();
             this.panel2.SuspendLayout();
+            this.tabsCurrentTab.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.previewToolStrip.SuspendLayout();
             this.display_search.SuspendLayout();
             this.searchSplitContainer.Panel1.SuspendLayout();
@@ -344,12 +396,12 @@ namespace Tabster.Forms
             // 
             // librarySplitContainer.Panel2
             // 
-            this.librarySplitContainer.Panel2.Controls.Add(this.PreviewEditor);
-            this.librarySplitContainer.Panel2.Controls.Add(this.lblLibraryPreview);
+            this.librarySplitContainer.Panel2.Controls.Add(this.tabsCurrentTab);
             this.librarySplitContainer.Panel2.Controls.Add(this.previewToolStrip);
+            this.librarySplitContainer.Panel2.Controls.Add(this.lblLibraryPreview);
             this.librarySplitContainer.Panel2MinSize = 140;
             this.librarySplitContainer.Size = new System.Drawing.Size(885, 410);
-            this.librarySplitContainer.SplitterDistance = 237;
+            this.librarySplitContainer.SplitterDistance = 140;
             this.librarySplitContainer.TabIndex = 25;
             // 
             // listViewLibrary
@@ -385,7 +437,7 @@ namespace Tabster.Forms
             this.listViewLibrary.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.ModelDialog;
             this.listViewLibrary.ShowGroups = false;
             this.listViewLibrary.ShowHeaderInAllViews = false;
-            this.listViewLibrary.Size = new System.Drawing.Size(883, 206);
+            this.listViewLibrary.Size = new System.Drawing.Size(883, 109);
             this.listViewLibrary.TabIndex = 21;
             this.listViewLibrary.TintSortColumn = true;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
@@ -452,7 +504,7 @@ namespace Tabster.Forms
             // txtLibraryFilter
             // 
             this.txtLibraryFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLibraryFilter.Location = new System.Drawing.Point(739, 3);
+            this.txtLibraryFilter.Location = new System.Drawing.Point(738, 3);
             this.txtLibraryFilter.Name = "txtLibraryFilter";
             this.txtLibraryFilter.PlaceholderForecolor = System.Drawing.Color.DarkGray;
             this.txtLibraryFilter.PlaceholderText = " Search Library";
@@ -462,28 +514,654 @@ namespace Tabster.Forms
             this.txtLibraryFilter.TextChangedDelay = 250;
             this.txtLibraryFilter.TextChanged += new System.EventHandler(this.txtLibraryFilter_TextChanged);
             // 
+            // tabsCurrentTab
+            // 
+            this.tabsCurrentTab.Controls.Add(this.tabPage2);
+            this.tabsCurrentTab.Controls.Add(this.tabPage1);
+            this.tabsCurrentTab.Controls.Add(this.tabPage3);
+            this.tabsCurrentTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabsCurrentTab.ImageList = this.TablaturePanelsImageList;
+            this.tabsCurrentTab.Location = new System.Drawing.Point(0, 25);
+            this.tabsCurrentTab.Name = "tabsCurrentTab";
+            this.tabsCurrentTab.SelectedIndex = 0;
+            this.tabsCurrentTab.Size = new System.Drawing.Size(883, 239);
+            this.tabsCurrentTab.TabIndex = 26;
+            this.tabsCurrentTab.SelectedIndexChanged += new System.EventHandler(this.tabsCurrentTab_SelectedIndexChanged);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.PreviewEditor);
+            this.tabPage2.ImageIndex = 0;
+            this.tabPage2.Location = new System.Drawing.Point(4, 23);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(875, 212);
+            this.tabPage2.TabIndex = 3;
+            this.tabPage2.Text = "Preview";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // PreviewEditor
             // 
             this.PreviewEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PreviewEditor.FontSize = 9F;
-            this.PreviewEditor.Location = new System.Drawing.Point(0, 25);
+            this.PreviewEditor.Location = new System.Drawing.Point(3, 3);
             this.PreviewEditor.Name = "PreviewEditor";
             this.PreviewEditor.ReadOnly = true;
-            this.PreviewEditor.Size = new System.Drawing.Size(883, 142);
+            this.PreviewEditor.Size = new System.Drawing.Size(869, 206);
             this.PreviewEditor.TabIndex = 25;
             this.PreviewEditor.ContentsModified += new System.EventHandler(this.PreviewEditor_ContentsModified);
             // 
-            // lblLibraryPreview
+            // tabPage1
             // 
-            this.lblLibraryPreview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblLibraryPreview.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLibraryPreview.Location = new System.Drawing.Point(0, 25);
-            this.lblLibraryPreview.Name = "lblLibraryPreview";
-            this.lblLibraryPreview.Size = new System.Drawing.Size(883, 142);
-            this.lblLibraryPreview.TabIndex = 24;
-            this.lblLibraryPreview.Text = "Tab is open in external viewer.";
-            this.lblLibraryPreview.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblLibraryPreview.Visible = false;
+            this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.groupBox2);
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.ForeColor = System.Drawing.Color.Black;
+            this.tabPage1.ImageIndex = 1;
+            this.tabPage1.Location = new System.Drawing.Point(4, 23);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(875, 212);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Info";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.lblCurrentEncoding);
+            this.groupBox2.Controls.Add(this.lblCurrentCompressed);
+            this.groupBox2.Controls.Add(this.lblCurrentModified);
+            this.groupBox2.Controls.Add(this.lblCurrentCreated);
+            this.groupBox2.Controls.Add(this.lblCurrentLength);
+            this.groupBox2.Controls.Add(this.lblCurrentFormat);
+            this.groupBox2.Controls.Add(this.lblCurrentLocation);
+            this.groupBox2.Controls.Add(this.label18);
+            this.groupBox2.Controls.Add(this.label25);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.label22);
+            this.groupBox2.Controls.Add(this.label24);
+            this.groupBox2.Controls.Add(this.label27);
+            this.groupBox2.Controls.Add(this.lblFormat);
+            this.groupBox2.Location = new System.Drawing.Point(6, 152);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(778, 80);
+            this.groupBox2.TabIndex = 70;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "File Information:";
+            // 
+            // lblCurrentEncoding
+            // 
+            this.lblCurrentEncoding.AutoSize = true;
+            this.lblCurrentEncoding.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentEncoding.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentEncoding.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentEncoding.Location = new System.Drawing.Point(629, 61);
+            this.lblCurrentEncoding.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentEncoding.Name = "lblCurrentEncoding";
+            this.lblCurrentEncoding.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentEncoding.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentEncoding.TabIndex = 65;
+            this.lblCurrentEncoding.Text = "N/A";
+            // 
+            // lblCurrentCompressed
+            // 
+            this.lblCurrentCompressed.AutoSize = true;
+            this.lblCurrentCompressed.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentCompressed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentCompressed.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentCompressed.Location = new System.Drawing.Point(395, 61);
+            this.lblCurrentCompressed.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentCompressed.Name = "lblCurrentCompressed";
+            this.lblCurrentCompressed.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentCompressed.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentCompressed.TabIndex = 64;
+            this.lblCurrentCompressed.Text = "N/A";
+            // 
+            // lblCurrentModified
+            // 
+            this.lblCurrentModified.AutoSize = true;
+            this.lblCurrentModified.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentModified.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentModified.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentModified.Location = new System.Drawing.Point(73, 61);
+            this.lblCurrentModified.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentModified.Name = "lblCurrentModified";
+            this.lblCurrentModified.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentModified.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentModified.TabIndex = 63;
+            this.lblCurrentModified.Text = "N/A";
+            // 
+            // lblCurrentCreated
+            // 
+            this.lblCurrentCreated.AutoSize = true;
+            this.lblCurrentCreated.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentCreated.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentCreated.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentCreated.Location = new System.Drawing.Point(629, 40);
+            this.lblCurrentCreated.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentCreated.Name = "lblCurrentCreated";
+            this.lblCurrentCreated.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentCreated.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentCreated.TabIndex = 62;
+            this.lblCurrentCreated.Text = "N/A";
+            // 
+            // lblCurrentLength
+            // 
+            this.lblCurrentLength.AutoSize = true;
+            this.lblCurrentLength.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentLength.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentLength.Location = new System.Drawing.Point(395, 40);
+            this.lblCurrentLength.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentLength.Name = "lblCurrentLength";
+            this.lblCurrentLength.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentLength.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentLength.TabIndex = 61;
+            this.lblCurrentLength.Text = "N/A";
+            // 
+            // lblCurrentFormat
+            // 
+            this.lblCurrentFormat.AutoSize = true;
+            this.lblCurrentFormat.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentFormat.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentFormat.Location = new System.Drawing.Point(73, 40);
+            this.lblCurrentFormat.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentFormat.Name = "lblCurrentFormat";
+            this.lblCurrentFormat.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentFormat.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentFormat.TabIndex = 60;
+            this.lblCurrentFormat.Text = "N/A";
+            // 
+            // lblCurrentLocation
+            // 
+            this.lblCurrentLocation.AutoSize = true;
+            this.lblCurrentLocation.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentLocation.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentLocation.Location = new System.Drawing.Point(73, 18);
+            this.lblCurrentLocation.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentLocation.Name = "lblCurrentLocation";
+            this.lblCurrentLocation.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentLocation.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentLocation.TabIndex = 59;
+            this.lblCurrentLocation.Text = "N/A";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(568, 61);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(55, 13);
+            this.label18.TabIndex = 5;
+            this.label18.Text = "Encoding:";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(321, 61);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(68, 13);
+            this.label25.TabIndex = 4;
+            this.label25.Text = "Compressed:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label11.Location = new System.Drawing.Point(6, 19);
+            this.label11.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label11.Name = "label11";
+            this.label11.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label11.Size = new System.Drawing.Size(51, 13);
+            this.label11.TabIndex = 41;
+            this.label11.Text = "Location:";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 61);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(50, 13);
+            this.label22.TabIndex = 3;
+            this.label22.Text = "Modified:";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(568, 40);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(47, 13);
+            this.label24.TabIndex = 2;
+            this.label24.Text = "Created:";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(321, 40);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(43, 13);
+            this.label27.TabIndex = 1;
+            this.label27.Text = "Length:";
+            // 
+            // lblFormat
+            // 
+            this.lblFormat.AutoSize = true;
+            this.lblFormat.Location = new System.Drawing.Point(6, 40);
+            this.lblFormat.Name = "lblFormat";
+            this.lblFormat.Size = new System.Drawing.Size(61, 13);
+            this.lblFormat.TabIndex = 0;
+            this.lblFormat.Text = "File Format:";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.lblCurrentComment);
+            this.groupBox1.Controls.Add(this.label16);
+            this.groupBox1.Controls.Add(this.lblCurrentRating);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.lblCurrentGenre);
+            this.groupBox1.Controls.Add(this.label17);
+            this.groupBox1.Controls.Add(this.lblCurrentAlbum);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.lblCurrentCopyright);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.lblCurrentAuthor);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.lblCurrentDifficulty);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.lblCurrentSubtitle);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.lblCurrentTuning);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.lblCurrentType);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.lblCurrentTitle);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.lblCurrentArtist);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(778, 140);
+            this.groupBox1.TabIndex = 69;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Tablature Information:";
+            // 
+            // lblCurrentComment
+            // 
+            this.lblCurrentComment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCurrentComment.AutoEllipsis = true;
+            this.lblCurrentComment.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentComment.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentComment.Location = new System.Drawing.Point(66, 103);
+            this.lblCurrentComment.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentComment.Name = "lblCurrentComment";
+            this.lblCurrentComment.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentComment.Size = new System.Drawing.Size(706, 34);
+            this.lblCurrentComment.TabIndex = 69;
+            this.lblCurrentComment.Text = "N/A";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Transparent;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label16.Location = new System.Drawing.Point(6, 19);
+            this.label16.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label16.Name = "label16";
+            this.label16.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label16.Size = new System.Drawing.Size(33, 13);
+            this.label16.TabIndex = 36;
+            this.label16.Text = "Artist:";
+            // 
+            // lblCurrentRating
+            // 
+            this.lblCurrentRating.AutoSize = true;
+            this.lblCurrentRating.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentRating.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentRating.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentRating.Location = new System.Drawing.Point(381, 82);
+            this.lblCurrentRating.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentRating.Name = "lblCurrentRating";
+            this.lblCurrentRating.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentRating.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentRating.TabIndex = 68;
+            this.lblCurrentRating.Text = "N/A";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label5.Location = new System.Drawing.Point(6, 103);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(54, 13);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Comment:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label2.Location = new System.Drawing.Point(6, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.TabIndex = 45;
+            this.label2.Text = "Tuning:";
+            // 
+            // lblCurrentGenre
+            // 
+            this.lblCurrentGenre.AutoSize = true;
+            this.lblCurrentGenre.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentGenre.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentGenre.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentGenre.Location = new System.Drawing.Point(66, 82);
+            this.lblCurrentGenre.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentGenre.Name = "lblCurrentGenre";
+            this.lblCurrentGenre.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentGenre.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentGenre.TabIndex = 67;
+            this.lblCurrentGenre.Text = "N/A";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.Color.Transparent;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label17.Location = new System.Drawing.Point(321, 19);
+            this.label17.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label17.Name = "label17";
+            this.label17.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label17.Size = new System.Drawing.Size(30, 13);
+            this.label17.TabIndex = 37;
+            this.label17.Text = "Title:";
+            // 
+            // lblCurrentAlbum
+            // 
+            this.lblCurrentAlbum.AutoSize = true;
+            this.lblCurrentAlbum.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentAlbum.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentAlbum.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentAlbum.Location = new System.Drawing.Point(624, 61);
+            this.lblCurrentAlbum.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentAlbum.Name = "lblCurrentAlbum";
+            this.lblCurrentAlbum.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentAlbum.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentAlbum.TabIndex = 66;
+            this.lblCurrentAlbum.Text = "N/A";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label4.Location = new System.Drawing.Point(568, 40);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 13);
+            this.label4.TabIndex = 47;
+            this.label4.Text = "Difficulty:";
+            // 
+            // lblCurrentCopyright
+            // 
+            this.lblCurrentCopyright.AutoSize = true;
+            this.lblCurrentCopyright.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentCopyright.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentCopyright.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentCopyright.Location = new System.Drawing.Point(381, 61);
+            this.lblCurrentCopyright.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentCopyright.Name = "lblCurrentCopyright";
+            this.lblCurrentCopyright.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentCopyright.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentCopyright.TabIndex = 65;
+            this.lblCurrentCopyright.Text = "N/A";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label6.Location = new System.Drawing.Point(321, 40);
+            this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label6.Name = "label6";
+            this.label6.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label6.Size = new System.Drawing.Size(45, 13);
+            this.label6.TabIndex = 49;
+            this.label6.Text = "Subtitle:";
+            // 
+            // lblCurrentAuthor
+            // 
+            this.lblCurrentAuthor.AutoSize = true;
+            this.lblCurrentAuthor.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentAuthor.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentAuthor.Location = new System.Drawing.Point(66, 61);
+            this.lblCurrentAuthor.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentAuthor.Name = "lblCurrentAuthor";
+            this.lblCurrentAuthor.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentAuthor.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentAuthor.TabIndex = 64;
+            this.lblCurrentAuthor.Text = "N/A";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label7.Location = new System.Drawing.Point(6, 61);
+            this.label7.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label7.Name = "label7";
+            this.label7.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label7.Size = new System.Drawing.Size(41, 13);
+            this.label7.TabIndex = 51;
+            this.label7.Text = "Author:";
+            // 
+            // lblCurrentDifficulty
+            // 
+            this.lblCurrentDifficulty.AutoSize = true;
+            this.lblCurrentDifficulty.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentDifficulty.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentDifficulty.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentDifficulty.Location = new System.Drawing.Point(624, 40);
+            this.lblCurrentDifficulty.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentDifficulty.Name = "lblCurrentDifficulty";
+            this.lblCurrentDifficulty.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentDifficulty.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentDifficulty.TabIndex = 63;
+            this.lblCurrentDifficulty.Text = "N/A";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label3.Location = new System.Drawing.Point(568, 19);
+            this.label3.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label3.Name = "label3";
+            this.label3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Type:";
+            // 
+            // lblCurrentSubtitle
+            // 
+            this.lblCurrentSubtitle.AutoSize = true;
+            this.lblCurrentSubtitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentSubtitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentSubtitle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentSubtitle.Location = new System.Drawing.Point(381, 40);
+            this.lblCurrentSubtitle.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentSubtitle.Name = "lblCurrentSubtitle";
+            this.lblCurrentSubtitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentSubtitle.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentSubtitle.TabIndex = 62;
+            this.lblCurrentSubtitle.Text = "N/A";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label8.Location = new System.Drawing.Point(321, 61);
+            this.label8.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label8.Name = "label8";
+            this.label8.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label8.Size = new System.Drawing.Size(54, 13);
+            this.label8.TabIndex = 53;
+            this.label8.Text = "Copyright:";
+            // 
+            // lblCurrentTuning
+            // 
+            this.lblCurrentTuning.AutoSize = true;
+            this.lblCurrentTuning.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentTuning.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentTuning.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentTuning.Location = new System.Drawing.Point(66, 40);
+            this.lblCurrentTuning.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentTuning.Name = "lblCurrentTuning";
+            this.lblCurrentTuning.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentTuning.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentTuning.TabIndex = 61;
+            this.lblCurrentTuning.Text = "N/A";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label1.Location = new System.Drawing.Point(321, 82);
+            this.label1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label1.Name = "label1";
+            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 43;
+            this.label1.Text = "Rating:";
+            // 
+            // lblCurrentType
+            // 
+            this.lblCurrentType.AutoSize = true;
+            this.lblCurrentType.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentType.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentType.Location = new System.Drawing.Point(624, 19);
+            this.lblCurrentType.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentType.Name = "lblCurrentType";
+            this.lblCurrentType.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentType.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentType.TabIndex = 60;
+            this.lblCurrentType.Text = "N/A";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label10.Location = new System.Drawing.Point(568, 61);
+            this.label10.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label10.Name = "label10";
+            this.label10.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label10.Size = new System.Drawing.Size(39, 13);
+            this.label10.TabIndex = 56;
+            this.label10.Text = "Album:";
+            // 
+            // lblCurrentTitle
+            // 
+            this.lblCurrentTitle.AutoSize = true;
+            this.lblCurrentTitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentTitle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentTitle.Location = new System.Drawing.Point(381, 19);
+            this.lblCurrentTitle.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentTitle.Name = "lblCurrentTitle";
+            this.lblCurrentTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentTitle.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentTitle.TabIndex = 59;
+            this.lblCurrentTitle.Text = "N/A";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label9.Location = new System.Drawing.Point(6, 82);
+            this.label9.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label9.Name = "label9";
+            this.label9.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label9.Size = new System.Drawing.Size(39, 13);
+            this.label9.TabIndex = 57;
+            this.label9.Text = "Genre:";
+            // 
+            // lblCurrentArtist
+            // 
+            this.lblCurrentArtist.AutoSize = true;
+            this.lblCurrentArtist.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentArtist.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCurrentArtist.Location = new System.Drawing.Point(66, 19);
+            this.lblCurrentArtist.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.lblCurrentArtist.Name = "lblCurrentArtist";
+            this.lblCurrentArtist.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCurrentArtist.Size = new System.Drawing.Size(27, 13);
+            this.lblCurrentArtist.TabIndex = 58;
+            this.lblCurrentArtist.Text = "N/A";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.txtLyrics);
+            this.tabPage3.ImageIndex = 2;
+            this.tabPage3.Location = new System.Drawing.Point(4, 23);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(875, 212);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Lyrics";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // txtLyrics
+            // 
+            this.txtLyrics.BackColor = System.Drawing.SystemColors.Window;
+            this.txtLyrics.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLyrics.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.txtLyrics.Location = new System.Drawing.Point(3, 3);
+            this.txtLyrics.Multiline = true;
+            this.txtLyrics.Name = "txtLyrics";
+            this.txtLyrics.PlaceholderForecolor = System.Drawing.SystemColors.GrayText;
+            this.txtLyrics.PlaceholderText = null;
+            this.txtLyrics.ReadOnly = true;
+            this.txtLyrics.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLyrics.SelectOnFocus = false;
+            this.txtLyrics.Size = new System.Drawing.Size(869, 206);
+            this.txtLyrics.TabIndex = 1;
+            this.txtLyrics.TextChangedDelay = 0;
+            // 
+            // TablaturePanelsImageList
+            // 
+            this.TablaturePanelsImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("TablaturePanelsImageList.ImageStream")));
+            this.TablaturePanelsImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.TablaturePanelsImageList.Images.SetKeyName(0, "preview");
+            this.TablaturePanelsImageList.Images.SetKeyName(1, "info");
+            this.TablaturePanelsImageList.Images.SetKeyName(2, "music");
             // 
             // previewToolStrip
             // 
@@ -533,7 +1211,7 @@ namespace Tabster.Forms
             this.detailsbtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.detailsbtn.Name = "detailsbtn";
             this.detailsbtn.Size = new System.Drawing.Size(85, 22);
-            this.detailsbtn.Text = "Tab Details";
+            this.detailsbtn.Text = "Edit Details";
             this.detailsbtn.Click += new System.EventHandler(this.TabDetails);
             // 
             // toolStripSeparator5
@@ -602,6 +1280,18 @@ namespace Tabster.Forms
             this.onToolStripMenuItem.Name = "onToolStripMenuItem";
             this.onToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
             this.onToolStripMenuItem.Text = "On";
+            // 
+            // lblLibraryPreview
+            // 
+            this.lblLibraryPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblLibraryPreview.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLibraryPreview.Location = new System.Drawing.Point(0, 0);
+            this.lblLibraryPreview.Name = "lblLibraryPreview";
+            this.lblLibraryPreview.Size = new System.Drawing.Size(883, 264);
+            this.lblLibraryPreview.TabIndex = 24;
+            this.lblLibraryPreview.Text = "Tab is open in external viewer.";
+            this.lblLibraryPreview.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblLibraryPreview.Visible = false;
             // 
             // display_search
             // 
@@ -1315,6 +2005,15 @@ namespace Tabster.Forms
             ((System.ComponentModel.ISupportInitialize)(this.listViewLibrary)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.tabsCurrentTab.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.previewToolStrip.ResumeLayout(false);
             this.previewToolStrip.PerformLayout();
             this.display_search.ResumeLayout(false);
@@ -1449,6 +2148,52 @@ namespace Tabster.Forms
         private OLVColumn olvColumn5;
         private OLVColumn olvColumn6;
         private TablatureRatingDropdown cbSearchRating;
+        private TabControl tabsCurrentTab;
+        private TabPage tabPage1;
+        private TabPage tabPage3;
+        public TextBoxExtended txtLyrics;
+        private TabPage tabPage2;
+        private Label label9;
+        private Label label10;
+        private Label label8;
+        private Label label7;
+        private Label label6;
+        public Label label4;
+        public Label label2;
+        private Label label1;
+        private Label label16;
+        private Label label17;
+        public Label label5;
+        private Label label3;
+        private Label label11;
+        private Label lblCurrentType;
+        private Label lblCurrentTitle;
+        private Label lblCurrentArtist;
+        private Label lblCurrentRating;
+        private Label lblCurrentGenre;
+        private Label lblCurrentAlbum;
+        private Label lblCurrentCopyright;
+        private Label lblCurrentAuthor;
+        private Label lblCurrentDifficulty;
+        private Label lblCurrentSubtitle;
+        private Label lblCurrentTuning;
+        private GroupBox groupBox1;
+        private Label lblCurrentComment;
+        private GroupBox groupBox2;
+        private Label label18;
+        private Label label25;
+        private Label label22;
+        private Label label24;
+        private Label label27;
+        private Label lblFormat;
+        private Label lblCurrentEncoding;
+        private Label lblCurrentCompressed;
+        private Label lblCurrentModified;
+        private Label lblCurrentCreated;
+        private Label lblCurrentLength;
+        private Label lblCurrentFormat;
+        private Label lblCurrentLocation;
+        private ImageList TablaturePanelsImageList;
     }
 }
 
