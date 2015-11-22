@@ -23,18 +23,7 @@ namespace Tabster.Data
 
     public class TablaturePlaylist : IEnumerable<TablaturePlaylistItem>
     {
-        public string Name { get; set; }
-
-        public long? ID { get; set; }
-
-        public DateTime? Created { get; set; }
-
         private readonly List<TablaturePlaylistItem> _items = new List<TablaturePlaylistItem>();
-
-        public int Count
-        {
-            get { return _items.Count; }
-        }
 
         public TablaturePlaylist(string name)
         {
@@ -67,7 +56,7 @@ namespace Tabster.Data
             return Remove(Find(x => x.FileInfo.FullName.Equals(path)));
         }
 
-        public  TablaturePlaylistItem Find(Predicate<TablaturePlaylistItem> match)
+        public TablaturePlaylistItem Find(Predicate<TablaturePlaylistItem> match)
         {
             if (match == null)
                 throw new ArgumentNullException("match");
@@ -83,7 +72,7 @@ namespace Tabster.Data
             return _items.FindAll(match);
         }
 
-        public  TablaturePlaylistItem Find(ITablatureFile file)
+        public TablaturePlaylistItem Find(ITablatureFile file)
         {
             if (file == null)
                 throw new ArgumentNullException("file");
@@ -91,7 +80,7 @@ namespace Tabster.Data
             return _items.Find(x => x.File.Equals(file));
         }
 
-        public  TablaturePlaylistItem Find(string path)
+        public TablaturePlaylistItem Find(string path)
         {
             if (path == null)
                 throw new ArgumentNullException("path");
@@ -99,7 +88,7 @@ namespace Tabster.Data
             return _items.Find(x => x.FileInfo.FullName.Equals(path, StringComparison.OrdinalIgnoreCase));
         }
 
-        public  List<TablaturePlaylistItem> GetTablatureItems()
+        public List<TablaturePlaylistItem> GetTablatureItems()
         {
             return new List<TablaturePlaylistItem>(_items);
         }
@@ -119,5 +108,16 @@ namespace Tabster.Data
         }
 
         #endregion
+
+        public string Name { get; set; }
+
+        public long? ID { get; set; }
+
+        public DateTime? Created { get; set; }
+
+        public int Count
+        {
+            get { return _items.Count; }
+        }
     }
 }

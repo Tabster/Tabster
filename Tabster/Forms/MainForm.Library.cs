@@ -657,6 +657,7 @@ namespace Tabster.Forms
             UpdateInfoLabel(lblCurrentCompressed, libraryItem.File.FileHeader.Compression == CompressionMode.None ? "No" : "Yes");
             UpdateInfoLabel(lblCurrentEncoding, libraryItem.File.FileAttributes.Encoding.EncodingName);
         }
+
         private void LoadTabPreview(bool startViewCountTimer = true)
         {
             PreviewDisplayTimer.Stop();
@@ -782,7 +783,7 @@ namespace Tabster.Forms
 
             if (node == null)
             {
-                node = new TreeNode(playlist.Name) { NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = playlist };
+                node = new TreeNode(playlist.Name) {NodeFont = sidemenu.FirstNode.FirstNode.NodeFont, Tag = playlist};
                 playlistRootNode.Nodes.Add(node);
 
                 if (!playlistRootNode.IsExpanded)
@@ -823,7 +824,7 @@ namespace Tabster.Forms
                 {
                     var path = ((ToolStripMenuItem) s).Tag.ToString();
 
-                    var playlistItem = ((ToolStripMenuItem)s).Tag as TablaturePlaylist;
+                    var playlistItem = ((ToolStripMenuItem) s).Tag as TablaturePlaylist;
 
 
                     if (playlistItem != null)

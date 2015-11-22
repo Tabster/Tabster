@@ -10,7 +10,6 @@ namespace Tabster.Data
 {
     public static class TabsterXmlFileConverter
     {
-
 #pragma warning disable 612
         private static readonly TabsterFileProcessor<TablatureDocument> TablatureDocumentProcessor;
 #pragma warning restore 612

@@ -87,7 +87,6 @@ namespace Tabster.WinForms
 
             if (!selectAll)
                 TextBoxBase.Select(0, 0);
-
         }
 
         #region Properties

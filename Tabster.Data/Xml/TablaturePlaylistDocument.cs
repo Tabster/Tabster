@@ -137,7 +137,7 @@ namespace Tabster.Data.Xml
 
         public IEnumerator<TablaturePlaylistItem> GetEnumerator()
         {
-            return ((IEnumerable<TablaturePlaylistItem>)_items).GetEnumerator();
+            return ((IEnumerable<TablaturePlaylistItem>) _items).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

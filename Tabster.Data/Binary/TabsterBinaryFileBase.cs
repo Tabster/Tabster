@@ -10,6 +10,7 @@ namespace Tabster.Data.Binary
 {
     public abstract class TabsterBinaryFileBase
     {
+        private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
         private readonly string _headerString;
 
         protected TabsterBinaryFileBase(string headerString)
@@ -66,11 +67,9 @@ namespace Tabster.Data.Binary
             writer.Write(ToUnixTime(attributes.Created));
         }
 
-        private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
         private static long ToUnixTime(DateTime date)
         {
-            return (long)(date.ToUniversalTime() - UnixEpoch).TotalSeconds;
+            return (long) (date.ToUniversalTime() - UnixEpoch).TotalSeconds;
         }
 
         private static DateTime FromUnixTime(long seconds)

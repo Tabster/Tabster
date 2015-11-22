@@ -3,17 +3,17 @@ namespace Tabster.Core.Types
     public interface ITablatureAttributes
     {
         /// <summary>
-        /// The tablature artist.
+        ///     The tablature artist.
         /// </summary>
         string Artist { get; set; }
 
         /// <summary>
-        /// The tablature title.
+        ///     The tablature title.
         /// </summary>
         string Title { get; set; }
 
         /// <summary>
-        /// The tablature type.
+        ///     The tablature type.
         /// </summary>
         TablatureType Type { get; set; }
     }

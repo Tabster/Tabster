@@ -13,9 +13,8 @@ namespace Tabster.Data.Library
 {
     public class TablatureFileLibrary<TTablatureFile> where TTablatureFile : class, ITablatureFile, new()
     {
-        private readonly TabsterFileProcessor<TTablatureFile> _tablatureFileProcessor;
-
         private readonly List<TablatureLibraryItem<TTablatureFile>> _items = new List<TablatureLibraryItem<TTablatureFile>>();
+        private readonly TabsterFileProcessor<TTablatureFile> _tablatureFileProcessor;
 
         public TablatureFileLibrary(string tablatureDirectory,
             TabsterFileProcessor<TTablatureFile> tablatureFileProcessor)
@@ -32,7 +31,7 @@ namespace Tabster.Data.Library
         public TabsterFileProcessor<TTablatureFile> GetTablatureFileProcessor()
         {
             return _tablatureFileProcessor;
-        } 
+        }
 
         public virtual void LoadTablatureFiles()
         {

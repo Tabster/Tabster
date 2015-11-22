@@ -29,7 +29,7 @@ namespace TextFile
         public AttributedTablature Import(string fileName)
         {
             var contents = File.ReadAllText(fileName);
-            var tab = new AttributedTablature { Contents = contents };
+            var tab = new AttributedTablature {Contents = contents};
             return tab;
         }
 

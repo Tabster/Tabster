@@ -46,7 +46,7 @@ namespace HtmlFile
                 tabContents = body != null ? body.InnerText : htmlDoc.DocumentNode.InnerText;
             }
 
-            var tab = new AttributedTablature { Contents = tabContents };
+            var tab = new AttributedTablature {Contents = tabContents};
             return tab;
         }
 

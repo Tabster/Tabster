@@ -23,11 +23,10 @@ namespace Tabster.Forms
 {
     internal partial class MainForm : Form
     {
-        private readonly FileInfo _queuedFileInfo;
-        private readonly TablatureFile _queuedTablatureFile;
-
         private readonly LibraryManager _libraryManager;
         private readonly PlaylistManager _playlistManager;
+        private readonly FileInfo _queuedFileInfo;
+        private readonly TablatureFile _queuedTablatureFile;
         private readonly RecentFilesManager _recentFilesManager;
 
         public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager)
@@ -75,16 +74,16 @@ namespace Tabster.Forms
             ToggleEmptyLibraryOverlay(listViewSearch, true);
         }
 
-        private void recentlyViewedMenuItem_OnItemsCleared(object sender, EventArgs e)
-        {
-            _recentFilesManager.Clear();
-        }
-
-        public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager, 
+        public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager,
             TablatureFile tablatureFile, FileInfo fileInfo) : this(libraryManager, playlistManager)
         {
             _queuedTablatureFile = tablatureFile;
             _queuedFileInfo = fileInfo;
+        }
+
+        private void recentlyViewedMenuItem_OnItemsCleared(object sender, EventArgs e)
+        {
+            _recentFilesManager.Clear();
         }
 
         /// <summary>
@@ -534,6 +533,14 @@ namespace Tabster.Forms
             SaveSelectedSearchResult();
         }
 
+        private void tabsCurrentTab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var viewingPreview = tabsCurrentTab.SelectedIndex == 0;
+
+            toolStripButton3.Enabled = viewingPreview;
+            printbtn.Enabled = viewingPreview;
+        }
+
         #region Menu Items
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -551,7 +558,6 @@ namespace Tabster.Forms
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void OpenPreferences(PreferencesDialog.PreferencesSection section)
@@ -574,13 +580,5 @@ namespace Tabster.Forms
         }
 
         #endregion
-
-        private void tabsCurrentTab_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var viewingPreview = tabsCurrentTab.SelectedIndex == 0;
-
-            toolStripButton3.Enabled = viewingPreview;
-            printbtn.Enabled = viewingPreview;
-        }
     }
 }

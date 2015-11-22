@@ -9,13 +9,13 @@ namespace Tabster.Data
 {
     public class TabsterFileAttributes
     {
-        public DateTime Created { get; private set; }
-        public Encoding Encoding { get; set; }
-
         public TabsterFileAttributes(DateTime created, Encoding encoding)
         {
             Created = created;
             Encoding = encoding;
         }
+
+        public DateTime Created { get; private set; }
+        public Encoding Encoding { get; set; }
     }
 }

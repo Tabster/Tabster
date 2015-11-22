@@ -21,12 +21,6 @@ namespace Tabster.Forms
 {
     internal partial class PreferencesDialog : Form
     {
-        private readonly Color _disabledColor = Color.Red;
-        private readonly Color _enabledColor = Color.Green;
-        private readonly Dictionary<TabsterPluginHost, bool> _pluginStatusMap = new Dictionary<TabsterPluginHost, bool>();
-        private readonly List<TabsterPluginHost> _plugins = new List<TabsterPluginHost>();
-
-
         public enum PreferencesSection
         {
             General,
@@ -35,6 +29,12 @@ namespace Tabster.Forms
             Network,
             Searching
         }
+
+        private readonly Color _disabledColor = Color.Red;
+        private readonly Color _enabledColor = Color.Green;
+        private readonly Dictionary<TabsterPluginHost, bool> _pluginStatusMap = new Dictionary<TabsterPluginHost, bool>();
+        private readonly List<TabsterPluginHost> _plugins = new List<TabsterPluginHost>();
+
 
         public PreferencesDialog()
         {
@@ -51,7 +51,7 @@ namespace Tabster.Forms
 
         public PreferencesDialog(PreferencesSection section) : this()
         {
-            tabControl1.SelectedIndex = (int)section;
+            tabControl1.SelectedIndex = (int) section;
         }
 
         public bool PluginsModified { get; private set; }

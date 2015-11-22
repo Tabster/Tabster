@@ -14,9 +14,8 @@ namespace Tabster.Database
         public const string TablePlaylistItems = "playlist_items";
         public const string TableRecentFiles = "recent_files";
 
-        private readonly SQLiteConnection _db;
-
         private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+        private readonly SQLiteConnection _db;
 
         public TabsterDatabaseHelper(string databasePath)
         {
@@ -56,7 +55,7 @@ namespace Tabster.Database
 
         public static int GetUnixTimestamp(DateTime dateTime)
         {
-            return (int)(dateTime.Subtract(Epoch)).TotalSeconds;
+            return (int) (dateTime.Subtract(Epoch)).TotalSeconds;
         }
 
         public static DateTime UnixTimestampToDateTime(int timestamp)
