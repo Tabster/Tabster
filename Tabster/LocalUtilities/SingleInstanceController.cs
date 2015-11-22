@@ -125,10 +125,6 @@ namespace Tabster.LocalUtilities
             if (Settings.Default.StartupUpdate)
             {
                 SetSplashStatus("Checking for updates...");
-
-#if !PORTABLE
-                Program.UpdateQuery.Check(false);
-#endif
             }
         }
 

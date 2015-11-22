@@ -11,7 +11,6 @@ using Tabster.Database;
 using Tabster.Forms;
 using Tabster.LocalUtilities;
 using Tabster.Properties;
-using Tabster.Updater;
 using Tabster.Utilities.Plugins;
 
 #endregion
@@ -24,7 +23,6 @@ namespace Tabster
         public static PluginController PluginController;
         public static string ApplicationDataDirectory;
         public static string UserDataDirectory;
-        public static UpdateQuery UpdateQuery = new UpdateQuery();
 
         private static ExternalViewerForm _tabbedViewer;
         private static TabsterDatabaseHelper _databaseHelper;

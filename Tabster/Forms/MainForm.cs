@@ -14,7 +14,6 @@ using Tabster.Data.Library;
 using Tabster.Data.Processing;
 using Tabster.Database;
 using Tabster.Properties;
-using Tabster.Updater;
 using Tabster.Utilities.Extensions;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
@@ -56,8 +55,6 @@ namespace Tabster.Forms
 
             //tabviewermanager events
             Program.TabbedViewer.TabClosed += TabHandler_OnTabClosed;
-
-            Program.UpdateQuery.Completed += updateQuery_Completed;
 
             recentlyViewedMenuItem.OnItemsCleared += recentlyViewedMenuItem_OnItemsCleared;
 
@@ -155,11 +152,6 @@ namespace Tabster.Forms
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            if (Program.UpdateQuery.UpdateAvailable)
-            {
-                ShowUpdateDialog();
-            }
-
             //loads queued tab after splash
             if (_queuedTablatureFile != null)
             {
@@ -542,34 +534,6 @@ namespace Tabster.Forms
             SaveSelectedSearchResult();
         }
 
-        #region Updater
-
-        private static void updateQuery_Completed(object sender, UpdateQueryCompletedEventArgs e)
-        {
-            var showUpdatedDialog = e.UserState != null && (bool) e.UserState;
-
-            if (Program.UpdateQuery.UpdateAvailable)
-            {
-                ShowUpdateDialog();
-            }
-
-            else
-            {
-                if (showUpdatedDialog)
-                {
-                    MessageBox.Show("Your version of Tabster is up to date.", "Updated");
-                }
-            }
-        }
-
-        private static void ShowUpdateDialog()
-        {
-            var updateDialog = new UpdateDialog(Program.UpdateQuery) {StartPosition = FormStartPosition.CenterParent};
-            updateDialog.ShowDialog();
-        }
-
-        #endregion
-
         #region Menu Items
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -587,7 +551,7 @@ namespace Tabster.Forms
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Program.UpdateQuery.Check(true);
+
         }
 
         private void OpenPreferences(PreferencesDialog.PreferencesSection section)

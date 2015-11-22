@@ -306,10 +306,6 @@
       <Project>{32901CD2-65D8-4D7D-9F48-F26358A3E47E}</Project>
       <Name>Tabster.Printing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tabster.Updater\Tabster.Updater.csproj">
-      <Project>{8C57A53E-17E1-4566-A2ED-FDADE6B3A874}</Project>
-      <Name>Tabster.Updater</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tabster.Utils\Tabster.Utils.csproj">
       <Project>{E7386580-9E85-4C6E-A849-A745F40F21D1}</Project>
       <Name>Tabster.Utils</Name>

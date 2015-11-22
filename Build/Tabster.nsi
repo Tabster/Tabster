@@ -41,7 +41,6 @@ Section "MainSection" SEC01
   SetOverwrite ifnewer
 
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.exe"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Updater.exe"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Core.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Data.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Utils.dll"
@@ -137,7 +136,6 @@ Section Uninstall
   Delete "$INSTDIR\SQLite.Interop.dll"
   Delete "$INSTDIR\log4net.dll"
   
-  Delete "$INSTDIR\Updater.exe"
   Delete "$INSTDIR\Uninstall.exe"
   Delete "$DESKTOP\Tabster.lnk"
   Delete "$SMPROGRAMS\Tabster\Tabster.lnk"
