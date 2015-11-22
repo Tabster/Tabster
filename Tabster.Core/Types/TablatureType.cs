@@ -7,13 +7,23 @@ using System.Collections.Generic;
 
 namespace Tabster.Core.Types
 {
+    /// <summary>
+    /// Represents a type of tablature.
+    /// </summary>
     public sealed class TablatureType
     {
+        /// <summary>
+        /// Initializes a new TablatureType instance.
+        /// </summary>
+        /// <param name="name"></param>
         public TablatureType(string name)
         {
             Name = name;
         }
 
+        /// <summary>
+        /// The name of the tablature type.
+        /// </summary>
         public string Name { get; private set; }
 
         public override string ToString()
