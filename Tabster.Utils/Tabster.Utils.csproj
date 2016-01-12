@@ -53,11 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\VersionExtensions.cs" />
-    <Compile Include="IO\FileUtilities.cs" />
     <Compile Include="Net\CustomProxyController.cs" />
-    <Compile Include="Net\TabsterWebClient.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Plugins\PluginController.cs" />
     <Compile Include="Plugins\TabsterPluginHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
