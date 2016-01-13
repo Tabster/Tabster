@@ -14,6 +14,7 @@ using Tabster.Data.Library;
 using Tabster.Data.Processing;
 using Tabster.Database;
 using Tabster.Properties;
+using Tabster.Update;
 using Tabster.Utilities.Extensions;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
@@ -23,16 +24,18 @@ namespace Tabster.Forms
 {
     internal partial class MainForm : Form
     {
+        private UpdateResponseEventArgs _queuedUpdateResponse;
         private readonly LibraryManager _libraryManager;
         private readonly PlaylistManager _playlistManager;
         private readonly FileInfo _queuedFileInfo;
         private readonly TablatureFile _queuedTablatureFile;
         private readonly RecentFilesManager _recentFilesManager;
 
-        public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager)
+        public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager, UpdateResponseEventArgs updateResponse = null)
         {
             _libraryManager = libraryManager;
             _playlistManager = playlistManager;
+            _queuedUpdateResponse = updateResponse;
 
             InitializeComponent();
 
@@ -55,6 +58,8 @@ namespace Tabster.Forms
             //tabviewermanager events
             Program.TabbedViewer.TabClosed += TabHandler_OnTabClosed;
 
+            Program.UpdateQuery.Completed += updateQuery_Completed;
+
             recentlyViewedMenuItem.OnItemsCleared += recentlyViewedMenuItem_OnItemsCleared;
 
             previewToolStrip.Renderer = new ToolStripRenderer();
@@ -75,10 +80,22 @@ namespace Tabster.Forms
         }
 
         public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager,
-            TablatureFile tablatureFile, FileInfo fileInfo) : this(libraryManager, playlistManager)
+            TablatureFile tablatureFile, FileInfo fileInfo, UpdateResponseEventArgs updateResponse = null)
+            : this(libraryManager, playlistManager, updateResponse)
         {
             _queuedTablatureFile = tablatureFile;
             _queuedFileInfo = fileInfo;
+            _queuedUpdateResponse = updateResponse;
+        }
+
+        private void updateQuery_Completed(object sender, UpdateResponseEventArgs e)
+        {
+            var isStartupCheck = (bool)e.UserState;
+
+            if (isStartupCheck)
+                _queuedUpdateResponse = e;
+            else
+                OnUpdateResponse(e);
         }
 
         private void recentlyViewedMenuItem_OnItemsCleared(object sender, EventArgs e)
@@ -113,12 +130,28 @@ namespace Tabster.Forms
             olvColumn6.AspectGetter = x => ((TablatureSearchResult) x).Source.ToString();
         }
 
-        private void ToggleEmptyLibraryOverlay(ObjectListView olv, bool enabled)
+        private static void ToggleEmptyLibraryOverlay(ObjectListView olv, bool enabled)
         {
             var textOverlay = olv.EmptyListMsgOverlay as TextOverlay;
             textOverlay.TextColor = enabled ? SystemColors.InactiveCaptionText : Color.Transparent;
             textOverlay.BackColor = Color.Transparent;
             textOverlay.BorderWidth = 0;
+        }
+
+        private static void OnUpdateResponse(UpdateResponseEventArgs e)
+        {
+            var isStartupCheck = (bool) e.UserState;
+
+            if (e.Response != null && e.Response.LatestVersion > new Version(Application.ProductVersion))
+            {
+                var updateDialog = new UpdateDialog(e.Response, new Version(Application.ProductVersion)) { StartPosition = FormStartPosition.CenterParent };
+                updateDialog.ShowDialog();
+            }
+
+            else if (!isStartupCheck)
+            {
+                MessageBox.Show("Your version of Tabster is up to date.", "No Updates Available");
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -151,6 +184,11 @@ namespace Tabster.Forms
 
         private void Form1_Shown(object sender, EventArgs e)
         {
+            if (_queuedUpdateResponse != null)
+            {
+                OnUpdateResponse(_queuedUpdateResponse);
+            }
+
             //loads queued tab after splash
             if (_queuedTablatureFile != null)
             {
@@ -558,6 +596,7 @@ namespace Tabster.Forms
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Program.UpdateQuery.Check(false);
         }
 
         private void OpenPreferences(PreferencesDialog.PreferencesSection section)

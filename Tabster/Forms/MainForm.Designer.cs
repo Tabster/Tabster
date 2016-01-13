@@ -586,7 +586,7 @@ namespace Tabster.Forms
             this.groupBox2.Controls.Add(this.lblFormat);
             this.groupBox2.Location = new System.Drawing.Point(6, 152);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(778, 80);
+            this.groupBox2.Size = new System.Drawing.Size(761, 80);
             this.groupBox2.TabIndex = 70;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "File Information:";
@@ -788,7 +788,7 @@ namespace Tabster.Forms
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(778, 140);
+            this.groupBox1.Size = new System.Drawing.Size(761, 140);
             this.groupBox1.TabIndex = 69;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tablature Information:";
@@ -806,7 +806,7 @@ namespace Tabster.Forms
             this.lblCurrentComment.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.lblCurrentComment.Name = "lblCurrentComment";
             this.lblCurrentComment.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblCurrentComment.Size = new System.Drawing.Size(706, 34);
+            this.lblCurrentComment.Size = new System.Drawing.Size(689, 34);
             this.lblCurrentComment.TabIndex = 69;
             this.lblCurrentComment.Text = "N/A";
             // 

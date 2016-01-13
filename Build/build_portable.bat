@@ -35,6 +35,7 @@ copy "%VS_BUILD_DIRECTORY%\Tabster.Core.dll" "%TEMP_DIRECTORY%\Tabster.Core.dll"
 copy "%VS_BUILD_DIRECTORY%\Tabster.Data.dll" "%TEMP_DIRECTORY%\Tabster.Data.dll"
 copy "%VS_BUILD_DIRECTORY%\Tabster.Utils.dll" "%TEMP_DIRECTORY%\Tabster.Utils.dll"
 
+copy "%VS_BUILD_DIRECTORY%\Newtonsoft.Json.dll" "%TEMP_DIRECTORY%\Newtonsoft.Json.dll"
 copy "%VS_BUILD_DIRECTORY%\ObjectListView.dll" "%TEMP_DIRECTORY%\ObjectListView.dll"
 copy "%VS_BUILD_DIRECTORY%\System.Data.SQLite.dll" "%TEMP_DIRECTORY%\System.Data.SQLite.dll"
 copy "%VS_BUILD_DIRECTORY%\x86\SQLite.Interop.dll" "%TEMP_DIRECTORY%\SQLite.Interop.dll"

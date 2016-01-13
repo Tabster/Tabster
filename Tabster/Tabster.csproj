@@ -90,6 +90,9 @@
       <HintPath>..\packages\log4net.2.0.3\lib\net35-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net35\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="ObjectListView">
       <HintPath>..\packages\ObjectListView.Official.2.8.0\lib\net20\ObjectListView.dll</HintPath>
     </Reference>
@@ -118,6 +121,12 @@
     <Compile Include="Database\LibraryManager.cs" />
     <Compile Include="Database\TabsterDatabaseHelper.cs" />
     <Compile Include="Database\PlaylistManager.cs" />
+    <Compile Include="Update\UpdateDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Update\UpdateDialog.Designer.cs">
+      <DependentUpon>UpdateDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="LocalUtilities\Logging.cs" />
     <Compile Include="LocalUtilities\UserSettingsUtilities.cs" />
     <Compile Include="Settings.cs" />
@@ -205,6 +214,7 @@
     <Compile Include="Controls\StaticTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Update\UpdateResponse.cs" />
     <EmbeddedResource Include="Forms\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -237,6 +247,9 @@
     <EmbeddedResource Include="Forms\ExternalViewerForm.resx">
       <DependentUpon>ExternalViewerForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Update\UpdateDialog.resx">
+      <DependentUpon>UpdateDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

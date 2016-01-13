@@ -9,6 +9,7 @@ using Tabster.Data.Binary;
 using Tabster.Database;
 using Tabster.Forms;
 using Tabster.Properties;
+using Tabster.Update;
 
 #endregion
 
@@ -26,6 +27,7 @@ namespace Tabster.LocalUtilities
         private readonly bool _filesNeedScanned;
         private readonly LibraryManager _libraryManager;
         private readonly PlaylistManager _playlistManager;
+        private UpdateResponseEventArgs _updateResponse;
 
         public SingleInstanceController(LibraryManager libraryManager, PlaylistManager playlistManager, bool filesNeedScanned)
         {
@@ -102,8 +104,8 @@ namespace Tabster.LocalUtilities
             PerformStartupEvents();
 
             base.MainForm = _queuedTabfile != null ?
-                new MainForm(_libraryManager, _playlistManager, _queuedTabfile, _queuedFileInfo) :
-                new MainForm(_libraryManager, _playlistManager);
+                new MainForm(_libraryManager, _playlistManager, _queuedTabfile, _queuedFileInfo, _updateResponse) :
+                new MainForm(_libraryManager, _playlistManager, _updateResponse);
 
             _isLibraryOpen = true;
         }
@@ -125,6 +127,8 @@ namespace Tabster.LocalUtilities
             if (Settings.Default.StartupUpdate)
             {
                 SetSplashStatus("Checking for updates...");
+                Program.UpdateQuery.Completed += (s, e) => { _updateResponse = e; };
+                Program.UpdateQuery.Check(true);
             }
         }
 
