@@ -7,13 +7,13 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
-using Tabster.Core.Printing;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Binary;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
 using Tabster.Database;
+using Tabster.Printing;
 using Tabster.Properties;
 using Tabster.WinForms.Extensions;
 

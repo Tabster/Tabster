@@ -4,8 +4,8 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using Tabster.Core.Printing;
 using Tabster.Core.Types;
+using Tabster.Printing;
 
 #endregion
 
