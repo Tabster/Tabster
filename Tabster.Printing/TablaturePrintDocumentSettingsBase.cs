@@ -4,7 +4,7 @@ using System.Drawing;
 
 #endregion
 
-namespace Tabster.Core.Printing
+namespace Tabster.Printing
 {
     public abstract class TablaturePrintDocumentSettingsBase
     {

@@ -5,7 +5,7 @@ using System.Drawing.Printing;
 
 #endregion
 
-namespace Tabster.Core.Printing
+namespace Tabster.Printing
 {
     public class TablaturePrintPageEventArgs : PrintPageEventArgs
     {

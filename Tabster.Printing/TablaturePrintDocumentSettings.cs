@@ -1,4 +1,4 @@
-﻿namespace Tabster.Core.Printing
+﻿namespace Tabster.Printing
 {
     public sealed class TablaturePrintDocumentSettings : TablaturePrintDocumentSettingsBase
     {

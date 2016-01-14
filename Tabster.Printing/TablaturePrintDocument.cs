@@ -8,7 +8,7 @@ using Tabster.Core.Types;
 
 #endregion
 
-namespace Tabster.Core.Printing
+namespace Tabster.Printing
 {
     public class TablaturePrintDocument : PrintDocument
     {
