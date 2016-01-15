@@ -121,6 +121,8 @@
     <Compile Include="Database\LibraryManager.cs" />
     <Compile Include="Database\TabsterDatabaseHelper.cs" />
     <Compile Include="Database\PlaylistManager.cs" />
+    <Compile Include="LocalUtilities\BrandingUtilities.cs" />
+    <Compile Include="LocalUtilities\CustomProxyController.cs" />
     <Compile Include="LocalUtilities\PluginController.cs" />
     <Compile Include="LocalUtilities\PluginHost.cs" />
     <Compile Include="Update\UpdateDialog.cs">
@@ -320,10 +322,6 @@
     <ProjectReference Include="..\Tabster.Printing\Tabster.Printing.csproj">
       <Project>{32901CD2-65D8-4D7D-9F48-F26358A3E47E}</Project>
       <Name>Tabster.Printing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tabster.Utils\Tabster.Utils.csproj">
-      <Project>{E7386580-9E85-4C6E-A849-A745F40F21D1}</Project>
-      <Name>Tabster.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

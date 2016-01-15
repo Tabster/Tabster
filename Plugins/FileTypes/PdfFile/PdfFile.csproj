@@ -69,11 +69,6 @@
       <Name>Tabster.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Tabster.Utils\Tabster.Utils.csproj">
-      <Project>{E7386580-9E85-4C6E-A849-A745F40F21D1}</Project>
-      <Name>Tabster.Utils</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

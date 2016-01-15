@@ -13,9 +13,9 @@ using Tabster.Data.Binary;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
 using Tabster.Database;
+using Tabster.LocalUtilities;
 using Tabster.Properties;
 using Tabster.Update;
-using Tabster.Utilities.Extensions;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion
@@ -39,7 +39,7 @@ namespace Tabster.Forms
 
             InitializeComponent();
 
-            Text = string.Format("{0} v{1}", Application.ProductName, new Version(Application.ProductVersion).ToShortString());
+            Text = string.Format("{0} v{1}", Application.ProductName, new Version(Application.ProductVersion).ToShortVersionString());
 
 #if PORTABLE
 

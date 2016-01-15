@@ -43,7 +43,6 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.exe"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Core.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Data.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Utils.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.WinForms.dll"
 
   ; third-party references  

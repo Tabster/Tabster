@@ -5,9 +5,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using Tabster.LocalUtilities;
 using Tabster.Properties;
-using Tabster.Utilities.Extensions;
-using Tabster.Utilities.Reflection;
 
 #endregion
 
@@ -18,8 +17,8 @@ namespace Tabster.Forms
         public AboutDialog()
         {
             InitializeComponent();
-            lblVersion.Text = string.Format("Version {0}", new Version(Application.ProductVersion).ToShortString());
-            lblCopyright.Text = AssemblyUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
+            lblVersion.Text = string.Format("Version {0}", new Version(Application.ProductVersion).ToShortVersionString());
+            lblCopyright.Text = BrandingUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
             txtLicense.Text = Resources.ApplicationLicense;
 
             LoadPlugins();
