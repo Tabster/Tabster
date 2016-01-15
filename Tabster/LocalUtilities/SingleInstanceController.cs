@@ -54,7 +54,7 @@ namespace Tabster.LocalUtilities
             {
                 if (commandLine.Contains("-nosplash"))
                     _noSplash = true;
-                if (commandLine.Contains("-safe-mode"))
+                if (commandLine.Contains("-safemode"))
                     _safeMode = true;
 
                 var firstArg = commandLine[0];
