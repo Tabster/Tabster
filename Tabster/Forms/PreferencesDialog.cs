@@ -13,7 +13,6 @@ using Tabster.Core.Types;
 using Tabster.LocalUtilities;
 using Tabster.Properties;
 using Tabster.Utilities.Net;
-using Tabster.Utilities.Plugins;
 
 #endregion
 
@@ -32,8 +31,8 @@ namespace Tabster.Forms
 
         private readonly Color _disabledColor = Color.Red;
         private readonly Color _enabledColor = Color.Green;
-        private readonly Dictionary<TabsterPluginHost, bool> _pluginStatusMap = new Dictionary<TabsterPluginHost, bool>();
-        private readonly List<TabsterPluginHost> _plugins = new List<TabsterPluginHost>();
+        private readonly Dictionary<PluginHost, bool> _pluginStatusMap = new Dictionary<PluginHost, bool>();
+        private readonly List<PluginHost> _plugins = new List<PluginHost>();
 
 
         public PreferencesDialog()
@@ -279,16 +278,16 @@ namespace Tabster.Forms
                 var plugin = _plugins[listPlugins.SelectedItems[0].Index];
 
                 lblPluginFilename.Text = Path.GetFileName(plugin.Assembly.Location);
-                lblPluginAuthor.Text = plugin.PluginAttributes.Author ?? "N/A";
-                lblPluginVersion.Text = plugin.PluginAttributes.Version != null
-                    ? plugin.PluginAttributes.Version.ToString()
+                lblPluginAuthor.Text = plugin.Plugin.Author ?? "N/A";
+                lblPluginVersion.Text = plugin.Plugin.Version != null
+                    ? plugin.Plugin.Version.ToString()
                     : "N/A";
-                lblPluginDescription.Text = plugin.PluginAttributes.Description ?? "N/A";
+                lblPluginDescription.Text = plugin.Plugin.Description ?? "N/A";
 
-                if (plugin.PluginAttributes.Website != null)
+                if (plugin.Plugin.Website != null)
                 {
-                    lblPluginHomepage.Text = plugin.PluginAttributes.Website.ToString();
-                    lblPluginHomepage.LinkArea = new LinkArea(0, plugin.PluginAttributes.Website.ToString().Length);
+                    lblPluginHomepage.Text = plugin.Plugin.Website.ToString();
+                    lblPluginHomepage.LinkArea = new LinkArea(0, plugin.Plugin.Website.ToString().Length);
                 }
 
                 else
@@ -340,7 +339,7 @@ namespace Tabster.Forms
                     var lvi = new ListViewItem
                     {
                         Tag = plugin.GUID.ToString(),
-                        Text = plugin.PluginAttributes.DisplayName,
+                        Text = plugin.Plugin.DisplayName,
                         Checked = enabled,
                         ForeColor = enabled ? _enabledColor : _disabledColor
                     };
@@ -371,7 +370,7 @@ namespace Tabster.Forms
 
             listSearchEngines.Items.Clear();
 
-            var searchPluginMap = new Dictionary<ITablatureSearchEngine, TabsterPluginHost>();
+            var searchPluginMap = new Dictionary<ITablatureSearchEngine, PluginHost>();
 
             foreach (var plugin in _plugins)
             {

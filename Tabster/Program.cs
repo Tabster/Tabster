@@ -12,7 +12,7 @@ using Tabster.Forms;
 using Tabster.LocalUtilities;
 using Tabster.Properties;
 using Tabster.Update;
-using Tabster.Utilities.Plugins;
+using PluginController = Tabster.LocalUtilities.PluginController;
 
 #endregion
 

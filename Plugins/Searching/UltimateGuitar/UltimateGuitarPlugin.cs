@@ -7,9 +7,9 @@ using Tabster.Core.Plugins;
 
 namespace UltimateGuitar
 {
-    public class UltimateGuitarPlugin : TabsterPluginBase, ITabsterPluginAttributes
+    public class UltimateGuitarPlugin : ITabsterPlugin
     {
-        #region Implementation of ITabsterPluginAttributes
+        #region Implementation of ITabsterPlugin
 
         public string Author
         {
@@ -39,6 +39,16 @@ namespace UltimateGuitar
         public Uri Website
         {
             get { return new Uri("http://nateshoffner.com"); }
+        }
+
+        public void Activate()
+        {
+            // not implemented
+        }
+
+        public void Deactivate()
+        {
+            // not implemented
         }
 
         public Type[] Types

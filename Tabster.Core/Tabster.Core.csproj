@@ -51,8 +51,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Plugins\ITabsterPluginAttributes.cs" />
-    <Compile Include="Plugins\TabsterPluginBase.cs" />
+    <Compile Include="Plugins\ITabsterPlugin.cs" />
     <Compile Include="Searching\TablatureSearchQuery.cs" />
     <Compile Include="Searching\TablatureSearchResult.cs" />
     <Compile Include="Searching\TablatureSearchEngineException.cs" />

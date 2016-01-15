@@ -6,7 +6,6 @@ using System.Net;
 using Tabster.Core.Searching;
 using Tabster.Properties;
 using Tabster.Utilities.Net;
-using Tabster.Utilities.Plugins;
 
 #endregion
 
@@ -63,7 +62,7 @@ namespace Tabster.LocalUtilities
             return engines.ToArray();
         }
 
-        public static string GetSearchEngineIdentifier(TabsterPluginHost plugin, ITablatureSearchEngine engine)
+        public static string GetSearchEngineIdentifier(PluginHost plugin, ITablatureSearchEngine engine)
         {
             if (string.IsNullOrEmpty(engine.Name))
                 return null;

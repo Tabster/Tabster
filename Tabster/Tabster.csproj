@@ -121,6 +121,8 @@
     <Compile Include="Database\LibraryManager.cs" />
     <Compile Include="Database\TabsterDatabaseHelper.cs" />
     <Compile Include="Database\PlaylistManager.cs" />
+    <Compile Include="LocalUtilities\PluginController.cs" />
+    <Compile Include="LocalUtilities\PluginHost.cs" />
     <Compile Include="Update\UpdateDialog.cs">
       <SubType>Form</SubType>
     </Compile>

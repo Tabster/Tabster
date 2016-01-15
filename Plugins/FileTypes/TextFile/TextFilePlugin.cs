@@ -7,9 +7,9 @@ using Tabster.Core.Plugins;
 
 namespace TextFile
 {
-    public class TextFilePlugin : TabsterPluginBase, ITabsterPluginAttributes
+    public class TextFilePlugin : ITabsterPlugin
     {
-        #region Implementation of ITabsterPluginAttributes
+        #region Implementation of ITabsterPlugin
 
         public string Author
         {
@@ -39,6 +39,16 @@ namespace TextFile
         public Uri Website
         {
             get { return new Uri("http://nateshoffner.com"); }
+        }
+
+        public void Activate()
+        {
+            // not implemented
+        }
+
+        public void Deactivate()
+        {
+            // not implemented
         }
 
         public Type[] Types

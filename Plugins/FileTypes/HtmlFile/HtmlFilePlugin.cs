@@ -7,9 +7,9 @@ using Tabster.Core.Plugins;
 
 namespace HtmlFile
 {
-    public class HtmlFilePlugin : TabsterPluginBase, ITabsterPluginAttributes
+    public class HtmlFilePlugin : ITabsterPlugin
     {
-        #region Implementation of ITabsterPluginAttributesAttributes
+        #region Implementation of ITabsterPluginAttributes
 
         public string Author
         {
@@ -39,6 +39,16 @@ namespace HtmlFile
         public Uri Website
         {
             get { return new Uri("http://nateshoffner.com"); }
+        }
+
+        public void Activate()
+        {
+            // not implemented
+        }
+
+        public void Deactivate()
+        {
+            // not implemented
         }
 
         public Type[] Types

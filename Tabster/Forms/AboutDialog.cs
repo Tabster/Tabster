@@ -31,10 +31,10 @@ namespace Tabster.Forms
             {
                 if (plugin.GUID != Guid.Empty && Program.PluginController.IsEnabled(plugin.GUID))
                 {
-                    var lvi = new ListViewItem() {Text = plugin.PluginAttributes.DisplayName ?? "N/A"};
+                    var lvi = new ListViewItem() { Text = plugin.Plugin.DisplayName ?? "N/A" };
 
-                    lvi.SubItems.Add(plugin.PluginAttributes.Version != null ? plugin.PluginAttributes.Version.ToString() : "N/A");
-                    lvi.SubItems.Add(plugin.PluginAttributes.Author ?? "N/A");
+                    lvi.SubItems.Add(plugin.Plugin.Version != null ? plugin.Plugin.Version.ToString() : "N/A");
+                    lvi.SubItems.Add(plugin.Plugin.Author ?? "N/A");
                     lvi.SubItems.Add(Path.GetFileName(plugin.Assembly.Location));
 
                     listPlugins.Items.Add(lvi);

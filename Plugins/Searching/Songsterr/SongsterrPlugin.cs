@@ -7,9 +7,9 @@ using Tabster.Core.Plugins;
 
 namespace Songsterr
 {
-    public class SongsterrPlugin : TabsterPluginBase, ITabsterPluginAttributes
+    public class SongsterrPlugin : ITabsterPlugin
     {
-        #region Implementation of ITabsterPluginAttributes
+        #region Implementation of ITabsterPlugin
 
         public string Author
         {
@@ -39,6 +39,16 @@ namespace Songsterr
         public Uri Website
         {
             get { return new Uri("http://nateshoffner.com"); }
+        }
+
+        public void Activate()
+        {
+            // not implemented
+        }
+
+        public void Deactivate()
+        {
+            // not implemented
         }
 
         public Type[] Types
