@@ -57,7 +57,7 @@ namespace Tabster.Forms
 
         private void btnHomepage_Click(object sender, EventArgs e)
         {
-            Process.Start("http://nateshoffner.com");
+            Process.Start("http://tabster.org");
         }
     }
 }
