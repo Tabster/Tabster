@@ -7,7 +7,7 @@ using Tabster.Core.Plugins;
 
 namespace PdfFile
 {
-    public class PdfFilePlugin : TabsterPluginBase, ITabsterPluginAttributes
+    public class PdfFilePlugin : ITabsterPlugin
     {
         #region Implementation of ITabsterPluginAttributes
 
@@ -39,6 +39,16 @@ namespace PdfFile
         public Uri Website
         {
             get { return new Uri("http://nateshoffner.com"); }
+        }
+
+        public void Activate()
+        {
+            // not implemented
+        }
+
+        public void Deactivate()
+        {
+            // not implemented
         }
 
         public Type[] Types
