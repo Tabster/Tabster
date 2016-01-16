@@ -48,14 +48,17 @@ namespace Tabster.Utilities
                 {
                     var pluginHost = LoadPluginFromDisk(pluginPath);
 
-                    try
+                    if (pluginHost != null)
                     {
-                        pluginHost.Plugin.Initialize();
-                    }
+                        try
+                        {
+                            pluginHost.Plugin.Initialize();
+                        }
 
-                    catch (Exception ex)
-                    {
-                        Logging.GetLogger().Error(string.Format("Error occured while initializing plugin: {0}", Path.GetFileName(pluginHost.Assembly.Location)), ex);
+                        catch (Exception ex)
+                        {
+                            Logging.GetLogger().Error(string.Format("Error occured while initializing plugin: {0}", Path.GetFileName(pluginHost.Assembly.Location)), ex);
+                        }
                     }
                 }
             }
