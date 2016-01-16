@@ -10,7 +10,7 @@ using System.Net;
 using System.Windows.Forms;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
-using Tabster.LocalUtilities;
+using Tabster.Utilities;
 using Tabster.Properties;
 
 #endregion

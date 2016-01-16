@@ -5,8 +5,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using Tabster.LocalUtilities;
 using Tabster.Properties;
+using Tabster.Utilities;
 
 #endregion
 

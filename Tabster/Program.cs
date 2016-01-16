@@ -9,10 +9,9 @@ using Tabster.Data.Processing;
 using Tabster.Data.Xml;
 using Tabster.Database;
 using Tabster.Forms;
-using Tabster.LocalUtilities;
 using Tabster.Properties;
 using Tabster.Update;
-using PluginController = Tabster.LocalUtilities.PluginController;
+using Tabster.Utilities;
 
 #endregion
 

@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Reflection;
 using System.Windows.Forms;
-using Tabster.LocalUtilities;
+using Tabster.Utilities;
 
 #endregion
 

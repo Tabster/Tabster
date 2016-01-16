@@ -9,7 +9,7 @@ using System.Net;
 using System.Windows.Forms;
 using Tabster.Core.Types;
 using Tabster.Data.Processing;
-using Tabster.LocalUtilities;
+using Tabster.Utilities;
 
 #endregion
 

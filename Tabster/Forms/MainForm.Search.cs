@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Data.Processing;
-using Tabster.LocalUtilities;
+using Tabster.Utilities;
 
 #endregion
 

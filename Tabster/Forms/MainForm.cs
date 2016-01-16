@@ -13,7 +13,7 @@ using Tabster.Data.Binary;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
 using Tabster.Database;
-using Tabster.LocalUtilities;
+using Tabster.Utilities;
 using Tabster.Properties;
 using Tabster.Update;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
