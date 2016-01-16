@@ -121,29 +121,29 @@
     <Compile Include="Database\LibraryManager.cs" />
     <Compile Include="Database\TabsterDatabaseHelper.cs" />
     <Compile Include="Database\PlaylistManager.cs" />
-    <Compile Include="LocalUtilities\BrandingUtilities.cs" />
-    <Compile Include="LocalUtilities\CustomProxyController.cs" />
-    <Compile Include="LocalUtilities\PluginController.cs" />
-    <Compile Include="LocalUtilities\PluginHost.cs" />
+    <Compile Include="Utilities\BrandingUtilities.cs" />
+    <Compile Include="Utilities\CustomProxyController.cs" />
+    <Compile Include="Utilities\PluginController.cs" />
+    <Compile Include="Utilities\PluginHost.cs" />
     <Compile Include="Update\UpdateDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Update\UpdateDialog.Designer.cs">
       <DependentUpon>UpdateDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="LocalUtilities\Logging.cs" />
-    <Compile Include="LocalUtilities\UserSettingsUtilities.cs" />
+    <Compile Include="Utilities\Logging.cs" />
+    <Compile Include="Utilities\UserSettingsUtilities.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Controls\TextBoxExtended.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LocalUtilities\PortableSettingsProvider.cs" />
+    <Compile Include="Utilities\PortableSettingsProvider.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="LocalUtilities\SingleInstanceController.cs" />
+    <Compile Include="Utilities\SingleInstanceController.cs" />
     <Compile Include="Forms\AboutDialog.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -7,7 +7,7 @@ using Tabster.Core.Plugins;
 
 #endregion
 
-namespace Tabster.LocalUtilities
+namespace Tabster.Utilities
 {
     public class PluginHost
     {

@@ -5,7 +5,7 @@ using System.Reflection;
 
 #endregion
 
-namespace Tabster.LocalUtilities
+namespace Tabster.Utilities
 {
     internal static class BrandingUtilities
     {

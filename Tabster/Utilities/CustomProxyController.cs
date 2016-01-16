@@ -5,7 +5,7 @@ using System.Net;
 
 #endregion
 
-namespace Tabster.LocalUtilities
+namespace Tabster.Utilities
 {
     public class ManualProxyParameters
     {
