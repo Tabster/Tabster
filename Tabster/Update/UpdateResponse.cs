@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Tabster.Utilities;
 
 #endregion
 
@@ -80,7 +81,7 @@ namespace Tabster.Update
                 }
                 catch (Exception ex)
                 {
-                    LocalUtilities.Logging.GetLogger().Error("An error occured while checking for updates.", ex);
+                    Logging.GetLogger().Error("An error occured while checking for updates.", ex);
 
                     if (Completed != null)
                         Completed(this, new UpdateResponseEventArgs(null, ex, userToken));

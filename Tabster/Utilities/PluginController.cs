@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using log4net.Repository.Hierarchy;
 using Tabster.Core.Plugins;
 
 #endregion
@@ -47,7 +46,17 @@ namespace Tabster.Utilities
 
                 foreach (var pluginPath in pluginFiles)
                 {
-                    LoadPluginFromDisk(pluginPath);
+                    var pluginHost = LoadPluginFromDisk(pluginPath);
+
+                    try
+                    {
+                        pluginHost.Plugin.Initialize();
+                    }
+
+                    catch (Exception ex)
+                    {
+                        Logging.GetLogger().Error(string.Format("Error occured while initializing plugin: {0}", Path.GetFileName(pluginHost.Assembly.Location)), ex);
+                    }
                 }
             }
 
@@ -82,7 +91,7 @@ namespace Tabster.Utilities
             return _plugins.Find(x => x.Contains(type));
         }
 
-        public void LoadPluginFromDisk(string path)
+        public PluginHost LoadPluginFromDisk(string path)
         {
             try
             {
@@ -94,11 +103,11 @@ namespace Tabster.Utilities
 
                     //require assembly guid
                     if (!AssemblyHasGuid(assembly, out assemblyGuid))
-                        return;
+                        return null;
 
                     //prevent guid collisions
                     if (_plugins.Find(x => x.GUID == assemblyGuid) != null)
-                        return;
+                        return null;
 
                     var pluginType = assembly.GetTypes().FirstOrDefault(objType => typeof (ITabsterPlugin).IsAssignableFrom(objType));
 
@@ -109,6 +118,8 @@ namespace Tabster.Utilities
 
                         var host = new PluginHost(assembly, plugin, assemblyGuid);
                         _plugins.Add(host);
+
+                        return host;
                     }
                 }
             }
@@ -117,6 +128,8 @@ namespace Tabster.Utilities
             {
                 //unhandled
             }
+
+            return null;
         }
 
         public void SetStatus(Guid guid, bool enabled)

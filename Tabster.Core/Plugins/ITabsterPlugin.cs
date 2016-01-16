@@ -39,8 +39,19 @@ namespace Tabster.Core.Plugins
         /// </summary>
         Uri Website { get; }
 
+        /// <summary>
+        /// Plugin activation.
+        /// </summary>
         void Activate();
+
+        /// <summary>
+        /// Plugin deactivation.
+        /// </summary>
         void Deactivate();
 
+        /// <summary>
+        /// Plugin initialization.
+        /// </summary>
+        void Initialize();
     }
 }

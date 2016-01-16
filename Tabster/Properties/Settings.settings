@@ -2,59 +2,59 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Tabster.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="StartupUpdate" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Boolean" Scope="User">
+    <Setting Name="StartupUpdate" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="ClientState" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Windows.Forms.FormWindowState" Scope="User">
+    <Setting Name="ClientState" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Windows.Forms.FormWindowState" Scope="User">
       <Value Profile="(Default)">Maximized</Value>
     </Setting>
-    <Setting Name="ToolbarDock" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Windows.Forms.DockStyle" Scope="User">
+    <Setting Name="ToolbarDock" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Windows.Forms.DockStyle" Scope="User">
       <Value Profile="(Default)">Top</Value>
     </Setting>
-    <Setting Name="ClientSize" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Drawing.Size" Scope="User">
+    <Setting Name="ClientSize" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">1024, 625</Value>
     </Setting>
-    <Setting Name="SearchPreviewOrientation" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="Tabster.PreviewPanelOrientation" Scope="User">
+    <Setting Name="SearchPreviewOrientation" Provider="Tabster.Utilities.PortableSettingsProvider" Type="Tabster.PreviewPanelOrientation" Scope="User">
       <Value Profile="(Default)">Horizontal</Value>
     </Setting>
-    <Setting Name="LibraryPreviewOrientation" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="Tabster.PreviewPanelOrientation" Scope="User">
+    <Setting Name="LibraryPreviewOrientation" Provider="Tabster.Utilities.PortableSettingsProvider" Type="Tabster.PreviewPanelOrientation" Scope="User">
       <Value Profile="(Default)">Horizontal</Value>
     </Setting>
-    <Setting Name="LibraryPreviewPanelDistance" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Int32" Scope="User">
+    <Setting Name="LibraryPreviewPanelDistance" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">365</Value>
     </Setting>
-    <Setting Name="SearchPreviewPanelDistance" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Int32" Scope="User">
+    <Setting Name="SearchPreviewPanelDistance" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">365</Value>
     </Setting>
-    <Setting Name="ProxyUsername" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.String" Scope="User">
+    <Setting Name="ProxyUsername" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ProxyPassword" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.String" Scope="User">
+    <Setting Name="ProxyPassword" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ProxyConfig" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.String" Scope="User">
+    <Setting Name="ProxyConfig" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)">None</Value>
     </Setting>
-    <Setting Name="DisabledPlugins" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Collections.Specialized.StringCollection" Scope="User">
+    <Setting Name="DisabledPlugins" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;</Value>
     </Setting>
-    <Setting Name="PrintColor" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Drawing.Color" Scope="User">
+    <Setting Name="PrintColor" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Black</Value>
     </Setting>
-    <Setting Name="PrintPageNumbers" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Boolean" Scope="User">
+    <Setting Name="PrintPageNumbers" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="PrintTimestamp" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Boolean" Scope="User">
+    <Setting Name="PrintTimestamp" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ProxyHost" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.String" Scope="User">
+    <Setting Name="ProxyHost" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ProxyPort" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.UInt16" Scope="User">
+    <Setting Name="ProxyPort" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.UInt16" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="DisabledSearchEngines" Provider="Tabster.LocalUtilities.PortableSettingsProvider" Type="System.Collections.Specialized.StringCollection" Scope="User">
+    <Setting Name="DisabledSearchEngines" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;</Value>
     </Setting>

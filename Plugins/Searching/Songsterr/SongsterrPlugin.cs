@@ -51,6 +51,11 @@ namespace Songsterr
             // not implemented
         }
 
+        public void Initialize()
+        {
+            // not implemented
+        }
+
         public Type[] Types
         {
             get { return new[] {typeof (SongsterrSearch), typeof (SongsterrParser)}; }

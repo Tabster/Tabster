@@ -56,6 +56,11 @@ namespace WordDoc
             // not implemented
         }
 
+        public void Initialize()
+        {
+            // not implemented
+        }
+
         #endregion
     }
 }
