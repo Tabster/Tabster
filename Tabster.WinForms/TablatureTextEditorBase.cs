@@ -16,7 +16,6 @@ namespace Tabster.WinForms
         protected TablatureTextEditorBase(TextBoxBase textBoxBase)
         {
             TextBoxBase = textBoxBase;
-            TextBoxBase.Font = TablatureDisplayFont.GetFont();
             TextBoxBase.KeyDown += TextBoxBase_KeyDown;
             TextBoxBase.ModifiedChanged += TextBoxBase_ModifiedChanged;
 
@@ -40,6 +39,12 @@ namespace Tabster.WinForms
                 TextBoxBase.SelectAll();
                 e.Handled = true;
             }
+        }
+
+        public new Font Font
+        {
+            get { return TextBoxBase.Font; }
+            set { TextBoxBase.Font = value; }
         }
 
         public void ScrollToPosition(int position)

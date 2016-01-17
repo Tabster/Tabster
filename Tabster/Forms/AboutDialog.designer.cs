@@ -42,13 +42,16 @@
             this.listPlugins = new System.Windows.Forms.ListView();
             this.colpluginName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colpluginFilename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colpluginFilename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnHomepage = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.txtFontLicense = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblName
@@ -160,6 +163,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(9, 89);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -216,15 +220,15 @@
             this.colpluginVersion.Text = "Version";
             this.colpluginVersion.Width = 65;
             // 
-            // colpluginFilename
-            // 
-            this.colpluginFilename.Text = "Filename";
-            this.colpluginFilename.Width = 160;
-            // 
             // colpluginAuthor
             // 
             this.colpluginAuthor.Text = "Author";
             this.colpluginAuthor.Width = 150;
+            // 
+            // colpluginFilename
+            // 
+            this.colpluginFilename.Text = "Filename";
+            this.colpluginFilename.Width = 160;
             // 
             // btnHomepage
             // 
@@ -236,6 +240,28 @@
             this.btnHomepage.Text = "Homepage";
             this.btnHomepage.UseVisualStyleBackColor = true;
             this.btnHomepage.Click += new System.EventHandler(this.btnHomepage_Click);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.txtFontLicense);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(517, 134);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Font License";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // txtFontLicense
+            // 
+            this.txtFontLicense.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtFontLicense.Location = new System.Drawing.Point(3, 3);
+            this.txtFontLicense.Multiline = true;
+            this.txtFontLicense.Name = "txtFontLicense";
+            this.txtFontLicense.ReadOnly = true;
+            this.txtFontLicense.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtFontLicense.Size = new System.Drawing.Size(511, 128);
+            this.txtFontLicense.TabIndex = 63;
             // 
             // AboutDialog
             // 
@@ -268,6 +294,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -292,5 +320,7 @@
         private System.Windows.Forms.ColumnHeader colpluginFilename;
         private System.Windows.Forms.ColumnHeader colpluginAuthor;
         private System.Windows.Forms.Button btnHomepage;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TextBox txtFontLicense;
     }
 }

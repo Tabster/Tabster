@@ -37,7 +37,6 @@ namespace Tabster.WinForms
                 Dock = DockStyle.Fill,
                 Multiline = true,
                 ScrollBars = ScrollBars.Both,
-                Font = TablatureDisplayFont.GetFont()
             };
         }
     }

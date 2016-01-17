@@ -20,6 +20,7 @@ namespace Tabster.Forms
             lblVersion.Text = string.Format("Version {0}", new Version(Application.ProductVersion).ToShortVersionString());
             lblCopyright.Text = BrandingUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
             txtLicense.Text = Resources.ApplicationLicense;
+            txtFontLicense.Text = Resources.SourceCodeProLicense;
 
             LoadPlugins();
         }

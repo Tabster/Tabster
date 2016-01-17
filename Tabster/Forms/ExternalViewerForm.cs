@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Core.Types;
 using Tabster.Data;
+using Tabster.Utilities;
 using Tabster.WinForms;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
@@ -308,6 +309,7 @@ namespace Tabster.Forms
             Page = new EllipsizedTabPage {Text = file.ToFriendlyString(), ToolTipText = FileInfo.FullName};
 
             Editor = editor ?? new BasicTablatureTextEditor {Dock = DockStyle.Fill};
+            Editor.Font = TablatureFontManager.GetFont();
 
             Page.Controls.Add(Editor);
 

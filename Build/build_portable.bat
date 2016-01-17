@@ -8,6 +8,7 @@ SET "ZIP_ARCHIVE=%BUILD_DIRECTORY%\Tabster %APPLICATION_VERSION% Portable.exe"
 
 IF EXIST "%TEMP_DIRECTORY%" rmdir /S /Q "%TEMP_DIRECTORY%"
 mkdir "%TEMP_DIRECTORY%"
+mkdir "%TEMP_DIRECTORY%\Resources\Fonts\"
 mkdir "%TEMP_DIRECTORY%\Plugins\FileTypes"
 mkdir "%TEMP_DIRECTORY%\Plugins\Searching"
 
@@ -39,6 +40,9 @@ copy "%VS_BUILD_DIRECTORY%\ObjectListView.dll" "%TEMP_DIRECTORY%\ObjectListView.
 copy "%VS_BUILD_DIRECTORY%\System.Data.SQLite.dll" "%TEMP_DIRECTORY%\System.Data.SQLite.dll"
 copy "%VS_BUILD_DIRECTORY%\x86\SQLite.Interop.dll" "%TEMP_DIRECTORY%\SQLite.Interop.dll"
 copy "%VS_BUILD_DIRECTORY%\log4net.dll" "%TEMP_DIRECTORY%\log4net.dll"
+
+::resources
+copy "%VS_BUILD_DIRECTORY%\Resources\Fonts\SourceCodePro-Regular.ttf" "%TEMP_DIRECTORY%\Resources\Fonts\SourceCodePro-Regular.ttf"
 
 ::native filetype plugins
 copy "%VS_BUILD_DIRECTORY%\Plugins\FileTypes\TextFile.dll" "%TEMP_DIRECTORY%\Plugins\FileTypes\TextFile.dll"

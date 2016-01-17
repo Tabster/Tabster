@@ -77,6 +77,8 @@ namespace Tabster.Forms
 
             ToggleEmptyLibraryOverlay(listViewLibrary, true);
             ToggleEmptyLibraryOverlay(listViewSearch, true);
+
+            PreviewEditor.Font = TablatureFontManager.GetFont();
         }
 
         public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager,

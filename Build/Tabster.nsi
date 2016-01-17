@@ -61,9 +61,14 @@ Section "MainSection" SEC01
   !define PLUGIN_FILETYPES_DIRECTORY "${PLUGIN_DIRECTORY}\FileTypes"
   !define PLUGIN_SEARCHING_DIRECTORY "${PLUGIN_DIRECTORY}\Searching"
   
+  !define RESOURCES_DIRECTORY "$INSTDIR\Resources"
+  !define FONTS_DIRECTORY "${RESOURCES_DIRECTORY}\Fonts"
+  
   CreateDirectory "${PLUGIN_DIRECTORY}"
   CreateDirectory "${PLUGIN_FILETYPES_DIRECTORY}"
   CreateDirectory "${PLUGIN_SEARCHING_DIRECTORY}"
+  CreateDirectory "${RESOURCES_DIRECTORY}"
+  CreateDirectory "${FONTS_DIRECTORY}"
   
   ; native filetype plugins
   SetOutPath "${PLUGIN_FILETYPES_DIRECTORY}"  
@@ -81,6 +86,10 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\GuitartabsDotCC.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\Songsterr.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\HtmlAgilityPack.dll" ;common dependency
+  
+  ; resources
+  SetOutPath "${FONTS_DIRECTORY}"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Resources\Fonts\SourceCodePro-Regular.ttf"
   
   ; file association
   ${registerExtension} "$INSTDIR\Tabster.exe" ".tabster" "Tabster File"
