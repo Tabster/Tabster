@@ -24,6 +24,12 @@ namespace Tabster.WinForms
 
         protected TextBoxBase TextBoxBase { get; private set; }
 
+        public new Font Font
+        {
+            get { return TextBoxBase.Font; }
+            set { TextBoxBase.Font = value; }
+        }
+
         private void TextBoxBase_ModifiedChanged(object sender, EventArgs e)
         {
             if (ContentsModified != null)
@@ -39,12 +45,6 @@ namespace Tabster.WinForms
                 TextBoxBase.SelectAll();
                 e.Handled = true;
             }
-        }
-
-        public new Font Font
-        {
-            get { return TextBoxBase.Font; }
-            set { TextBoxBase.Font = value; }
         }
 
         public void ScrollToPosition(int position)

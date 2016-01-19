@@ -15,12 +15,12 @@ namespace Tabster.Utilities
         {
             Assembly = assembly;
             Plugin = plugin;
-            GUID = guid;
+            Guid = guid;
         }
 
         public Assembly Assembly { get; private set; }
         public ITabsterPlugin Plugin { get; private set; }
-        public Guid GUID { get; private set; }
+        public Guid Guid { get; private set; }
 
         public IEnumerable<T> GetClassInstances<T>()
         {

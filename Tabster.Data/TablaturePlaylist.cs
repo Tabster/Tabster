@@ -111,7 +111,7 @@ namespace Tabster.Data
 
         public string Name { get; set; }
 
-        public long? ID { get; set; }
+        public long? Id { get; set; }
 
         public DateTime? Created { get; set; }
 

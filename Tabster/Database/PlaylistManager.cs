@@ -13,7 +13,7 @@ namespace Tabster.Database
     {
         private readonly TabsterDatabaseHelper _databaseHelper;
 
-        private readonly List<TablaturePlaylist> _playlists = new List<TablaturePlaylist>(); 
+        private readonly List<TablaturePlaylist> _playlists = new List<TablaturePlaylist>();
 
         public PlaylistManager(TabsterDatabaseHelper databaseHelper)
         {
@@ -22,7 +22,7 @@ namespace Tabster.Database
 
         public int Count
         {
-            get { return _playlists.Count; }   
+            get { return _playlists.Count; }
         }
 
         public void Load()
@@ -38,7 +38,7 @@ namespace Tabster.Database
                         var id = long.Parse(reader["id"].ToString());
                         var name = reader["name"].ToString();
                         var created = reader["created"].ToString();
-                        var playlist = new TablaturePlaylist(name) { ID = id, Created = TabsterDatabaseHelper.UnixTimestampToDateTime(int.Parse(created))};
+                        var playlist = new TablaturePlaylist(name) {Id = id, Created = TabsterDatabaseHelper.UnixTimestampToDateTime(int.Parse(created))};
                         _playlists.Add(playlist);
                     }
                 }
@@ -56,13 +56,13 @@ namespace Tabster.Database
             {
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = string.Format(@"INSERT OR REPLACE INTO {0} (id, name, created) VALUES (@id, @name, @created)", TabsterDatabaseHelper.TablePlaylists);
-                cmd.Parameters.Add(new SQLiteParameter("@id", playlist.ID));
+                cmd.Parameters.Add(new SQLiteParameter("@id", playlist.Id));
                 cmd.Parameters.Add(new SQLiteParameter("@name", playlist.Name));
                 cmd.Parameters.Add(new SQLiteParameter("@created", TabsterDatabaseHelper.GetUnixTimestamp(playlist.Created.Value)));
                 cmd.ExecuteNonQuery();
             }
 
-            playlist.ID = _databaseHelper.GetConnection().LastInsertRowId;
+            playlist.Id = _databaseHelper.GetConnection().LastInsertRowId;
 
             RemovePlaylistItems(playlist);
 
@@ -73,7 +73,7 @@ namespace Tabster.Database
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = string.Format(@"INSERT INTO {0} (filename, playlist_id) VALUES (@filename, @playlist_id)", TabsterDatabaseHelper.TablePlaylistItems);
                     cmd.Parameters.Add(new SQLiteParameter("@filename", item.FileInfo.FullName));
-                    cmd.Parameters.Add(new SQLiteParameter("@playlist_id", playlist.ID));
+                    cmd.Parameters.Add(new SQLiteParameter("@playlist_id", playlist.Id));
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -85,7 +85,7 @@ namespace Tabster.Database
             {
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = string.Format(@"DELETE FROM {0} WHERE id=@id", TabsterDatabaseHelper.TablePlaylists);
-                cmd.Parameters.Add(new SQLiteParameter("@id", playlist.ID));
+                cmd.Parameters.Add(new SQLiteParameter("@id", playlist.Id));
                 cmd.ExecuteNonQuery();
             }
 
@@ -98,7 +98,7 @@ namespace Tabster.Database
             {
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = string.Format(@"DELETE FROM {0} WHERE playlist_id=@playlist_id", TabsterDatabaseHelper.TablePlaylistItems);
-                cmd.Parameters.Add(new SQLiteParameter("@playlist_id", playlist.ID));
+                cmd.Parameters.Add(new SQLiteParameter("@playlist_id", playlist.Id));
                 cmd.ExecuteNonQuery();
             }
         }

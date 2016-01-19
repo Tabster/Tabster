@@ -13,9 +13,9 @@ using Tabster.Data.Binary;
 using Tabster.Data.Library;
 using Tabster.Data.Processing;
 using Tabster.Database;
-using Tabster.Utilities;
 using Tabster.Properties;
 using Tabster.Update;
+using Tabster.Utilities;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
 
 #endregion
@@ -24,12 +24,12 @@ namespace Tabster.Forms
 {
     internal partial class MainForm : Form
     {
-        private UpdateResponseEventArgs _queuedUpdateResponse;
         private readonly LibraryManager _libraryManager;
         private readonly PlaylistManager _playlistManager;
         private readonly FileInfo _queuedFileInfo;
         private readonly TablatureFile _queuedTablatureFile;
         private readonly RecentFilesManager _recentFilesManager;
+        private UpdateResponseEventArgs _queuedUpdateResponse;
 
         public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager, UpdateResponseEventArgs updateResponse = null)
         {
@@ -93,7 +93,7 @@ namespace Tabster.Forms
 
         private void updateQuery_Completed(object sender, UpdateResponseEventArgs e)
         {
-            var isStartupCheck = (bool)e.UserState;
+            var isStartupCheck = (bool) e.UserState;
 
             if (isStartupCheck)
                 _queuedUpdateResponse = e;
@@ -147,7 +147,7 @@ namespace Tabster.Forms
 
             if (e.Response != null && e.Response.LatestVersion > new Version(Application.ProductVersion))
             {
-                var updateDialog = new UpdateDialog(e.Response, new Version(Application.ProductVersion)) { StartPosition = FormStartPosition.CenterParent };
+                var updateDialog = new UpdateDialog(e.Response, new Version(Application.ProductVersion)) {StartPosition = FormStartPosition.CenterParent};
                 updateDialog.ShowDialog();
             }
 
@@ -434,11 +434,6 @@ namespace Tabster.Forms
             {
                 onlinesearchbtn.PerformClick();
             }
-        }
-
-        private void TablatureLibraryTabRemoved(object sender, EventArgs e)
-        {
-            BuildSearchSuggestions();
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)

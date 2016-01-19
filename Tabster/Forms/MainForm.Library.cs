@@ -822,10 +822,7 @@ namespace Tabster.Forms
 
                 menuItem.Click += (s, e) =>
                 {
-                    var path = ((ToolStripMenuItem) s).Tag.ToString();
-
                     var playlistItem = ((ToolStripMenuItem) s).Tag as TablaturePlaylist;
-
 
                     if (playlistItem != null)
                     {

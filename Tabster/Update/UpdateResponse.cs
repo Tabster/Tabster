@@ -65,7 +65,7 @@ namespace Tabster.Update
 
     public class UpdateQuery
     {
-        private const string JSON_SOURCE = "http://tabster.org/update.json";
+        private const string JsonSource = "http://tabster.org/update.json";
 
         public event EventHandler<UpdateResponseEventArgs> Completed;
 
@@ -77,7 +77,7 @@ namespace Tabster.Update
 
                 try
                 {
-                    client.DownloadStringAsync(new Uri(JSON_SOURCE), userToken);
+                    client.DownloadStringAsync(new Uri(JsonSource), userToken);
                 }
                 catch (Exception ex)
                 {

@@ -52,7 +52,7 @@ namespace Tabster.Printing
 
         protected int CountTotalPages()
         {
-            var _originalPrintContents = string.Copy(_printContents);
+            var originalPrintContents = string.Copy(_printContents);
 
             //backup existing controller
             var existingController = PrintController;
@@ -63,7 +63,7 @@ namespace Tabster.Printing
 
             PrintController = existingController;
 
-            _printContents = _originalPrintContents;
+            _printContents = originalPrintContents;
 
             TotalPages = pageCountController.PageCount;
             return pageCountController.PageCount;

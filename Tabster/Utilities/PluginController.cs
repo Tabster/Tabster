@@ -63,7 +63,7 @@ namespace Tabster.Utilities
                 }
             }
 
-            foreach (var plugin in this.Where(plugin => IsEnabled(plugin.GUID)))
+            foreach (var plugin in this.Where(plugin => IsEnabled(plugin.Guid)))
             {
                 try
                 {
@@ -81,7 +81,7 @@ namespace Tabster.Utilities
         {
             var instances = new List<T>();
 
-            foreach (var plugin in _plugins.Where(plugin => IsEnabled(plugin.GUID)))
+            foreach (var plugin in _plugins.Where(plugin => IsEnabled(plugin.Guid)))
             {
                 instances.AddRange(plugin.GetClassInstances<T>());
             }
@@ -109,7 +109,7 @@ namespace Tabster.Utilities
                         return null;
 
                     //prevent guid collisions
-                    if (_plugins.Find(x => x.GUID == assemblyGuid) != null)
+                    if (_plugins.Find(x => x.Guid == assemblyGuid) != null)
                         return null;
 
                     var pluginType = assembly.GetTypes().FirstOrDefault(objType => typeof (ITabsterPlugin).IsAssignableFrom(objType));
@@ -152,7 +152,6 @@ namespace Tabster.Utilities
                 {
                     Logging.GetLogger().Error(string.Format("Error occured while activating plugin: {0}", Path.GetFileName(plugin.Assembly.Location)), ex);
                 }
-
             }
 
             else
@@ -178,7 +177,7 @@ namespace Tabster.Utilities
 
         public PluginHost FindPluginByGuid(Guid guid)
         {
-            return _plugins.Find(x => x.GUID == guid);
+            return _plugins.Find(x => x.Guid == guid);
         }
 
         private static bool AssemblyHasGuid(Assembly assembly, out Guid guid)

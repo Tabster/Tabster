@@ -18,7 +18,7 @@ namespace Tabster.Core.Types
         TablatureType Type { get; set; }
     }
 
-    public static class ITablatureAttributesExtensions
+    public static class TablatureAttributesExtensions
     {
         public static string ToFriendlyString(this ITablatureAttributes tablatureAttributes)
         {

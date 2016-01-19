@@ -44,8 +44,8 @@ namespace Tabster.Forms
 
         private readonly List<AttributedTablature> _downloadedTabs = new List<AttributedTablature>();
         private readonly List<ITablatureWebImporter> _importers = new List<ITablatureWebImporter>();
-        private bool mClosePending;
-        private bool mCompleted = true;
+        private bool _closePending;
+        private bool _completed = true;
 
         public DownloadDialog(List<ITablatureWebImporter> importers)
         {
@@ -157,8 +157,8 @@ namespace Tabster.Forms
 
         private void DownloadBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            mCompleted = true;
-            if (mClosePending)
+            _completed = true;
+            if (_closePending)
                 Close();
 
             if (e.Error != null || e.Cancelled)
@@ -216,7 +216,7 @@ namespace Tabster.Forms
             btnCancel.BringToFront();
             progressBar1.Visible = true;
 
-            mCompleted = false;
+            _completed = false;
 
             DownloadBackgroundWorker.RunWorkerAsync(queuedDownloads);
         }
@@ -232,12 +232,12 @@ namespace Tabster.Forms
 
         private void DownloadDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!mCompleted)
+            if (!_completed)
             {
                 DownloadBackgroundWorker.CancelAsync();
                 Enabled = false;
                 e.Cancel = true;
-                mClosePending = true;
+                _closePending = true;
             }
         }
 

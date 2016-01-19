@@ -9,17 +9,17 @@ namespace Songsterr
 {
     internal static class Common
     {
-        internal static TablatureType GetTabTypeFromURL(Uri url)
+        internal static TablatureType GetTabTypeFromUrl(Uri url)
         {
-            const string TEXT_IDENTIFIER = "-tab-";
+            const string textIdentifier = "-tab-";
 
             var urlString = url.ToString();
 
-            if (urlString.IndexOf(string.Format("{0}g-", TEXT_IDENTIFIER), StringComparison.InvariantCultureIgnoreCase) != -1)
+            if (urlString.IndexOf(string.Format("{0}g-", textIdentifier), StringComparison.InvariantCultureIgnoreCase) != -1)
                 return TablatureType.Guitar;
-            if (urlString.IndexOf(string.Format("{0}b-", TEXT_IDENTIFIER), StringComparison.InvariantCultureIgnoreCase) != -1)
+            if (urlString.IndexOf(string.Format("{0}b-", textIdentifier), StringComparison.InvariantCultureIgnoreCase) != -1)
                 return TablatureType.Bass;
-            if (urlString.IndexOf(string.Format("{0}d-", TEXT_IDENTIFIER), StringComparison.InvariantCultureIgnoreCase) != -1)
+            if (urlString.IndexOf(string.Format("{0}d-", textIdentifier), StringComparison.InvariantCultureIgnoreCase) != -1)
                 return TablatureType.Drum;
 
             return null;

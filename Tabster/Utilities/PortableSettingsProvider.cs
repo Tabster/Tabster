@@ -222,31 +222,31 @@ namespace Tabster.Utilities
         private void SetSetting(SettingsPropertyValue setProp)
         {
             // Define the XML path under which we want to write our settings if they do not already exist
-            XmlNode SettingNode = null;
+            XmlNode settingNode;
 
             try
             {
                 // Search for the specific settings node we want to update.
                 // If it exists, return its first child node, (the <value>data here</value> node)
-                SettingNode = XMLConfig.SelectSingleNode("//setting[@name='" + setProp.Name + "']").FirstChild;
+                settingNode = XMLConfig.SelectSingleNode("//setting[@name='" + setProp.Name + "']").FirstChild;
             }
             catch (Exception)
             {
-                SettingNode = null;
+                settingNode = null;
             }
 
             // If we have a pointer to an actual XML node, update the value stored there
-            if ((SettingNode != null))
+            if ((settingNode != null))
             {
                 if (setProp.Property.SerializeAs.ToString() == "String")
                 {
-                    SettingNode.InnerText = setProp.SerializedValue.ToString();
+                    settingNode.InnerText = setProp.SerializedValue.ToString();
                 }
                 else
                 {
                     // Write the object to the config serialized as Xml - we must remove the Xml declaration when writing
                     // the value, otherwise .Net's configuration system complains about the additional declaration.
-                    SettingNode.InnerXml = setProp.SerializedValue.ToString().Replace(@"<?xml version=""1.0"" encoding=""utf-16""?>", "");
+                    settingNode.InnerXml = setProp.SerializedValue.ToString().Replace(@"<?xml version=""1.0"" encoding=""utf-16""?>", "");
                 }
             }
             else

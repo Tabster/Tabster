@@ -29,9 +29,9 @@ namespace Tabster.Forms
         {
             foreach (var plugin in Program.PluginController)
             {
-                if (plugin.GUID != Guid.Empty && Program.PluginController.IsEnabled(plugin.GUID))
+                if (plugin.Guid != Guid.Empty && Program.PluginController.IsEnabled(plugin.Guid))
                 {
-                    var lvi = new ListViewItem() { Text = plugin.Plugin.DisplayName ?? "N/A" };
+                    var lvi = new ListViewItem {Text = plugin.Plugin.DisplayName ?? "N/A"};
 
                     lvi.SubItems.Add(plugin.Plugin.Version != null ? plugin.Plugin.Version.ToString() : "N/A");
                     lvi.SubItems.Add(plugin.Plugin.Author ?? "N/A");

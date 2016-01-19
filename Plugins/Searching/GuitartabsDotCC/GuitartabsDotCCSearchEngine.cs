@@ -195,21 +195,13 @@ namespace GuitartabsDotCC
         private static string RemoveTypeFromTitle(string title, TablatureType type)
         {
             if (type == TablatureType.Guitar)
-            {
                 return title.Remove(title.Length - " Tab".Length);
-            }
-            else if (type == TablatureType.Chords)
-            {
+            if (type == TablatureType.Chords)
                 return title.Remove(title.Length - " Chords".Length);
-            }
-            else if (type == TablatureType.Bass)
-            {
+            if (type == TablatureType.Bass)
                 return title.Remove(title.Length - " Bass Tab".Length);
-            }
-            else if (type == TablatureType.Drum)
-            {
+            if (type == TablatureType.Drum)
                 return title.Remove(title.Length - " Drum Tab".Length);
-            }
 
             return title;
         }

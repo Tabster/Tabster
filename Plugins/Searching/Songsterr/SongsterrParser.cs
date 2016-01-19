@@ -64,7 +64,7 @@ namespace Songsterr
 
             if (textButton != null)
             {
-                var tabTypeFromUrl = Common.GetTabTypeFromURL(new Uri(string.Format("http://songsterr.com/{0}", textButton.Attributes["href"].Value)));
+                var tabTypeFromUrl = Common.GetTabTypeFromUrl(new Uri(string.Format("http://songsterr.com/{0}", textButton.Attributes["href"].Value)));
                 if (tabTypeFromUrl != null)
                     tabType = tabTypeFromUrl;
             }

@@ -45,7 +45,7 @@ namespace UltimateGuitar
         {
             string html;
 
-            using (var client = new WebClient() {Proxy = proxy, Encoding = Encoding.UTF8})
+            using (var client = new WebClient {Proxy = proxy, Encoding = Encoding.UTF8})
             {
                 html = client.DownloadString(url);
             }
@@ -57,7 +57,7 @@ namespace UltimateGuitar
             var titleNodeValue = titleNode.SelectSingleNode(".//h1").InnerText; //contains title and type
 
             string title;
-            TablatureType type = null;
+            TablatureType type;
 
             if (titleNodeValue.EndsWith("Bass Tab"))
             {

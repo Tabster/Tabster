@@ -26,7 +26,7 @@ namespace Tabster.Database
             Accessed = accessed;
         }
 
-        public int? ID { get; set; }
+        public int? Id { get; set; }
         public TablatureFile TablatureFile { get; private set; }
         public FileInfo FileInfo { get; private set; }
         public DateTime? Accessed { get; private set; }
@@ -83,7 +83,7 @@ namespace Tabster.Database
 
                             if (file != null)
                             {
-                                var r = new RecentFile(file, new FileInfo(filename), TabsterDatabaseHelper.UnixTimestampToDateTime(int.Parse(accessed))) {ID = id};
+                                var r = new RecentFile(file, new FileInfo(filename), TabsterDatabaseHelper.UnixTimestampToDateTime(int.Parse(accessed))) {Id = id};
                                 _items.Add(r);
 
                                 if (id > _lastUsedId)
@@ -93,7 +93,7 @@ namespace Tabster.Database
 
                         else
                         {
-                            _items.Add(new RecentFile {ID = id});
+                            _items.Add(new RecentFile {Id = id});
                         }
                     }
                 }
@@ -110,7 +110,7 @@ namespace Tabster.Database
                     {
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandText = string.Format(@"UPDATE {0} SET filename=@filename, accessed=@accessed WHERE id=@id", TabsterDatabaseHelper.TableRecentFiles);
-                        cmd.Parameters.Add(new SQLiteParameter("@id", item.ID));
+                        cmd.Parameters.Add(new SQLiteParameter("@id", item.Id));
                         cmd.Parameters.Add(new SQLiteParameter("@filename", item.FileInfo == null ? "" : item.FileInfo.FullName));
                         cmd.Parameters.Add(new SQLiteParameter("@accessed", item.Accessed == null ? 0 : TabsterDatabaseHelper.GetUnixTimestamp(item.Accessed.Value)));
                         cmd.ExecuteNonQuery();
@@ -123,17 +123,17 @@ namespace Tabster.Database
 
         public void Add(RecentFile recentFile)
         {
-            var populatedItems = new List<RecentFile>(_items.Where(x => x.FileInfo != null).OrderByDescending(p => p.ID));
+            var populatedItems = new List<RecentFile>(_items.Where(x => x.FileInfo != null).OrderByDescending(p => p.Id));
             if (populatedItems.Count == MaxItems)
             {
                 var next = populatedItems.First();
-                recentFile.ID = next.ID;
+                recentFile.Id = next.Id;
                 _items.Remove(next);
             }
             else
             {
                 _lastUsedId++;
-                recentFile.ID = _lastUsedId;
+                recentFile.Id = _lastUsedId;
             }
 
             _items.Add(recentFile);

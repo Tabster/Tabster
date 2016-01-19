@@ -30,13 +30,14 @@ namespace PngFile
 
         public void Export(ITablatureFile file, string fileName)
         {
-            using (var fontDialog = new FontSizeDialog {})
+            using (var fontDialog = new FontSizeDialog())
             {
                 if (fontDialog.ShowDialog() == DialogResult.OK)
                 {
+                    //todo use custom font
                     var font = new Font("Courier New", fontDialog.FontSize);
 
-                    SizeF size = new Size();
+                    SizeF size;
 
                     //measure size of text
                     using (var bmp = new Bitmap(1, 1))

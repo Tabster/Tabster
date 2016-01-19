@@ -1,6 +1,5 @@
 #region
 
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
@@ -58,7 +57,7 @@ namespace Tabster.Database
                                 var fileInfo = new FileInfo(filename);
                                 var item = new TablatureLibraryItem<TablatureFile>(file, fileInfo)
                                 {
-                                    ID = id,
+                                    Id = id,
                                     Favorited = favorite,
                                     Views = views,
                                     Rating = rating
@@ -91,14 +90,14 @@ namespace Tabster.Database
             {
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = string.Format(@"INSERT OR REPLACE INTO {0} (id, filename, favorite, views, rating) VALUES (@id, @filename, @favorite, @views, @rating)", TabsterDatabaseHelper.TableLibraryItems);
-                cmd.Parameters.Add(new SQLiteParameter("@id", libraryItem.ID));
+                cmd.Parameters.Add(new SQLiteParameter("@id", libraryItem.Id));
                 cmd.Parameters.Add(new SQLiteParameter("@filename", libraryItem.FileInfo.FullName));
                 cmd.Parameters.Add(new SQLiteParameter("@favorite", libraryItem.Favorited));
                 cmd.Parameters.Add(new SQLiteParameter("@views", libraryItem.Views));
                 cmd.Parameters.Add(new SQLiteParameter("@rating", TablatureRatingUtilities.ToInt(libraryItem.Rating)));
                 cmd.ExecuteNonQuery();
 
-                libraryItem.ID = _databaseHelper.GetConnection().LastInsertRowId;
+                libraryItem.Id = _databaseHelper.GetConnection().LastInsertRowId;
             }
         }
 
@@ -108,7 +107,7 @@ namespace Tabster.Database
             {
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = string.Format(@"DELETE FROM {0} WHERE id=@id", TabsterDatabaseHelper.TableLibraryItems);
-                cmd.Parameters.Add(new SQLiteParameter("@id", libraryItem.ID));
+                cmd.Parameters.Add(new SQLiteParameter("@id", libraryItem.Id));
                 cmd.ExecuteNonQuery();
             }
 

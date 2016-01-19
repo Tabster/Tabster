@@ -10,8 +10,8 @@ using System.Net;
 using System.Windows.Forms;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
-using Tabster.Utilities;
 using Tabster.Properties;
+using Tabster.Utilities;
 
 #endregion
 
@@ -331,13 +331,13 @@ namespace Tabster.Forms
 
             foreach (var plugin in _plugins)
             {
-                if (plugin.GUID != Guid.Empty)
+                if (plugin.Guid != Guid.Empty)
                 {
-                    var enabled = Program.PluginController.IsEnabled(plugin.GUID);
+                    var enabled = Program.PluginController.IsEnabled(plugin.Guid);
 
                     var lvi = new ListViewItem
                     {
-                        Tag = plugin.GUID.ToString(),
+                        Tag = plugin.Guid.ToString(),
                         Text = plugin.Plugin.DisplayName,
                         Checked = enabled,
                         ForeColor = enabled ? _enabledColor : _disabledColor

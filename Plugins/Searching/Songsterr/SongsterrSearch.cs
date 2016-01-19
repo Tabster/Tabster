@@ -102,7 +102,7 @@ namespace Songsterr
                         if (textIcon != null)
                         {
                             var tabURL = new Uri(new Uri("http://songsterr.com/"), textIcon.Attributes["href"].Value);
-                            var tabType = Common.GetTabTypeFromURL(tabURL);
+                            var tabType = Common.GetTabTypeFromUrl(tabURL);
 
                             if (tabType != null && query.Type != null && tabType != query.Type)
                                 continue;

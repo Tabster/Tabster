@@ -84,7 +84,7 @@ namespace Tabster
             if (filesNeedScanned)
             {
                 Logging.GetLogger().Info("Converting over XML files...");
-                ConvertXmlFiles(libraryManager, playlistManager, tablatureDirectory, playlistsDirectory);
+                ConvertXmlFiles(playlistManager, tablatureDirectory, playlistsDirectory);
             }
 
             Logging.GetLogger().Info("Loading plugins...");
@@ -117,7 +117,7 @@ namespace Tabster
         /// <summary>
         ///     Convert Xml-based files to binary.
         /// </summary>
-        private static void ConvertXmlFiles(LibraryManager libraryManager, PlaylistManager playlistManager, string tablatureDirectory, string playlistsDirectory)
+        private static void ConvertXmlFiles(PlaylistManager playlistManager, string tablatureDirectory, string playlistsDirectory)
         {
             // playlists are no longer stored as files, but are now stored in database
             if (Directory.Exists(playlistsDirectory))

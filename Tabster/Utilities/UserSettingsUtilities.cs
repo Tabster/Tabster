@@ -66,7 +66,7 @@ namespace Tabster.Utilities
             if (string.IsNullOrEmpty(engine.Name))
                 return null;
 
-            return string.Format("{0}:{1}", plugin.GUID, engine.Name);
+            return string.Format("{0}:{1}", plugin.Guid, engine.Name);
         }
     }
 }

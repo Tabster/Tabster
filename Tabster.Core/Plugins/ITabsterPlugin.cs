@@ -1,4 +1,8 @@
-﻿using System;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace Tabster.Core.Plugins
 {
@@ -40,17 +44,17 @@ namespace Tabster.Core.Plugins
         Uri Website { get; }
 
         /// <summary>
-        /// Plugin activation.
+        ///     Plugin activation.
         /// </summary>
         void Activate();
 
         /// <summary>
-        /// Plugin deactivation.
+        ///     Plugin deactivation.
         /// </summary>
         void Deactivate();
 
         /// <summary>
-        /// Plugin initialization.
+        ///     Plugin initialization.
         /// </summary>
         void Initialize();
     }
