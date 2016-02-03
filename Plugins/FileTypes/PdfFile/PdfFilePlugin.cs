@@ -56,11 +56,6 @@ namespace PdfFile
             // not implemented
         }
 
-        public Type[] Types
-        {
-            get { return new[] {typeof (PdfFileExporter), typeof (PdfFileImporter)}; }
-        }
-
         #endregion
     }
 }

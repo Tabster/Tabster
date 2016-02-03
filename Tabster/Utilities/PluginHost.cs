@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Tabster.Core.Plugins;
 
@@ -22,13 +23,17 @@ namespace Tabster.Utilities
         public ITabsterPlugin Plugin { get; private set; }
         public Guid Guid { get; private set; }
 
+        private List<Type> _types = new List<Type>(); 
+
         public IEnumerable<T> GetClassInstances<T>()
         {
             var instances = new List<T>();
 
             var cType = typeof (T);
 
-            foreach (var type in Plugin.Types)
+            _types = Assembly.GetTypes().Where(x => !x.IsAbstract && !x.IsInterface).ToList();
+
+            foreach (var type in _types)
             {
                 if (cType.IsAssignableFrom(type))
                 {
@@ -42,7 +47,7 @@ namespace Tabster.Utilities
 
         public bool Contains(Type type)
         {
-            return Array.IndexOf(Plugin.Types, type) >= 0;
+            return _types.Contains(type);
         }
     }
 }

@@ -29,11 +29,6 @@ namespace Tabster.Core.Plugins
         string DisplayName { get; }
 
         /// <summary>
-        ///     Publicly exposed plugin types.
-        /// </summary>
-        Type[] Types { get; }
-
-        /// <summary>
         ///     Plugin version.
         /// </summary>
         Version Version { get; }

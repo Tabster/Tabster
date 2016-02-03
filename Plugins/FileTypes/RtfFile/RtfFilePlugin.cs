@@ -56,11 +56,6 @@ namespace RtfFile
             // not implemented
         }
 
-        public Type[] Types
-        {
-            get { return new[] {typeof (RtfFileImporter), typeof (RtfFileExporter)}; }
-        }
-
         #endregion
     }
 }

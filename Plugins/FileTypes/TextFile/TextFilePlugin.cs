@@ -56,11 +56,6 @@ namespace TextFile
             // not implemented
         }
 
-        public Type[] Types
-        {
-            get { return new[] {typeof (TextFileExporter), typeof (TextFileImporter)}; }
-        }
-
         #endregion
     }
 }

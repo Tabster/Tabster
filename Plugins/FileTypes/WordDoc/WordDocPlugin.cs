@@ -41,11 +41,6 @@ namespace WordDoc
             get { return new Uri("http://nateshoffner.com"); }
         }
 
-        public Type[] Types
-        {
-            get { return new[] {typeof (WordDocExporter), typeof (WordDocImporter)}; }
-        }
-
         public void Activate()
         {
             // not implemented

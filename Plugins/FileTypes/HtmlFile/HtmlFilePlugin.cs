@@ -56,11 +56,6 @@ namespace HtmlFile
             // not implemented
         }
 
-        public Type[] Types
-        {
-            get { return new[] {typeof (HtmlFileExporter), typeof (HtmlFileImporter)}; }
-        }
-
         #endregion
     }
 }

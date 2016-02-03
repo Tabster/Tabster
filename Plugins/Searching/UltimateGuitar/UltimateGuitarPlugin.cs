@@ -56,11 +56,6 @@ namespace UltimateGuitar
             // not implemented
         }
 
-        public Type[] Types
-        {
-            get { return new[] {typeof (UltimateGuitarSearchEngine), typeof (UltimateGuitarParser)}; }
-        }
-
         #endregion
     }
 }

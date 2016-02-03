@@ -56,11 +56,6 @@ namespace GuitartabsDotCC
             // not implemented
         }
 
-        public Type[] Types
-        {
-            get { return new[] {typeof (GuitartabsDotCCSearchEngine), typeof (GuitartabsDotCCParser)}; }
-        }
-
         #endregion
     }
 }
