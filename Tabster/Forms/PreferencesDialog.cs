@@ -31,14 +31,14 @@ namespace Tabster.Forms
         private readonly Color _disabledColor = Color.Red;
         private readonly Color _enabledColor = Color.Green;
         private readonly Dictionary<PluginHost, bool> _pluginStatusMap = new Dictionary<PluginHost, bool>();
-        private readonly List<PluginHost> _plugins = new List<PluginHost>();
+        private readonly List<PluginHost> _pluginHosts = new List<PluginHost>();
 
 
         public PreferencesDialog()
         {
             InitializeComponent();
 
-            _plugins.AddRange(Program.PluginController);
+            _pluginHosts.AddRange(Program.PluginController);
 
             LoadPreferences();
 
@@ -274,7 +274,7 @@ namespace Tabster.Forms
         {
             if (listPlugins.SelectedItems.Count > 0)
             {
-                var plugin = _plugins[listPlugins.SelectedItems[0].Index];
+                var plugin = _pluginHosts[listPlugins.SelectedItems[0].Index];
 
                 lblPluginFilename.Text = Path.GetFileName(plugin.Assembly.Location);
                 lblPluginAuthor.Text = plugin.Plugin.Author ?? "N/A";
@@ -307,7 +307,7 @@ namespace Tabster.Forms
                 item.ForeColor = item.Checked ? _enabledColor : _disabledColor;
                 item.SubItems[colpluginEnabled.Index].Text = item.Checked ? "Yes" : "No";
 
-                var plugin = _plugins[item.Index];
+                var plugin = _pluginHosts[item.Index];
                 _pluginStatusMap[plugin] = item.Checked; //set temporary status
 
                 //if it contains search engines, we need to reload search engine list
@@ -329,26 +329,23 @@ namespace Tabster.Forms
 
             listPlugins.Items.Clear();
 
-            foreach (var plugin in _plugins)
+            foreach (var pluginHost in _pluginHosts)
             {
-                if (plugin.Guid != Guid.Empty)
+                var enabled = Program.PluginController.IsEnabled(pluginHost.Plugin.Guid);
+
+                var lvi = new ListViewItem
                 {
-                    var enabled = Program.PluginController.IsEnabled(plugin.Guid);
+                    Tag = pluginHost.Plugin.Guid.ToString(),
+                    Text = pluginHost.Plugin.DisplayName,
+                    Checked = enabled,
+                    ForeColor = enabled ? _enabledColor : _disabledColor
+                };
 
-                    var lvi = new ListViewItem
-                    {
-                        Tag = plugin.Guid.ToString(),
-                        Text = plugin.Plugin.DisplayName,
-                        Checked = enabled,
-                        ForeColor = enabled ? _enabledColor : _disabledColor
-                    };
+                _pluginStatusMap[pluginHost] = enabled;
 
-                    _pluginStatusMap[plugin] = enabled;
+                lvi.SubItems.Add(enabled ? "Yes" : "No");
 
-                    lvi.SubItems.Add(enabled ? "Yes" : "No");
-
-                    listPlugins.Items.Add(lvi);
-                }
+                listPlugins.Items.Add(lvi);
             }
 
             if (listPlugins.Items.Count == 0)
@@ -371,7 +368,7 @@ namespace Tabster.Forms
 
             var searchPluginMap = new Dictionary<ITablatureSearchEngine, PluginHost>();
 
-            foreach (var plugin in _plugins)
+            foreach (var plugin in _pluginHosts)
             {
                 foreach (var engine in plugin.GetClassInstances<ITablatureSearchEngine>())
                 {

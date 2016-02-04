@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using Tabster.Core.Plugins;
 
 #endregion
@@ -16,7 +15,7 @@ namespace Tabster.Utilities
     public class PluginController : IEnumerable<PluginHost>
     {
         private readonly List<Guid> _disabledPlugins = new List<Guid>();
-        private readonly List<PluginHost> _plugins = new List<PluginHost>();
+        private readonly List<PluginHost> _pluginHosts = new List<PluginHost>();
 
         public PluginController(string pluginsDirectory)
         {
@@ -63,16 +62,16 @@ namespace Tabster.Utilities
                 }
             }
 
-            foreach (var plugin in this.Where(plugin => IsEnabled(plugin.Guid)))
+            foreach (var pluginHost in _pluginHosts.Where(pluginHost => IsEnabled(pluginHost.Plugin.Guid)))
             {
                 try
                 {
-                    plugin.Plugin.Activate();
+                    pluginHost.Plugin.Activate();
                 }
 
                 catch (Exception ex)
                 {
-                    Logging.GetLogger().Error(string.Format("Error occured while activating plugin: {0}", Path.GetFileName(plugin.Assembly.Location)), ex);
+                    Logging.GetLogger().Error(string.Format("Error occured while activating plugin: {0}", Path.GetFileName(pluginHost.Assembly.Location)), ex);
                 }
             }
         }
@@ -81,7 +80,7 @@ namespace Tabster.Utilities
         {
             var instances = new List<T>();
 
-            foreach (var plugin in _plugins.Where(plugin => IsEnabled(plugin.Guid)))
+            foreach (var plugin in _pluginHosts.Where(plugin => IsEnabled(plugin.Plugin.Guid)))
             {
                 instances.AddRange(plugin.GetClassInstances<T>());
             }
@@ -91,7 +90,7 @@ namespace Tabster.Utilities
 
         public PluginHost GetHostByType(Type type)
         {
-            return _plugins.Find(x => x.Contains(type));
+            return _pluginHosts.Find(x => x.Contains(type));
         }
 
         public PluginHost LoadPluginFromDisk(string path)
@@ -102,16 +101,6 @@ namespace Tabster.Utilities
 
                 if (assembly != null)
                 {
-                    Guid assemblyGuid;
-
-                    //require assembly guid
-                    if (!AssemblyHasGuid(assembly, out assemblyGuid))
-                        return null;
-
-                    //prevent guid collisions
-                    if (_plugins.Find(x => x.Guid == assemblyGuid) != null)
-                        return null;
-
                     var pluginType = assembly.GetTypes().FirstOrDefault(objType => typeof (ITabsterPlugin).IsAssignableFrom(objType));
 
                     if (pluginType != null)
@@ -119,8 +108,16 @@ namespace Tabster.Utilities
                         var instance = Activator.CreateInstance(pluginType);
                         var plugin = (ITabsterPlugin) instance;
 
-                        var host = new PluginHost(assembly, plugin, assemblyGuid);
-                        _plugins.Add(host);
+                        //require plugin guid
+                        if (plugin.Guid == Guid.Empty)
+                            return null;
+
+                        //prevent guid collisions
+                        if (_pluginHosts.Find(x => x.Plugin.Guid == plugin.Guid) != null)
+                            return null;
+
+                        var host = new PluginHost(assembly, plugin);
+                        _pluginHosts.Add(host);
 
                         return host;
                     }
@@ -177,28 +174,14 @@ namespace Tabster.Utilities
 
         public PluginHost FindPluginByGuid(Guid guid)
         {
-            return _plugins.Find(x => x.Guid == guid);
-        }
-
-        private static bool AssemblyHasGuid(Assembly assembly, out Guid guid)
-        {
-            var attributes = assembly.GetCustomAttributes(typeof (GuidAttribute), false);
-
-            if (attributes.Length > 0)
-            {
-                guid = new Guid(((GuidAttribute) attributes[0]).Value);
-                return true;
-            }
-
-            guid = Guid.Empty;
-            return false;
+            return _pluginHosts.Find(x => x.Plugin.Guid == guid);
         }
 
         #region Implementation of IEnumerable
 
         public IEnumerator<PluginHost> GetEnumerator()
         {
-            return ((IEnumerable<PluginHost>) _plugins).GetEnumerator();
+            return ((IEnumerable<PluginHost>) _pluginHosts).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

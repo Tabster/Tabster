@@ -27,15 +27,15 @@ namespace Tabster.Forms
 
         private void LoadPlugins()
         {
-            foreach (var plugin in Program.PluginController)
+            foreach (var pluginHost in Program.PluginController)
             {
-                if (plugin.Guid != Guid.Empty && Program.PluginController.IsEnabled(plugin.Guid))
+                if (pluginHost.Plugin.Guid != Guid.Empty && Program.PluginController.IsEnabled(pluginHost.Plugin.Guid))
                 {
-                    var lvi = new ListViewItem {Text = plugin.Plugin.DisplayName ?? "N/A"};
+                    var lvi = new ListViewItem { Text = pluginHost.Plugin.DisplayName ?? "N/A" };
 
-                    lvi.SubItems.Add(plugin.Plugin.Version != null ? plugin.Plugin.Version.ToString() : "N/A");
-                    lvi.SubItems.Add(plugin.Plugin.Author ?? "N/A");
-                    lvi.SubItems.Add(Path.GetFileName(plugin.Assembly.Location));
+                    lvi.SubItems.Add(pluginHost.Plugin.Version != null ? pluginHost.Plugin.Version.ToString() : "N/A");
+                    lvi.SubItems.Add(pluginHost.Plugin.Author ?? "N/A");
+                    lvi.SubItems.Add(Path.GetFileName(pluginHost.Assembly.Location));
 
                     listPlugins.Items.Add(lvi);
                 }

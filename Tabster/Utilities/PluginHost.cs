@@ -12,16 +12,14 @@ namespace Tabster.Utilities
 {
     public class PluginHost
     {
-        public PluginHost(Assembly assembly, ITabsterPlugin plugin, Guid guid)
+        public PluginHost(Assembly assembly, ITabsterPlugin plugin)
         {
             Assembly = assembly;
             Plugin = plugin;
-            Guid = guid;
         }
 
         public Assembly Assembly { get; private set; }
         public ITabsterPlugin Plugin { get; private set; }
-        public Guid Guid { get; private set; }
 
         private List<Type> _types = new List<Type>(); 
 

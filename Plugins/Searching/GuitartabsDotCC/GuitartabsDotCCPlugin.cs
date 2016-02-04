@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Runtime.InteropServices;
 using Tabster.Core.Plugins;
 
 #endregion
@@ -39,6 +40,11 @@ namespace GuitartabsDotCC
         public Uri Website
         {
             get { return new Uri("http://nateshoffner.com"); }
+        }
+
+        public Guid Guid
+        {
+            get { return new Guid(((GuidAttribute)typeof(GuitartabsDotCCPlugin).Assembly.GetCustomAttributes(typeof(GuidAttribute), true)[0]).Value); }
         }
 
         public void Activate()

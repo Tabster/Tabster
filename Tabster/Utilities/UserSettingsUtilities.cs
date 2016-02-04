@@ -61,12 +61,12 @@ namespace Tabster.Utilities
             return engines.ToArray();
         }
 
-        public static string GetSearchEngineIdentifier(PluginHost plugin, ITablatureSearchEngine engine)
+        public static string GetSearchEngineIdentifier(PluginHost pluginHost, ITablatureSearchEngine engine)
         {
             if (string.IsNullOrEmpty(engine.Name))
                 return null;
 
-            return string.Format("{0}:{1}", plugin.Guid, engine.Name);
+            return string.Format("{0}:{1}", pluginHost.Plugin.Guid, engine.Name);
         }
     }
 }
