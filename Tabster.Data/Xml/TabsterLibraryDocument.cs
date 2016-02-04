@@ -18,7 +18,9 @@ namespace Tabster.Data.Xml
         private const string RootNode = "library";
         public static readonly Version FileVersion = new Version("1.0");
         private static readonly Encoding DefaultEncoding = Encoding.GetEncoding("ISO-8859-1");
+#pragma warning disable 612
         private readonly List<PlaylistLibraryItem<TablaturePlaylistDocument>> _playlistItems = new List<PlaylistLibraryItem<TablaturePlaylistDocument>>();
+
         private readonly List<TablatureLibraryItem<TablatureDocument>> _tablatureItems = new List<TablatureLibraryItem<TablatureDocument>>();
 
         private readonly TabsterFileProcessor<TablaturePlaylistDocument> _tablaturePlaylistProcessor = new TabsterFileProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FileVersion);
@@ -123,5 +125,7 @@ namespace Tabster.Data.Xml
         public TabsterFileHeader FileHeader { get; private set; }
 
         #endregion
+
+#pragma warning restore 612
     }
 }
