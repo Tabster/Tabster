@@ -1,7 +1,6 @@
 ﻿#region
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -124,9 +123,9 @@ namespace Tabster.Utilities
                 }
             }
 
-            catch
+            catch (Exception ex)
             {
-                //unhandled
+                Logging.GetLogger().Error(string.Format("Error occured while loading plugin assembly: {0}", path), ex);
             }
 
             return null;
