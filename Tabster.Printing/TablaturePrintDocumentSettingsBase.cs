@@ -15,6 +15,5 @@ namespace Tabster.Printing
 
         public Color PrintColor { get; set; }
         public bool DisplayPageNumbers { get; set; }
-        public bool DisplayTimetstamp { get; set; }
     }
 }
