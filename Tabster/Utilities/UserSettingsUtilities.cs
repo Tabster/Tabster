@@ -45,7 +45,7 @@ namespace Tabster.Utilities
         {
             var engines = new List<ITablatureSearchEngine>();
 
-            foreach (var plugin in Program.PluginController)
+            foreach (var plugin in Program.PluginController.GetPluginHosts())
             {
                 foreach (var engine in plugin.GetClassInstances<ITablatureSearchEngine>())
                 {

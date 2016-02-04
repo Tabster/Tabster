@@ -38,7 +38,7 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
-            _pluginHosts.AddRange(Program.PluginController);
+            _pluginHosts.AddRange(Program.PluginController.GetPluginHosts());
 
             LoadPreferences();
 

@@ -12,7 +12,7 @@ using Tabster.Core.Plugins;
 
 namespace Tabster.Utilities
 {
-    public class PluginController : IEnumerable<PluginHost>
+    public class PluginController
     {
         private readonly List<Guid> _disabledPlugins = new List<Guid>();
         private readonly List<PluginHost> _pluginHosts = new List<PluginHost>();
@@ -177,18 +177,9 @@ namespace Tabster.Utilities
             return _pluginHosts.Find(x => x.Plugin.Guid == guid);
         }
 
-        #region Implementation of IEnumerable
-
-        public IEnumerator<PluginHost> GetEnumerator()
+        public PluginHost[] GetPluginHosts()
         {
-            return ((IEnumerable<PluginHost>) _pluginHosts).GetEnumerator();
+            return _pluginHosts.ToArray();
         }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        #endregion
     }
 }
