@@ -49,6 +49,11 @@ namespace Tabster.Core.Searching
         bool SupportsPrefilteredTypes { get; }
 
         /// <summary>
+        ///     Indicates the maximum number of requests to make.
+        /// </summary>
+        int MaximumConsecutiveRequests { get; }
+
+        /// <summary>
         ///     Queries Search engine and returns results based on search parameters.
         /// </summary>
         /// <param name="query"> Search query. </param>
