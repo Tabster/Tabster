@@ -51,6 +51,7 @@ namespace GuitartabsDotCC
         }
 
         public bool SupportsPrefilteredTypes { get; private set; }
+        public int MaximumConsecutiveRequests { get; private set; }
 
         public TablatureSearchResult[] Search(TablatureSearchQuery query, WebProxy proxy = null)
         {
