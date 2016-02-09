@@ -1,6 +1,8 @@
 Tabster
 ====================
 
+[![Build status](https://ci.appveyor.com/api/projects/status/2e67r1on11n2hg30/branch/master?svg=true)](https://ci.appveyor.com/project/NateShoffner/tabster/branch/master)
+
 Tabster is an ASCII tablature manager that allows you to easily search, organize, view, edit, print, and share tablature.
 
 Dependencies
