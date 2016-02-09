@@ -66,7 +66,7 @@ namespace Tabster.WinForms
             ScrollToPosition(position);
         }
 
-        public virtual void LoadTablature(ITablature tablature)
+        public virtual void LoadTablature(IAsciiTablature tablature)
         {
             TextBoxBase.Text = tablature.Contents;
 

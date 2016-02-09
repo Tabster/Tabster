@@ -6,7 +6,8 @@ using Tabster.Core.Types;
 
 namespace Tabster.Data
 {
-    public interface ITablatureFile : ITablatureExtendedAttributes, ITablatureAttributes, ITablatureSourceAttributes, ITablature, ITabsterFile
+    public interface ITablatureFile : ITablatureExtendedAttributes, ITablatureAttributes, ITablatureSourceAttributes, IAsciiTablature, ITabsterFile
     {
+
     }
 }

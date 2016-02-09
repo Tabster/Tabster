@@ -13,7 +13,7 @@ namespace Tabster.Printing
     public class TablaturePrintDocument : PrintDocument
     {
         private readonly Font _font;
-        private readonly ITablature _tablature;
+        private readonly IAsciiTablature _tablature;
 
         private int _pageCount;
         private bool _performingPageCount;
@@ -26,7 +26,7 @@ namespace Tabster.Printing
 
         #region Constructors
 
-        public TablaturePrintDocument(ITablature tablature, Font font)
+        public TablaturePrintDocument(IAsciiTablature tablature, Font font)
         {
             if (tablature == null)
                 throw new ArgumentNullException("tablature");

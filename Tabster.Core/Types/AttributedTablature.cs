@@ -6,7 +6,7 @@ using System;
 
 namespace Tabster.Core.Types
 {
-    public class AttributedTablature : ITablature, ITablatureSourceAttributes
+    public class AttributedTablature : IAsciiTablature, ITablatureSourceAttributes
     {
         public AttributedTablature()
         {
@@ -19,10 +19,10 @@ namespace Tabster.Core.Types
             Type = type;
         }
 
-        public AttributedTablature(ITablatureAttributes attributes, ITablature tablature)
+        public AttributedTablature(ITablatureAttributes attributes, IAsciiTablature tablature)
             : this(attributes.Artist, attributes.Title, attributes.Type)
         {
-            Contents = tablature.Contents;
+            Contents = tablature.ToString();
         }
 
         #region Implementation of ITablatureAttributes

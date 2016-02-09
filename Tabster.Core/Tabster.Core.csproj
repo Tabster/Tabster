@@ -64,7 +64,7 @@
     <Compile Include="Types\TablatureRating.cs" />
     <Compile Include="Types\TablatureTuning.cs" />
     <Compile Include="Types\TablatureType.cs" />
-    <Compile Include="Types\ITablature.cs" />
+    <Compile Include="Types\IAsciiTablature.cs" />
     <Compile Include="Searching\ITablatureSearchEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Plugins\TabsterPluginException.cs" />
