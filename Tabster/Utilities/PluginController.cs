@@ -16,20 +16,43 @@ namespace Tabster.Utilities
         private readonly List<Guid> _disabledPlugins = new List<Guid>();
         private readonly List<PluginHost> _pluginHosts = new List<PluginHost>();
 
-        public PluginController(string pluginsDirectory)
+        public PluginController(string[] pluginDirectories)
         {
-            WorkingDirectory = pluginsDirectory;
+            WorkingDirectories = pluginDirectories;
         }
 
-        public string WorkingDirectory { get; private set; }
+        public string[] WorkingDirectories { get; private set; }
 
         public void LoadPlugins()
         {
-            if (!Directory.Exists(WorkingDirectory))
+            _pluginHosts.Clear();
+
+            foreach (var dir in WorkingDirectories)
+            {
+                LoadPluginDirectory(dir);
+            }
+
+            foreach (var pluginHost in _pluginHosts.Where(pluginHost => IsEnabled(pluginHost.Plugin.Guid)))
             {
                 try
                 {
-                    Directory.CreateDirectory(WorkingDirectory);
+                    pluginHost.Plugin.Activate();
+                }
+
+                catch (Exception ex)
+                {
+                    Logging.GetLogger().Error(string.Format("Error occured while activating plugin: {0}", Path.GetFileName(pluginHost.Assembly.Location)), ex);
+                }
+            }
+        }
+
+        private void LoadPluginDirectory(string directory)
+        {
+            if (!Directory.Exists(directory))
+            {
+                try
+                {
+                    Directory.CreateDirectory(directory);
                 }
 
                 catch
@@ -38,9 +61,9 @@ namespace Tabster.Utilities
                 }
             }
 
-            if (Directory.Exists(WorkingDirectory))
+            if (Directory.Exists(directory))
             {
-                var pluginFiles = Directory.GetFiles(WorkingDirectory, "*.dll", SearchOption.AllDirectories);
+                var pluginFiles = Directory.GetFiles(directory, "*.dll", SearchOption.AllDirectories);
 
                 foreach (var pluginPath in pluginFiles)
                 {
@@ -58,19 +81,6 @@ namespace Tabster.Utilities
                             Logging.GetLogger().Error(string.Format("Error occured while initializing plugin: {0}", Path.GetFileName(pluginHost.Assembly.Location)), ex);
                         }
                     }
-                }
-            }
-
-            foreach (var pluginHost in _pluginHosts.Where(pluginHost => IsEnabled(pluginHost.Plugin.Guid)))
-            {
-                try
-                {
-                    pluginHost.Plugin.Activate();
-                }
-
-                catch (Exception ex)
-                {
-                    Logging.GetLogger().Error(string.Format("Error occured while activating plugin: {0}", Path.GetFileName(pluginHost.Assembly.Location)), ex);
                 }
             }
         }

@@ -22,7 +22,9 @@ namespace Tabster
         public static SingleInstanceController InstanceController;
         public static PluginController PluginController;
         public static string ApplicationDataDirectory;
+        public static string CommonApplicationDataDirectory;
         public static string UserDataDirectory;
+        public static string PluginDataDirectory; //serves as secondary plugin directory, avoids possible UAC conflicts
         public static UpdateQuery UpdateQuery = new UpdateQuery();
         private static ExternalViewerForm _tabbedViewer;
         private static TabsterDatabaseHelper _databaseHelper;
@@ -99,12 +101,16 @@ namespace Tabster
 
         private static void InitializeWorkingDirectories()
         {
+            CommonApplicationDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Tabster");
+
 #if PORTABLE
             ApplicationDataDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "AppData");
             UserDataDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "UserData");
+            PluginDataDirectory = Path.Combine(ApplicationDataDirectory, "Plugins");
 #else
             ApplicationDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
             UserDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
+            PluginDataDirectory = Path.Combine(CommonApplicationDataDirectory, "Plugins");
 #endif
 
             if (!Directory.Exists(ApplicationDataDirectory))
@@ -112,6 +118,12 @@ namespace Tabster
 
             if (!Directory.Exists(UserDataDirectory))
                 Directory.CreateDirectory(UserDataDirectory);
+
+            if (!Directory.Exists(UserDataDirectory))
+                Directory.CreateDirectory(UserDataDirectory);
+
+            if (!Directory.Exists(PluginDataDirectory))
+                Directory.CreateDirectory(PluginDataDirectory);
         }
 
         /// <summary>
@@ -160,7 +172,7 @@ namespace Tabster
         {
             var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
 
-            PluginController = new PluginController(pluginDirectory);
+            PluginController = new PluginController(new[] {pluginDirectory, PluginDataDirectory});
 
             foreach (var guid in Settings.Default.DisabledPlugins)
             {

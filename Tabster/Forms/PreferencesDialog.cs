@@ -267,7 +267,7 @@ namespace Tabster.Forms
 
         private void pluginsDirectorybtn_Click(object sender, EventArgs e)
         {
-            Process.Start(Program.PluginController.WorkingDirectory);
+            Process.Start(Program.PluginDataDirectory);
         }
 
         private void listPlugins_SelectedIndexChanged(object sender, EventArgs e)
