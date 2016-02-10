@@ -9,6 +9,7 @@ using System.Net;
 using System.Windows.Forms;
 using Tabster.Core.Types;
 using Tabster.Data.Processing;
+using Tabster.Properties;
 using Tabster.Utilities;
 
 #endregion
@@ -146,7 +147,12 @@ namespace Tabster.Forms
             var download = (DownloadProcedure) e.UserState;
 
             if (download.State == DownloadState.Completed)
+            {
+                if (Settings.Default.StripVersionedNames)
+                    download.Tab.Title = TablatureUtilities.RemoveVersionConventionFromTitle(download.Tab.Title);
+
                 _downloadedTabs.Add(download.Tab);
+            }
 
             var lvi = listDownloads.Items[_downloadedTabs.Count - 1];
             lvi.SubItems[colStatus.Index].Text =

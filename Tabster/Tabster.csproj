@@ -133,6 +133,7 @@
     </Compile>
     <Compile Include="Utilities\Logging.cs" />
     <Compile Include="Utilities\TablatureFontManager.cs" />
+    <Compile Include="Utilities\TablatureUtilities.cs" />
     <Compile Include="Utilities\UserSettingsUtilities.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Controls\TextBoxExtended.cs">

@@ -42,7 +42,7 @@ namespace Tabster.Forms
             this.btnLibrary = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.typeList = new TabTypeDropdown();
+            this.typeList = new Tabster.WinForms.TabTypeDropdown();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();

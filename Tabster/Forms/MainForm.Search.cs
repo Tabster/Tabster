@@ -265,18 +265,6 @@ namespace Tabster.Forms
             }
         }
 
-        /// <summary>
-        ///     Removes version convention from tablature titles.
-        /// </summary>
-        private static string RemoveVersionConventionFromTitle(string title)
-        {
-            var versionConventionIndex = title.IndexOf(" (ver ", StringComparison.OrdinalIgnoreCase);
-
-            if (versionConventionIndex >= 0)
-                title = title.Remove(versionConventionIndex);
-
-            return title;
-        }
 
         private void BuildSearchSuggestions()
         {
@@ -288,7 +276,7 @@ namespace Tabster.Forms
                 if (artistStrings.Find(x => x.Equals(item.File.Artist, StringComparison.OrdinalIgnoreCase)) == null)
                     artistStrings.Add(item.File.Artist);
 
-                var title = RemoveVersionConventionFromTitle(item.File.Title);
+                var title = TablatureUtilities.RemoveVersionConventionFromTitle(item.File.Title);
                 if (titleStrings.Find(x => x.Equals(title, StringComparison.OrdinalIgnoreCase)) == null)
                     titleStrings.Add(title);
             }
