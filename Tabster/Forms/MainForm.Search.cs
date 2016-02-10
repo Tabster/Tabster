@@ -143,7 +143,7 @@ namespace Tabster.Forms
                 var title = selectedResult.Tab.Title;
 
                 if (Settings.Default.StripVersionedNames)
-                    title = RemoveVersionConventionFromTitle(title);
+                    title = TablatureUtilities.RemoveVersionConventionFromTitle(title);
 
                 using (var nt = new NewTabDialog(selectedResult.Tab.Artist, title, selectedResult.Tab.Type))
                 {

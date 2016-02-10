@@ -15,6 +15,7 @@ using Tabster.Data.Processing;
 using Tabster.Database;
 using Tabster.Printing;
 using Tabster.Properties;
+using Tabster.Utilities;
 using Tabster.WinForms.Extensions;
 
 #endregion
@@ -196,7 +197,7 @@ namespace Tabster.Forms
                     : "";
 
                 txtSearchTitle.Text = sender == searchByTitleToolStripMenuItem || sender == searchByArtistAndTitleToolStripMenuItem
-                    ? RemoveVersionConventionFromTitle(GetSelectedLibraryItem().File.Title)
+                    ? TablatureUtilities.RemoveVersionConventionFromTitle(GetSelectedLibraryItem().File.Title)
                     : "";
 
                 searchTypeList.SelectDefault();
