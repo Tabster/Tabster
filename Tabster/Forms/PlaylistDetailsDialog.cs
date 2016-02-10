@@ -30,7 +30,7 @@ namespace Tabster.Forms
 
             txtname.Text = _playlist.Name;
 
-            lblCreated.Text += string.Format(" {0}", _playlist.Created.Value.ToLocalTime().ToString());
+            lblCreated.Text += string.Format(" {0}", _playlist.Created.Value.ToLocalTime());
 
             foreach (var tab in _playlist)
             {
