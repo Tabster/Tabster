@@ -37,10 +37,7 @@ namespace Tabster.Forms
 
         private void okbtn_Click(object sender, EventArgs e)
         {
-            Tab = new AttributedTablature(txtArtist.Text.Trim(), txtTitle.Text.Trim(), typeList.SelectedType)
-            {
-                SourceType = TablatureSourceType.UserCreated,
-            };
+            Tab = new AttributedTablature(txtArtist.Text.Trim(), txtTitle.Text.Trim(), typeList.SelectedType);
         }
     }
 }

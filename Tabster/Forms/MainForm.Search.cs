@@ -143,9 +143,14 @@ namespace Tabster.Forms
                 {
                     if (nt.ShowDialog() == DialogResult.OK)
                     {
-                        var cachedTab = _searchResultsCache[selectedResult.Source];
+                        var tab = _searchResultsCache[selectedResult.Source];
+                        tab.Artist = nt.Tab.Artist;
+                        tab.Title = nt.Tab.Title;
+                        tab.Type = nt.Tab.Type;
 
-                        var libraryItem = _libraryManager.Add(cachedTab);
+                        tab.SourceType = TablatureSourceType.Download;
+
+                        var libraryItem = _libraryManager.Add(tab);
 
                         //todo use objectliveview filtering instead of manual
                         if (TablatureLibraryItemVisible(SelectedLibrary(), libraryItem))
