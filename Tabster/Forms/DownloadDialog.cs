@@ -151,6 +151,9 @@ namespace Tabster.Forms
                 if (Settings.Default.StripVersionedNames)
                     download.Tab.Title = TablatureUtilities.RemoveVersionConventionFromTitle(download.Tab.Title);
 
+                download.Tab.Source = download.Url;
+                download.Tab.SourceType = TablatureSourceType.Download;
+
                 _downloadedTabs.Add(download.Tab);
             }
 
