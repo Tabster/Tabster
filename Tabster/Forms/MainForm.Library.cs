@@ -635,28 +635,28 @@ namespace Tabster.Forms
         private void LoadTablatureData(TablatureLibraryItem<TablatureFile> libraryItem)
         {
             //tablature information
-            UpdateInfoLabel(lblCurrentArtist, libraryItem.File.Artist);
-            UpdateInfoLabel(lblCurrentTitle, libraryItem.File.Title);
-            UpdateInfoLabel(lblCurrentType, libraryItem.File.Type.Name);
-            UpdateInfoLabel(lblCurrentTuning, libraryItem.File.Tuning.Name);
-            UpdateInfoLabel(lblCurrentSubtitle, libraryItem.File.Subtitle);
-            UpdateInfoLabel(lblCurrentDifficulty, libraryItem.File.Difficulty.Name);
-            UpdateInfoLabel(lblCurrentAuthor, libraryItem.File.Author);
-            UpdateInfoLabel(lblCurrentCopyright, libraryItem.File.Copyright);
-            UpdateInfoLabel(lblCurrentAlbum, libraryItem.File.Album);
-            UpdateInfoLabel(lblCurrentGenre, libraryItem.File.Genre);
-            UpdateInfoLabel(lblCurrentComment, libraryItem.File.Comment);
+            UpdateInfoLabel(lblCurrentArtist, libraryItem == null ? "N/A" : libraryItem.File.Artist);
+            UpdateInfoLabel(lblCurrentTitle, libraryItem == null ? "N/A" : libraryItem.File.Title);
+            UpdateInfoLabel(lblCurrentType, libraryItem == null ? "N/A" : libraryItem.File.Type.Name);
+            UpdateInfoLabel(lblCurrentTuning, libraryItem == null ? "N/A" : libraryItem.File.Tuning.Name);
+            UpdateInfoLabel(lblCurrentSubtitle, libraryItem == null ? "N/A" : libraryItem.File.Subtitle);
+            UpdateInfoLabel(lblCurrentDifficulty, libraryItem == null ? "N/A" : libraryItem.File.Difficulty.Name);
+            UpdateInfoLabel(lblCurrentAuthor, libraryItem == null ? "N/A" : libraryItem.File.Author);
+            UpdateInfoLabel(lblCurrentCopyright, libraryItem == null ? "N/A" : libraryItem.File.Copyright);
+            UpdateInfoLabel(lblCurrentAlbum, libraryItem == null ? "N/A" : libraryItem.File.Album);
+            UpdateInfoLabel(lblCurrentGenre, libraryItem == null ? "N/A" : libraryItem.File.Genre);
+            UpdateInfoLabel(lblCurrentComment, libraryItem == null ? "N/A" : libraryItem.File.Comment);
 
-            txtLyrics.Text = libraryItem.File.Lyrics;
+            txtLyrics.Text = libraryItem == null ? "" : libraryItem.File.Lyrics;
 
             //file information
-            UpdateInfoLabel(lblCurrentLocation, libraryItem.FileInfo.FullName);
-            UpdateInfoLabel(lblCurrentLength, string.Format("{0:n0} bytes", libraryItem.FileInfo.Length));
-            UpdateInfoLabel(lblCurrentFormat, libraryItem.File.FileHeader.Version.ToString());
-            UpdateInfoLabel(lblCurrentCreated, libraryItem.FileInfo.CreationTime.ToString());
-            UpdateInfoLabel(lblCurrentModified, libraryItem.FileInfo.LastWriteTime.ToString());
-            UpdateInfoLabel(lblCurrentCompressed, libraryItem.File.FileHeader.Compression == CompressionMode.None ? "No" : "Yes");
-            UpdateInfoLabel(lblCurrentEncoding, libraryItem.File.FileAttributes.Encoding.EncodingName);
+            UpdateInfoLabel(lblCurrentLocation, libraryItem == null ? "N/A" : libraryItem.FileInfo.FullName);
+            UpdateInfoLabel(lblCurrentLength, libraryItem == null ? "N/A" : string.Format("{0:n0} bytes", libraryItem.FileInfo.Length));
+            UpdateInfoLabel(lblCurrentFormat, libraryItem == null ? "N/A" : libraryItem.File.FileHeader.Version.ToString());
+            UpdateInfoLabel(lblCurrentCreated, libraryItem == null ? "N/A" : libraryItem.FileInfo.CreationTime.ToString());
+            UpdateInfoLabel(lblCurrentModified, libraryItem == null ? "N/A" : libraryItem.FileInfo.LastWriteTime.ToString());
+            UpdateInfoLabel(lblCurrentCompressed, libraryItem == null ? "N/A" : libraryItem.File.FileHeader.Compression == CompressionMode.None ? "No" : "Yes");
+            UpdateInfoLabel(lblCurrentEncoding, libraryItem == null ? "N/A" : libraryItem.File.FileAttributes.Encoding.EncodingName);
         }
 
         private void LoadTabPreview(bool startViewCountTimer = true)
