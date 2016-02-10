@@ -1,6 +1,10 @@
 @ECHO OFF
 
-SET /p APPLICATION_VERSION=Tabster Version: 
+IF %1.==. (
+	SET /p APPLICATION_VERSION=Tabster Version: 
+) ELSE (
+    SET APPLICATION_VERSION=%*
+)
 
 SET BUILD_DIRECTORY=%CD%
 
