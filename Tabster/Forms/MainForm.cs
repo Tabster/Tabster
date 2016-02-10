@@ -456,6 +456,12 @@ namespace Tabster.Forms
                     foreach (var tab in dialog.DownloadedTabs)
                     {
                         var libraryItem = _libraryManager.Add(tab);
+
+                        //todo use objectliveview filtering instead of manual
+                        if (TablatureLibraryItemVisible(SelectedLibrary(), libraryItem))
+                        {
+                            listViewLibrary.AddObject(libraryItem);
+                        }
                     }
                 }
             }
