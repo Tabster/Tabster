@@ -15,6 +15,8 @@ namespace Tabster.Data.Binary
         private const string HeaderString = "TABSTER";
         private static readonly Version HeaderVersion = new Version("1.0");
         public static readonly Encoding DefaultEncoding = Encoding.UTF8;
+        private TablatureDifficulty _difficulty = TablatureDifficulty.Undefined;
+        private TablatureTuning _tuning = TablatureTuning.Undefined;
 
         public TablatureFile()
             : base(HeaderString)
@@ -149,8 +151,19 @@ namespace Tabster.Data.Binary
         public string Copyright { get; set; }
         public string Lyrics { get; set; }
         public string Comment { get; set; }
-        public TablatureDifficulty Difficulty { get; set; }
-        public TablatureTuning Tuning { get; set; }
+
+        public TablatureDifficulty Difficulty
+        {
+            get { return _difficulty; }
+            set { _difficulty = value; }
+        }
+
+        public TablatureTuning Tuning
+        {
+            get { return _tuning; }
+            set { _tuning = value; }
+        }
+
         public TablatureSourceType SourceType { get; set; }
         public Uri Source { get; set; }
         public string SourceTag { get; set; }
