@@ -58,6 +58,8 @@ namespace Tabster.Data.Library
                 Type = tablature.Type,
                 Contents = tablature.Contents,
                 Source = tablature.Source,
+                SourceType = tablature.SourceType,
+                SourceTag = tablature.SourceTag
             };
 
             return Add(file);
