@@ -3,7 +3,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.IO;
 using Tabster.Data;
+using Tabster.Data.Binary;
+using Tabster.Data.Processing;
 
 #endregion
 
@@ -12,12 +15,14 @@ namespace Tabster.Database
     internal class PlaylistManager
     {
         private readonly TabsterDatabaseHelper _databaseHelper;
+        private readonly TabsterFileProcessor<TablatureFile> _fileProcessor;
 
         private readonly List<TablaturePlaylist> _playlists = new List<TablaturePlaylist>();
 
-        public PlaylistManager(TabsterDatabaseHelper databaseHelper)
+        public PlaylistManager(TabsterDatabaseHelper databaseHelper, TabsterFileProcessor<TablatureFile> fileProcessor)
         {
             _databaseHelper = databaseHelper;
+            _fileProcessor = fileProcessor;
         }
 
         public int Count
@@ -40,6 +45,32 @@ namespace Tabster.Database
                         var created = reader["created"].ToString();
                         var playlist = new TablaturePlaylist(name) {Id = id, Created = TabsterDatabaseHelper.UnixTimestampToDateTime(int.Parse(created))};
                         _playlists.Add(playlist);
+                    }
+                }
+            }
+
+            foreach (var playlist in _playlists)
+            {
+                using (var cmd = new SQLiteCommand(string.Format("SELECT * FROM {0} WHERE playlist_id=@playlist_id", TabsterDatabaseHelper.TablePlaylistItems), _databaseHelper.GetConnection()))
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@playlist_id", playlist.Id));
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var id = long.Parse(reader["id"].ToString());
+                            var filename = reader["filename"].ToString();
+
+                            var file = _fileProcessor.Load(filename);
+
+                            if (file != null)
+                            {
+                                var fileInfo = new FileInfo(filename);
+                                var item = new TablaturePlaylistItem(file, fileInfo);
+                                playlist.Add(item);
+                            }
+                        }
                     }
                 }
             }
@@ -77,6 +108,8 @@ namespace Tabster.Database
                     cmd.ExecuteNonQuery();
                 }
             }
+
+            _playlists.Add(playlist);
         }
 
         public void Remove(TablaturePlaylist playlist)

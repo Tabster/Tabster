@@ -73,14 +73,16 @@ namespace Tabster
 
             var filesNeedScanned = !File.Exists(databasePath);
 
+            var fileProcessor = new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion);
+
             Logging.GetLogger().Info(string.Format("Initializing database: {0}", databasePath));
             _databaseHelper = new TabsterDatabaseHelper(databasePath);
 
             Logging.GetLogger().Info("Initializing library...");
-            var libraryManager = new LibraryManager(_databaseHelper, new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion), tablatureDirectory);
+            var libraryManager = new LibraryManager(_databaseHelper, fileProcessor, tablatureDirectory);
 
             Logging.GetLogger().Info("Initializing playlists...");
-            var playlistManager = new PlaylistManager(_databaseHelper);
+            var playlistManager = new PlaylistManager(_databaseHelper, fileProcessor);
 
             // database file deleted or possible pre-2.0 version, convert existing files
             if (filesNeedScanned)

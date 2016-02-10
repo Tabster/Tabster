@@ -365,8 +365,7 @@ namespace Tabster.Forms
                 if (toolItem != null && toolItem.Tag != null)
                 {
                     var associatedPlaylist = toolItem.Tag as TablaturePlaylist;
-                    var alreadyExistsInPlaylist = associatedPlaylist.Find(x => x.File.Equals(selectedItem)) != null;
-                    toolItem.Enabled = !alreadyExistsInPlaylist;
+                    toolItem.Enabled = associatedPlaylist.Find(x => x.FileInfo.FullName.Equals(selectedItem.FileInfo.FullName)) == null;
                 }
             }
 
@@ -763,6 +762,8 @@ namespace Tabster.Forms
                         }
                     }
 
+                    _playlistManager.Update(playlist);
+
                     AddPlaylistNode(playlist);
                     PopulatePlaylistMenu();
                     UpdateDetails();
@@ -812,9 +813,6 @@ namespace Tabster.Forms
         /// </summary>
         private void PopulatePlaylistMenu()
         {
-            if (librarycontextaddtoplaylist.DropDownItems.Count > 0)
-                librarycontextaddtoplaylist.DropDownItems.Clear();
-
             librarycontextaddtoplaylist.DropDownItems.Clear();
 
             foreach (var playlist in _playlistManager.GetPlaylists())
