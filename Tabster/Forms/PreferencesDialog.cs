@@ -57,7 +57,8 @@ namespace Tabster.Forms
 
         private void LoadPreferences()
         {
-            chkupdatestartup.Checked = Settings.Default.StartupUpdate;
+            chkUpdates.Checked = Settings.Default.StartupUpdate;
+            chkStripVersionedNames.Checked = Settings.Default.StripVersionedNames;
 
             //printing
             printColorPreview.BackColor = Settings.Default.PrintColor;
@@ -167,7 +168,8 @@ namespace Tabster.Forms
             //apply settings to active proxy config
             UserSettingsUtilities.ProxySettings.Configuration = proxyConfig;
 
-            Settings.Default.StartupUpdate = chkupdatestartup.Checked;
+            Settings.Default.StartupUpdate = chkUpdates.Checked;
+            Settings.Default.StripVersionedNames = chkStripVersionedNames.Checked;
 
             Settings.Default.Save();
         }

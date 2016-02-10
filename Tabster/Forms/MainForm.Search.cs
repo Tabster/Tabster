@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Data.Processing;
+using Tabster.Properties;
 using Tabster.Utilities;
 
 #endregion
@@ -139,11 +140,16 @@ namespace Tabster.Forms
 
             if (selectedResult != null)
             {
-                using (var nt = new NewTabDialog(selectedResult.Tab.Artist, selectedResult.Tab.Title, selectedResult.Tab.Type))
+                var title = selectedResult.Tab.Title;
+
+                if (Settings.Default.StripVersionedNames)
+                    title = RemoveVersionConventionFromTitle(title);
+
+                using (var nt = new NewTabDialog(selectedResult.Tab.Artist, title, selectedResult.Tab.Type))
                 {
                     if (nt.ShowDialog() == DialogResult.OK)
                     {
-                        var tab = _searchResultsCache[selectedResult.Source];
+                        var tab = selectedResult.Tab;
                         tab.Artist = nt.Tab.Artist;
                         tab.Title = nt.Tab.Title;
                         tab.Type = nt.Tab.Type;

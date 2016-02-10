@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.chkupdatestartup = new System.Windows.Forms.CheckBox();
+            this.chkUpdates = new System.Windows.Forms.CheckBox();
             this.cancelbtn = new System.Windows.Forms.Button();
             this.okbtn = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -39,6 +39,9 @@
             this.chkPrintTimestamp = new System.Windows.Forms.CheckBox();
             this.chkPrintPageNumbers = new System.Windows.Forms.CheckBox();
             this.tabPlugins = new System.Windows.Forms.TabPage();
+            this.listPlugins = new System.Windows.Forms.ListView();
+            this.colpluginName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colpluginEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblPluginFilename = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -50,9 +53,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.lblPluginVersion = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.listPlugins = new System.Windows.Forms.ListView();
-            this.colpluginName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colpluginEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btnEditSystemProxy = new System.Windows.Forms.Button();
             this.radioNoProxy = new System.Windows.Forms.RadioButton();
@@ -70,6 +70,9 @@
             this.numProxyPort = new System.Windows.Forms.NumericUpDown();
             this.txtProxyAddress = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.listSearchEngines = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.lblSearchEngineSupportsRatings = new System.Windows.Forms.Label();
@@ -77,11 +80,9 @@
             this.label11 = new System.Windows.Forms.Label();
             this.lblSearchEngineHomepage = new System.Windows.Forms.LinkLabel();
             this.label15 = new System.Windows.Forms.Label();
-            this.listSearchEngines = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pluginsDirectorybtn = new System.Windows.Forms.Button();
             this.printColorDialog = new System.Windows.Forms.ColorDialog();
+            this.chkStripVersionedNames = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -94,16 +95,16 @@
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // chkupdatestartup
+            // chkUpdates
             // 
-            this.chkupdatestartup.AutoSize = true;
-            this.chkupdatestartup.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkupdatestartup.Location = new System.Drawing.Point(6, 6);
-            this.chkupdatestartup.Name = "chkupdatestartup";
-            this.chkupdatestartup.Size = new System.Drawing.Size(163, 17);
-            this.chkupdatestartup.TabIndex = 18;
-            this.chkupdatestartup.Text = "Check for updates on startup";
-            this.chkupdatestartup.UseVisualStyleBackColor = true;
+            this.chkUpdates.AutoSize = true;
+            this.chkUpdates.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chkUpdates.Location = new System.Drawing.Point(6, 6);
+            this.chkUpdates.Name = "chkUpdates";
+            this.chkUpdates.Size = new System.Drawing.Size(163, 17);
+            this.chkUpdates.TabIndex = 18;
+            this.chkUpdates.Text = "Check for updates on startup";
+            this.chkUpdates.UseVisualStyleBackColor = true;
             // 
             // cancelbtn
             // 
@@ -147,7 +148,8 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.chkupdatestartup);
+            this.tabPage1.Controls.Add(this.chkStripVersionedNames);
+            this.tabPage1.Controls.Add(this.chkUpdates);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -221,6 +223,34 @@
             this.tabPlugins.TabIndex = 1;
             this.tabPlugins.Text = "Plugins";
             this.tabPlugins.UseVisualStyleBackColor = true;
+            // 
+            // listPlugins
+            // 
+            this.listPlugins.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colpluginName,
+            this.colpluginEnabled});
+            this.listPlugins.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listPlugins.FullRowSelect = true;
+            this.listPlugins.GridLines = true;
+            this.listPlugins.Location = new System.Drawing.Point(3, 3);
+            this.listPlugins.Name = "listPlugins";
+            this.listPlugins.ShowItemToolTips = true;
+            this.listPlugins.Size = new System.Drawing.Size(262, 200);
+            this.listPlugins.TabIndex = 0;
+            this.listPlugins.UseCompatibleStateImageBehavior = false;
+            this.listPlugins.View = System.Windows.Forms.View.Details;
+            this.listPlugins.SelectedIndexChanged += new System.EventHandler(this.listPlugins_SelectedIndexChanged);
+            this.listPlugins.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listPlugins_MouseDoubleClick);
+            // 
+            // colpluginName
+            // 
+            this.colpluginName.Text = "Name";
+            this.colpluginName.Width = 175;
+            // 
+            // colpluginEnabled
+            // 
+            this.colpluginEnabled.Text = "Enabled";
+            this.colpluginEnabled.Width = 80;
             // 
             // groupBox1
             // 
@@ -334,34 +364,6 @@
             this.label6.Size = new System.Drawing.Size(48, 13);
             this.label6.TabIndex = 5;
             this.label6.Text = "Version: ";
-            // 
-            // listPlugins
-            // 
-            this.listPlugins.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colpluginName,
-            this.colpluginEnabled});
-            this.listPlugins.Dock = System.Windows.Forms.DockStyle.Left;
-            this.listPlugins.FullRowSelect = true;
-            this.listPlugins.GridLines = true;
-            this.listPlugins.Location = new System.Drawing.Point(3, 3);
-            this.listPlugins.Name = "listPlugins";
-            this.listPlugins.ShowItemToolTips = true;
-            this.listPlugins.Size = new System.Drawing.Size(262, 200);
-            this.listPlugins.TabIndex = 0;
-            this.listPlugins.UseCompatibleStateImageBehavior = false;
-            this.listPlugins.View = System.Windows.Forms.View.Details;
-            this.listPlugins.SelectedIndexChanged += new System.EventHandler(this.listPlugins_SelectedIndexChanged);
-            this.listPlugins.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listPlugins_MouseDoubleClick);
-            // 
-            // colpluginName
-            // 
-            this.colpluginName.Text = "Name";
-            this.colpluginName.Width = 175;
-            // 
-            // colpluginEnabled
-            // 
-            this.colpluginEnabled.Text = "Enabled";
-            this.colpluginEnabled.Width = 80;
             // 
             // tabPage3
             // 
@@ -549,6 +551,34 @@
             this.tabPage4.Text = "Searching";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // listSearchEngines
+            // 
+            this.listSearchEngines.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listSearchEngines.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listSearchEngines.FullRowSelect = true;
+            this.listSearchEngines.GridLines = true;
+            this.listSearchEngines.Location = new System.Drawing.Point(3, 3);
+            this.listSearchEngines.Name = "listSearchEngines";
+            this.listSearchEngines.ShowItemToolTips = true;
+            this.listSearchEngines.Size = new System.Drawing.Size(262, 200);
+            this.listSearchEngines.TabIndex = 1;
+            this.listSearchEngines.UseCompatibleStateImageBehavior = false;
+            this.listSearchEngines.View = System.Windows.Forms.View.Details;
+            this.listSearchEngines.SelectedIndexChanged += new System.EventHandler(this.listSearchEngines_SelectedIndexChanged);
+            this.listSearchEngines.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listSearchEngines_MouseDoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Name";
+            this.columnHeader1.Width = 175;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Enabled";
+            this.columnHeader2.Width = 80;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.listBox1);
@@ -620,34 +650,6 @@
             this.label15.TabIndex = 9;
             this.label15.Text = "Homepage:";
             // 
-            // listSearchEngines
-            // 
-            this.listSearchEngines.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.listSearchEngines.Dock = System.Windows.Forms.DockStyle.Left;
-            this.listSearchEngines.FullRowSelect = true;
-            this.listSearchEngines.GridLines = true;
-            this.listSearchEngines.Location = new System.Drawing.Point(3, 3);
-            this.listSearchEngines.Name = "listSearchEngines";
-            this.listSearchEngines.ShowItemToolTips = true;
-            this.listSearchEngines.Size = new System.Drawing.Size(262, 200);
-            this.listSearchEngines.TabIndex = 1;
-            this.listSearchEngines.UseCompatibleStateImageBehavior = false;
-            this.listSearchEngines.View = System.Windows.Forms.View.Details;
-            this.listSearchEngines.SelectedIndexChanged += new System.EventHandler(this.listSearchEngines_SelectedIndexChanged);
-            this.listSearchEngines.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listSearchEngines_MouseDoubleClick);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Name";
-            this.columnHeader1.Width = 175;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Enabled";
-            this.columnHeader2.Width = 80;
-            // 
             // pluginsDirectorybtn
             // 
             this.pluginsDirectorybtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -663,6 +665,17 @@
             // printColorDialog
             // 
             this.printColorDialog.SolidColorOnly = true;
+            // 
+            // chkStripVersionedNames
+            // 
+            this.chkStripVersionedNames.AutoSize = true;
+            this.chkStripVersionedNames.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chkStripVersionedNames.Location = new System.Drawing.Point(6, 29);
+            this.chkStripVersionedNames.Name = "chkStripVersionedNames";
+            this.chkStripVersionedNames.Size = new System.Drawing.Size(271, 17);
+            this.chkStripVersionedNames.TabIndex = 19;
+            this.chkStripVersionedNames.Text = "Strip versioned text from saved tablature (ex: (ver 3))";
+            this.chkStripVersionedNames.UseVisualStyleBackColor = true;
             // 
             // PreferencesDialog
             // 
@@ -707,7 +720,7 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckBox chkupdatestartup;
+        private System.Windows.Forms.CheckBox chkUpdates;
         private System.Windows.Forms.Button cancelbtn;
         private System.Windows.Forms.Button okbtn;
         private System.Windows.Forms.TabControl tabControl1;
@@ -761,5 +774,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label lblSearchEngineSupportsRatings;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.CheckBox chkStripVersionedNames;
     }
 }

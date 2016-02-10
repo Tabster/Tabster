@@ -258,5 +258,18 @@ namespace Tabster.Properties {
                 this["DisabledSearchEngines"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool StripVersionedNames {
+            get {
+                return ((bool)(this["StripVersionedNames"]));
+            }
+            set {
+                this["StripVersionedNames"] = value;
+            }
+        }
     }
 }
