@@ -42,6 +42,7 @@ namespace Tabster.Core.Searching
         public TablatureRating Rating { get; private set; }
 
         /// <summary>
+        ///     The associated search engine.
         /// </summary>
         public ITablatureSearchEngine Engine { get; private set; }
     }
