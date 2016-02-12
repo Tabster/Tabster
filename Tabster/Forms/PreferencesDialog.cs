@@ -281,7 +281,7 @@ namespace Tabster.Forms
             {
                 var plugin = _pluginHosts[listPlugins.SelectedItems[0].Index];
 
-                lblPluginFilename.Text = Path.GetFileName(plugin.Assembly.Location);
+                lblPluginFilename.Text = plugin.FileInfo.FullName;
                 lblPluginAuthor.Text = plugin.Plugin.Author ?? "N/A";
                 lblPluginVersion.Text = plugin.Plugin.Version != null
                     ? plugin.Plugin.Version.ToString()

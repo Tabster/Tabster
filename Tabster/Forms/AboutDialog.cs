@@ -36,7 +36,7 @@ namespace Tabster.Forms
 
                     lvi.SubItems.Add(pluginHost.Plugin.Version != null ? pluginHost.Plugin.Version.ToString() : "N/A");
                     lvi.SubItems.Add(pluginHost.Plugin.Author ?? "N/A");
-                    lvi.SubItems.Add(Path.GetFileName(pluginHost.Assembly.Location));
+                    lvi.SubItems.Add(pluginHost.FileInfo.FullName);
 
                     listPlugins.Items.Add(lvi);
                 }

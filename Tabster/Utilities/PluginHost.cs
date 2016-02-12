@@ -16,14 +16,16 @@ namespace Tabster.Utilities
         private bool _enabled;
         private List<Type> _types = new List<Type>();
 
-        public PluginHost(Assembly assembly, ITabsterPlugin plugin)
+        public PluginHost(Assembly assembly, ITabsterPlugin plugin, FileInfo fileInfo)
         {
             Assembly = assembly;
             Plugin = plugin;
+            FileInfo = fileInfo;
         }
 
         public Assembly Assembly { get; private set; }
         public ITabsterPlugin Plugin { get; private set; }
+        public FileInfo FileInfo { get; private set; }
 
         public Boolean Enabled
         {
@@ -39,7 +41,7 @@ namespace Tabster.Utilities
 
                     catch (Exception ex)
                     {
-                        Logging.GetLogger().Error(string.Format("Error occured while activating plugin: {0}", Path.GetFileName(Assembly.Location)), ex);
+                        Logging.GetLogger().Error(string.Format("Error occured while activating plugin: {0}", FileInfo.FullName), ex);
                     }
                 }
 
@@ -52,7 +54,7 @@ namespace Tabster.Utilities
 
                     catch (Exception ex)
                     {
-                        Logging.GetLogger().Error(string.Format("Error occured while deactivating plugin: {0}", Path.GetFileName(Assembly.Location)), ex);
+                        Logging.GetLogger().Error(string.Format("Error occured while deactivating plugin: {0}", FileInfo.FullName), ex);
                     }
                 }
 
@@ -75,7 +77,7 @@ namespace Tabster.Utilities
 
             catch (Exception ex)
             {
-                Logging.GetLogger().Error(string.Format("Error occured while loading plugin types: {0}", Path.GetFileName(Assembly.Location)), ex);
+                Logging.GetLogger().Error(string.Format("Error occured while loading plugin types: {0}", FileInfo.FullName), ex);
             }
 
             foreach (var type in _types)
@@ -90,7 +92,7 @@ namespace Tabster.Utilities
 
                     catch (Exception ex)
                     {
-                        Logging.GetLogger().Error(string.Format("Error occured while creating plugin type instance: '{0}' in {1}", type.FullName, Path.GetFileName(Assembly.Location)), ex);
+                        Logging.GetLogger().Error(string.Format("Error occured while creating plugin type instance: '{0}' in {1}", type.FullName, FileInfo.FullName), ex);
                     }
                 }
             }

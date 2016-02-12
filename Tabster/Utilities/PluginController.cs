@@ -64,7 +64,7 @@ namespace Tabster.Utilities
 
                         catch (Exception ex)
                         {
-                            Logging.GetLogger().Error(string.Format("Error occured while initializing plugin: {0}", Path.GetFileName(pluginHost.Assembly.Location)), ex);
+                            Logging.GetLogger().Error(string.Format("Error occured while initializing plugin: {0}", pluginHost.FileInfo.FullName), ex);
                         }
                     }
                 }
@@ -92,6 +92,7 @@ namespace Tabster.Utilities
         {
             try
             {
+                var fileInfo = new FileInfo(path);
                 var assembly = Assembly.LoadFrom(path);
 
                 if (assembly != null)
@@ -111,7 +112,7 @@ namespace Tabster.Utilities
                         if (_pluginHosts.Find(x => x.Plugin.Guid == plugin.Guid) != null)
                             return null;
 
-                        var host = new PluginHost(assembly, plugin);
+                        var host = new PluginHost(assembly, plugin, fileInfo);
                         _pluginHosts.Add(host);
 
                         return host;
