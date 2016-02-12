@@ -94,7 +94,10 @@ namespace Tabster.Forms
                     var guid = new Guid(lvi.Tag.ToString());
                     var pluginEnabled = lvi.Checked;
 
-                    Program.PluginController.SetStatus(guid, pluginEnabled);
+                    var pluginHost = Program.PluginController.FindPluginByGuid(guid);
+
+                    if (pluginHost.Enabled != pluginEnabled)
+                        pluginHost.Enabled = pluginEnabled;
 
                     Settings.Default.DisabledPlugins.Remove(guid.ToString());
 
@@ -333,19 +336,17 @@ namespace Tabster.Forms
 
             foreach (var pluginHost in _pluginHosts)
             {
-                var enabled = Program.PluginController.IsEnabled(pluginHost.Plugin.Guid);
-
                 var lvi = new ListViewItem
                 {
                     Tag = pluginHost.Plugin.Guid.ToString(),
                     Text = pluginHost.Plugin.DisplayName,
-                    Checked = enabled,
-                    ForeColor = enabled ? _enabledColor : _disabledColor
+                    Checked = pluginHost.Enabled,
+                    ForeColor = pluginHost.Enabled ? _enabledColor : _disabledColor
                 };
 
-                _pluginStatusMap[pluginHost] = enabled;
+                _pluginStatusMap[pluginHost] = pluginHost.Enabled;
 
-                lvi.SubItems.Add(enabled ? "Yes" : "No");
+                lvi.SubItems.Add(pluginHost.Enabled ? "Yes" : "No");
 
                 listPlugins.Items.Add(lvi);
             }

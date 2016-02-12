@@ -13,7 +13,6 @@ namespace Tabster.Utilities
 {
     public class PluginController
     {
-        private readonly List<Guid> _disabledPlugins = new List<Guid>();
         private readonly List<PluginHost> _pluginHosts = new List<PluginHost>();
 
         public PluginController(string[] pluginDirectories)
@@ -30,19 +29,6 @@ namespace Tabster.Utilities
             foreach (var dir in WorkingDirectories)
             {
                 LoadPluginDirectory(dir);
-            }
-
-            foreach (var pluginHost in _pluginHosts.Where(pluginHost => IsEnabled(pluginHost.Plugin.Guid)))
-            {
-                try
-                {
-                    pluginHost.Plugin.Activate();
-                }
-
-                catch (Exception ex)
-                {
-                    Logging.GetLogger().Error(string.Format("Error occured while activating plugin: {0}", Path.GetFileName(pluginHost.Assembly.Location)), ex);
-                }
             }
         }
 
@@ -89,7 +75,7 @@ namespace Tabster.Utilities
         {
             var instances = new List<T>();
 
-            foreach (var plugin in _pluginHosts.Where(plugin => IsEnabled(plugin.Plugin.Guid)))
+            foreach (var plugin in _pluginHosts.Where(plugin => plugin.Enabled))
             {
                 instances.AddRange(plugin.GetClassInstances<T>());
             }
@@ -139,46 +125,6 @@ namespace Tabster.Utilities
             }
 
             return null;
-        }
-
-        public void SetStatus(Guid guid, bool enabled)
-        {
-            var plugin = FindPluginByGuid(guid);
-
-            if (enabled)
-            {
-                _disabledPlugins.Remove(guid);
-
-                try
-                {
-                    plugin.Plugin.Activate();
-                }
-
-                catch (Exception ex)
-                {
-                    Logging.GetLogger().Error(string.Format("Error occured while activating plugin: {0}", Path.GetFileName(plugin.Assembly.Location)), ex);
-                }
-            }
-
-            else
-            {
-                _disabledPlugins.Add(guid);
-
-                try
-                {
-                    plugin.Plugin.Deactivate();
-                }
-
-                catch (Exception ex)
-                {
-                    Logging.GetLogger().Error(string.Format("Error occured while deactivating plugin: {0}", Path.GetFileName(plugin.Assembly.Location)), ex);
-                }
-            }
-        }
-
-        public bool IsEnabled(Guid guid)
-        {
-            return !_disabledPlugins.Contains(guid);
         }
 
         public PluginHost FindPluginByGuid(Guid guid)

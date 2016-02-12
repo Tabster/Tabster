@@ -3,6 +3,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Tabster.Properties;
@@ -29,7 +30,7 @@ namespace Tabster.Forms
         {
             foreach (var pluginHost in Program.PluginController.GetPluginHosts())
             {
-                if (pluginHost.Plugin.Guid != Guid.Empty && Program.PluginController.IsEnabled(pluginHost.Plugin.Guid))
+                if (pluginHost.Plugin.Guid != Guid.Empty && pluginHost.Enabled)
                 {
                     var lvi = new ListViewItem { Text = pluginHost.Plugin.DisplayName ?? "N/A" };
 

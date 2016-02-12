@@ -13,6 +13,7 @@ namespace Tabster.Utilities
 {
     public class PluginHost
     {
+        private bool _enabled;
         private List<Type> _types = new List<Type>();
 
         public PluginHost(Assembly assembly, ITabsterPlugin plugin)
@@ -23,6 +24,41 @@ namespace Tabster.Utilities
 
         public Assembly Assembly { get; private set; }
         public ITabsterPlugin Plugin { get; private set; }
+
+        public Boolean Enabled
+        {
+            get { return _enabled; }
+            set
+            {
+                if (value)
+                {
+                    try
+                    {
+                        Plugin.Activate();
+                    }
+
+                    catch (Exception ex)
+                    {
+                        Logging.GetLogger().Error(string.Format("Error occured while activating plugin: {0}", Path.GetFileName(Assembly.Location)), ex);
+                    }
+                }
+
+                else
+                {
+                    try
+                    {
+                        Plugin.Deactivate();
+                    }
+
+                    catch (Exception ex)
+                    {
+                        Logging.GetLogger().Error(string.Format("Error occured while deactivating plugin: {0}", Path.GetFileName(Assembly.Location)), ex);
+                    }
+                }
+
+                _enabled = value;
+            }
+        }
 
         public IEnumerable<T> GetClassInstances<T>()
         {

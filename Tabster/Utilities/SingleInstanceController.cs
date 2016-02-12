@@ -115,7 +115,7 @@ namespace Tabster.Utilities
             if (!_safeMode)
             {
                 SetSplashStatus("Initializing plugins...");
-                Program.PluginController.LoadPlugins();
+                Program.LoadPlugins();
             }
 
             SetSplashStatus("Loading library...");

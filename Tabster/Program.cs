@@ -1,7 +1,9 @@
 ﻿#region
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Tabster.Data;
 using Tabster.Data.Binary;
@@ -170,15 +172,22 @@ namespace Tabster
             }
         }
 
-        private static void LoadPlugins()
+        public static void LoadPlugins()
         {
             var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
-
             PluginController = new PluginController(new[] {pluginDirectory, PluginDataDirectory});
 
+            PluginController.LoadPlugins();
+
+            var disabledGuids = new List<Guid>();
             foreach (var guid in Settings.Default.DisabledPlugins)
             {
-                PluginController.SetStatus(new Guid(guid), false);
+                disabledGuids.Add(new Guid(guid));
+            }
+
+            foreach (var pluginHost in PluginController.GetPluginHosts().Where(pluginHost => !disabledGuids.Contains(pluginHost.Plugin.Guid)))
+            {
+                pluginHost.Enabled = true;
             }
         }
     }
