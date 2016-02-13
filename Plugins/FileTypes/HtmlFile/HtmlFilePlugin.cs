@@ -44,7 +44,7 @@ namespace HtmlFile
 
         public Guid Guid
         {
-            get { return new Guid(((GuidAttribute)typeof(HtmlFilePlugin).Assembly.GetCustomAttributes(typeof(GuidAttribute), true)[0]).Value); }
+            get { return new Guid(((GuidAttribute) typeof (HtmlFilePlugin).Assembly.GetCustomAttributes(typeof (GuidAttribute), true)[0]).Value); }
         }
 
         public void Activate()

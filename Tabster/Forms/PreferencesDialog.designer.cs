@@ -33,6 +33,7 @@
             this.okbtn = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chkStripVersionedNames = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.printColorPreview = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
@@ -82,7 +83,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.pluginsDirectorybtn = new System.Windows.Forms.Button();
             this.printColorDialog = new System.Windows.Forms.ColorDialog();
-            this.chkStripVersionedNames = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -110,7 +110,7 @@
             // 
             this.cancelbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelbtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelbtn.Location = new System.Drawing.Point(474, 251);
+            this.cancelbtn.Location = new System.Drawing.Point(503, 251);
             this.cancelbtn.Name = "cancelbtn";
             this.cancelbtn.Size = new System.Drawing.Size(75, 23);
             this.cancelbtn.TabIndex = 22;
@@ -121,7 +121,7 @@
             // 
             this.okbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okbtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okbtn.Location = new System.Drawing.Point(393, 251);
+            this.okbtn.Location = new System.Drawing.Point(422, 251);
             this.okbtn.Name = "okbtn";
             this.okbtn.Size = new System.Drawing.Size(75, 23);
             this.okbtn.TabIndex = 23;
@@ -142,7 +142,7 @@
             this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(534, 232);
+            this.tabControl1.Size = new System.Drawing.Size(563, 232);
             this.tabControl1.TabIndex = 24;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -153,10 +153,21 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(526, 206);
+            this.tabPage1.Size = new System.Drawing.Size(555, 206);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chkStripVersionedNames
+            // 
+            this.chkStripVersionedNames.AutoSize = true;
+            this.chkStripVersionedNames.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chkStripVersionedNames.Location = new System.Drawing.Point(6, 29);
+            this.chkStripVersionedNames.Name = "chkStripVersionedNames";
+            this.chkStripVersionedNames.Size = new System.Drawing.Size(271, 17);
+            this.chkStripVersionedNames.TabIndex = 19;
+            this.chkStripVersionedNames.Text = "Strip versioned text from saved tablature (ex: (ver 3))";
+            this.chkStripVersionedNames.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -167,7 +178,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(526, 206);
+            this.tabPage2.Size = new System.Drawing.Size(555, 206);
             this.tabPage2.TabIndex = 3;
             this.tabPage2.Text = "Printing";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -219,7 +230,7 @@
             this.tabPlugins.Location = new System.Drawing.Point(4, 22);
             this.tabPlugins.Name = "tabPlugins";
             this.tabPlugins.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPlugins.Size = new System.Drawing.Size(526, 206);
+            this.tabPlugins.Size = new System.Drawing.Size(555, 206);
             this.tabPlugins.TabIndex = 1;
             this.tabPlugins.Text = "Plugins";
             this.tabPlugins.UseVisualStyleBackColor = true;
@@ -266,7 +277,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Location = new System.Drawing.Point(271, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(249, 194);
+            this.groupBox1.Size = new System.Drawing.Size(278, 194);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Plugin Details";
@@ -301,8 +312,8 @@
             // lblPluginDescription
             // 
             this.lblPluginDescription.AutoSize = true;
-            this.lblPluginDescription.Location = new System.Drawing.Point(6, 136);
-            this.lblPluginDescription.MaximumSize = new System.Drawing.Size(237, 0);
+            this.lblPluginDescription.Location = new System.Drawing.Point(6, 141);
+            this.lblPluginDescription.MaximumSize = new System.Drawing.Size(266, 0);
             this.lblPluginDescription.Name = "lblPluginDescription";
             this.lblPluginDescription.Size = new System.Drawing.Size(99, 13);
             this.lblPluginDescription.TabIndex = 12;
@@ -375,7 +386,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(526, 206);
+            this.tabPage3.Size = new System.Drawing.Size(555, 206);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Network";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -383,7 +394,7 @@
             // btnEditSystemProxy
             // 
             this.btnEditSystemProxy.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnEditSystemProxy.Location = new System.Drawing.Point(158, 26);
+            this.btnEditSystemProxy.Location = new System.Drawing.Point(172, 26);
             this.btnEditSystemProxy.Name = "btnEditSystemProxy";
             this.btnEditSystemProxy.Size = new System.Drawing.Size(149, 23);
             this.btnEditSystemProxy.TabIndex = 25;
@@ -546,7 +557,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(526, 206);
+            this.tabPage4.Size = new System.Drawing.Size(555, 206);
             this.tabPage4.TabIndex = 4;
             this.tabPage4.Text = "Searching";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -589,7 +600,7 @@
             this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Location = new System.Drawing.Point(271, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(249, 194);
+            this.groupBox2.Size = new System.Drawing.Size(278, 194);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Search Engine Details";
@@ -653,7 +664,7 @@
             // pluginsDirectorybtn
             // 
             this.pluginsDirectorybtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pluginsDirectorybtn.Location = new System.Drawing.Point(13, 251);
+            this.pluginsDirectorybtn.Location = new System.Drawing.Point(12, 251);
             this.pluginsDirectorybtn.Name = "pluginsDirectorybtn";
             this.pluginsDirectorybtn.Size = new System.Drawing.Size(150, 23);
             this.pluginsDirectorybtn.TabIndex = 25;
@@ -666,17 +677,6 @@
             // 
             this.printColorDialog.SolidColorOnly = true;
             // 
-            // chkStripVersionedNames
-            // 
-            this.chkStripVersionedNames.AutoSize = true;
-            this.chkStripVersionedNames.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkStripVersionedNames.Location = new System.Drawing.Point(6, 29);
-            this.chkStripVersionedNames.Name = "chkStripVersionedNames";
-            this.chkStripVersionedNames.Size = new System.Drawing.Size(271, 17);
-            this.chkStripVersionedNames.TabIndex = 19;
-            this.chkStripVersionedNames.Text = "Strip versioned text from saved tablature (ex: (ver 3))";
-            this.chkStripVersionedNames.UseVisualStyleBackColor = true;
-            // 
             // PreferencesDialog
             // 
             this.AcceptButton = this.okbtn;
@@ -684,7 +684,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.cancelbtn;
-            this.ClientSize = new System.Drawing.Size(559, 284);
+            this.ClientSize = new System.Drawing.Size(588, 284);
             this.Controls.Add(this.pluginsDirectorybtn);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.okbtn);

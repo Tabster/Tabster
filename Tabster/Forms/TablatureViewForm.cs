@@ -25,13 +25,12 @@ namespace Tabster.Forms
 
         #endregion
 
+        private static TablatureViewForm _instance;
         private readonly Form _owner;
         private readonly List<TabInstance> _tabInstances = new List<TabInstance>();
         private bool _isFullscreen;
         private FormBorderStyle _previousBorderStyle;
         private FormWindowState _previousWindowState;
-
-        private static TablatureViewForm _instance;
 
         private TablatureViewForm()
         {
@@ -49,39 +48,6 @@ namespace Tabster.Forms
         {
             return _instance ?? (_instance = new TablatureViewForm(owner));
         }
-
-        #region Public Methods
-
-        public bool IsFileOpen(FileInfo fileInfo)
-        {
-            return GetTabInstance(fileInfo) != null;
-        }
-
-        public void LoadTablature(ITablatureFile file, FileInfo fileInfo)
-        {
-            var instance = IsFileOpen(fileInfo) ? GetTabInstance(fileInfo) : CreateTabInstance(file, fileInfo);
-
-            if (!Visible)
-            {
-                if (_owner != null)
-                {
-                    StartPosition = FormStartPosition.Manual;
-                    Location = new Point(_owner.Location.X + (_owner.Width - Width)/2,
-                        _owner.Location.Y + (_owner.Height - Height)/2);
-
-                    Show(_owner);
-                }
-
-                else
-                {
-                    Show();
-                }
-            }
-
-            SelectTabInstance(instance);
-        }
-
-        #endregion
 
         public event TabHandler TabClosed;
         public event TabHandler TabOpened;
@@ -303,6 +269,39 @@ namespace Tabster.Forms
         {
             return _tabInstances.FirstOrDefault(instance => instance.Editor == editor);
         }
+
+        #region Public Methods
+
+        public bool IsFileOpen(FileInfo fileInfo)
+        {
+            return GetTabInstance(fileInfo) != null;
+        }
+
+        public void LoadTablature(ITablatureFile file, FileInfo fileInfo)
+        {
+            var instance = IsFileOpen(fileInfo) ? GetTabInstance(fileInfo) : CreateTabInstance(file, fileInfo);
+
+            if (!Visible)
+            {
+                if (_owner != null)
+                {
+                    StartPosition = FormStartPosition.Manual;
+                    Location = new Point(_owner.Location.X + (_owner.Width - Width)/2,
+                        _owner.Location.Y + (_owner.Height - Height)/2);
+
+                    Show(_owner);
+                }
+
+                else
+                {
+                    Show();
+                }
+            }
+
+            SelectTabInstance(instance);
+        }
+
+        #endregion
     }
 
     internal class TabInstance

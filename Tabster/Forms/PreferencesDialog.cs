@@ -30,8 +30,8 @@ namespace Tabster.Forms
 
         private readonly Color _disabledColor = Color.Red;
         private readonly Color _enabledColor = Color.Green;
-        private readonly Dictionary<PluginHost, bool> _pluginStatusMap = new Dictionary<PluginHost, bool>();
         private readonly List<PluginHost> _pluginHosts = new List<PluginHost>();
+        private readonly Dictionary<PluginHost, bool> _pluginStatusMap = new Dictionary<PluginHost, bool>();
 
 
         public PreferencesDialog()
@@ -281,7 +281,7 @@ namespace Tabster.Forms
             {
                 var plugin = _pluginHosts[listPlugins.SelectedItems[0].Index];
 
-                lblPluginFilename.Text = plugin.FileInfo.FullName;
+                lblPluginFilename.Text = string.Format("{0}...{1}{2}{1}{3}", Path.GetPathRoot(plugin.FileInfo.FullName), Path.DirectorySeparatorChar, Path.GetFileName(Path.GetDirectoryName(plugin.FileInfo.FullName)), plugin.FileInfo.Name);
                 lblPluginAuthor.Text = plugin.Plugin.Author ?? "N/A";
                 lblPluginVersion.Text = plugin.Plugin.Version != null
                     ? plugin.Plugin.Version.ToString()
