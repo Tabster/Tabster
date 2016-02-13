@@ -1,8 +1,10 @@
 ﻿#region
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
 using Tabster.Data.Binary;
@@ -69,7 +71,7 @@ namespace Tabster.Utilities
                         _queuedFileInfo = new FileInfo(firstArg);
 
                         if (_isLibraryOpen)
-                            Program.TabbedViewer.LoadTablature(file, _queuedFileInfo);
+                            TablatureViewForm.GetInstance(MainForm).LoadTablature(file, _queuedFileInfo);
                     }
                 }
             }
@@ -115,20 +117,35 @@ namespace Tabster.Utilities
             if (!_safeMode)
             {
                 SetSplashStatus("Initializing plugins...");
-                Program.LoadPlugins();
+                Logging.GetLogger().Info("Loading plugins...");
+
+                Program.GetPluginController().LoadPlugins();
+
+                var disabledGuids = new List<Guid>();
+                foreach (var guid in Settings.Default.DisabledPlugins)
+                {
+                    disabledGuids.Add(new Guid(guid));
+                }
+
+                foreach (var pluginHost in Program.GetPluginController().GetPluginHosts().Where(pluginHost => !disabledGuids.Contains(pluginHost.Plugin.Guid)))
+                {
+                    pluginHost.Enabled = true;
+                }
             }
 
+            Logging.GetLogger().Info("Initializing library...");
             SetSplashStatus("Loading library...");
             _libraryManager.Load(_filesNeedScanned);
 
+            Logging.GetLogger().Info("Initializing playlists...");
             SetSplashStatus("Loading playlists...");
             _playlistManager.Load();
 
             if (Settings.Default.StartupUpdate)
             {
                 SetSplashStatus("Checking for updates...");
-                Program.UpdateQuery.Completed += (s, e) => { _updateResponse = e; };
-                Program.UpdateQuery.Check(true);
+                UpdateCheck.Completed += (s, e) => { _updateResponse = e; };
+                UpdateCheck.Check(true);
             }
         }
 

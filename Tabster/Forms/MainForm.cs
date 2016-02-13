@@ -56,9 +56,9 @@ namespace Tabster.Forms
             UpdateSortColumnMenu(true);
 
             //tabviewermanager events
-            Program.TabbedViewer.TabClosed += TabHandler_OnTabClosed;
+            TablatureViewForm.GetInstance(this).TabClosed += TabHandler_OnTabClosed;
 
-            Program.UpdateQuery.Completed += updateQuery_Completed;
+            UpdateCheck.Completed += updateQuery_Completed;
 
             recentlyViewedMenuItem.OnItemsCleared += recentlyViewedMenuItem_OnItemsCleared;
 
@@ -263,9 +263,9 @@ namespace Tabster.Forms
 
         private void CachePluginResources()
         {
-            _fileExporters = new List<ITablatureFileExporter>(Program.PluginController.GetClassInstances<ITablatureFileExporter>());
-            _fileImporters = new List<ITablatureFileImporter>(Program.PluginController.GetClassInstances<ITablatureFileImporter>());
-            _webImporters = new List<ITablatureWebImporter>(Program.PluginController.GetClassInstances<ITablatureWebImporter>());
+            _fileExporters = new List<ITablatureFileExporter>(Program.GetPluginController().GetClassInstances<ITablatureFileExporter>());
+            _fileImporters = new List<ITablatureFileImporter>(Program.GetPluginController().GetClassInstances<ITablatureFileImporter>());
+            _webImporters = new List<ITablatureWebImporter>(Program.GetPluginController().GetClassInstances<ITablatureWebImporter>());
         }
 
         private void OpenRecentFile(MenuItem item)
@@ -276,7 +276,7 @@ namespace Tabster.Forms
 
             if (tab != null)
             {
-                Program.TabbedViewer.LoadTablature(tab, new FileInfo(path));
+                TablatureViewForm.GetInstance(this).LoadTablature(tab, new FileInfo(path));
             }
         }
 
@@ -600,7 +600,7 @@ namespace Tabster.Forms
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Program.UpdateQuery.Check(false);
+            UpdateCheck.Check(false);
         }
 
         private void OpenPreferences(PreferencesDialog.PreferencesSection section)

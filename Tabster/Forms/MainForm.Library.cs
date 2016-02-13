@@ -106,7 +106,7 @@ namespace Tabster.Forms
                 {
                     if (pathCol.Text != null)
                     {
-                        var openedExternally = Program.TabbedViewer.IsFileOpen(GetSelectedLibraryItem().FileInfo);
+                        var openedExternally = TablatureViewForm.GetInstance(this).IsFileOpen(GetSelectedLibraryItem().FileInfo);
 
                         deleteTabToolStripMenuItem.Enabled = librarycontextdelete.Enabled = !openedExternally;
                         detailsToolStripMenuItem.Enabled = librarycontextdetails.Enabled = !openedExternally;
@@ -170,7 +170,7 @@ namespace Tabster.Forms
 
         private void PopoutTab(TablatureFile file, FileInfo fileInfo, bool updateRecentFiles = true)
         {
-            Program.TabbedViewer.LoadTablature(file, fileInfo);
+            TablatureViewForm.GetInstance(this).LoadTablature(file, fileInfo);
 
             if (updateRecentFiles)
             {
@@ -666,7 +666,7 @@ namespace Tabster.Forms
             {
                 lblpreviewtitle.Text = GetSelectedLibraryItem().File.ToFriendlyString();
 
-                var openedExternally = Program.TabbedViewer.IsFileOpen(GetSelectedLibraryItem().FileInfo);
+                var openedExternally = TablatureViewForm.GetInstance(this).IsFileOpen(GetSelectedLibraryItem().FileInfo);
 
                 PreviewEditor.Visible = !openedExternally;
 
