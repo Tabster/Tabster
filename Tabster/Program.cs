@@ -1,9 +1,7 @@
 ﻿#region
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using Tabster.Data;
 using Tabster.Data.Binary;
@@ -11,7 +9,6 @@ using Tabster.Data.Processing;
 using Tabster.Data.Xml;
 using Tabster.Database;
 using Tabster.Forms;
-using Tabster.Properties;
 using Tabster.Update;
 using Tabster.Utilities;
 
@@ -93,8 +90,8 @@ namespace Tabster
                 ConvertXmlFiles(playlistManager, tablatureDirectory, playlistsDirectory);
             }
 
-            Logging.GetLogger().Info("Loading plugins...");
-            LoadPlugins();
+            var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
+            PluginController = new PluginController(new[] {pluginDirectory, PluginDataDirectory});
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -169,25 +166,6 @@ namespace Tabster
                     if (tablatureFile != null)
                         tablatureFile.Save(file);
                 }
-            }
-        }
-
-        public static void LoadPlugins()
-        {
-            var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
-            PluginController = new PluginController(new[] {pluginDirectory, PluginDataDirectory});
-
-            PluginController.LoadPlugins();
-
-            var disabledGuids = new List<Guid>();
-            foreach (var guid in Settings.Default.DisabledPlugins)
-            {
-                disabledGuids.Add(new Guid(guid));
-            }
-
-            foreach (var pluginHost in PluginController.GetPluginHosts().Where(pluginHost => !disabledGuids.Contains(pluginHost.Plugin.Guid)))
-            {
-                pluginHost.Enabled = true;
             }
         }
     }

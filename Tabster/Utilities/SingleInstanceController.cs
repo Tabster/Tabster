@@ -1,8 +1,10 @@
 ﻿#region
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
 using Tabster.Data.Binary;
@@ -115,7 +117,20 @@ namespace Tabster.Utilities
             if (!_safeMode)
             {
                 SetSplashStatus("Initializing plugins...");
-                Program.LoadPlugins();
+                Logging.GetLogger().Info("Loading plugins...");
+
+                Program.PluginController.LoadPlugins();
+
+                var disabledGuids = new List<Guid>();
+                foreach (var guid in Settings.Default.DisabledPlugins)
+                {
+                    disabledGuids.Add(new Guid(guid));
+                }
+
+                foreach (var pluginHost in Program.PluginController.GetPluginHosts().Where(pluginHost => !disabledGuids.Contains(pluginHost.Plugin.Guid)))
+                {
+                    pluginHost.Enabled = true;
+                }
             }
 
             SetSplashStatus("Loading library...");
