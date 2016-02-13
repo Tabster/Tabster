@@ -45,6 +45,8 @@ namespace Tabster.Forms
             LoadPlugins();
 
             LoadSearchEngines(false);
+
+            radioSystemProxy.Visible = btnEditSystemProxy.Visible = MonoUtilities.GetPlatform() == MonoUtilities.Platform.Windows;
         }
 
         public PreferencesDialog(PreferencesSection section) : this()
