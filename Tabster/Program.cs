@@ -8,8 +8,6 @@ using Tabster.Data.Binary;
 using Tabster.Data.Processing;
 using Tabster.Data.Xml;
 using Tabster.Database;
-using Tabster.Forms;
-using Tabster.Update;
 using Tabster.Utilities;
 
 #endregion
@@ -18,24 +16,13 @@ namespace Tabster
 {
     internal static class Program
     {
-        public static SingleInstanceController InstanceController;
-        public static PluginController PluginController;
-        public static UpdateQuery UpdateQuery = new UpdateQuery();
-        private static ExternalViewerForm _tabbedViewer;
         private static TabsterDatabaseHelper _databaseHelper;
+        private static SingleInstanceController _instanceController;
+        private static PluginController _pluginController;
 
-        public static ExternalViewerForm TabbedViewer
+        public static PluginController GetPluginController()
         {
-            get
-            {
-                if (_tabbedViewer == null || _tabbedViewer.IsDisposed)
-                {
-                    var mainForm = InstanceController.MainForm;
-                    _tabbedViewer = new ExternalViewerForm(mainForm);
-                }
-
-                return _tabbedViewer;
-            }
+            return _pluginController;
         }
 
         public static TabsterDatabaseHelper GetDatabaseHelper()
@@ -83,13 +70,13 @@ namespace Tabster
 
             var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
             var pluginDataDirectory = TabsterEnvironmentUtilities.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.CommonApplicationData, "Plugins");
-            PluginController = new PluginController(new[] {pluginDirectory, pluginDataDirectory});
+            _pluginController = new PluginController(new[] {pluginDirectory, pluginDataDirectory});
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            InstanceController = new SingleInstanceController(libraryManager, playlistManager, filesNeedScanned);
-            InstanceController.Run(args);
+            _instanceController = new SingleInstanceController(libraryManager, playlistManager, filesNeedScanned);
+            _instanceController.Run(args);
         }
 
         /// <summary>

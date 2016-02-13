@@ -71,7 +71,7 @@ namespace Tabster.Utilities
                         _queuedFileInfo = new FileInfo(firstArg);
 
                         if (_isLibraryOpen)
-                            Program.TabbedViewer.LoadTablature(file, _queuedFileInfo);
+                            TablatureViewForm.GetInstance(MainForm).LoadTablature(file, _queuedFileInfo);
                     }
                 }
             }
@@ -119,7 +119,7 @@ namespace Tabster.Utilities
                 SetSplashStatus("Initializing plugins...");
                 Logging.GetLogger().Info("Loading plugins...");
 
-                Program.PluginController.LoadPlugins();
+                Program.GetPluginController().LoadPlugins();
 
                 var disabledGuids = new List<Guid>();
                 foreach (var guid in Settings.Default.DisabledPlugins)
@@ -127,7 +127,7 @@ namespace Tabster.Utilities
                     disabledGuids.Add(new Guid(guid));
                 }
 
-                foreach (var pluginHost in Program.PluginController.GetPluginHosts().Where(pluginHost => !disabledGuids.Contains(pluginHost.Plugin.Guid)))
+                foreach (var pluginHost in Program.GetPluginController().GetPluginHosts().Where(pluginHost => !disabledGuids.Contains(pluginHost.Plugin.Guid)))
                 {
                     pluginHost.Enabled = true;
                 }
@@ -144,8 +144,8 @@ namespace Tabster.Utilities
             if (Settings.Default.StartupUpdate)
             {
                 SetSplashStatus("Checking for updates...");
-                Program.UpdateQuery.Completed += (s, e) => { _updateResponse = e; };
-                Program.UpdateQuery.Check(true);
+                UpdateCheck.Completed += (s, e) => { _updateResponse = e; };
+                UpdateCheck.Check(true);
             }
         }
 

@@ -38,7 +38,7 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
-            _pluginHosts.AddRange(Program.PluginController.GetPluginHosts());
+            _pluginHosts.AddRange(Program.GetPluginController().GetPluginHosts());
 
             LoadPreferences();
 
@@ -94,7 +94,7 @@ namespace Tabster.Forms
                     var guid = new Guid(lvi.Tag.ToString());
                     var pluginEnabled = lvi.Checked;
 
-                    var pluginHost = Program.PluginController.FindPluginByGuid(guid);
+                    var pluginHost = Program.GetPluginController().FindPluginByGuid(guid);
 
                     if (pluginHost.Enabled != pluginEnabled)
                         pluginHost.Enabled = pluginEnabled;
@@ -112,7 +112,7 @@ namespace Tabster.Forms
                 foreach (ListViewItem lvi in listSearchEngines.Items)
                 {
                     var engine = _searchEngines[lvi.Index];
-                    var plugin = Program.PluginController.GetHostByType(engine.GetType());
+                    var plugin = Program.GetPluginController().GetHostByType(engine.GetType());
                     var id = UserSettingsUtilities.GetSearchEngineIdentifier(plugin, engine);
 
                     if (id == null)
@@ -412,7 +412,7 @@ namespace Tabster.Forms
             {
                 var engine = _searchEngines[item.Index];
 
-                var isPluginEnabled = _pluginStatusMap[Program.PluginController.GetHostByType(engine.GetType())];
+                var isPluginEnabled = _pluginStatusMap[Program.GetPluginController().GetHostByType(engine.GetType())];
 
                 if (isPluginEnabled)
                 {

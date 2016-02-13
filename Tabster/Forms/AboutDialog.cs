@@ -28,7 +28,7 @@ namespace Tabster.Forms
 
         private void LoadPlugins()
         {
-            foreach (var pluginHost in Program.PluginController.GetPluginHosts())
+            foreach (var pluginHost in Program.GetPluginController().GetPluginHosts())
             {
                 if (pluginHost.Plugin.Guid != Guid.Empty && pluginHost.Enabled)
                 {
