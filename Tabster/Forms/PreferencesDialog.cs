@@ -272,7 +272,7 @@ namespace Tabster.Forms
 
         private void pluginsDirectorybtn_Click(object sender, EventArgs e)
         {
-            Process.Start(Program.PluginDataDirectory);
+            Process.Start(Path.Combine(TabsterEnvironmentUtilities.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.CommonApplicationData), "Plugins"));
         }
 
         private void listPlugins_SelectedIndexChanged(object sender, EventArgs e)

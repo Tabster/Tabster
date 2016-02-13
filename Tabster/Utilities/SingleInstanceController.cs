@@ -133,9 +133,11 @@ namespace Tabster.Utilities
                 }
             }
 
+            Logging.GetLogger().Info("Initializing library...");
             SetSplashStatus("Loading library...");
             _libraryManager.Load(_filesNeedScanned);
 
+            Logging.GetLogger().Info("Initializing playlists...");
             SetSplashStatus("Loading playlists...");
             _playlistManager.Load();
 

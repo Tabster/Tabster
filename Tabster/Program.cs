@@ -20,10 +20,6 @@ namespace Tabster
     {
         public static SingleInstanceController InstanceController;
         public static PluginController PluginController;
-        public static string ApplicationDataDirectory;
-        public static string CommonApplicationDataDirectory;
-        public static string UserDataDirectory;
-        public static string PluginDataDirectory; //serves as secondary plugin directory, avoids possible UAC conflicts
         public static UpdateQuery UpdateQuery = new UpdateQuery();
         private static ExternalViewerForm _tabbedViewer;
         private static TabsterDatabaseHelper _databaseHelper;
@@ -50,25 +46,23 @@ namespace Tabster
         [STAThread]
         public static void Main(string[] args)
         {
-            InitializeWorkingDirectories();
+            TabsterEnvironmentUtilities.CreateDirectories();
 
-            //prepare logging
-            var logDirectory = Path.Combine(ApplicationDataDirectory, "Logs");
-            if (!Directory.Exists(logDirectory))
-                Directory.CreateDirectory(logDirectory);
-
+            // prepare logging
+            var logDirectory = TabsterEnvironmentUtilities.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData, "Logs");
             Logging.SetLogDirectory(logDirectory);
 
+            // log all the errors
             AppDomain.CurrentDomain.UnhandledException += (s, e) =>
             {
                 var ex = (Exception) e.ExceptionObject;
                 Logging.GetLogger().Error(ex);
             };
 
-            var tablatureDirectory = Path.Combine(UserDataDirectory, "Library");
-            var playlistsDirectory = Path.Combine(UserDataDirectory, "Playlists"); // no longer used, just for legacy support
+            var tablatureDirectory = TabsterEnvironmentUtilities.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData, "Library");
+            var playlistsDirectory = Path.Combine(TabsterEnvironmentUtilities.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData), "Playlists"); // no longer used, just for legacy support
 
-            var databasePath = Path.Combine(ApplicationDataDirectory, "library.db");
+            var databasePath = Path.Combine(TabsterEnvironmentUtilities.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData), "library.db");
 
             var filesNeedScanned = !File.Exists(databasePath);
 
@@ -77,10 +71,7 @@ namespace Tabster
             Logging.GetLogger().Info(string.Format("Initializing database: {0}", databasePath));
             _databaseHelper = new TabsterDatabaseHelper(databasePath);
 
-            Logging.GetLogger().Info("Initializing library...");
             var libraryManager = new LibraryManager(_databaseHelper, fileProcessor, tablatureDirectory);
-
-            Logging.GetLogger().Info("Initializing playlists...");
             var playlistManager = new PlaylistManager(_databaseHelper, fileProcessor);
 
             // database file deleted or possible pre-2.0 version, convert existing files
@@ -91,40 +82,14 @@ namespace Tabster
             }
 
             var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
-            PluginController = new PluginController(new[] {pluginDirectory, PluginDataDirectory});
+            var pluginDataDirectory = TabsterEnvironmentUtilities.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.CommonApplicationData, "Plugins");
+            PluginController = new PluginController(new[] {pluginDirectory, pluginDataDirectory});
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             InstanceController = new SingleInstanceController(libraryManager, playlistManager, filesNeedScanned);
             InstanceController.Run(args);
-        }
-
-        private static void InitializeWorkingDirectories()
-        {
-            CommonApplicationDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Tabster");
-
-#if PORTABLE
-            ApplicationDataDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "AppData");
-            UserDataDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "UserData");
-            PluginDataDirectory = Path.Combine(ApplicationDataDirectory, "Plugins");
-#else
-            ApplicationDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
-            UserDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
-            PluginDataDirectory = Path.Combine(CommonApplicationDataDirectory, "Plugins");
-#endif
-
-            if (!Directory.Exists(ApplicationDataDirectory))
-                Directory.CreateDirectory(ApplicationDataDirectory);
-
-            if (!Directory.Exists(UserDataDirectory))
-                Directory.CreateDirectory(UserDataDirectory);
-
-            if (!Directory.Exists(UserDataDirectory))
-                Directory.CreateDirectory(UserDataDirectory);
-
-            if (!Directory.Exists(PluginDataDirectory))
-                Directory.CreateDirectory(PluginDataDirectory);
         }
 
         /// <summary>
