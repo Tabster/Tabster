@@ -2,8 +2,6 @@
 
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Tabster.Properties;
@@ -32,7 +30,7 @@ namespace Tabster.Forms
             {
                 if (pluginHost.Plugin.Guid != Guid.Empty && pluginHost.Enabled)
                 {
-                    var lvi = new ListViewItem { Text = pluginHost.Plugin.DisplayName ?? "N/A" };
+                    var lvi = new ListViewItem {Text = pluginHost.Plugin.DisplayName ?? "N/A"};
 
                     lvi.SubItems.Add(pluginHost.Plugin.Version != null ? pluginHost.Plugin.Version.ToString() : "N/A");
                     lvi.SubItems.Add(pluginHost.Plugin.Author ?? "N/A");

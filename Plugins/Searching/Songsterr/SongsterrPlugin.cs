@@ -44,7 +44,7 @@ namespace Songsterr
 
         public Guid Guid
         {
-            get { return new Guid(((GuidAttribute)typeof(SongsterrPlugin).Assembly.GetCustomAttributes(typeof(GuidAttribute), true)[0]).Value); }
+            get { return new Guid(((GuidAttribute) typeof (SongsterrPlugin).Assembly.GetCustomAttributes(typeof (GuidAttribute), true)[0]).Value); }
         }
 
         public void Activate()

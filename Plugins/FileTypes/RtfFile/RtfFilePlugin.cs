@@ -44,7 +44,7 @@ namespace RtfFile
 
         public Guid Guid
         {
-            get { return new Guid(((GuidAttribute)typeof(RtfFilePlugin).Assembly.GetCustomAttributes(typeof(GuidAttribute), true)[0]).Value); }
+            get { return new Guid(((GuidAttribute) typeof (RtfFilePlugin).Assembly.GetCustomAttributes(typeof (GuidAttribute), true)[0]).Value); }
         }
 
         public void Activate()

@@ -44,7 +44,7 @@ namespace WordDoc
 
         public Guid Guid
         {
-            get { return new Guid(((GuidAttribute)typeof(WordDocPlugin).Assembly.GetCustomAttributes(typeof(GuidAttribute), true)[0]).Value); }
+            get { return new Guid(((GuidAttribute) typeof (WordDocPlugin).Assembly.GetCustomAttributes(typeof (GuidAttribute), true)[0]).Value); }
         }
 
         public void Activate()

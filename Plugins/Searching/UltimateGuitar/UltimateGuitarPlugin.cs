@@ -44,7 +44,7 @@ namespace UltimateGuitar
 
         public Guid Guid
         {
-            get { return new Guid(((GuidAttribute)typeof(UltimateGuitarPlugin).Assembly.GetCustomAttributes(typeof(GuidAttribute), true)[0]).Value); }
+            get { return new Guid(((GuidAttribute) typeof (UltimateGuitarPlugin).Assembly.GetCustomAttributes(typeof (GuidAttribute), true)[0]).Value); }
         }
 
         public void Activate()
