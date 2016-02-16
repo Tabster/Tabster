@@ -89,7 +89,6 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net35-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net35\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -135,9 +134,11 @@
       <DependentUpon>UpdateDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Logging.cs" />
+    <Compile Include="Utilities\SplashScreenController.cs" />
     <Compile Include="Utilities\TablatureFontManager.cs" />
     <Compile Include="Utilities\TablatureUtilities.cs" />
     <Compile Include="Utilities\TabsterEnvironmentUtilities.cs" />
+    <Compile Include="Utilities\TabsterSingleInstanceController.cs" />
     <Compile Include="Utilities\UserSettingsUtilities.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Controls\TextBoxExtended.cs">

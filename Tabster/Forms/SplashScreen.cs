@@ -11,9 +11,11 @@ using Tabster.Utilities;
 
 namespace Tabster.Forms
 {
-    internal partial class SplashScreen : Form
+    internal partial class SplashScreen : Form, SplashScreenController.ISplashScreenForm
     {
         private readonly bool _safeMode;
+        private bool _closeRequested;
+        private bool _splashFinalized;
 
         public SplashScreen()
         {
@@ -55,12 +57,32 @@ namespace Tabster.Forms
             frm.Region = new Region(path);
         }
 
-        public void SetStatus(string status)
+        public new void Close()
+        {
+            _closeRequested = true;
+
+            if (_splashFinalized)
+                base.Close();
+        }
+
+        #region Implementation of ISplashScreenForm
+
+        public void FinalizeSplash()
+        {
+            _splashFinalized = true;
+
+            if (_closeRequested)
+                base.Close();
+        }
+
+        private delegate void UpdateSplashScreenCallback(string text);
+
+        public void Update(string status)
         {
             if (lblProgress.InvokeRequired)
             {
-                var d = new SetStatusCallback(SetStatus);
-                Invoke(d, new object[] {status});
+                var d = new UpdateSplashScreenCallback(Update);
+                Invoke(d, new object[] { status });
             }
 
             else
@@ -69,6 +91,6 @@ namespace Tabster.Forms
             }
         }
 
-        private delegate void SetStatusCallback(string text);
+        #endregion
     }
 }

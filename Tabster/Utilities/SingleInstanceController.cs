@@ -1,174 +1,203 @@
 ﻿#region
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
-using Microsoft.VisualBasic.ApplicationServices;
-using Tabster.Data.Binary;
-using Tabster.Database;
-using Tabster.Forms;
-using Tabster.Properties;
-using Tabster.Update;
 
 #endregion
 
 namespace Tabster.Utilities
 {
-    internal class SingleInstanceController : WindowsFormsApplicationBase
+    internal class SingleInstanceControllerBase : IDisposable
     {
-        private const int MinSplashTime = 3500;
+        private static FileSystemWatcher _fileSystemWatcher;
 
-        private static TablatureFile _queuedTabfile;
-        private static FileInfo _queuedFileInfo;
-        private static bool _isLibraryOpen;
-        private static bool _noSplash;
-        private static bool _safeMode;
-        private readonly bool _filesNeedScanned;
-        private readonly LibraryManager _libraryManager;
-        private readonly PlaylistManager _playlistManager;
-        private UpdateResponseEventArgs _updateResponse;
+        private readonly string _uniqueFilePath;
+        private Form _mainForm;
 
-        public SingleInstanceController(LibraryManager libraryManager, PlaylistManager playlistManager, bool filesNeedScanned)
+        public SingleInstanceControllerBase(string fileName)
         {
-            _libraryManager = libraryManager;
-            _playlistManager = playlistManager;
-            _filesNeedScanned = filesNeedScanned;
-            IsSingleInstance = true;
-            StartupNextInstance += this_StartupNextInstance;
+            _uniqueFilePath = fileName;
+            _fileSystemWatcher = new FileSystemWatcher {Path = Path.GetDirectoryName(fileName), Filter = Path.GetFileName(fileName)};
+            _fileSystemWatcher.Changed += _fileSystemWatcher_Changed;
+            _fileSystemWatcher.SynchronizingObject = MainForm;
+            _fileSystemWatcher.EnableRaisingEvents = true;
         }
 
-        public new Form MainForm
+        protected Form MainForm
         {
-            get { return base.MainForm; }
-        }
-
-        public new Form SplashScreen
-        {
-            get { return base.SplashScreen; }
-        }
-
-        private void ProcessCommandLine(ReadOnlyCollection<string> commandLine)
-        {
-            if (commandLine.Count > 0)
+            get { return _mainForm; }
+            set
             {
-                if (commandLine.Contains("-nosplash"))
-                    _noSplash = true;
-                if (commandLine.Contains("-safemode"))
-                    _safeMode = true;
+                _mainForm = value;
+                _fileSystemWatcher.SynchronizingObject = _mainForm;
+            }
+        }
 
-                var firstArg = commandLine[0];
+        public virtual bool Start(ReadOnlyCollection<string> args)
+        {
+            var status = ReadInstanceStatus();
 
-                if (File.Exists(firstArg))
+            if (status != null)
+            {
+                // check if process is still running
+                // if not, it means the previous instance likely didn't exit cleanly
+                if (IsProcessRunning(status.ProcessId))
                 {
-                    var file = _libraryManager.GetTablatureFileProcessor().Load(firstArg);
+                    // write command line args to file for existing instance to use
+                    _fileSystemWatcher.EnableRaisingEvents = false;
+                    WriteInstanceStatus(new InstanceStatus(status.ProcessId, args));
+                    _fileSystemWatcher.EnableRaisingEvents = true;
+                    return false;
+                }
+            }
 
-                    if (file != null)
+            OnStartup(new StartupEventArgs(new ReadOnlyCollection<string>(args)));
+
+            return true;
+        }
+
+        public virtual void Stop()
+        {
+            _fileSystemWatcher.EnableRaisingEvents = false;
+
+            if (File.Exists(_uniqueFilePath))
+                File.Delete(_uniqueFilePath);
+        }
+
+        protected virtual void OnStartup(StartupEventArgs e)
+        {
+            _fileSystemWatcher.EnableRaisingEvents = false;
+            WriteInstanceStatus(new InstanceStatus(Process.GetCurrentProcess().Id, e.CommandLineArguments));
+            _fileSystemWatcher.EnableRaisingEvents = true;
+            Application.Run(MainForm);
+        }
+
+        protected virtual void OnStartupNextInstance(StartupEventArgs e)
+        {
+        }
+
+        private static bool IsProcessRunning(int id)
+        {
+            try
+            {
+                Process.GetProcessById(id);
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+        }
+
+        private InstanceStatus ReadInstanceStatus()
+        {
+            if (File.Exists(_uniqueFilePath))
+            {
+                // a bit hacky, but we need to wait until file is readable
+                while (true)
+                {
+                    try
                     {
-                        _queuedTabfile = file;
-                        _queuedFileInfo = new FileInfo(firstArg);
+                        using (var fs = new FileStream(_uniqueFilePath, FileMode.Open))
+                        {
+                            using (var reader = new BinaryReader(fs))
+                            {
+                                var processId = reader.ReadInt32();
+                                var argCount = reader.ReadInt32();
 
-                        if (_isLibraryOpen)
-                            TablatureViewForm.GetInstance(MainForm).LoadTablature(file, _queuedFileInfo);
+                                var args = new string[argCount];
+
+                                for (var i = 0; i < argCount; i++)
+                                {
+                                    args[i] = reader.ReadString();
+                                }
+
+                                return new InstanceStatus(processId, new ReadOnlyCollection<string>(args));
+                            }
+                        }
+                    }
+
+                    catch (FileNotFoundException)
+                    {
+                    }
+                    catch (IOException)
+                    {
+                    }
+                    Thread.Sleep(50);
+                }
+            }
+
+            return null;
+        }
+
+        private void WriteInstanceStatus(InstanceStatus status)
+        {
+            using (var fs = new FileStream(_uniqueFilePath, FileMode.Create))
+            {
+                using (var writer = new BinaryWriter(fs))
+                {
+                    writer.Write(status.ProcessId);
+                    writer.Write(status.CommandLineArgs.Count);
+
+                    foreach (var arg in status.CommandLineArgs)
+                    {
+                        writer.Write(arg);
                     }
                 }
             }
         }
 
-        private void this_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
+        private void _fileSystemWatcher_Changed(object sender, FileSystemEventArgs e)
         {
-            ProcessCommandLine(e.CommandLine);
-        }
+            // temporarliy disable events to avoid duplicate event
+            _fileSystemWatcher.EnableRaisingEvents = false;
 
-        protected override bool OnStartup(StartupEventArgs e)
-        {
-            ProcessCommandLine(e.CommandLine);
-            return base.OnStartup(e);
-        }
+            var status = ReadInstanceStatus();
 
-        protected override void OnCreateSplashScreen()
-        {
-            base.OnCreateSplashScreen();
-
-            if (!_noSplash)
+            if (status != null)
             {
-                MinimumSplashScreenDisplayTime = MinSplashTime;
-                base.SplashScreen = new SplashScreen(_safeMode) {Cursor = Cursors.AppStarting};
-            }
-        }
-
-        protected override void OnCreateMainForm()
-        {
-            base.OnCreateMainForm();
-
-            PerformStartupEvents();
-
-            base.MainForm = _queuedTabfile != null ?
-                new MainForm(_libraryManager, _playlistManager, _queuedTabfile, _queuedFileInfo, _updateResponse) :
-                new MainForm(_libraryManager, _playlistManager, _updateResponse);
-
-            _isLibraryOpen = true;
-        }
-
-        private void PerformStartupEvents()
-        {
-            if (!_safeMode)
-            {
-                SetSplashStatus("Initializing plugins...");
-                Logging.GetLogger().Info("Loading plugins...");
-
-                Program.GetPluginController().LoadPlugins();
-
-                var disabledGuids = new List<Guid>();
-                foreach (var guid in Settings.Default.DisabledPlugins)
-                {
-                    disabledGuids.Add(new Guid(guid));
-                }
-
-                foreach (var pluginHost in Program.GetPluginController().GetPluginHosts().Where(pluginHost => !disabledGuids.Contains(pluginHost.Plugin.Guid)))
-                {
-                    pluginHost.Enabled = true;
-                }
+                OnStartupNextInstance(new StartupEventArgs(status.CommandLineArgs));
             }
 
-            Logging.GetLogger().Info("Initializing library...");
-            SetSplashStatus("Loading library...");
-            _libraryManager.Load(_filesNeedScanned);
-
-            Logging.GetLogger().Info("Initializing playlists...");
-            SetSplashStatus("Loading playlists...");
-            _playlistManager.Load();
-
-            if (Settings.Default.StartupUpdate)
-            {
-                SetSplashStatus("Checking for updates...");
-                UpdateCheck.Completed += (s, e) => { _updateResponse = e; };
-                UpdateCheck.Check(true);
-            }
+            // renable events
+            _fileSystemWatcher.EnableRaisingEvents = true;
         }
 
-        #region Splash Screen
+        #region Implementation of IDisposable
 
-        private void SetSplashStatus(string status)
+        public void Dispose()
         {
-            if (SplashScreen == null)
-                return;
-
-            var splash = ((SplashScreen) SplashScreen);
-
-            try
-            {
-                splash.SetStatus(status);
-            }
-
-            catch (InvalidOperationException)
-            {
-                //sometimes happens "randomly"
-            }
+            if (_fileSystemWatcher != null)
+                _fileSystemWatcher.Dispose();
         }
 
         #endregion
+
+        internal class InstanceStatus
+        {
+            public InstanceStatus(int processId, ReadOnlyCollection<string> commandLineArgs)
+            {
+                ProcessId = processId;
+                CommandLineArgs = commandLineArgs;
+            }
+
+            public int ProcessId { get; private set; }
+            public ReadOnlyCollection<string> CommandLineArgs { get; private set; }
+        }
+
+        internal class StartupEventArgs : EventArgs
+        {
+            public StartupEventArgs(ReadOnlyCollection<string> commandLineArguments)
+            {
+                CommandLineArguments = commandLineArguments;
+            }
+
+            public ReadOnlyCollection<string> CommandLineArguments { get; set; }
+        }
     }
 }
