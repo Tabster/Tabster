@@ -23,7 +23,6 @@ namespace Tabster.Utilities
 
         public static Font GetFont(float size = 9F, FontStyle fontStyle = FontStyle.Regular)
         {
-            Console.WriteLine(PrivateFontCollection.Families.Length);
             return new Font(PrivateFontCollection.Families.First(), size, fontStyle);
         }
     }
