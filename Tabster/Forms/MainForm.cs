@@ -583,6 +583,25 @@ namespace Tabster.Forms
             printbtn.Enabled = viewingPreview;
         }
 
+        private void OpenPluginManager()
+        {
+            using (var p = new PluginManagerDialog())
+            {
+                if (p.ShowDialog() == DialogResult.OK)
+                {
+                    LoadSettings(false);
+
+                    if (p.PluginsModified)
+                        CachePluginResources();
+                }
+            }
+        }
+
+        private void pluginsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenPluginManager();
+        }
+
         #region Menu Items
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -610,9 +629,6 @@ namespace Tabster.Forms
                 if (p.ShowDialog() == DialogResult.OK)
                 {
                     LoadSettings(false);
-
-                    if (p.PluginsModified)
-                        CachePluginResources();
                 }
             }
         }

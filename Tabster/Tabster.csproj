@@ -121,6 +121,12 @@
     <Compile Include="Database\LibraryManager.cs" />
     <Compile Include="Database\TabsterDatabaseHelper.cs" />
     <Compile Include="Database\PlaylistManager.cs" />
+    <Compile Include="Forms\PluginManagerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PluginManagerDialog.Designer.cs">
+      <DependentUpon>PluginManagerDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Update\UpdateCheck.cs" />
     <Compile Include="Update\UpdateResponseEventArgs.cs" />
     <Compile Include="Utilities\BrandingUtilities.cs" />
@@ -236,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewPlaylistDialog.resx">
       <DependentUpon>NewPlaylistDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PluginManagerDialog.resx">
+      <DependentUpon>PluginManagerDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RenameDialog.resx">
       <DependentUpon>RenameDialog.cs</DependentUpon>
