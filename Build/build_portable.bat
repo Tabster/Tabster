@@ -38,6 +38,7 @@ copy "%VS_BUILD_DIRECTORY%\Tabster.exe" "%TEMP_DIRECTORY%\Tabster.exe"
 copy "%VS_BUILD_DIRECTORY%\Tabster.WinForms.dll" "%TEMP_DIRECTORY%\Tabster.WinForms.dll"
 copy "%VS_BUILD_DIRECTORY%\Tabster.Core.dll" "%TEMP_DIRECTORY%\Tabster.Core.dll"
 copy "%VS_BUILD_DIRECTORY%\Tabster.Data.dll" "%TEMP_DIRECTORY%\Tabster.Data.dll"
+copy "%VS_BUILD_DIRECTORY%\Tabster.Printing.dll" "%TEMP_DIRECTORY%\Tabster.Printing.dll"
 
 copy "%VS_BUILD_DIRECTORY%\Newtonsoft.Json.dll" "%TEMP_DIRECTORY%\Newtonsoft.Json.dll"
 copy "%VS_BUILD_DIRECTORY%\ObjectListView.dll" "%TEMP_DIRECTORY%\ObjectListView.dll"
