@@ -26,12 +26,12 @@ namespace WordDoc
             get { return new Version("1.0"); }
         }
 
-        public void Export(ITablatureFile file, string fileName)
+        public void Export(ITablatureFile file, string fileName, TablatureFileExportArguments args)
         {
             using (var document = DocX.Create(fileName))
             {
                 var p = document.InsertParagraph();
-                p.Append(file.Contents).Font(new FontFamily("Courier New")).FontSize(9);
+                p.Append(file.Contents).Font(FontFamily.GenericMonospace).FontSize(9);
                 document.Save();
             }
         }
