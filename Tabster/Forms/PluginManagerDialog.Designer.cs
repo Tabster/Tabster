@@ -116,7 +116,7 @@
             this.tabUpdates.Location = new System.Drawing.Point(4, 22);
             this.tabUpdates.Name = "tabUpdates";
             this.tabUpdates.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUpdates.Size = new System.Drawing.Size(405, 168);
+            this.tabUpdates.Size = new System.Drawing.Size(405, 181);
             this.tabUpdates.TabIndex = 1;
             this.tabUpdates.Text = "Updates";
             this.tabUpdates.UseVisualStyleBackColor = true;
@@ -243,7 +243,6 @@
             this.pluginsDirectorybtn.TabIndex = 26;
             this.pluginsDirectorybtn.Text = "Browse Plugins Directory";
             this.pluginsDirectorybtn.UseVisualStyleBackColor = true;
-            this.pluginsDirectorybtn.Visible = false;
             this.pluginsDirectorybtn.Click += new System.EventHandler(this.pluginsDirectorybtn_Click);
             // 
             // okbtn
