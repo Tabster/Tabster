@@ -40,7 +40,7 @@ namespace Tabster.Utilities
         public override bool Start(ReadOnlyCollection<string> args)
         {
             ProcessCommandLine(args);
-            _splashScreenController = new SplashScreenController(new SplashScreen(_safeMode));
+            _splashScreenController = new SplashScreenController(new SplashScreen(TabsterEnvironment.SafeMode));
 
             return base.Start(args);
         }
