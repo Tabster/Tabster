@@ -12,7 +12,6 @@ namespace RtfFile
 {
     internal class RtfFileExporter : ITablatureFileExporter
     {
-        private Font _font;
         private RichTextBox _rtb;
 
         #region Implementation of ITablatureFileExporter
@@ -24,13 +23,10 @@ namespace RtfFile
             get { return new Version("1.0"); }
         }
 
-        public void Export(ITablatureFile file, string fileName)
+        public void Export(ITablatureFile file, string fileName, TablatureFileExportArguments args)
         {
-            if (_font == null)
-                _font = new Font("Courier New", 9F);
-
             if (_rtb == null)
-                _rtb = new RichTextBox {Font = new Font("Courier New", 9F), Text = file.Contents};
+                _rtb = new RichTextBox {Font = args.Font, Text = file.Contents};
 
             _rtb.SaveFile(fileName);
             _rtb.SaveFile(fileName); //have to call method twice otherwise empty file is created
@@ -45,9 +41,6 @@ namespace RtfFile
 
         ~RtfFileExporter()
         {
-            if (_font != null)
-                _font.Dispose();
-
             if (_rtb != null && !_rtb.IsDisposed)
                 _rtb.Dispose();
         }
