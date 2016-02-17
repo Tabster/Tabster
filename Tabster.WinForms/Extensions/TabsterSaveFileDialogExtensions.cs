@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Forms;
-using Tabster.Data;
 using Tabster.Data.Processing;
 
 #endregion
@@ -14,30 +13,29 @@ namespace Tabster.WinForms.Extensions
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class TabsterSaveFileDialogExtensions
     {
-        public static void SetTabsterFilter(this SaveFileDialog saveFileDialog, IEnumerable<ITablatureFileExporter> exporters, bool overwriteFilter = false, bool alphabeticalOrder = false)
+        public static List<TabsterSaveFileDialogFilter> SetTabsterFilter(this SaveFileDialog saveFileDialog, IEnumerable<ITablatureFileExporter> exporters, bool overwriteFilter = false, bool alphabeticalOrder = false)
         {
+            var filters = new List<TabsterSaveFileDialogFilter>();
             var filterStringBuilder = new StringBuilder();
-
-            var fileTypes = new List<FileType>();
 
             foreach (var exporter in exporters)
             {
                 if (exporter.FileType != null && exporter.FileType.Extension != null)
                 {
-                    fileTypes.Add(exporter.FileType);
+                    filters.Add(new TabsterSaveFileDialogFilter(exporter));
                 }
             }
 
             if (alphabeticalOrder)
-                fileTypes.Sort((f1, f2) => f1.Name.CompareTo(f2.Name));
+                filters.Sort((f1, f2) => f1.Exporter.FileType.Name.CompareTo(f2.Exporter.FileType.Name));
 
-            for (var i = 0; i < fileTypes.Count; i++)
+            for (var i = 0; i < filters.Count; i++)
             {
-                var fileType = fileTypes[i];
+                var filter = filters[i];
 
-                filterStringBuilder.AppendFormat("{0} (*{1})|*{1}", fileType.Name, fileType.Extensions[0]);
+                filterStringBuilder.Append(filter.GetFilterString());
 
-                if (i + 1 < fileTypes.Count)
+                if (i + 1 < filters.Count)
                     filterStringBuilder.Append("|");
             }
 
@@ -55,6 +53,25 @@ namespace Tabster.WinForms.Extensions
 
                     saveFileDialog.Filter += filterStringBuilder.ToString();
                 }
+            }
+
+            return filters;
+        }
+
+        public class TabsterSaveFileDialogFilter
+        {
+            private string _filterString;
+
+            public TabsterSaveFileDialogFilter(ITablatureFileExporter exporter)
+            {
+                Exporter = exporter;
+            }
+
+            public ITablatureFileExporter Exporter { get; private set; }
+
+            public string GetFilterString()
+            {
+                return _filterString ?? (_filterString = string.Format("{0} (*{1})|*{1}", Exporter.FileType.Name, Exporter.FileType.Extensions[0]));
             }
         }
     }
