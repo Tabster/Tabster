@@ -14,5 +14,6 @@ namespace Tabster.Data.Processing
         }
 
         public Font Font { get; private set; }
+        // todo custom font colors
     }
 }
