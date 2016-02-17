@@ -89,7 +89,8 @@ namespace Tabster.Forms
                         else
                         {
                             var exporter = _fileExporters[sfd.FilterIndex - 2]; //FilterIndex is not 0-based and native Tabster format uses first index
-                            exporter.Export(GetSelectedLibraryItem().File, sfd.FileName);
+                            var args = new TablatureFileExportArguments(TablatureFontManager.GetFont());
+                            exporter.Export(GetSelectedLibraryItem().File, sfd.FileName, args);
                         }
                     }
                 }
