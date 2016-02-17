@@ -14,14 +14,14 @@ namespace Tabster.Utilities
         UserData
     }
 
-    internal class TabsterEnvironmentUtilities
+    internal class TabsterEnvironment
     {
         private static readonly string ApplicationDataDirectory;
         private static readonly string CommonApplicationDataDirectory;
         private static readonly string UserDataDirectory;
         private static readonly string PluginDataDirectory; //serves as secondary plugin directory, avoids possible UAC conflicts
 
-        static TabsterEnvironmentUtilities()
+        static TabsterEnvironment()
         {
             CommonApplicationDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Tabster");
 

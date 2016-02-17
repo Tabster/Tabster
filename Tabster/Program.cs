@@ -35,10 +35,10 @@ namespace Tabster
         [STAThread]
         public static void Main(string[] args)
         {
-            TabsterEnvironmentUtilities.CreateDirectories();
+            TabsterEnvironment.CreateDirectories();
 
             // prepare logging
-            var logDirectory = TabsterEnvironmentUtilities.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData, "Logs");
+            var logDirectory = TabsterEnvironment.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData, "Logs");
             Logging.SetLogDirectory(logDirectory);
 
             // log all the errors
@@ -48,12 +48,12 @@ namespace Tabster
                 Logging.GetLogger().Error(ex);
             };
 
-            var tablatureDirectory = TabsterEnvironmentUtilities.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData, "Library");
+            var tablatureDirectory = TabsterEnvironment.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData, "Library");
 
             // no longer used, just for legacy support
-            var playlistsDirectory = Path.Combine(TabsterEnvironmentUtilities.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData), "Playlists");
+            var playlistsDirectory = Path.Combine(TabsterEnvironment.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData), "Playlists");
 
-            var databasePath = Path.Combine(TabsterEnvironmentUtilities.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData), "library.db");
+            var databasePath = Path.Combine(TabsterEnvironment.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData), "library.db");
 
             var databaseMissing = !File.Exists(databasePath);
 
@@ -73,14 +73,14 @@ namespace Tabster
             }
 
             var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
-            var pluginDataDirectory = TabsterEnvironmentUtilities.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.CommonApplicationData, "Plugins");
+            var pluginDataDirectory = TabsterEnvironment.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.CommonApplicationData, "Plugins");
             _pluginController = new PluginController(new[] {pluginDirectory, pluginDataDirectory});
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             var assemblyGuid = ((GuidAttribute) Assembly.GetExecutingAssembly().GetCustomAttributes(typeof (GuidAttribute), true)[0]).Value;
-            var filename = Path.Combine(TabsterEnvironmentUtilities.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData), string.Format("{0}.tmp", assemblyGuid));
+            var filename = Path.Combine(TabsterEnvironment.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData), string.Format("{0}.tmp", assemblyGuid));
             var instanceController = new TabsterSingleInstanceController(filename, libraryManager, playlistManager, databaseMissing);
             instanceController.Start(new ReadOnlyCollection<string>(args));
         }

@@ -143,7 +143,7 @@
     <Compile Include="Utilities\SplashScreenController.cs" />
     <Compile Include="Utilities\TablatureFontManager.cs" />
     <Compile Include="Utilities\TablatureUtilities.cs" />
-    <Compile Include="Utilities\TabsterEnvironmentUtilities.cs" />
+    <Compile Include="Utilities\TabsterEnvironment.cs" />
     <Compile Include="Utilities\TabsterSingleInstanceController.cs" />
     <Compile Include="Utilities\UserSettingsUtilities.cs" />
     <Compile Include="Settings.cs" />
