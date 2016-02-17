@@ -26,6 +26,7 @@ namespace Tabster.Data.Processing
         /// </summary>
         /// <param name="file"> The tablature document to export. </param>
         /// <param name="fileName"> The path to export the document. </param>
-        void Export(ITablatureFile file, string fileName);
+        /// <param name="args"> Additional arguments used for exporting. </param>
+        void Export(ITablatureFile file, string fileName, TablatureFileExportArguments args);
     }
 }

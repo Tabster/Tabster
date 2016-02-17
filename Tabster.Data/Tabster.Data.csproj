@@ -48,6 +48,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +61,7 @@
     <Compile Include="Library\LibraryItem.cs" />
     <Compile Include="Library\PlaylistLibraryItem.cs" />
     <Compile Include="Library\TablatureFileLibrary.cs" />
+    <Compile Include="Processing\TablatureExportArguments.cs" />
     <Compile Include="TablaturePlaylist.cs" />
     <Compile Include="TabsterFileAttributes.cs" />
     <Compile Include="Binary\TablatureBinaryFile.cs" />
