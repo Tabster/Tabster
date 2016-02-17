@@ -83,7 +83,7 @@ namespace Tabster.Forms
                         //native file format
                         if (sfd.FilterIndex == 1)
                         {
-                            File.Copy(GetSelectedLibraryItem().FileInfo.FullName, sfd.FileName);
+                            GetSelectedLibraryItem().File.Save(sfd.FileName);
                         }
 
                         else
