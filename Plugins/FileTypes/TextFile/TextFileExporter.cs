@@ -25,7 +25,7 @@ namespace TextFile
             get { return new Version("1.0"); }
         }
 
-        public void Export(ITablatureFile file, string fileName)
+        public void Export(ITablatureFile file, string fileName, TablatureFileExportArguments args)
         {
             File.WriteAllText(fileName, file.Contents);
         }

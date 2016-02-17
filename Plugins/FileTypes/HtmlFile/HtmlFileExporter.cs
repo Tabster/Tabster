@@ -27,7 +27,7 @@ namespace HtmlFile
             get { return new Version("1.0"); }
         }
 
-        public void Export(ITablatureFile file, string fileName)
+        public void Export(ITablatureFile file, string fileName, TablatureFileExportArguments args)
         {
             var templates = new Dictionary<string, string>
             {
