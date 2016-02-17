@@ -46,7 +46,10 @@ namespace Tabster.Forms
 
         public static TablatureViewForm GetInstance(Form owner)
         {
-            return _instance ?? (_instance = new TablatureViewForm(owner));
+            if (_instance == null || _instance.IsDisposed)
+                _instance = new TablatureViewForm(owner);
+
+            return _instance;
         }
 
         public event TabHandler TabClosed;
@@ -167,10 +170,6 @@ namespace Tabster.Forms
                     break;
                 }
             }
-
-            //hide instead of closing
-            Hide();
-            e.Cancel = true;
         }
 
         private void tabControl1_MouseUp(object sender, MouseEventArgs e)

@@ -260,7 +260,10 @@ namespace Tabster.Forms
 
             if (GetSelectedLibraryItem() != null)
             {
-                Process.Start("explorer.exe ", @"/select, " + GetSelectedLibraryItem().FileInfo.FullName);
+                if (MonoUtilities.GetPlatform() == MonoUtilities.Platform.Windows)
+                    Process.Start("explorer.exe ", @"/select, " + GetSelectedLibraryItem().FileInfo.FullName);
+                else
+                    Process.Start(GetSelectedLibraryItem().FileInfo.DirectoryName);
             }
         }
 

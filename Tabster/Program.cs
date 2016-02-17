@@ -1,7 +1,10 @@
 ﻿#region
 
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Tabster.Data;
 using Tabster.Data.Binary;
@@ -17,7 +20,6 @@ namespace Tabster
     internal static class Program
     {
         private static TabsterDatabaseHelper _databaseHelper;
-        private static SingleInstanceController _instanceController;
         private static PluginController _pluginController;
 
         public static PluginController GetPluginController()
@@ -47,11 +49,13 @@ namespace Tabster
             };
 
             var tablatureDirectory = TabsterEnvironmentUtilities.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData, "Library");
-            var playlistsDirectory = Path.Combine(TabsterEnvironmentUtilities.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData), "Playlists"); // no longer used, just for legacy support
+
+            // no longer used, just for legacy support
+            var playlistsDirectory = Path.Combine(TabsterEnvironmentUtilities.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData), "Playlists");
 
             var databasePath = Path.Combine(TabsterEnvironmentUtilities.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData), "library.db");
 
-            var filesNeedScanned = !File.Exists(databasePath);
+            var databaseMissing = !File.Exists(databasePath);
 
             var fileProcessor = new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion);
 
@@ -62,7 +66,7 @@ namespace Tabster
             var playlistManager = new PlaylistManager(_databaseHelper, fileProcessor);
 
             // database file deleted or possible pre-2.0 version, convert existing files
-            if (filesNeedScanned)
+            if (databaseMissing)
             {
                 Logging.GetLogger().Info("Converting over XML files...");
                 ConvertXmlFiles(playlistManager, tablatureDirectory, playlistsDirectory);
@@ -75,8 +79,10 @@ namespace Tabster
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            _instanceController = new SingleInstanceController(libraryManager, playlistManager, filesNeedScanned);
-            _instanceController.Run(args);
+            var assemblyGuid = ((GuidAttribute) Assembly.GetExecutingAssembly().GetCustomAttributes(typeof (GuidAttribute), true)[0]).Value;
+            var filename = Path.Combine(TabsterEnvironmentUtilities.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData), string.Format("{0}.tmp", assemblyGuid));
+            var instanceController = new TabsterSingleInstanceController(filename, libraryManager, playlistManager, databaseMissing);
+            instanceController.Start(new ReadOnlyCollection<string>(args));
         }
 
         /// <summary>

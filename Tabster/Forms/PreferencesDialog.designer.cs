@@ -232,7 +232,7 @@
             // btnEditSystemProxy
             // 
             this.btnEditSystemProxy.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnEditSystemProxy.Location = new System.Drawing.Point(172, 26);
+            this.btnEditSystemProxy.Location = new System.Drawing.Point(158, 166);
             this.btnEditSystemProxy.Name = "btnEditSystemProxy";
             this.btnEditSystemProxy.Size = new System.Drawing.Size(149, 23);
             this.btnEditSystemProxy.TabIndex = 25;
@@ -255,7 +255,7 @@
             // radioManualProxy
             // 
             this.radioManualProxy.AutoSize = true;
-            this.radioManualProxy.Location = new System.Drawing.Point(6, 52);
+            this.radioManualProxy.Location = new System.Drawing.Point(6, 29);
             this.radioManualProxy.Name = "radioManualProxy";
             this.radioManualProxy.Size = new System.Drawing.Size(127, 17);
             this.radioManualProxy.TabIndex = 3;
@@ -267,7 +267,7 @@
             // radioSystemProxy
             // 
             this.radioSystemProxy.AutoSize = true;
-            this.radioSystemProxy.Location = new System.Drawing.Point(6, 29);
+            this.radioSystemProxy.Location = new System.Drawing.Point(6, 169);
             this.radioSystemProxy.Name = "radioSystemProxy";
             this.radioSystemProxy.Size = new System.Drawing.Size(146, 17);
             this.radioSystemProxy.TabIndex = 2;
@@ -288,9 +288,9 @@
             this.customProxyPanel.Controls.Add(this.numProxyPort);
             this.customProxyPanel.Controls.Add(this.txtProxyAddress);
             this.customProxyPanel.Enabled = false;
-            this.customProxyPanel.Location = new System.Drawing.Point(6, 75);
+            this.customProxyPanel.Location = new System.Drawing.Point(6, 52);
             this.customProxyPanel.Name = "customProxyPanel";
-            this.customProxyPanel.Size = new System.Drawing.Size(354, 125);
+            this.customProxyPanel.Size = new System.Drawing.Size(354, 111);
             this.customProxyPanel.TabIndex = 9;
             // 
             // chkShowProxyPassword
