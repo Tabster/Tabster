@@ -36,6 +36,10 @@ namespace Tabster.Utilities
 #endif
         }
 
+        /// <summary>
+        ///     Gets or sets whether the application is currently running in 'safe mode'.
+        /// </summary>
+        public static bool SafeMode { get; set; }
 
         /// <summary>
         ///     Returns the absolute path of the supplied environment directory.

@@ -24,7 +24,6 @@ namespace Tabster.Utilities
         private bool _noSplash;
         private FileInfo _queuedFileInfo;
         private TablatureFile _queuedTablatureFile;
-        private bool _safeMode;
         private SplashScreenController _splashScreenController;
         private UpdateResponseEventArgs _updateResponse;
 
@@ -106,7 +105,7 @@ namespace Tabster.Utilities
                 if (commandLine.Contains("-nosplash"))
                     _noSplash = true;
                 if (commandLine.Contains("-safemode"))
-                    _safeMode = true;
+                    TabsterEnvironment.SafeMode = true;
 
                 ProcessFirstArgForFile(commandLine[0]);
             }
@@ -114,7 +113,7 @@ namespace Tabster.Utilities
 
         private void PerformStartupEvents()
         {
-            if (!_safeMode)
+            if (!TabsterEnvironment.SafeMode)
             {
                 _splashScreenController.Update("Initializing plugins...");
                 Logging.GetLogger().Info("Loading plugins...");

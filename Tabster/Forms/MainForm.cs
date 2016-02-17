@@ -585,6 +585,12 @@ namespace Tabster.Forms
 
         private void OpenPluginManager()
         {
+            if (TabsterEnvironment.SafeMode)
+            {
+                MessageBox.Show("Plugins are not configurable while running in safe mode.", "Safe Mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             using (var p = new PluginManagerDialog())
             {
                 if (p.ShowDialog() == DialogResult.OK)
