@@ -1,6 +1,5 @@
 ﻿#region
 
-using System;
 using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -15,17 +14,9 @@ namespace PdfFile
 {
     public class PdfFileExporter : ITablatureFileExporter
     {
-        private readonly Font _font;
-
         public PdfFileExporter()
         {
             FileType = new FileType("PDF File", ".pdf");
-
-            //register system fonts directory before loading fonts
-            var fontsDirectory = Path.Combine(Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.System)).FullName, "Fonts");
-            FontFactory.RegisterDirectory(fontsDirectory);
-
-            _font = FontFactory.GetFont("Courier New", 9F, BaseColor.BLACK);
         }
 
         #region Implementation of ITablatureFileExporter
@@ -37,9 +28,11 @@ namespace PdfFile
             get { return new Version("1.0"); }
         }
 
-        public void Export(ITablatureFile file, string fileName)
+        public void Export(ITablatureFile file, string fileName, TablatureFileExportArguments args)
         {
             var plugin = new PdfFilePlugin();
+
+            var font = new Font(Font.FontFamily.COURIER, 9F);
 
             using (var fs = new FileStream(fileName, FileMode.Create))
             {
@@ -52,7 +45,7 @@ namespace PdfFile
 
                     pdfdoc.Open();
 
-                    pdfdoc.Add(new Paragraph(file.Contents, _font));
+                    pdfdoc.Add(new Paragraph(file.Contents, font));
                     pdfdoc.Close();
                 }
             }
