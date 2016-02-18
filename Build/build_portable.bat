@@ -13,8 +13,6 @@ SET "ZIP_ARCHIVE=%BUILD_DIRECTORY%\Tabster %APPLICATION_VERSION% Portable.exe"
 IF EXIST "%TEMP_DIRECTORY%" rmdir /S /Q "%TEMP_DIRECTORY%"
 mkdir "%TEMP_DIRECTORY%"
 mkdir "%TEMP_DIRECTORY%\Resources\Fonts\"
-mkdir "%TEMP_DIRECTORY%\Plugins\FileTypes"
-mkdir "%TEMP_DIRECTORY%\Plugins\Searching"
 
 IF EXIST "%ZIP_ARCHIVE%" del /F "%ZIP_ARCHIVE%"
 
@@ -48,25 +46,6 @@ copy "%VS_BUILD_DIRECTORY%\log4net.dll" "%TEMP_DIRECTORY%\log4net.dll"
 
 ::resources
 copy "%VS_BUILD_DIRECTORY%\Resources\Fonts\SourceCodePro-Regular.ttf" "%TEMP_DIRECTORY%\Resources\Fonts\SourceCodePro-Regular.ttf"
-
-::native filetype plugins
-copy "%VS_BUILD_DIRECTORY%\Plugins\FileTypes\TextFile.dll" "%TEMP_DIRECTORY%\Plugins\FileTypes\TextFile.dll"
-copy "%VS_BUILD_DIRECTORY%\Plugins\FileTypes\HtmlFile.dll" "%TEMP_DIRECTORY%\Plugins\FileTypes\HtmlFile.dll"
-::HtmlFile dependency
-copy "%VS_BUILD_DIRECTORY%\Plugins\FileTypes\HtmlAgilityPack.dll" "%TEMP_DIRECTORY%\Plugins\FileTypes\HtmlAgilityPack.dll"
-copy "%VS_BUILD_DIRECTORY%\Plugins\FileTypes\RtfFile.dll" "%TEMP_DIRECTORY%\Plugins\FileTypes\RtfFile.dll"
-copy "%VS_BUILD_DIRECTORY%\Plugins\FileTypes\WordDoc.dll" "%TEMP_DIRECTORY%\Plugins\FileTypes\WordDoc.dll"
-::WordDoc dependency
-copy "%VS_BUILD_DIRECTORY%\Plugins\FileTypes\DocX.dll" "%TEMP_DIRECTORY%\Plugins\FileTypes\DocX.dll"
-copy "%VS_BUILD_DIRECTORY%\Plugins\FileTypes\PngFile.dll" "%TEMP_DIRECTORY%\Plugins\FileTypes\PngFile.dll"
-
-::native search plugins
-
-copy "%VS_BUILD_DIRECTORY%\Plugins\Searching\UltimateGuitar.dll" "%TEMP_DIRECTORY%\Plugins\Searching\UltimateGuitar.dll"
-copy "%VS_BUILD_DIRECTORY%\Plugins\Searching\GuitartabsDotCC.dll" "%TEMP_DIRECTORY%\Plugins\Searching\GuitartabsDotCC.dll"
-copy "%VS_BUILD_DIRECTORY%\Plugins\Searching\Songsterr.dll" "%TEMP_DIRECTORY%\Plugins\Searching\Songsterr.dll"
-::common dependency
-copy "%VS_BUILD_DIRECTORY%\Plugins\Searching\HtmlAgilityPack.dll" "%TEMP_DIRECTORY%\Plugins\Searching\HtmlAgilityPack.dll"
 
 ::compression
 ECHO.

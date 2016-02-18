@@ -58,35 +58,11 @@ Section "MainSection" SEC01
   CreateShortCut "$SMPROGRAMS\Tabster\Tabster.lnk" "$INSTDIR\Tabster.exe"
   CreateShortCut "$SMPROGRAMS\Tabster\Tabster (Safe Mode).lnk" "$INSTDIR\Tabster.exe" "-safemode"
   
-  !define PLUGIN_DIRECTORY "$INSTDIR\Plugins"
-  !define PLUGIN_FILETYPES_DIRECTORY "${PLUGIN_DIRECTORY}\FileTypes"
-  !define PLUGIN_SEARCHING_DIRECTORY "${PLUGIN_DIRECTORY}\Searching"
-  
   !define RESOURCES_DIRECTORY "$INSTDIR\Resources"
   !define FONTS_DIRECTORY "${RESOURCES_DIRECTORY}\Fonts"
   
-  CreateDirectory "${PLUGIN_DIRECTORY}"
-  CreateDirectory "${PLUGIN_FILETYPES_DIRECTORY}"
-  CreateDirectory "${PLUGIN_SEARCHING_DIRECTORY}"
   CreateDirectory "${RESOURCES_DIRECTORY}"
   CreateDirectory "${FONTS_DIRECTORY}"
-  
-  ; native filetype plugins
-  SetOutPath "${PLUGIN_FILETYPES_DIRECTORY}"  
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\TextFile.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\HtmlFile.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\HtmlAgilityPack.dll" ;HtmlFile dependency
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\RtfFile.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\WordDoc.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\DocX.dll" ;WordDoc dependency
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\FileTypes\PngFile.dll"
-  
-  ; native search plugins
-  SetOutPath "${PLUGIN_SEARCHING_DIRECTORY}"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\UltimateGuitar.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\GuitartabsDotCC.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\Songsterr.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Plugins\Searching\HtmlAgilityPack.dll" ;common dependency
   
   ; resources
   SetOutPath "${FONTS_DIRECTORY}"
@@ -124,21 +100,6 @@ Section Uninstall
   Delete "$INSTDIR\Tabster.Data.dll"
   Delete "$INSTDIR\Tabster.Utils.dll"
   Delete "$INSTDIR\Tabster.WinForms.dll"
-  
-  ; native filetype plugins
-  Delete "$INSTDIR\Plugins\FileTypes\TextFile.dll"
-  Delete "$INSTDIR\Plugins\FileTypes\HtmlFile.dll"
-  Delete "$INSTDIR\Plugins\FileTypes\HtmlAgilityPack.dll" ;HtmlFile dependency
-  Delete "$INSTDIR\Plugins\FileTypes\RtfFile.dll"
-  Delete "$INSTDIR\Plugins\FileTypes\WordDoc.dll"
-  Delete "$INSTDIR\Plugins\FileTypes\DocX.dll" ;WordDoc dependency
-  Delete "$INSTDIR\Plugins\FileTypes\PngFile.dll"
-  
-  ; native search plugins
-  Delete "$INSTDIR\Plugins\Searching\UltimateGuitar.dll"
-  Delete "$INSTDIR\Plugins\Searching\GuitartabsDotCC.dll"
-  Delete "$INSTDIR\Plugins\Searching\Songsterr.dll"
-  Delete "$INSTDIR\Plugins\Searching\HtmlAgilityPack.dll" ;common dependency
   
   ; third-party references  
   Delete "$INSTDIR\ObjectListView.dll"
