@@ -75,14 +75,12 @@ namespace Tabster.Forms
                 base.Close();
         }
 
-        private delegate void UpdateSplashScreenCallback(string text);
-
         public void Update(string status)
         {
             if (lblProgress.InvokeRequired)
             {
                 var d = new UpdateSplashScreenCallback(Update);
-                Invoke(d, new object[] { status });
+                Invoke(d, new object[] {status});
             }
 
             else
@@ -90,6 +88,8 @@ namespace Tabster.Forms
                 lblProgress.Text = status;
             }
         }
+
+        private delegate void UpdateSplashScreenCallback(string text);
 
         #endregion
     }

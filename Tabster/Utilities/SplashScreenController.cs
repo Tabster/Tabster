@@ -11,12 +11,6 @@ namespace Tabster.Utilities
 {
     internal class SplashScreenController
     {
-        public interface ISplashScreenForm
-        {
-            void FinalizeSplash();
-            void Update(string str);
-        }
-
         private readonly Form _form;
 
         public SplashScreenController(Form form)
@@ -45,7 +39,7 @@ namespace Tabster.Utilities
 
         public void Stop()
         {
-            ((ISplashScreenForm)_form).FinalizeSplash();
+            ((ISplashScreenForm) _form).FinalizeSplash();
         }
 
         public void Update(string str)
@@ -55,7 +49,7 @@ namespace Tabster.Utilities
 
             try
             {
-                ((ISplashScreenForm)_form).Update(str);
+                ((ISplashScreenForm) _form).Update(str);
             }
 
             catch (InvalidOperationException)
@@ -63,13 +57,19 @@ namespace Tabster.Utilities
                 //sometimes happens "randomly"
             }
 
-            ((ISplashScreenForm)_form).Update(str);
+            ((ISplashScreenForm) _form).Update(str);
         }
 
         private void StartSplash()
         {
             _form.Show();
             Application.Run(_form);
+        }
+
+        public interface ISplashScreenForm
+        {
+            void FinalizeSplash();
+            void Update(string str);
         }
     }
 }
