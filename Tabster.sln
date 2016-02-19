@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabster", "Tabster\Tabster.csproj", "{7FA799CC-7E0A-4AD7-AB74-A84F5F3177DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabster.WinForms", "Tabster.WinForms\Tabster.WinForms.csproj", "{E000FEB4-0CBC-4187-B54B-93C701DD5D49}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,21 +34,6 @@ Global
 		{7FA799CC-7E0A-4AD7-AB74-A84F5F3177DB}.Release|Mixed Platforms.Build.0 = Release|x86
 		{7FA799CC-7E0A-4AD7-AB74-A84F5F3177DB}.Release|x86.ActiveCfg = Release|x86
 		{7FA799CC-7E0A-4AD7-AB74-A84F5F3177DB}.Release|x86.Build.0 = Release|x86
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Portable|Any CPU.ActiveCfg = Portable|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Portable|Any CPU.Build.0 = Portable|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Portable|Mixed Platforms.ActiveCfg = Portable|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Portable|Mixed Platforms.Build.0 = Portable|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Portable|x86.ActiveCfg = Portable|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E000FEB4-0CBC-4187-B54B-93C701DD5D49}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
