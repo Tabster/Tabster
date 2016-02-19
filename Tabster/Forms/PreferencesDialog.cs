@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
@@ -23,28 +22,20 @@ namespace Tabster.Forms
         {
             General,
             Printing,
-            Plugins,
             Network,
             Searching
         }
 
         private readonly Color _disabledColor = Color.Red;
         private readonly Color _enabledColor = Color.Green;
-        private readonly List<PluginHost> _pluginHosts = new List<PluginHost>();
-        private readonly Dictionary<PluginHost, bool> _pluginStatusMap = new Dictionary<PluginHost, bool>();
-
 
         public PreferencesDialog()
         {
             InitializeComponent();
 
-            _pluginHosts.AddRange(Program.GetPluginController().GetPluginHosts());
-
             LoadPreferences();
 
-            LoadPlugins();
-
-            LoadSearchEngines(false);
+            LoadSearchEngines();
 
             radioSystemProxy.Visible = btnEditSystemProxy.Visible = MonoUtilities.GetPlatform() == MonoUtilities.Platform.Windows;
         }
@@ -54,7 +45,6 @@ namespace Tabster.Forms
             tabControl1.SelectedIndex = (int) section;
         }
 
-        public bool PluginsModified { get; private set; }
         public bool SearchEnginesModified { get; private set; }
 
         private void LoadPreferences()
@@ -88,26 +78,6 @@ namespace Tabster.Forms
 
         private void SavePreferences()
         {
-            //plugins
-            if (PluginsModified)
-            {
-                foreach (ListViewItem lvi in listPlugins.Items)
-                {
-                    var guid = new Guid(lvi.Tag.ToString());
-                    var pluginEnabled = lvi.Checked;
-
-                    var pluginHost = Program.GetPluginController().FindPluginByGuid(guid);
-
-                    if (pluginHost.Enabled != pluginEnabled)
-                        pluginHost.Enabled = pluginEnabled;
-
-                    Settings.Default.DisabledPlugins.Remove(guid.ToString());
-
-                    if (!pluginEnabled)
-                        Settings.Default.DisabledPlugins.Add(guid.ToString());
-                }
-            }
-
             //search engines
             if (SearchEnginesModified)
             {
@@ -190,17 +160,6 @@ namespace Tabster.Forms
             SavePreferences();
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            pluginsDirectorybtn.Visible = tabControl1.SelectedTab == tabPlugins;
-        }
-
-
-        private void LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(((LinkLabel) sender).Text);
-        }
-
         #region Network
 
         private bool ValidateProxyInput()
@@ -270,102 +229,11 @@ namespace Tabster.Forms
 
         #endregion
 
-        #region Plugins
-
-        private void pluginsDirectorybtn_Click(object sender, EventArgs e)
-        {
-            Process.Start(Path.Combine(TabsterEnvironmentUtilities.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.CommonApplicationData), "Plugins"));
-        }
-
-        private void listPlugins_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listPlugins.SelectedItems.Count > 0)
-            {
-                var plugin = _pluginHosts[listPlugins.SelectedItems[0].Index];
-
-                lblPluginFilename.Text = string.Format("{0}...{1}{2}{1}{3}", Path.GetPathRoot(plugin.FileInfo.FullName), Path.DirectorySeparatorChar, Path.GetFileName(Path.GetDirectoryName(plugin.FileInfo.FullName)), plugin.FileInfo.Name);
-                lblPluginAuthor.Text = plugin.Plugin.Author ?? "N/A";
-                lblPluginVersion.Text = plugin.Plugin.Version != null
-                    ? plugin.Plugin.Version.ToString()
-                    : "N/A";
-                lblPluginDescription.Text = plugin.Plugin.Description ?? "N/A";
-
-                if (plugin.Plugin.Website != null)
-                {
-                    lblPluginHomepage.Text = plugin.Plugin.Website.ToString();
-                    lblPluginHomepage.LinkArea = new LinkArea(0, plugin.Plugin.Website.ToString().Length);
-                }
-
-                else
-                {
-                    lblPluginHomepage.Text = "N/A";
-                    lblPluginHomepage.LinkArea = new LinkArea(0, 0);
-                }
-            }
-        }
-
-        private void listPlugins_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            var item = listPlugins.HitTest(e.X, e.Y).Item;
-
-            if (item != null)
-            {
-                item.Checked = !item.Checked;
-                item.ForeColor = item.Checked ? _enabledColor : _disabledColor;
-                item.SubItems[colpluginEnabled.Index].Text = item.Checked ? "Yes" : "No";
-
-                var plugin = _pluginHosts[item.Index];
-                _pluginStatusMap[plugin] = item.Checked; //set temporary status
-
-                //if it contains search engines, we need to reload search engine list
-                var isSearchPlugin = plugin.GetClassInstances<ITablatureSearchEngine>().Any();
-
-                if (isSearchPlugin)
-                {
-                    LoadSearchEngines(true);
-                    SearchEnginesModified = true;
-                }
-
-                PluginsModified = true;
-            }
-        }
-
-        private void LoadPlugins()
-        {
-            _pluginStatusMap.Clear();
-
-            listPlugins.Items.Clear();
-
-            foreach (var pluginHost in _pluginHosts)
-            {
-                var lvi = new ListViewItem
-                {
-                    Tag = pluginHost.Plugin.Guid.ToString(),
-                    Text = pluginHost.Plugin.DisplayName,
-                    Checked = pluginHost.Enabled,
-                    ForeColor = pluginHost.Enabled ? _enabledColor : _disabledColor
-                };
-
-                _pluginStatusMap[pluginHost] = pluginHost.Enabled;
-
-                lvi.SubItems.Add(pluginHost.Enabled ? "Yes" : "No");
-
-                listPlugins.Items.Add(lvi);
-            }
-
-            if (listPlugins.Items.Count == 0)
-                listPlugins.Dock = DockStyle.Fill;
-            else
-                listPlugins.Items[0].Selected = true;
-        }
-
-        #endregion
-
         #region Search Engines
 
         private readonly List<ITablatureSearchEngine> _searchEngines = new List<ITablatureSearchEngine>();
 
-        private void LoadSearchEngines(bool useUnsavedSettings)
+        private void LoadSearchEngines()
         {
             _searchEngines.Clear();
 
@@ -373,7 +241,7 @@ namespace Tabster.Forms
 
             var searchPluginMap = new Dictionary<ITablatureSearchEngine, PluginHost>();
 
-            foreach (var plugin in _pluginHosts)
+            foreach (var plugin in Program.GetPluginController().GetPluginHosts())
             {
                 foreach (var engine in plugin.GetClassInstances<ITablatureSearchEngine>())
                 {
@@ -384,9 +252,7 @@ namespace Tabster.Forms
 
             foreach (var searchPluginPair in searchPluginMap)
             {
-                var enabled = useUnsavedSettings ?
-                    _pluginStatusMap[searchPluginPair.Value] :
-                    !Settings.Default.DisabledSearchEngines.Contains(UserSettingsUtilities.GetSearchEngineIdentifier(searchPluginPair.Value, searchPluginPair.Key));
+                var enabled = !Settings.Default.DisabledSearchEngines.Contains(UserSettingsUtilities.GetSearchEngineIdentifier(searchPluginPair.Value, searchPluginPair.Key));
 
                 var lvi = new ListViewItem
                 {
@@ -412,25 +278,11 @@ namespace Tabster.Forms
 
             if (item != null)
             {
-                var engine = _searchEngines[item.Index];
+                item.Checked = !item.Checked;
+                item.ForeColor = item.Checked ? _enabledColor : _disabledColor;
+                item.SubItems[colSearchEngineEnabled.Index].Text = item.Checked ? "Yes" : "No";
 
-                var isPluginEnabled = _pluginStatusMap[Program.GetPluginController().GetHostByType(engine.GetType())];
-
-                if (isPluginEnabled)
-                {
-                    item.Checked = !item.Checked;
-                    item.ForeColor = item.Checked ? _enabledColor : _disabledColor;
-                    item.SubItems[colpluginEnabled.Index].Text = item.Checked ? "Yes" : "No";
-
-                    SearchEnginesModified = true;
-                }
-
-                else
-                {
-                    MessageBox.Show(
-                        string.Format("The owner plugin for this search engine is disabled.{0}Please enable it to enable this search engine.", Environment.NewLine),
-                        "Plugin Disabled");
-                }
+                SearchEnginesModified = true;
             }
         }
 

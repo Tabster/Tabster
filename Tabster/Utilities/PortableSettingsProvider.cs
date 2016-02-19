@@ -121,7 +121,7 @@ namespace Tabster.Utilities
         // Gets current executable path in order to determine where to read and write the config file
         public virtual string GetAppPath()
         {
-            var dir = TabsterEnvironmentUtilities.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData);
+            var dir = TabsterEnvironment.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData);
 
             if (!(Directory.Exists(dir)))
                 Directory.CreateDirectory(dir);

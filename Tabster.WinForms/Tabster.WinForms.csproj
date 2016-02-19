@@ -52,6 +52,15 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="Tabster.Core">
+      <HintPath>..\packages\Tabster.Core.1.0\lib\net35\Tabster.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Tabster.Data">
+      <HintPath>..\packages\Tabster.Data.1.0\lib\net35\Tabster.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Tabster.Printing">
+      <HintPath>..\packages\Tabster.Printing.1.0\lib\net35\Tabster.Printing.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicTablatureTextEditor.cs">
@@ -104,18 +113,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tabster.Core\Tabster.Core.csproj">
-      <Project>{B94FA030-4553-4F14-A867-F05849A14DC4}</Project>
-      <Name>Tabster.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tabster.Data\Tabster.Data.csproj">
-      <Project>{6a9eb767-6651-492c-864e-79d71db2a11f}</Project>
-      <Name>Tabster.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tabster.Printing\Tabster.Printing.csproj">
-      <Project>{32901CD2-65D8-4D7D-9F48-F26358A3E47E}</Project>
-      <Name>Tabster.Printing</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

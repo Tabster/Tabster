@@ -104,6 +104,15 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tabster.Core">
+      <HintPath>..\packages\Tabster.Core.1.0\lib\net35\Tabster.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Tabster.Data">
+      <HintPath>..\packages\Tabster.Data.1.0\lib\net35\Tabster.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Tabster.Printing">
+      <HintPath>..\packages\Tabster.Printing.1.0\lib\net35\Tabster.Printing.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\EllipsizedTabPage.cs">
@@ -120,6 +129,12 @@
     <Compile Include="Database\LibraryManager.cs" />
     <Compile Include="Database\TabsterDatabaseHelper.cs" />
     <Compile Include="Database\PlaylistManager.cs" />
+    <Compile Include="Forms\PluginManagerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PluginManagerDialog.Designer.cs">
+      <DependentUpon>PluginManagerDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Update\UpdateCheck.cs" />
     <Compile Include="Update\UpdateResponseEventArgs.cs" />
     <Compile Include="Utilities\BrandingUtilities.cs" />
@@ -137,7 +152,7 @@
     <Compile Include="Utilities\SplashScreenController.cs" />
     <Compile Include="Utilities\TablatureFontManager.cs" />
     <Compile Include="Utilities\TablatureUtilities.cs" />
-    <Compile Include="Utilities\TabsterEnvironmentUtilities.cs" />
+    <Compile Include="Utilities\TabsterEnvironment.cs" />
     <Compile Include="Utilities\TabsterSingleInstanceController.cs" />
     <Compile Include="Utilities\UserSettingsUtilities.cs" />
     <Compile Include="Settings.cs" />
@@ -239,6 +254,9 @@
     <EmbeddedResource Include="Forms\NewPlaylistDialog.resx">
       <DependentUpon>NewPlaylistDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PluginManagerDialog.resx">
+      <DependentUpon>PluginManagerDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\RenameDialog.resx">
       <DependentUpon>RenameDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -320,18 +338,6 @@
     <ProjectReference Include="..\Tabster.WinForms\Tabster.WinForms.csproj">
       <Project>{E000FEB4-0CBC-4187-B54B-93C701DD5D49}</Project>
       <Name>Tabster.WinForms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tabster.Core\Tabster.Core.csproj">
-      <Project>{B94FA030-4553-4F14-A867-F05849A14DC4}</Project>
-      <Name>Tabster.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tabster.Data\Tabster.Data.csproj">
-      <Project>{6A9EB767-6651-492C-864E-79D71DB2A11F}</Project>
-      <Name>Tabster.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tabster.Printing\Tabster.Printing.csproj">
-      <Project>{32901CD2-65D8-4D7D-9F48-F26358A3E47E}</Project>
-      <Name>Tabster.Printing</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
