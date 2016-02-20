@@ -6,7 +6,7 @@ using System;
 
 namespace Tabster.Update
 {
-    public class UpdateResponseEventArgs : EventArgs
+    internal class UpdateResponseEventArgs : EventArgs
     {
         public UpdateResponseEventArgs(UpdateResponse updateResponse, Exception exception, object userState)
         {
