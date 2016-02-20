@@ -146,8 +146,8 @@
     <Compile Include="Utilities\BrandingUtilities.cs" />
     <Compile Include="Utilities\CustomProxyController.cs" />
     <Compile Include="Utilities\MonoUtilities.cs" />
-    <Compile Include="Utilities\PluginController.cs" />
-    <Compile Include="Utilities\PluginHost.cs" />
+    <Compile Include="Plugins\PluginController.cs" />
+    <Compile Include="Plugins\PluginHost.cs" />
     <Compile Include="Update\UpdateDialog.cs">
       <SubType>Form</SubType>
     </Compile>

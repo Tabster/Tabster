@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using Tabster.Core.Searching;
+using Tabster.Plugins;
 using Tabster.Properties;
 
 #endregion

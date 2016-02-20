@@ -6,16 +6,17 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Tabster.Core.Plugins;
+using Tabster.Utilities;
 
 #endregion
 
-namespace Tabster.Utilities
+namespace Tabster.Plugins
 {
-    public class PluginController
+    public class PluginManager
     {
         private readonly List<PluginHost> _pluginHosts = new List<PluginHost>();
 
-        public PluginController(string[] pluginDirectories)
+        public PluginManager(string[] pluginDirectories)
         {
             WorkingDirectories = pluginDirectories;
         }

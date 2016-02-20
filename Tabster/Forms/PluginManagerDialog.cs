@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using Tabster.Plugins;
 using Tabster.Properties;
 using Tabster.Utilities;
 

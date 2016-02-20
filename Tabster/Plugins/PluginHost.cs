@@ -6,10 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Tabster.Core.Plugins;
+using Tabster.Utilities;
 
 #endregion
 
-namespace Tabster.Utilities
+namespace Tabster.Plugins
 {
     public class PluginHost
     {

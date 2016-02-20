@@ -11,6 +11,7 @@ using Tabster.Data.Binary;
 using Tabster.Data.Processing;
 using Tabster.Data.Xml;
 using Tabster.Database;
+using Tabster.Plugins;
 using Tabster.Utilities;
 
 #endregion
@@ -20,11 +21,11 @@ namespace Tabster
     internal static class Program
     {
         private static TabsterDatabaseHelper _databaseHelper;
-        private static PluginController _pluginController;
+        private static PluginManager _pluginManager;
 
-        public static PluginController GetPluginController()
+        public static PluginManager GetPluginController()
         {
-            return _pluginController;
+            return _pluginManager;
         }
 
         public static TabsterDatabaseHelper GetDatabaseHelper()
@@ -74,7 +75,7 @@ namespace Tabster
 
             var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
             var pluginDataDirectory = TabsterEnvironment.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.CommonApplicationData, "Plugins");
-            _pluginController = new PluginController(new[] {pluginDirectory, pluginDataDirectory});
+            _pluginManager = new PluginManager(new[] {pluginDirectory, pluginDataDirectory});
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

@@ -9,6 +9,7 @@ using System.Net;
 using System.Windows.Forms;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
+using Tabster.Plugins;
 using Tabster.Properties;
 using Tabster.Utilities;
 
