@@ -141,12 +141,14 @@
     <Compile Include="Forms\PluginManagerDialog.Designer.cs">
       <DependentUpon>PluginManagerDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\FeaturedPluginChecker.cs" />
+    <Compile Include="Plugins\FeaturedPluginsResponse.cs" />
     <Compile Include="Update\UpdateCheck.cs" />
     <Compile Include="Update\UpdateResponseEventArgs.cs" />
     <Compile Include="Utilities\BrandingUtilities.cs" />
     <Compile Include="Utilities\CustomProxyController.cs" />
     <Compile Include="Utilities\MonoUtilities.cs" />
-    <Compile Include="Plugins\PluginController.cs" />
+    <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\PluginHost.cs" />
     <Compile Include="Update\UpdateDialog.cs">
       <SubType>Form</SubType>

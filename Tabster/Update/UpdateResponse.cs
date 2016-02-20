@@ -9,7 +9,7 @@ using Newtonsoft.Json.Converters;
 
 namespace Tabster.Update
 {
-    internal class Release
+    public class Release
     {
         [JsonProperty("platform")]
         public string Platform { get; internal set; }
@@ -24,7 +24,7 @@ namespace Tabster.Update
         public string ReleasePage { get; internal set; }
     }
 
-    internal class ReleasesChanges
+    public class ReleasesChanges
     {
         [JsonProperty("version")]
         [JsonConverter(typeof (VersionConverter))]
@@ -34,7 +34,7 @@ namespace Tabster.Update
         public List<string> Changes { get; internal set; }
     }
 
-    internal class UpdateResponse
+    public class UpdateResponse
     {
         [JsonProperty("latest_version")]
         [JsonConverter(typeof (VersionConverter))]
