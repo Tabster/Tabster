@@ -54,10 +54,37 @@ namespace Tabster.Forms
                 listPlugins.Items.Add(lvi);
             }
 
-            if (listPlugins.Items.Count == 0)
-                listPlugins.Dock = DockStyle.Fill;
-            else
+            if (listPlugins.Items.Count > 0)
                 listPlugins.Items[0].Selected = true;
+            else
+                LoadPluginInformation(null);
+        }
+
+        private void LoadPluginInformation(PluginHost pluginHost)
+        {
+            lblPlaceholder.Visible = pluginHost == null;
+
+            if (pluginHost != null)
+            {
+                lblPluginFilename.Text = string.Format("{0}...{1}{2}{1}{3}", Path.GetPathRoot(pluginHost.FileInfo.FullName), Path.DirectorySeparatorChar, Path.GetFileName(Path.GetDirectoryName(pluginHost.FileInfo.FullName)), pluginHost.FileInfo.Name);
+                lblPluginAuthor.Text = pluginHost.Plugin.Author ?? "N/A";
+                lblPluginVersion.Text = pluginHost.Plugin.Version != null
+                    ? pluginHost.Plugin.Version.ToString()
+                    : "N/A";
+                lblPluginDescription.Text = pluginHost.Plugin.Description ?? "N/A";
+
+                if (pluginHost.Plugin.Website != null)
+                {
+                    lblPluginHomepage.Text = pluginHost.Plugin.Website.ToString();
+                    lblPluginHomepage.LinkArea = new LinkArea(0, pluginHost.Plugin.Website.ToString().Length);
+                }
+
+                else
+                {
+                    lblPluginHomepage.Text = "N/A";
+                    lblPluginHomepage.LinkArea = new LinkArea(0, 0);
+                }
+            }
         }
 
         private void pluginsDirectorybtn_Click(object sender, System.EventArgs e)
@@ -67,29 +94,8 @@ namespace Tabster.Forms
 
         private void listPlugins_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listPlugins.SelectedItems.Count > 0)
-            {
-                var plugin = _pluginHosts[listPlugins.SelectedItems[0].Index];
-
-                lblPluginFilename.Text = string.Format("{0}...{1}{2}{1}{3}", Path.GetPathRoot(plugin.FileInfo.FullName), Path.DirectorySeparatorChar, Path.GetFileName(Path.GetDirectoryName(plugin.FileInfo.FullName)), plugin.FileInfo.Name);
-                lblPluginAuthor.Text = plugin.Plugin.Author ?? "N/A";
-                lblPluginVersion.Text = plugin.Plugin.Version != null
-                    ? plugin.Plugin.Version.ToString()
-                    : "N/A";
-                lblPluginDescription.Text = plugin.Plugin.Description ?? "N/A";
-
-                if (plugin.Plugin.Website != null)
-                {
-                    lblPluginHomepage.Text = plugin.Plugin.Website.ToString();
-                    lblPluginHomepage.LinkArea = new LinkArea(0, plugin.Plugin.Website.ToString().Length);
-                }
-
-                else
-                {
-                    lblPluginHomepage.Text = "N/A";
-                    lblPluginHomepage.LinkArea = new LinkArea(0, 0);
-                }
-            }
+            var pluginHost = _pluginHosts.Count > listPlugins.SelectedItems[0].Index ? _pluginHosts[listPlugins.SelectedItems[0].Index] : null;
+            LoadPluginInformation(pluginHost);
         }
 
         private void listPlugins_MouseDoubleClick(object sender, MouseEventArgs e)
