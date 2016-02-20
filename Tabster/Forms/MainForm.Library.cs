@@ -90,7 +90,17 @@ namespace Tabster.Forms
                         {
                             var exporter = filters[sfd.FilterIndex - 2].Exporter; //FilterIndex is not 0-based and native Tabster format uses first index
                             var args = new TablatureFileExportArguments(TablatureFontManager.GetFont());
-                            exporter.Export(GetSelectedLibraryItem().File, sfd.FileName, args);
+
+                            try
+                            {
+                                exporter.Export(GetSelectedLibraryItem().File, sfd.FileName, args);
+                            }
+
+                            catch(Exception ex)
+                            {
+                                Logging.GetLogger().Error("An error occured during tablature exporting.", ex);
+                                MessageBox.Show("An error occured during tablature exporting.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
                 }
