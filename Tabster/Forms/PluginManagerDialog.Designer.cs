@@ -49,6 +49,7 @@
             this.pluginsDirectorybtn = new System.Windows.Forms.Button();
             this.okbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
+            this.lblPlaceholder = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabInstalled.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -123,6 +124,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblPlaceholder);
             this.groupBox1.Controls.Add(this.lblPluginFilename);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label9);
@@ -268,6 +270,17 @@
             this.cancelbtn.Text = "Cancel";
             this.cancelbtn.UseVisualStyleBackColor = true;
             // 
+            // lblPlaceholder
+            // 
+            this.lblPlaceholder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblPlaceholder.Location = new System.Drawing.Point(3, 16);
+            this.lblPlaceholder.MaximumSize = new System.Drawing.Size(266, 0);
+            this.lblPlaceholder.Name = "lblPlaceholder";
+            this.lblPlaceholder.Size = new System.Drawing.Size(266, 189);
+            this.lblPlaceholder.TabIndex = 16;
+            this.lblPlaceholder.Text = "Select a plugin from the list on the right";
+            this.lblPlaceholder.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // PluginManagerDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -279,7 +292,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabControl1);
             this.Name = "PluginManagerDialog";
-            this.Text = "PluginManagerForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Plugin Manager";
             this.tabControl1.ResumeLayout(false);
             this.tabInstalled.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -311,5 +325,6 @@
         private System.Windows.Forms.Button pluginsDirectorybtn;
         private System.Windows.Forms.Button okbtn;
         private System.Windows.Forms.Button cancelbtn;
+        private System.Windows.Forms.Label lblPlaceholder;
     }
 }
