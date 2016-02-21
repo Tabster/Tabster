@@ -44,6 +44,7 @@ copy "%VS_BUILD_DIRECTORY%\ObjectListView.dll" "%TEMP_DIRECTORY%\ObjectListView.
 copy "%VS_BUILD_DIRECTORY%\System.Data.SQLite.dll" "%TEMP_DIRECTORY%\System.Data.SQLite.dll"
 copy "%VS_BUILD_DIRECTORY%\x86\SQLite.Interop.dll" "%TEMP_DIRECTORY%\SQLite.Interop.dll"
 copy "%VS_BUILD_DIRECTORY%\log4net.dll" "%TEMP_DIRECTORY%\log4net.dll"
+copy "%VS_BUILD_DIRECTORY%\ICSharpCode.SharpZipLib.dll" "%TEMP_DIRECTORY%\ICSharpCode.SharpZipLib.dll"
 
 ::resources
 copy "%VS_BUILD_DIRECTORY%\Resources\Fonts\SourceCodePro-Regular.ttf" "%TEMP_DIRECTORY%\Resources\Fonts\SourceCodePro-Regular.ttf"

@@ -53,6 +53,7 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\x86\SQLite.Interop.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\log4net.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Newtonsoft.Json.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\ICSharpCode.SharpZipLib.dll"
   
   CreateShortCut "$DESKTOP\Tabster.lnk" "$INSTDIR\Tabster.exe"
   CreateDirectory "$SMPROGRAMS\Tabster"
