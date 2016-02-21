@@ -30,25 +30,12 @@ namespace Tabster.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblVersion = new System.Windows.Forms.Label();
             this.lblCopyright = new System.Windows.Forms.Label();
             this.lblProgress = new System.Windows.Forms.Label();
             this.lblPortable = new System.Windows.Forms.Label();
             this.lblSafeMode = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // lblVersion
-            // 
-            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblVersion.BackColor = System.Drawing.Color.Transparent;
-            this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.ForeColor = System.Drawing.Color.Gray;
-            this.lblVersion.Location = new System.Drawing.Point(468, 286);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(52, 16);
-            this.lblVersion.TabIndex = 49;
-            this.lblVersion.Text = "v0.0.0.0";
-            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblCopyright
             // 
@@ -103,6 +90,19 @@ namespace Tabster.Forms
             this.lblSafeMode.Text = "Safe Mode";
             this.lblSafeMode.Visible = false;
             // 
+            // lblVersion
+            // 
+            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.ForeColor = System.Drawing.Color.Gray;
+            this.lblVersion.Location = new System.Drawing.Point(468, 286);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(52, 16);
+            this.lblVersion.TabIndex = 54;
+            this.lblVersion.Text = "v0.0.0.0";
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // SplashScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -111,9 +111,9 @@ namespace Tabster.Forms
             this.BackgroundImage = global::Tabster.Properties.Resources.splash;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(532, 314);
+            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.lblSafeMode);
             this.Controls.Add(this.lblPortable);
-            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.lblCopyright);
             this.Controls.Add(this.lblProgress);
             this.Cursor = System.Windows.Forms.Cursors.AppStarting;
@@ -133,11 +133,11 @@ namespace Tabster.Forms
 
         #endregion
 
-        private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label lblCopyright;
         public System.Windows.Forms.Label lblProgress;
         private System.Windows.Forms.Label lblPortable;
         private System.Windows.Forms.Label lblSafeMode;
+        private System.Windows.Forms.Label lblVersion;
 
     }
 }

@@ -13,8 +13,6 @@ namespace Tabster.Forms
 {
     internal partial class SplashScreen : Form
     {
-        private readonly bool _safeMode;
-
         public SplashScreen()
         {
             InitializeComponent();
@@ -23,7 +21,7 @@ namespace Tabster.Forms
             lblPortable.Visible = true;
 #endif
 
-            if (_safeMode)
+            if (TabsterEnvironment.SafeMode)
                 lblSafeMode.Visible = true;
 
             RoundBorderForm(this);
@@ -32,13 +30,7 @@ namespace Tabster.Forms
 
             lblVersion.Text = string.Format("v{0}", new Version(Application.ProductVersion).ToShortVersionString());
             lblCopyright.Text = BrandingUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
-            lblVersion.ForeColor = Color.Gray;
             BringToFront();
-        }
-
-        public SplashScreen(bool safeMode) : this()
-        {
-            _safeMode = safeMode;
         }
 
         public static void RoundBorderForm(Form frm)
