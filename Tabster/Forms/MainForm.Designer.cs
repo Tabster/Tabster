@@ -34,18 +34,18 @@ namespace Tabster.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("All Tabs");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("My Tabs");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Downloads");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Imports");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Favorites");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Library", new System.Windows.Forms.TreeNode[] {
-            treeNode8,
-            treeNode9,
-            treeNode10,
-            treeNode11,
-            treeNode12});
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Playlists");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("All Tabs");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("My Tabs");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Downloads");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Imports");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Favorites");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Library", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Playlists");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.deletePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renamePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -202,11 +202,11 @@ namespace Tabster.Forms
             this.openTabLocationToolStripMenuItem = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.batchDownloaderMenuItem = new System.Windows.Forms.MenuItem();
+            this.pluginsMenuItem = new System.Windows.Forms.MenuItem();
             this.preferencesMenuItem = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
             this.checkForUpdatesMenuItem = new System.Windows.Forms.MenuItem();
             this.aboutMenuItem = new System.Windows.Forms.MenuItem();
-            this.pluginsMenuItem = new System.Windows.Forms.MenuItem();
             this.tabControl1.SuspendLayout();
             this.display_library.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -262,7 +262,6 @@ namespace Tabster.Forms
             this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1034, 438);
-            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -317,30 +316,30 @@ namespace Tabster.Forms
             this.sidemenu.LineColor = System.Drawing.Color.White;
             this.sidemenu.Location = new System.Drawing.Point(0, 0);
             this.sidemenu.Name = "sidemenu";
-            treeNode8.Name = "node_alltabs";
-            treeNode8.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode8.Text = "All Tabs";
-            treeNode9.Name = "node_mytabs";
-            treeNode9.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode9.Text = "My Tabs";
-            treeNode10.Name = "node_mydownloads";
-            treeNode10.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode10.Text = "Downloads";
-            treeNode11.Name = "node_myimports";
-            treeNode11.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode11.Text = "Imports";
-            treeNode12.Name = "node_myfavorites";
-            treeNode12.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            treeNode12.Text = "Favorites";
-            treeNode13.Name = "node_library";
-            treeNode13.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode13.Text = "Library";
-            treeNode14.Name = "node_playlists";
-            treeNode14.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode14.Text = "Playlists";
+            treeNode1.Name = "node_alltabs";
+            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode1.Text = "All Tabs";
+            treeNode2.Name = "node_mytabs";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode2.Text = "My Tabs";
+            treeNode3.Name = "node_mydownloads";
+            treeNode3.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode3.Text = "Downloads";
+            treeNode4.Name = "node_myimports";
+            treeNode4.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode4.Text = "Imports";
+            treeNode5.Name = "node_myfavorites";
+            treeNode5.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            treeNode5.Text = "Favorites";
+            treeNode6.Name = "node_library";
+            treeNode6.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode6.Text = "Library";
+            treeNode7.Name = "node_playlists";
+            treeNode7.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode7.Text = "Playlists";
             this.sidemenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode13,
-            treeNode14});
+            treeNode6,
+            treeNode7});
             this.sidemenu.ShowLines = false;
             this.sidemenu.ShowPlusMinus = false;
             this.sidemenu.ShowRootLines = false;
@@ -587,7 +586,7 @@ namespace Tabster.Forms
             this.groupBox2.Controls.Add(this.lblFormat);
             this.groupBox2.Location = new System.Drawing.Point(6, 152);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(744, 80);
+            this.groupBox2.Size = new System.Drawing.Size(727, 80);
             this.groupBox2.TabIndex = 70;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "File Information:";
@@ -789,7 +788,7 @@ namespace Tabster.Forms
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(744, 140);
+            this.groupBox1.Size = new System.Drawing.Size(727, 140);
             this.groupBox1.TabIndex = 69;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tablature Information:";
@@ -807,7 +806,7 @@ namespace Tabster.Forms
             this.lblCurrentComment.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.lblCurrentComment.Name = "lblCurrentComment";
             this.lblCurrentComment.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblCurrentComment.Size = new System.Drawing.Size(672, 34);
+            this.lblCurrentComment.Size = new System.Drawing.Size(655, 34);
             this.lblCurrentComment.TabIndex = 69;
             this.lblCurrentComment.Text = "N/A";
             // 
@@ -1947,6 +1946,12 @@ namespace Tabster.Forms
             this.batchDownloaderMenuItem.Text = "Batch Downloader";
             this.batchDownloaderMenuItem.Click += new System.EventHandler(this.batchDownloaderMenuItem_Click);
             // 
+            // pluginsMenuItem
+            // 
+            this.pluginsMenuItem.Index = 1;
+            this.pluginsMenuItem.Text = "Plugin Manager";
+            this.pluginsMenuItem.Click += new System.EventHandler(this.pluginsToolStripMenuItem_Click);
+            // 
             // preferencesMenuItem
             // 
             this.preferencesMenuItem.Index = 2;
@@ -1973,12 +1978,6 @@ namespace Tabster.Forms
             this.aboutMenuItem.Shortcut = System.Windows.Forms.Shortcut.F1;
             this.aboutMenuItem.Text = "About...";
             this.aboutMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // pluginsMenuItem
-            // 
-            this.pluginsMenuItem.Index = 1;
-            this.pluginsMenuItem.Text = "Plugin Manager";
-            this.pluginsMenuItem.Click += new System.EventHandler(this.pluginsToolStripMenuItem_Click);
             // 
             // MainForm
             // 
