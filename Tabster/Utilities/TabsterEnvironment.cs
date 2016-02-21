@@ -10,20 +10,16 @@ namespace Tabster.Utilities
     internal enum TabsterEnvironmentDirectory
     {
         ApplicatonData,
-        CommonApplicationData,
         UserData
     }
 
     internal class TabsterEnvironment
     {
         private static readonly string ApplicationDataDirectory;
-        private static readonly string CommonApplicationDataDirectory;
         private static readonly string UserDataDirectory;
-        private static readonly string PluginDataDirectory; //serves as secondary plugin directory, avoids possible UAC conflicts
 
         static TabsterEnvironment()
         {
-            CommonApplicationDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Tabster");
 
 #if PORTABLE
             ApplicationDataDirectory = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath), "AppData");
@@ -32,7 +28,6 @@ namespace Tabster.Utilities
 #else
             ApplicationDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tabster");
             UserDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Tabster");
-            PluginDataDirectory = Path.Combine(CommonApplicationDataDirectory, "Plugins");
 #endif
         }
 
@@ -57,8 +52,6 @@ namespace Tabster.Utilities
             {
                 case TabsterEnvironmentDirectory.ApplicatonData:
                     return ApplicationDataDirectory;
-                case TabsterEnvironmentDirectory.CommonApplicationData:
-                    return CommonApplicationDataDirectory;
                 case TabsterEnvironmentDirectory.UserData:
                     return UserDataDirectory;
             }
@@ -94,9 +87,6 @@ namespace Tabster.Utilities
 
             if (!Directory.Exists(UserDataDirectory))
                 Directory.CreateDirectory(UserDataDirectory);
-
-            if (!Directory.Exists(PluginDataDirectory))
-                Directory.CreateDirectory(PluginDataDirectory);
         }
     }
 }
