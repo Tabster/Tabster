@@ -55,7 +55,13 @@ namespace Tabster.Controls
             };
 
             _clearMenuItem.Text = ClearOptionText;
-            _clearMenuItem.Click += delegate { Clear(); };
+            _clearMenuItem.Click += delegate
+            {
+                Clear();
+
+                if (OnClearItemClicked != null)
+                    OnClearItemClicked(this, EventArgs.Empty);
+            };
         }
 
         public ReadOnlyCollection<RecentToolStripMenuElement> Items
@@ -110,7 +116,7 @@ namespace Tabster.Controls
         }
 
         public event EventHandler OnItemClicked;
-        public event EventHandler OnItemsCleared;
+        public event EventHandler OnClearItemClicked;
         public event EventHandler OnAllItemsOpened;
 
         public void Add(FileInfo file, string displayName = null, bool repopulateDisplayItems = true)
@@ -142,11 +148,6 @@ namespace Tabster.Controls
             if (DisplayMode == RecentFilesDisplayMode.Consecutive)
             {
                 ClearConsecutiveItems();
-            }
-
-            if (OnItemsCleared != null)
-            {
-                OnItemsCleared(this, EventArgs.Empty);
             }
         }
 
