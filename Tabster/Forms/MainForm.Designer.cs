@@ -1998,7 +1998,6 @@ namespace Tabster.Forms
             this.Text = "Tabster";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.tabControl1.ResumeLayout(false);
             this.display_library.ResumeLayout(false);

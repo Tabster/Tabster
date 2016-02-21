@@ -2,6 +2,7 @@
 
 using System;
 using System.Data.SQLite;
+using System.IO;
 
 #endregion
 
@@ -19,11 +20,21 @@ namespace Tabster.Database
 
         public TabsterDatabaseHelper(string databasePath)
         {
+            var databaseMissing = !File.Exists(databasePath);
+
             _db = new SQLiteConnection(string.Format("Data Source={0};Version=3;Compress=True;", databasePath));
             _db.Open();
 
+            if (databaseMissing)
+                DatabaseCreated = true;
+
             CreateTables();
         }
+
+        /// <summary>
+        ///     Indicates that the databases was just createad up initialization.
+        /// </summary>
+        public bool DatabaseCreated { get; set; }
 
         private void CreateTables()
         {

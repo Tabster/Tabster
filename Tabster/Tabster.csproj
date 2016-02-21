@@ -49,6 +49,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Guitar.ico</ApplicationIcon>
@@ -120,7 +121,7 @@
     </Reference>
     <Reference Include="Tabster.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Tabster.Data.1.0.1\lib\net35\Tabster.Data.dll</HintPath>
+      <HintPath>..\packages\Tabster.Data.1.0.3\lib\net35\Tabster.Data.dll</HintPath>
     </Reference>
     <Reference Include="Tabster.Printing">
       <HintPath>..\packages\Tabster.Printing.1.0\lib\net35\Tabster.Printing.dll</HintPath>
@@ -166,7 +167,6 @@
       <DependentUpon>UpdateDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Logging.cs" />
-    <Compile Include="Utilities\SplashScreenController.cs" />
     <Compile Include="Utilities\TablatureFontManager.cs" />
     <Compile Include="Utilities\TablatureUtilities.cs" />
     <Compile Include="Utilities\TabsterEnvironment.cs" />
@@ -258,6 +258,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Update\UpdateResponse.cs" />
+    <Compile Include="Utilities\XmlFileConverter.cs" />
     <EmbeddedResource Include="Forms\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>

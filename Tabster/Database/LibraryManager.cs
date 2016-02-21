@@ -29,9 +29,9 @@ namespace Tabster.Database
             get { return GetTablatureItems().Count; }
         }
 
-        public void Load(bool fileSystem)
+        public void Load(bool useFileSystem)
         {
-            if (fileSystem)
+            if (useFileSystem)
             {
                 LoadTablatureFiles();
             }

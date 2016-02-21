@@ -37,6 +37,11 @@ namespace Tabster.Utilities
         }
 
         /// <summary>
+        ///     Gets or sets whether the splash screen should be displayed.
+        /// </summary>
+        public static bool NoSplash { get; set; }
+
+        /// <summary>
         ///     Gets or sets whether the application is currently running in 'safe mode'.
         /// </summary>
         public static bool SafeMode { get; set; }

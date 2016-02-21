@@ -2,8 +2,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using Tabster.Core.Searching;
@@ -24,18 +27,29 @@ namespace Tabster.Forms
 {
     internal partial class MainForm : Form
     {
+        private readonly TabsterDatabaseHelper _databaseHelper;
         private readonly LibraryManager _libraryManager;
         private readonly PlaylistManager _playlistManager;
         private readonly FileInfo _queuedFileInfo;
         private readonly TablatureFile _queuedTablatureFile;
         private readonly RecentFilesManager _recentFilesManager;
         private UpdateResponseEventArgs _queuedUpdateResponse;
+        private SplashScreen _splashScreen;
 
-        public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager, UpdateResponseEventArgs updateResponse = null)
+        public MainForm()
         {
-            _libraryManager = libraryManager;
-            _playlistManager = playlistManager;
-            _queuedUpdateResponse = updateResponse;
+            var tablatureDirectory = TabsterEnvironment.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData, "Library");
+
+            var databasePath = Path.Combine(TabsterEnvironment.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData), "library.db");
+
+            var fileProcessor = new TabsterFileProcessor<TablatureFile>(Constants.TablatureFileVersion);
+
+            Logging.GetLogger().Info(string.Format("Initializing database: {0}", databasePath));
+            _databaseHelper = new TabsterDatabaseHelper(databasePath);
+
+            _libraryManager = new LibraryManager(_databaseHelper, fileProcessor, tablatureDirectory);
+            _playlistManager = new PlaylistManager(_databaseHelper, fileProcessor);
+            _recentFilesManager = new RecentFilesManager(_databaseHelper, fileProcessor);
 
             InitializeComponent();
 
@@ -49,16 +63,10 @@ namespace Tabster.Forms
 #endif
             InitAspectGetters();
 
-            _recentFilesManager = new RecentFilesManager(Program.GetDatabaseHelper(), libraryManager.GetTablatureFileProcessor());
-
-            PopulateTabTypeControls();
-
             UpdateSortColumnMenu(true);
 
             //tabviewermanager events
             TablatureViewForm.GetInstance(this).TabClosed += TabHandler_OnTabClosed;
-
-            UpdateCheck.Completed += updateQuery_Completed;
 
             recentlyViewedMenuItem.OnItemsCleared += recentlyViewedMenuItem_OnItemsCleared;
 
@@ -71,10 +79,6 @@ namespace Tabster.Forms
 
             CachePluginResources();
 
-            InitializeSearchControls(true);
-
-            BuildSearchSuggestions();
-
             ToggleEmptyLibraryOverlay(listViewLibrary, true);
             ToggleEmptyLibraryOverlay(listViewSearch, true);
 
@@ -82,13 +86,11 @@ namespace Tabster.Forms
             searchPreviewEditor.Font = TablatureFontManager.GetFont();
         }
 
-        public MainForm(LibraryManager libraryManager, PlaylistManager playlistManager,
-            TablatureFile tablatureFile, FileInfo fileInfo, UpdateResponseEventArgs updateResponse = null)
-            : this(libraryManager, playlistManager, updateResponse)
+        public MainForm(TablatureFile tablatureFile, FileInfo fileInfo)
+            : this()
         {
             _queuedTablatureFile = tablatureFile;
             _queuedFileInfo = fileInfo;
-            _queuedUpdateResponse = updateResponse;
         }
 
         private void updateQuery_Completed(object sender, UpdateResponseEventArgs e)
@@ -157,8 +159,130 @@ namespace Tabster.Forms
             }
         }
 
+        private void ToggleVisibility(bool visible)
+        {
+            if (visible)
+            {
+                Invoke((Action) delegate
+                {
+                    Opacity = 1.0f;
+                    ShowInTaskbar = true;
+                });
+            }
+
+            else
+            {
+                Invoke((Action) delegate
+                {
+                    Opacity = 0.0f;
+                    ShowInTaskbar = true;
+                });
+            }
+        }
+
+        private const int SplashTime = 3500;
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            var done = false;
+
+            if (!TabsterEnvironment.NoSplash)
+            {
+                ToggleVisibility(false);
+
+                ThreadPool.QueueUserWorkItem((x) =>
+                {
+                    var sw = new Stopwatch();
+                    sw.Start();
+                    using (_splashScreen = new SplashScreen())
+                    {
+                        _splashScreen.Show();
+
+                        long elapsed;
+
+                        do
+                        {
+                            sw.Stop();
+                            elapsed = sw.ElapsedMilliseconds;
+                            sw.Start();
+                            Application.DoEvents();
+                        } while (!done || elapsed < SplashTime);
+
+                        _splashScreen.Close();
+                        ToggleVisibility(true);
+                    }
+                });
+            }
+
+            PerformStartupEvents();
+            done = true;
+
+            Activate();
+
+            sidemenu.SelectedNode = sidemenu.Nodes[0].FirstNode;
+
+            UpdateDetails();
+        }
+
+        private void UpdateSplash(string status)
+        {
+            if (_splashScreen != null && !_splashScreen.IsDisposed)
+            {
+                _splashScreen.UpdateStatus(status);
+            }
+        }
+
+        private void PerformStartupEvents()
+        {
+            if (!TabsterEnvironment.SafeMode)
+            {
+                UpdateSplash("Initializing plugins...");
+                Logging.GetLogger().Info("Loading plugins...");
+
+                Program.GetPluginController().LoadPlugins();
+
+                var disabledGuids = new List<Guid>();
+                foreach (var guid in Settings.Default.DisabledPlugins)
+                {
+                    disabledGuids.Add(new Guid(guid));
+                }
+
+                foreach (var pluginHost in Program.GetPluginController().GetPluginHosts().Where(pluginHost => !disabledGuids.Contains(pluginHost.Plugin.Guid)))
+                {
+                    pluginHost.Enabled = true;
+                }
+            }
+
+            // database file deleted or possible pre-2.0 version, convert existing files
+            if (_databaseHelper.DatabaseCreated)
+            {
+                Logging.GetLogger().Info("Converting old file types...");
+                UpdateSplash("Converting old file types...");
+                XmlFileConverter.ConvertXmlFiles(_playlistManager, _libraryManager);
+            }
+
+            Logging.GetLogger().Info("Initializing library...");
+            UpdateSplash("Loading library...");
+            _libraryManager.Load(_databaseHelper.DatabaseCreated);
+
+            Logging.GetLogger().Info("Initializing playlists...");
+            UpdateSplash("Loading playlists...");
+            _playlistManager.Load();
+
+            foreach (var playlist in _playlistManager.GetPlaylists())
+            {
+                AddPlaylistNode(playlist);
+            }
+
+            PopulatePlaylistMenu();
+
+            Logging.GetLogger().Info("Preparing search functions...");
+            UpdateSplash("Preparing search functions...");
+            InitializeSearchControls(true);
+            BuildSearchSuggestions();
+
+            Logging.GetLogger().Info("Loading user environment...");
+            UpdateSplash("Loading user environment...");
             _recentFilesManager.Load();
 
             var recentItems = _recentFilesManager.GetItems();
@@ -171,28 +295,21 @@ namespace Tabster.Forms
                 recentlyViewedMenuItem.Add(item.FileInfo, item.TablatureFile.ToFriendlyString(), updateDisplay);
             }
 
-            sidemenu.SelectedNode = sidemenu.Nodes[0].FirstNode;
+            LoadSettings(true);
+            PopulateTabTypeControls();
 
-            foreach (var playlist in _playlistManager.GetPlaylists())
+            UpdateCheck.Completed += updateQuery_Completed;
+            if (Settings.Default.StartupUpdate)
             {
-                AddPlaylistNode(playlist);
+                UpdateSplash("Checking for updates...");
+                UpdateCheck.Check(true);
             }
 
-            PopulatePlaylistMenu();
-
-            LoadSettings(true);
-
-            UpdateDetails();
-        }
-
-        private void Form1_Shown(object sender, EventArgs e)
-        {
             if (_queuedUpdateResponse != null)
             {
                 OnUpdateResponse(_queuedUpdateResponse);
             }
 
-            //loads queued tab after splash
             if (_queuedTablatureFile != null)
             {
                 PopoutTab(_queuedTablatureFile, _queuedFileInfo);
