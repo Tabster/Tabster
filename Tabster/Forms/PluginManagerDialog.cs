@@ -28,9 +28,26 @@ namespace Tabster.Forms
             _pluginHosts.AddRange(Program.GetPluginController().GetPluginHosts());
 
             LoadPlugins();
+
+            FeaturedPluginChecker.Completed += FeaturedPluginChecker_Completed;
+            FeaturedPluginChecker.Check();
         }
 
         public bool PluginsModified { get; private set; }
+
+        private void FeaturedPluginChecker_Completed(object sender, FeaturedPluginChecker.FeaturedPluginsResponseEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                listBox1.DisplayMember = "Name";
+                listBox1.DataSource = e.Response.Plugins;
+            }
+
+            else
+            {
+                MessageBox.Show("An error occured while retrieving featured plugins data.", "Featured Plugins", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void LoadPlugins()
         {
@@ -58,7 +75,22 @@ namespace Tabster.Forms
             if (listPlugins.Items.Count > 0)
                 listPlugins.Items[0].Selected = true;
             else
-                LoadPluginInformation(null);
+                LoadPluginInformation((PluginHost) null);
+        }
+
+        private void LoadPluginInformation(FeaturedPlugin featuredPlugin)
+        {
+            lblPlaceholder.Visible = tabControl1.SelectedTab != tabFeatured || featuredPlugin == null;
+
+            if (featuredPlugin != null)
+            {
+                lblPluginFilename.Text = "N/A";
+                lblPluginAuthor.Text = featuredPlugin.Author ?? "N/A";
+                lblPluginVersion.Text = featuredPlugin.Version != null ? featuredPlugin.Version.ToString() : "N/A";
+                lblPluginDescription.Text = featuredPlugin.Description ?? "N/A";
+                lblPluginHomepage.Text = featuredPlugin.Website != null  ? featuredPlugin.Website.DnsSafeHost : "N/A";
+                lblPluginHomepage.Tag = featuredPlugin.Website;
+            }
         }
 
         private void LoadPluginInformation(PluginHost pluginHost)
@@ -74,10 +106,12 @@ namespace Tabster.Forms
                     : "N/A";
                 lblPluginDescription.Text = pluginHost.Plugin.Description ?? "N/A";
 
+                lblPluginHomepage.Tag = pluginHost.Plugin.Website.DnsSafeHost;
+
                 if (pluginHost.Plugin.Website != null)
                 {
-                    lblPluginHomepage.Text = pluginHost.Plugin.Website.ToString();
-                    lblPluginHomepage.LinkArea = new LinkArea(0, pluginHost.Plugin.Website.ToString().Length);
+                    lblPluginHomepage.Text = pluginHost.Plugin.Website.DnsSafeHost;
+                    lblPluginHomepage.LinkArea = new LinkArea(0, lblPluginHomepage.Text.Length);
                 }
 
                 else
@@ -88,7 +122,7 @@ namespace Tabster.Forms
             }
         }
 
-        private void pluginsDirectorybtn_Click(object sender, System.EventArgs e)
+        private void pluginsDirectorybtn_Click(object sender, EventArgs e)
         {
             Process.Start(Path.Combine(TabsterEnvironment.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.CommonApplicationData), "Plugins"));
         }
@@ -118,7 +152,7 @@ namespace Tabster.Forms
 
         private void LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(((LinkLabel) sender).Text);
+            Process.Start(((LinkLabel)sender).Tag.ToString());
         }
 
         private void okbtn_Click(object sender, EventArgs e)
@@ -141,6 +175,19 @@ namespace Tabster.Forms
                     if (!pluginEnabled)
                         Settings.Default.DisabledPlugins.Add(guid.ToString());
                 }
+            }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItems.Count > 0)
+            {
+                var featuredPlugin = (listBox1.SelectedItem as FeaturedPlugin);
+                LoadPluginInformation(featuredPlugin);
+            }
+            else
+            {
+                LoadPluginInformation((FeaturedPlugin) null);
             }
         }
     }

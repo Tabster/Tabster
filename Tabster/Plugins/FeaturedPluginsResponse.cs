@@ -25,7 +25,7 @@ namespace Tabster.Plugins
         public Version Version { get; private set; }
 
         [JsonProperty("website")]
-        public string Website { get; private set; }
+        public Uri Website { get; private set; }
 
         [JsonProperty("categories")]
         public List<string> Categories { get; private set; }

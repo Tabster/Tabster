@@ -34,8 +34,9 @@
             this.colpluginName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabUpdates = new System.Windows.Forms.TabPage();
+            this.tabFeatured = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblPlaceholder = new System.Windows.Forms.Label();
             this.lblPluginFilename = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -49,9 +50,10 @@
             this.pluginsDirectorybtn = new System.Windows.Forms.Button();
             this.okbtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
-            this.lblPlaceholder = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabInstalled.SuspendLayout();
+            this.tabFeatured.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +63,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabInstalled);
-            this.tabControl1.Controls.Add(this.tabUpdates);
+            this.tabControl1.Controls.Add(this.tabFeatured);
             this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -112,15 +114,16 @@
             this.colpluginVersion.Text = "Version";
             this.colpluginVersion.Width = 94;
             // 
-            // tabUpdates
+            // tabFeatured
             // 
-            this.tabUpdates.Location = new System.Drawing.Point(4, 22);
-            this.tabUpdates.Name = "tabUpdates";
-            this.tabUpdates.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUpdates.Size = new System.Drawing.Size(405, 181);
-            this.tabUpdates.TabIndex = 1;
-            this.tabUpdates.Text = "Updates";
-            this.tabUpdates.UseVisualStyleBackColor = true;
+            this.tabFeatured.Controls.Add(this.listBox1);
+            this.tabFeatured.Location = new System.Drawing.Point(4, 22);
+            this.tabFeatured.Name = "tabFeatured";
+            this.tabFeatured.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFeatured.Size = new System.Drawing.Size(405, 181);
+            this.tabFeatured.TabIndex = 1;
+            this.tabFeatured.Text = "Featured";
+            this.tabFeatured.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -141,6 +144,17 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Plugin Details";
+            // 
+            // lblPlaceholder
+            // 
+            this.lblPlaceholder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblPlaceholder.Location = new System.Drawing.Point(3, 16);
+            this.lblPlaceholder.MaximumSize = new System.Drawing.Size(266, 0);
+            this.lblPlaceholder.Name = "lblPlaceholder";
+            this.lblPlaceholder.Size = new System.Drawing.Size(266, 189);
+            this.lblPlaceholder.TabIndex = 16;
+            this.lblPlaceholder.Text = "Select a plugin from the list on the left";
+            this.lblPlaceholder.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPluginFilename
             // 
@@ -270,16 +284,15 @@
             this.cancelbtn.Text = "Cancel";
             this.cancelbtn.UseVisualStyleBackColor = true;
             // 
-            // lblPlaceholder
+            // listBox1
             // 
-            this.lblPlaceholder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPlaceholder.Location = new System.Drawing.Point(3, 16);
-            this.lblPlaceholder.MaximumSize = new System.Drawing.Size(266, 0);
-            this.lblPlaceholder.Name = "lblPlaceholder";
-            this.lblPlaceholder.Size = new System.Drawing.Size(266, 189);
-            this.lblPlaceholder.TabIndex = 16;
-            this.lblPlaceholder.Text = "Select a plugin from the list on the right";
-            this.lblPlaceholder.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(3, 3);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(399, 175);
+            this.listBox1.TabIndex = 2;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // PluginManagerDialog
             // 
@@ -296,6 +309,7 @@
             this.Text = "Plugin Manager";
             this.tabControl1.ResumeLayout(false);
             this.tabInstalled.ResumeLayout(false);
+            this.tabFeatured.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -305,7 +319,7 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabUpdates;
+        private System.Windows.Forms.TabPage tabFeatured;
         private System.Windows.Forms.TabPage tabInstalled;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblPluginFilename;
@@ -326,5 +340,6 @@
         private System.Windows.Forms.Button okbtn;
         private System.Windows.Forms.Button cancelbtn;
         private System.Windows.Forms.Label lblPlaceholder;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
