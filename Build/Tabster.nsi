@@ -41,6 +41,7 @@ Section "MainSection" SEC01
   SetOverwrite ifnewer
 
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.exe"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.exe.config"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Core.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Data.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Printing.dll"
