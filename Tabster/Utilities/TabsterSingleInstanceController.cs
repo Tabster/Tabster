@@ -5,7 +5,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using Tabster.Data;
 using Tabster.Data.Binary;
+using Tabster.Data.Processing;
+using Tabster.Data.Xml;
 using Tabster.Database;
 using Tabster.Forms;
 using Tabster.Properties;
@@ -131,6 +134,14 @@ namespace Tabster.Utilities
                 }
             }
 
+            // database file deleted or possible pre-2.0 version, convert existing files
+            if (_databaseMissing)
+            {
+                Logging.GetLogger().Info("Converting old file types...");
+                _splashScreenController.Update("Converting old file types...");
+                ConvertXmlFiles();
+            }
+
             Logging.GetLogger().Info("Initializing library...");
             _splashScreenController.Update("Loading library...");
             _libraryManager.Load(_databaseMissing);
@@ -149,6 +160,60 @@ namespace Tabster.Utilities
             }
 
             _splashScreenController.Stop();
+        }
+
+        /// <summary>
+        ///     Convert Xml-based files to binary.
+        /// </summary>
+        private void ConvertXmlFiles()
+        {
+            var playlistsDirectory = Path.Combine(TabsterEnvironment.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData), "Playlists");
+
+            // playlists are no longer stored as files, but are now stored in database
+            if (Directory.Exists(playlistsDirectory))
+            {
+#pragma warning disable 612
+                var playlistProcessor = new TabsterFileProcessor<TablaturePlaylistDocument>(TablaturePlaylistDocument.FileVersion);
+#pragma warning restore 612
+
+                foreach (var file in Directory.GetFiles(playlistsDirectory, string.Format("*{0}", Constants.TablaturePlaylistFileExtension), SearchOption.AllDirectories))
+                {
+                    var playlistFile = playlistProcessor.Load(file);
+
+                    if (playlistFile != null)
+                    {
+                        var playlist = new TablaturePlaylist(playlistFile.Name) {Created = playlistFile.FileAttributes.Created};
+
+                        foreach (var item in playlistFile)
+                        {
+                            playlist.Add(item);
+                        }
+
+                        _playlistManager.Update(playlist);
+
+                        try
+                        {
+                            File.Delete(file);
+                        }
+
+                        catch
+                        {
+                            // unhandled
+                        }
+                    }
+                }
+            }
+
+            if (Directory.Exists(_libraryManager.TablatureDirectory))
+            {
+                foreach (var file in Directory.GetFiles(_libraryManager.TablatureDirectory, string.Format("*{0}", Constants.TablatureFileExtension), SearchOption.AllDirectories))
+                {
+                    var tablatureFile = TabsterXmlFileConverter.ConvertTablatureDocument(file);
+
+                    if (tablatureFile != null)
+                        tablatureFile.Save(file);
+                }
+            }
         }
     }
 }
