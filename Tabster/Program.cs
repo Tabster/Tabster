@@ -112,6 +112,16 @@ namespace Tabster
                         }
 
                         playlistManager.Update(playlist);
+
+                        try
+                        {
+                            File.Delete(file);
+                        }
+
+                        catch
+                        {
+                            // unhandled
+                        }
                     }
                 }
             }
