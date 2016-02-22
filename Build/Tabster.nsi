@@ -119,7 +119,6 @@ Section Uninstall
   
   ; file association
   ${unregisterExtension} ".tabster" "Tabster File"
-  ${unregisterExtension} ".tablist" "Tabster Playlist"
   
   SetAutoClose true
 SectionEnd
