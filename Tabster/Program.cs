@@ -40,15 +40,18 @@ namespace Tabster
 
             var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
             var userPlugindirectoryDirectory = TabsterEnvironment.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData, "Plugins");
-            _pluginManager = new PluginManager(new[] { pluginDirectory, userPlugindirectoryDirectory });
+            _pluginManager = new PluginManager(new[] {pluginDirectory, userPlugindirectoryDirectory});
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             var assemblyGuid = ((GuidAttribute) Assembly.GetExecutingAssembly().GetCustomAttributes(typeof (GuidAttribute), true)[0]).Value;
             var filename = Path.Combine(TabsterEnvironment.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData), string.Format("{0}.tmp", assemblyGuid));
-            var instanceController = new TabsterSingleInstanceController(filename);
-            instanceController.Start(new ReadOnlyCollection<string>(args));
+
+            using (var instanceController = new TabsterSingleInstanceController(filename))
+            {
+                instanceController.Start(new ReadOnlyCollection<string>(args));
+            }
         }
     }
 }
