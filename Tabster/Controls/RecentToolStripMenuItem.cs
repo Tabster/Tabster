@@ -13,13 +13,10 @@ namespace Tabster.Controls
     internal class RecentToolStripMenuItem : MenuItem
     {
         private readonly MenuItem _clearMenuItem = new MenuItem();
-
-        private readonly List<MenuItem> _consecutiveItems = new List<MenuItem>();
-        private readonly List<RecentToolStripMenuElement> _items = new List<RecentToolStripMenuElement>();
+        private readonly List<RecentMenuItem> _items = new List<RecentMenuItem>();
         private readonly MenuItem _openAllMenuItem = new MenuItem();
 
         private string _clearOptionText = "Clear All Recent Items";
-
         private bool _displayClearOption = true;
         private RecentFilesDisplayMode _displayMode = RecentFilesDisplayMode.Child;
         private int _maxDisplayItems = 10;
@@ -29,7 +26,6 @@ namespace Tabster.Controls
         public RecentToolStripMenuItem()
         {
             _openAllMenuItem.Text = OpenAllOptionText;
-
             _openAllMenuItem.Click += delegate
             {
                 if (OnAllItemsOpened != null)
@@ -46,7 +42,7 @@ namespace Tabster.Controls
             };
         }
 
-        public ReadOnlyCollection<RecentToolStripMenuElement> Items
+        public ReadOnlyCollection<RecentMenuItem> Items
         {
             get { return _items.AsReadOnly(); }
         }
@@ -54,7 +50,11 @@ namespace Tabster.Controls
         public bool DisplayClearOption
         {
             get { return _displayClearOption; }
-            set { _displayClearOption = value; }
+            set
+            {
+                _displayClearOption = value;
+                PopulateItems();
+            }
         }
 
         public string ClearOptionText
@@ -67,7 +67,15 @@ namespace Tabster.Controls
             }
         }
 
-        public bool DisplayOpenAllOption { get; set; }
+        public bool DisplayOpenAllOption
+        {
+            get { return _displayOpenAllOption; }
+            set
+            {
+                _displayOpenAllOption = value;
+                PopulateItems();
+            }
+        }
 
         public string OpenAllOptionText
         {
@@ -82,7 +90,11 @@ namespace Tabster.Controls
         public RecentFilesDisplayMode DisplayMode
         {
             get { return _displayMode; }
-            set { _displayMode = value; }
+            set
+            {
+                _displayMode = value;
+                PopulateItems();
+            }
         }
 
         public int MaxDisplayItems
@@ -102,32 +114,43 @@ namespace Tabster.Controls
         public bool PrependItemNumbers
         {
             get { return _prependItemNumbers; }
-            set { _prependItemNumbers = value; }
+            set
+            {
+                _prependItemNumbers = value;
+                PopulateItems();
+            }
         }
 
         public event EventHandler OnItemClicked;
         public event EventHandler OnClearItemClicked;
         public event EventHandler OnAllItemsOpened;
 
-        public void Add(FileInfo file, string displayName = null)
+        public void Add(RecentMenuItem menuItem)
         {
-            if (!file.Exists)
+            if (!menuItem.FileInfo.Exists)
                 return;
 
-            Remove(file, false);
+            Remove(menuItem, false);
 
             if (_items.Count == _maxDisplayItems)
                 _items.RemoveAt(_items.Count - 1);
 
-            _items.Insert(0, new RecentToolStripMenuElement(file, displayName));
+            _items.Insert(0, menuItem);
+
+            menuItem.Click += (s, e) =>
+            {
+                if (OnItemClicked != null)
+                    OnItemClicked(s, e);
+            };
 
             PopulateItems();
         }
 
-        public void Remove(FileInfo file, bool repopulateDisplayItems = true)
+        public void Remove(RecentMenuItem menuItem, bool repopulateDisplayItems = true)
         {
-            _items.RemoveAll(x => x.File.FullName.Equals(file.FullName, StringComparison.OrdinalIgnoreCase));
-            
+            _items.Remove(menuItem);
+            _items.RemoveAll(x => x.FileInfo.FullName.Equals(menuItem.FileInfo.FullName, StringComparison.OrdinalIgnoreCase));
+
             if (repopulateDisplayItems)
                 PopulateItems();
         }
@@ -143,74 +166,39 @@ namespace Tabster.Controls
                 ClearConsecutiveItems();
         }
 
-        public bool Exists(FileInfo file, out int index)
-        {
-            for (var i = 0; i < _items.Count; i++)
-            {
-                var f = _items[i].File;
-
-                if (f.FullName.Equals(file.FullName, StringComparison.OrdinalIgnoreCase))
-                {
-                    index = i;
-                    return true;
-                }
-            }
-
-            index = -1;
-            return false;
-        }
-
         private void PopulateItems()
         {
-            var menuItems = new List<MenuItem>();
+            // update item numbers
+            for (var i = 0; i < _items.Count; i++)
+            {
+                var item = _items[i];
+                var itemText = string.IsNullOrEmpty(item.DisplayText) ? item.FileInfo.FullName : item.DisplayText;
+                item.Text = PrependItemNumbers ? string.Format("{0}: {1}", i + 1, itemText) : itemText;
+            }
+
+            ClearChildItems();
+            ClearConsecutiveItems();
+
+            if (DisplayMode == RecentFilesDisplayMode.Child)
+                PopulateChildItems();
+
+            if (DisplayMode == RecentFilesDisplayMode.Consecutive)
+                PopulateConsecutiveItems();
+        }
+
+        #region RecentFilesDisplayMode.Child Methods
+
+        private void PopulateChildItems()
+        {
+            if (_items.Count == 0)
+                return;
 
             for (var i = 0; i < _items.Count; i++)
             {
                 if (i == MaxDisplayItems)
                     break;
 
-                var item = _items[i];
-
-                var displayName = string.IsNullOrEmpty(item.DisplayName) ? item.File.FullName : item.DisplayName;
-
-                if (PrependItemNumbers)
-                    displayName = string.Format("{0}: {1}", i + 1, displayName);
-
-                var menuItem = new MenuItem(displayName) {Tag = item.File.FullName};
-
-                menuItem.Click += (s, e) =>
-                {
-                    if (OnItemClicked != null)
-                        OnItemClicked(s, e);
-                };
-
-                item.MenuItem = menuItem;
-
-                menuItems.Insert(0, menuItem);
-            }
-
-            //clear existing items
-            ClearChildItems();
-            ClearConsecutiveItems();
-
-            if (DisplayMode == RecentFilesDisplayMode.Child)
-            {
-                PopulateChildItems(menuItems);
-            }
-
-            if (DisplayMode == RecentFilesDisplayMode.Consecutive)
-            {
-                PopulateConsecutiveItems(menuItems);
-            }
-        }
-
-        #region RecentFilesDisplayMode.Child Methods
-
-        private void PopulateChildItems(IEnumerable<MenuItem> items)
-        {
-            foreach (var item in items)
-            {
-                PopulateChildItem(item);
+                PopulateChildItem(_items[i]);
             }
 
             if (DisplayOpenAllOption || DisplayClearOption)
@@ -240,80 +228,80 @@ namespace Tabster.Controls
 
         #region RecentFilesDisplayMode.Consecutive Methods
 
-        private void PopulateConsecutiveItems(IEnumerable<MenuItem> items)
+        private readonly List<int> _consecutiveItemIndexes = new List<int>();
+        private bool _displayOpenAllOption;
+
+        private void PopulateConsecutiveItems()
         {
             Visible = false;
 
-            var index = Parent.MenuItems.IndexOf(this);
+            if (_items.Count == 0)
+                return;
 
-            var count = index;
+            var itemIndex = GetCurrentIndex();
 
-            PopulateConsecutiveItem(index, new MenuItemSeperator());
+            PopulateConsecutiveItem(itemIndex, new MenuItemSeperator());
+            itemIndex++;
 
-            foreach (var item in items)
+            foreach (var item in _items)
             {
-                PopulateConsecutiveItem(index, item);
-                count++;
+                if (itemIndex == MaxDisplayItems)
+                    break;
+
+                PopulateConsecutiveItem(itemIndex, item);
+                itemIndex++;
             }
 
             if (DisplayOpenAllOption || DisplayClearOption)
             {
-                PopulateConsecutiveItem(count, new MenuItemSeperator());
-                count++;
+                PopulateConsecutiveItem(itemIndex, new MenuItemSeperator());
+                itemIndex++;
             }
 
             if (DisplayOpenAllOption)
             {
-                PopulateConsecutiveItem(count, _openAllMenuItem);
-                count++;
+                PopulateConsecutiveItem(itemIndex, _openAllMenuItem);
+                itemIndex++;
             }
 
             if (DisplayClearOption)
             {
-                PopulateConsecutiveItem(count, _clearMenuItem);
-                count++;
+                PopulateConsecutiveItem(itemIndex, _clearMenuItem);
+                itemIndex++;
             }
 
-            PopulateConsecutiveItem(index, new MenuItemSeperator());
+            PopulateConsecutiveItem(itemIndex, new MenuItemSeperator());
         }
 
         private void PopulateConsecutiveItem(int index, MenuItem item)
         {
             Parent.MenuItems.Add(index, item);
-            _consecutiveItems.Add(item);
+            _consecutiveItemIndexes.Add(index);
         }
 
         private void ClearConsecutiveItems()
         {
             var owner = (Parent as MenuItem);
+            _consecutiveItemIndexes.Reverse();
 
-            foreach (var item in _consecutiveItems)
+            foreach (var index in _consecutiveItemIndexes)
             {
-                owner.MenuItems.Remove(item);
+                owner.MenuItems.RemoveAt(index);
             }
 
-            _consecutiveItems.Clear();
+            _consecutiveItemIndexes.Clear();
         }
 
-        #endregion
-
-        #region Nested type: RecentToolStripMenuElement
-
-        internal class RecentToolStripMenuElement
+        private int GetCurrentIndex()
         {
-            public RecentToolStripMenuElement(FileInfo file, string displayName)
-            {
-                File = file;
-                DisplayName = displayName;
-            }
-
-            public FileInfo File { get; private set; }
-            public string DisplayName { get; private set; }
-            public MenuItem MenuItem { get; set; }
+            return Parent.MenuItems.IndexOf(this);
         }
 
         #endregion
 
+        /// <summary>
+        ///     Represents an individual menu item separator.
+        /// </summary>
         internal class MenuItemSeperator : MenuItem
         {
             public MenuItemSeperator()
@@ -322,11 +310,46 @@ namespace Tabster.Controls
             }
         }
 
+        /// <summary>
+        ///     Represents an individual recent menu item.
+        /// </summary>
+        public class RecentMenuItem : MenuItem
+        {
+            /// <summary>
+            ///     Initializes a new RecentMenuItem.
+            /// </summary>
+            /// <param name="fileInfo">The respective FileInfo for the menu item.</param>
+            public RecentMenuItem(FileInfo fileInfo)
+            {
+                FileInfo = fileInfo;
+            }
+
+            /// <summary>
+            ///     Respective file info reference.
+            /// </summary>
+            public FileInfo FileInfo { get; private set; }
+
+            /// <summary>
+            ///     Text to display on menu item.
+            /// </summary>
+            public string DisplayText { get; set; }
+        }
+
         #region RecentFilesDisplayMode enum
 
+        /// <summary>
+        ///     Display mode for menu item.
+        /// </summary>
         public enum RecentFilesDisplayMode
         {
+            /// <summary>
+            ///     Items are displayed using a parent/child model.
+            /// </summary>
             Child,
+
+            /// <summary>
+            ///     Iteams are displayed consecutively, being appended after the parent item.
+            /// </summary>
             Consecutive
         }
 

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using Tabster.Controls;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Data;
@@ -312,11 +313,9 @@ namespace Tabster.Forms
         {
             recentlyViewedMenuItem.Clear();
 
-            var recentItems = _recentFilesManager.GetItems();
-            for (var i = 0; i < recentItems.Count; i++)
+            foreach (var item in _recentFilesManager.GetItems())
             {
-                var item = recentItems[i];
-                recentlyViewedMenuItem.Add(item.FileInfo, item.TablatureFile.ToFriendlyString());
+                recentlyViewedMenuItem.Add(new RecentToolStripMenuItem.RecentMenuItem(item.FileInfo) { DisplayText = item.TablatureFile.ToFriendlyString() });
             }
         }
 
@@ -391,13 +390,13 @@ namespace Tabster.Forms
 
         private void OpenRecentFile(MenuItem item)
         {
-            var path = item.Tag.ToString();
+            var recentMenuItem = (RecentToolStripMenuItem.RecentMenuItem) item;
 
-            var tab = _libraryManager.GetTablatureFileProcessor().Load(path);
+            var tab = _libraryManager.GetTablatureFileProcessor().Load(recentMenuItem.FileInfo.FullName);
 
             if (tab != null)
             {
-                TablatureViewForm.GetInstance(this).LoadTablature(tab, new FileInfo(path));
+                TablatureViewForm.GetInstance(this).LoadTablature(tab, new FileInfo(recentMenuItem.FileInfo.FullName));
             }
         }
 
@@ -410,7 +409,7 @@ namespace Tabster.Forms
         {
             foreach (var item in recentlyViewedMenuItem.Items)
             {
-                OpenRecentFile(item.MenuItem);
+                OpenRecentFile(item);
             }
         }
 
