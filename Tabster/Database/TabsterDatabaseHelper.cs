@@ -53,7 +53,7 @@ namespace Tabster.Database
                 cmd.ExecuteNonQuery();
             }
 
-            using (var cmd = new SQLiteCommand(string.Format("CREATE TABLE IF NOT EXISTS {0} (id INTEGER PRIMARY KEY, filename TEXT, accessed INTEGER)", TableRecentFiles), _db))
+            using (var cmd = new SQLiteCommand(string.Format("CREATE TABLE IF NOT EXISTS {0} (id INTEGER PRIMARY KEY, filename TEXT)", TableRecentFiles), _db))
             {
                 cmd.ExecuteNonQuery();
             }

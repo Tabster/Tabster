@@ -185,7 +185,7 @@ namespace Tabster.Forms
 
             if (updateRecentFiles)
             {
-                _recentFilesManager.Add(new RecentFile(file, fileInfo, DateTime.UtcNow));
+                _recentFilesManager.Add(new RecentFile(file, fileInfo));
                 recentlyViewedMenuItem.Add(fileInfo, file.ToFriendlyString());
             }
 

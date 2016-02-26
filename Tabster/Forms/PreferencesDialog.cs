@@ -9,6 +9,7 @@ using System.Net;
 using System.Windows.Forms;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
+using Tabster.Database;
 using Tabster.Plugins;
 using Tabster.Properties;
 using Tabster.Utilities;
@@ -19,6 +20,8 @@ namespace Tabster.Forms
 {
     internal partial class PreferencesDialog : Form
     {
+        private readonly RecentFilesManager _recentFilesManager;
+
         public enum PreferencesSection
         {
             General,
@@ -30,8 +33,9 @@ namespace Tabster.Forms
         private readonly Color _disabledColor = Color.Red;
         private readonly Color _enabledColor = Color.Green;
 
-        public PreferencesDialog()
+        public PreferencesDialog(RecentFilesManager recentFilesManager)
         {
+            _recentFilesManager = recentFilesManager;
             InitializeComponent();
 
             LoadPreferences();
@@ -41,17 +45,20 @@ namespace Tabster.Forms
             radioSystemProxy.Visible = btnEditSystemProxy.Visible = MonoUtilities.GetPlatform() == MonoUtilities.Platform.Windows;
         }
 
-        public PreferencesDialog(PreferencesSection section) : this()
+        public PreferencesDialog(RecentFilesManager recentFilesManager, PreferencesSection section) : this(recentFilesManager)
         {
             tabControl1.SelectedIndex = (int) section;
         }
 
         public bool SearchEnginesModified { get; private set; }
+        public bool MaxRecentItemsModified { get; private set; }
+        public bool RecentItemsCleared { get; private set; }
 
         private void LoadPreferences()
         {
             chkUpdates.Checked = Settings.Default.StartupUpdate;
             chkStripVersionedNames.Checked = Settings.Default.StripVersionedNames;
+            numMaxRecentItems.Value = Settings.Default.MaxRecentItems;
 
             //printing
             printColorPreview.BackColor = Settings.Default.PrintColor;
@@ -104,6 +111,12 @@ namespace Tabster.Forms
             Settings.Default.PrintColor = printColorPreview.BackColor;
             Settings.Default.PrintPageNumbers = chkPrintPageNumbers.Checked;
             Settings.Default.PrintTimestamp = chkPrintTimestamp.Checked;
+
+            if (numMaxRecentItems.Value != Settings.Default.MaxRecentItems)
+            {
+                MaxRecentItemsModified = true;
+                Settings.Default.MaxRecentItems = (int) numMaxRecentItems.Value;
+            }
 
             //network
             var proxyConfig = ProxyConfiguration.None;
@@ -317,5 +330,11 @@ namespace Tabster.Forms
         }
 
         #endregion
+
+        private void btnClearRecentItems_Click(object sender, EventArgs e)
+        {
+            _recentFilesManager.Clear();
+            RecentItemsCleared = true;
+        }
     }
 }

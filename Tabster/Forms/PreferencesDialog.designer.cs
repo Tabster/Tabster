@@ -64,6 +64,9 @@
             this.chkPrintTimestamp = new System.Windows.Forms.CheckBox();
             this.chkPrintPageNumbers = new System.Windows.Forms.CheckBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnClearRecentItems = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numMaxRecentItems = new System.Windows.Forms.NumericUpDown();
             this.chkStripVersionedNames = new System.Windows.Forms.CheckBox();
             this.chkUpdates = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -74,6 +77,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numProxyPort)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxRecentItems)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -444,6 +448,9 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnClearRecentItems);
+            this.tabPage1.Controls.Add(this.label6);
+            this.tabPage1.Controls.Add(this.numMaxRecentItems);
             this.tabPage1.Controls.Add(this.chkStripVersionedNames);
             this.tabPage1.Controls.Add(this.chkUpdates);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -453,6 +460,38 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnClearRecentItems
+            // 
+            this.btnClearRecentItems.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnClearRecentItems.Location = new System.Drawing.Point(175, 50);
+            this.btnClearRecentItems.Name = "btnClearRecentItems";
+            this.btnClearRecentItems.Size = new System.Drawing.Size(88, 23);
+            this.btnClearRecentItems.TabIndex = 26;
+            this.btnClearRecentItems.Text = "Clear";
+            this.btnClearRecentItems.UseVisualStyleBackColor = true;
+            this.btnClearRecentItems.Click += new System.EventHandler(this.btnClearRecentItems_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 55);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(90, 13);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Max recent items:";
+            // 
+            // numMaxRecentItems
+            // 
+            this.numMaxRecentItems.Location = new System.Drawing.Point(98, 53);
+            this.numMaxRecentItems.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.numMaxRecentItems.Name = "numMaxRecentItems";
+            this.numMaxRecentItems.Size = new System.Drawing.Size(71, 20);
+            this.numMaxRecentItems.TabIndex = 20;
             // 
             // chkStripVersionedNames
             // 
@@ -523,6 +562,7 @@
             this.tabPage2.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxRecentItems)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -569,5 +609,8 @@
         private System.Windows.Forms.CheckBox chkStripVersionedNames;
         private System.Windows.Forms.CheckBox chkUpdates;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.Button btnClearRecentItems;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numMaxRecentItems;
     }
 }

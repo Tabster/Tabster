@@ -61,5 +61,8 @@
     <Setting Name="StripVersionedNames" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="MaxRecentItems" Provider="Tabster.Utilities.PortableSettingsProvider" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

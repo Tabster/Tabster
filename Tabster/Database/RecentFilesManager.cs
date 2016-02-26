@@ -1,7 +1,7 @@
 ﻿#region
 
-using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
@@ -19,81 +19,66 @@ namespace Tabster.Database
         {
         }
 
-        public RecentFile(TablatureFile tablatureFile, FileInfo fileInfo, DateTime accessed)
+        public RecentFile(TablatureFile tablatureFile, FileInfo fileInfo)
         {
             TablatureFile = tablatureFile;
             FileInfo = fileInfo;
-            Accessed = accessed;
         }
 
-        public int? Id { get; set; }
         public TablatureFile TablatureFile { get; private set; }
         public FileInfo FileInfo { get; private set; }
-        public DateTime? Accessed { get; private set; }
     }
 
     internal class RecentFilesManager
     {
-        public const int MaxItems = 20;
         private readonly TabsterDatabaseHelper _databaseHelper;
         private readonly TabsterFileProcessor<TablatureFile> _fileProcessor;
 
         private readonly List<RecentFile> _items = new List<RecentFile>();
-        private int _lastUsedId = 1;
+        private int _maxItems;
 
-        public RecentFilesManager(TabsterDatabaseHelper databaseHelper, TabsterFileProcessor<TablatureFile> fileProcessor)
+        public RecentFilesManager(TabsterDatabaseHelper databaseHelper, TabsterFileProcessor<TablatureFile> fileProcessor, int maxItems)
         {
             _databaseHelper = databaseHelper;
             _fileProcessor = fileProcessor;
+            _maxItems = maxItems;
         }
 
-        public List<RecentFile> GetItems()
+        public int MaxItems
         {
-            var items = _items.Where(x => x.FileInfo != null);
-            return items.OrderBy(o => o.Accessed).ToList();
+            get { return _maxItems; }
+            set
+            {
+                _maxItems = value;
+
+                if (_items.Count > _maxItems)
+                    _items.RemoveRange(_maxItems - 1, _items.Count - _maxItems);
+            }
+        }
+
+        public ReadOnlyCollection<RecentFile> GetItems()
+        {
+            return _items.AsReadOnly();
         }
 
         public void Load()
         {
-            _lastUsedId = 1;
             _items.Clear();
 
-            using (var cmd = new SQLiteCommand(string.Format("SELECT * FROM {0} ORDER BY id ASC", TabsterDatabaseHelper.TableRecentFiles), _databaseHelper.GetConnection()))
+            using (var cmd = new SQLiteCommand(string.Format("SELECT * FROM {0} ORDER BY id DESC", TabsterDatabaseHelper.TableRecentFiles), _databaseHelper.GetConnection()))
             {
-                var count = Convert.ToInt32(cmd.ExecuteScalar());
-
-                if (count == 0)
-                {
-                    CreateDummyEntries();
-                    Load();
-                    return;
-                }
-
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        var id = int.Parse(reader["id"].ToString());
                         var filename = reader["filename"].ToString();
-                        var accessed = reader["accessed"].ToString();
 
-                        if (!string.IsNullOrEmpty(filename))
+                        var file = _fileProcessor.Load(filename);
+
+                        if (file != null)
                         {
-                            var file = _fileProcessor.Load(filename);
-
-                            if (file != null)
-                            {
-                                var r = new RecentFile(file, new FileInfo(filename), TabsterDatabaseHelper.UnixTimestampToDateTime(int.Parse(accessed))) {Id = id};
-                                _items.Add(r);
-
-                                if (id > _lastUsedId)
-                                    _lastUsedId = id;
-                            }
-                        }
-
-                        else
-                        {
-                            _items.Add(new RecentFile {Id = id});
+                            var r = new RecentFile(file, new FileInfo(filename));
+                            _items.Add(r);
                         }
                     }
                 }
@@ -102,6 +87,8 @@ namespace Tabster.Database
 
         public void Save()
         {
+            ClearInternal();
+
             using (var trans = _databaseHelper.GetConnection().BeginTransaction())
             {
                 foreach (var item in _items)
@@ -109,10 +96,8 @@ namespace Tabster.Database
                     using (var cmd = new SQLiteCommand(_databaseHelper.GetConnection()))
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = string.Format(@"UPDATE {0} SET filename=@filename, accessed=@accessed WHERE id=@id", TabsterDatabaseHelper.TableRecentFiles);
-                        cmd.Parameters.Add(new SQLiteParameter("@id", item.Id));
-                        cmd.Parameters.Add(new SQLiteParameter("@filename", item.FileInfo == null ? "" : item.FileInfo.FullName));
-                        cmd.Parameters.Add(new SQLiteParameter("@accessed", item.Accessed == null ? 0 : TabsterDatabaseHelper.GetUnixTimestamp(item.Accessed.Value)));
+                        cmd.CommandText = string.Format(@"INSERT INTO {0} (filename) VALUES (@filename)", TabsterDatabaseHelper.TableRecentFiles);
+                        cmd.Parameters.Add(new SQLiteParameter("@filename", item.FileInfo.FullName));
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -123,49 +108,27 @@ namespace Tabster.Database
 
         public void Add(RecentFile recentFile)
         {
-            var populatedItems = new List<RecentFile>(_items.Where(x => x.FileInfo != null).OrderByDescending(p => p.Id));
-            if (populatedItems.Count == MaxItems)
-            {
-                var next = populatedItems.First();
-                recentFile.Id = next.Id;
-                _items.Remove(next);
-            }
-            else
-            {
-                _lastUsedId++;
-                recentFile.Id = _lastUsedId;
-            }
+            var filenameEntry = _items.Find(x => x.FileInfo.FullName.Equals(recentFile.FileInfo.FullName));
+            if (filenameEntry != null)
+                _items.Remove(filenameEntry);
 
-            _items.Add(recentFile);
+            if (_items.Count == _maxItems)
+                _items.Remove(_items.Last());
+
+            _items.Insert(0, recentFile);
         }
 
         public void Clear()
         {
+            ClearInternal();
+            _items.Clear();
+        }
+
+        private void ClearInternal()
+        {
             using (var cmd = new SQLiteCommand(string.Format("DELETE FROM {0}", TabsterDatabaseHelper.TableRecentFiles), _databaseHelper.GetConnection()))
             {
                 cmd.ExecuteNonQuery();
-            }
-
-            _lastUsedId = 1;
-
-            CreateDummyEntries();
-            Load();
-        }
-
-        private void CreateDummyEntries()
-        {
-            //create dummy entries
-            using (var trans = _databaseHelper.GetConnection().BeginTransaction())
-            {
-                for (var i = 0; i < MaxItems; i++)
-                {
-                    using (var cmd = new SQLiteCommand(string.Format("INSERT INTO {0} (filename, accessed) VALUES ('', 0)", TabsterDatabaseHelper.TableRecentFiles), _databaseHelper.GetConnection()))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-
-                trans.Commit();
             }
         }
     }

@@ -271,5 +271,18 @@ namespace Tabster.Properties {
                 this["StripVersionedNames"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Tabster.Utilities.PortableSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int MaxRecentItems {
+            get {
+                return ((int)(this["MaxRecentItems"]));
+            }
+            set {
+                this["MaxRecentItems"] = value;
+            }
+        }
     }
 }

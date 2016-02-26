@@ -49,7 +49,7 @@ namespace Tabster.Forms
 
             _libraryManager = new LibraryManager(_databaseHelper, fileProcessor, tablatureDirectory);
             _playlistManager = new PlaylistManager(_databaseHelper, fileProcessor);
-            _recentFilesManager = new RecentFilesManager(_databaseHelper, fileProcessor);
+            _recentFilesManager = new RecentFilesManager(_databaseHelper, fileProcessor, Settings.Default.MaxRecentItems);
 
             InitializeComponent();
 
@@ -68,7 +68,8 @@ namespace Tabster.Forms
             //tabviewermanager events
             TablatureViewForm.GetInstance(this).TabClosed += TabHandler_OnTabClosed;
 
-            recentlyViewedMenuItem.OnItemsCleared += recentlyViewedMenuItem_OnItemsCleared;
+            recentlyViewedMenuItem.MaxDisplayItems = Settings.Default.MaxRecentItems;
+            recentlyViewedMenuItem.OnClearItemClicked += recentlyViewedMenuItem_OnClearItemClicked;
 
             previewToolStrip.Renderer = new ToolStripRenderer();
 
@@ -103,7 +104,7 @@ namespace Tabster.Forms
                 OnUpdateResponse(e);
         }
 
-        private void recentlyViewedMenuItem_OnItemsCleared(object sender, EventArgs e)
+        private void recentlyViewedMenuItem_OnClearItemClicked(object sender, EventArgs e)
         {
             _recentFilesManager.Clear();
         }
@@ -284,16 +285,7 @@ namespace Tabster.Forms
             Logging.GetLogger().Info("Loading user environment...");
             UpdateSplash("Loading user environment...");
             _recentFilesManager.Load();
-
-            var recentItems = _recentFilesManager.GetItems();
-            for (var i = 0; i < recentItems.Count; i++)
-            {
-                var item = recentItems[i];
-
-                // only update menu items if it's the last one
-                var updateDisplay = i == recentItems.Count - 1;
-                recentlyViewedMenuItem.Add(item.FileInfo, item.TablatureFile.ToFriendlyString(), updateDisplay);
-            }
+            LoadRecentItems();
 
             LoadSettings(true);
             PopulateTabTypeControls();
@@ -313,6 +305,18 @@ namespace Tabster.Forms
             if (_queuedTablatureFile != null)
             {
                 PopoutTab(_queuedTablatureFile, _queuedFileInfo);
+            }
+        }
+
+        private void LoadRecentItems()
+        {
+            recentlyViewedMenuItem.Clear();
+
+            var recentItems = _recentFilesManager.GetItems();
+            for (var i = 0; i < recentItems.Count; i++)
+            {
+                var item = recentItems[i];
+                recentlyViewedMenuItem.Add(item.FileInfo, item.TablatureFile.ToFriendlyString());
             }
         }
 
@@ -747,11 +751,20 @@ namespace Tabster.Forms
 
         private void OpenPreferences(PreferencesDialog.PreferencesSection section)
         {
-            using (var p = new PreferencesDialog(section))
+            using (var p = new PreferencesDialog(_recentFilesManager, section))
             {
                 if (p.ShowDialog() == DialogResult.OK)
                 {
                     LoadSettings(false);
+
+                    if (p.MaxRecentItemsModified)
+                    {
+                        recentlyViewedMenuItem.MaxDisplayItems = Settings.Default.MaxRecentItems;
+                        _recentFilesManager.MaxItems = Settings.Default.MaxRecentItems;
+                    }
+
+                    if (p.RecentItemsCleared)
+                         recentlyViewedMenuItem.Clear();
                 }
             }
         }
