@@ -60,7 +60,6 @@ namespace Tabster.Forms
 #if PORTABLE
 
             Text += " (Portable)";
-            checkForUpdatesMenuItem.Visible = false;
 
 #endif
             InitAspectGetters();
