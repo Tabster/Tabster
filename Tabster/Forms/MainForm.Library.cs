@@ -234,7 +234,7 @@ namespace Tabster.Forms
 
                     if (selectedPlaylist != null)
                     {
-                        if (MessageBox.Show(string.Format("Are you sure you want to remove this tab from the tablaturePlaylist?{0}{0}{1}",
+                        if (MessageBox.Show(string.Format("Are you sure you want to remove this tab from the playlist?{0}{0}{1}",
                             Environment.NewLine, selectedItem.File.ToFriendlyString()), "Remove Tab",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
