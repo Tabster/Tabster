@@ -18,6 +18,12 @@ namespace Tabster.Utilities
         private readonly string _uniqueFilePath;
         private Form _mainForm;
 
+        public SingleInstanceControllerBase()
+            : this(GetRandomFile())
+        {
+            
+        }
+
         public SingleInstanceControllerBase(string fileName)
         {
             _uniqueFilePath = fileName;
@@ -25,6 +31,12 @@ namespace Tabster.Utilities
             _fileSystemWatcher.Changed += _fileSystemWatcher_Changed;
             _fileSystemWatcher.SynchronizingObject = MainForm;
             _fileSystemWatcher.EnableRaisingEvents = true;
+        }
+
+        private static string GetRandomFile()
+        {
+            var guid = Guid.NewGuid();
+            return Path.Combine(Path.GetTempPath(), string.Format("{0}.tmp", guid));
         }
 
         protected Form MainForm
