@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using RecentFilesMenuItem;
 using Tabster.Controls;
 using Tabster.Core.Types;
 using Tabster.Data;
@@ -187,7 +188,7 @@ namespace Tabster.Forms
             if (updateRecentFiles)
             {
                 _recentFilesManager.Add(new RecentFile(file, fileInfo));
-                recentlyViewedMenuItem.Add(new RecentToolStripMenuItem.RecentMenuItem(fileInfo) { DisplayText = file.ToFriendlyString() });
+                recentlyViewedMenuItem.Add(new RecentMenuItem(fileInfo) { DisplayText = file.ToFriendlyString() });
             }
 
             var libraryItem = _libraryManager.FindTablatureItemByFile(file);

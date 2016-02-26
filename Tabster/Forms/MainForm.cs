@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using RecentFilesMenuItem;
 using Tabster.Controls;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
@@ -70,7 +71,7 @@ namespace Tabster.Forms
             TablatureViewForm.GetInstance(this).TabClosed += TabHandler_OnTabClosed;
 
             recentlyViewedMenuItem.MaxDisplayItems = Settings.Default.MaxRecentItems;
-            recentlyViewedMenuItem.OnClearItemClicked += recentlyViewedMenuItem_OnClearItemClicked;
+            recentlyViewedMenuItem.ClearItemClicked += recentlyViewedMenuItem_OnClearItemClicked;
 
             previewToolStrip.Renderer = new ToolStripRenderer();
 
@@ -315,7 +316,7 @@ namespace Tabster.Forms
 
             foreach (var item in _recentFilesManager.GetItems())
             {
-                recentlyViewedMenuItem.Add(new RecentToolStripMenuItem.RecentMenuItem(item.FileInfo) { DisplayText = item.TablatureFile.ToFriendlyString() });
+                recentlyViewedMenuItem.Add(new RecentMenuItem(item.FileInfo) { DisplayText = item.TablatureFile.ToFriendlyString() });
             }
         }
 
@@ -390,7 +391,7 @@ namespace Tabster.Forms
 
         private void OpenRecentFile(MenuItem item)
         {
-            var recentMenuItem = (RecentToolStripMenuItem.RecentMenuItem) item;
+            var recentMenuItem = (RecentMenuItem)item;
 
             var tab = _libraryManager.GetTablatureFileProcessor().Load(recentMenuItem.FileInfo.FullName);
 

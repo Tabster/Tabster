@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using BrightIdeasSoftware;
+using RecentFilesMenuItem;
 using Tabster.Controls;
 using Tabster.WinForms;
 
@@ -183,7 +184,7 @@ namespace Tabster.Forms
             this.newPlaylistMenuItem = new System.Windows.Forms.MenuItem();
             this.openTabMenuItem = new System.Windows.Forms.MenuItem();
             this.importMenuItem = new System.Windows.Forms.MenuItem();
-            this.recentlyViewedMenuItem = new Tabster.Controls.RecentToolStripMenuItem();
+            this.recentlyViewedMenuItem = new RecentFilesMenu();
             this.exitMenuItem = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.libraryPreviewPaneToolStripMenuItem = new System.Windows.Forms.MenuItem();
@@ -1808,7 +1809,7 @@ namespace Tabster.Forms
             // 
             this.recentlyViewedMenuItem.ClearOptionText = "Clear All Recent Items";
             this.recentlyViewedMenuItem.DisplayClearOption = true;
-            this.recentlyViewedMenuItem.DisplayMode = Tabster.Controls.RecentToolStripMenuItem.RecentFilesDisplayMode.Consecutive;
+            this.recentlyViewedMenuItem.DisplayMode = RecentFilesDisplayMode.Consecutive;
             this.recentlyViewedMenuItem.DisplayOpenAllOption = true;
             this.recentlyViewedMenuItem.Enabled = false;
             this.recentlyViewedMenuItem.Index = 4;
@@ -1817,8 +1818,8 @@ namespace Tabster.Forms
             this.recentlyViewedMenuItem.PrependItemNumbers = true;
             this.recentlyViewedMenuItem.Text = "Open Recent";
             this.recentlyViewedMenuItem.Visible = false;
-            this.recentlyViewedMenuItem.OnItemClicked += new System.EventHandler(this.recentlyViewedMenuItem_OnItemClicked);
-            this.recentlyViewedMenuItem.OnAllItemsOpened += new System.EventHandler(this.recentlyViewedMenuItem_OnAllItemsOpened);
+            this.recentlyViewedMenuItem.ItemClicked += new System.EventHandler(this.recentlyViewedMenuItem_OnItemClicked);
+            this.recentlyViewedMenuItem.AllItemClicked += new System.EventHandler(this.recentlyViewedMenuItem_OnAllItemsOpened);
             // 
             // exitMenuItem
             // 
@@ -2106,7 +2107,7 @@ namespace Tabster.Forms
         private MenuItem checkForUpdatesMenuItem;
         private MenuItem aboutMenuItem;
         private MenuItem preferencesMenuItem;
-        private RecentToolStripMenuItem recentlyViewedMenuItem;
+        private RecentFilesMenu recentlyViewedMenuItem;
         private MenuItem viewTabToolStripMenuItem;
         private MenuItem detailsToolStripMenuItem;
         private MenuItem deleteTabToolStripMenuItem;

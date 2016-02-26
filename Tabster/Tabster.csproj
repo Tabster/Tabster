@@ -102,6 +102,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ObjectListView.Official.2.9.0\lib\net20\ObjectListView.dll</HintPath>
     </Reference>
+    <Reference Include="RecentFilesMenuItem">
+      <HintPath>..\packages\RecentFilesMenuItem.1.0.2\lib\net35\RecentFilesMenuItem.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -250,9 +253,6 @@
     </Compile>
     <Compile Include="Forms\SplashScreen.designer.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\RecentToolStripMenuItem.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\StaticTreeView.cs">
       <SubType>Component</SubType>
