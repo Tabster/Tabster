@@ -10,26 +10,8 @@ using System.Windows.Forms;
 
 namespace Tabster.Controls
 {
-    internal class MenuItemSeperator : MenuItem
-    {
-        public MenuItemSeperator()
-        {
-            Text = "-";
-        }
-    }
-
     internal class RecentToolStripMenuItem : MenuItem
     {
-        #region RecentFilesDisplayMode enum
-
-        public enum RecentFilesDisplayMode
-        {
-            Child,
-            Consecutive
-        }
-
-        #endregion
-
         private readonly MenuItem _clearMenuItem = new MenuItem();
 
         private readonly List<MenuItem> _consecutiveItems = new List<MenuItem>();
@@ -106,7 +88,15 @@ namespace Tabster.Controls
         public int MaxDisplayItems
         {
             get { return _maxDisplayItems; }
-            set { _maxDisplayItems = value; }
+            set
+            {
+                _maxDisplayItems = value;
+
+                if (_items.Count > _maxDisplayItems)
+                    _items.RemoveRange(_maxDisplayItems, _items.Count - _maxDisplayItems);
+
+                PopulateItems();
+            }
         }
 
         public bool PrependItemNumbers
@@ -119,21 +109,27 @@ namespace Tabster.Controls
         public event EventHandler OnClearItemClicked;
         public event EventHandler OnAllItemsOpened;
 
-        public void Add(FileInfo file, string displayName = null, bool repopulateDisplayItems = true)
+        public void Add(FileInfo file, string displayName = null)
         {
             if (!file.Exists)
                 return;
 
-            Remove(file);
+            Remove(file, false);
+
+            if (_items.Count == _maxDisplayItems)
+                _items.RemoveAt(_items.Count - 1);
+
             _items.Insert(0, new RecentToolStripMenuElement(file, displayName));
 
-            if (repopulateDisplayItems)
-                PopulateItems();
+            PopulateItems();
         }
 
-        public void Remove(FileInfo file)
+        public void Remove(FileInfo file, bool repopulateDisplayItems = true)
         {
             _items.RemoveAll(x => x.File.FullName.Equals(file.FullName, StringComparison.OrdinalIgnoreCase));
+            
+            if (repopulateDisplayItems)
+                PopulateItems();
         }
 
         public void Clear()
@@ -141,14 +137,10 @@ namespace Tabster.Controls
             _items.Clear();
 
             if (DisplayMode == RecentFilesDisplayMode.Child)
-            {
                 ClearChildItems();
-            }
 
             if (DisplayMode == RecentFilesDisplayMode.Consecutive)
-            {
                 ClearConsecutiveItems();
-            }
         }
 
         public bool Exists(FileInfo file, out int index)
@@ -222,19 +214,13 @@ namespace Tabster.Controls
             }
 
             if (DisplayOpenAllOption || DisplayClearOption)
-            {
                 MenuItems.Add(new MenuItemSeperator());
-            }
 
             if (DisplayOpenAllOption)
-            {
                 MenuItems.Add(_openAllMenuItem);
-            }
 
             if (DisplayClearOption)
-            {
                 MenuItems.Add(_clearMenuItem);
-            }
         }
 
         private void PopulateChildItem(MenuItem item)
@@ -324,6 +310,24 @@ namespace Tabster.Controls
             public FileInfo File { get; private set; }
             public string DisplayName { get; private set; }
             public MenuItem MenuItem { get; set; }
+        }
+
+        #endregion
+
+        internal class MenuItemSeperator : MenuItem
+        {
+            public MenuItemSeperator()
+            {
+                Text = "-";
+            }
+        }
+
+        #region RecentFilesDisplayMode enum
+
+        public enum RecentFilesDisplayMode
+        {
+            Child,
+            Consecutive
         }
 
         #endregion
