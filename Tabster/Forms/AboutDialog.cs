@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
+using Tabster.Core.Types;
 using Tabster.Properties;
 using Tabster.Utilities;
 
@@ -16,7 +17,8 @@ namespace Tabster.Forms
         public AboutDialog()
         {
             InitializeComponent();
-            lblVersion.Text = string.Format("Version {0}", new Version(Application.ProductVersion).ToShortVersionString());
+            lblVersion.Text = string.Format("Version {0}",
+                new TabsterVersion(Application.ProductVersion).ToString(TabsterVersionFormatFlags.Truncated));
             lblCopyright.Text = BrandingUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
             txtLicense.Text = Resources.ApplicationLicense;
             txtFontLicense.Text = Resources.SourceCodeProLicense;

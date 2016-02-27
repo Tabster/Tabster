@@ -96,9 +96,9 @@ namespace Tabster.Forms
             this.lblVersion.BackColor = System.Drawing.Color.Transparent;
             this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.ForeColor = System.Drawing.Color.Gray;
-            this.lblVersion.Location = new System.Drawing.Point(468, 286);
+            this.lblVersion.Location = new System.Drawing.Point(412, 286);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(52, 16);
+            this.lblVersion.Size = new System.Drawing.Size(108, 16);
             this.lblVersion.TabIndex = 54;
             this.lblVersion.Text = "v0.0.0.0";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;

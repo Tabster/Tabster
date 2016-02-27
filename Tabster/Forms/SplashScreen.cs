@@ -1,10 +1,10 @@
 ﻿#region
 
-using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Reflection;
 using System.Windows.Forms;
+using Tabster.Core.Types;
 using Tabster.Utilities;
 
 #endregion
@@ -28,7 +28,7 @@ namespace Tabster.Forms
 
             lblProgress.Text = string.Empty;
 
-            lblVersion.Text = string.Format("v{0}", new Version(Application.ProductVersion).ToShortVersionString());
+            lblVersion.Text = string.Format("v{0}", new TabsterVersion(Application.ProductVersion).ToString(TabsterVersionFormatFlags.Truncated));
             lblCopyright.Text = BrandingUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
             BringToFront();
         }

@@ -1,6 +1,5 @@
 ﻿#region
 
-using System;
 using System.Reflection;
 
 #endregion
@@ -9,23 +8,6 @@ namespace Tabster.Utilities
 {
     internal static class BrandingUtilities
     {
-        public static string ToShortVersionString(this Version version, bool enforceDecimal = true)
-        {
-            var versionStr = version.ToString();
-
-            while (versionStr.EndsWith("0") || versionStr.EndsWith("."))
-            {
-                versionStr = versionStr.Remove(versionStr.Length - 1, 1);
-            }
-
-            if (enforceDecimal && !versionStr.Contains("."))
-            {
-                versionStr = string.Format("{0}.0", versionStr);
-            }
-
-            return versionStr;
-        }
-
         public static string GetCopyrightString(Assembly assembly, string prefix = "Copyright", bool appendCompanyName = true)
         {
             var str = "";
