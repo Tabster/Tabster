@@ -55,7 +55,7 @@ namespace Tabster.Forms
 
             InitializeComponent();
 
-            Text = string.Format("{0} v{1}", Application.ProductName, new Version(Application.ProductVersion).ToShortVersionString());
+            Text = string.Format("{0} v{1}", Application.ProductName, new TabsterVersion(Application.ProductVersion).ToString(TabsterVersionFormatFlags.Truncated));
 
 #if PORTABLE
 
