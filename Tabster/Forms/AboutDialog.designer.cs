@@ -35,7 +35,6 @@
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.txtLicense = new System.Windows.Forms.TextBox();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.lblVersion = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -44,9 +43,10 @@
             this.colpluginVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginFilename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnHomepage = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.txtFontLicense = new System.Windows.Forms.TextBox();
+            this.btnHomepage = new System.Windows.Forms.Button();
+            this.lblVersion = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -145,17 +145,6 @@
             this.linkLabel2.VisitedLinkColor = System.Drawing.Color.Blue;
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
-            // lblVersion
-            // 
-            this.lblVersion.AutoSize = true;
-            this.lblVersion.BackColor = System.Drawing.Color.Transparent;
-            this.lblVersion.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblVersion.Location = new System.Drawing.Point(86, 40);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(60, 13);
-            this.lblVersion.TabIndex = 65;
-            this.lblVersion.Text = "Version 1.0";
-            // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -230,17 +219,6 @@
             this.colpluginFilename.Text = "Filename";
             this.colpluginFilename.Width = 160;
             // 
-            // btnHomepage
-            // 
-            this.btnHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnHomepage.Location = new System.Drawing.Point(459, 12);
-            this.btnHomepage.Name = "btnHomepage";
-            this.btnHomepage.Size = new System.Drawing.Size(75, 23);
-            this.btnHomepage.TabIndex = 67;
-            this.btnHomepage.Text = "Homepage";
-            this.btnHomepage.UseVisualStyleBackColor = true;
-            this.btnHomepage.Click += new System.EventHandler(this.btnHomepage_Click);
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.txtFontLicense);
@@ -263,6 +241,34 @@
             this.txtFontLicense.Size = new System.Drawing.Size(511, 128);
             this.txtFontLicense.TabIndex = 63;
             // 
+            // btnHomepage
+            // 
+            this.btnHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHomepage.Location = new System.Drawing.Point(459, 12);
+            this.btnHomepage.Name = "btnHomepage";
+            this.btnHomepage.Size = new System.Drawing.Size(75, 23);
+            this.btnHomepage.TabIndex = 67;
+            this.btnHomepage.Text = "Homepage";
+            this.btnHomepage.UseVisualStyleBackColor = true;
+            this.btnHomepage.Click += new System.EventHandler(this.btnHomepage_Click);
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.ActiveLinkColor = System.Drawing.Color.Blue;
+            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblVersion.LinkArea = new System.Windows.Forms.LinkArea(29, 24);
+            this.lblVersion.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lblVersion.Location = new System.Drawing.Point(86, 41);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(61, 17);
+            this.lblVersion.TabIndex = 68;
+            this.lblVersion.Text = "Version 1.0";
+            this.lblVersion.UseCompatibleTextRendering = true;
+            this.lblVersion.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.lblVersion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblVersion_LinkClicked);
+            // 
             // AboutDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -271,9 +277,9 @@
             this.CancelButton = this.closebtn;
             this.ClientSize = new System.Drawing.Size(546, 305);
             this.ControlBox = false;
+            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.btnHomepage);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.linkLabel3);
             this.Controls.Add(this.pictureBox1);
@@ -310,7 +316,6 @@
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.TextBox txtLicense;
         private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -322,5 +327,6 @@
         private System.Windows.Forms.Button btnHomepage;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TextBox txtFontLicense;
+        private System.Windows.Forms.LinkLabel lblVersion;
     }
 }

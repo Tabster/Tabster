@@ -17,8 +17,12 @@ namespace Tabster.Forms
         public AboutDialog()
         {
             InitializeComponent();
-            lblVersion.Text = string.Format("Version {0}",
-                new TabsterVersion(Application.ProductVersion).ToString(TabsterVersionFormatFlags.Build | TabsterVersionFormatFlags.Hash | TabsterVersionFormatFlags.Truncated));
+
+            var version = new TabsterVersion(Application.ProductVersion);
+            lblVersion.Tag = version;
+            lblVersion.Text = string.Format("Version {0}", version.ToString(TabsterVersionFormatFlags.Build | TabsterVersionFormatFlags.Hash |TabsterVersionFormatFlags.Truncated));
+            lblVersion.LinkArea = !string.IsNullOrEmpty(version.Hash) ? new LinkArea(lblVersion.Text.Length - version.Hash.Length, version.Hash.Length) : new LinkArea(0, 0);
+
             lblCopyright.Text = BrandingUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
             txtLicense.Text = Resources.ApplicationLicense;
             txtFontLicense.Text = Resources.SourceCodeProLicense;
@@ -59,6 +63,12 @@ namespace Tabster.Forms
         private void btnHomepage_Click(object sender, EventArgs e)
         {
             Process.Start("http://tabster.org");
+        }
+
+        private void lblVersion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var version = (TabsterVersion) ((LinkLabel) sender).Tag;
+            Process.Start(string.Format("https://github.com/GetTabster/Tabster/commit/{0}", version.Hash));
         }
     }
 }
