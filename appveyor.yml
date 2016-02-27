@@ -15,4 +15,4 @@ before_build:
 build:
   project: Tabster.sln
 after_build:
-- ps: makensis APPLICATION_VERSION="{version}" SOLUTION_DIRECTORY="$(APPVEYOR_BUILD_FOLDER)" "Build\Tabster.nsi"
+- makensis APPLICATION_VERSION="{version}" SOLUTION_DIRECTORY="'(APPVEYOR_REPO_COMMIT)'" "Build\Tabster.nsi"
