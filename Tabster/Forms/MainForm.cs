@@ -56,7 +56,7 @@ namespace Tabster.Forms
             InitializeComponent();
 
             Text = string.Format("{0} v{1}", Application.ProductName,
-                new TabsterVersion(Application.ProductVersion).ToString(TabsterVersionFormatFlags.Build | TabsterVersionFormatFlags.Truncated));
+                new TabsterVersion(Application.ProductVersion).ToString(TabsterVersionFormatFlags.BuildString | TabsterVersionFormatFlags.Truncated));
 #if PORTABLE
             Text = Text.Replace("Build", "Portable Build");
 #endif

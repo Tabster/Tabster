@@ -35,6 +35,7 @@ namespace Tabster.Forms
             this.lblPortable = new System.Windows.Forms.Label();
             this.lblSafeMode = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
+            this.lblBuild = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblCopyright
@@ -96,12 +97,25 @@ namespace Tabster.Forms
             this.lblVersion.BackColor = System.Drawing.Color.Transparent;
             this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.ForeColor = System.Drawing.Color.Gray;
-            this.lblVersion.Location = new System.Drawing.Point(412, 286);
+            this.lblVersion.Location = new System.Drawing.Point(412, 271);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(108, 16);
             this.lblVersion.TabIndex = 54;
             this.lblVersion.Text = "v0.0.0.0";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblBuild
+            // 
+            this.lblBuild.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBuild.BackColor = System.Drawing.Color.Transparent;
+            this.lblBuild.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBuild.ForeColor = System.Drawing.Color.Gray;
+            this.lblBuild.Location = new System.Drawing.Point(412, 289);
+            this.lblBuild.Name = "lblBuild";
+            this.lblBuild.Size = new System.Drawing.Size(108, 16);
+            this.lblBuild.TabIndex = 55;
+            this.lblBuild.Text = "Build 123";
+            this.lblBuild.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // SplashScreen
             // 
@@ -111,6 +125,7 @@ namespace Tabster.Forms
             this.BackgroundImage = global::Tabster.Properties.Resources.splash;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(532, 314);
+            this.Controls.Add(this.lblBuild);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.lblSafeMode);
             this.Controls.Add(this.lblPortable);
@@ -138,6 +153,7 @@ namespace Tabster.Forms
         private System.Windows.Forms.Label lblPortable;
         private System.Windows.Forms.Label lblSafeMode;
         private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.Label lblBuild;
 
     }
 }

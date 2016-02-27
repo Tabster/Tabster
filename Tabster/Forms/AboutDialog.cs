@@ -20,7 +20,7 @@ namespace Tabster.Forms
 
             var version = new TabsterVersion(Application.ProductVersion);
             lblVersion.Tag = version;
-            lblVersion.Text = string.Format("Version {0}", version.ToString(TabsterVersionFormatFlags.Build | TabsterVersionFormatFlags.Hash |TabsterVersionFormatFlags.Truncated));
+            lblVersion.Text = string.Format("Version {0}", version.ToString(TabsterVersionFormatFlags.BuildString | TabsterVersionFormatFlags.Hash |TabsterVersionFormatFlags.Truncated));
             lblVersion.LinkArea = !string.IsNullOrEmpty(version.Hash) ? new LinkArea(lblVersion.Text.Length - version.Hash.Length, version.Hash.Length) : new LinkArea(0, 0);
 
             lblCopyright.Text = BrandingUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
