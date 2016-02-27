@@ -17,4 +17,4 @@ before_build:
 build:
   project: Tabster.sln
 after_build:
-  - '%NSIS_ROOT%\makensis.exe APPLICATION_VERSION="{version}" SOLUTION_DIRECTORY="(APPVEYOR_REPO_COMMIT)" "Build\Tabster.nsi"'
+  - '"%NSIS_ROOT%\makensis.exe" APPLICATION_VERSION="{version}" SOLUTION_DIRECTORY="(APPVEYOR_REPO_COMMIT)" "Build\Tabster.nsi"'
