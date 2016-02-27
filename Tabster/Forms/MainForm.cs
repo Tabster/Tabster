@@ -55,12 +55,10 @@ namespace Tabster.Forms
 
             InitializeComponent();
 
-            Text = string.Format("{0} v{1}", Application.ProductName, new TabsterVersion(Application.ProductVersion).ToString(TabsterVersionFormatFlags.Truncated));
-
+            Text = string.Format("{0} v{1}", Application.ProductName,
+                new TabsterVersion(Application.ProductVersion).ToString(TabsterVersionFormatFlags.Build | TabsterVersionFormatFlags.Truncated));
 #if PORTABLE
-
-            Text += " (Portable)";
-
+            Text = Text.Replace("Build", "Portable Build");
 #endif
             InitAspectGetters();
 

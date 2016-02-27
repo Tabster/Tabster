@@ -18,7 +18,7 @@ namespace Tabster.Forms
         {
             InitializeComponent();
             lblVersion.Text = string.Format("Version {0}",
-                new TabsterVersion(Application.ProductVersion).ToString(TabsterVersionFormatFlags.Truncated));
+                new TabsterVersion(Application.ProductVersion).ToString(TabsterVersionFormatFlags.Build | TabsterVersionFormatFlags.Hash | TabsterVersionFormatFlags.Truncated));
             lblCopyright.Text = BrandingUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
             txtLicense.Text = Resources.ApplicationLicense;
             txtFontLicense.Text = Resources.SourceCodeProLicense;
