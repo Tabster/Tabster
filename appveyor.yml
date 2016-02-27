@@ -17,3 +17,6 @@ build:
 after_build:
 - ps: >-
     .\Deploy\nsis.ps1
+artifacts:
+- path: 'Tabster*Setup.exe'
+  name: installer
