@@ -25,7 +25,7 @@ SET VS_BUILD_DIRECTORY=%SOLUTION_DIRECTORY%\Tabster\bin\Portable
 ::build
 ECHO.
 ECHO Building Solution...
-C:\windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe "%SOLUTION_DIRECTORY%\Tabster.sln" /p:Configuration=Portable
+msbuild.exe "%SOLUTION_DIRECTORY%\Tabster.sln" /p:Configuration=Portable
 
 ::copy files
 ECHO.
