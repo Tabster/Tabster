@@ -7,9 +7,9 @@ install:
 assembly_info:
   patch: true
   file: AssemblyInfo.*
-  assembly_version: '{version}'
-  assembly_file_version: '{version}'
-  assembly_informational_version: '{version}-$(APPVEYOR_REPO_COMMIT)'
+  assembly_version: "{version}"
+  assembly_file_version: "{version}"
+  assembly_informational_version: "{version}-$(APPVEYOR_REPO_COMMIT)"
 before_build:
 - ps: nuget restore
 build:
@@ -20,7 +20,7 @@ after_build:
 - ps: >-
     .\Deploy\Portable\portable.ps1
 artifacts:
-- path: 'Tabster $(APPVEYOR_BUILD_VERSION) Setup.exe'
-  name: nsis_installer
-- path: 'Tabster $(APPVEYOR_BUILD_VERSION) Portable.exe'
-  name: portable_sfx
+- path: "Tabster $(APPVEYOR_BUILD_VERSION) Setup.exe"
+  name: installer
+- path: "Tabster $(APPVEYOR_BUILD_VERSION) Portable.exe"
+  name: portable
