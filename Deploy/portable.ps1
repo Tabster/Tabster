@@ -1,17 +1,14 @@
-# $env:APPVEYOR_BUILD_FOLDER
-# $env:APPVEYOR_BUILD_VERSION
-# remtoe -force
-$APPVEYOR_BUILD_FOLDER = "D:\TabsterSplit\Tabster"
+$env:APPVEYOR_BUILD_FOLDER = "D:\TabsterSplit\Tabster"
 $APPVEYOR_BUILD_VERSION = "2.0.0.96"
 
-$temp_directory = "$APPVEYOR_BUILD_FOLDER\Build\~TEMP"
-New-Item "$temp_directory" -type directory -force
+$temp_directory = "$env:APPVEYOR_BUILD_FOLDER\Build\~TEMP"
+New-Item "$temp_directory" -type directory
 
-$zip_archive = "$APPVEYOR_BUILD_FOLDER\Build\Tabster $APPVEYOR_BUILD_VERSION Portable.exe"
+$zip_archive = "$env:APPVEYOR_BUILD_FOLDER\Build\Tabster $env:APPVEYOR_BUILD_VERSION Portable.exe"
 
-& msbuild.exe "$APPVEYOR_BUILD_FOLDER\Tabster.sln" /p:Configuration=Portable
+& msbuild.exe "$env:APPVEYOR_BUILD_FOLDER\Tabster.sln" /p:Configuration=Portable
 
-$output_directory = "$APPVEYOR_BUILD_FOLDER\Tabster\bin\Portable"
+$output_directory = "$env:APPVEYOR_BUILD_FOLDER\Tabster\bin\Portable"
 
 Copy-Item "$output_directory\*.exe" "$temp_directory"
 Copy-Item "$output_directory\*.dll" "$temp_directory"
