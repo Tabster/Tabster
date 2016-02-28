@@ -18,8 +18,8 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
-            lblVersion.Text = string.Format("Version {0}", TabsterEnvironment.GetVersion().ToString(TabsterVersionFormatFlags.BuildString | TabsterVersionFormatFlags.Hash | TabsterVersionFormatFlags.Truncated));
-            lblVersion.LinkArea = !string.IsNullOrEmpty(TabsterEnvironment.GetVersion().Hash) ? new LinkArea(lblVersion.Text.Length - TabsterEnvironment.GetVersion().Hash.Length, TabsterEnvironment.GetVersion().Hash.Length) : new LinkArea(0, 0);
+            lblVersion.Text = string.Format("Version {0}", TabsterEnvironment.GetVersion().ToString(TabsterVersionFormatFlags.BuildString | TabsterVersionFormatFlags.CommitShort | TabsterVersionFormatFlags.Truncated));
+            lblVersion.LinkArea = TabsterEnvironment.GetVersion().Commit != null ? new LinkArea(lblVersion.Text.Length - TabsterEnvironment.GetVersion().Commit.ToShorthandString().Length, TabsterEnvironment.GetVersion().Commit.ToShorthandString().Length) : new LinkArea(0, 0);
 
             lblCopyright.Text = BrandingUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
             txtLicense.Text = Resources.ApplicationLicense;
@@ -62,10 +62,10 @@ namespace Tabster.Forms
         {
             Process.Start("http://tabster.org");
         }
-
+            
         private void lblVersion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(string.Format("https://github.com/GetTabster/Tabster/commit/{0}", TabsterEnvironment.GetVersion().Hash));
+            Process.Start(string.Format("https://github.com/GetTabster/Tabster/commit/{0}", TabsterEnvironment.GetVersion().Commit));
         }
     }
 }
