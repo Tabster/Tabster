@@ -17,6 +17,7 @@ build:
 after_build:
 - ps: >-
     .\Deploy\Installer\nsis.ps1
+- ps: >-
     .\Deploy\Portable\portable.ps1
 artifacts:
 - path: 'Tabster {version} Setup.exe'
