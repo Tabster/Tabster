@@ -17,7 +17,7 @@ Copy-Item "$output_directory\*.config" "$temp_directory"
 Get-ChildItem -Path "$output_directory" -Recurse | ?{ $_.PSIsContainer } | Copy-Item -Destination "$temp_directory" -Force -Container
 
 # zip contents in self-extracting archive
-& "C:\ProgramData\chocolatey\lib\7zip.commandline\7z.exe" a -r -mmt -mx5 -sfx7z.sfx "$zip_archive" "$temp_directory\*.*"
+& "C:\ProgramData\chocolatey\lib\7zip.commandline\7za.exe" a -r -mmt -mx5 -sfx7z.sfx "$zip_archive" "$temp_directory\*.*"
 
 # move executable to project directory for clean AppVeyor artifact name
 Move-Item "$zip_archive" "$env:APPVEYOR_BUILD_FOLDER"
