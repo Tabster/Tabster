@@ -20,7 +20,7 @@ after_build:
 - ps: >-
     .\Deploy\Portable\portable.ps1
 artifacts:
-- path: "Tabster $(APPVEYOR_BUILD_VERSION) Setup.exe"
+- path: "Tabster_$(APPVEYOR_BUILD_VERSION)_Setup.exe"
   name: installer
-- path: "Tabster $(APPVEYOR_BUILD_VERSION) Portable.exe"
+- path: "Tabster_$(APPVEYOR_BUILD_VERSION)_Portable.exe"
   name: portable
