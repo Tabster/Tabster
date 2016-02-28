@@ -15,5 +15,7 @@ Copy-Item "$output_directory\*.config" "$temp_directory"
 # copy subfolders recursively
 Get-ChildItem -Path "$output_directory" -Recurse | ?{ $_.PSIsContainer } | copy-item -Destination "$temp_directory" -Force -Container
 
+& 7z a -r "$zip_archive" -mmt -mx5 -sfx7z.sfx "$temp_directory\*.*"
+
 # move executable to project directory for clean AppVeyor artifact name
 Move-Item "$zip_archive" "$env:APPVEYOR_BUILD_FOLDER"
