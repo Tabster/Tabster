@@ -4,6 +4,7 @@ configuration: Release
 platform: Any CPU
 install:
   - choco install nsis -pre -y
+  - choco 7zip.commandline -y
 assembly_info:
   patch: true
   file: AssemblyInfo.*
