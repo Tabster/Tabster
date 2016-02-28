@@ -46,11 +46,11 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Data.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Printing.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.WinForms.dll"
-
-  ; third-party references  
+ 
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\ObjectListView.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\System.Data.SQLite.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\x86\SQLite.Interop.dll"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\x64\SQLite.Interop.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\log4net.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Newtonsoft.Json.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\ICSharpCode.SharpZipLib.dll"
@@ -99,21 +99,28 @@ FunctionEnd
 
 Section Uninstall
   Delete "$INSTDIR\Tabster.exe"
+  Delete "$INSTDIR\Tabster.exe.config"
   Delete "$INSTDIR\Tabster.Core.dll"
   Delete "$INSTDIR\Tabster.Data.dll"
-  Delete "$INSTDIR\Tabster.Utils.dll"
+  Delete "$INSTDIR\Tabster.Printing.dll"
   Delete "$INSTDIR\Tabster.WinForms.dll"
   
-  ; third-party references  
   Delete "$INSTDIR\ObjectListView.dll"
   Delete "$INSTDIR\System.Data.SQLite.dll"
-  Delete "$INSTDIR\SQLite.Interop.dll"
+  Delete "$INSTDIR\x86\SQLite.Interop.dll"
+  Delete "$INSTDIR\x64\SQLite.Interop.dll"
   Delete "$INSTDIR\log4net.dll"
+  Delete "$INSTDIR\Newtonsoft.Json.dll"
+  Delete "$INSTDIR\ICSharpCode.SharpZipLib.dll"
+  Delete "$INSTDIR\RecentFilesMenuItem.dll"
+
+  Delete "$INSTDIR\Resources\Fonts\SourceCodePro-Regular.ttf"
   
   Delete "$INSTDIR\Uninstall.exe"
   Delete "$DESKTOP\Tabster.lnk"
   Delete "$SMPROGRAMS\Tabster\Tabster.lnk"
   RMDir "$SMPROGRAMS\Tabster"
+  RMDir "$INSTDIR"
  
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
