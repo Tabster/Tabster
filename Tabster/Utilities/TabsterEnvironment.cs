@@ -2,7 +2,9 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Windows.Forms;
 using Tabster.Core.Types;
 
 #endregion
@@ -46,12 +48,10 @@ namespace Tabster.Utilities
         {
             if (_version == null)
             {
-                var attr2 = Attribute
-                    .GetCustomAttribute(
-                        Assembly.GetEntryAssembly(),
-                        typeof (AssemblyInformationalVersionAttribute))
-                    as AssemblyInformationalVersionAttribute;
-                _version = new TabsterVersion(attr2.InformationalVersion);
+                var attribute =
+                    (AssemblyInformationalVersionAttribute) Assembly.GetExecutingAssembly()
+                        .GetCustomAttributes(typeof (AssemblyInformationalVersionAttribute), false).FirstOrDefault();
+                _version = attribute != null ? new TabsterVersion(attribute.InformationalVersion) : new TabsterVersion(Application.ProductVersion);
             }
 
             return _version;
