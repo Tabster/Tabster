@@ -16,7 +16,8 @@ build:
   project: Tabster.sln
 after_build:
 - ps: >-
-    .\Deploy\nsis.ps1
+    .\Deploy\Installer\nsis.ps1
+    .\Deploy\Portable\portable.ps1
 artifacts:
 - path: 'Tabster {version} Setup.exe'
   name: installer
