@@ -30,7 +30,7 @@ SetCompressor lzma
 ; MUI end ------
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "Tabster_${PRODUCT_VERSION}_Setup.exe"
+OutFile "Tabster ${PRODUCT_VERSION} Setup.exe"
 InstallDir "$PROGRAMFILES\Tabster"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
