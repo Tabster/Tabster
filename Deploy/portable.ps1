@@ -1,6 +1,3 @@
-$env:APPVEYOR_BUILD_FOLDER = "D:\TabsterSplit\Tabster"
-$APPVEYOR_BUILD_VERSION = "2.0.0.96"
-
 $temp_directory = "$env:APPVEYOR_BUILD_FOLDER\Build\~TEMP"
 New-Item "$temp_directory" -type directory
 
