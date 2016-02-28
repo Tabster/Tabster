@@ -21,6 +21,6 @@ after_build:
     .\Deploy\Portable\portable.ps1
 artifacts:
 - path: 'Tabster $(APPVEYOR_BUILD_VERSION) Setup.exe'
-  name: installer
+  name: nsis_installer
 - path: 'Tabster $(APPVEYOR_BUILD_VERSION) Portable.exe'
-  name: portable
+  name: portable_sfx
