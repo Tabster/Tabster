@@ -28,9 +28,8 @@ namespace Tabster.Forms
 
             lblProgress.Text = string.Empty;
 
-            var version = new TabsterVersion(Application.ProductVersion);
-            lblVersion.Text = string.Format("v{0}", version.ToString(TabsterVersionFormatFlags.Truncated));
-            lblBuild.Text = string.Format("Build {0}", version.Build);
+            lblVersion.Text = string.Format("v{0}", TabsterEnvironment.GetVersion().ToString(TabsterVersionFormatFlags.Truncated));
+            lblBuild.Text = string.Format("Build {0}", TabsterEnvironment.GetVersion().Build);
             lblCopyright.Text = BrandingUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
             BringToFront();
         }

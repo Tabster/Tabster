@@ -2,6 +2,8 @@
 
 using System;
 using System.IO;
+using System.Reflection;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -17,10 +19,10 @@ namespace Tabster.Utilities
     {
         private static readonly string ApplicationDataDirectory;
         private static readonly string UserDataDirectory;
+        private static TabsterVersion _version;
 
         static TabsterEnvironment()
         {
-
 #if PORTABLE
             ApplicationDataDirectory = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath), "AppData");
             UserDataDirectory = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath), "UserData");
@@ -39,6 +41,21 @@ namespace Tabster.Utilities
         ///     Gets or sets whether the application is currently running in 'safe mode'.
         /// </summary>
         public static bool SafeMode { get; set; }
+
+        public static TabsterVersion GetVersion()
+        {
+            if (_version == null)
+            {
+                var attr2 = Attribute
+                    .GetCustomAttribute(
+                        Assembly.GetEntryAssembly(),
+                        typeof (AssemblyInformationalVersionAttribute))
+                    as AssemblyInformationalVersionAttribute;
+                _version = new TabsterVersion(attr2.InformationalVersion);
+            }
+
+            return _version;
+        }
 
         /// <summary>
         ///     Returns the absolute path of the supplied environment directory.
