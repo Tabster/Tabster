@@ -9,9 +9,6 @@ namespace Tabster.Controls
 {
     internal class StaticTreeView : TreeView
     {
-        private const int TVM_SETEXTENDEDSTYLE = 0x1100 + 44;
-        private const int TVS_EX_DOUBLEBUFFER = 0x0004;
-
         private const int WM_LBUTTONDBLCLK = 0x0203; //515
         private const int WM_LBUTTONDOWN = 0x0201; //513
         private const int WM_LBUTTONUP = 0x0202; //514
@@ -22,58 +19,6 @@ namespace Tabster.Controls
         public TreeNode FirstNode
         {
             get { return Nodes.Count > 0 ? Nodes[0] : null; }
-        }
-
-        public void SelectPreviousNode(bool defaultToFirstNode = false)
-        {
-            TreeNode previousNode = null;
-
-            if (SelectedNode != null)
-            {
-                if (SelectedNode.Index > 0)
-                {
-                    previousNode = Nodes[SelectedNode.Index - 1];
-                }
-
-                else if (SelectedNode.Parent != null && AllowRootNodeSelection)
-                {
-                    previousNode = SelectedNode.Parent;
-                }
-            }
-
-            if (previousNode != null)
-            {
-                SelectedNode = previousNode;
-            }
-
-            if (previousNode == null && defaultToFirstNode && FirstNode != null)
-                SelectedNode = FirstNode;
-        }
-
-        public void SelectNextNode(bool useNested)
-        {
-            TreeNode nextNode = null;
-
-            if (SelectedNode != null)
-            {
-                if (useNested && SelectedNode.Nodes.Count > 0)
-                {
-                    nextNode = SelectedNode.FirstNode;
-                }
-
-                else if (SelectedNode.Parent != null && SelectedNode.Parent.Nodes.Count > 1)
-                {
-                    nextNode = SelectedNode.Parent.Nodes[SelectedNode.Index + 1];
-                }
-            }
-
-            else if (FirstNode != null)
-            {
-                nextNode = FirstNode;
-            }
-
-            if (nextNode != null)
-                SelectedNode = nextNode;
         }
 
         protected override void WndProc(ref Message m)
