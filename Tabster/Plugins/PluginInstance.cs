@@ -12,12 +12,12 @@ using Tabster.Utilities;
 
 namespace Tabster.Plugins
 {
-    public class PluginHost
+    public class PluginInstance
     {
         private bool _enabled;
         private List<Type> _types = new List<Type>();
 
-        public PluginHost(Assembly assembly, ITabsterPlugin plugin, FileInfo fileInfo)
+        public PluginInstance(Assembly assembly, ITabsterPlugin plugin, FileInfo fileInfo)
         {
             Assembly = assembly;
             Plugin = plugin;

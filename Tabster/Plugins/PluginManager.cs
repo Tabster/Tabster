@@ -14,7 +14,7 @@ namespace Tabster.Plugins
 {
     public class PluginManager
     {
-        private readonly List<PluginHost> _pluginHosts = new List<PluginHost>();
+        private readonly List<PluginInstance> _pluginHosts = new List<PluginInstance>();
 
         public PluginManager(string[] pluginDirectories)
         {
@@ -84,12 +84,12 @@ namespace Tabster.Plugins
             return instances;
         }
 
-        public PluginHost GetHostByType(Type type)
+        public PluginInstance GetHostByType(Type type)
         {
             return _pluginHosts.Find(x => x.Contains(type));
         }
 
-        public PluginHost LoadPluginFromDisk(string path)
+        public PluginInstance LoadPluginFromDisk(string path)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace Tabster.Plugins
                         if (_pluginHosts.Find(x => x.Plugin.Guid == plugin.Guid) != null)
                             return null;
 
-                        var host = new PluginHost(assembly, plugin, fileInfo);
+                        var host = new PluginInstance(assembly, plugin, fileInfo);
                         _pluginHosts.Add(host);
 
                         return host;
@@ -129,12 +129,12 @@ namespace Tabster.Plugins
             return null;
         }
 
-        public PluginHost FindPluginByGuid(Guid guid)
+        public PluginInstance FindPluginByGuid(Guid guid)
         {
             return _pluginHosts.Find(x => x.Plugin.Guid == guid);
         }
 
-        public PluginHost[] GetPluginHosts()
+        public PluginInstance[] GetPluginHosts()
         {
             return _pluginHosts.ToArray();
         }

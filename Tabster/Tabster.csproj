@@ -163,7 +163,7 @@
     <Compile Include="Utilities\CustomProxyController.cs" />
     <Compile Include="Utilities\MonoUtilities.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
-    <Compile Include="Plugins\PluginHost.cs" />
+    <Compile Include="Plugins\PluginInstance.cs" />
     <Compile Include="Update\UpdateDialog.cs">
       <SubType>Form</SubType>
     </Compile>
