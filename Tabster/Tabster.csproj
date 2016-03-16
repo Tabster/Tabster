@@ -119,19 +119,21 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tabster.Core, Version=1.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Tabster.Core, Version=1.0.0.25, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Tabster.Core.1.0.0.22\lib\net35\Tabster.Core.dll</HintPath>
+      <HintPath>..\packages\Tabster.Core.1.0.0.25\lib\net35\Tabster.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Tabster.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Tabster.Data, Version=1.0.3.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Tabster.Data.1.0.3\lib\net35\Tabster.Data.dll</HintPath>
+      <HintPath>..\packages\Tabster.Data.1.0.3.7\lib\net35\Tabster.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Tabster.Printing">
-      <HintPath>..\packages\Tabster.Printing.1.0\lib\net35\Tabster.Printing.dll</HintPath>
+    <Reference Include="Tabster.Printing, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Tabster.Printing.1.0.0.8\lib\net35\Tabster.Printing.dll</HintPath>
     </Reference>
-    <Reference Include="Tabster.WinForms">
-      <HintPath>..\packages\Tabster.WinForms.1.0\lib\net35\Tabster.WinForms.dll</HintPath>
+    <Reference Include="Tabster.WinForms, Version=1.0.0.7, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Tabster.WinForms.1.0.0.7\lib\net35\Tabster.WinForms.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
