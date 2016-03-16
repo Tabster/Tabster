@@ -190,13 +190,13 @@ namespace Tabster.Forms
             switch (state)
             {
                 case DownloadState.MissingParser:
-                    return "No suitable parser found";
+                    return Resources.MissingCompatibleParser;
                 case DownloadState.Cancelled:
-                    return "Cancelled";
+                    return Resources.Cancelled;
                 case DownloadState.Completed:
-                    return "Completed";
+                    return Resources.Completed;
                 case DownloadState.Failed:
-                    return "Failed";
+                    return Resources.Failed;
                 default:
                     throw new ArgumentOutOfRangeException("state");
             }
@@ -216,7 +216,7 @@ namespace Tabster.Forms
                 var lvi in
                     queuedDownloads.Select(queuedDownload => new ListViewItem {Text = queuedDownload.Url.ToString()}))
             {
-                lvi.SubItems.Add("Idle");
+                lvi.SubItems.Add(Resources.Idle);
                 listDownloads.Items.Add(lvi);
             }
 

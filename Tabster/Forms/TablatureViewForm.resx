@@ -120,9 +120,108 @@
   <metadata name="TabControlMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>225, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="closeTabContextMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 22</value>
+  </data>
+  <data name="closeTabContextMenuItem.Text" xml:space="preserve">
+    <value>Close Tab</value>
+  </data>
+  <data name="TabControlMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>127, 26</value>
+  </data>
+  <data name="&gt;&gt;TabControlMenu.Name" xml:space="preserve">
+    <value>TabControlMenu</value>
+  </data>
+  <data name="&gt;&gt;TabControlMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <metadata name="controlsToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>28, 18</value>
   </metadata>
+  <data name="printbtn.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="printbtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 22</value>
+  </data>
+  <data name="printbtn.Text" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 25</value>
+  </data>
+  <data name="offToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 22</value>
+  </data>
+  <data name="offToolStripMenuItem.Text" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="onToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 22</value>
+  </data>
+  <data name="onToolStripMenuItem.Text" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="toolStripButton3.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="toolStripButton3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 22</value>
+  </data>
+  <data name="toolStripButton3.Text" xml:space="preserve">
+    <value>Auto-Scroll</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="savebtn.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="savebtn.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="savebtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 22</value>
+  </data>
+  <data name="savebtn.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="fullscreenbtn.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="fullscreenbtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 22</value>
+  </data>
+  <data name="fullscreenbtn.Text" xml:space="preserve">
+    <value>Full Screen</value>
+  </data>
+  <data name="controlsToolStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="controlsToolStrip.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="controlsToolStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>738, 25</value>
+  </data>
+  <data name="controlsToolStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="&gt;&gt;controlsToolStrip.Name" xml:space="preserve">
+    <value>controlsToolStrip</value>
+  </data>
+  <data name="&gt;&gt;controlsToolStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;controlsToolStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;controlsToolStrip.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <metadata name="documentStateImageLIst.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>369, 17</value>
   </metadata>
@@ -131,30 +230,65 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAA
-        BAAAAk1TRnQBSQFMAgEBAgEAARABAAEQAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        BAAAAk1TRnQBSQFMAgEBAgEAARgBAAEYAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8A/wD/AP8ALgADFgEeAyMBMwMjATMDIwEzAxYBHiwAAxYBHgMjATMDIwEz
-        AyMBMwMWAR6oAAMWAR4BQgFdAVABrAEAAYoBSAH/AQABiQFHAf8BAAGKAUgB/wFCAV0BUAGsAxYBHiQA
-        AxYBHgFMAVEBaAGsATIBSQHLAf8BMQFIAcoB/wEyAUkBywH/AUwBUQFoAawDFgEepAABQgFdAVABrAEA
-        AZsBWgH/AQABzgGQAf8BAAHRAZQB/wEAAc4BkAH/AQABmwFaAf8BQgFdAVABrCQAAUwBUQFoAawBQAFY
-        AdkB/wFtAYgC/wFxAYwC/wFtAYgC/wFAAVgB2QH/AUwBUQFoAaylAAGKAUgB/wEAAccBiQH/AQAByAGK
-        Af8BAAHGAYkB/wEAAcgBigH/AQABxwGJAf8BAAGKAUgB/yQAATMBSQHLAf8BXQF6Av8BXgF6Av8BXQF5
-        Af0B/wFeAXoC/wFdAXoC/wEzAUkBywH/pQABiQFGAf8BIwHPAZkB/wEAAcABfQH/AQABvgF8Af8BAAHA
-        AX0B/wEjAc8BmQH/AQABiQFGAf8kAAExAUgBywH/AWsBiAL/AUsBawH7Af8BSwFrAfoB/wFLAWsB+wH/
-        AWsBiAL/ATEBSAHLAf+lAAGKAUcB/wFkAdoBtAH/ARwBxgGOAf8BFAHDAYgB/wEcAcYBjgH/AWQB2gG0
-        Af8BAAGKAUcB/yQAATEBSAHMAf8BkAGlAf0B/wFYAXcB+gH/AVMBcQH5Af8BWAF3AfoB/wGQAaUB/QH/
-        ATEBSAHMAf+kAAFEAVYBTgGXAQ4BnwFhAf8BcgHaAbcB/wF4Ad4BvQH/AXIB2gG3Af8BDgGfAWEB/wFE
-        AVYBTgGXJAABSgFOAV0BlwFDAVsB2wH/AZABpgH8Af8BlQGsAv8BkAGmAfwB/wFCAVsB2wH/AUoBTgFd
-        AZeoAAFEAVYBTgGXAQABigFGAf8BAAGJAUQB/wEAAYoBRgH/AUQBVgFOAZcsAAFKAU4BXQGXATABRwHM
-        Af8BLwFGAcsB/wEwAUcBzAH/AUoBTgFdAZf/AP8A/wD/AJgAAUIBTQE+BwABPgMAASgDAAFAAwABEAMA
+        AyMBMwMWAR6oAAMWAR4BTAFZAVIBrAEAAYoBRwH/AQABiQFGAf8BAAGKAUcB/wFMAVkBUgGsAxYBHiQA
+        AxYBHgFQAVMBXQGsATEBSAHLAf8BMAFHAcoB/wExAUgBywH/AVABUwFdAawDFgEepAABTAFZAVIBrAEA
+        AZsBWQH/AQABzgGQAf8BAAHRAZQB/wEAAc4BkAH/AQABmwFZAf8BTAFZAVIBrCQAAVABUwFdAawBPwFX
+        AdkB/wFsAYgC/wFwAYwC/wFsAYgC/wE/AVcB2QH/AVABUwFdAaylAAGKAUcB/wEAAccBiQH/AQAByAGK
+        Af8BAAHGAYkB/wEAAcgBigH/AQABxwGJAf8BAAGKAUcB/yQAATIBSAHLAf8BXAF5Av8BXQF5Av8BXAF4
+        Af0B/wFdAXkC/wFcAXkC/wEyAUgBywH/pQABiQFFAf8BIgHPAZkB/wEAAcABfAH/AQABvgF7Af8BAAHA
+        AXwB/wEiAc8BmQH/AQABiQFFAf8kAAEwAUcBywH/AWoBiAL/AUoBagH7Af8BSgFqAfoB/wFKAWoB+wH/
+        AWoBiAL/ATABRwHLAf+lAAGKAUYB/wFjAdoBtAH/ARsBxgGOAf8BEwHDAYgB/wEbAcYBjgH/AWMB2gG0
+        Af8BAAGKAUYB/yQAATABRwHMAf8BkAGlAf0B/wFXAXYB+gH/AVIBcAH5Af8BVwF2AfoB/wGQAaUB/QH/
+        ATABRwHMAf+kAAFKAVEBTgGXAQ0BnwFgAf8BcQHaAbcB/wF3Ad4BvQH/AXEB2gG3Af8BDQGfAWAB/wFK
+        AVEBTgGXJAABTQFOAVMBlwFCAVoB2wH/AZABpgH8Af8BlQGsAv8BkAGmAfwB/wFBAVoB2wH/AU0BTgFT
+        AZeoAAFKAVEBTgGXAQABigFFAf8BAAGJAUMB/wEAAYoBRQH/AUoBUQFOAZcsAAFNAU4BUwGXAS8BRgHM
+        Af8BLgFFAcsB/wEvAUYBzAH/AU0BTgFTAZf/AP8A/wD/AJgAAUIBTQE+BwABPgMAASgDAAFAAwABEAMA
         AQEBAAEBBQABgBcAA/8BAAT/BAAE/wQABP8EAAT/BAAB/AEfAfwBHwQAAfgBDwH4AQ8EAAH4AQ8B+AEP
         BAAB+AEPAfgBDwQAAfgBDwH4AQ8EAAH4AQ8B+AEPBAAB+AEPAfgBDwQAAfwBHwH8AR8EAAT/BAAE/wQA
         BP8EAAT/BAAL
 </value>
   </data>
+  <data name="tabControl1.ItemSize" type="System.Drawing.Size, System.Drawing">
+    <value>220, 23</value>
+  </data>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 25</value>
+  </data>
+  <data name="tabControl1.ShowToolTips" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>738, 488</value>
+  </data>
+  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>56</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>738, 513</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAYAAAAAAAEAIAAAlAAAZgAAAICAAAABACAAKAgBAGaUAAAwMAAAAQAgAKglAACOnAEAICAAAAEA
@@ -2210,5 +2344,71 @@
         AAAAAAAAAAAAACUqLRYYGhuXDhAQkeP/AADB/wAAgf8AAAD/AAAA/wAAAH8AAIA/AADgfwAA+H8AAP2/
         AAD/3wAA/+8AAP/3AAD/+QAA//gAAP/8AAA=
 </value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Tabster</value>
+  </data>
+  <data name="&gt;&gt;closeTabContextMenuItem.Name" xml:space="preserve">
+    <value>closeTabContextMenuItem</value>
+  </data>
+  <data name="&gt;&gt;closeTabContextMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;printbtn.Name" xml:space="preserve">
+    <value>printbtn</value>
+  </data>
+  <data name="&gt;&gt;printbtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSplitButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator8.Name" xml:space="preserve">
+    <value>toolStripSeparator8</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripButton3.Name" xml:space="preserve">
+    <value>toolStripButton3</value>
+  </data>
+  <data name="&gt;&gt;toolStripButton3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;offToolStripMenuItem.Name" xml:space="preserve">
+    <value>offToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;offToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;onToolStripMenuItem.Name" xml:space="preserve">
+    <value>onToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;onToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;savebtn.Name" xml:space="preserve">
+    <value>savebtn</value>
+  </data>
+  <data name="&gt;&gt;savebtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fullscreenbtn.Name" xml:space="preserve">
+    <value>fullscreenbtn</value>
+  </data>
+  <data name="&gt;&gt;fullscreenbtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;documentStateImageLIst.Name" xml:space="preserve">
+    <value>documentStateImageLIst</value>
+  </data>
+  <data name="&gt;&gt;documentStateImageLIst.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>TablatureViewForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

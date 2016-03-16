@@ -248,4 +248,149 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</value>
   <data name="SourceCodeProRegular" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\fonts\sourcecodepro-regular.ttf;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="UpdateDialogCaptionNone" xml:space="preserve">
+    <value>Your version of Tabster is up to date.</value>
+  </data>
+  <data name="UpdateDialogTitleNone" xml:space="preserve">
+    <value>No Updates Available</value>
+  </data>
+  <data name="SafeMode" xml:space="preserve">
+    <value>Safe Mode</value>
+  </data>
+  <data name="PluginManagerSafeMode" xml:space="preserve">
+    <value>Plugins are not configurable while running in safe mode.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="NotAvailableAbbreviation" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="RemoveFromFavorites" xml:space="preserve">
+    <value>Remove from favorites</value>
+  </data>
+  <data name="AddToFavorites" xml:space="preserve">
+    <value>Add to favorites</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>bytes</value>
+  </data>
+  <data name="DeletePlaylistDialogTitle" xml:space="preserve">
+    <value>Delete Playlist</value>
+  </data>
+  <data name="DeletePlaylistDialogCaption" xml:space="preserve">
+    <value>Are you sure you want to delete this playlist?</value>
+  </data>
+  <data name="InvalidNameDialogTitle" xml:space="preserve">
+    <value>Invalid Name</value>
+  </data>
+  <data name="InvalidNameDialogText" xml:space="preserve">
+    <value>Please enter a valid playlist name.</value>
+  </data>
+  <data name="ExportTabDialogTitle" xml:space="preserve">
+    <value>Export Tab - Tabster</value>
+  </data>
+  <data name="OpenTabDialogTitle" xml:space="preserve">
+    <value>Open File - Tabster</value>
+  </data>
+  <data name="TabsterFiles" xml:space="preserve">
+    <value>Tabster Files</value>
+  </data>
+  <data name="TabsterFile" xml:space="preserve">
+    <value>Tabster File</value>
+  </data>
+  <data name="RemoveTabFromPlaylistDialogTitle" xml:space="preserve">
+    <value>Remove Tab From Playlist</value>
+  </data>
+  <data name="RemoveTabFromPlaylistDialogCaption" xml:space="preserve">
+    <value>Are you sure you want the selected tab from the playlist?</value>
+  </data>
+  <data name="DeleteTabDialogCaption" xml:space="preserve">
+    <value>Are you sure you want to delete the selected tab?</value>
+  </data>
+  <data name="DeleteTabDialogTitle" xml:space="preserve">
+    <value>Delete Tab</value>
+  </data>
+  <data name="ExportErrorDialogCaption" xml:space="preserve">
+    <value>An error occured during tablature exporting.</value>
+  </data>
+  <data name="ExportErrorDialogTitle" xml:space="preserve">
+    <value>Export Error</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="FullScreen" xml:space="preserve">
+    <value>Full Screen</value>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="ProxySettings" xml:space="preserve">
+    <value>Proxy Settings</value>
+  </data>
+  <data name="InvalidProxySettings" xml:space="preserve">
+    <value>Invalid proxy settings.</value>
+  </data>
+  <data name="FeaturedPlugins" xml:space="preserve">
+    <value>Featured Plugins</value>
+  </data>
+  <data name="FeaturedPluginsErrorDialogCaption" xml:space="preserve">
+    <value>An error occured while retrieving featured plugins data.</value>
+  </data>
+  <data name="ImportErrorDialogTitle" xml:space="preserve">
+    <value>Import Error</value>
+  </data>
+  <data name="ImportErrorDialogCaption" xml:space="preserve">
+    <value>Error occured while importing.</value>
+  </data>
+  <data name="ImportTabDialogTitle" xml:space="preserve">
+    <value>Import Tab - Tabster</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Idle" xml:space="preserve">
+    <value>Idle</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="MissingCompatibleParser" xml:space="preserve">
+    <value>Missing compatible parser
+</value>
+  </data>
+  <data name="Build" xml:space="preserve">
+    <value>Build</value>
+  </data>
+  <data name="Favorited" xml:space="preserve">
+    <value>Favorited</value>
+  </data>
+  <data name="Views" xml:space="preserve">
+    <value>Views</value>
+  </data>
+  <data name="LastViewed" xml:space="preserve">
+    <value>Last Viewed</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="PlaylistOccurrences" xml:space="preserve">
+    <value>Playlist Occurrences</value>
+  </data>
+  <data name="SaveChangesDialogTitle" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="SaveChangesDialogCaption" xml:space="preserve">
+    <value>Save changes to this tablature?</value>
+  </data>
 </root>

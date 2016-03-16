@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Tabster.Controls;
 using Tabster.Core.Types;
 using Tabster.Data;
+using Tabster.Properties;
 using Tabster.Utilities;
 using Tabster.WinForms;
 using ToolStripRenderer = Tabster.Controls.ToolStripRenderer;
@@ -112,7 +113,7 @@ namespace Tabster.Forms
 
             if (instance.Modified)
             {
-                var result = MessageBox.Show(string.Format("Save modified changes for {0}?", instance.File.ToFriendlyString()), "Save", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                var result = MessageBox.Show(string.Format(Resources.SaveChangesDialogCaption + Environment.NewLine + instance.File.ToFriendlyString(), Resources.SaveChangesDialogTitle), Resources.Save, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Cancel)
                     return false;
@@ -214,7 +215,7 @@ namespace Tabster.Forms
                 WindowState = _previousWindowState;
 
                 _isFullscreen = false;
-                fullscreenbtn.Text = "Full Screen";
+                fullscreenbtn.Text = Resources.FullScreen;
             }
 
             else
@@ -225,7 +226,7 @@ namespace Tabster.Forms
                 FormBorderStyle = FormBorderStyle.None;
                 WindowState = FormWindowState.Maximized;
                 _isFullscreen = true;
-                fullscreenbtn.Text = "Restore";
+                fullscreenbtn.Text = Resources.Restore;
             }
         }
 

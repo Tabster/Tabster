@@ -61,6 +61,15 @@ namespace Tabster.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to favorites.
+        /// </summary>
+        internal static string AddToFavorites {
+            get {
+                return ResourceManager.GetString("AddToFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This software is provided &apos;as-is&apos;, without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software. 
         ///
         ///Redistribution of this software is allowed, but the origin of this software must not be misrepresented; you must not claim that you wrote the original software..
@@ -82,6 +91,42 @@ namespace Tabster.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Build.
+        /// </summary>
+        internal static string Build {
+            get {
+                return ResourceManager.GetString("Build", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to bytes.
+        /// </summary>
+        internal static string Bytes {
+            get {
+                return ResourceManager.GetString("Bytes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancelled.
+        /// </summary>
+        internal static string Cancelled {
+            get {
+                return ResourceManager.GetString("Cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed.
+        /// </summary>
+        internal static string Completed {
+            get {
+                return ResourceManager.GetString("Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap cursor {
@@ -92,12 +137,120 @@ namespace Tabster.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this playlist?.
+        /// </summary>
+        internal static string DeletePlaylistDialogCaption {
+            get {
+                return ResourceManager.GetString("DeletePlaylistDialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Playlist.
+        /// </summary>
+        internal static string DeletePlaylistDialogTitle {
+            get {
+                return ResourceManager.GetString("DeletePlaylistDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the selected tab?.
+        /// </summary>
+        internal static string DeleteTabDialogCaption {
+            get {
+                return ResourceManager.GetString("DeleteTabDialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Tab.
+        /// </summary>
+        internal static string DeleteTabDialogTitle {
+            get {
+                return ResourceManager.GetString("DeleteTabDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured during tablature exporting..
+        /// </summary>
+        internal static string ExportErrorDialogCaption {
+            get {
+                return ResourceManager.GetString("ExportErrorDialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Error.
+        /// </summary>
+        internal static string ExportErrorDialogTitle {
+            get {
+                return ResourceManager.GetString("ExportErrorDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Tab - Tabster.
+        /// </summary>
+        internal static string ExportTabDialogTitle {
+            get {
+                return ResourceManager.GetString("ExportTabDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed.
+        /// </summary>
+        internal static string Failed {
+            get {
+                return ResourceManager.GetString("Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Favorited.
+        /// </summary>
+        internal static string Favorited {
+            get {
+                return ResourceManager.GetString("Favorited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Featured Plugins.
+        /// </summary>
+        internal static string FeaturedPlugins {
+            get {
+                return ResourceManager.GetString("FeaturedPlugins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured while retrieving featured plugins data..
+        /// </summary>
+        internal static string FeaturedPluginsErrorDialogCaption {
+            get {
+                return ResourceManager.GetString("FeaturedPluginsErrorDialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap folder_go {
             get {
                 object obj = ResourceManager.GetObject("folder_go", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full Screen.
+        /// </summary>
+        internal static string FullScreen {
+            get {
+                return ResourceManager.GetString("FullScreen", resourceCulture);
             }
         }
         
@@ -122,12 +275,130 @@ namespace Tabster.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Idle.
+        /// </summary>
+        internal static string Idle {
+            get {
+                return ResourceManager.GetString("Idle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error occured while importing..
+        /// </summary>
+        internal static string ImportErrorDialogCaption {
+            get {
+                return ResourceManager.GetString("ImportErrorDialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import Error.
+        /// </summary>
+        internal static string ImportErrorDialogTitle {
+            get {
+                return ResourceManager.GetString("ImportErrorDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import Tab - Tabster.
+        /// </summary>
+        internal static string ImportTabDialogTitle {
+            get {
+                return ResourceManager.GetString("ImportTabDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid playlist name..
+        /// </summary>
+        internal static string InvalidNameDialogText {
+            get {
+                return ResourceManager.GetString("InvalidNameDialogText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Name.
+        /// </summary>
+        internal static string InvalidNameDialogTitle {
+            get {
+                return ResourceManager.GetString("InvalidNameDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid proxy settings..
+        /// </summary>
+        internal static string InvalidProxySettings {
+            get {
+                return ResourceManager.GetString("InvalidProxySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Viewed.
+        /// </summary>
+        internal static string LastViewed {
+            get {
+                return ResourceManager.GetString("LastViewed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap loading_icon {
             get {
                 object obj = ResourceManager.GetObject("loading_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing compatible parser
+        ///.
+        /// </summary>
+        internal static string MissingCompatibleParser {
+            get {
+                return ResourceManager.GetString("MissingCompatibleParser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Never.
+        /// </summary>
+        internal static string Never {
+            get {
+                return ResourceManager.GetString("Never", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        internal static string NotAvailableAbbreviation {
+            get {
+                return ResourceManager.GetString("NotAvailableAbbreviation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open File - Tabster.
+        /// </summary>
+        internal static string OpenTabDialogTitle {
+            get {
+                return ResourceManager.GetString("OpenTabDialogTitle", resourceCulture);
             }
         }
         
@@ -142,12 +413,111 @@ namespace Tabster.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Playlist Occurrences.
+        /// </summary>
+        internal static string PlaylistOccurrences {
+            get {
+                return ResourceManager.GetString("PlaylistOccurrences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plugins are not configurable while running in safe mode..
+        /// </summary>
+        internal static string PluginManagerSafeMode {
+            get {
+                return ResourceManager.GetString("PluginManagerSafeMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap printer {
             get {
                 object obj = ResourceManager.GetObject("printer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy Settings.
+        /// </summary>
+        internal static string ProxySettings {
+            get {
+                return ResourceManager.GetString("ProxySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from favorites.
+        /// </summary>
+        internal static string RemoveFromFavorites {
+            get {
+                return ResourceManager.GetString("RemoveFromFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want the selected tab from the playlist?.
+        /// </summary>
+        internal static string RemoveTabFromPlaylistDialogCaption {
+            get {
+                return ResourceManager.GetString("RemoveTabFromPlaylistDialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Tab From Playlist.
+        /// </summary>
+        internal static string RemoveTabFromPlaylistDialogTitle {
+            get {
+                return ResourceManager.GetString("RemoveTabFromPlaylistDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore.
+        /// </summary>
+        internal static string Restore {
+            get {
+                return ResourceManager.GetString("Restore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Safe Mode.
+        /// </summary>
+        internal static string SafeMode {
+            get {
+                return ResourceManager.GetString("SafeMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes to this tablature?.
+        /// </summary>
+        internal static string SaveChangesDialogCaption {
+            get {
+                return ResourceManager.GetString("SaveChangesDialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Changes.
+        /// </summary>
+        internal static string SaveChangesDialogTitle {
+            get {
+                return ResourceManager.GetString("SaveChangesDialogTitle", resourceCulture);
             }
         }
         
@@ -185,6 +555,69 @@ namespace Tabster.Properties {
             get {
                 object obj = ResourceManager.GetObject("splash", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tabster File.
+        /// </summary>
+        internal static string TabsterFile {
+            get {
+                return ResourceManager.GetString("TabsterFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tabster Files.
+        /// </summary>
+        internal static string TabsterFiles {
+            get {
+                return ResourceManager.GetString("TabsterFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your version of Tabster is up to date..
+        /// </summary>
+        internal static string UpdateDialogCaptionNone {
+            get {
+                return ResourceManager.GetString("UpdateDialogCaptionNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Updates Available.
+        /// </summary>
+        internal static string UpdateDialogTitleNone {
+            get {
+                return ResourceManager.GetString("UpdateDialogTitleNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        internal static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Views.
+        /// </summary>
+        internal static string Views {
+            get {
+                return ResourceManager.GetString("Views", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

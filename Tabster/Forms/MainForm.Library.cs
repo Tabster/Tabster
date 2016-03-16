@@ -8,7 +8,6 @@ using System.Linq;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using RecentFilesMenuItem;
-using Tabster.Controls;
 using Tabster.Core.Types;
 using Tabster.Data;
 using Tabster.Data.Binary;
@@ -72,9 +71,9 @@ namespace Tabster.Forms
             {
                 using (var sfd = new SaveFileDialog
                 {
-                    Title = "Export Tab - Tabster",
+                    Title = Resources.ExportTabDialogTitle,
                     AddExtension = true,
-                    Filter = string.Format("Tabster File (*{0})|*{0}", Constants.TablatureFileExtension),
+                    Filter = string.Format("{0} (*{1})|*{1}", Resources.TabsterFile, Constants.TablatureFileExtension),
                     FileName = GetSelectedLibraryItem().File.ToFriendlyString()
                 })
                 {
@@ -98,10 +97,10 @@ namespace Tabster.Forms
                                 exporter.Export(GetSelectedLibraryItem().File, sfd.FileName, args);
                             }
 
-                            catch(Exception ex)
+                            catch (Exception ex)
                             {
-                                Logging.GetLogger().Error("An error occured during tablature exporting.", ex);
-                                MessageBox.Show("An error occured during tablature exporting.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                Logging.GetLogger().Error(Resources.ExportErrorDialogCaption, ex);
+                                MessageBox.Show(Resources.ExportErrorDialogCaption, Resources.ExportErrorDialogTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
                     }
@@ -188,7 +187,7 @@ namespace Tabster.Forms
             if (updateRecentFiles)
             {
                 _recentFilesManager.Add(new RecentFile(file, fileInfo));
-                recentlyViewedMenuItem.Add(new RecentMenuItem(fileInfo) { DisplayText = file.ToFriendlyString() });
+                recentlyViewedMenuItem.Add(new RecentMenuItem(fileInfo) {DisplayText = file.ToFriendlyString()});
             }
 
             var libraryItem = _libraryManager.FindTablatureItemByFile(file);
@@ -236,8 +235,7 @@ namespace Tabster.Forms
 
                     if (selectedPlaylist != null)
                     {
-                        if (MessageBox.Show(string.Format("Are you sure you want to remove this tab from the playlist?{0}{0}{1}",
-                            Environment.NewLine, selectedItem.File.ToFriendlyString()), "Remove Tab",
+                        if (MessageBox.Show(Resources.RemoveTabFromPlaylistDialogCaption, Resources.RemoveTabFromPlaylistDialogTitle,
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
                             selectedPlaylist.Remove(selectedItem.FileInfo.FullName);
@@ -249,8 +247,7 @@ namespace Tabster.Forms
 
                 else
                 {
-                    if (MessageBox.Show(string.Format("Are you sure you want to delete this tab?{0}{0}{1}",
-                        Environment.NewLine, selectedItem.File.ToFriendlyString()), "Delete Tab",
+                    if (MessageBox.Show(Resources.DeleteTabDialogCaption, Resources.DeleteTabDialogTitle,
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         _libraryManager.Remove(selectedItem);
@@ -286,10 +283,10 @@ namespace Tabster.Forms
 
             using (var ofd = new OpenFileDialog
             {
-                Title = "Open File - Tabster",
+                Title = Resources.OpenTabDialogTitle,
                 AddExtension = true,
                 Multiselect = false,
-                Filter = string.Format("Tabster Files (*{0})|*{0}", Constants.TablatureFileExtension)
+                Filter = string.Format("{0} (*{1})|*{1}", Resources.TabsterFiles, Constants.TablatureFileExtension)
             })
             {
                 if (ofd.ShowDialog() != DialogResult.Cancel)
@@ -385,7 +382,7 @@ namespace Tabster.Forms
                 }
             }
 
-            librarycontextfavorites.Text = GetSelectedLibraryItem().Favorited ? "Remove from favorites" : "Add to favorites";
+            librarycontextfavorites.Text = GetSelectedLibraryItem().Favorited ? Resources.RemoveFromFavorites : Resources.AddToFavorites;
 
             e.MenuStrip = LibraryMenu;
         }
@@ -500,8 +497,8 @@ namespace Tabster.Forms
         {
             using (var ofd = new OpenFileDialog
             {
-                Title = "Import Tab - Tabster",
-                Filter = string.Format("Tabster File (*{0})|*{0}", Constants.TablatureFileExtension),
+                Title = Resources.ImportTabDialogTitle,
+                Filter = string.Format("{0} (*{1})|*{1}", Resources.TabsterFile, Constants.TablatureFileExtension),
                 Multiselect = false
             })
             {
@@ -533,7 +530,7 @@ namespace Tabster.Forms
 
                         catch
                         {
-                            MessageBox.Show("Error occured while importing.", "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(Resources.ImportErrorDialogCaption, Resources.ImportErrorDialogTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                         if (importedTab != null)
@@ -644,34 +641,34 @@ namespace Tabster.Forms
 
         private static void UpdateInfoLabel(Label label, string str)
         {
-            label.Text = string.IsNullOrEmpty(str) ? "N/A" : str;
+            label.Text = string.IsNullOrEmpty(str) ? Resources.NotAvailableAbbreviation : str;
         }
 
         private void LoadTablatureData(TablatureLibraryItem<TablatureFile> libraryItem)
         {
             //tablature information
-            UpdateInfoLabel(lblCurrentArtist, libraryItem == null ? "N/A" : libraryItem.File.Artist);
-            UpdateInfoLabel(lblCurrentTitle, libraryItem == null ? "N/A" : libraryItem.File.Title);
-            UpdateInfoLabel(lblCurrentType, libraryItem == null ? "N/A" : libraryItem.File.Type.Name);
-            UpdateInfoLabel(lblCurrentTuning, libraryItem == null ? "N/A" : libraryItem.File.Tuning.Name);
-            UpdateInfoLabel(lblCurrentSubtitle, libraryItem == null ? "N/A" : libraryItem.File.Subtitle);
-            UpdateInfoLabel(lblCurrentDifficulty, libraryItem == null ? "N/A" : libraryItem.File.Difficulty.Name);
-            UpdateInfoLabel(lblCurrentAuthor, libraryItem == null ? "N/A" : libraryItem.File.Author);
-            UpdateInfoLabel(lblCurrentCopyright, libraryItem == null ? "N/A" : libraryItem.File.Copyright);
-            UpdateInfoLabel(lblCurrentAlbum, libraryItem == null ? "N/A" : libraryItem.File.Album);
-            UpdateInfoLabel(lblCurrentGenre, libraryItem == null ? "N/A" : libraryItem.File.Genre);
-            UpdateInfoLabel(lblCurrentComment, libraryItem == null ? "N/A" : libraryItem.File.Comment);
+            UpdateInfoLabel(lblCurrentArtist, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.Artist);
+            UpdateInfoLabel(lblCurrentTitle, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.Title);
+            UpdateInfoLabel(lblCurrentType, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.Type.Name);
+            UpdateInfoLabel(lblCurrentTuning, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.Tuning.Name);
+            UpdateInfoLabel(lblCurrentSubtitle, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.Subtitle);
+            UpdateInfoLabel(lblCurrentDifficulty, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.Difficulty.Name);
+            UpdateInfoLabel(lblCurrentAuthor, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.Author);
+            UpdateInfoLabel(lblCurrentCopyright, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.Copyright);
+            UpdateInfoLabel(lblCurrentAlbum, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.Album);
+            UpdateInfoLabel(lblCurrentGenre, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.Genre);
+            UpdateInfoLabel(lblCurrentComment, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.Comment);
 
             txtLyrics.Text = libraryItem == null ? "" : libraryItem.File.Lyrics;
 
             //file information
-            UpdateInfoLabel(lblCurrentLocation, libraryItem == null ? "N/A" : libraryItem.FileInfo.FullName);
-            UpdateInfoLabel(lblCurrentLength, libraryItem == null ? "N/A" : string.Format("{0:n0} bytes", libraryItem.FileInfo.Length));
-            UpdateInfoLabel(lblCurrentFormat, libraryItem == null ? "N/A" : libraryItem.File.FileHeader.Version.ToString());
-            UpdateInfoLabel(lblCurrentCreated, libraryItem == null ? "N/A" : libraryItem.FileInfo.CreationTime.ToString());
-            UpdateInfoLabel(lblCurrentModified, libraryItem == null ? "N/A" : libraryItem.FileInfo.LastWriteTime.ToString());
-            UpdateInfoLabel(lblCurrentCompressed, libraryItem == null ? "N/A" : libraryItem.File.FileHeader.Compression == CompressionMode.None ? "No" : "Yes");
-            UpdateInfoLabel(lblCurrentEncoding, libraryItem == null ? "N/A" : libraryItem.File.FileAttributes.Encoding.EncodingName);
+            UpdateInfoLabel(lblCurrentLocation, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.FileInfo.FullName);
+            UpdateInfoLabel(lblCurrentLength, libraryItem == null ? Resources.NotAvailableAbbreviation : string.Format("{0:n0} {1}", libraryItem.FileInfo.Length, Resources.Bytes));
+            UpdateInfoLabel(lblCurrentFormat, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.FileHeader.Version.ToString());
+            UpdateInfoLabel(lblCurrentCreated, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.FileInfo.CreationTime.ToString());
+            UpdateInfoLabel(lblCurrentModified, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.FileInfo.LastWriteTime.ToString());
+            UpdateInfoLabel(lblCurrentCompressed, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.FileHeader.Compression == CompressionMode.None ? Resources.No : Resources.Yes);
+            UpdateInfoLabel(lblCurrentEncoding, libraryItem == null ? Resources.NotAvailableAbbreviation : libraryItem.File.FileAttributes.Encoding.EncodingName);
         }
 
         private void LoadTabPreview(bool startViewCountTimer = true)
@@ -743,7 +740,7 @@ namespace Tabster.Forms
             {
                 var playlistItem = GetSelectedPlaylist();
 
-                if (playlistItem != null && MessageBox.Show("Are you sure you want to delete this playlist?", "Delete Playlist", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (playlistItem != null && MessageBox.Show(Resources.DeletePlaylistDialogCaption, Resources.DeletePlaylistDialogTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     _playlistManager.Remove(playlistItem);
                     RemovePlaylistNode(playlistItem);
@@ -760,7 +757,7 @@ namespace Tabster.Forms
                 {
                     if (string.IsNullOrEmpty(p.PlaylistName))
                     {
-                        MessageBox.Show("Please enter a valid playlist name.", "Invalid Name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Resources.InvalidNameDialogText, Resources.InvalidNameDialogTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 

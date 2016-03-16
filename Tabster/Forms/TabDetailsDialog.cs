@@ -7,6 +7,7 @@ using Tabster.Data;
 using Tabster.Data.Binary;
 using Tabster.Data.Library;
 using Tabster.Database;
+using Tabster.Properties;
 
 #endregion
 
@@ -49,10 +50,10 @@ namespace Tabster.Forms
 
             //file information
             lblFormat.Text += _libraryItem.File.FileHeader.Version.ToString();
-            lblLength.Text += string.Format(" {0:n0} bytes", _libraryItem.FileInfo.Length);
+            lblLength.Text += string.Format(" {0:n0} {1}", _libraryItem.FileInfo.Length, Resources.Bytes);
             lblCreated.Text += string.Format(" {0}", _libraryItem.FileInfo.CreationTime);
             lblModified.Text += string.Format(" {0}", _libraryItem.FileInfo.LastWriteTime);
-            lblCompressed.Text += string.Format(" {0}", _libraryItem.File.FileHeader.Compression == CompressionMode.None ? "No" : "Yes");
+            lblCompressed.Text += string.Format(" {0}", _libraryItem.File.FileHeader.Compression == CompressionMode.None ? Resources.No : Resources.Yes);
             lblEncoding.Text += string.Format(" {0}", _libraryItem.File.FileAttributes.Encoding.EncodingName);
         }
 
@@ -79,13 +80,12 @@ namespace Tabster.Forms
 
         private void LoadLibraryInformation()
         {
-            lblfavorited.Text = string.Format("Favorited: {0}", (_libraryItem.Favorited ? "Yes" : "No"));
-            lblViewCount.Text = string.Format("Views: {0}", _libraryItem.Views);
-            lblLastViewed.Text = string.Format("Last Viewed: {0}", _libraryItem.LastViewed.HasValue ? _libraryItem.LastViewed.Value.ToString() : "Never");
+            lblfavorited.Text = string.Format("{0}: {1}", Resources.Favorited, (_libraryItem.Favorited ? Resources.Yes : Resources.No));
+            lblViewCount.Text = string.Format("{0}: {1}", Resources.Views, _libraryItem.Views);
+            lblLastViewed.Text = string.Format("{0}: {1}", Resources.LastViewed, _libraryItem.LastViewed.HasValue ? _libraryItem.LastViewed.Value.ToString() : Resources.Never);
 
             var playlistCount = _playlistManager.GetPlaylists().Count(playlist => playlist.Find(_libraryItem.FileInfo.FullName) != null);
-
-            lblPlaylistCount.Text = string.Format("Founds in {0} playlist{1}.", playlistCount, playlistCount == 1 ? "" : "s");
+            lblPlaylistCount.Text = string.Format("{0}: {1}", Resources.PlaylistOccurrences, playlistCount);
         }
 
         private void okbtn_Click(object sender, EventArgs e)

@@ -10,7 +10,6 @@ using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using RecentFilesMenuItem;
-using Tabster.Controls;
 using Tabster.Core.Searching;
 using Tabster.Core.Types;
 using Tabster.Data;
@@ -29,6 +28,7 @@ namespace Tabster.Forms
 {
     internal partial class MainForm : Form
     {
+        private const int SplashTime = 3500;
         private readonly TabsterDatabaseHelper _databaseHelper;
         private readonly LibraryManager _libraryManager;
         private readonly PlaylistManager _playlistManager;
@@ -155,7 +155,7 @@ namespace Tabster.Forms
 
             else if (!isStartupCheck)
             {
-                MessageBox.Show("Your version of Tabster is up to date.", "No Updates Available");
+                MessageBox.Show(Resources.UpdateDialogCaptionNone, Resources.UpdateDialogTitleNone);
             }
         }
 
@@ -180,8 +180,6 @@ namespace Tabster.Forms
             }
         }
 
-        private const int SplashTime = 3500;
-
         private void Form1_Load(object sender, EventArgs e)
         {
             var done = false;
@@ -190,7 +188,7 @@ namespace Tabster.Forms
             {
                 ToggleVisibility(false);
 
-                ThreadPool.QueueUserWorkItem((x) =>
+                ThreadPool.QueueUserWorkItem(x =>
                 {
                     var sw = new Stopwatch();
                     sw.Start();
@@ -313,7 +311,7 @@ namespace Tabster.Forms
 
             foreach (var item in _recentFilesManager.GetItems())
             {
-                recentlyViewedMenuItem.Add(new RecentMenuItem(item.FileInfo) { DisplayText = item.TablatureFile.ToFriendlyString() });
+                recentlyViewedMenuItem.Add(new RecentMenuItem(item.FileInfo) {DisplayText = item.TablatureFile.ToFriendlyString()});
             }
         }
 
@@ -388,7 +386,7 @@ namespace Tabster.Forms
 
         private void OpenRecentFile(MenuItem item)
         {
-            var recentMenuItem = (RecentMenuItem)item;
+            var recentMenuItem = (RecentMenuItem) item;
 
             var tab = _libraryManager.GetTablatureFileProcessor().Load(recentMenuItem.FileInfo.FullName);
 
@@ -705,7 +703,7 @@ namespace Tabster.Forms
         {
             if (TabsterEnvironment.SafeMode)
             {
-                MessageBox.Show("Plugins are not configurable while running in safe mode.", "Safe Mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Resources.PluginManagerSafeMode, Resources.SafeMode, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -761,7 +759,7 @@ namespace Tabster.Forms
                     }
 
                     if (p.RecentItemsCleared)
-                         recentlyViewedMenuItem.Clear();
+                        recentlyViewedMenuItem.Clear();
                 }
             }
         }

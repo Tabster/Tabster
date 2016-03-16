@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RenameDialog));
             this.label2 = new System.Windows.Forms.Label();
             this.txtname = new System.Windows.Forms.TextBox();
             this.okbtn = new System.Windows.Forms.Button();
@@ -36,57 +37,41 @@
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
+            resources.ApplyResources(this.label2, "label2");
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label2.Location = new System.Drawing.Point(9, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(127, 13);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Enter a new name below:";
             // 
             // txtname
             // 
             this.txtname.BackColor = System.Drawing.SystemColors.Window;
             this.txtname.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txtname.Location = new System.Drawing.Point(12, 28);
+            resources.ApplyResources(this.txtname, "txtname");
             this.txtname.Name = "txtname";
-            this.txtname.Size = new System.Drawing.Size(247, 20);
-            this.txtname.TabIndex = 0;
             this.txtname.TextChanged += new System.EventHandler(this.txtartist_TextChanged);
             // 
             // okbtn
             // 
-            this.okbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.okbtn, "okbtn");
             this.okbtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okbtn.Enabled = false;
-            this.okbtn.Location = new System.Drawing.Point(103, 63);
             this.okbtn.Name = "okbtn";
-            this.okbtn.Size = new System.Drawing.Size(75, 23);
-            this.okbtn.TabIndex = 4;
-            this.okbtn.Text = "OK";
             this.okbtn.UseVisualStyleBackColor = true;
             this.okbtn.Click += new System.EventHandler(this.okbtn_Click);
             // 
             // cancelbtn
             // 
-            this.cancelbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.cancelbtn, "cancelbtn");
             this.cancelbtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelbtn.Location = new System.Drawing.Point(184, 63);
             this.cancelbtn.Name = "cancelbtn";
-            this.cancelbtn.Size = new System.Drawing.Size(75, 23);
-            this.cancelbtn.TabIndex = 5;
-            this.cancelbtn.Text = "Cancel";
             this.cancelbtn.UseVisualStyleBackColor = true;
             // 
             // RenameDialog
             // 
             this.AcceptButton = this.okbtn;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.cancelbtn;
-            this.ClientSize = new System.Drawing.Size(271, 98);
             this.Controls.Add(this.okbtn);
             this.Controls.Add(this.cancelbtn);
             this.Controls.Add(this.label2);
@@ -98,8 +83,6 @@
             this.Name = "RenameDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Rename";
             this.ResumeLayout(false);
             this.PerformLayout();
 

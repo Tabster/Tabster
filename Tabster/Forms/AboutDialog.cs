@@ -18,7 +18,7 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
-            lblVersion.Text = string.Format("Version {0}", TabsterEnvironment.GetVersion().ToString(TabsterVersionFormatFlags.BuildString | TabsterVersionFormatFlags.CommitShort | TabsterVersionFormatFlags.Truncated));
+            lblVersion.Text = string.Format("{0} {1}", Resources.Version, TabsterEnvironment.GetVersion().ToString(TabsterVersionFormatFlags.BuildString | TabsterVersionFormatFlags.CommitShort | TabsterVersionFormatFlags.Truncated));
             lblVersion.LinkArea = TabsterEnvironment.GetVersion().Commit != null ? new LinkArea(lblVersion.Text.Length - TabsterEnvironment.GetVersion().Commit.ToShorthandString().Length, TabsterEnvironment.GetVersion().Commit.ToShorthandString().Length) : new LinkArea(0, 0);
 
             lblCopyright.Text = BrandingUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
@@ -34,10 +34,10 @@ namespace Tabster.Forms
             {
                 if (pluginHost.Plugin.Guid != Guid.Empty && pluginHost.Enabled)
                 {
-                    var lvi = new ListViewItem {Text = pluginHost.Plugin.DisplayName ?? "N/A"};
+                    var lvi = new ListViewItem {Text = pluginHost.Plugin.DisplayName ?? Resources.NotAvailableAbbreviation};
 
-                    lvi.SubItems.Add(pluginHost.Plugin.Version != null ? pluginHost.Plugin.Version.ToString() : "N/A");
-                    lvi.SubItems.Add(pluginHost.Plugin.Author ?? "N/A");
+                    lvi.SubItems.Add(pluginHost.Plugin.Version != null ? pluginHost.Plugin.Version.ToString() : Resources.NotAvailableAbbreviation);
+                    lvi.SubItems.Add(pluginHost.Plugin.Author ?? Resources.NotAvailableAbbreviation);
                     lvi.SubItems.Add(pluginHost.FileInfo.FullName);
 
                     listPlugins.Items.Add(lvi);
@@ -62,7 +62,7 @@ namespace Tabster.Forms
         {
             Process.Start("http://tabster.org");
         }
-            
+
         private void lblVersion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(string.Format("https://github.com/GetTabster/Tabster/commit/{0}", TabsterEnvironment.GetVersion().Commit));

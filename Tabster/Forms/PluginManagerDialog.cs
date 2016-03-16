@@ -18,8 +18,8 @@ namespace Tabster.Forms
     {
         private readonly Color _disabledColor = Color.Red;
         private readonly Color _enabledColor = Color.Green;
-        private readonly List<PluginHost> _pluginHosts = new List<PluginHost>();
-        private readonly Dictionary<PluginHost, bool> _pluginStatusMap = new Dictionary<PluginHost, bool>();
+        private readonly List<PluginInstance> _pluginHosts = new List<PluginInstance>();
+        private readonly Dictionary<PluginInstance, bool> _pluginStatusMap = new Dictionary<PluginInstance, bool>();
 
         public PluginManagerDialog()
         {
@@ -45,7 +45,7 @@ namespace Tabster.Forms
 
             else
             {
-                MessageBox.Show("An error occured while retrieving featured plugins data.", "Featured Plugins", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.FeaturedPluginsErrorDialogCaption, Resources.FeaturedPlugins, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -67,7 +67,7 @@ namespace Tabster.Forms
 
                 _pluginStatusMap[pluginHost] = pluginHost.Enabled;
 
-                lvi.SubItems.Add(pluginHost.Enabled ? "Yes" : "No");
+                lvi.SubItems.Add(pluginHost.Enabled ? Resources.Yes : Resources.No);
 
                 listPlugins.Items.Add(lvi);
             }
@@ -75,7 +75,7 @@ namespace Tabster.Forms
             if (listPlugins.Items.Count > 0)
                 listPlugins.Items[0].Selected = true;
             else
-                LoadPluginInformation((PluginHost) null);
+                LoadPluginInformation((PluginInstance) null);
         }
 
         private void LoadPluginInformation(FeaturedPlugin featuredPlugin)
@@ -84,39 +84,39 @@ namespace Tabster.Forms
 
             if (featuredPlugin != null)
             {
-                lblPluginFilename.Text = "N/A";
-                lblPluginAuthor.Text = featuredPlugin.Author ?? "N/A";
-                lblPluginVersion.Text = featuredPlugin.Version != null ? featuredPlugin.Version.ToString() : "N/A";
-                lblPluginDescription.Text = featuredPlugin.Description ?? "N/A";
-                lblPluginHomepage.Text = featuredPlugin.Website != null  ? featuredPlugin.Website.DnsSafeHost : "N/A";
+                lblPluginFilename.Text = Resources.NotAvailableAbbreviation;
+                lblPluginAuthor.Text = featuredPlugin.Author ?? Resources.NotAvailableAbbreviation;
+                lblPluginVersion.Text = featuredPlugin.Version != null ? featuredPlugin.Version.ToString() : Resources.NotAvailableAbbreviation;
+                lblPluginDescription.Text = featuredPlugin.Description ?? Resources.NotAvailableAbbreviation;
+                lblPluginHomepage.Text = featuredPlugin.Website != null ? featuredPlugin.Website.DnsSafeHost : Resources.NotAvailableAbbreviation;
                 lblPluginHomepage.Tag = featuredPlugin.Website;
             }
         }
 
-        private void LoadPluginInformation(PluginHost pluginHost)
+        private void LoadPluginInformation(PluginInstance pluginInstance)
         {
-            lblPlaceholder.Visible = pluginHost == null;
+            lblPlaceholder.Visible = pluginInstance == null;
 
-            if (pluginHost != null)
+            if (pluginInstance != null)
             {
-                lblPluginFilename.Text = string.Format("{0}...{1}{2}{1}{3}", Path.GetPathRoot(pluginHost.FileInfo.FullName), Path.DirectorySeparatorChar, Path.GetFileName(Path.GetDirectoryName(pluginHost.FileInfo.FullName)), pluginHost.FileInfo.Name);
-                lblPluginAuthor.Text = pluginHost.Plugin.Author ?? "N/A";
-                lblPluginVersion.Text = pluginHost.Plugin.Version != null
-                    ? pluginHost.Plugin.Version.ToString()
-                    : "N/A";
-                lblPluginDescription.Text = pluginHost.Plugin.Description ?? "N/A";
+                lblPluginFilename.Text = string.Format("{0}...{1}{2}{1}{3}", Path.GetPathRoot(pluginInstance.FileInfo.FullName), Path.DirectorySeparatorChar, Path.GetFileName(Path.GetDirectoryName(pluginInstance.FileInfo.FullName)), pluginInstance.FileInfo.Name);
+                lblPluginAuthor.Text = pluginInstance.Plugin.Author ?? Resources.NotAvailableAbbreviation;
+                lblPluginVersion.Text = pluginInstance.Plugin.Version != null
+                    ? pluginInstance.Plugin.Version.ToString()
+                    : Resources.NotAvailableAbbreviation;
+                lblPluginDescription.Text = pluginInstance.Plugin.Description ?? Resources.NotAvailableAbbreviation;
 
-                lblPluginHomepage.Tag = pluginHost.Plugin.Website.DnsSafeHost;
+                lblPluginHomepage.Tag = pluginInstance.Plugin.Website.DnsSafeHost;
 
-                if (pluginHost.Plugin.Website != null)
+                if (pluginInstance.Plugin.Website != null)
                 {
-                    lblPluginHomepage.Text = pluginHost.Plugin.Website.DnsSafeHost;
+                    lblPluginHomepage.Text = pluginInstance.Plugin.Website.DnsSafeHost;
                     lblPluginHomepage.LinkArea = new LinkArea(0, lblPluginHomepage.Text.Length);
                 }
 
                 else
                 {
-                    lblPluginHomepage.Text = "N/A";
+                    lblPluginHomepage.Text = Resources.NotAvailableAbbreviation;
                     lblPluginHomepage.LinkArea = new LinkArea(0, 0);
                 }
             }
@@ -141,7 +141,7 @@ namespace Tabster.Forms
             {
                 item.Checked = !item.Checked;
                 item.ForeColor = item.Checked ? _enabledColor : _disabledColor;
-                item.SubItems[colpluginEnabled.Index].Text = item.Checked ? "Yes" : "No";
+                item.SubItems[colpluginEnabled.Index].Text = item.Checked ? Resources.Yes : Resources.No;
 
                 var plugin = _pluginHosts[item.Index];
                 _pluginStatusMap[plugin] = item.Checked; //set temporary status
@@ -152,7 +152,7 @@ namespace Tabster.Forms
 
         private void LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(((LinkLabel)sender).Tag.ToString());
+            Process.Start(((LinkLabel) sender).Tag.ToString());
         }
 
         private void okbtn_Click(object sender, EventArgs e)

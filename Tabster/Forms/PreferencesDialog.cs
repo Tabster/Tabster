@@ -20,8 +20,6 @@ namespace Tabster.Forms
 {
     internal partial class PreferencesDialog : Form
     {
-        private readonly RecentFilesManager _recentFilesManager;
-
         public enum PreferencesSection
         {
             General,
@@ -32,6 +30,7 @@ namespace Tabster.Forms
 
         private readonly Color _disabledColor = Color.Red;
         private readonly Color _enabledColor = Color.Green;
+        private readonly RecentFilesManager _recentFilesManager;
 
         public PreferencesDialog(RecentFilesManager recentFilesManager)
         {
@@ -167,11 +166,17 @@ namespace Tabster.Forms
         {
             if (!ValidateProxyInput())
             {
-                MessageBox.Show("Invalid proxy settings.", "Proxy Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.InvalidProxySettings, Resources.ProxySettings, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DialogResult = DialogResult.None;
             }
 
             SavePreferences();
+        }
+
+        private void btnClearRecentItems_Click(object sender, EventArgs e)
+        {
+            _recentFilesManager.Clear();
+            RecentItemsCleared = true;
         }
 
         #region Network
@@ -253,7 +258,7 @@ namespace Tabster.Forms
 
             listSearchEngines.Items.Clear();
 
-            var searchPluginMap = new Dictionary<ITablatureSearchEngine, PluginHost>();
+            var searchPluginMap = new Dictionary<ITablatureSearchEngine, PluginInstance>();
 
             foreach (var plugin in Program.GetPluginController().GetPluginHosts())
             {
@@ -314,11 +319,11 @@ namespace Tabster.Forms
 
                 else
                 {
-                    lblSearchEngineHomepage.Text = "N/A";
+                    lblSearchEngineHomepage.Text = Resources.NotAvailableAbbreviation;
                     lblSearchEngineHomepage.LinkArea = new LinkArea(0, 0);
                 }
 
-                lblSearchEngineSupportsRatings.Text = engine.SupportsRatings ? "Yes" : "No";
+                lblSearchEngineSupportsRatings.Text = engine.SupportsRatings ? Resources.Yes : Resources.No;
 
                 listBox1.Items.Clear();
 
@@ -330,11 +335,5 @@ namespace Tabster.Forms
         }
 
         #endregion
-
-        private void btnClearRecentItems_Click(object sender, EventArgs e)
-        {
-            _recentFilesManager.Clear();
-            RecentItemsCleared = true;
-        }
     }
 }
