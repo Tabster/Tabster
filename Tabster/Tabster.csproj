@@ -61,7 +61,7 @@
     <ManifestKeyFile>Tabster_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -69,9 +69,7 @@
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Portable|x86'">
     <OutputPath>bin\Portable\</OutputPath>
     <DefineConstants>TRACE;PORTABLE</DefineConstants>
@@ -85,6 +83,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib">
@@ -119,20 +121,16 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tabster.Core, Version=1.0.0.25, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Tabster.Core">
       <HintPath>..\packages\Tabster.Core.1.0.0.25\lib\net35\Tabster.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Tabster.Data, Version=1.0.3.7, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Tabster.Data">
       <HintPath>..\packages\Tabster.Data.1.0.3.7\lib\net35\Tabster.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Tabster.Printing, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Tabster.Printing">
       <HintPath>..\packages\Tabster.Printing.1.0.0.8\lib\net35\Tabster.Printing.dll</HintPath>
     </Reference>
-    <Reference Include="Tabster.WinForms, Version=1.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Tabster.WinForms">
       <HintPath>..\packages\Tabster.WinForms.1.0.0.7\lib\net35\Tabster.WinForms.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -311,7 +309,6 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
