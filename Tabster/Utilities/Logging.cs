@@ -2,9 +2,9 @@
 
 using System;
 using System.Reflection;
-using System.Windows.Forms;
 using log4net;
 using log4net.Config;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -28,7 +28,8 @@ namespace Tabster.Utilities
                 if (_logDirectory == null)
                     throw new InvalidOperationException("Log directory needs to be set.");
 
-                GlobalContext.Properties["HeaderInfo"] = string.Format("Tabster {0}", Application.ProductVersion);
+                GlobalContext.Properties["HeaderInfo"] = string.Format("Tabster {0}",
+                    TabsterEnvironment.GetVersion().ToString(TabsterVersionFormatFlags.BuildString));
                 GlobalContext.Properties["LogDirectory"] = _logDirectory;
 
                 XmlConfigurator.Configure();
