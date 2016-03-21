@@ -65,7 +65,7 @@ namespace Tabster.Forms
             chkPrintTimestamp.Checked = Settings.Default.PrintTimestamp;
 
             //proxy settings
-            var proxySettings = UserSettingsUtilities.ProxySettings;
+            var proxySettings = TabsterSettingsUtilities.ProxySettings;
 
             if (proxySettings.Configuration == ProxyConfiguration.System)
                 radioSystemProxy.Checked = true;
@@ -92,7 +92,7 @@ namespace Tabster.Forms
                 {
                     var engine = _searchEngines[lvi.Index];
                     var plugin = Program.GetPluginController().GetHostByType(engine.GetType());
-                    var id = UserSettingsUtilities.GetSearchEngineIdentifier(plugin, engine);
+                    var id = TabsterSettingsUtilities.GetSearchEngineIdentifier(plugin, engine);
 
                     if (id == null)
                         continue;
@@ -148,13 +148,13 @@ namespace Tabster.Forms
                         : null;
                 }
 
-                UserSettingsUtilities.ProxySettings.ManualProxyParameters = new ManualProxyParameters(
+                TabsterSettingsUtilities.ProxySettings.ManualProxyParameters = new ManualProxyParameters(
                     customProxy.Address.Host, (ushort) customProxy.Address.Port,
                     customProxy.Credentials);
             }
 
             //apply settings to active proxy config
-            UserSettingsUtilities.ProxySettings.Configuration = proxyConfig;
+            TabsterSettingsUtilities.ProxySettings.Configuration = proxyConfig;
 
             Settings.Default.StartupUpdate = chkUpdates.Checked;
             Settings.Default.StripVersionedNames = chkStripVersionedNames.Checked;
@@ -271,7 +271,7 @@ namespace Tabster.Forms
 
             foreach (var searchPluginPair in searchPluginMap)
             {
-                var enabled = !Settings.Default.DisabledSearchEngines.Contains(UserSettingsUtilities.GetSearchEngineIdentifier(searchPluginPair.Value, searchPluginPair.Key));
+                var enabled = !Settings.Default.DisabledSearchEngines.Contains(TabsterSettingsUtilities.GetSearchEngineIdentifier(searchPluginPair.Value, searchPluginPair.Key));
 
                 var lvi = new ListViewItem
                 {

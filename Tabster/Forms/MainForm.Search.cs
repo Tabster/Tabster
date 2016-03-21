@@ -52,7 +52,7 @@ namespace Tabster.Forms
 
             var searchEngines = new List<ITablatureSearchEngine>();
 
-            foreach (var engine in UserSettingsUtilities.GetEnabledSearchEngines())
+            foreach (var engine in TabsterSettingsUtilities.GetEnabledSearchEngines())
             {
                 try
                 {
@@ -83,7 +83,7 @@ namespace Tabster.Forms
         {
             var request = (TablatureSearchRequest) e.Argument;
 
-            var proxy = UserSettingsUtilities.ProxySettings.Proxy;
+            var proxy = TabsterSettingsUtilities.ProxySettings.Proxy;
 
             foreach (var engine in request.SearchEngines)
             {
@@ -208,7 +208,7 @@ namespace Tabster.Forms
                     throw new TablatureProcessorException(string.Format("No parser found for URL: {0}", result.Source));
                 }
 
-                var proxy = UserSettingsUtilities.ProxySettings.Proxy;
+                var proxy = TabsterSettingsUtilities.ProxySettings.Proxy;
 
                 AttributedTablature tab;
 

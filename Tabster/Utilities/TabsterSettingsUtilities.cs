@@ -11,7 +11,7 @@ using Tabster.Properties;
 
 namespace Tabster.Utilities
 {
-    internal class UserSettingsUtilities
+    internal class TabsterSettingsUtilities
     {
         private static CustomProxyController _proxySettings;
 

@@ -114,7 +114,7 @@ namespace Tabster.Forms
 
             var count = 0;
 
-            var proxy = UserSettingsUtilities.ProxySettings.Proxy;
+            var proxy = TabsterSettingsUtilities.ProxySettings.Proxy;
 
             foreach (var queuedDownload in queuedDownloads)
             {

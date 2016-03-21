@@ -178,7 +178,7 @@
     <Compile Include="Utilities\TablatureUtilities.cs" />
     <Compile Include="Utilities\TabsterEnvironment.cs" />
     <Compile Include="Utilities\TabsterSingleInstanceController.cs" />
-    <Compile Include="Utilities\UserSettingsUtilities.cs" />
+    <Compile Include="Utilities\TabsterSettingsUtilities.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Controls\TextBoxExtended.cs">
       <SubType>Component</SubType>
