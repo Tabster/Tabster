@@ -2,6 +2,7 @@
 
 using System;
 using System.Reflection;
+using System.Text;
 using log4net;
 using log4net.Config;
 using Tabster.Core.Types;
@@ -28,8 +29,7 @@ namespace Tabster.Utilities
                 if (_logDirectory == null)
                     throw new InvalidOperationException("Log directory needs to be set.");
 
-                GlobalContext.Properties["HeaderInfo"] = string.Format("Tabster {0}",
-                    TabsterEnvironment.GetVersion().ToString(TabsterVersionFormatFlags.BuildString));
+                GlobalContext.Properties["HeaderInfo"] = GetHeaderInfo();
                 GlobalContext.Properties["LogDirectory"] = _logDirectory;
 
                 XmlConfigurator.Configure();
@@ -38,6 +38,30 @@ namespace Tabster.Utilities
             }
 
             return _logger ?? (_logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType));
+        }
+
+        private static string GetHeaderInfo()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(string.Format("Tabster {0}", TabsterEnvironment.GetVersion().ToString(TabsterVersionFormatFlags.BuildString)));
+
+            var types = new[]
+            {
+                typeof (IAsciiTablature), // Tabster.Core
+                typeof (Data.ITablatureFile), // Tabster.Data
+                typeof (WinForms.TablatureTextEditorBase), // Tabster.WinForms
+                typeof (Printing.TablaturePrintDocument), // Tabster.Printing
+            };
+
+            foreach (var type in types)
+            {
+                var assembly = Assembly.GetAssembly(type);
+                var version = new TabsterVersion(assembly.GetName().Version);
+
+                sb.AppendLine(string.Format("Referenced: {0} - {1}", assembly.GetName().Name, version));
+            }
+
+            return sb.ToString();
         }
     }
 }
