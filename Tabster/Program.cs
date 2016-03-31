@@ -39,7 +39,7 @@ namespace Tabster
             };
 
             var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
-            var userPlugindirectoryDirectory = TabsterEnvironment.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData, "Plugins");
+            var userPlugindirectoryDirectory = TabsterEnvironment.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData, "Plugins");
             _pluginManager = new PluginManager(new[] {pluginDirectory, userPlugindirectoryDirectory});
 
             Application.EnableVisualStyles();
