@@ -1,6 +1,6 @@
 Write-Host "Fetching featured plugin list..."
 
-$plugins_dir = "Plugins"
+$plugins_dir = "$env:APPVEYOR_BUILD_FOLDER\Deploy\Plugins"
 
 New-Item "$plugins_dir" -type directory
 
@@ -14,8 +14,7 @@ Foreach ($plugin in $j)
         Write-Host "Downloading $($plugin.download)`n"
         Write-Host [System.IO.Path]::GetFileName($plugin.download)
         $zip_path = [System.IO.Path]::Combine($plugins_dir, [System.IO.Path]::GetFileName($plugin.download))
-        Write-Host "Download Location: " + $zip_path
-        $wc.DownloadFile($plugin.download, $zip_path)
+        $wc.DownloadFile($plugin.download, "$plugins_dir")
 
         Write-Host "Unzipping $($plugin.download)`n"
         $output_dir = [System.IO.Path]::Combine($plugins_dir, $plugin.name)
