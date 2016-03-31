@@ -57,9 +57,6 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\ICSharpCode.SharpZipLib.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\RecentFilesMenuItem.dll"
 
-  ${If} ${FileExists} "$INSTDIR\file*\*.*"
-    File /r "${SOLUTION_DIRECTORY}\Deploy\Plugins\*.*"
-  
   CreateShortCut "$DESKTOP\Tabster.lnk" "$INSTDIR\Tabster.exe"
   CreateDirectory "$SMPROGRAMS\Tabster"
   CreateShortCut "$SMPROGRAMS\Tabster\Tabster.lnk" "$INSTDIR\Tabster.exe"
@@ -74,6 +71,15 @@ Section "MainSection" SEC01
   ; resources
   SetOutPath "${FONTS_DIRECTORY}"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Resources\Fonts\SourceCodePro-Regular.ttf"
+
+  !define PLUGINS_DIRECTORY = "$DOCUMENTS\Tabster\Plugins"
+
+  CreateDirectory "$DOCUMENTS\Tabster"
+  CreateDirectory "${PLUGINS_DIRECTORY}"
+
+  SetOutPath "$INSTDIR"
+  ${If} ${FileExists} "$INSTDIR\file*\*.*"
+    File /r "${SOLUTION_DIRECTORY}\Deploy\Plugins\*.*"
   
   ; file association
   ${registerExtension} "$INSTDIR\Tabster.exe" ".tabster" "Tabster File"

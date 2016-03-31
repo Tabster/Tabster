@@ -14,7 +14,8 @@ Foreach ($plugin in $j)
         Write-Host "Downloading $($plugin.download)`n"
         Write-Host [System.IO.Path]::GetFileName($plugin.download)
         $zip_path = [System.IO.Path]::Combine($plugins_dir, [System.IO.Path]::GetFileName($plugin.download))
-        $wc.DownloadFile($plugin.download, "$plugins_dir")
+        Write-Host "Download Location: " + "$zip_path"
+        $wc.DownloadFile($plugin.download, $zip_path)
 
         Write-Host "Unzipping $($plugin.download)`n"
         $output_dir = [System.IO.Path]::Combine($plugins_dir, $plugin.name)
