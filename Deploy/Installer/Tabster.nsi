@@ -1,5 +1,4 @@
 !include "FileAssociation.nsh"
-!include LogicLib.nsh
 
 !define PRODUCT_NAME "Tabster"
 !define PRODUCT_VERSION "${APPLICATION_VERSION}"
@@ -78,8 +77,7 @@ Section "MainSection" SEC01
   CreateDirectory "${PLUGINS_DIRECTORY}"
 
   SetOutPath "$INSTDIR"
-  ${If} ${FileExists} "$INSTDIR\file*\*.*"
-    File /r "${SOLUTION_DIRECTORY}\Deploy\Plugins\*.*"
+  File /r "${SOLUTION_DIRECTORY}\Deploy\Plugins\*.*"
   
   ; file association
   ${registerExtension} "$INSTDIR\Tabster.exe" ".tabster" "Tabster File"
