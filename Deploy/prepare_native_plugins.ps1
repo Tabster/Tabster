@@ -4,6 +4,7 @@ $plugins_dir = "Plugins"
 
 New-Item "$plugins_dir" -type directory
 
+[Net.ServicePointManager]::SecurityProtocol = 'Tls12'
 $wc = New-Object System.Net.WebClient
 
 $j = $wc.DownloadString("http://tabster.org/featured_plugins.json") | ConvertFrom-Json | Select -ExpandProperty featured_plugins
