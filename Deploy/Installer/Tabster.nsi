@@ -1,4 +1,5 @@
 !include "FileAssociation.nsh"
+!include LogicLib.nsh
 
 !define PRODUCT_NAME "Tabster"
 !define PRODUCT_VERSION "${APPLICATION_VERSION}"
@@ -56,7 +57,7 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\ICSharpCode.SharpZipLib.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\RecentFilesMenuItem.dll"
 
-  IfFileExists "${SOLUTION_DIRECTORY}\Deploy\Plugins\*.*"
+  ${If} ${FileExists} "$INSTDIR\file*\*.*"
     File /r "${SOLUTION_DIRECTORY}\Deploy\Plugins\*.*"
   
   CreateShortCut "$DESKTOP\Tabster.lnk" "$INSTDIR\Tabster.exe"
