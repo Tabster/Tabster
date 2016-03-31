@@ -3,7 +3,7 @@ os: Visual Studio 2015
 configuration: Release
 platform: Any CPU
 install:
-  - choco install nsis -pre -y
+  - choco install nsis -y
 assembly_info:
   patch: true
   file: AssemblyInfo.*
