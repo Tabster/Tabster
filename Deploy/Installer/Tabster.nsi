@@ -71,13 +71,13 @@ Section "MainSection" SEC01
   SetOutPath "${FONTS_DIRECTORY}"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Resources\Fonts\SourceCodePro-Regular.ttf"
 
-  !define APPDATA_DIRECTORY = "$APPDATA\Tabster"
-  !define PLUGINS_DIRECTORY = "${APPDATA_DIRECTORY}\Plugins"
+  !define APPDATA_DIRECTORY "$APPDATA\Tabster"
+  !define PLUGINS_DIRECTORY "${APPDATA_DIRECTORY}\Plugins"
 
   CreateDirectory "${APPDATA_DIRECTORY}"
   CreateDirectory "${PLUGINS_DIRECTORY}"
   
-  SetOutPath "$PLUGINS_DIRECTORY"
+  SetOutPath "${PLUGINS_DIRECTORY}"
   File /r "${SOLUTION_DIRECTORY}\Deploy\Plugins\*.*"
 
   ; file association
