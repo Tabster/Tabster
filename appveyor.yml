@@ -20,7 +20,7 @@ after_build:
 - ps: >-
     .\Deploy\Portable\portable.ps1
 artifacts:
-- path: "Tabster*Setup.exe" # use wildcards otherwise 'Tabster' subdirectory with be zipped as well
+- path: "Tabster*Setup.exe" # use wildcards otherwise 'Tabster' subdirectory will be zipped as well
   name: installer
 - path: "Tabster*Portable.exe"
   name: portable
