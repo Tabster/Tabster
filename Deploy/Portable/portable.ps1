@@ -8,9 +8,15 @@ $zip_archive = "$env:APPVEYOR_BUILD_FOLDER\Deploy\Portable\Tabster $env:APPVEYOR
 
 $output_directory = "$env:APPVEYOR_BUILD_FOLDER\Tabster\bin\Portable"
 
+$plugins_directory = "$env:APPVEYOR_BUILD_FOLDER\Deploy\Plugins"
+
+if (Test-Path $plugins_directory -PathType Container) {
+    Copy-Item "$plugins_directory" "$temp_directory" -recurse
+}
+
 # copy files
-Get-ChildItem -Path "$output_directory" | % { 
-  Copy-Item $_.fullname "$temp_directory" -Recurse -Force -Exclude @("*.xml", "*.pdb", "*.manifest", "*.application", "*.vshost.*") 
+Get-ChildItem -Path "$output_directory" | % {
+    Copy-Item $_.fullname "$temp_directory" -Recurse -Force -Exclude @("*.xml", "*.pdb", "*.manifest", "*.application", "*.vshost.*") 
 }
 
 # zip contents in self-extracting archive

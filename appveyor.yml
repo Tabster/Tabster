@@ -16,6 +16,8 @@ build:
   project: Tabster.sln
 after_build:
 - ps: >-
+    .\Deploy\prepare_native_plugins.ps1
+- ps: >-
     .\Deploy\Installer\nsis.ps1
 - ps: >-
     .\Deploy\Portable\portable.ps1
