@@ -124,13 +124,16 @@ namespace Tabster.Forms
 
         private void pluginsDirectorybtn_Click(object sender, EventArgs e)
         {
-            Process.Start(Path.Combine(TabsterEnvironment.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.UserData), "Plugins"));
+            Process.Start(Path.Combine(TabsterEnvironment.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData), "Plugins"));
         }
 
         private void listPlugins_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var pluginHost = _pluginHosts.Count > listPlugins.SelectedItems[0].Index ? _pluginHosts[listPlugins.SelectedItems[0].Index] : null;
-            LoadPluginInformation(pluginHost);
+            if (listPlugins.SelectedItems.Count > 0)
+            {
+                var pluginHost = _pluginHosts.Count > listPlugins.SelectedItems[0].Index ? _pluginHosts[listPlugins.SelectedItems[0].Index] : null;
+                LoadPluginInformation(pluginHost);
+            }
         }
 
         private void listPlugins_MouseDoubleClick(object sender, MouseEventArgs e)
