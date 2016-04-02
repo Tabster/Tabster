@@ -17,7 +17,11 @@ namespace Tabster.Utilities
         static TablatureFontManager()
         {
             PrivateFontCollection = new PrivateFontCollection();
-            PrivateFontCollection.AddFontFile(Path.Combine(Application.StartupPath, "Resources/Fonts/SourceCodePro-Regular.ttf"));
+
+            var path = new[] { Application.StartupPath, "Resources", "SourceCodePro", "SourceCodePro-Regular.ttf" }
+                .Aggregate(Path.Combine);
+
+            PrivateFontCollection.AddFontFile(path);
         }
 
         public static Font GetFont(float size = 9F, FontStyle fontStyle = FontStyle.Regular)

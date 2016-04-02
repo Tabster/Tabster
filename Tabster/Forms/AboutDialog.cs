@@ -2,6 +2,8 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Tabster.Core.Types;
@@ -23,7 +25,7 @@ namespace Tabster.Forms
 
             lblCopyright.Text = BrandingUtilities.GetCopyrightString(Assembly.GetExecutingAssembly());
             txtLicense.Text = Resources.ApplicationLicense;
-            txtFontLicense.Text = Resources.SourceCodeProLicense;
+            txtFontLicense.Text = File.ReadAllText(new[] { Application.StartupPath, "Resources", "SourceCodePro", "SIL OPEN FONT LICENSE.txt" }.Aggregate(Path.Combine));
 
             LoadPlugins();
         }

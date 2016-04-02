@@ -161,6 +161,11 @@
     </Compile>
     <Compile Include="Plugins\FeaturedPluginChecker.cs" />
     <Compile Include="Plugins\FeaturedPluginsResponse.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Update\UpdateCheck.cs" />
     <Compile Include="Update\UpdateResponseEventArgs.cs" />
     <Compile Include="Utilities\BrandingUtilities.cs" />
@@ -185,11 +190,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utilities\PortableSettingsProvider.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Utilities\SingleInstanceController.cs" />
     <Compile Include="Forms\AboutDialog.cs">
       <SubType>Form</SubType>
@@ -326,9 +326,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Guitar.ico" />
-    <Content Include="Resources\Fonts\SourceCodePro-Regular.ttf">
+    <EmbeddedResource Include="Resources\SourceCodePro\SIL OPEN FONT LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SourceCodePro\SourceCodePro-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="Resources\splash.png" />
     <None Include="Resources\Guitar98.png" />
     <None Include="Resources\Guitar256.png" />

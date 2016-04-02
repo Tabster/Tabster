@@ -62,14 +62,13 @@ Section "MainSection" SEC01
   CreateShortCut "$SMPROGRAMS\Tabster\Tabster (Safe Mode).lnk" "$INSTDIR\Tabster.exe" "-safemode"
   
   !define RESOURCES_DIRECTORY "$INSTDIR\Resources"
-  !define FONTS_DIRECTORY "${RESOURCES_DIRECTORY}\Fonts"
   
   CreateDirectory "${RESOURCES_DIRECTORY}"
-  CreateDirectory "${FONTS_DIRECTORY}"
   
   ; resources
-  SetOutPath "${FONTS_DIRECTORY}"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Resources\Fonts\SourceCodePro-Regular.ttf"
+  SetOutPath "${RESOURCES_DIRECTORY}"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Resources\SourceCodePro\SourceCodePro-Regular.ttf"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Resources\SourceCodePro\SIL OPEN FONT LICENSE.txt"
 
   !define APPDATA_DIRECTORY "$APPDATA\Tabster"
   !define PLUGINS_DIRECTORY "${APPDATA_DIRECTORY}\Plugins"
