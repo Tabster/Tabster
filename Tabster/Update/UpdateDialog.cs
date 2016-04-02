@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Tabster.Core.Types;
+using Tabster.Utilities;
 
 #endregion
 
@@ -12,16 +14,14 @@ namespace Tabster.Update
 {
     public partial class UpdateDialog : Form
     {
-        private readonly Version _currentVersion;
         private readonly Release _newestRelease;
         private readonly UpdateResponse _updateResponse;
 
-        public UpdateDialog(UpdateResponse updateResponse, Version currentVersion)
+        public UpdateDialog(UpdateResponse updateResponse)
         {
             InitializeComponent();
 
             _updateResponse = updateResponse;
-            _currentVersion = currentVersion;
 
             _newestRelease = _updateResponse.Releases.First();
 
@@ -47,8 +47,8 @@ namespace Tabster.Update
             {
                 foreach (TreeNode node in treeView1.Nodes)
                 {
-                    var version = (Version) node.Tag;
-                    if (version > _currentVersion)
+                    var version = (TabsterVersion) node.Tag;
+                    if (version > TabsterEnvironment.GetVersion())
                     {
                         node.Expand();
                     }

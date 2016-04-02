@@ -166,6 +166,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Update\TabsterVersionConverter.cs" />
     <Compile Include="Update\UpdateCheck.cs" />
     <Compile Include="Update\UpdateResponseEventArgs.cs" />
     <Compile Include="Utilities\BrandingUtilities.cs" />

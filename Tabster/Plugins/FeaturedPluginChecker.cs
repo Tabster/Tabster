@@ -19,18 +19,7 @@ namespace Tabster.Plugins
             using (var client = new WebClient {Proxy = null})
             {
                 client.DownloadStringCompleted += client_DownloadStringCompleted;
-
-                try
-                {
-                    client.DownloadStringAsync(new Uri(JsonSource), userToken);
-                }
-                catch (Exception ex)
-                {
-                    Utilities.Logging.GetLogger().Error("An error occured while fetching featured plugins JSON.", ex);
-
-                    if (Completed != null)
-                        Completed(null, new FeaturedPluginsResponseEventArgs(null, ex, userToken));
-                }
+                client.DownloadStringAsync(new Uri(JsonSource), userToken);
             }
         }
 
@@ -47,6 +36,7 @@ namespace Tabster.Plugins
                 }
                 catch (Exception ex)
                 {
+                    Utilities.Logging.GetLogger().Error("An error occured while fetching featured plugins JSON.", ex);
                     error = ex;
                 }
             }

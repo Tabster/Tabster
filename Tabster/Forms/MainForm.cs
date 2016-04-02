@@ -147,9 +147,15 @@ namespace Tabster.Forms
         {
             var isStartupCheck = (bool) e.UserState;
 
-            if (e.Response != null && e.Response.LatestVersion > new Version(Application.ProductVersion))
+            if (e.Error != null)
+                Logging.GetLogger().Error("Update check failed.", e.Error);
+            else
+                Logging.GetLogger().Info("Updated check latest version: " + e.Response.LatestVersion);
+
+
+            if (e.Response != null && e.Response.LatestVersion > TabsterEnvironment.GetVersion())
             {
-                var updateDialog = new UpdateDialog(e.Response, new Version(Application.ProductVersion)) {StartPosition = FormStartPosition.CenterParent};
+                var updateDialog = new UpdateDialog(e.Response) {StartPosition = FormStartPosition.CenterParent};
                 updateDialog.ShowDialog();
             }
 

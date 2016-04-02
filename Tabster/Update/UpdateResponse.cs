@@ -1,9 +1,8 @@
 ﻿#region
 
-using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using Tabster.Core.Types;
 
 #endregion
 
@@ -27,8 +26,8 @@ namespace Tabster.Update
     public class ReleasesChanges
     {
         [JsonProperty("version")]
-        [JsonConverter(typeof (VersionConverter))]
-        public Version Version { get; internal set; }
+        [JsonConverter(typeof(TabsterVersionConverter))]
+        public TabsterVersion Version { get; internal set; }
 
         [JsonProperty("changes")]
         public List<string> Changes { get; internal set; }
@@ -37,8 +36,8 @@ namespace Tabster.Update
     public class UpdateResponse
     {
         [JsonProperty("latest_version")]
-        [JsonConverter(typeof (VersionConverter))]
-        public Version LatestVersion { get; internal set; }
+        [JsonConverter(typeof(TabsterVersionConverter))]
+        public TabsterVersion LatestVersion { get; internal set; }
 
         [JsonProperty("releases")]
         public List<Release> Releases { get; internal set; }

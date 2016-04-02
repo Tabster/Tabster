@@ -3,7 +3,8 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using Tabster.Core.Types;
+using Tabster.Update;
 
 #endregion
 
@@ -21,8 +22,8 @@ namespace Tabster.Plugins
         public string Description { get; private set; }
 
         [JsonProperty("version")]
-        [JsonConverter(typeof(VersionConverter))]
-        public Version Version { get; private set; }
+        [JsonConverter(typeof(TabsterVersionConverter))]
+        public TabsterVersion Version { get; private set; }
 
         [JsonProperty("website")]
         public Uri Website { get; private set; }
