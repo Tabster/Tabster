@@ -66,7 +66,7 @@ Section "MainSection" SEC01
   CreateDirectory "${RESOURCES_DIRECTORY}"
   
   ; resources
-  SetOutPath "${RESOURCES_DIRECTORY}"
+  SetOutPath "${RESOURCES_DIRECTORY}\SourceCodePro"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Resources\SourceCodePro\SourceCodePro-Regular.ttf"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Resources\SourceCodePro\SIL OPEN FONT LICENSE.txt"
 
