@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 
 #endregion
@@ -65,6 +66,13 @@ namespace Tabster.Utilities
                     Marshal.FreeHGlobal(buf);
             }
             return false;
+        }
+
+        public static string ReadFileText(string fileName)
+        {
+            var text = File.ReadAllText(fileName);
+            text = text.Replace(GetPlatform() == Platform.Windows ? "\n" : "\r\n", Environment.NewLine);
+            return text;
         }
     }
 }
