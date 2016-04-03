@@ -40,6 +40,7 @@ Section "MainSection" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
 
+  File "${SOLUTION_DIRECTORY}\LICENSE"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.exe"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.exe.config"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Core.dll"
@@ -106,6 +107,8 @@ Function un.onInit
 FunctionEnd
 
 Section Uninstall
+  Delete "$INSTDIR\LICENSE"
+
   Delete "$INSTDIR\Tabster.exe"
   Delete "$INSTDIR\Tabster.exe.config"
   Delete "$INSTDIR\Tabster.Core.dll"
@@ -122,11 +125,13 @@ Section Uninstall
   Delete "$INSTDIR\ICSharpCode.SharpZipLib.dll"
   Delete "$INSTDIR\RecentFilesMenuItem.dll"
 
-  Delete "$INSTDIR\Resources\Fonts\SourceCodePro-Regular.ttf"
+  Delete "$INSTDIR\Resources\SourceCodePro\SourceCodePro-Regular.ttf"
+  Delete "$INSTDIR\Resources\SourceCodePro\SIL OPEN FONT LICENSE.txt"
   
   Delete "$INSTDIR\Uninstall.exe"
   Delete "$DESKTOP\Tabster.lnk"
   Delete "$SMPROGRAMS\Tabster\Tabster.lnk"
+  Delete "$SMPROGRAMS\Tabster\Tabster (Safe Mode).lnk"
   RMDir "$SMPROGRAMS\Tabster"
   RMDir "$INSTDIR"
  
@@ -138,3 +143,5 @@ Section Uninstall
   
   SetAutoClose true
 SectionEnd
+
+BrandingText "Nate Shoffner"
