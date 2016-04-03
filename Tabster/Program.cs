@@ -17,7 +17,7 @@ namespace Tabster
     {
         private static PluginManager _pluginManager;
 
-        public static PluginManager GetPluginController()
+        public static PluginManager GetPluginManager()
         {
             return _pluginManager;
         }
@@ -38,9 +38,7 @@ namespace Tabster
                 Logging.GetLogger().Error(ex);
             };
 
-            var pluginDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Plugins");
-            var userPlugindirectoryDirectory = TabsterEnvironment.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData, "Plugins");
-            _pluginManager = new PluginManager(new[] {pluginDirectory, userPlugindirectoryDirectory});
+            _pluginManager = new PluginManager(TabsterEnvironment.CreateEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData, "Plugins"));
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

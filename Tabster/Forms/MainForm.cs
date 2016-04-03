@@ -243,7 +243,7 @@ namespace Tabster.Forms
                 UpdateSplash("Initializing plugins...");
                 Logging.GetLogger().Info("Loading plugins...");
 
-                Program.GetPluginController().LoadPlugins();
+                Program.GetPluginManager().LoadPlugins();
 
                 var disabledGuids = new List<Guid>();
                 foreach (var guid in Settings.Default.DisabledPlugins)
@@ -251,7 +251,7 @@ namespace Tabster.Forms
                     disabledGuids.Add(new Guid(guid));
                 }
 
-                foreach (var pluginHost in Program.GetPluginController().GetPluginHosts().Where(pluginHost => !disabledGuids.Contains(pluginHost.Plugin.Guid)))
+                foreach (var pluginHost in Program.GetPluginManager().GetPluginHosts().Where(pluginHost => !disabledGuids.Contains(pluginHost.Plugin.Guid)))
                 {
                     pluginHost.Enabled = true;
                 }
@@ -385,9 +385,9 @@ namespace Tabster.Forms
 
         private void CachePluginResources()
         {
-            _fileExporters = new List<ITablatureFileExporter>(Program.GetPluginController().GetClassInstances<ITablatureFileExporter>());
-            _fileImporters = new List<ITablatureFileImporter>(Program.GetPluginController().GetClassInstances<ITablatureFileImporter>());
-            _webImporters = new List<ITablatureWebImporter>(Program.GetPluginController().GetClassInstances<ITablatureWebImporter>());
+            _fileExporters = new List<ITablatureFileExporter>(Program.GetPluginManager().GetClassInstances<ITablatureFileExporter>());
+            _fileImporters = new List<ITablatureFileImporter>(Program.GetPluginManager().GetClassInstances<ITablatureFileImporter>());
+            _webImporters = new List<ITablatureWebImporter>(Program.GetPluginManager().GetClassInstances<ITablatureWebImporter>());
         }
 
         private void OpenRecentFile(MenuItem item)

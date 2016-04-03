@@ -16,21 +16,18 @@ namespace Tabster.Plugins
     {
         private readonly List<PluginInstance> _pluginHosts = new List<PluginInstance>();
 
-        public PluginManager(string[] pluginDirectories)
+        public PluginManager(string directory)
         {
-            WorkingDirectories = pluginDirectories;
+            WorkingDirectory = directory;
         }
 
-        public string[] WorkingDirectories { get; private set; }
+        public string WorkingDirectory { get; private set; }
 
         public void LoadPlugins()
         {
             _pluginHosts.Clear();
 
-            foreach (var dir in WorkingDirectories)
-            {
-                LoadPluginDirectory(dir);
-            }
+            LoadPluginDirectory(WorkingDirectory);
         }
 
         private void LoadPluginDirectory(string directory)

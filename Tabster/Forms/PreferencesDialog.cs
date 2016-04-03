@@ -91,7 +91,7 @@ namespace Tabster.Forms
                 foreach (ListViewItem lvi in listSearchEngines.Items)
                 {
                     var engine = _searchEngines[lvi.Index];
-                    var plugin = Program.GetPluginController().GetHostByType(engine.GetType());
+                    var plugin = Program.GetPluginManager().GetHostByType(engine.GetType());
                     var id = TabsterSettingsUtilities.GetSearchEngineIdentifier(plugin, engine);
 
                     if (id == null)
@@ -260,7 +260,7 @@ namespace Tabster.Forms
 
             var searchPluginMap = new Dictionary<ITablatureSearchEngine, PluginInstance>();
 
-            foreach (var plugin in Program.GetPluginController().GetPluginHosts())
+            foreach (var plugin in Program.GetPluginManager().GetPluginHosts())
             {
                 foreach (var engine in plugin.GetClassInstances<ITablatureSearchEngine>())
                 {
