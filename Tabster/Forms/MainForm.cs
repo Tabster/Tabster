@@ -161,7 +161,7 @@ namespace Tabster.Forms
 
             else if (!isStartupCheck)
             {
-                MessageBox.Show(Resources.UpdateDialogCaptionNone, Resources.UpdateDialogTitleNone);
+                MessageBox.Show(Resources.UpdateDialogCaptionNone, Resources.UpdateDialogTitleNone, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
