@@ -18,14 +18,15 @@ namespace Tabster.Forms
     {
         private readonly Color _disabledColor = Color.Red;
         private readonly Color _enabledColor = Color.Green;
-        private readonly List<PluginInstance> _pluginHosts = new List<PluginInstance>();
+        private readonly List<PluginInstance> _pluginInstances = new List<PluginInstance>();
         private readonly Dictionary<PluginInstance, bool> _pluginStatusMap = new Dictionary<PluginInstance, bool>();
+        private List<FeaturedPlugin> _featuredPlugins;
 
         public PluginManagerDialog()
         {
             InitializeComponent();
 
-            _pluginHosts.AddRange(Program.GetPluginController().GetPluginHosts());
+            _pluginInstances.AddRange(Program.GetPluginController().GetPluginHosts());
 
             LoadPlugins();
 
@@ -35,12 +36,31 @@ namespace Tabster.Forms
 
         public bool PluginsModified { get; private set; }
 
+        private Boolean IsPluginInstalled(string pluginName)
+        {
+            return _pluginInstances.Find(x => x.Plugin.DisplayName.Equals(pluginName, StringComparison.OrdinalIgnoreCase)) != null;
+        }
+
         private void FeaturedPluginChecker_Completed(object sender, FeaturedPluginChecker.FeaturedPluginsResponseEventArgs e)
         {
             if (e.Error == null)
             {
-                listBox1.DisplayMember = "Name";
-                listBox1.DataSource = e.Response.Plugins;
+                _featuredPlugins = e.Response.Plugins;
+                foreach (var plugin in _featuredPlugins)
+                {
+                    var lvi = new ListViewItem
+                    {
+                        Tag = plugin,
+                        Text = plugin.Name,
+                        Checked = IsPluginInstalled(plugin.Name),
+                        ForeColor = IsPluginInstalled(plugin.Name) ? _enabledColor : _disabledColor
+                    };
+
+                    lvi.SubItems.Add(IsPluginInstalled(plugin.Name) ? Resources.Yes : Resources.No);
+                    lvi.SubItems.Add(plugin.Version.ToString());
+                    listFeatured.Items.Add(lvi);
+
+                }
             }
 
             else
@@ -55,7 +75,7 @@ namespace Tabster.Forms
 
             listPlugins.Items.Clear();
 
-            foreach (var pluginHost in _pluginHosts)
+            foreach (var pluginHost in _pluginInstances)
             {
                 var lvi = new ListViewItem
                 {
@@ -131,7 +151,7 @@ namespace Tabster.Forms
         {
             if (listPlugins.SelectedItems.Count > 0)
             {
-                var pluginHost = _pluginHosts.Count > listPlugins.SelectedItems[0].Index ? _pluginHosts[listPlugins.SelectedItems[0].Index] : null;
+                var pluginHost = _pluginInstances.Count > listPlugins.SelectedItems[0].Index ? _pluginInstances[listPlugins.SelectedItems[0].Index] : null;
                 LoadPluginInformation(pluginHost);
             }
         }
@@ -146,7 +166,7 @@ namespace Tabster.Forms
                 item.ForeColor = item.Checked ? _enabledColor : _disabledColor;
                 item.SubItems[colpluginEnabled.Index].Text = item.Checked ? Resources.Yes : Resources.No;
 
-                var plugin = _pluginHosts[item.Index];
+                var plugin = _pluginInstances[item.Index];
                 _pluginStatusMap[plugin] = item.Checked; //set temporary status
 
                 PluginsModified = true;
@@ -181,16 +201,14 @@ namespace Tabster.Forms
             }
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void listFeatured_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItems.Count > 0)
+            if (listFeatured.SelectedItems.Count > 0)
             {
-                var featuredPlugin = (listBox1.SelectedItem as FeaturedPlugin);
-                LoadPluginInformation(featuredPlugin);
-            }
-            else
-            {
-                LoadPluginInformation((FeaturedPlugin) null);
+                var plugin = _featuredPlugins.Count > listFeatured.SelectedItems[0].Index ? 
+                    _featuredPlugins[listFeatured.SelectedItems[0].Index] : 
+                    null;
+                LoadPluginInformation(plugin);
             }
         }
     }

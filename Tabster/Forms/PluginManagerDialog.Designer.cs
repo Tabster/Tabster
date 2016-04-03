@@ -36,7 +36,10 @@
             this.colpluginEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colpluginVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabFeatured = new System.Windows.Forms.TabPage();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listFeatured = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblPlaceholder = new System.Windows.Forms.Label();
             this.lblPluginFilename = new System.Windows.Forms.Label();
@@ -103,17 +106,37 @@
             // 
             // tabFeatured
             // 
-            this.tabFeatured.Controls.Add(this.listBox1);
+            this.tabFeatured.Controls.Add(this.listFeatured);
             resources.ApplyResources(this.tabFeatured, "tabFeatured");
             this.tabFeatured.Name = "tabFeatured";
             this.tabFeatured.UseVisualStyleBackColor = true;
             // 
-            // listBox1
+            // listFeatured
             // 
-            resources.ApplyResources(this.listBox1, "listBox1");
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Name = "listBox1";
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listFeatured.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            resources.ApplyResources(this.listFeatured, "listFeatured");
+            this.listFeatured.FullRowSelect = true;
+            this.listFeatured.GridLines = true;
+            this.listFeatured.Name = "listFeatured";
+            this.listFeatured.ShowItemToolTips = true;
+            this.listFeatured.UseCompatibleStateImageBehavior = false;
+            this.listFeatured.View = System.Windows.Forms.View.Details;
+            this.listFeatured.SelectedIndexChanged += new System.EventHandler(this.listFeatured_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            resources.ApplyResources(this.columnHeader1, "columnHeader1");
+            // 
+            // columnHeader2
+            // 
+            resources.ApplyResources(this.columnHeader2, "columnHeader2");
+            // 
+            // columnHeader3
+            // 
+            resources.ApplyResources(this.columnHeader3, "columnHeader3");
             // 
             // groupBox1
             // 
@@ -221,7 +244,12 @@
             this.Controls.Add(this.pluginsDirectorybtn);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "PluginManagerDialog";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.tabControl1.ResumeLayout(false);
             this.tabInstalled.ResumeLayout(false);
             this.tabFeatured.ResumeLayout(false);
@@ -255,6 +283,9 @@
         private System.Windows.Forms.Button okbtn;
         private System.Windows.Forms.Button cancelbtn;
         private System.Windows.Forms.Label lblPlaceholder;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListView listFeatured;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
     }
 }

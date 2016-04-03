@@ -121,38 +121,6 @@
   <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="colpluginName.Text" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="colpluginName.Width" type="System.Int32, mscorlib">
-    <value>189</value>
-  </data>
-  <data name="colpluginEnabled.Text" xml:space="preserve">
-    <value>Enabled</value>
-  </data>
-  <data name="colpluginEnabled.Width" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="colpluginVersion.Text" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="colpluginVersion.Width" type="System.Int32, mscorlib">
-    <value>94</value>
-  </data>
-  <data name="listPlugins.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="listPlugins.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="listPlugins.Size" type="System.Drawing.Size, System.Drawing">
-    <value>405, 181</value>
-  </data>
-  <data name="listPlugins.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
   <data name="&gt;&gt;listPlugins.Name" xml:space="preserve">
     <value>listPlugins</value>
   </data>
@@ -165,12 +133,14 @@
   <data name="&gt;&gt;listPlugins.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="tabInstalled.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
   <data name="tabInstalled.Size" type="System.Drawing.Size, System.Drawing">
     <value>405, 181</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tabInstalled.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
@@ -189,35 +159,20 @@
   <data name="&gt;&gt;tabInstalled.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="listBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;listFeatured.Name" xml:space="preserve">
+    <value>listFeatured</value>
   </data>
-  <data name="listBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+  <data name="&gt;&gt;listFeatured.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="listBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>399, 175</value>
-  </data>
-  <data name="listBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;listBox1.Name" xml:space="preserve">
-    <value>listBox1</value>
-  </data>
-  <data name="&gt;&gt;listBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listBox1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;listFeatured.Parent" xml:space="preserve">
     <value>tabFeatured</value>
   </data>
-  <data name="&gt;&gt;listBox1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;listFeatured.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="tabFeatured.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
-  </data>
-  <data name="tabFeatured.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
   </data>
   <data name="tabFeatured.Size" type="System.Drawing.Size, System.Drawing">
     <value>405, 181</value>
@@ -260,6 +215,246 @@
   </data>
   <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="listPlugins.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="listPlugins.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="listPlugins.Size" type="System.Drawing.Size, System.Drawing">
+    <value>405, 181</value>
+  </data>
+  <data name="listPlugins.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;listPlugins.Name" xml:space="preserve">
+    <value>listPlugins</value>
+  </data>
+  <data name="&gt;&gt;listPlugins.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listPlugins.Parent" xml:space="preserve">
+    <value>tabInstalled</value>
+  </data>
+  <data name="&gt;&gt;listPlugins.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="colpluginName.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="colpluginName.Width" type="System.Int32, mscorlib">
+    <value>189</value>
+  </data>
+  <data name="colpluginEnabled.Text" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="colpluginEnabled.Width" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="colpluginVersion.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="colpluginVersion.Width" type="System.Int32, mscorlib">
+    <value>94</value>
+  </data>
+  <data name="listFeatured.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="listFeatured.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="listFeatured.Size" type="System.Drawing.Size, System.Drawing">
+    <value>405, 181</value>
+  </data>
+  <data name="listFeatured.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;listFeatured.Name" xml:space="preserve">
+    <value>listFeatured</value>
+  </data>
+  <data name="&gt;&gt;listFeatured.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listFeatured.Parent" xml:space="preserve">
+    <value>tabFeatured</value>
+  </data>
+  <data name="&gt;&gt;listFeatured.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
+    <value>189</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>Installed</value>
+  </data>
+  <data name="columnHeader2.Width" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="columnHeader3.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="columnHeader3.Width" type="System.Int32, mscorlib">
+    <value>94</value>
+  </data>
+  <data name="&gt;&gt;lblPlaceholder.Name" xml:space="preserve">
+    <value>lblPlaceholder</value>
+  </data>
+  <data name="&gt;&gt;lblPlaceholder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPlaceholder.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;lblPlaceholder.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;lblPluginFilename.Name" xml:space="preserve">
+    <value>lblPluginFilename</value>
+  </data>
+  <data name="&gt;&gt;lblPluginFilename.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPluginFilename.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;lblPluginFilename.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
+  </data>
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;lblPluginDescription.Name" xml:space="preserve">
+    <value>lblPluginDescription</value>
+  </data>
+  <data name="&gt;&gt;lblPluginDescription.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPluginDescription.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;lblPluginDescription.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;lblPluginHomepage.Name" xml:space="preserve">
+    <value>lblPluginHomepage</value>
+  </data>
+  <data name="&gt;&gt;lblPluginHomepage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPluginHomepage.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;lblPluginHomepage.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;lblPluginAuthor.Name" xml:space="preserve">
+    <value>lblPluginAuthor</value>
+  </data>
+  <data name="&gt;&gt;lblPluginAuthor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPluginAuthor.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;lblPluginAuthor.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;lblPluginVersion.Name" xml:space="preserve">
+    <value>lblPluginVersion</value>
+  </data>
+  <data name="&gt;&gt;lblPluginVersion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPluginVersion.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;lblPluginVersion.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 12</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 208</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Plugin Details</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="lblPlaceholder.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -567,30 +762,6 @@
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 12</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 208</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Plugin Details</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="pluginsDirectorybtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -703,6 +874,24 @@
     <value>colpluginVersion</value>
   </data>
   <data name="&gt;&gt;colpluginVersion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeader1.Name" xml:space="preserve">
+    <value>columnHeader1</value>
+  </data>
+  <data name="&gt;&gt;columnHeader1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeader2.Name" xml:space="preserve">
+    <value>columnHeader2</value>
+  </data>
+  <data name="&gt;&gt;columnHeader2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeader3.Name" xml:space="preserve">
+    <value>columnHeader3</value>
+  </data>
+  <data name="&gt;&gt;columnHeader3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
