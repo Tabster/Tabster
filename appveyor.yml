@@ -27,7 +27,7 @@ after_build:
       .\Deploy\prepare_native_plugins.ps1
   - ps: >-
       .\Deploy\Installer\nsis.ps1
-      $env:sign_tool sign /f "C:\projects\tabster\deploy\tabster.pfx" /p $env:cert_pass /t http://timestamp.comodoca.com/authenticode ".\Deploy\Installer\Tabster {version} Setup.exe"
+  - $env:sign_tool sign /f "C:\projects\tabster\deploy\tabster.pfx" /p $env:cert_pass /t http://timestamp.comodoca.com/authenticode ".\Deploy\Installer\Tabster {version} Setup.exe"
   - ps: >-
       .\Deploy\Portable\portable.ps1
 artifacts:
