@@ -129,9 +129,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Tabster.Data.1.0.3.12\lib\net35\Tabster.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Tabster.Printing, Version=1.0.0.16, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Tabster.Printing.1.0.0.16\lib\net35\Tabster.Printing.dll</HintPath>
+    <Reference Include="Tabster.Printing">
+      <HintPath>..\packages\Tabster.Printing.1.0.0.18\lib\net35\Tabster.Printing.dll</HintPath>
     </Reference>
     <Reference Include="Tabster.WinForms, Version=1.0.0.18, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
