@@ -3,7 +3,7 @@
 $installer = "$env:APPVEYOR_BUILD_FOLDER\Deploy\Installer\Tabster $env:APPVEYOR_BUILD_VERSION Setup.exe"
 
 # sign the installer
-& "$env:sign_tool sign" /f "$env:APPVEYOR_BUILD_FOLDER\Deploy\tabster.pfx" /p $env:cert_pass /t "http://timestamp.comodoca.com/authenticode" "$installer"
+& "$env:sign_tool" sign /f "$env:APPVEYOR_BUILD_FOLDER\Deploy\tabster.pfx" /p $env:cert_pass /t "http://timestamp.comodoca.com/authenticode" "$installer"
 
 # move executable to project directory for clean AppVeyor artifact name
 Move-Item "$installer" "$env:APPVEYOR_BUILD_FOLDER"
