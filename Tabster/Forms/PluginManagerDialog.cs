@@ -8,7 +8,6 @@ using System.IO;
 using System.Windows.Forms;
 using Tabster.Plugins;
 using Tabster.Properties;
-using Tabster.Utilities;
 
 #endregion
 
@@ -26,7 +25,7 @@ namespace Tabster.Forms
         {
             InitializeComponent();
 
-            _pluginInstances.AddRange(Program.GetPluginController().GetPluginHosts());
+            _pluginInstances.AddRange(Program.GetPluginManager().GetPluginHosts());
 
             LoadPlugins();
 
@@ -144,7 +143,7 @@ namespace Tabster.Forms
 
         private void pluginsDirectorybtn_Click(object sender, EventArgs e)
         {
-            Process.Start(Path.Combine(TabsterEnvironment.GetEnvironmentDirectoryPath(TabsterEnvironmentDirectory.ApplicatonData), "Plugins"));
+            Process.Start(Program.GetPluginManager().WorkingDirectory);
         }
 
         private void listPlugins_SelectedIndexChanged(object sender, EventArgs e)
@@ -188,7 +187,7 @@ namespace Tabster.Forms
                     var guid = new Guid(lvi.Tag.ToString());
                     var pluginEnabled = lvi.Checked;
 
-                    var pluginHost = Program.GetPluginController().FindPluginByGuid(guid);
+                    var pluginHost = Program.GetPluginManager().FindPluginByGuid(guid);
 
                     if (pluginHost.Enabled != pluginEnabled)
                         pluginHost.Enabled = pluginEnabled;
