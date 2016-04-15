@@ -72,13 +72,8 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Resources\SourceCodePro\SIL OPEN FONT LICENSE.txt"
 
   !define APPDATA_DIRECTORY "$APPDATA\Tabster"
-  !define PLUGINS_DIRECTORY "${APPDATA_DIRECTORY}\Plugins"
 
   CreateDirectory "${APPDATA_DIRECTORY}"
-  CreateDirectory "${PLUGINS_DIRECTORY}"
-  
-  SetOutPath "${PLUGINS_DIRECTORY}"
-  File /r "${SOLUTION_DIRECTORY}\Deploy\Plugins\*.*"
 
   ; file association
   ${registerExtension} "$INSTDIR\Tabster.exe" ".tabster" "Tabster File"
