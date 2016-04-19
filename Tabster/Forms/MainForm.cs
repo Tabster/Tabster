@@ -77,8 +77,6 @@ namespace Tabster.Forms
             else
                 Size = Settings.Default.ClientSize;
 
-            CachePluginResources();
-
             ToggleEmptyLibraryOverlay(listViewLibrary, true);
             ToggleEmptyLibraryOverlay(listViewSearch, true);
 
@@ -219,6 +217,7 @@ namespace Tabster.Forms
             }
 
             PerformStartupEvents();
+
             done = true;
 
             Activate();
@@ -255,6 +254,8 @@ namespace Tabster.Forms
                 {
                     pluginHost.Enabled = true;
                 }
+
+                CachePluginResources();
             }
 
             // database file deleted or possible pre-2.0 version, convert existing files
@@ -719,7 +720,7 @@ namespace Tabster.Forms
                 {
                     LoadSettings(false);
 
-                    if (p.PluginsModified)
+                    if (p.PluginsModified && !TabsterEnvironment.SafeMode)
                         CachePluginResources();
                 }
             }
