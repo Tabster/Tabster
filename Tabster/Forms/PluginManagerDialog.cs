@@ -58,7 +58,6 @@ namespace Tabster.Forms
                     lvi.SubItems.Add(IsPluginInstalled(plugin.Name) ? Resources.Yes : Resources.No);
                     lvi.SubItems.Add(plugin.Version.ToString());
                     listFeatured.Items.Add(lvi);
-
                 }
             }
 
@@ -204,8 +203,8 @@ namespace Tabster.Forms
         {
             if (listFeatured.SelectedItems.Count > 0)
             {
-                var plugin = _featuredPlugins.Count > listFeatured.SelectedItems[0].Index ? 
-                    _featuredPlugins[listFeatured.SelectedItems[0].Index] : 
+                var plugin = _featuredPlugins.Count > listFeatured.SelectedItems[0].Index ?
+                    _featuredPlugins[listFeatured.SelectedItems[0].Index] :
                     null;
                 LoadPluginInformation(plugin);
             }

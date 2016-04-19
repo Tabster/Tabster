@@ -21,7 +21,6 @@ namespace Tabster.Utilities
         public SingleInstanceControllerBase()
             : this(GetRandomFile())
         {
-            
         }
 
         public SingleInstanceControllerBase(string fileName)
@@ -33,12 +32,6 @@ namespace Tabster.Utilities
             _fileSystemWatcher.EnableRaisingEvents = true;
         }
 
-        private static string GetRandomFile()
-        {
-            var guid = Guid.NewGuid();
-            return Path.Combine(Path.GetTempPath(), string.Format("{0}.tmp", guid));
-        }
-
         protected Form MainForm
         {
             get { return _mainForm; }
@@ -47,6 +40,12 @@ namespace Tabster.Utilities
                 _mainForm = value;
                 _fileSystemWatcher.SynchronizingObject = _mainForm;
             }
+        }
+
+        private static string GetRandomFile()
+        {
+            var guid = Guid.NewGuid();
+            return Path.Combine(Path.GetTempPath(), string.Format("{0}.tmp", guid));
         }
 
         public virtual bool Start(ReadOnlyCollection<string> args)

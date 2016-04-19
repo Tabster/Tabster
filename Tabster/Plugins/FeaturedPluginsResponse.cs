@@ -22,7 +22,7 @@ namespace Tabster.Plugins
         public string Description { get; private set; }
 
         [JsonProperty("version")]
-        [JsonConverter(typeof(TabsterVersionConverter))]
+        [JsonConverter(typeof (TabsterVersionConverter))]
         public TabsterVersion Version { get; private set; }
 
         [JsonProperty("website")]

@@ -18,7 +18,7 @@ namespace Tabster.Utilities
         {
             PrivateFontCollection = new PrivateFontCollection();
 
-            var path = new[] { Application.StartupPath, "Resources", "SourceCodePro", "SourceCodePro-Regular.ttf" }
+            var path = new[] {Application.StartupPath, "Resources", "SourceCodePro", "SourceCodePro-Regular.ttf"}
                 .Aggregate(Path.Combine);
 
             PrivateFontCollection.AddFontFile(path);

@@ -26,7 +26,7 @@ namespace Tabster.Update
     public class ReleasesChanges
     {
         [JsonProperty("version")]
-        [JsonConverter(typeof(TabsterVersionConverter))]
+        [JsonConverter(typeof (TabsterVersionConverter))]
         public TabsterVersion Version { get; internal set; }
 
         [JsonProperty("changes")]
@@ -36,7 +36,7 @@ namespace Tabster.Update
     public class UpdateResponse
     {
         [JsonProperty("latest_version")]
-        [JsonConverter(typeof(TabsterVersionConverter))]
+        [JsonConverter(typeof (TabsterVersionConverter))]
         public TabsterVersion LatestVersion { get; internal set; }
 
         [JsonProperty("releases")]
