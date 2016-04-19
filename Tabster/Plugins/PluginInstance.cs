@@ -73,7 +73,7 @@ namespace Tabster.Plugins
 
             try
             {
-                _types = Assembly.GetTypes().Where(x => !x.IsAbstract && !x.IsInterface).ToList();
+                _types = Assembly.GetTypes().Where(x => x.IsPublic && !x.IsAbstract && !x.IsInterface).ToList();
             }
 
             catch (Exception ex)
