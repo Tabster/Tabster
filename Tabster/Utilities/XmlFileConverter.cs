@@ -1,6 +1,8 @@
 ﻿#region
 
+using System;
 using System.IO;
+using log4net.Repository.Hierarchy;
 using Tabster.Data;
 using Tabster.Data.Processing;
 using Tabster.Data.Xml;
@@ -46,9 +48,9 @@ namespace Tabster.Utilities
                             File.Delete(file);
                         }
 
-                        catch
+                        catch(Exception ex)
                         {
-                            // unhandled
+                            Logging.GetLogger().Error(string.Format("Error occured during playlist conversion: {0}", file), ex);
                         }
                     }
                 }
