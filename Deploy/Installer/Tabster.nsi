@@ -1,8 +1,8 @@
 !include "MUI2.nsh"
 !include "FileAssociation.nsh"
-!include "NsisDotNetChecker\nsis\DotNetChecker.nsh"
+!include ".\NsisDotNetChecker\nsis\DotNetChecker.nsh"
 
-!addplugindir "NsisDotNetChecker\bin"
+!addplugindir ".\NsisDotNetChecker\bin"
 
 ;--------------------------------
 ;Constants
