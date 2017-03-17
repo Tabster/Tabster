@@ -1,5 +1,8 @@
 !include "MUI2.nsh"
 !include "FileAssociation.nsh"
+!include "NsisDotNetChecker\nsis\DotNetChecker.nsh"
+
+!addplugindir "NsisDotNetChecker\bin"
 
 ;--------------------------------
 ;Constants
@@ -68,6 +71,8 @@ Section "Dummy Section" SecDummy
 
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
+  
+  !insertmacro CheckNetFramework 35 ;
 
   !define X86_DIRECTORY "$INSTDIR\x86"
   !define X64_DIRECTORY "$INSTDIR\x64"
