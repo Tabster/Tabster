@@ -1,4 +1,4 @@
-& git clone "https://github.com/ReVolly/NsisDotNetChecker" 2>&1 | % { $_.ToString() }
+& git clone "https://github.com/ReVolly/NsisDotNetChecker" "$env:APPVEYOR_BUILD_FOLDER\Deploy\Installer\" 2>&1 | % { $_.ToString() }
 
 & "C:\Program Files (x86)\NSIS\makensis.exe" /DAPPLICATION_VERSION="$env:APPVEYOR_BUILD_VERSION" /DSOLUTION_DIRECTORY="$env:APPVEYOR_BUILD_FOLDER" "$env:APPVEYOR_BUILD_FOLDER\Deploy\Installer\Tabster.nsi"
 
