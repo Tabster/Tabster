@@ -1,45 +1,79 @@
+!include "MUI2.nsh"
 !include "FileAssociation.nsh"
 
-!define PRODUCT_NAME "Tabster"
-!define PRODUCT_VERSION "${APPLICATION_VERSION}"
-!define PRODUCT_PUBLISHER "Nate Shoffner"
-!define PRODUCT_WEB_SITE "http://nateshoffner.com"
-!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\Tabster.exe"
-!define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
-!define PRODUCT_UNINST_ROOT_KEY "HKLM"
+;--------------------------------
+;Constants
 
-SetCompressor lzma
+  !define PRIMARY_EXE_NAME "Tabster"
+  
+  !define PRODUCT_NAME "Tabster"
+  !define PRODUCT_VERSION "${APPLICATION_VERSION}"
+  !define PRODUCT_PUBLISHER "Nate Shoffner"
+  !define PRODUCT_WEB_SITE "http://nateshoffner.com"
+  !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\${PRIMARY_EXE_NAME}.exe"
+  !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
+  !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
-; MUI 1.67 compatible ------
-!include "MUI.nsh"
+;--------------------------------
+;General
 
-; MUI Settings
+  ;Name and file
+  Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
+  OutFile "${PRODUCT_NAME} ${PRODUCT_VERSION} Setup.exe"
 
-!define MUI_ABORTWARNING
-!define MUI_ICON "Icon.ico"
-!define MUI_UNICON "Icon.ico"
-!insertmacro MUI_PAGE_WELCOME
-!insertmacro MUI_PAGE_LICENSE "License.txt"
-!insertmacro MUI_PAGE_DIRECTORY
-!insertmacro MUI_PAGE_INSTFILES
-!define MUI_FINISHPAGE_RUN "$INSTDIR\Tabster.exe"
-!insertmacro MUI_PAGE_FINISH
-!insertmacro MUI_UNPAGE_INSTFILES
-!insertmacro MUI_LANGUAGE "English"
+  ;Default installation folder
+  InstallDir "$PROGRAMFILES\${PRODUCT_NAME}"
+  
+  ;Get installation folder from registry if available
+  InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
+  
+  ShowInstDetails show
+  ShowUnInstDetails show
+  
+  SetCompressor lzma
 
-; MUI end ------
+  ;Request application privileges for Windows Vista
+  RequestExecutionLevel admin
+  
+  BrandingText "${PRODUCT_PUBLISHER}"
 
-Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "Tabster ${PRODUCT_VERSION} Setup.exe"
-InstallDir "$PROGRAMFILES\Tabster"
-InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
-ShowInstDetails show
-ShowUnInstDetails show
+;--------------------------------
+;Interface Settings
+  
+  !define MUI_ABORTWARNING
+  !define MUI_ICON "Icon.ico"
+  !define MUI_UNICON "Icon.ico"
 
-Section "MainSection" SEC01
+;--------------------------------
+;Pages
+
+  !insertmacro MUI_PAGE_LICENSE  "License.txt"
+  !insertmacro MUI_PAGE_DIRECTORY
+  !insertmacro MUI_PAGE_INSTFILES
+  
+  !insertmacro MUI_UNPAGE_CONFIRM
+  !insertmacro MUI_UNPAGE_INSTFILES
+  
+  !insertmacro MUI_PAGE_FINISH
+  
+;--------------------------------
+;Languages
+ 
+  !insertmacro MUI_LANGUAGE "English"
+
+;--------------------------------
+;Installer Sections
+
+Section "Dummy Section" SecDummy
+
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
 
+  !define X86_DIRECTORY "$INSTDIR\x86"
+  !define X64_DIRECTORY "$INSTDIR\x64"
+  CreateDirectory "${X86_DIRECTORY}"
+  CreateDirectory "${X64_DIRECTORY}"
+  
   File "${SOLUTION_DIRECTORY}\LICENSE"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.exe"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.exe.config"
@@ -47,20 +81,22 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Data.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.Printing.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Tabster.WinForms.dll"
- 
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\ObjectListView.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\System.Data.SQLite.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\x86\SQLite.Interop.dll"
-  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\x64\SQLite.Interop.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\log4net.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Newtonsoft.Json.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\ICSharpCode.SharpZipLib.dll"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\RecentFilesMenuItem.dll"
 
-  CreateShortCut "$DESKTOP\Tabster.lnk" "$INSTDIR\Tabster.exe"
-  CreateDirectory "$SMPROGRAMS\Tabster"
-  CreateShortCut "$SMPROGRAMS\Tabster\Tabster.lnk" "$INSTDIR\Tabster.exe"
-  CreateShortCut "$SMPROGRAMS\Tabster\Tabster (Safe Mode).lnk" "$INSTDIR\Tabster.exe" "-safemode"
+  SetOutPath "${X86_DIRECTORY}"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\x86\SQLite.Interop.dll"
+  SetOutPath "${X64_DIRECTORY}"
+  File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\x64\SQLite.Interop.dll"
+  
+  CreateShortCut "$DESKTOP\Tabster.lnk" "$INSTDIR\${PRIMARY_EXE_NAME}.exe"
+  CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\${PRIMARY_EXE_NAME}.lnk" "$INSTDIR\${PRIMARY_EXE_NAME}.exe"
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\${PRIMARY_EXE_NAME} (Safe Mode).lnk" "$INSTDIR\${PRIMARY_EXE_NAME}.exe" "-safemode"
   
   !define RESOURCES_DIRECTORY "$INSTDIR\Resources"
   
@@ -71,7 +107,7 @@ Section "MainSection" SEC01
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Resources\SourceCodePro\SourceCodePro-Regular.ttf"
   File "${SOLUTION_DIRECTORY}\Tabster\bin\Release\Resources\SourceCodePro\SIL OPEN FONT LICENSE.txt"
 
-  !define APPDATA_DIRECTORY "$APPDATA\Tabster"
+  !define APPDATA_DIRECTORY "$APPDATA\${PRODUCT_NAME}"
   !define PLUGINS_DIRECTORY "${APPDATA_DIRECTORY}\Plugins"
 
   CreateDirectory "${APPDATA_DIRECTORY}"
@@ -81,32 +117,16 @@ Section "MainSection" SEC01
   File /r "${SOLUTION_DIRECTORY}\Deploy\Plugins\*.*"
 
   ; file association
-  ${registerExtension} "$INSTDIR\Tabster.exe" ".tabster" "Tabster File"
-  ${registerExtension} "$INSTDIR\Tabster.exe" ".tablist" "Tabster Playlist"
+  ${registerExtension} "$INSTDIR\${PRIMARY_EXE_NAME}.exe" ".tabster" "Tabster File"
+  ${registerExtension} "$INSTDIR\${PRIMARY_EXE_NAME}.exe" ".tablist" "Tabster Playlist"
+
 SectionEnd
 
-Section -Post
-  WriteUninstaller "$INSTDIR\Uninstall.exe"
-  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\Tabster.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\Uninstall.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\Tabster.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
-SectionEnd
+;--------------------------------
+;Uninstaller Section
 
-Function un.onUninstSuccess
-  HideWindow
-  MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) was successfully removed from your computer."
-FunctionEnd
+Section "Uninstall"
 
-Function un.onInit
-  MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "Are you sure you want to completely remove $(^Name) and all of its components?" IDYES +2
-  Abort
-FunctionEnd
-
-Section Uninstall
   Delete "$INSTDIR\LICENSE"
 
   Delete "$INSTDIR\Tabster.exe"
@@ -124,9 +144,13 @@ Section Uninstall
   Delete "$INSTDIR\Newtonsoft.Json.dll"
   Delete "$INSTDIR\ICSharpCode.SharpZipLib.dll"
   Delete "$INSTDIR\RecentFilesMenuItem.dll"
-
+  
+  RMDir "$INSTDIR\x86"
+  RMDir "$INSTDIR\x64"
+  
   Delete "$INSTDIR\Resources\SourceCodePro\SourceCodePro-Regular.ttf"
   Delete "$INSTDIR\Resources\SourceCodePro\SIL OPEN FONT LICENSE.txt"
+  RMDir /r "$INSTDIR\Resources"
   
   Delete "$INSTDIR\Uninstall.exe"
   Delete "$DESKTOP\Tabster.lnk"
@@ -142,6 +166,26 @@ Section Uninstall
   ${unregisterExtension} ".tabster" "Tabster File"
   
   SetAutoClose true
+
 SectionEnd
 
-BrandingText "Nate Shoffner"
+Function .onInstSuccess
+  WriteUninstaller "$INSTDIR\Uninstall.exe"
+  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\${PRIMARY_EXE_NAME}.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\Uninstall.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\${PRIMARY_EXE_NAME}.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
+FunctionEnd
+
+Function un.onUninstSuccess
+  HideWindow
+  MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) was successfully removed from your computer."
+FunctionEnd
+
+Function un.onInit
+  MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "Are you sure you want to completely remove $(^Name) and all of its components?" IDYES +2
+  Abort
+FunctionEnd
