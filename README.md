@@ -9,7 +9,7 @@ Tabster is a free, open-source application that allows you to easily create, org
 
 ![Searching](http://tabster.org/assets/images/preview-search.png)
 
-#License
+### License
 
     Copyright 2016 Nate Shoffner
 
@@ -25,7 +25,7 @@ Tabster is a free, open-source application that allows you to easily create, org
     See the License for the specific language governing permissions and
     limitations under the License.
 
-#Font Licenses
+### Font Licenses
 
 #### Source Code Pro
 
